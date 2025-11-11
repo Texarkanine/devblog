@@ -20,6 +20,12 @@ sass:
 markdown: kramdown
 highlighter: rouge
 
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+
 # Plugins
 plugins:
   - jekyll-remote-theme

@@ -1,8 +1,0 @@
----
-layout: page
-title: All Tags
----
-
-{% for tag in site.tags %}
-  - [{{ tag[0] }}](/devblog/tags/{{ tag[0] | slugify }}/) ({{ tag[1].size }} post{% if tag[1].size != 1 %}s{% endif %})
-{% endfor %}
