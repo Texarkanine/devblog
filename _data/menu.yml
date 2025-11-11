@@ -1,0 +1,22 @@
+entries:
+  - title: all posts
+    entries:
+      - title: all posts by date
+        url: false
+        entries:
+          - title: (latest)
+            post_list:
+              limit: 5
+              show_more: true
+              show_more_text: see all posts...
+              show_more_url: /all-posts.html
+  - title: tags
+    post_list:
+      category: tags
+      show_more: true
+      show_more_text: see all tags...
+      show_more_url: /tags.html
+  - title: links
+    entries:
+      - title: github repo
+        url: https://github.com/Texarkanine/devblog

@@ -1,0 +1,52 @@
+# Site Configuration
+title: "Dev Blog"
+description: "A minimalist Jekyll blog"
+url: "https://texarkanine.github.io"
+baseurl: "/devblog"
+
+# Theme
+remote_theme: riggraz/no-style-please
+theme_config:
+  appearance: "auto" # can be "light", "dark" or "auto"
+  back_home_text: ".." # customize text for homepage link in post layout
+  date_format: "%Y-%m-%d" # customize how date is formatted
+  show_description: false # show blog description in home page
+  lowercase_titles: true # show titles in lowercase in lists
+
+sass:
+  style: compressed
+
+# Jekyll Configuration
+markdown: kramdown
+highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-remote-theme
+  - jekyll-archives
+  - jekyll-seo-tag
+  - jekyll-feed
+
+# Jekyll Archives Configuration
+jekyll-archives:
+  enabled:
+    - tags
+  layouts:
+    tag: tag-archive
+  permalinks:
+    tag: '/tags/:name/'
+
+# Build settings
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .gitignore
+  - README.md
+  - BOOTSTRAP_PLAN.md
+  - "*.skbd"
+  - LICENSE-CODE
+  - LICENSE-CONTENT
+
