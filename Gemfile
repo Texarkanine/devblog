@@ -8,6 +8,7 @@ group :jekyll_plugins do
   gem "jekyll-seo-tag"
   gem "jekyll-feed"
   gem "jektex"
+  gem "jekyll-paginate-v2"
   gem "jekyll-auto-authors"
 end
 

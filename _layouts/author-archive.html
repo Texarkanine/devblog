@@ -2,7 +2,8 @@
 layout: default
 ---
 
-{% assign author_data = site.data.authors[page.author] %}
+{% assign author_id = page.title %}
+{% assign author_data = site.data.authors[author_id] %}
 
 {% if author_data %}
 <h1>{{ author_data.name }}</h1>
@@ -11,13 +12,14 @@ layout: default
 <p><a href="https://github.com/{{ author_data.github }}">github.com/{{ author_data.github }}</a></p>
 {% endif %}
 {% else %}
-<h1>{{ page.author }}</h1>
+<h1>{{ author_id }}</h1>
 {% endif %}
 
 <h2>posts</h2>
 
+{% assign author_posts = site.posts | where: "author", author_id %}
 <ul>
-  {% for post in page.posts %}
+  {% for post in author_posts %}
   <li>
     {{ post.date | date: "%Y-%m-%d" }} — <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
   </li>
