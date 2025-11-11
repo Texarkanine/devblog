@@ -2,7 +2,8 @@
 layout: post
 title: "Welcome to DevBlog"
 date: 2025-11-11 10:00:00 -0500
-tags: [jekyll, github-pages, ci-cd, author:texarkanine]
+author: texarkanine
+tags: [jekyll, github-pages, ci-cd]
 ---
 
 This is the first post on this minimalist dev blog, built with Jekyll and automatically deployed via GitHub Actions.

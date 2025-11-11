@@ -11,15 +11,21 @@ layout: default
   {{ content }}
 </article>
 
-{% if page.tags.size > 0 %}
 <footer>
+  {% if page.author %}
+  <p>
+    by: <a href="{{ site.baseurl }}/authors/{{ page.author | slugify }}/">{{ page.author }}</a>
+  </p>
+  {% endif %}
+  
+  {% if page.tags.size > 0 %}
   <p>
     tagged: 
     {% for tag in page.tags %}
       <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
     {% endfor %}
   </p>
+  {% endif %}
 </footer>
-{% endif %}
 
 <p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>

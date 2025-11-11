@@ -37,10 +37,13 @@ plugins:
 jekyll-archives:
   enabled:
     - tags
+    - authors
   layouts:
     tag: tag-archive
+    author: author-archive
   permalinks:
     tag: '/tags/:name/'
+    author: '/authors/:name/'
 
 # Build settings
 exclude:
