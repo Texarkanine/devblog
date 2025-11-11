@@ -2,21 +2,9 @@ entries:
   - title: posts
     entries:
       - title: (latest)
-        post_list:
-          limit: 5
-          show_more: true
-          show_more_text: see all posts...
-          show_more_url: /all-posts.html
-  - title: tags
-    entries:
-      - title: jekyll
-        url: /tags/jekyll/
-      - title: github-pages
-        url: /tags/github-pages/
-      - title: ci-cd
-        url: /tags/ci-cd/
-      - title: (all tags)
-        url: /tags.html
+        post_list: {}
+  - title: all tags
+    url: /tags.html
   - title: links
     entries:
       - title: github repo
