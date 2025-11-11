@@ -32,18 +32,21 @@ plugins:
   - jekyll-archives
   - jekyll-seo-tag
   - jekyll-feed
+  - jekyll-auto-authors
 
 # Jekyll Archives Configuration
 jekyll-archives:
   enabled:
     - tags
-    - authors
   layouts:
     tag: tag-archive
-    author: author-archive
   permalinks:
     tag: '/tags/:name/'
-    author: '/authors/:name/'
+
+# Jekyll Auto Authors Configuration
+jekyll-auto-authors:
+  layout: author-archive
+  permalink: /authors/:author/
 
 # Build settings
 exclude:

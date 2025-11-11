@@ -2,14 +2,16 @@
 layout: default
 ---
 
-<h1>{{ page.title }}</h1>
+{% assign author_data = site.data.authors[page.author] %}
 
-{% assign author_data = site.data.authors[page.title] %}
 {% if author_data %}
+<h1>{{ author_data.name }}</h1>
 <p>{{ author_data.bio }}</p>
 {% if author_data.github %}
 <p><a href="https://github.com/{{ author_data.github }}">github.com/{{ author_data.github }}</a></p>
 {% endif %}
+{% else %}
+<h1>{{ page.author }}</h1>
 {% endif %}
 
 <h2>posts</h2>

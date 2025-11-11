@@ -5,15 +5,11 @@ permalink: /authors.html
 ---
 
 <ul>
-{% for author_hash in site.data.authors %}
-  {% assign author_id = author_hash[0] %}
-  {% assign author = author_hash[1] %}
-  {% assign posts_by_author = site.posts | where: "author", author_id %}
-  {% if posts_by_author.size > 0 %}
+{% for author in site.authors %}
+  {% assign author_data = site.data.authors[author.author] %}
   <li>
-    <a href="{{ site.baseurl }}/authors/{{ author_id | slugify }}/">{{ author.name }}</a> 
-    ({{ posts_by_author.size }} post{% if posts_by_author.size != 1 %}s{% endif %})
+    <a href="{{ site.baseurl }}{{ author.url }}">{% if author_data %}{{ author_data.name }}{% else %}{{ author.author }}{% endif %}</a> 
+    ({{ author.posts.size }} post{% if author.posts.size != 1 %}s{% endif %})
   </li>
-  {% endif %}
 {% endfor %}
 </ul>

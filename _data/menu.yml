@@ -4,7 +4,7 @@ entries:
       - title: (latest)
         post_list: {}
   - title: all tags
-    url: tags.html
+    url: /tags.html
   - title: links
     entries:
       - title: github repo
