@@ -4,8 +4,7 @@
 {% endcomment %}
 
 {% assign limit = include.limit | default: 5 %}
-{% assign sorted_tags = site.tags | sort %}
-{% assign tags_by_count = sorted_tags | sort: "size" | reverse %}
+{% assign tags_by_count = site.tags | sort: "size" | reverse %}
 
 {% for tag in tags_by_count limit: limit %}
   {% assign tag_name = tag[0] %}
