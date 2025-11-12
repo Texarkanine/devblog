@@ -1,22 +1,15 @@
 # DevBlog
 
-Minimalist Jekyll blog with automated GitHub Actions deployment.
-
-**Live site:** https://texarkanine.github.io/devblog/
-
-## Features
-
-- Jekyll 4.3+ with "no style, please" theme
-- Automatic tag archive pages via `jekyll-archives`
-- CI/CD deployment to GitHub Pages
-- Dual licensing: MIT (code) + CC BY-SA 4.0 (content)
+https://dev.cani.ne.jp/
 
 ## Local Development
 
-```bash
-bundle install
-bundle exec jekyll serve
-```
+1. Have Ruby & Bundler installed
+2. 
+	```bash
+	bundle install
+	bundle exec jekyll serve
+	```
 
 ## License
 
