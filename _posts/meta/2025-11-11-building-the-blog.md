@@ -33,6 +33,6 @@ None of these conflict. A post can have an author, live in a categorized folder,
 
 We use ["no style, please"](http://jekyllthemes.org/themes/no-style-please/) - a theme that's almost entirely unstyled. It provides basic HTML structure and leaves the browser to render sensible defaults. The CSS file is under 1KB. I think it's delightfully pretentious in a way that reminds one of Martin Fowler and Paul Graham's *actually* unpretentious, foundational blogs. But here it's on purpose, a skeuomorphism of sorts in an age of 16:9 monitors, vertical phone screens, and no fear of scrolling because everything always extends beyond the fold.
 
-This isn't minimalism for its own sake. Fast sites are better sites. Every kilobyte of CSS that doesn't ship is one less thing to download, parse, and apply. The theme removes decisions rather than adding them. And that's why there are like eleven files to configure the website and it requires Ruby and gems downloaded from a public package repository. Tongue out of cheek though, it's just the age-old bulid-time vs run-time tradeoff.
+This isn't minimalism for its own sake. Fast sites are better sites. Every kilobyte of CSS that doesn't ship is one less thing to download, parse, and apply. The theme removes decisions rather than adding them. And that's why there are like eleven files to configure the website and it requires Ruby and gems downloaded from a public package repository. Tongue out of cheek though, it's just the age-old build-time vs run-time tradeoff.
 
 Can't* get a remote shell on a static site!
