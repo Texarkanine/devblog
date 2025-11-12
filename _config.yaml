@@ -1,6 +1,6 @@
 # Site Configuration
 title: "🐶 Dog with a Dev Blog"
-description: "I do things with technology and have thoughts and leave records about it."
+description: "On the internet, nobody knows you're a dog and a cat and a computer."
 url: "https://texarkanine.github.io"
 baseurl: "/devblog"
 
