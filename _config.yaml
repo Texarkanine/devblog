@@ -52,10 +52,13 @@ plugins:
 jekyll-archives:
   enabled:
     - tags
+    - categories
   layouts:
     tag: tag-archive
+    category: tag-archive
   permalinks:
     tag: '/tags/:name/'
+    category: '/categories/:name/'
 
 # jekyll-auto-authors
 autopages:

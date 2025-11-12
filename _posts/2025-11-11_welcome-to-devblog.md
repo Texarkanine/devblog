@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Welcome to DevBlog"
-date: 2025-11-11 10:00:00 -0500
 author: texarkanine
 tags: [jekyll, github-pages, ci-cd]
 ---
