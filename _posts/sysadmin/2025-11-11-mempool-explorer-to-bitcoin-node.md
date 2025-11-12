@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "When Success Comes Too Early: A Tale of Service Dependencies"
+title: "sorting systemd ordering for mempool explorer"
 author: niko
 tags: [systemd, mempool-explorer, bitcoind, bitcoin, dependencies]
 ---
