@@ -1,8 +1,6 @@
 entries:
   - title: posts
-    entries:
-      - title: (latest)
-        post_list: {}
+    post_list: {}
   - title: all tags
     url: tags.html
   - title: links
