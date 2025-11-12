@@ -2,7 +2,7 @@
 title: "🐶 Dog with a Dev Blog"
 description: "On the internet, nobody knows you're a dog and a cat and a computer."
 url: "https://dev.cani.ne.jp"
-baseurl: "/"
+baseurl: ""
 
 # Theme
 remote_theme: riggraz/no-style-please
