@@ -22,7 +22,7 @@ layout: default
 <ul>
   {% for post in author_posts %}
   <li>
-    {{ post.date | date: "%Y-%m-%d" }} — <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+    {{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
   </li>
   {% endfor %}
 </ul>

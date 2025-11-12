@@ -13,7 +13,7 @@ The foundation is straightforward: Jekyll generates static HTML. GitHub Actions 
 
 `jekyll-archives` generates tag pages automatically. Write a post, add some tags, and the plugin creates index pages for each one. No manual maintenance required.
 
-Author pages work differently. The `jekyll-auto-authors` plugin reads from a data file and creates a page for each author, listing their posts. It needs `jekyll-paginate-v2` as a dependency, though we don't actually paginate anything—the plugin just requires it. Weird but that's FLOSS plugins. Happens a lot in video game mods, too. Making libraries needs to be easier.
+Author pages work differently. The `jekyll-auto-authors` plugin reads from a data file and creates a page for each author, listing their posts. It needs `jekyll-paginate-v2` as a dependency, though we don't actually paginate anything - the plugin just requires it. Weird but that's FLOSS plugins. Happens a lot in video game mods, too. Making libraries needs to be easier.
 
 Categories come from folder structure. Put a post in `_posts/tutorials/`, and it gets the `tutorials` category. This happens automatically unless you override it in front matter.
 
@@ -23,7 +23,7 @@ The blog supports three independent classification systems:
 
 **Authors** use the `author:` field. Each author gets a page showing their bio and posts.
 
-**Categories** come from folders in `_posts/`. They're hierarchical—nest folders, get nested categories.
+**Categories** come from folders in `_posts/`. They're hierarchical - nest folders, get nested categories.
 
 **Tags** are explicitly set in front matter. They're for topics, not structure.
 

@@ -47,6 +47,7 @@ plugins:
   - jekyll-paginate-v2
   - jekyll-remote-theme
   - jekyll-seo-tag
+  - jekyll-target-blank
 
 # jekyll-archives
 jekyll-archives:
