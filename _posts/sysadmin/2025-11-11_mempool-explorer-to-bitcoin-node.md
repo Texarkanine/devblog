@@ -42,7 +42,7 @@ Wants=docker.service
 
 Two lines in a systemd override file. `After=` ensures Bitcoin waits for Docker to start. `Wants=` expresses a preference for Docker to be running, without making it a hard requirement.
 
-I deliberately avoided `BindsTo=` or `PartOf=`, which would create tighter coupling. Those would restart Bitcoin whenever Docker restarted, which is unnecessary - once the bind succeeds, it persists regardless of Docker's state. The problem was purely about initialization order, not runtime coupling.
+I deliberately avoided `BindsTo=` or `PartOf=`, which would create tighter coupling. Those would restart Bitcoin whenever Docker restarted, which is unnecessary - once the bind succeeds, it persists regardless of Docker's state. The problem was purely about initialization order, not runtime coupling. More at the [systemd.unit man page](https://www.freedesktop.org/software/systemd/man/systemd.unit.html).
 
 ## The Lesson
 
