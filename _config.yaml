@@ -29,12 +29,9 @@ collections:
 exclude:
   - Gemfile
   - Gemfile.lock
-  - node_modules
-  - vendor
   - .git
   - .gitignore
   - README.md
-  - BOOTSTRAP_PLAN.md
   - "*.skbd"
   - LICENSE-CODE
   - LICENSE-CONTENT
