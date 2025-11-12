@@ -7,16 +7,15 @@ baseurl: "/devblog"
 # Theme
 remote_theme: riggraz/no-style-please
 theme_config:
-  appearance: "auto" # can be "light", "dark" or "auto"
-  back_home_text: ".." # customize text for homepage link in post layout
-  date_format: "%Y-%m-%d" # customize how date is formatted
-  show_description: false # show blog description in home page
-  lowercase_titles: true # show titles in lowercase in lists
+  appearance: "light"
+  back_home_text: ".."
+  date_format: "%Y-%m-%d"
+  show_description: true
+  lowercase_titles: true
 
 sass:
   style: compressed
 
-# Jekyll Configuration
 markdown: kramdown
 highlighter: rouge
 
@@ -25,48 +24,6 @@ collections:
   pages:
     output: true
     permalink: /:path/
-
-# Plugins
-plugins:
-  - jekyll-remote-theme
-  - jekyll-archives
-  - jekyll-seo-tag
-  - jekyll-feed
-  - jekyll-paginate-v2
-  - jekyll-auto-authors
-
-# Jekyll Archives Configuration
-jekyll-archives:
-  enabled:
-    - tags
-  layouts:
-    tag: tag-archive
-  permalinks:
-    tag: '/tags/:name/'
-
-# Pagination Configuration (disabled globally, but required for plugin)
-pagination:
-  enabled: false
-  
-# AutoPages Configuration (for author pages only)
-autopages:
-  enabled: true
-  tags:
-    enabled: false
-  categories:
-    enabled: false
-  collections:
-    enabled: false
-  authors:
-    enabled: true
-    data: '_data/authors.yml'
-    layouts:
-      - 'author-archive.html'
-    title: ':author'
-    permalink: '/authors/:author/'
-    slugify:
-      mode: 'default'
-      cased: false
 
 # Build settings
 exclude:
@@ -82,3 +39,44 @@ exclude:
   - LICENSE-CODE
   - LICENSE-CONTENT
 
+# Plugins
+plugins:
+  - jekyll-archives
+  - jekyll-auto-authors
+  - jekyll-feed
+  - jekyll-paginate-v2
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+# jekyll-archives
+jekyll-archives:
+  enabled:
+    - tags
+  layouts:
+    tag: tag-archive
+  permalinks:
+    tag: '/tags/:name/'
+
+# jekyll-auto-authors
+autopages:
+  enabled: true
+  tags:
+    enabled: false
+  categories:
+    enabled: false
+  collections:
+    enabled: false
+  authors:
+    enabled: true
+    data: '_data/authors.yaml'
+    layouts:
+      - 'author-archive.html'
+    title: ':author'
+    permalink: '/authors/:author/'
+    slugify:
+      mode: 'default'
+      cased: false
+
+# jekyll-paginate-v2 (required for jekyll-auto-authors)
+pagination:
+  enabled: false
