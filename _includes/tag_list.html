@@ -1,0 +1,17 @@
+{% comment %}
+  Renders a list of tags sorted by post count (most posts first)
+  Usage: {% include tag_list.html limit=5 show_more=true %}
+{% endcomment %}
+
+{% assign limit = include.limit | default: 5 %}
+{% assign tags_by_count = site.tags | sort: "size" | reverse %}
+
+{% for tag in tags_by_count limit: limit %}
+  {% assign tag_name = tag[0] %}
+  {% assign tag_posts = tag[1] %}
+  <li><a href="{{ site.baseurl }}/tags/{{ tag_name | slugify }}/">{{ tag_name }}</a> ({{ tag_posts.size }})</li>
+{% endfor %}
+
+{% if include.show_more and site.tags.size > limit %}
+  <li><a href="{{ site.baseurl }}/{{ include.show_more_url | default: 'tags.html' }}">{{ include.show_more_text | default: 'see all tags...' }}</a></li>
+{% endif %}

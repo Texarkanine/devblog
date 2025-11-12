@@ -1,0 +1,86 @@
+# Site Configuration
+title: "🐶 Dog with a Dev Blog"
+description: "On the internet, nobody knows you're a dog and a cat and a computer."
+url: "https://dev.cani.ne.jp"
+baseurl: ""
+
+# Theme
+remote_theme: riggraz/no-style-please
+theme_config:
+  appearance: "light"
+  back_home_text: ".."
+  date_format: "%Y-%m-%d"
+  show_description: true
+  lowercase_titles: true
+
+sass:
+  style: compressed
+
+markdown: kramdown
+highlighter: rouge
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+
+# Build settings
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .gitignore
+  - README.md
+  - BOOTSTRAP_PLAN.md
+  - "*.skbd"
+  - LICENSE-CODE
+  - LICENSE-CONTENT
+
+# Plugins
+plugins:
+  - jekyll-archives
+  - jekyll-auto-authors
+  - jekyll-feed
+  - jekyll-paginate-v2
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-target-blank
+
+# jekyll-archives
+jekyll-archives:
+  enabled:
+    - tags
+    - categories
+  layouts:
+    tag: tag-archive
+    category: tag-archive
+  permalinks:
+    tag: '/tags/:name/'
+    category: '/categories/:name/'
+
+# jekyll-auto-authors
+autopages:
+  enabled: true
+  tags:
+    enabled: false
+  categories:
+    enabled: false
+  collections:
+    enabled: false
+  authors:
+    enabled: true
+    data: '_data/authors.yaml'
+    layouts:
+      - 'author-archive.html'
+    title: ':author'
+    permalink: '/authors/:author/'
+    slugify:
+      mode: 'default'
+      cased: false
+
+# jekyll-paginate-v2 (required for jekyll-auto-authors)
+pagination:
+  enabled: false

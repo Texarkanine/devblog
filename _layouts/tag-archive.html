@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+
+<h1>{{ page.title }}</h1>
+
+<ul>
+  {% for post in page.posts %}
+  <li>
+    {{ post.date | date: "%Y-%m-%d" }} — <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+<p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>

@@ -1,0 +1,9 @@
+entries:
+  - title: posts
+    post_list: {}
+  - title: all tags
+    url: tags.html
+  - title: links
+    entries:
+      - title: github
+        url: https://github.com/texarkanine
