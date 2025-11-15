@@ -54,7 +54,12 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: github-pages
-          path: _site
+          path: .
+      
+      - name: Extract artifact
+        run: |
+          mkdir -p _site
+          tar -xf artifact.tar -C _site
       
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
