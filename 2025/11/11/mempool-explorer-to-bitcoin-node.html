@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>sorting systemd ordering for mempool explorer</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="sorting systemd ordering for mempool explorer" />
+<meta name="author" content="Niko" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Problem" />
+<meta property="og:description" content="The Problem" />
+<link rel="canonical" href="https://dev.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node.html" />
+<meta property="og:url" content="https://dev.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node.html" />
+<meta property="og:site_name" content="🐶 Dog with a Dev Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-11T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="sorting systemd ordering for mempool explorer" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Niko"},"dateModified":"2025-11-11T00:00:00+00:00","datePublished":"2025-11-11T00:00:00+00:00","description":"The Problem","headline":"sorting systemd ordering for mempool explorer","mainEntityOfPage":{"@type":"WebPage","@id":"https://dev.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node.html"},"url":"https://dev.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="https://dev.cani.ne.jp/feed.xml" title="🐶 Dog with a Dev Blog" /><link rel="shortcut icon" type="image/x-icon" href="" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.css" integrity="sha384-OH8qNTHoMMVNVcKdKewlipV4SErXqccxxlg6HC9Cwjr5oZu2AdBej1TndeCirael" crossorigin="anonymous">
+
+</head>
+<body a="light">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <p><a href="/">..</a></p>
+
+<header>
+  <h1>sorting systemd ordering for mempool explorer</h1>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      
+      <span>
+        by: <a href="/authors/niko/">niko</a>
+      </span>
+      
+    </div>
+    <div>
+      <span class="post-meta">2025-11-11</span>
+    </div>
+  </div>
+</header>
+
+<article>
+  <h2 id="the-problem">The Problem</h2>
+
+<p>My <a href="https://github.com/mempool/mempool" target="_blank" rel="noopener noreferrer">mempool explorer</a> would periodically lose its ability to show transactions. The symptoms were maddeningly specific: it could see blocks just fine, but the mempool itself became invisible. Restarting the mempool explorer did nothing. Restarting the Bitcoin node used by the explorer fixed it every time.</p>
+
+<p>This is the kind of bug that makes you question your sanity. If restarting Bitcoin fixes it, surely the problem is in Bitcoin? But Bitcoin was working perfectly - other clients could connect to it without issue. The mempool explorer, running in Docker, simply couldn’t reach it.</p>
+
+<h2 id="the-misleading-clue">The Misleading Clue</h2>
+
+<p>The most interesting bugs hide behind what looks like the answer. When I checked the logs, I saw connection refused errors from the mempool trying to reach <code class="language-plaintext highlighter-rouge">172.17.0.1:8332</code> - Bitcoin’s RPC port on the Docker bridge network. “Aha!” I thought. “A network configuration issue.”</p>
+
+<p>But network issues don’t fix themselves when you restart Bitcoin. That suggested something more fundamental was wrong.</p>
+
+<h2 id="the-smoking-gun">The Smoking Gun</h2>
+
+<p>The answer was buried in the systemd journal:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332
+Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332 failed.
+</code></pre></div></div>
+
+<p>Bitcoin tried to bind to the Docker bridge IP at startup and failed. It then continued running, successfully bound to localhost and the LAN IP, but silently missing the Docker bridge binding. Three seconds later, Docker started and created the bridge network.</p>
+
+<p>The race condition was subtle: Bitcoin started fractionally before Docker, tried to bind to an interface that didn’t exist yet, failed gracefully, and continued operating. When I manually restarted Bitcoin later, Docker was already running, so the bind succeeded. The bug only manifested on system boot.</p>
+
+<h2 id="the-fix">The Fix</h2>
+
+<p>The solution is admirably simple:</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[Unit]</span><span class="w">
+</span><span class="py">After</span><span class="p">=</span><span class="s">docker.service</span>
+<span class="py">Wants</span><span class="p">=</span><span class="s">docker.service</span>
+</code></pre></div></div>
+
+<p>Two lines in a systemd override file. <code class="language-plaintext highlighter-rouge">After=</code> ensures Bitcoin waits for Docker to start. <code class="language-plaintext highlighter-rouge">Wants=</code> expresses a preference for Docker to be running, without making it a hard requirement.</p>
+
+<p>I deliberately avoided <code class="language-plaintext highlighter-rouge">BindsTo=</code> or <code class="language-plaintext highlighter-rouge">PartOf=</code>, which would create tighter coupling. Those would restart Bitcoin whenever Docker restarted, which is unnecessary - once the bind succeeds, it persists regardless of Docker’s state. The problem was purely about initialization order, not runtime coupling. More at the <a href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html" target="_blank" rel="noopener noreferrer">systemd.unit man page</a>.</p>
+
+<h2 id="the-lesson">The Lesson</h2>
+
+<p>This bug exemplifies what I call “success-in-the-wrong-order” problems. Bitcoin didn’t fail catastrophically when it couldn’t bind to the Docker bridge - that would have been easy to diagnose. Instead, it partially succeeded, binding to two out of three interfaces, and ran happily in this degraded state.</p>
+
+<p>Silent partial failures are dangerous precisely because they look like success. The application starts, health checks pass, logs show normal operation. The failure only manifests when a specific code path tries to use the missing capability.</p>
+
+<p>These bugs are also challenging because they combine multiple systems (systemd, Docker, Bitcoin) in ways that aren’t immediately obvious. The symptoms appeared in the mempool software, the logs pointed to network issues, but the fix required understanding how systemd manages service initialization order.</p>
+
+<h2 id="why-this-matters">Why This Matters</h2>
+
+<p>Containerization has made these race conditions more common. We now routinely run applications that depend on container runtime networking, but our init systems weren’t designed with this dependency model in mind. Systemd provides the tools to handle it (<code class="language-plaintext highlighter-rouge">After=</code>, <code class="language-plaintext highlighter-rouge">Wants=</code>, <code class="language-plaintext highlighter-rouge">Requires=</code>, etc.), but you have to know they exist and understand when to use each one.</p>
+
+<p>The broader lesson is about diagnostic discipline. When a problem has an easy fix (restart the service), it’s tempting to treat that as the solution rather than investigating the root cause. But “restart it when it breaks” isn’t actually a solution - it’s a workaround that masks deeper issues and trains you to accept degraded reliability.</p>
+
+<p>The fix took two lines. Finding those two lines required understanding the entire system architecture, from Docker networking to systemd service dependencies to Bitcoin’s RPC binding model. That’s often how it goes with interesting bugs: the fix is trivial once you truly understand the problem.</p>
+
+</article>
+
+<footer>
+  
+  
+  <p>
+    tagged: 
+    
+      <a href="/tags/systemd/">systemd</a>, 
+    
+      <a href="/tags/mempool-explorer/">mempool-explorer</a>, 
+    
+      <a href="/tags/bitcoind/">bitcoind</a>, 
+    
+      <a href="/tags/bitcoin/">bitcoin</a>, 
+    
+      <a href="/tags/dependencies/">dependencies</a>
+    
+  </p>
+  
+</footer>
+
+<p><a href="/">..</a></p>
+
+      </div>
+    </main>
+  </body>
+</html>
