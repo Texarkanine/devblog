@@ -33,8 +33,6 @@ exclude:
   - .gitignore
   - README.md
   - "*.skbd"
-  - LICENSE-CODE
-  - LICENSE-CONTENT
 
 # Plugins
 plugins:
