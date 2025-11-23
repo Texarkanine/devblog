@@ -23,7 +23,8 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # Environment variables (defaults for documentation, override at runtime)
 ENV UPSTREAM_HOST="" \
-    APP_NAME=""
+    APP_NAME="" \
+    UPSTREAM_PATH=""
 
 EXPOSE 8080
 

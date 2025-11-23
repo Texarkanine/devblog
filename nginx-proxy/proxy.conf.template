@@ -1,5 +1,5 @@
 # Upstream to DigitalOcean static site
-# UPSTREAM_HOST is set via environment variable
+# UPSTREAM_HOST and UPSTREAM_PATH are set via environment variables
 upstream backend_static {
     server ${UPSTREAM_HOST}:443;
     keepalive 32;
@@ -19,7 +19,9 @@ server {
 
     # Proxy everything else to static site
     location / {
-        proxy_pass https://backend_static;
+        # UPSTREAM_PATH is optional - if set (e.g., /abc123), prepend to all requests
+        # The entrypoint script will normalize this to include trailing slash if needed
+        proxy_pass https://backend_static${UPSTREAM_PATH};
         proxy_ssl_server_name on;
         proxy_ssl_protocols TLSv1.2 TLSv1.3;
         
