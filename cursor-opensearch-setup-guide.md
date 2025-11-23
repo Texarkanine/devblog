@@ -10,11 +10,11 @@
 ## Progress Tracker
 
 - [x] Section 1: Prerequisites Check
-- [ ] Section 2: System Configuration (requires sudo 👨‍💻)
-- [ ] Section 3: Create Directories and Compose File
-- [ ] Section 4: Create Systemd Service (requires sudo 👨‍💻)
-- [ ] Section 5: Configure Nginx (requires sudo 👨‍💻)
-- [ ] Section 6: Set Up SSL with acme.sh
+- [x] Section 2: System Configuration (requires sudo 👨‍💻)
+- [x] Section 3: Create Directories and Compose File
+- [x] Section 4: Create Systemd Service (requires sudo 👨‍💻)
+- [x] Section 5: Configure Nginx (requires sudo 👨‍💻)
+- [ ] Section 6: Set Up SSL with acme.sh 👨‍💻 **READY - Manual setup required (see SSL-AND-STARTUP-TASKS.md)**
 - [ ] Section 7: Start Services (requires sudo 👨‍💻)
 - [ ] Section 8: Configure DigitalOcean (requires you 👨‍💻)
 - [ ] Section 9: Verification
@@ -57,77 +57,185 @@ sysctl vm.max_map_count
 
 **Expected output**: `vm.max_map_count = 262144`
 
-✅ Mark complete when done: `[x]`
+✅ **COMPLETED** - Verified: `vm.max_map_count = 262144`
 
 ---
 
 ## Section 3: Create Directories and Compose File
 
-**Status**: I'll handle this
+**Status**: ✅ **COMPLETED**
 
-I will:
-- Create `/data/opensearch/{data,logs}` directories
-- Set ownership to homeserv:homeserv
-- Create the `docker-compose.yaml` file
-
-**No action needed from you** - I'll execute these commands via SSH.
+Verified:
+- ✅ Directories created: `/data/opensearch/{data,logs}`
+- ✅ Ownership set to homeserv:homeserv
+- ✅ `docker-compose.yaml` in place with correct configuration
+  - User: 1003:1004 (homeserv)
+  - Journald logging configured
+  - Bind mounts to /data/opensearch
+  - 4GB heap allocation
 
 ---
 
 ## Section 4: Create Systemd Service
 
-### 👨‍💻 Task 4.1: Create opensearch.service file
+**Status**: ✅ **COMPLETED**
 
-**Why you need to do this**: Requires sudo to write to `/etc/systemd/system/`
+### 👨‍💻 Task 4.1: Create opensearch.service file - DONE
 
-I'll prepare the file content, then you'll need to create it with sudo.
+File installed at: `/etc/systemd/system/opensearch.service`
 
-**Status**: Waiting for Section 3 to complete
+Verified with: `systemctl status opensearch`
+- Status: Loaded (disabled, inactive - will start in Section 7)
 
 ---
 
 ## Section 5: Configure Nginx
 
-### 👨‍💻 Task 5.1: Install nginx (if not installed)
+**Status**: ✅ **COMPLETED**
 
-**Commands for you to run:**
-```bash
-sudo apt install -y nginx
-```
+### 👨‍💻 Task 5.1: Install nginx - DONE
 
-### 👨‍💻 Task 5.2: Create nginx configuration files
+Nginx version: 1.18.0 (already installed)
 
-**Why you need to do this**: Requires sudo to write to `/etc/nginx/`
+### 👨‍💻 Task 5.2: Create nginx configuration files - DONE
 
-I'll prepare the configuration files, then you'll create them with sudo.
+Files in place:
+- ✅ `/etc/nginx/sites-available/90-opensearch-ingest` (HTTP - will update to HTTPS in Section 6)
+- ✅ `/etc/nginx/sites-available/91-opensearch-lan` (LAN access)
+- ✅ Both symlinked in `/etc/nginx/sites-enabled/`
 
-**Status**: Waiting for Section 4 to complete
+Verified:
+- ✅ `nginx -t` passed
+- ✅ Nginx running (active since Tue 2025-11-18 17:27:07 UTC)
 
 ---
 
 ## Section 6: Set Up SSL with acme.sh
 
-**Status**: I'll handle most of this
+**Status**: ✅ acme.sh installed, ready for manual SSL setup
 
-I will:
-- Install acme.sh to homeserv account
-- Configure FreeDNS credentials (you'll provide them)
-- Issue the certificate
-- Install certificate files
+Progress:
+- ✅ acme.sh installed to `/home/homeserv/.acme.sh/`
+- ✅ Cron job configured for auto-renewal
+- 👨‍💻 **Manual SSL setup required**
 
-### 👨‍💻 Task 6.1: Provide FreeDNS credentials
+### 👨‍💻 Task 6.1: Configure FreeDNS credentials and issue certificate
 
-When I reach this step, you'll need to provide:
-- FreeDNS username
-- FreeDNS password
+**Run these commands on the server:**
 
-I'll use these to get the SSL certificate via DNS-01 validation.
+```bash
+# Set FreeDNS credentials (replace with your actual credentials)
+export FREEDNS_User="your_freedns_username"
+export FREEDNS_Password="your_freedns_password"
 
-### 👨‍💻 Task 6.2: Set certificate permissions
+# Issue the certificate using DNS-01 validation
+~/.acme.sh/acme.sh --issue --dns dns_freedns \
+  -d opensearch-ingest.cani.ne.jp \
+  --server letsencrypt
 
-**Why you need to do this**: Certificate files need to be in `/etc/nginx/ssl/` with proper permissions
+# This will take 1-2 minutes as it creates DNS TXT records and validates
+```
 
-**Status**: Waiting for previous sections
+**Expected output:** Should see "Cert success" at the end
+
+### 👨‍💻 Task 6.2: Create SSL directory and install certificate
+
+```bash
+# Create nginx SSL directory
+sudo mkdir -p /etc/nginx/ssl
+
+# Install the certificate files
+sudo ~/.acme.sh/acme.sh --install-cert \
+  -d opensearch-ingest.cani.ne.jp \
+  --cert-file /etc/nginx/ssl/opensearch.crt \
+  --key-file /etc/nginx/ssl/opensearch.key \
+  --fullchain-file /etc/nginx/ssl/opensearch-fullchain.crt \
+  --reloadcmd "systemctl reload nginx"
+
+# Verify files are in place
+sudo ls -l /etc/nginx/ssl/
+```
+
+**Expected output:** Should see opensearch.crt, opensearch.key, opensearch-fullchain.crt
+
+### 👨‍💻 Task 6.3: Update nginx config for HTTPS
+
+**Edit the public nginx config:**
+
+```bash
+sudo nano /etc/nginx/sites-available/90-opensearch-ingest
+```
+
+**Replace the entire file with:**
+
+```nginx
+# Redirect HTTP to HTTPS
+server {
+    listen 80;
+    server_name opensearch-ingest.cani.ne.jp;
+    return 301 https://$server_name$request_uri;
+}
+
+# HTTPS endpoint for log ingestion from DigitalOcean
+server {
+    listen 443 ssl http2;
+    server_name opensearch-ingest.cani.ne.jp;
+
+    # SSL configuration
+    ssl_certificate /etc/nginx/ssl/opensearch-fullchain.crt;
+    ssl_certificate_key /etc/nginx/ssl/opensearch.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    # Increase timeouts for bulk operations
+    proxy_connect_timeout 300s;
+    proxy_send_timeout 300s;
+    proxy_read_timeout 300s;
+    send_timeout 300s;
+
+    # Increase buffer sizes for large log payloads
+    client_max_body_size 100M;
+    client_body_buffer_size 128k;
+
+    # Only allow specific log ingestion endpoints
+    location ~ ^/(_bulk|_doc|[^/]+/_doc|[^/]+/_bulk).*$ {
+        proxy_pass http://127.0.0.1:9200;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Connection "Keep-Alive";
+        proxy_set_header Proxy-Connection "Keep-Alive";
+    }
+
+    # Block all other endpoints for security
+    location / {
+        return 403;
+    }
+
+    # Health check endpoint (optional)
+    location = /health {
+        access_log off;
+        proxy_pass http://127.0.0.1:9200/_cluster/health;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+    }
+}
+```
+
+**Test and reload nginx:**
+
+```bash
+# Test configuration
+sudo nginx -t
+
+# Reload nginx
+sudo systemctl reload nginx
+```
+
+**Expected output:** "configuration file test is successful"
 
 ---
 
