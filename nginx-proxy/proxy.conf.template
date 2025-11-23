@@ -22,11 +22,14 @@ server {
         # UPSTREAM_PATH is optional - if set (e.g., /abc123), prepend to all requests
         # The entrypoint script will normalize this to include trailing slash if needed
         proxy_pass https://backend_static${UPSTREAM_PATH};
+        
+        # SSL configuration
         proxy_ssl_server_name on;
+        proxy_ssl_name ${UPSTREAM_HOST};  # SNI must match the upstream hostname
         proxy_ssl_protocols TLSv1.2 TLSv1.3;
         
         # Preserve original request details
-        # Use original Host header (for Cloudflare/SNI), not UPSTREAM_HOST
+        # Host header should match what the upstream expects (usually the original domain)
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
