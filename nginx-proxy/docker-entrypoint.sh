@@ -40,11 +40,6 @@ envsubst '${APP_NAME}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 echo "Generating proxy.conf from template..."
 envsubst '${UPSTREAM_HOST} ${UPSTREAM_PATH}' < /etc/nginx/conf.d/proxy.conf.template > /etc/nginx/conf.d/proxy.conf
 
-# Debug: Show the generated proxy_ssl_name and Host header settings
-echo "=== Generated Config (key SSL settings) ==="
-grep -E "proxy_ssl_name|proxy_set_header Host" /etc/nginx/conf.d/proxy.conf || true
-echo "============================================"
-
 # Test nginx configuration
 echo "Testing nginx configuration..."
 nginx -t
