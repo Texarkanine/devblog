@@ -11,14 +11,15 @@
 
 - [x] Section 1: Prerequisites Check
 - [x] Section 2: System Configuration (requires sudo 👨‍💻)
-- [x] Section 3: Create Directories and Compose File
+- [x] Section 3: Create Directories and Compose File (Note: Removed user: directive - containers run as default UID 1000)
 - [x] Section 4: Create Systemd Service (requires sudo 👨‍💻)
 - [x] Section 5: Configure Nginx (requires sudo 👨‍💻)
-- [ ] Section 6: Set Up SSL with acme.sh 👨‍💻 **READY - Manual setup required (see SSL-AND-STARTUP-TASKS.md)**
-- [ ] Section 7: Start Services (requires sudo 👨‍💻)
-- [ ] Section 8: Configure DigitalOcean (requires you 👨‍💻)
-- [ ] Section 9: Verification
-- [ ] Section 10: Cleanup and Documentation
+- [x] Section 6: Set Up SSL with acme.sh ✅ **COMPLETE** - Certs in /root/letsencrypt/live/
+- [x] Section 7: Start Services ✅ **COMPLETE** - OpenSearch status: GREEN
+- [ ] Section 8: Configure DigitalOcean (NAT port 9443) 👨‍💻 **NEXT**
+- [ ] Section 9: Security Hardening 🔒 **CRITICAL**
+- [ ] Section 10: Verification
+- [ ] Section 11: Cleanup and Documentation
 
 ---
 
@@ -112,12 +113,11 @@ Verified:
 
 ## Section 6: Set Up SSL with acme.sh
 
-**Status**: ✅ acme.sh installed, ready for manual SSL setup
+**Status**: ⚠️ Needs reinstallation as root (see SSL-AND-STARTUP-TASKS.md)
 
 Progress:
-- ✅ acme.sh installed to `/home/homeserv/.acme.sh/`
-- ✅ Cron job configured for auto-renewal
-- 👨‍💻 **Manual SSL setup required**
+- ⚠️ acme.sh was installed to homeserv user, but should be root for system certs
+- 👨‍💻 **Manual SSL setup required** - includes reinstalling as root
 
 ### 👨‍💻 Task 6.1: Configure FreeDNS credentials and issue certificate
 
