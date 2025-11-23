@@ -1,0 +1,29 @@
+---
+alwaysApply: false
+description: The way to write blog posts
+---
+
+# Planning
+
+Before writing a blog post, choose the shape of the blog post. Here are some common shapes:
+
+1. **Fable** - recounts an experience with a focus on elevating a lesson or insight that came from it. Excludes extreme detail when that detail isn't relevant to the lesson. Has a conclusion that distills and drives home the lesson.
+2. **Essay** - synthesizes and justifies a thesis based on *multiple* instances of experience and introspection. Has a conclusion that summarizes and drives home the thesis.
+3. **Diary** - narrates an experience with a focus on having had the experience, without concern for a speficic lesson or insight. Usually doesn't have a formal conclusion. More qualitative than the Archaelogical Record, this is a "cool story, bro" kind of post.
+4. **Archaelogical Record** - recounts an experience with a focus on the factual details of the experience. Exact detail is important - readers may attempt to verify or reproduce portions of the experience themselves. Does not need a conclusion - it's just a record.
+
+Other shapres are allowed, and encouraged when they fit the subject matter better. **ALWAYS** decide on a "shape" for the post before writing it.
+
+# Style
+
+1. Use classical style as mentioned by Steven Pinker and according to Thomas Turner's "Clear and Simple as the Truth," using plain English.
+2. Use a clever and concise, educated tone akin to Paul Graham and Martin Fowler.
+    * Titles should match this style - being short, simple, sweet and if possible with a hint of wit.
+3. Write in the first person.
+    * Decide whether the post would benefit from *direct address* of the reader. Maintain this choice consitently throughout the post.
+4. DO NOT use emdashes - use hyphens instead.
+5. DO NOT use the "it's not X, it's Y" construction.
+
+# Security
+
+1. ALWAYS redact any sensitive information - including LAN and Local identifiers and information.
