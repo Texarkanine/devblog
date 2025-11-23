@@ -12,6 +12,7 @@ http {
     default_type application/octet-stream;
 
     # JSON log format for OpenSearch ingestion
+    # APP_NAME is set via environment variable
     log_format json_combined escape=json '{'
         '"@timestamp":"$time_iso8601",'
         '"remote_addr":"$remote_addr",'
@@ -30,7 +31,7 @@ http {
         '"request_uri":"$request_uri",'
         '"server_protocol":"$server_protocol",'
         '"host":"$host",'
-        '"app":"dogblog"'
+        '"app":"${APP_NAME}"'
     '}';
 
     # Log to stdout for DigitalOcean to capture

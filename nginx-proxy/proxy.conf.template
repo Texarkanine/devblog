@@ -1,6 +1,7 @@
 # Upstream to DigitalOcean static site
-upstream dogblog_static {
-    server dogblog-5ayjs.ondigitalocean.app:443;
+# UPSTREAM_HOST is set via environment variable
+upstream backend_static {
+    server ${UPSTREAM_HOST}:443;
     keepalive 32;
 }
 
@@ -18,12 +19,12 @@ server {
 
     # Proxy everything else to static site
     location / {
-        proxy_pass https://dogblog_static;
+        proxy_pass https://backend_static;
         proxy_ssl_server_name on;
         proxy_ssl_protocols TLSv1.2 TLSv1.3;
         
         # Preserve original request details
-        proxy_set_header Host dogblog-5ayjs.ondigitalocean.app;
+        proxy_set_header Host ${UPSTREAM_HOST};
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
