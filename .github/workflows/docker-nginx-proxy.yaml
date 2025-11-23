@@ -58,6 +58,13 @@ jobs:
 
       - name: Image published
         run: |
-          echo "✅ Image published to GitHub Container Registry"
-          echo "📦 Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
-          echo "🏷️  Tags: ${{ steps.meta.outputs.tags }}"
+          echo "# ✅ Image published to GitHub Container Registry" > image-publish-summary.md
+          echo "" >> image-publish-summary.md
+          echo "## 📦 Image" >> image-publish-summary.md
+          echo "\`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}\`" >> image-publish-summary.md
+          echo "" >> image-publish-summary.md
+          echo "## 🏷️ Tags" >> image-publish-summary.md
+          echo '```' >> image-publish-summary.md
+          echo "${{ steps.meta.outputs.tags }}" >> image-publish-summary.md
+          echo '```' >> image-publish-summary.md
+          cat image-publish-summary.md | tee -a "$GITHUB_STEP_SUMMARY"
