@@ -17,8 +17,8 @@
 
 ### 👨‍💻 Remaining Tasks (in order)
 1. ~~Tasks 1-3~~ ✅ DONE
-2. **Task 4: Configure DigitalOcean** (use port 9443 on NAT)
-3. **Task 5: Security Hardening** 🔒 CRITICAL
+2. ~~Task 4: Configure DigitalOcean~~ ⏸️ **ON HOLD** - Exploring Cloudflare CDN (free) instead of DO log forwarding
+3. **Task 5: Security Hardening** 🔒 CRITICAL (still needed for OpenSearch)
 4. **Task 6: Verification Tests**
 
 ---
@@ -224,7 +224,19 @@ sudo ufw status
 
 ## Task 4: Configure NAT and DigitalOcean App Platform (Section 8)
 
-### 4a. Configure NAT Port Forwarding
+**⚠️ STATUS: ON HOLD**
+
+This task is on hold while exploring **Cloudflare CDN with free analytics** as an alternative to forwarding logs from DigitalOcean to OpenSearch. Cloudflare provides:
+- Free analytics dashboard
+- Global CDN + caching
+- DDoS protection
+- No $5/month cost for proxy app
+
+If Cloudflare analytics are insufficient or OpenSearch integration is still desired for log correlation, resume this task using the nginx proxy solution documented in `NGINX-PROXY-SETUP.md`.
+
+---
+
+### 4a. Configure NAT Port Forwarding (if proceeding with DO log forwarding)
 
 **On your router/firewall:**
 - Forward **external port 9443** → **kinglear:443**
@@ -246,7 +258,7 @@ curl -I https://opensearch-ingest.cani.ne.jp:9443/health
 3. Click **Edit** or **Add Destination**
 4. Select **OpenSearch**
 5. Configure:
-   - **Endpoint URL**: `https://opensearch-ingest.cani.ne.jp:9443/_bulk`
+   - **Endpoint URL**: `https://opensearch-ingest.cani.ne.jp:29443/_bulk`
    - **Index name**: `dogblog-logs` (or your preferred name)
    - **Authentication**: None (using nginx path restrictions + TLS)
 6. **Save** and **Enable** log forwarding

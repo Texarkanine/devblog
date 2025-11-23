@@ -16,8 +16,8 @@
 - [x] Section 5: Configure Nginx (requires sudo 👨‍💻)
 - [x] Section 6: Set Up SSL with acme.sh ✅ **COMPLETE** - Certs in /root/letsencrypt/live/
 - [x] Section 7: Start Services ✅ **COMPLETE** - OpenSearch status: GREEN
-- [ ] Section 8: Configure DigitalOcean (NAT port 9443) 👨‍💻 **NEXT**
-- [ ] Section 9: Security Hardening 🔒 **CRITICAL**
+- [ ] Section 8: Configure DigitalOcean ⏸️ **ON HOLD** - Exploring Cloudflare CDN (free) instead
+- [ ] Section 9: Security Hardening 🔒 **NEXT - CRITICAL**
 - [ ] Section 10: Verification
 - [ ] Section 11: Cleanup and Documentation
 
