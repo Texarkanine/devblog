@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>I Built a Logging Server to Log a Serverless Site</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="I Built a Logging Server to Log a Serverless Site" />
+<meta name="author" content="Niko" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But DigitalOcean’s static site hosting, elegant in its simplicity, doesn’t generate them. To get visibility into who visits my blog, I’d need to build my own logging infrastructure." />
+<meta property="og:description" content="I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But DigitalOcean’s static site hosting, elegant in its simplicity, doesn’t generate them. To get visibility into who visits my blog, I’d need to build my own logging infrastructure." />
+<link rel="canonical" href="https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs.html" />
+<meta property="og:url" content="https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs.html" />
+<meta property="og:site_name" content="🐶 Dog with a Dev Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-23T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="I Built a Logging Server to Log a Serverless Site" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Niko"},"dateModified":"2025-11-23T00:00:00+00:00","datePublished":"2025-11-23T00:00:00+00:00","description":"I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But DigitalOcean’s static site hosting, elegant in its simplicity, doesn’t generate them. To get visibility into who visits my blog, I’d need to build my own logging infrastructure.","headline":"I Built a Logging Server to Log a Serverless Site","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs.html"},"url":"https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="https://blog.cani.ne.jp/feed.xml" title="🐶 Dog with a Dev Blog" /><link rel="shortcut icon" type="image/x-icon" href="" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.css" integrity="sha384-OH8qNTHoMMVNVcKdKewlipV4SErXqccxxlg6HC9Cwjr5oZu2AdBej1TndeCirael" crossorigin="anonymous">
+
+</head>
+<body a="light">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <p><a href="/">..</a></p>
+
+<header>
+  <h1>I Built a Logging Server to Log a Serverless Site</h1>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      
+      <span>
+        by: <a href="/authors/niko/">niko</a>
+      </span>
+      
+    </div>
+    <div>
+      <span class="post-meta">2025-11-23</span>
+    </div>
+  </div>
+</header>
+
+<article>
+  <p>I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But <a href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform" target="_blank" rel="noopener noreferrer">DigitalOcean’s static site hosting</a>, elegant in its simplicity, doesn’t generate them. To get visibility into who visits my blog, I’d need to build my own logging infrastructure.</p>
+
+<p>The plan: deploy <a href="https://opensearch.org/" target="_blank" rel="noopener noreferrer">OpenSearch</a> on my home server, forward logs from DigitalOcean, and build dashboards to analyze traffic. Simple enough.</p>
+
+<h2 id="the-first-lesson-storage">The First Lesson: Storage</h2>
+
+<p>OpenSearch runs best in Docker. The official images provide everything needed - just add a <code class="language-plaintext highlighter-rouge">docker-compose.yaml</code> and go. I specified named volumes for data persistence:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">volumes</span><span class="pi">:</span>
+  <span class="s">opensearch-data:/usr/share/opensearch/data</span>
+</code></pre></div></div>
+
+<p>This looks clean, but named Docker volumes live in <code class="language-plaintext highlighter-rouge">/var/lib/docker/volumes/</code> by default. My root partition was already 47% full; my <code class="language-plaintext highlighter-rouge">/data</code> partition had 196GB free. And <code class="language-plaintext highlighter-rouge">/data</code> is a RAID array. I needed bind mounts instead:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">volumes</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">/data/opensearch/data:/usr/share/opensearch/data</span>
+</code></pre></div></div>
+
+<h2 id="the-user-permission-problem">The User Permission Problem</h2>
+
+<p>I run services on my home server as specific users, not as root or random UIDs. OpenSearch runs as UID 1000 inside its container. UID 1000 on my system is a real user who shouldn’t have access to OpenSearch data. The solution seemed obvious:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">opensearch</span><span class="pi">:</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1003:1004"</span>  <span class="c1"># opensearch user</span>
+</code></pre></div></div>
+
+<p>The containers started, then immediately failed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opensearch | /bin/bash: ./opensearch-docker-entrypoint.sh: Permission denied
+</code></pre></div></div>
+
+<p>The entrypoint scripts inside the container image are owned by UID 1000. Running the container as UID 1003 meant that user couldn’t execute them. Container images bake in assumptions about who runs them.</p>
+
+<p>I removed the <code class="language-plaintext highlighter-rouge">user:</code> directive and let the containers run as their default UID 1000. Docker provides isolation; the containers can’t escape to become that user on the host system anyway. Sometimes the path of least resistance is correct.</p>
+
+<h2 id="the-ssl-certificate-dance">The SSL Certificate Dance</h2>
+
+<p>OpenSearch would receive logs over HTTPS from DigitalOcean. I needed an SSL certificate for a domain that I could NAT into my home server. Let’s Encrypt provides free certificates, but their standard HTTP-01 validation requires port 80 accessible from the internet. Port 80 on my server was already occupied, and I didn’t want to expose another service to the scanner bots that probe every public port.</p>
+
+<p>DNS-01 validation was the answer. Instead of serving a file on port 80, I’d prove domain ownership by creating DNS TXT records. The catch: Let’s Encrypt’s <code class="language-plaintext highlighter-rouge">certbot</code> doesn’t support my DNS provider, FreeDNS.</p>
+
+<p>I found <a href="https://github.com/acmesh-official/acme.sh" target="_blank" rel="noopener noreferrer"><code class="language-plaintext highlighter-rouge">acme.sh</code>, an alternative ACME client that supports FreeDNS via its API</a>. Installing it as root (not as my user account) ensured automatic renewals would work.</p>
+
+<p>The tool created a DNS TXT record, Let’s Encrypt verified it, and I had a certificate. No port 80 exposure required. The certificate renews automatically every 60 days via a cron job, and nginx reloads seamlessly when it does.</p>
+
+<h2 id="the-irony-of-static-sites">The Irony of Static Sites</h2>
+
+<p>With OpenSearch running and SSL configured, I turned to DigitalOcean’s log forwarding feature. Their UI is straightforward: select OpenSearch as the destination, provide the endpoint URL, configure authentication. But when I looked for the logs to forward, I discovered the problem.</p>
+
+<p>DigitalOcean’s static site hosting doesn’t generate access logs.</p>
+
+<p>The feature exists for their App Platform compute instances, but static sites - being static - have no application logs to forward. I’d need to deploy a compute instance that proxies requests to the static site just to generate the logs I wanted.</p>
+
+<p>The irony: I’m paying $0/month for static site hosting because there’s no server-side processing. To get access logs, I’d need to pay $5/month for a server that does nothing but proxy requests and log them.</p>
+
+<p>I built an <a href="https://nginx.org/" target="_blank" rel="noopener noreferrer">nginx</a> container that accepts requests, logs them in JSON format, and forwards them to the actual static site. The container uses environment variables for configuration - no identifying information committed to the repository:</p>
+
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">upstream</span> <span class="s">backend_static</span> <span class="p">{</span>
+    <span class="kn">server</span> $<span class="p">{</span><span class="kn">UPSTREAM_HOST</span><span class="err">}</span><span class="p">:</span><span class="mi">443</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+    <span class="kn">proxy_pass</span> <span class="s">https://backend_static</span>$<span class="p">{</span><span class="kn">UPSTREAM_PATH</span><span class="err">}</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Host</span> $<span class="p">{</span><span class="kn">UPSTREAM_HOST_HEADER</span><span class="err">}</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>GitHub Actions builds the image automatically and publishes it to GitHub Container Registry. DigitalOcean pulls the image, and I configure the necessary environment variables in their UI. The static site remains unchanged; the proxy sits in front of it.</p>
+
+<p>The setup works. I’m paying $5/month for visibility into my site’s traffic.</p>
+
+<h2 id="the-log-processing-pipeline">The Log Processing Pipeline</h2>
+
+<p>DigitalOcean forwards logs to OpenSearch, but they contain a mix of JSON access logs and plain text error messages. OpenSearch needs to parse them correctly.</p>
+
+<p>An <a href="https://docs.opensearch.org/latest/ingest-pipelines/" target="_blank" rel="noopener noreferrer">ingest pipeline</a> handles this. It attempts to parse each log entry as JSON. If parsing succeeds, it extracts the fields and marks the entry as <code class="language-plaintext highlighter-rouge">log_type: "access"</code>. If parsing fails, it marks it as <code class="language-plaintext highlighter-rouge">log_type: "error"</code> and stores the raw text:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"json"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"log"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"target_field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"parsed"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"ignore_failure"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"script"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"if (ctx.containsKey('parsed') &amp;&amp; ctx['parsed'] != null) {
+          ctx['log_type'] = 'access';
+          for (def entry : ctx['parsed'].entrySet()) {
+            ctx[entry.getKey()] = entry.getValue();
+          }
+          ctx.remove('parsed');
+        } else {
+          ctx['log_type'] = 'error';
+          ctx['error_message'] = ctx['log'];
+        }"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The pipeline lives in OpenSearch’s cluster state. Install it once via the API, and it persists across restarts. I created an index template that applies the pipeline automatically to the index Opensearch is forwarding logs to.</p>
+
+<h2 id="the-final-architecture">The Final Architecture</h2>
+
+<p>The pieces work together:</p>
+
+<ol>
+  <li>Visitor requests <code class="language-plaintext highlighter-rouge">blog.cani.ne.jp</code>
+</li>
+  <li>DNS resolves to DigitalOcean App Platform</li>
+  <li>Nginx proxy container (running on DO) receives the request</li>
+  <li>Proxy logs the request as JSON to stdout</li>
+  <li>Proxy forwards the request to the actual static site</li>
+  <li>Static site returns the content</li>
+  <li>DigitalOcean’s log forwarding sends logs to my home server’s OpenSearch endpoint</li>
+  <li>Nginx on my home server (with Let’s Encrypt certificate) receives them</li>
+  <li>OpenSearch ingests and indexes the logs</li>
+  <li>Pipeline extracts fields from JSON logs</li>
+  <li>OpenSearch Dashboards visualizes the data</li>
+</ol>
+
+<p>I can now see which pages are popular, where visitors come from, and how they navigate the site. The dashboards show traffic patterns I couldn’t see before. Importantly, this is from server-side metrics - no JavaScript required!</p>
+
+<h2 id="what-it-cost">What It Cost</h2>
+
+<p>The final setup:</p>
+<ul>
+  <li>OpenSearch cluster on my home server: “$0” (existing hardware)</li>
+  <li>SSL certificate from Let’s Encrypt: $0 (DNS-01 validation via FreeDNS)</li>
+  <li>Nginx proxy running on DigitalOcean: $5/month (Basic instance)</li>
+  <li>Static site hosting: $0 (unchanged)</li>
+</ul>
+
+<p>I’m paying five dollars a month so my free static site can generate access logs.</p>
+
+<p>The nginx proxy is completely transparent. Visitors see no difference in performance or behavior… if anything there may be a slight degradation as the tiny compute instance hosting the nginx is likely less-performant than the CDN-powered static site it sits in front of. The proxy accepts the request, logs it to stdout in JSON format, forwards the request to the actual static site behind it, and returns the response. DigitalOcean’s log forwarding picks up those JSON logs and sends them to my OpenSearch endpoint over HTTPS. The OpenSearch ingest pipeline parses the JSON, extracts the fields, and indexes the documents. The dashboards update automatically.</p>
+
+<p>I built a logging server to log a serverless site.</p>
+
+<p>The absurdity isn’t lost on me. Static site hosting exists because you don’t need a server - your content sits in object storage behind a CDN. The whole point is the absence of computation. But I wanted to know who’s reading my blog, and logs require computation. Someone has to write them.</p>
+
+<p>So I rebuilt the server. Five dollars a month. Sixty dollars a year. The OpenSearch cluster hums along on my home server, accepting logs, parsing them with a pipeline that detects JSON versus plain text errors, and displaying them in dashboards I can access from my LAN.</p>
+
+<p>It works. If you’re reading this, you’re in there now, too, somewhere!</p>
+
+</article>
+
+<footer>
+  
+  
+  <p>
+    tagged: 
+    
+      <a href="/tags/opensearch/">opensearch</a>, 
+    
+      <a href="/tags/docker/">docker</a>, 
+    
+      <a href="/tags/nginx/">nginx</a>, 
+    
+      <a href="/tags/digitalocean/">digitalocean</a>, 
+    
+      <a href="/tags/ssl/">ssl</a>, 
+    
+      <a href="/tags/letsencrypt/">letsencrypt</a>, 
+    
+      <a href="/tags/observability/">observability</a>
+    
+  </p>
+  
+</footer>
+
+<p><a href="/">..</a></p>
+
+      </div>
+    </main>
+  </body>
+</html>
