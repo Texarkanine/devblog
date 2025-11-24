@@ -7,13 +7,13 @@ layout: default
 {% assign author_data = site.data.authors[author_id] %}
 
 {% if author_data %}
-<h1>author: {% if site.theme_config.lowercase_titles %}{{ author_data.name | downcase }}{% else %}{{ author_data.name }}{% endif %}</h1>
-<p>{{ author_data.bio }}</p>
+<h1>author: {% if site.theme_config.lowercase_titles %}{{ author_data.name | downcase | escape }}{% else %}{{ author_data.name | escape }}{% endif %}</h1>
+<p>{{ author_data.bio | escape }}</p>
 {% if author_data.github %}
-<p><a href="https://github.com/{{ author_data.github }}">github.com/{{ author_data.github }}</a></p>
+<p><a href="https://github.com/{{ author_data.github | escape }}">github.com/{{ author_data.github | escape }}</a></p>
 {% endif %}
 {% else %}
-<h1>{% if site.theme_config.lowercase_titles %}{{ author_id | downcase }}{% else %}{{ author_id }}{% endif %}</h1>
+<h1>{% if site.theme_config.lowercase_titles %}{{ author_id | downcase | escape }}{% else %}{{ author_id | escape }}{% endif %}</h1>
 {% endif %}
 
 <h2>posts</h2>

@@ -3,7 +3,7 @@ layout: default
 ---
 <p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
 
-<h1>tag: {% if site.theme_config.lowercase_titles %}{{ page.title | downcase }}{% else %}{{ page.title }}{% endif %}</h1>
+<h1>tag: {% if site.theme_config.lowercase_titles %}{{ page.title | downcase | escape }}{% else %}{{ page.title | escape }}{% endif %}</h1>
 
 <ul>
   {% for post in page.posts %}
