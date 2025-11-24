@@ -46,6 +46,7 @@ jobs:
     needs: build
     steps:
       - name: Deploy to GitHub Pages via API
+        skip: true
         id: deployment
         uses: actions/deploy-pages@v4
       
