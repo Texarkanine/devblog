@@ -1,6 +1,6 @@
 # DevBlog
 
-https://dev.cani.ne.jp/
+https://blog.cani.ne.jp/
 
 ## Local Development
 
