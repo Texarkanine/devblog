@@ -51,10 +51,5 @@ server {
         proxy_buffer_size 4k;
         proxy_buffers 8 4k;
         proxy_busy_buffers_size 8k;
-        
-        # Cache static assets locally (optional but reduces load)
-        proxy_cache_valid 200 302 10m;
-        proxy_cache_valid 404 1m;
-        add_header X-Cache-Status $upstream_cache_status;
     }
 }
