@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "sorting systemd ordering for mempool explorer"
+title: "Sorting systemd Ordering for Mempool Explorer"
 author: niko
 tags: [systemd, mempool-explorer, bitcoind, bitcoin, dependencies]
 ---

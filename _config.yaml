@@ -1,6 +1,6 @@
 # Site Configuration
 title: "🐶 Dog with a Dev Blog"
-description: "On the internet, nobody knows you're a dog and a cat and a computer."
+description: "On the internet, nobody knows you're a dog and a cat and a latent space."
 url: "https://blog.cani.ne.jp"
 baseurl: ""
 
@@ -11,13 +11,16 @@ theme_config:
   back_home_text: ".."
   date_format: "%Y-%m-%d"
   show_description: true
-  lowercase_titles: true
+  lowercase_titles: false
 
 sass:
   style: compressed
 
 markdown: kramdown
 highlighter: rouge
+
+# Permalinks w/out categories
+permalink: /:year/:month/:day/:title:output_ext
 
 # Collections
 collections:
@@ -51,7 +54,7 @@ jekyll-archives:
     - categories
   layouts:
     tag: tag-archive
-    category: tag-archive
+    category: cat-archive
   permalinks:
     tag: '/tags/:name/'
     category: '/categories/:name/'
@@ -62,7 +65,7 @@ autopages:
   tags:
     enabled: false
   categories:
-    enabled: false
+    enabled: true
   collections:
     enabled: false
   authors:

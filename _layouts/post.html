@@ -8,9 +8,23 @@ layout: default
   <h1>{{ page.title }}</h1>
   <div style="display: flex; justify-content: space-between; align-items: center;">
     <div>
+      {% if page.categories.size > 0 %}
+      {% assign cat = page.categories.last %}
+      {% assign first_letter = cat | slice: 0, 1 | downcase %}
+      {% assign vowels = "a,e,i,o,u" | split: "," %}
+      {% if vowels contains first_letter %}
+      <span>
+        an <a href="{{ site.baseurl }}/categories/{{ cat | slugify }}/">{{ cat | escape }}</a>
+      </span>
+      {% else %}
+      <span>
+        a <a href="{{ site.baseurl }}/categories/{{ cat | slugify }}/">{{ cat | escape }}</a>
+      </span>
+      {% endif %}
+      {% endif %}
       {% if page.author %}
       <span>
-        by: <a href="{{ site.baseurl }}/authors/{{ page.author | slugify }}/">{{ page.author }}</a>
+        by <a href="{{ site.baseurl }}/authors/{{ page.author | slugify }}/">{{ page.author | escape }}</a>
       </span>
       {% endif %}
     </div>
@@ -30,7 +44,7 @@ layout: default
   <p>
     tagged: 
     {% for tag in page.tags %}
-      <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+      <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}</a>{% unless forloop.last %}, {% endunless %}
     {% endfor %}
   </p>
   {% endif %}
