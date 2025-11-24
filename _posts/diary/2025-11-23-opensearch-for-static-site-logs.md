@@ -122,7 +122,7 @@ The pipeline lives in OpenSearch's cluster state. Install it once via the API, a
 
 The pieces work together:
 
-1. Visitor requests `dogblog.cani.ne.jp`
+1. Visitor requests `blog.cani.ne.jp`
 2. DNS resolves to DigitalOcean App Platform
 3. Nginx proxy container (running on DO) receives the request
 4. Proxy logs the request as JSON to stdout
