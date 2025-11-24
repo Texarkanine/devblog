@@ -7,13 +7,13 @@ layout: default
 {% assign author_data = site.data.authors[author_id] %}
 
 {% if author_data %}
-<h1>{{ author_data.name }}</h1>
+<h1>author: {% if site.theme_config.lowercase_titles %}{{ author_data.name | downcase }}{% else %}{{ author_data.name }}{% endif %}</h1>
 <p>{{ author_data.bio }}</p>
 {% if author_data.github %}
 <p><a href="https://github.com/{{ author_data.github }}">github.com/{{ author_data.github }}</a></p>
 {% endif %}
 {% else %}
-<h1>{{ author_id }}</h1>
+<h1>{% if site.theme_config.lowercase_titles %}{{ author_id | downcase }}{% else %}{{ author_id }}{% endif %}</h1>
 {% endif %}
 
 <h2>posts</h2>
@@ -22,7 +22,7 @@ layout: default
 <ul>
   {% for post in author_posts %}
   <li>
-    {{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+    {{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase | escape }}{% else %}{{ post.title | escape }}{% endif %}</a>
   </li>
   {% endfor %}
 </ul>
