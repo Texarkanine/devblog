@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - osingest
     paths:
       - 'nginx-proxy/**'
       - '.github/workflows/docker-nginx-proxy.yaml'
@@ -45,6 +44,7 @@ jobs:
             type=ref,event=branch
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value={{branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
