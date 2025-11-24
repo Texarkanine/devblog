@@ -9,7 +9,7 @@
 {% for tag in tags_by_count limit: limit %}
   {% assign tag_name = tag[0] %}
   {% assign tag_posts = tag[1] %}
-  <li><a href="{{ site.baseurl }}/tags/{{ tag_name | slugify }}/">{{ tag_name }}</a> ({{ tag_posts.size }})</li>
+  <li><a href="{{ site.baseurl }}/tags/{{ tag_name | slugify }}/">{{ tag_name | escape }}</a> ({{ tag_posts.size }})</li>
 {% endfor %}
 
 {% if include.show_more and site.tags.size > limit %}
