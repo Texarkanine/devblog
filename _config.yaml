@@ -66,6 +66,8 @@ autopages:
     enabled: false
   categories:
     enabled: true
+    layouts:
+      - 'cat-archive.html'
   collections:
     enabled: false
   authors:
