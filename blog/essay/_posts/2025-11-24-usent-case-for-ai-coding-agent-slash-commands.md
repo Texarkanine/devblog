@@ -61,7 +61,7 @@ I assert that this situation is incredibly rare, and that most of the time a sit
 
 If you have a workflow you want to codify into something re-usable *and* that workflow has chronologically-interleaved NLP and deterministic tasks, then a slash-command sounds tempting. 
 
-Consider Cursor's example of `/pr` to open a GitHub Pull request, where the Agent has to identify the git diff (deterministic), figure out prose to describe the changes (NLP), find and fit it into a `PULL_REQUEST_TEMPLATE.md` if one exists (NLP), figure out the tooling availble for opening a pull request (NLP), then invoke the tool (deterministic)...
+Consider Cursor's example of `/pr` to open a GitHub Pull request, where the Agent has to identify the git diff (deterministic), figure out prose to describe the changes (NLP), find and fit it into a `PULL_REQUEST_TEMPLATE.md` if one exists (NLP), figure out the tooling available for opening a pull request (NLP), then invoke the tool (deterministic)...
 
 Oh, exactly like [this Cursor Rule](https://github.com/Texarkanine/.cursor-rules/blob/main/rules/github-open-a-pull-request-gh.mdc) that you don't have to explicitly, intentionally `/pr` for - you can just tell the agent to 
 
@@ -71,7 +71,7 @@ Again, *yes* `/pr` is little shorter but if you do that then you *can't* say `an
 
 Note that this only even applies when there are NLP and deterministic tasks chronologically *interleaved.* If the task is just "some NLP *and also* something deterministic," you probably want a proper **Tool** that the Agent can just figure out all the inputs for and then invoke, handing execution off to truly-deterministic traditional software.
 
-## What Would Change My  Mind
+## What Would Change My Mind
 
 If, instead of just binding to text prompts, slash-commands offered a structured way to bind a command to a combination of LLM NLP and deterministic software. 
 
