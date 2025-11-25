@@ -81,6 +81,10 @@ autopages:
       mode: 'default'
       cased: false
 
+# image-paths (local)
+image_paths:
+  base_url: /assets/img
+
 # jekyll-paginate-v2 (required for jekyll-auto-authors)
 pagination:
   enabled: false
