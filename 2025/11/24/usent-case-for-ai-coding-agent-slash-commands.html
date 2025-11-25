@@ -126,7 +126,7 @@
 
 <p>If you have a workflow you want to codify into something re-usable <em>and</em> that workflow has chronologically-interleaved NLP and deterministic tasks, then a slash-command sounds tempting.</p>
 
-<p>Consider Cursor’s example of <code class="language-plaintext highlighter-rouge">/pr</code> to open a GitHub Pull request, where the Agent has to identify the git diff (deterministic), figure out prose to describe the changes (NLP), find and fit it into a <code class="language-plaintext highlighter-rouge">PULL_REQUEST_TEMPLATE.md</code> if one exists (NLP), figure out the tooling availble for opening a pull request (NLP), then invoke the tool (deterministic)…</p>
+<p>Consider Cursor’s example of <code class="language-plaintext highlighter-rouge">/pr</code> to open a GitHub Pull request, where the Agent has to identify the git diff (deterministic), figure out prose to describe the changes (NLP), find and fit it into a <code class="language-plaintext highlighter-rouge">PULL_REQUEST_TEMPLATE.md</code> if one exists (NLP), figure out the tooling available for opening a pull request (NLP), then invoke the tool (deterministic)…</p>
 
 <p>Oh, exactly like <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rules/github-open-a-pull-request-gh.mdc" target="_blank" rel="noopener noreferrer">this Cursor Rule</a> that you don’t have to explicitly, intentionally <code class="language-plaintext highlighter-rouge">/pr</code> for - you can just tell the agent to</p>
 
@@ -138,7 +138,7 @@
 
 <p>Note that this only even applies when there are NLP and deterministic tasks chronologically <em>interleaved.</em> If the task is just “some NLP <em>and also</em> something deterministic,” you probably want a proper <strong>Tool</strong> that the Agent can just figure out all the inputs for and then invoke, handing execution off to truly-deterministic traditional software.</p>
 
-<h2 id="what-would-change-my--mind">What Would Change My  Mind</h2>
+<h2 id="what-would-change-my-mind">What Would Change My Mind</h2>
 
 <p>If, instead of just binding to text prompts, slash-commands offered a structured way to bind a command to a combination of LLM NLP and deterministic software.</p>
 
