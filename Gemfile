@@ -5,14 +5,18 @@ gem "jekyll", "~> 4.3"
 gem "logger"
 
 
+
 group :jekyll_plugins do
-  gem "jekyll-remote-theme"
-  gem "jekyll-archives", "~>2.2"
-  gem "jekyll-seo-tag"
-  gem "jekyll-feed"
-  gem "jektex"
+  # Order matters, paginate-v2 must be before jekyll-auto-authors
   gem "jekyll-paginate-v2"
+
+  # The rest
+  gem "jektex"
+  gem "jekyll-archives", "~>2.2"
   gem "jekyll-auto-authors"
+  gem "jekyll-feed"
+  gem "jekyll-remote-theme"
+  gem "jekyll-seo-tag"
   gem "jekyll-target-blank"
 end
 
