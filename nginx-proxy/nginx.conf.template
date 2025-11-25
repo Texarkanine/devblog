@@ -13,6 +13,7 @@ http {
 
     # JSON log format for OpenSearch ingestion
     # APP_NAME is set via environment variable
+    # Test comment
     log_format json_combined escape=json '{'
         '"@timestamp":"$time_iso8601",'
         '"remote_addr":"$remote_addr",'
