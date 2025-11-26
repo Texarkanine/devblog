@@ -1,5 +1,5 @@
 ---
 layout: home
 permalink: /
-title: "🐶 Dog with a Dev Blog"
+title: "Dog with a Dev Blog"
 ---
