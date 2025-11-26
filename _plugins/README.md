@@ -141,3 +141,81 @@ This plugin works independently of `image_paths.rb` - both process images in seq
 ```
 
 The image_sizing plugin processes first (parsing the syntax), then image_paths resolves the path and applies CDN configuration.
+
+---
+
+## garden_archives.rb
+
+Generates tag/category archive pages for custom collections (e.g., `garden`) by reusing `jekyll-archives`.
+
+### Features
+
+- **Collection-aware archives**: Applies `jekyll-archives` logic to any collection listed under `jekyll-archives.collections`.
+- **Layout/permalink inheritance**: Falls back to the global `jekyll-archives` layouts/permalinks if a collection-specific value isn’t provided.
+- **Automatic page injection**: Emits `Jekyll::Archives::Archive` pages so the output matches built-in tag archives.
+
+### Configuration
+
+Add a collection block under `jekyll-archives` in `_config.yaml`:
+
+```yaml
+jekyll-archives:
+  enabled:
+    - tags
+  layouts:
+    tag: tag-archive
+  permalinks:
+    tag: '/tags/:name/'
+  collections:
+    garden:
+      enabled:
+        - tags
+      layouts:
+        tag: garden-tag-archive
+      permalinks:
+        tag: '/garden/tags/:name/'
+```
+
+Running `bundle exec jekyll build` then produces `/garden/tags/<slug>/` pages that list garden notes sharing that tag.
+
+---
+
+## link_card_tag.rb
+
+Liquid tag that renders a centered blockquote “card” and optionally archives each URL via archive.org’s SavePageNow API.
+
+### Usage
+
+```liquid
+{% linkcard https://example.com "Optional Title" %}
+```
+
+- First argument: URL (required; can be literal or Liquid expression).
+- Remaining text: optional title; omitted if blank.
+
+- ### Features
+  
+- **SavePageNow integration**: When `LINKCARD_ARCHIVE_SAVE=1` is set, each card submits its URL to `https://web.archive.org/save/...` and renders an `(archive)` badge if the response returns a `Content-Location`.
+- **Existing snapshot fallback**: Even when fresh submissions are disabled (or SavePageNow doesn’t return a location), the tag queries the Wayback CDX API for the latest available snapshot and links to that.
+- **Per-build caching**: Each unique URL is archived/looked-up at most once per build even if referenced multiple times.
+- **Logging**: Emits `linkcard Submitting to SavePageNow: <url>` and success/failure logs via `Jekyll.logger`.
+- **Styling hooks**: Renders predictable HTML so you can target `.link-card` or override inline styles.
+
+### Environment Variables
+
+- `LINKCARD_ARCHIVE_SAVE` - set to `1` to enable SavePageNow submissions (default: disabled).
+- `LINKCARD_ARCHIVE_UA` - custom User-Agent string for archive requests.
+- `LINKCARD_ARCHIVE_CONTACT` - inserted into the default UA when `LINKCARD_ARCHIVE_UA` isn’t provided; typically an email or profile URL.
+
+Example GitHub Actions step:
+
+```yaml
+- name: Build site
+  run: bundle exec jekyll build
+  env:
+    LINKCARD_ARCHIVE_SAVE: "1"
+    LINKCARD_ARCHIVE_UA: "my-archiver/1.0 (+https://example.com/about)"
+    LINKCARD_ARCHIVE_CONTACT: "ops@example.com"
+```
+
+If SavePageNow doesn’t return a snapshot URL (e.g., queued or rate-limited), the card still renders normally but the `(archive)` line is omitted - no build failure occurs.

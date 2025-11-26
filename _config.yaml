@@ -27,6 +27,9 @@ collections:
   pages:
     output: true
     permalink: /:path/
+  garden:
+    output: true
+    permalink: /garden/:path/
 
 # Build settings
 exclude:
@@ -59,6 +62,14 @@ jekyll-archives:
   permalinks:
     tag: '/tags/:name/'
     category: '/categories/:name/'
+  collections:
+    garden:
+      enabled:
+        - tags
+      layouts:
+        tag: garden-tag-archive
+      permalinks:
+        tag: '/garden/tags/:name/'
 
 # jekyll-auto-authors
 autopages:
