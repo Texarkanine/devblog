@@ -17,9 +17,9 @@ Why, though?
 
 > I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.
 
-The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else would now be taking up *metered* DigitalOcean compute and bandwidth on the nginx instance. For a *static site*, that seems even goofier than the nginx metrics solution already was.
+The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant *metered* DigitalOcean compute and bandwidth on the nginx instance. For a *static site*, that seems even goofier than the nginx metrics solution already was.
 
-I had a couple options:
+I had several options:
 
 ## Option 1: Separate App & Jekyll Rewrite
 
@@ -45,7 +45,7 @@ This would also give me metrics on media requests!
 
 1. I'm still adding traffic to the nginx, and my inital goal was to reduce it!
 2. There's still ultimately a cross-domain situation, though the request path is slightly less sketchy.
-3. I'd have to add a rule to the nginx to block `/assets` requests on the main site.
+3. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
 
 ## Option 3: Same App, Separate Site
 
@@ -54,7 +54,7 @@ This will cause DigitalOcean's gateway (which is front of my nginx) to intercept
 
 This second site would be built off the `/assets` subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths *other* than `/assets` are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.
 
-Additionally, DigitalOcean's gateway is already routing all non-`/assets` requests to my nginx - thus saving me from having to add an explicit rule preventing it from serving them.
+Additionally, DigitalOcean's gateway is already routing all non-`/assets` requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.
 
 That's much simpler, and that's what I did!
 
