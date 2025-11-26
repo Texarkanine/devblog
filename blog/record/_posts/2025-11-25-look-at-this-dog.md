@@ -61,5 +61,3 @@ That's much simpler, and that's what I did!
 ---
 
 This setup does *not* get me metrics on media asset requests, but I can live with that. I'm building a blog, not a media host, after all.
-
-

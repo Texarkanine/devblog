@@ -97,6 +97,25 @@ Then realized: This only triggered when BOTH width and height were specified, no
 
 Removed ~15 lines of HR logic. Much cleaner.
 
+### Challenge 5: Auto-Linking
+
+After getting sizing working, realized it would be nice if sized images automatically linked to their full resolution. Click the thumbnail, see the full image in a new tab.
+
+But what if an image is already inside a link? Like `[text ![img](url =300x) more](example.com)`. Don't want to create nested anchors - the inner link would win and break the outer link.
+
+**Solution:** Detect if image is already inside an anchor tag. In the second pass of `post_render`, after applying sizing:
+1. Find images with width/height attributes
+2. Scan backwards from the image position
+3. Find the last `<a>` and `</a>` tags before the image
+4. If there's an unclosed `<a>` → inside anchor → skip
+5. Otherwise → wrap in `<a href="src" target="_blank" rel="noopener">`
+
+The regex `/<a[\s>]/` avoids matching `<article>` and `<aside>` tags. Used `rindex` to find the most recent occurrence, which is simpler than counting all anchors in the page.
+
+Added `target="_blank"` so full images open in new tab, and `rel="noopener"` for security.
+
+Tested with images inside text links, standalone sized images, and unsized images. All work correctly.
+
 ## The Final Result
 
 Two plugins, each doing one thing well:
@@ -111,8 +130,12 @@ Usage:
 
 Output:
 ```html
-<img src="/assets/img/blog/record/thisdog.jpg" alt="Dog" height="400">
+<a href="/assets/img/blog/record/thisdog.jpg" target="_blank" rel="noopener">
+  <img src="/assets/img/blog/record/thisdog.jpg" alt="Dog" height="400">
+</a>
 ```
+
+Sized images auto-link to full resolution. Unsized images stay plain. Images already inside links don't get double-wrapped.
 
 Both plugins run independently in sequence. No coupling. No complexity.
 
@@ -120,7 +143,7 @@ Both plugins run independently in sequence. No coupling. No complexity.
 
 **Separate concerns early.** Even if plugins process the same elements, if they serve different purposes, split them.
 
-**Feature creep is real.** The HR feature seemed cool but added complexity for marginal benefit. I can add `---` myself when I want horizontal rules.
+**Feature creep happens, but not all features are equal.** The HR feature added complexity for marginal benefit (I can add `---` myself). But auto-linking sized images to full resolution? That's genuinely useful every time, and the complexity is justified. Know the difference.
 
 **Debug output matters.** Added `puts` statements to see exactly what the regex was capturing. Crucial for debugging that `:` vs `x` separator issue.
 
@@ -128,7 +151,9 @@ Both plugins run independently in sequence. No coupling. No complexity.
 
 **HTML comments as data carriers work well.** Injecting structured comments in `pre_render` then parsing them in `post_render` bridged the Markdown→HTML transformation cleanly.
 
-**Simple is better.** The final versions are ~50-75 lines each, well-documented, with no clever tricks. Exactly what I wanted.
+**Simple is better.** The final versions are ~50-75 lines each (well, image_sizing grew to ~150 with the linking feature), well-documented, with no clever tricks. Exactly what I wanted.
+
+**State tracking isn't scary.** The code fence detection and anchor detection both required tracking state (are we inside something?). The logic is straightforward: find the last opening/closing pair, compare positions.
 
 ## What's Next?
 

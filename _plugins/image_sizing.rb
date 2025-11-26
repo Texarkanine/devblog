@@ -81,6 +81,7 @@ Jekyll::Hooks.register :posts, :post_render do |post|
   # Only process if output contains our sizing markers
   next unless post.output.include?('<!-- IMG_SIZE:')
   
+  # Pass 1: Apply sizing dimensions
   # Process img tags that have our sizing markers immediately after them
   # Handle both standalone and paragraph-wrapped images
   post.output = post.output.gsub(/(<p>)?<img\s+([^>]*)><!-- IMG_SIZE:([^:]+):([^\s]+) -->(<\/p>)?/) do
@@ -103,5 +104,44 @@ Jekyll::Hooks.register :posts, :post_render do |post|
     
     # Preserve paragraph tags
     "#{p_open}#{img_tag}#{p_close}"
+  end
+  
+  # Pass 2: Auto-link sized images to their full resolution
+  # Only wrap images that have width or height (indicating sizing was applied)
+  # and are NOT already inside an anchor tag
+  post.output = post.output.gsub(/(<p>)?(<img\s+[^>]*(?:width|height)=[^>]*>)(<\/p>)?/) do
+    p_open = Regexp.last_match(1)
+    img_tag = Regexp.last_match(2)
+    p_close = Regexp.last_match(3)
+    full_match = Regexp.last_match(0)
+    match_start = Regexp.last_match.begin(0)
+    
+    # Check if this img is inside an anchor
+    # Look backwards from the image position for the most recent anchor tags
+    text_before = post.output[0...match_start]
+    
+    # Find the last <a> and </a> tags before this image
+    # Use [\s>] to avoid matching <article>, <aside>, etc.
+    last_open = text_before.rindex(/<a[\s>]/)
+    last_close = text_before.rindex(/<\/a>/)
+    
+    # If there's an opening <a> after the last closing </a>, we're inside it
+    inside_anchor = last_open && (last_close.nil? || last_open > last_close)
+    
+    if inside_anchor
+      # Already inside an anchor, don't add another
+      full_match
+    else
+      # Not inside an anchor, wrap it
+      # Extract src attribute to use as href
+      src_match = img_tag.match(/src="([^"]*)"/)
+      if src_match
+        src = src_match[1]
+        "#{p_open}<a href=\"#{src}\" target=\"_blank\" rel=\"noopener\">#{img_tag}</a>#{p_close}"
+      else
+        # No src found (shouldn't happen), leave as-is
+        full_match
+      end
+    end
   end
 end

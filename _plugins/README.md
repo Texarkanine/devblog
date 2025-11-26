@@ -101,7 +101,7 @@ Add dimension specifications after the image URL:
 
 Result:
 ```html
-<p><img src="..." alt="Portrait" width="300" height="400"></p>
+<p><a href="..." target="_blank" rel="noopener"><img src="..." alt="Portrait" width="300" height="400"></a></p>
 ```
 
 **Width only:**
@@ -121,8 +121,14 @@ Result:
 
 Result:
 ```html
-<p><img src="..." alt="Tall image" height="500"></p>
+<p><a href="..." target="_blank" rel="noopener"><img src="..." alt="Tall image" height="500"></a></p>
 ```
+
+### Auto-Linking
+
+Sized images are automatically wrapped in anchor tags linking to the full-resolution image. The links open in a new tab (`target="_blank"`) with `rel="noopener"` for security.
+
+**Exception:** If an image is already inside a link (e.g., `[text ![img](url =300x) more](link)`), no additional anchor is added.
 
 ### Integration
 
