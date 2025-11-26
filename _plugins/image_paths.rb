@@ -29,7 +29,7 @@ Jekyll::Hooks.register :posts, :post_render do |post|
     after_src = Regexp.last_match(3)
     
     # Skip if the src is already absolute or a URL
-    if src.start_with?('http://', 'https://', '//', '//')
+    if src.start_with?('http://', 'https://', '//')
       match
     elsif src.start_with?('/')
       # Already absolute path, just prepend CDN if configured
