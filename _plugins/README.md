@@ -111,7 +111,7 @@ Result:
 
 Result:
 ```html
-<p><img src="..." alt="Landscape" width="600"></p>
+<p><a href="..." target="_blank" rel="noopener"><img src="..." alt="Landscape" width="600"></a></p>
 ```
 
 **Height only:**
@@ -126,9 +126,11 @@ Result:
 
 ### Auto-Linking
 
-Sized images are automatically wrapped in anchor tags linking to the full-resolution image. The links open in a new tab (`target="_blank"`) with `rel="noopener"` for security.
+**Any** sized image (with width, height, or both) is automatically wrapped in an anchor tag linking to the full-resolution image. The links open in a new tab (`target="_blank"`) with `rel="noopener"` for security.
 
 **Exception:** If an image is already inside a link (e.g., `[text ![img](url =300x) more](link)`), no additional anchor is added.
+
+**Note:** Unsized images (standard Markdown with no `=` syntax) are NOT auto-linked.
 
 ### Integration
 
