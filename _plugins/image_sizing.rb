@@ -14,6 +14,19 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   # Only process if content contains images with sizing syntax
   next unless post.content =~ /!\[.*?\]\(.*?\s+=.*?\)/
   
+  # Helper to parse dimension strings
+  parse_dimensions = lambda do |dim_str|
+    if dim_str.include?('x')
+      parts = dim_str.split('x', -1) # -1 to keep empty strings
+      width = parts[0] && !parts[0].empty? ? parts[0] : nil
+      height = parts[1] && !parts[1].empty? ? parts[1] : nil
+      [width, height]
+    else
+      # No 'x', treat as width only
+      [dim_str, nil]
+    end
+  end
+  
   # Split content by code fences to avoid processing images inside code blocks
   lines = post.content.split("\n")
   in_code_fence = false
@@ -50,7 +63,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
           dimensions = Regexp.last_match(3).strip
           
           # Parse dimension string (WxH, Wx, xH, or W)
-          width, height = parse_dimensions(dimensions)
+          width, height = parse_dimensions.call(dimensions)
           
           # Generate modified markdown that will become an img tag with our marker
           "![#{alt_text}](#{src})<!-- IMG_SIZE:#{width || 'auto'}:#{height || 'auto'} -->"
@@ -62,19 +75,6 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   end
   
   post.content = processed_lines.join("\n")
-end
-
-# Helper to parse dimension strings
-def parse_dimensions(dim_str)
-  if dim_str.include?('x')
-    parts = dim_str.split('x', -1) # -1 to keep empty strings
-    width = parts[0] && !parts[0].empty? ? parts[0] : nil
-    height = parts[1] && !parts[1].empty? ? parts[1] : nil
-    [width, height]
-  else
-    # No 'x', treat as width only
-    [dim_str, nil]
-  end
 end
 
 Jekyll::Hooks.register :posts, :post_render do |post|
