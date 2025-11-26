@@ -72,9 +72,9 @@
   <p>I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.</p>
 </blockquote>
 
-<p>The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else would now be taking up <em>metered</em> DigitalOcean compute and bandwidth on the nginx instance. For a <em>static site</em>, that seems even goofier than the nginx metrics solution already was.</p>
+<p>The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant <em>metered</em> DigitalOcean compute and bandwidth on the nginx instance. For a <em>static site</em>, that seems even goofier than the nginx metrics solution already was.</p>
 
-<p>I had a couple options:</p>
+<p>I had several options:</p>
 
 <h2 id="option-1-separate-app--jekyll-rewrite">Option 1: Separate App &amp; Jekyll Rewrite</h2>
 
@@ -104,7 +104,7 @@
 <ol>
   <li>I’m still adding traffic to the nginx, and my inital goal was to reduce it!</li>
   <li>There’s still ultimately a cross-domain situation, though the request path is slightly less sketchy.</li>
-  <li>I’d have to add a rule to the nginx to block <code class="language-plaintext highlighter-rouge">/assets</code> requests on the main site.</li>
+  <li>If I ever changed the image host URL, cached versions of the site (or others’ links to the images) could break.</li>
 </ol>
 
 <h2 id="option-3-same-app-separate-site">Option 3: Same App, Separate Site</h2>
@@ -114,7 +114,7 @@ This will cause DigitalOcean’s gateway (which is front of my nginx) to interce
 
 <p>This second site would be built off the <code class="language-plaintext highlighter-rouge">/assets</code> subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths <em>other</em> than <code class="language-plaintext highlighter-rouge">/assets</code> are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.</p>
 
-<p>Additionally, DigitalOcean’s gateway is already routing all non-<code class="language-plaintext highlighter-rouge">/assets</code> requests to my nginx - thus saving me from having to add an explicit rule preventing it from serving them.</p>
+<p>Additionally, DigitalOcean’s gateway is already routing all non-<code class="language-plaintext highlighter-rouge">/assets</code> requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.</p>
 
 <p>That’s much simpler, and that’s what I did!</p>
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-11-26T03:17:31+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat and a latent space.</subtitle><entry><title type="html">Two Jekyll Image Plugins</title><link href="https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.html" rel="alternate" type="text/html" title="Two Jekyll Image Plugins" /><published>2025-11-25T00:00:00+00:00</published><updated>2025-11-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.html"><![CDATA[<p>Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-11-26T14:52:51+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat and a latent space.</subtitle><entry><title type="html">Two Jekyll Image Plugins</title><link href="https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.html" rel="alternate" type="text/html" title="Two Jekyll Image Plugins" /><published>2025-11-25T00:00:00+00:00</published><updated>2025-11-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.html"><![CDATA[<p>Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.</p>
 
 <h2 id="the-initial-problem">The Initial Problem</h2>
 
@@ -171,9 +171,9 @@ Problem: Regex parsing got confused when splitting on ‘x’.</p>
   <p>I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.</p>
 </blockquote>
 
-<p>The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else would now be taking up <em>metered</em> DigitalOcean compute and bandwidth on the nginx instance. For a <em>static site</em>, that seems even goofier than the nginx metrics solution already was.</p>
+<p>The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant <em>metered</em> DigitalOcean compute and bandwidth on the nginx instance. For a <em>static site</em>, that seems even goofier than the nginx metrics solution already was.</p>
 
-<p>I had a couple options:</p>
+<p>I had several options:</p>
 
 <h2 id="option-1-separate-app--jekyll-rewrite">Option 1: Separate App &amp; Jekyll Rewrite</h2>
 
@@ -203,7 +203,7 @@ Problem: Regex parsing got confused when splitting on ‘x’.</p>
 <ol>
   <li>I’m still adding traffic to the nginx, and my inital goal was to reduce it!</li>
   <li>There’s still ultimately a cross-domain situation, though the request path is slightly less sketchy.</li>
-  <li>I’d have to add a rule to the nginx to block <code class="language-plaintext highlighter-rouge">/assets</code> requests on the main site.</li>
+  <li>If I ever changed the image host URL, cached versions of the site (or others’ links to the images) could break.</li>
 </ol>
 
 <h2 id="option-3-same-app-separate-site">Option 3: Same App, Separate Site</h2>
@@ -213,7 +213,7 @@ This will cause DigitalOcean’s gateway (which is front of my nginx) to interce
 
 <p>This second site would be built off the <code class="language-plaintext highlighter-rouge">/assets</code> subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths <em>other</em> than <code class="language-plaintext highlighter-rouge">/assets</code> are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.</p>
 
-<p>Additionally, DigitalOcean’s gateway is already routing all non-<code class="language-plaintext highlighter-rouge">/assets</code> requests to my nginx - thus saving me from having to add an explicit rule preventing it from serving them.</p>
+<p>Additionally, DigitalOcean’s gateway is already routing all non-<code class="language-plaintext highlighter-rouge">/assets</code> requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.</p>
 
 <p>That’s much simpler, and that’s what I did!</p>
 
