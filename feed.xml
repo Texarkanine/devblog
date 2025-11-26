@@ -1,4 +1,225 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-11-25T22:55:43+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat and a latent space.</subtitle><entry><title type="html">I Can’t ai-rizz on Command</title><link href="https://blog.cani.ne.jp/2025/11/24/cant-ai-rizz-on-command.html" rel="alternate" type="text/html" title="I Can’t ai-rizz on Command" /><published>2025-11-24T00:00:00+00:00</published><updated>2025-11-24T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/24/cant-ai-rizz-on-command</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/24/cant-ai-rizz-on-command.html"><![CDATA[<p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - <a href="https://code.claude.com/docs/en/skills">Agent Skills</a> - for a long time.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-11-26T03:17:31+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat and a latent space.</subtitle><entry><title type="html">Two Jekyll Image Plugins</title><link href="https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.html" rel="alternate" type="text/html" title="Two Jekyll Image Plugins" /><published>2025-11-25T00:00:00+00:00</published><updated>2025-11-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.html"><![CDATA[<p>Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.</p>
+
+<h2 id="the-initial-problem">The Initial Problem</h2>
+
+<p>I had a post in <code class="language-plaintext highlighter-rouge">blog/record/_posts/</code> with an image reference:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Look at this dog</span><span class="p">](</span><span class="sx">/blog/record/thisdog.jpg</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>That <code class="language-plaintext highlighter-rouge">/blog/record/</code> path felt redundant - the post already lives in that directory. Why repeat myself? Plus, we had <code class="language-plaintext highlighter-rouge">jekyll-images-cdn</code> for prepending CDN URLs, which was working fine for local development with <code class="language-plaintext highlighter-rouge">/assets/img</code>. We had already shaved <em>that</em> prefix off, why couldn’t we shave off the rest of the prefix?</p>
+
+<h2 id="first-solution-image_pathsrb">First Solution: image_paths.rb</h2>
+
+<p>Built a plugin that:</p>
+<ol>
+  <li>Extracts the post’s directory from its path</li>
+  <li>Resolves relative image paths (like <code class="language-plaintext highlighter-rouge">thisdog.jpg</code>) to that directory</li>
+  <li>Applies CDN configuration from <code class="language-plaintext highlighter-rouge">_config.yaml</code></li>
+</ol>
+
+<p>So now I can write <code class="language-plaintext highlighter-rouge">![Dog](thisdog.jpg)</code> and get <code class="language-plaintext highlighter-rouge">/assets/img/blog/record/thisdog.jpg</code>. Perfect. Removed <code class="language-plaintext highlighter-rouge">jekyll-images-cdn</code> since we integrated that functionality directly.</p>
+
+<h2 id="the-second-problem">The Second Problem</h2>
+
+<p>I have a tall, narrow image that was filling 100% width and dominating the page. I wanted dimension control. Found that some Markdown processors support extended syntax like:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Image</span><span class="p">](</span><span class="sx">photo.jpg</span> =300x200)
+</code></pre></div></div>
+
+<p>Nice! Let’s add that.</p>
+
+<h2 id="one-plugin-or-two">One Plugin or Two?</h2>
+
+<p>Should this be in the same plugin or separate? I initially thought “they both process images, combine them!” But after thinking it through:</p>
+
+<p><strong>Arguments for combining:</strong></p>
+<ul>
+  <li>Same <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> target</li>
+  <li>One regex pass</li>
+  <li>Fewer files</li>
+</ul>
+
+<p><strong>Arguments for separating:</strong></p>
+<ul>
+  <li>Single Responsibility Principle</li>
+  <li>Different concerns: functional (path resolution) vs presentational (styling)</li>
+  <li>Different hook points (sizing needs pre_render to parse Markdown, paths work post_render on HTML)</li>
+  <li>Different configs</li>
+  <li>Independently useful</li>
+</ul>
+
+<p><strong>Decision: Separate.</strong> Path resolution is infrastructure; sizing is aesthetic preference. Keep ‘em apart.</p>
+
+<h2 id="building-image_sizingrb">Building image_sizing.rb</h2>
+
+<p>The implementation was… educational.</p>
+
+<h3 id="challenge-1-comment-markers">Challenge 1: Comment Markers</h3>
+
+<p>The approach: parse <code class="language-plaintext highlighter-rouge">![alt](url =WIDTHxHEIGHT)</code> in <code class="language-plaintext highlighter-rouge">pre_render</code>, inject an HTML comment marker, then process it in <code class="language-plaintext highlighter-rouge">post_render</code>.</p>
+
+<p>First attempt: Used <code class="language-plaintext highlighter-rouge">=WIDTHxHEIGHT</code> as the marker format.
+Problem: Regex parsing got confused when splitting on ‘x’.</p>
+
+<p>Fixed: Changed to <code class="language-plaintext highlighter-rouge">:</code> separators in the comment: <code class="language-plaintext highlighter-rouge">&lt;!-- IMG_SIZE:300:200:hr --&gt;</code></p>
+
+<h3 id="challenge-2-paragraph-wrapping">Challenge 2: Paragraph Wrapping</h3>
+
+<p>Jekyll wraps some images in <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> tags, some not. The regex needed to handle both:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sr">/&lt;p&gt;)?&lt;img\s+([^&gt;]*)&gt;&lt;!-- IMG_SIZE:... --&gt;(&lt;\/p&gt;)?/</span>
+</code></pre></div></div>
+
+<p>Capture the paragraph tags, preserve them in output.</p>
+
+<h3 id="challenge-3-code-blocks">Challenge 3: Code Blocks</h3>
+
+<p>The plugin was processing image syntax everywhere, including inside code fences and inline code blocks. So examples like <code class="language-plaintext highlighter-rouge">![alt](url =300x200)</code> were getting transformed into <code class="language-plaintext highlighter-rouge">![alt](url)&lt;!-- IMG_SIZE:... --&gt;</code> in the rendered output, which I discovered when I wrote them for this post!</p>
+
+<p>Fixed: Track code fence state line by line, and split each line by backticks to track inline code state. Only process image syntax when outside both.</p>
+
+<p>The logic handles triple-backtick fences, tilde fences, and inline backticks. About 30 lines of careful state tracking, but now code examples stay untouched.</p>
+
+<h3 id="challenge-4-the-horizontal-rules-feature">Challenge 4: The Horizontal Rules Feature</h3>
+
+<p>Initial plan: When height is specified in pixels, wrap with <code class="language-plaintext highlighter-rouge">&lt;hr&gt;</code> tags for visual emphasis.</p>
+
+<p>Implemented it. Worked great! Images with height got horizontal rules above and below.</p>
+
+<p>Then realized: This only triggered when BOTH width and height were specified, not just height alone. The logic was getting complex. And honestly, did I really want automatic HRs?</p>
+
+<p><strong>Decision: Kill the feature.</strong> Let users add <code class="language-plaintext highlighter-rouge">---</code> in their Markdown if they want horizontal rules. Plugin should just do sizing.</p>
+
+<p>Removed ~15 lines of HR logic. Much cleaner.</p>
+
+<h3 id="challenge-5-auto-linking">Challenge 5: Auto-Linking</h3>
+
+<p>After getting sizing working, realized it would be nice if sized images automatically linked to their full resolution. Click the thumbnail, see the full image in a new tab.</p>
+
+<p>But what if an image is already inside a link? Like <code class="language-plaintext highlighter-rouge">[text ![img](url =300x) more](example.com)</code>. Don’t want to create nested anchors - the inner link would win and break the outer link.</p>
+
+<p><strong>Solution:</strong> Detect if image is already inside an anchor tag. In the second pass of <code class="language-plaintext highlighter-rouge">post_render</code>, after applying sizing:</p>
+<ol>
+  <li>Find images with width/height attributes</li>
+  <li>Scan backwards from the image position</li>
+  <li>Find the last <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;/a&gt;</code> tags before the image</li>
+  <li>If there’s an unclosed <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> → inside anchor → skip</li>
+  <li>Otherwise → wrap in <code class="language-plaintext highlighter-rouge">&lt;a href="src" target="_blank" rel="noopener"&gt;</code></li>
+</ol>
+
+<p>The regex <code class="language-plaintext highlighter-rouge">/&lt;a[\s&gt;]/</code> avoids matching <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;aside&gt;</code> tags. Used <code class="language-plaintext highlighter-rouge">rindex</code> to find the most recent occurrence, which is simpler than counting all anchors in the page.</p>
+
+<p>Added <code class="language-plaintext highlighter-rouge">target="_blank"</code> so full images open in new tab, and <code class="language-plaintext highlighter-rouge">rel="noopener"</code> for security.</p>
+
+<p>Tested with images inside text links, standalone sized images, and unsized images. All work correctly.</p>
+
+<h2 id="the-final-result">The Final Result</h2>
+
+<p>Two plugins, each doing one thing well:</p>
+
+<ol>
+  <li><strong>image_paths.rb</strong>: Resolves relative paths based on post location, applies CDN config</li>
+  <li><strong>image_sizing.rb</strong>: Parses <code class="language-plaintext highlighter-rouge">=WIDTHxHEIGHT</code> syntax, applies dimensions</li>
+</ol>
+
+<p>Usage:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Dog</span><span class="p">](</span><span class="sx">thisdog.jpg</span> =x400)
+</code></pre></div></div>
+
+<p>Output:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/assets/img/blog/record/thisdog.jpg"</span> <span class="na">target=</span><span class="s">"_blank"</span> <span class="na">rel=</span><span class="s">"noopener"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/assets/img/blog/record/thisdog.jpg"</span> <span class="na">alt=</span><span class="s">"Dog"</span> <span class="na">height=</span><span class="s">"400"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>Sized images auto-link to full resolution. Unsized images stay plain. Images already inside links don’t get double-wrapped.</p>
+
+<p>Both plugins run independently in sequence. No coupling. No complexity.</p>
+
+<h2 id="what-i-learned">What I Learned</h2>
+
+<p><strong>Separate concerns early.</strong> Even if plugins process the same elements, if they serve different purposes, split them.</p>
+
+<p><strong>Feature creep happens, but not all features are equal.</strong> The HR feature added complexity for marginal benefit (I can add <code class="language-plaintext highlighter-rouge">---</code> myself). But auto-linking sized images to full resolution? That’s genuinely useful every time, and the complexity is justified. Know the difference.</p>
+
+<p><strong>Debug output matters.</strong> Added <code class="language-plaintext highlighter-rouge">puts</code> statements to see exactly what the regex was capturing. Crucial for debugging that <code class="language-plaintext highlighter-rouge">:</code> vs <code class="language-plaintext highlighter-rouge">x</code> separator issue.</p>
+
+<p><strong>Test with real content.</strong> Created test posts with all the edge cases (width only, height only, both, neither). Caught several regex bugs this way.</p>
+
+<p><strong>HTML comments as data carriers work well.</strong> Injecting structured comments in <code class="language-plaintext highlighter-rouge">pre_render</code> then parsing them in <code class="language-plaintext highlighter-rouge">post_render</code> bridged the Markdown→HTML transformation cleanly.</p>
+
+<p><strong>Simple is better.</strong> The final versions are ~50-75 lines each (well, image_sizing grew to ~150 with the linking feature), well-documented, with no clever tricks. Exactly what I wanted.</p>
+
+<p><strong>State tracking isn’t scary.</strong> The code fence detection and anchor detection both required tracking state (are we inside something?). The logic is straightforward: find the last opening/closing pair, compare positions.</p>
+
+<h2 id="whats-next">What’s Next?</h2>
+
+<p>Nothing. These plugins are done. They solve the problems I had, nothing more. And that’s exactly right.</p>
+
+<p>Now back to writing actual blog posts instead of building infrastructure for them…</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="ruby" /><category term="markdown" /><summary type="html"><![CDATA[Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.]]></summary></entry><entry><title type="html">Look at this Dog</title><link href="https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.html" rel="alternate" type="text/html" title="Look at this Dog" /><published>2025-11-25T00:00:00+00:00</published><updated>2025-11-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/25/look-at-this-dog</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.html"><![CDATA[<p><img src="thisdog.jpg" alt="Look at this dog" /><!-- IMG_SIZE:auto:400 --></p>
+
+<hr />
+
+<p>Now look back at me.</p>
+
+<p>Did you look at the dog? I can’t tell, because that image isn’t loaded through the <a href="/2025/11/23/opensearch-for-static-site-logs.html">nginx reverse-proxy that sits in front of the blog to provide metrics</a>.</p>
+
+<p>Why, though?</p>
+
+<blockquote>
+  <p>I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.</p>
+</blockquote>
+
+<p>The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else would now be taking up <em>metered</em> DigitalOcean compute and bandwidth on the nginx instance. For a <em>static site</em>, that seems even goofier than the nginx metrics solution already was.</p>
+
+<p>I had a couple options:</p>
+
+<h2 id="option-1-separate-app--jekyll-rewrite">Option 1: Separate App &amp; Jekyll Rewrite</h2>
+
+<p>I could deploy the site a second time to a different DigitalOcean App Engine App w/ a static site, something like <code class="language-plaintext highlighter-rouge">dogblog-media-XXXX.ondigitalocean.app</code>. Then, I could have Jekyll render the base url as a prefix when rendering <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> tags, giving</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;img src="https://dogblog-media-XXX.ondigitalocean.app/path/to/img.jpg"&gt;
+</code></pre></div></div>
+
+<p>instead of a relative url.</p>
+
+<p><strong>BUT</strong></p>
+
+<ol>
+  <li>This would be a “cross-origin” request, and some browsers or situations might not care for that.</li>
+  <li>If I ever changed the image host URL, cached versions of the site (or others’ links to the images) could break.</li>
+  <li>I’d have to add a rule to the nginx to block <code class="language-plaintext highlighter-rouge">/assets</code> requests on the main site.</li>
+</ol>
+
+<h2 id="option-2-separate-app--nginx-rewrite">Option 2: Separate App &amp; nginx Rewrite</h2>
+
+<p>I could deploy the site a second time as before, but have the nginx intercept the <code class="language-plaintext highlighter-rouge">/assets</code> path on the main domain and return an HTTP 3XX redirect.</p>
+
+<p>This would also give me metrics on media requests!</p>
+
+<p><strong>BUT</strong></p>
+
+<ol>
+  <li>I’m still adding traffic to the nginx, and my inital goal was to reduce it!</li>
+  <li>There’s still ultimately a cross-domain situation, though the request path is slightly less sketchy.</li>
+  <li>I’d have to add a rule to the nginx to block <code class="language-plaintext highlighter-rouge">/assets</code> requests on the main site.</li>
+</ol>
+
+<h2 id="option-3-same-app-separate-site">Option 3: Same App, Separate Site</h2>
+
+<p>I could deploy the site a second time into the same DigitalOcean App Engine App, and bind it to the <code class="language-plaintext highlighter-rouge">/assets</code> path.
+This will cause DigitalOcean’s gateway (which is front of my nginx) to intercept requests to <code class="language-plaintext highlighter-rouge">/assets</code> and route them to the second static site.  This happens <em>behind</em> the main blog domain name; no secondary URLs involved!</p>
+
+<p>This second site would be built off the <code class="language-plaintext highlighter-rouge">/assets</code> subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths <em>other</em> than <code class="language-plaintext highlighter-rouge">/assets</code> are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.</p>
+
+<p>Additionally, DigitalOcean’s gateway is already routing all non-<code class="language-plaintext highlighter-rouge">/assets</code> requests to my nginx - thus saving me from having to add an explicit rule preventing it from serving them.</p>
+
+<p>That’s much simpler, and that’s what I did!</p>
+
+<hr />
+
+<p>This setup does <em>not</em> get me metrics on media asset requests, but I can live with that. I’m building a blog, not a media host, after all.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="record" /><category term="jekyll" /><category term="digitalocean" /><category term="cdn" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">I Can’t ai-rizz on Command</title><link href="https://blog.cani.ne.jp/2025/11/24/cant-ai-rizz-on-command.html" rel="alternate" type="text/html" title="I Can’t ai-rizz on Command" /><published>2025-11-24T00:00:00+00:00</published><updated>2025-11-24T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/24/cant-ai-rizz-on-command</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/24/cant-ai-rizz-on-command.html"><![CDATA[<p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - <a href="https://code.claude.com/docs/en/skills">Agent Skills</a> - for a long time.</p>
 
 <p>I recently saw Cursor add “Team Commands” for enterprise accounts and got excited to finally leverage the power of Claude’s Agent Skills, but in Cursor for my team.</p>
 
