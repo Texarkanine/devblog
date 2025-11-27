@@ -2,6 +2,8 @@
 layout: page
 title: Digital Garden Tags
 permalink: /garden/tags.html
+back_home_url: /garden/
+back_home_text: ".."
 ---
 
 {% assign unique_tags = site.garden | map: 'tags' | uniq | sort %}

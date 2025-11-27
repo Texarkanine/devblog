@@ -1,0 +1,3 @@
+{% assign link_href = include.href | default: page.back_home_url | default: site.back_home_url | default: "/" %}
+{% assign link_text = include.text | default: page.back_home_text | default: site.theme_config.back_home_text | default: "home" %}
+<p><a href="{{ link_href | relative_url }}">{{ link_text }}</a></p>

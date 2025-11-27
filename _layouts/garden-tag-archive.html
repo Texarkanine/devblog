@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<p><a href="{{ site.baseurl }}/garden/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+{% include back_link.html href="/garden/" text=".." %}
 
 <h1>garden tag: {% if site.theme_config.lowercase_titles %}{{ page.title | downcase | escape }}{% else %}{{ page.title | escape }}{% endif %}</h1>
 
@@ -12,9 +12,6 @@ layout: default
   {% for note in garden_notes %}
   <li>
     <a href="{{ note.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ note.title | downcase | escape }}{% else %}{{ note.title | escape }}{% endif %}</a>
-    {% if note.excerpt %}
-    — {{ note.excerpt | strip_html | strip | truncate: 120 }}
-    {% endif %}
   </li>
   {% endfor %}
 </ul>
@@ -22,5 +19,5 @@ layout: default
 <p>No notes have been added for this tag yet.</p>
 {% endif %}
 
-<p><a href="{{ site.baseurl }}/garden/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+{% include back_link.html href="/garden/tags" text="garden tags" %}
 
