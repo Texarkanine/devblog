@@ -15,7 +15,7 @@ https://blog.cani.ne.jp/
 
 1. Install Git LFS once per machine: `git lfs install`
 2. Add large images under `assets/img/**` so they are tracked automatically by `.gitattributes`
-3. When adding new file types, run `git lfs track` for the extension and commit the updated `.gitattributes`
+3. Directory hierarchy under `assets/img` should match the path to the post that references the image.
 
 ## License
 

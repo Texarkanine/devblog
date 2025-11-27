@@ -2,11 +2,11 @@
 
 ## image_paths.rb
 
-Automatically resolves relative image paths in blog posts and applies CDN configuration.
+Automatically resolves relative image paths based on each document's source directory and applies CDN configuration.
 
 ### Features
 
-- **Automatic Path Resolution**: Relative image paths are automatically resolved based on the post's directory location
+- **Automatic Path Resolution**: Relative image paths are automatically resolved from the document's collection path (e.g., `blog/record/_posts/...` -> `/blog/record/<image>`)
 - **CDN Integration**: Applies the `image_paths.base_url` configuration (or `ASSET_HOST` environment variable) to all image paths
 - **Smart URL Handling**: Preserves external URLs and protocol-relative URLs unchanged
 
@@ -22,7 +22,7 @@ The plugin will automatically transform this based on your post's location and C
 
 ### Example
 
-**Post location:** `blog/record/_posts/2025-11-25-my-post.md`
+**Post location:** `blog/record/_posts/2025-11-25-look-at-this-dog.md`
 
 **Configuration:**
 ```yaml
@@ -141,6 +141,8 @@ This plugin works independently of `image_paths.rb` - both process images in seq
 ```
 
 The image_sizing plugin processes first (parsing the syntax), then image_paths resolves the path and applies CDN configuration.
+
+Under the hood, `image_sizing.rb` registers a `:pre_render` hook to insert sizing markers before Markdown becomes HTML, and both plugins register `:post_render` hooks to rewrite the final `<img>` tags for dimensions and CDN-aware paths.
 
 ---
 
