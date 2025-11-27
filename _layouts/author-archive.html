@@ -20,11 +20,11 @@ layout: default
 
 {% assign author_posts = site.posts | where: "author", author_id %}
 <ul>
-  {% for post in author_posts %}
-  <li>
-    {{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase | escape }}{% else %}{{ post.title | escape }}{% endif %}</a>
-  </li>
-  {% endfor %}
+	{% for post in author_posts %}
+	<li>
+		{{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase | escape }}{% else %}{{ post.title | escape }}{% endif %}</a>
+	</li>
+	{% endfor %}
 </ul>
 
 {%-include back_link.html-%}
