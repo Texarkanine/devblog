@@ -3,6 +3,7 @@
 require "cgi"
 require "net/http"
 require "uri"
+require "json"
 
 # {% linkcard https://example.com Optional Title %}
 module LinkCardTag
@@ -98,11 +99,11 @@ module LinkCardTag
       log_info("Submitting to SavePageNow: #{url}")
       encoded = URI.encode_www_form_component(url)
       uri = URI.parse("https://web.archive.org/save/#{encoded}")
-      response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") do |http|
+      response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 5, read_timeout: 10) do |http|
         req = Net::HTTP::Get.new(uri.request_uri, { "User-Agent" => archive_user_agent })
         http.request(req)
       end
-      location = Array(response&.each_header).to_h["content-location"]
+      location = response["content-location"]
       if location && !location.empty?
         archive_url = "https://web.archive.org#{location}"
         log_info("SavePageNow archived #{url} -> #{archive_url}")
@@ -118,7 +119,9 @@ module LinkCardTag
 
     def lookup_archive(url)
       cdx_url = URI.parse("https://web.archive.org/cdx/search/cdx?url=#{URI.encode_www_form_component(url)}&output=json&filter=statuscode:200&limit=-1&fl=timestamp,original")
-      response = Net::HTTP.get_response(cdx_url)
+      response = Net::HTTP.start(cdx_url.host, cdx_url.port, use_ssl: cdx_url.scheme == "https", open_timeout: 5, read_timeout: 10) do |http|
+        http.request(Net::HTTP::Get.new(cdx_url.request_uri))
+      end
       return nil unless response.is_a?(Net::HTTPSuccess)
 
       rows = JSON.parse(response.body)

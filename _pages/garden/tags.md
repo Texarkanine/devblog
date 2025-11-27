@@ -4,7 +4,7 @@ title: Digital Garden Tags
 permalink: /garden/tags.html
 ---
 
-{% assign unique_tags = site.garden | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
+{% assign unique_tags = site.garden | map: 'tags' | uniq | sort %}
 
 {% if unique_tags and unique_tags.size > 0 %}
 <ul>
