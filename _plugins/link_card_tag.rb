@@ -21,13 +21,18 @@ module LinkCardTag
 			url = resolve_url(url_token, context)
 			title = resolve_title(title_source, context)
 
-			escaped_url = CGI.escapeHTML(url.to_s)
+      url_string = url.to_s
+			display_url = url.to_s.sub(/\Ahttps?:\/\//, "")
+      escaped_display_url = CGI.escapeHTML(display_url)
+
+      escaped_url = CGI.escapeHTML(url_string)
+
 			archive_line = archive_block(url)
 
 			<<~HTML
 				<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
 					#{title_block(title)}
-					<a href="#{escaped_url}" target="_blank" rel="noopener">#{escaped_url}</a>
+					<a href="#{escaped_url}" target="_blank" rel="noopener">#{display_url}</a>
 					#{archive_line}
 				</blockquote>
 			HTML
