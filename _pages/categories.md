@@ -1,6 +1,6 @@
 ---
 layout: page
-title: All Categories
+title: All Post Categories
 permalink: /categories.html
 ---
 
