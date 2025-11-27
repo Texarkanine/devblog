@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+{% include back_link.html %}
+
+<header>
+	<h1>{{ page.title }}</h1>
+</header>
+
+{% if page.link %}
+	{% linkcard page.link page.link_title %}
+{% endif %}
+
+<article>
+	{{ content }}
+</article>
+
+<footer>
+	
+	{% if page.tags.size > 0 %}
+	<p>
+		tagged: 
+		{% for tag in page.tags %}
+			<a href="{{ site.baseurl }}/garden/tags/{{ tag | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}</a>{% unless forloop.last %}, {% endunless %}
+		{% endfor %}
+	</p>
+	{% endif %}
+</footer>
+
+{% include back_link.html %}

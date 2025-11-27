@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+{% include back_link.html %}
 
 <h1>category: {% if site.theme_config.lowercase_titles %}{{ page.title | downcase | escape }}{% else %}{{ page.title | escape }}{% endif %}</h1>
 
@@ -13,4 +13,4 @@ layout: default
   {% endfor %}
 </ul>
 
-<p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+{% include back_link.html %}

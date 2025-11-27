@@ -1,0 +1,27 @@
+{% assign home_text = site.theme_config.back_home_text | default: "home" %}
+{% assign parent_text = include.text | default: page.back_link_text | default: site.theme_config.back_link_text | default: ".." %}
+
+{% if include.href %}
+	{% assign parent_href = include.href %}
+{% elsif page.back_link_url %}
+	{% assign parent_href = page.back_link_url %}
+{% elsif page.url %}
+	{% assign current = page.url | replace: '/index.html', '/' | strip %}
+	{% assign segments = current | split: '/' %}
+	{% assign parent_segments = segments | pop %}
+	{% capture parent_candidate -%}
+		{%- for segment in parent_segments -%}
+			{%- if segment != '' -%}
+				/{{ segment -}}
+			{%- endif -%}
+		{%- endfor -%}
+	{%- endcapture %}
+	{% assign parent_href = parent_candidate | replace: '//', '/' | strip | default: '/' %}
+{% endif %}
+
+<p>
+	<a href="{{ '/' | relative_url }}">{{ home_text }}</a>
+	{% if parent_href and parent_href != '/' %}
+		/ <a href="{{ parent_href | relative_url }}">{{ parent_text }}</a>
+	{% endif %}
+</p>

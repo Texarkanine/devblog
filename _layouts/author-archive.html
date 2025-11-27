@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+{%-include back_link.html-%}
 
 {% assign author_id = page.title %}
 {% assign author_data = site.data.authors[author_id] %}
@@ -20,11 +20,11 @@ layout: default
 
 {% assign author_posts = site.posts | where: "author", author_id %}
 <ul>
-  {% for post in author_posts %}
-  <li>
-    {{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase | escape }}{% else %}{{ post.title | escape }}{% endif %}</a>
-  </li>
-  {% endfor %}
+	{% for post in author_posts %}
+	<li>
+		{{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase | escape }}{% else %}{{ post.title | escape }}{% endif %}</a>
+	</li>
+	{% endfor %}
 </ul>
 
-<p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+{%-include back_link.html-%}

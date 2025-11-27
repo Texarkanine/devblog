@@ -1,0 +1,37 @@
+---
+layout: default
+---
+{% include back_link.html %}
+
+{% capture garden_page_title %}
+  {% if site.theme_config.lowercase_titles %}
+    {{ page.title | downcase | escape }}
+  {% else %}
+    {{ page.title | escape }}
+  {% endif %}
+{% endcapture %}
+<h1>{{ page.collection | default: "garden" }} tag: {{ garden_page_title | strip }}</h1>
+
+{% assign garden_notes = page.docs | default: page.posts %}
+
+{% if garden_notes and garden_notes.size > 0 %}
+<ul>
+  {% for note in garden_notes %}
+  <li>
+    {% capture note_title %}
+      {% if site.theme_config.lowercase_titles %}
+        {{ note.title | downcase | escape }}
+      {% else %}
+        {{ note.title | escape }}
+      {% endif %}
+    {% endcapture %}
+    <a href="{{ note.url | relative_url }}">{{ note_title | strip }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No notes have been added for this tag yet.</p>
+{% endif %}
+
+{% include back_link.html %}
+
