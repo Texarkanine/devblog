@@ -1,6 +1,6 @@
 ---
 layout: page
-title: All Tags
+title: All Post Tags
 permalink: /tags.html
 ---
 
