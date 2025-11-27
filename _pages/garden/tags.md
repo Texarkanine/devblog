@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Digital Garden Tags
-permalink: /garden/tags.html
+permalink: /garden/tags/
 ---
 
 {% assign unique_tags = site.garden | map: 'tags' | uniq | sort %}
