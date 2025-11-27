@@ -1,3 +1,12 @@
-{% assign link_href = include.href | default: page.back_home_url | default: site.back_home_url | default: "/" %}
 {% assign link_text = include.text | default: page.back_home_text | default: site.theme_config.back_home_text | default: "home" %}
+{% if include.href %}
+  {% assign link_href = include.href %}
+{% elsif page.back_home_url %}
+  {% assign link_href = page.back_home_url %}
+{% elsif page.url %}
+  {% assign parent_url = page.url | replace_regex: '/[^/]+/?$', '/' %}
+  {% assign link_href = parent_url %}
+{% else %}
+  {% assign link_href = "/" %}
+{% endif %}
 <p><a href="{{ link_href | relative_url }}">{{ link_text }}</a></p>
