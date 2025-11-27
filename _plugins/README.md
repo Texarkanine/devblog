@@ -193,7 +193,7 @@ Liquid tag that renders a centered blockquote “card” and optionally archives
 - First argument: URL (required; can be literal or Liquid expression).
 - Remaining text: optional title; omitted if blank.
 
-- ### Features
+### Features
   
 - **SavePageNow integration**: When `LINKCARD_ARCHIVE_SAVE=1` is set, each card submits its URL to `https://web.archive.org/save/...` and renders an `(archive)` badge if the response returns a `Content-Location`.
 - **Existing snapshot fallback**: Even when fresh submissions are disabled (or SavePageNow doesn’t return a location), the tag queries the Wayback CDX API for the latest available snapshot and links to that.
