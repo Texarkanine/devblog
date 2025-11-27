@@ -3,7 +3,14 @@ layout: default
 ---
 {% include back_link.html %}
 
-<h1>garden tag: {% if site.theme_config.lowercase_titles %}{{ page.title | downcase | escape }}{% else %}{{ page.title | escape }}{% endif %}</h1>
+{% capture garden_page_title %}
+  {% if site.theme_config.lowercase_titles %}
+    {{ page.title | downcase | escape }}
+  {% else %}
+    {{ page.title | escape }}
+  {% endif %}
+{% endcapture %}
+<h1>{{ page.collection | default: "garden" }} tag: {{ garden_page_title | strip }}</h1>
 
 {% assign garden_notes = page.docs | default: page.posts %}
 
@@ -11,7 +18,14 @@ layout: default
 <ul>
   {% for note in garden_notes %}
   <li>
-    <a href="{{ note.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ note.title | downcase | escape }}{% else %}{{ note.title | escape }}{% endif %}</a>
+    {% capture note_title %}
+      {% if site.theme_config.lowercase_titles %}
+        {{ note.title | downcase | escape }}
+      {% else %}
+        {{ note.title | escape }}
+      {% endif %}
+    {% endcapture %}
+    <a href="{{ note.url | relative_url }}">{{ note_title | strip }}</a>
   </li>
   {% endfor %}
 </ul>
