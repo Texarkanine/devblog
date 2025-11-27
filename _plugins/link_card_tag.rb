@@ -32,7 +32,7 @@ module LinkCardTag
 			<<~HTML
 				<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
 					#{title_block(title)}
-					<a href="#{escaped_url}" target="_blank" rel="noopener">#{display_url}</a>
+					<a href="#{escaped_url}" target="_blank" rel="noopener">#{escaped_display_url}</a>
 					#{archive_line}
 				</blockquote>
 			HTML

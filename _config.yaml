@@ -19,7 +19,6 @@ sass:
 
 markdown: kramdown
 highlighter: rouge
-home_text: "poop"
 
 # Permalinks w/out categories
 permalink: /:year/:month/:day/:title:output_ext
