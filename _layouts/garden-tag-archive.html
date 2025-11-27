@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{% include back_link.html href="/garden/" text=".." %}
+{% include back_link.html %}
 
 <h1>garden tag: {% if site.theme_config.lowercase_titles %}{{ page.title | downcase | escape }}{% else %}{{ page.title | escape }}{% endif %}</h1>
 
@@ -19,5 +19,5 @@ layout: default
 <p>No notes have been added for this tag yet.</p>
 {% endif %}
 
-{% include back_link.html href="/garden/tags" text="garden tags" %}
+{% include back_link.html %}
 

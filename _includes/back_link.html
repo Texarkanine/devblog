@@ -1,12 +1,35 @@
-{% assign link_text = include.text | default: page.back_home_text | default: site.theme_config.back_home_text | default: "home" %}
+{% assign home_text = site.theme_config.back_home_text | default: "home" %}
+{% assign link_text = include.text | default: page.back_link_text | default: site.theme_config.back_link_text %}
 {% if include.href %}
-  {% assign link_href = include.href %}
+	{% assign link_href = include.href %}
 {% elsif page.back_home_url %}
-  {% assign link_href = page.back_home_url %}
+	{% assign link_href = page.back_home_url %}
 {% elsif page.url %}
-  {% assign parent_url = page.url | replace_regex: '/[^/]+/?$', '/' %}
-  {% assign link_href = parent_url %}
+	{% assign current = page.url | replace: '/index.html', '/' | strip %}
+	{% assign current = current | replace_last: '/', '' %}
+	{% assign last_segment = current | split: '/' | last %}
+	{% assign parent = current | remove: last_segment | replace: '//', '/' | strip %}
+	{% if parent == '' %}
+		{% assign link_href = '/' %}
+	{% else %}
+		{% assign link_href = parent %}
+	{% endif %}
 {% else %}
-  {% assign link_href = "/" %}
+	{% assign link_href = "/" %}
 {% endif %}
-<p><a href="{{ link_href | relative_url }}">{{ link_text }}</a></p>
+<p>
+	<a href="{{ '/' | relative_url }}">{{ home_text }}</a>
+	{% if link_href != '/' %}
+	 / <a href="{{ link_href | relative_url }}">{{ link_text }}</a>
+	{% endif %}
+</p>
+
+<!-- 
+debug:
+link_href: {{ link_href }}
+link_text: {{ link_text }}
+home_text: {{ home_text }}
+current: {{ current }}
+last_segment: {{ last_segment }}
+parent: {{ parent }}
+-->

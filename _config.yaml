@@ -8,7 +8,8 @@ baseurl: ""
 remote_theme: riggraz/no-style-please
 theme_config:
   appearance: "light"
-  back_home_text: ".."
+  back_home_text: "~"
+  back_link_text: ".."
   date_format: "%Y-%m-%d"
   show_description: true
   lowercase_titles: false
@@ -18,6 +19,7 @@ sass:
 
 markdown: kramdown
 highlighter: rouge
+home_text: "poop"
 
 # Permalinks w/out categories
 permalink: /:year/:month/:day/:title:output_ext

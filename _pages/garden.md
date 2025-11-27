@@ -2,8 +2,6 @@
 layout: page
 title: Digital Garden
 permalink: /garden.html
-back_home_url: /
-back_home_text: ".."
 ---
 
 {% assign garden_size = site.garden | size %}

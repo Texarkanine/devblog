@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+{%-include back_link.html-%}
 
 {% assign author_id = page.title %}
 {% assign author_data = site.data.authors[author_id] %}
@@ -27,4 +27,4 @@ layout: default
   {% endfor %}
 </ul>
 
-<p><a href="{{ site.baseurl }}/">{{ site.theme_config.back_home_text | default: "home" }}</a></p>
+{%-include back_link.html-%}
