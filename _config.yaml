@@ -30,7 +30,7 @@ collections:
     permalink: /:path/
   garden:
     output: true
-    permalink: /garden/:path:output_ext
+    permalink: /garden/:path
 
 # Build settings
 exclude:

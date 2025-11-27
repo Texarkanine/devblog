@@ -1,7 +1,6 @@
 ---
 layout: page
 title: Digital Garden
-permalink: /garden.html
 ---
 
 {% assign garden_size = site.garden | size %}

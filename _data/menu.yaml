@@ -2,9 +2,9 @@ entries:
   - title: posts
     post_list: {}
   - title: all post tags
-    url: tags.html
+    url: /tags/
   - title: digital garden
-    url: garden.html
+    url: /garden/
   - title: links
     entries:
       - title: github
