@@ -147,7 +147,7 @@ module LinkCardTag
 		end
 
 		def archive_user_agent
-			ENV["LINKCARD_ARCHIVE_UA"] || "blog.cani.ne.jp:linkcard-archive (+#{ENV['LINKCARD_ARCHIVE_CONTACT'] || 'mailto:unknown'})"
+			ENV["LINKCARD_ARCHIVE_UA"] || "jekyll:linkcard-archive (+#{ENV['LINKCARD_ARCHIVE_CONTACT'] || 'mailto:unknown'})"
 		end
 
 		def log_debug(message)

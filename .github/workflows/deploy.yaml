@@ -37,7 +37,7 @@ jobs:
       - name: Build site
         env:
           LINKCARD_ARCHIVE_SAVE: 1
-          LINKCARD_ARCHIVE_CONTACT: ${{ secrets.LINKCARD_ARCHIVE_CONTACT != '' && secrets.LINKCARD_ARCHIVE_CONTACT || 'mailto:unknown' }}
+          LINKCARD_ARCHIVE_UA: blog.cani.ne.jp/jekyll:linkcard-archive (+${{ secrets.LINKCARD_ARCHIVE_CONTACT != '' && secrets.LINKCARD_ARCHIVE_CONTACT || 'mailto:unknown' }})
         run: bundle exec jekyll build
 
       - name: Upload artifact
