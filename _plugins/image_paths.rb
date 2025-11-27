@@ -12,12 +12,21 @@
 module ImagePathsPlugin
   module_function
 
+  ##
+  # Registers a Jekyll :documents post_render hook that invokes ImagePathsPlugin.process_document for each rendered document.
   def register_hooks
     Jekyll::Hooks.register :documents, :post_render do |document|
       ImagePathsPlugin.process_document(document)
     end
   end
 
+  ##
+  # Determine a normalized, relative directory path for a document.
+  # Returns an empty string when the document has no usable relative directory.
+  # The returned path strips any leading underscores from path segments and
+  # omits any `_posts` segment.
+  # @param [Object] document - An object that responds to `relative_path`.
+  # @return [String] The normalized relative directory (e.g. "blog/2020"), or `""` if none.
   def relative_directory(document)
     relative_path = document.respond_to?(:relative_path) ? document.relative_path : nil
     return '' unless relative_path
@@ -35,6 +44,12 @@ module ImagePathsPlugin
     sanitized.join('/')
   end
 
+  ##
+  # Builds an absolute image source path from a relative directory and an image `src`.
+  # Leading slashes are removed from `src` before joining.
+  # @param [String, nil] relative_dir - Normalized relative directory (no leading slash). If `nil` or empty, the site root is used.
+  # @param [String] src - Image source path; may include leading slashes which will be stripped.
+  # @return [String] The resolved absolute path starting with `/`, e.g. `/images/pic.jpg` or `/blog/images/pic.jpg`.
   def build_relative_src(relative_dir, src)
     clean_src = src.gsub(%r{^/+}, '')
     base = relative_dir && !relative_dir.empty? ? relative_dir : nil
@@ -44,6 +59,18 @@ module ImagePathsPlugin
     "/#{base}/#{clean_src}"
   end
 
+  ##
+  # Rewrite image `src` attributes in a document's HTML to resolve relative paths and
+  # optionally prefix them with a configured CDN/base URL.
+  #
+  # Scans `document.output` for `<img>` tags and updates their `src` values:
+  # - leaves absolute URLs (starting with `http://`, `https://`, or `//`) unchanged,
+  # - prefixes absolute paths (starting with `/`) with the configured CDN/base when present,
+  # - resolves relative paths against the document's relative directory and then prefixes with the CDN/base when present.
+  #
+  # The CDN/base is taken from `ENV['ASSET_HOST']` or `document.site.config['image_paths']['base_url']` (in that order).
+  # The function updates `document.output` in place.
+  # @param [Jekyll::Document] document - The document whose HTML output will be processed and modified.
   def process_document(document)
     output = document.output
     return unless output&.include?('<img')

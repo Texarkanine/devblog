@@ -13,6 +13,10 @@
 module ImageSizingPlugin
   module_function
 
+  ##
+  # Registers Jekyll document lifecycle hooks that invoke the plugin's pre-render and post-render processors.
+  # Installs handlers on `:documents` for `:pre_render` and `:post_render` so the plugin can convert sizing syntax before rendering
+  # and apply resulting image attributes and auto-linking after rendering.
   def register_hooks
     Jekyll::Hooks.register :documents, :pre_render do |document|
       ImageSizingPlugin.process_pre_render(document)
@@ -23,6 +27,11 @@ module ImageSizingPlugin
     end
   end
 
+  ##
+  # Parse an image dimension token into width and height components.
+  # @param [String] dim_str - Dimension string in the form "WIDTHxHEIGHT" or "WIDTH".
+  #   Empty width or height (e.g., "x200" or "200x") is treated as unspecified.
+  # @return [Array] A two-element array [width, height] where each element is the parsed string value or `nil` when unspecified.
   def parse_dimensions(dim_str)
     if dim_str.include?('x')
       parts = dim_str.split('x', -1) # -1 to keep empty strings
@@ -35,6 +44,11 @@ module ImageSizingPlugin
     end
   end
 
+  ##
+  # Processes a Jekyll document's Markdown before rendering to convert extended image sizing syntax into internal markers.
+  #
+  # Scans `document.content` for Markdown image syntax that includes a sizing specifier (e.g. `![alt](src =100x200)`), skips code fences and inline code, and replaces each sizing specifier with a marker comment of the form `<!-- IMG_SIZE:WIDTH:HEIGHT -->`. Unspecified width or height is represented as `auto`.
+  # @param [Jekyll::Document] document - The document whose `content` will be rewritten in-place to include image sizing markers.
   def process_pre_render(document)
     # Only process if content contains images with sizing syntax
     return unless document.content =~ /!\[.*?\]\(.*?\s+=.*?\)/
@@ -89,6 +103,10 @@ module ImageSizingPlugin
     document.content = processed_lines.join("\n")
   end
 
+  ##
+  # Applies previously-inserted IMG_SIZE markers in rendered HTML to add width/height attributes to <img> elements and to wrap sized images with links to their full-resolution source.
+  # In-place modifies document.output in two passes: first replaces images followed by <!-- IMG_SIZE:W:H --> with an <img> tag that includes width and/or height attributes (attributes with value "auto" are omitted); second wraps any <img> that has a width or height attribute with <a href="..."> (target="_blank" rel="noopener") unless the image is already inside an anchor.
+  # @param [Jekyll::Document] document - The document whose HTML output will be updated.
   def process_post_render(document)
     # Only process if output contains our sizing markers
     return unless document.output.include?('<!-- IMG_SIZE:')
