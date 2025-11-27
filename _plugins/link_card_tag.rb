@@ -74,6 +74,8 @@ module LinkCardTag
     end
 
     def archive_block(url)
+      return "" unless archive_enabled?
+
       archive_url = archive_url_for(url)
       return "" if archive_url.to_s.strip.empty?
 
@@ -84,11 +86,7 @@ module LinkCardTag
     def archive_url_for(url)
       @@archive_cache[url] ||= begin
         archive_url = lookup_archive(url) || ""
-        if archive_save_enabled?
-          submit_archive(url) || archive_url
-        else
-          archive_url
-        end
+        archive_save_enabled? ? (submit_archive(url) || archive_url) : archive_url
       end
     rescue StandardError => e
       log_debug("archive lookup failed for #{url}: #{e.message}")
@@ -133,6 +131,10 @@ module LinkCardTag
     rescue StandardError => e
       log_debug("CDX lookup error for #{url}: #{e.message}")
       nil
+    end
+
+    def archive_enabled?
+      ENV["LINKCARD_ARCHIVE"] == "1" || archive_save_enabled?
     end
 
     def archive_save_enabled?

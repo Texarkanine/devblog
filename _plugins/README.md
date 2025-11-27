@@ -194,16 +194,17 @@ Liquid tag that renders a centered blockquote “card” and optionally archives
 - Remaining text: optional title; omitted if blank.
 
 ### Features
-  
+
 - **SavePageNow integration**: When `LINKCARD_ARCHIVE_SAVE=1` is set, each card submits its URL to `https://web.archive.org/save/...` and renders an `(archive)` badge if the response returns a `Content-Location`.
-- **Existing snapshot fallback**: Even when fresh submissions are disabled (or SavePageNow doesn’t return a location), the tag queries the Wayback CDX API for the latest available snapshot and links to that.
+- **Existing snapshot fallback**: When `LINKCARD_ARCHIVE=1` (or `LINKCARD_ARCHIVE_SAVE=1`), the tag queries the Wayback CDX API for the latest available snapshot and links to that even if no fresh submission runs.
 - **Per-build caching**: Each unique URL is archived/looked-up at most once per build even if referenced multiple times.
 - **Logging**: Emits `linkcard Submitting to SavePageNow: <url>` and success/failure logs via `Jekyll.logger`.
 - **Styling hooks**: Renders predictable HTML so you can target `.link-card` or override inline styles.
 
 ### Environment Variables
 
-- `LINKCARD_ARCHIVE_SAVE` - set to `1` to enable SavePageNow submissions (default: disabled).
+- `LINKCARD_ARCHIVE` - set to `1` to render archive links (uses existing snapshots only).
+- `LINKCARD_ARCHIVE_SAVE` - set to `1` to submit new snapshots and implies `LINKCARD_ARCHIVE`.
 - `LINKCARD_ARCHIVE_UA` - custom User-Agent string for archive requests.
 - `LINKCARD_ARCHIVE_CONTACT` - inserted into the default UA when `LINKCARD_ARCHIVE_UA` isn’t provided; typically an email or profile URL.
 
