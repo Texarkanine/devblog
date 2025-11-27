@@ -142,6 +142,8 @@ This plugin works independently of `image_paths.rb` - both process images in seq
 
 The image_sizing plugin processes first (parsing the syntax), then image_paths resolves the path and applies CDN configuration.
 
+Under the hood, `image_sizing.rb` registers a `:pre_render` hook to insert sizing markers before Markdown becomes HTML, and both plugins register `:post_render` hooks to rewrite the final `<img>` tags for dimensions and CDN-aware paths.
+
 ---
 
 ## garden_archives.rb

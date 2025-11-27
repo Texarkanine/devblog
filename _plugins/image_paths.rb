@@ -56,10 +56,11 @@ module ImagePathsPlugin
                ''
 
     # Process all img tags with relative src attributes
-    document.output = output.gsub(/<img\s+([^>]*)src="([^"]*)"([^>]*)>/i) do |match|
+    document.output = output.gsub(/<img\s+([^>]*?)src\s*=\s*(["'])(.*?)\2([^>]*)>/i) do |match|
       before_src = Regexp.last_match(1)
-      src = Regexp.last_match(2)
-      after_src = Regexp.last_match(3)
+      quote = Regexp.last_match(2)
+      src = Regexp.last_match(3)
+      after_src = Regexp.last_match(4)
 
       # Skip if the src is already absolute or a URL
       if src.start_with?('http://', 'https://', '//')
@@ -68,7 +69,7 @@ module ImagePathsPlugin
         # Already absolute path, just prepend CDN if configured
         if cdn_base && !cdn_base.empty?
           new_src = "#{cdn_base}#{src}"
-          "<img #{before_src}src=\"#{new_src}\"#{after_src}>"
+          "<img #{before_src}src=#{quote}#{new_src}#{quote}#{after_src}>"
         else
           match
         end
@@ -76,7 +77,7 @@ module ImagePathsPlugin
         # Relative path - resolve to document directory and apply CDN
         new_src = build_relative_src(relative_dir, src)
         new_src = "#{cdn_base}#{new_src}" if cdn_base && !cdn_base.empty?
-        "<img #{before_src}src=\"#{new_src}\"#{after_src}>"
+        "<img #{before_src}src=#{quote}#{new_src}#{quote}#{after_src}>"
       end
     end
   end
