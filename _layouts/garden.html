@@ -26,6 +26,10 @@ layout: default
 		{% endfor %}
 	</p>
 	{% endif %}
+
+	{% if page.last_modified %}
+	<!-- Last updated: {{ page.last_modified | date: site.theme_config.date_format }} -->
+	{% endif %}
 </footer>
 
 {% include back_link.html %}
