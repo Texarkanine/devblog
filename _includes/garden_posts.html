@@ -1,10 +1,15 @@
-{%-if include.shuffle-%}
+{%-comment-%}Compute shuffled garden once if needed (for shuffle branch or default){%-endcomment-%}
+{%-unless include.sort_key-%}
   {%-assign garden_size = site.garden | size-%}
   {%-if garden_size > 1-%}
-    {%-assign sorted_garden = site.garden | sample: garden_size-%}
+    {%-assign shuffled_garden = site.garden | sample: garden_size-%}
   {%-else-%}
-    {%-assign sorted_garden = site.garden-%}
+    {%-assign shuffled_garden = site.garden-%}
   {%-endif-%}
+{%-endunless-%}
+
+{%-if include.shuffle-%}
+  {%-assign sorted_garden = shuffled_garden-%}
 {%-elsif include.sort_key-%}
   {%-assign sorted_garden = site.garden | sort: include.sort_key-%}
   {%-if include.reverse-%}
@@ -12,23 +17,12 @@
   {%-endif-%}
 {%-else-%}
   {%-comment-%}Default: shuffle{%-endcomment-%}
-  {%-assign garden_size = site.garden | size-%}
-  {%-if garden_size > 1-%}
-    {%-assign sorted_garden = site.garden | sample: garden_size-%}
-  {%-else-%}
-    {%-assign sorted_garden = site.garden-%}
-  {%-endif-%}
+  {%-assign sorted_garden = shuffled_garden-%}
 {%-endif-%}
 
-{%-if include.limit-%}
-  {%-assign limited_garden = sorted_garden | limit: include.limit-%}
-{%-else-%}
-  {%-assign limited_garden = sorted_garden-%}
-{%-endif-%}
-
-{%- if limited_garden.size > 0 -%}
+{%- if sorted_garden.size > 0 -%}
   <ul>
-    {%- for post in limited_garden -%}
+    {%- for post in sorted_garden limit: include.limit -%}
         <li>
           {% if site.theme_config.lowercase_titles == true %}
           <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>

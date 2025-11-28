@@ -2,12 +2,13 @@
 
 {%-if include.sort_key-%}
   {%-assign sorted_posts = posts | sort: include.sort_key-%}
-  {%-if include.reverse-%}
-    {%-assign sorted_posts = sorted_posts | reverse-%}
-  {%-endif-%}
 {%-else-%}
   {%-comment-%}Default: sort by title{%-endcomment-%}
   {%-assign sorted_posts = posts | sort: "title"-%}
+{%-endif-%}
+
+{%-if include.reverse-%}
+  {%-assign sorted_posts = sorted_posts | reverse-%}
 {%-endif-%}
 
 {%-if include.limit and sorted_posts.size > include.limit-%}

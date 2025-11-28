@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'shellwords'
+
 module Jekyll
   # Sets date (creation) and last_modified (update) for collection documents.
   # Uses git first commit date for creation, file mtime for last_modified.
@@ -39,8 +41,11 @@ module Jekyll
       # Get relative path from site source
       relative_path = file_path.sub(Dir.pwd + "/", "")
       
+      # Escape path to prevent command injection
+      escaped_path = Shellwords.escape(relative_path)
+      
       # Get first commit date (--diff-filter=A means "added")
-      result = `git log --format="%ai" --diff-filter=A -- "#{relative_path}" 2>/dev/null`.strip
+      result = `git log --format="%ai" --diff-filter=A -- #{escaped_path} 2>/dev/null`.strip
       return nil if result.empty?
 
       # Parse the date string

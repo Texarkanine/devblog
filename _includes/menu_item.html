@@ -6,7 +6,6 @@
     {%- else -%}
       {{ item.title }}
     {%- endif -%}
-    </li>
 
     {%-if item.post_list.collection -%}
       {%
@@ -32,5 +31,6 @@
     {%-if item.entries-%}
       {%-include menu_item.html collection=item.entries-%}
     {%-endif-%}
+    </li>
   {%-endfor-%}
 </ul>

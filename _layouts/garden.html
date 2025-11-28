@@ -28,7 +28,7 @@ layout: default
 	{% endif %}
 
 	{% if page.last_modified %}
-	<!-- Last updated: {{ page.last_modified | date: site.theme_config.date_format }} -->
+	<!-- Last updated: {{ page.last_modified | date: site.theme_config.date_format | default: "%Y-%m-%d" }} -->
 	{% endif %}
 </footer>
 
