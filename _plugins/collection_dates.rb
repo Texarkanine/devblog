@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'shellwords'
+require 'time'
 
 module Jekyll
   # Sets date (creation) and last_modified (update) for collection documents.
