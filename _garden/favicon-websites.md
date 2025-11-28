@@ -3,7 +3,8 @@ layout: garden
 title: "Websites for Making .ico Files"
 tags:
     - favicon
-    - .ico
+    - ico
+    - online-tool
 ---
 
 {% linkcard https://realfavicongenerator.net/ "Real Favicon Generator" %}

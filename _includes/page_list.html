@@ -1,0 +1,36 @@
+{%-assign posts = site[include.collection]-%}
+
+{%-if include.sort_key-%}
+  {%-assign sorted_posts = posts | sort: include.sort_key-%}
+{%-else-%}
+  {%-comment-%}Default: sort by title{%-endcomment-%}
+  {%-assign sorted_posts = posts | sort: "title"-%}
+{%-endif-%}
+
+{%-if include.reverse-%}
+  {%-assign sorted_posts = sorted_posts | reverse-%}
+{%-endif-%}
+
+{%-if include.limit and sorted_posts.size > include.limit-%}
+  {%-assign limit_exceeded = true-%}
+{%-else-%}
+  {%-assign limit_exceeded = false-%}
+{%-endif-%}
+
+{%- if sorted_posts.size > 0 -%}
+  <ul>
+    {%- for post in sorted_posts limit: include.limit -%}
+        <li>
+          {% if site.theme_config.lowercase_titles == true %}
+          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
+          {% else %}
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {% endif %}
+        </li>
+    {%- endfor -%}
+    {%- if include.show_more and limit_exceeded and include.show_more_url -%}
+      <li><a href="{{ include.show_more_url }}">{{ include.show_more_text | default: "Show more..." }}</a></li>
+    {%- endif -%}
+  </ul>
+{%- endif -%}
+

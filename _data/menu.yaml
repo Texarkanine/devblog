@@ -1,11 +1,9 @@
 entries:
   - title: posts
-    post_list: {}
+    post_list:
+      limit: 10
+      show_more: true
+      show_more_text: "older posts..."
+      show_more_url: /all-posts.html
   - title: all post tags
     url: /tags/
-  - title: digital garden
-    url: /garden/
-  - title: links
-    entries:
-      - title: github
-        url: https://github.com/texarkanine
