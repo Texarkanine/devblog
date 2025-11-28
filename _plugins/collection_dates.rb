@@ -11,6 +11,10 @@ module Jekyll
     safe true
     priority :low
 
+    ##
+    # Assigns `date` and `last_modified` values for documents in every collection.
+    # For each document with an existing file, sets `date` to the file's first Git commit date when available (falls back to File.ctime) unless `date` is already present in front matter, and sets `last_modified` to File.mtime unless `last_modified` is already present. Skips files that do not exist.
+    # @param [Jekyll::Site] site - The site whose collections will be processed.
     def generate(site)
       site.collections.each do |_name, collection|
         collection.docs.each do |doc|
@@ -35,7 +39,12 @@ module Jekyll
     private
 
     # Gets the date of the first commit that added this file
-    # Returns nil if file is not in git or git is not available
+    ##
+    # Determine the file's first Git commit date.
+    #
+    # Returns the Time of the commit that originally added the given file according to Git, or `nil` when the repository is not available, Git provides no matching commit, or an error occurs.
+    # @param [String] file_path - Path to the file on disk.
+    # @return [Time, nil] The timestamp of the file's first commit, or `nil` if unavailable.
     def git_first_commit_date(file_path)
       return nil unless File.exist?(".git")
 
@@ -56,4 +65,3 @@ module Jekyll
     end
   end
 end
-
