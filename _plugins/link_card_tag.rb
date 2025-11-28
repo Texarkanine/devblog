@@ -183,6 +183,7 @@ module LinkCardTag
 
 			latest = rows.last
 			timestamp = latest[0]
+			log_info("CDX lookup found archived page: https://web.archive.org/web/#{timestamp}/#{url}")
 			"https://web.archive.org/web/#{timestamp}/#{url}"
 		rescue StandardError => e
 			log_debug("CDX lookup error for #{url}: #{e.message}")
