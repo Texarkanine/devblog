@@ -34,6 +34,11 @@ module LinkCardTag
 			title = resolve_title(title_source, context)
 			archive = resolve_archive(archive_source, context)
 
+			# If resolve_archive returned nil/empty but we have a raw archive source, use it directly
+			if (archive.nil? || archive.to_s.strip.empty?) && !archive_source.to_s.strip.empty?
+				archive = archive_source.to_s.strip
+			end
+
 			url_string = url.to_s
 			display_url = url.to_s.sub(/\Ahttps?:\/\//, "")
 			escaped_display_url = CGI.escapeHTML(display_url)
@@ -42,8 +47,12 @@ module LinkCardTag
 
 			archive_line = archive_block(url, archive)
 
+			# Conditionally add padding if there is an archive_line so it doesn't overlap the url
+			blockquote_style = "text-align: center; position: relative;"
+			blockquote_style += " padding-bottom: 1.75rem;" unless archive_line.nil? || archive_line.empty?
+
 			<<~HTML
-				<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
+				<blockquote class="link-card" style="#{blockquote_style}">
 					#{title_block(title)}
 					<a href="#{escaped_url}" target="_blank" rel="noopener">#{escaped_display_url}</a>
 					#{archive_line}
@@ -140,9 +149,12 @@ module LinkCardTag
 		def archive_block(url, explicit_archive = nil)
 			archive_url = nil
 
-			if explicit_archive && !explicit_archive.to_s.strip.empty?
-				archive_url = explicit_archive.to_s
+			# Always check for explicit archive first - if provided, use it and skip lookup entirely
+			explicit_archive_str = explicit_archive.to_s.strip
+			if !explicit_archive_str.empty?
+				archive_url = explicit_archive_str
 			elsif archive_enabled?
+				# Only perform lookup if no explicit archive was provided
 				archive_url = archive_url_for(url)
 			end
 
@@ -154,6 +166,7 @@ module LinkCardTag
 
 		##
 		# Retrieve and cache an archive URL for the given original URL, optionally submitting it for archiving when enabled.
+		# This method should only be called when no explicit archive URL has been provided.
 		# @param [String] url - The original URL to look up or submit to the archive.
 		# @return [String] The archived URL if found (or newly submitted); otherwise an empty string. Cached results are reused. If lookup or submission fails, an empty string is returned.
 		def archive_url_for(url)

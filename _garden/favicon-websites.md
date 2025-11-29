@@ -14,7 +14,7 @@ This *includes* a multi-resolution `favicon.ico`, but also icons for various oth
 
 For a favicon it's super-simple - upload, next, download, done.
 
-{% linkcard https://redketchup.io/icon-editor/ "RedKetchup Icon Editor" %}
+{% linkcard https://redketchup.io/icon-editor/ "RedKetchup Icon Editor" archive:https://web.archive.org/web/20251129031359/https://redketchup.io/icon-editor %}
 
 If you need a little more hands-on control of your icon creation, this editor gives you a pixel editing GUI for each resolution that will be included in your icon.
 This lets you fix display errors from automatic scaling, and choose to exclude or include additional resolutions.

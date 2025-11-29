@@ -2,6 +2,7 @@
 layout: garden
 title: "AA & AAA Battery Performance"
 link: https://lygte-info.dk/review/batteries2012/CommonAAcomparator.php
+link_archive: https://web.archive.org/web/20250923191759/https://lygte-info.dk/review/batteries2012/CommonAAcomparator.php
 tags:
     - battery
     - data-reference
