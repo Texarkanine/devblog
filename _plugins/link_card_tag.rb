@@ -34,11 +34,6 @@ module LinkCardTag
 			title = resolve_title(title_source, context)
 			archive = resolve_archive(archive_source, context)
 
-			# If resolve_archive returned nil/empty but we have a raw archive source, use it directly
-			if (archive.nil? || archive.to_s.strip.empty?) && !archive_source.to_s.strip.empty?
-				archive = archive_source.to_s.strip
-			end
-
 			url_string = url.to_s
 			display_url = url.to_s.sub(/\Ahttps?:\/\//, "")
 			escaped_display_url = CGI.escapeHTML(display_url)
@@ -109,6 +104,16 @@ module LinkCardTag
 			return nil if raw_archive.empty?
 
 			value = evaluate_expression(raw_archive, context, allow_nil: true)
+			
+			# If evaluation returned nil, check if the raw source looks like a URL.
+			# This handles the case where a literal URL gets mis-parsed as a variable lookup.
+			# It's safe because variable lookups (like "page.link_archive") won't start with a URL scheme,
+			# so they'll correctly return nil and not be treated as literal URLs.
+			# Matches any valid URL scheme (http://, https://, ftp://, ssl://, file://, etc.)
+			if value.nil? && raw_archive.match?(/\A[a-zA-Z][a-zA-Z0-9+.-]*:\/\//)
+				return raw_archive
+			end
+			
 			return nil if value.nil? || value.to_s.strip.empty?
 
 			value.to_s
