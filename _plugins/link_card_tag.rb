@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require "cgi"
+require "net/http"
+require "uri"
+require "json"
 
-# {% linkcard https://example.com Optional Title archive:https://archive.example.com/snapshot %}
+# {% linkcard https://example.com Optional Title %}
 module LinkCardTag
 	class Tag < Liquid::Tag
+		@@archive_cache = {}
 
 		##
 		# Creates a new Tag and stores the raw, trimmed markup for later rendering.
@@ -20,15 +24,14 @@ module LinkCardTag
 		# Render the link-card HTML for the given Liquid context.
 		#
 		# Resolves the tag's URL and optional title from the provided Liquid context, builds a safe display URL
-		# and link target, and includes an optional archive link when an explicit archive URL is provided.
+		# and link target, and includes an optional archive link if archiving is enabled.
 		# @param [Liquid::Context] context - The Liquid rendering context used to evaluate expressions.
 		# @return [String] The HTML fragment for the link card.
 		def render(context)
-			url_token, title_source, archive_source = split_markup(@markup)
+			url_token, title_source = split_markup(@markup)
 
 			url = resolve_url(url_token, context)
 			title = resolve_title(title_source, context)
-			archive_url = resolve_archive(archive_source, context)
 
 			url_string = url.to_s
 			display_url = url.to_s.sub(/\Ahttps?:\/\//, "")
@@ -36,7 +39,7 @@ module LinkCardTag
 
 			escaped_url = CGI.escapeHTML(url_string)
 
-			archive_line = archive_block(archive_url)
+			archive_line = archive_block(url)
 
 			<<~HTML
 				<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
@@ -87,24 +90,6 @@ module LinkCardTag
 		end
 
 		##
-		# Resolves the archive expression or literal from the provided source.
-		# The archive value is expected to be a URL string and is completely optional.
-		# @param [Object] source - The raw archive token or expression from markup.
-		# @param [Liquid::Context] context - Liquid rendering context used to evaluate expressions.
-		# @return [String] The evaluated archive URL string, or an empty string if none is provided or evaluation fails.
-		def resolve_archive(source, context)
-			raw = source.to_s.strip
-			return "" if raw.empty?
-
-			value = evaluate_expression(raw, context, allow_nil: true)
-			return "" if value.nil?
-
-			value.to_s
-		rescue Liquid::SyntaxError, ArgumentError
-			strip_outer_quotes(raw)
-		end
-
-		##
 		# Evaluate a Liquid expression token against the given Liquid context with controlled nil fallback.
 		# @param [String] token - The raw Liquid expression or literal to evaluate.
 		# @param [Liquid::Context] context - The Liquid rendering context used for evaluation.
@@ -128,10 +113,13 @@ module LinkCardTag
 		end
 
 		##
-		# Produces an HTML fragment linking to an archived copy of a URL when an explicit archive URL is provided.
-		# @param [String, nil] archive_url - The archive URL to link to.
-		# @return [String] An HTML `<small>` element with a right-bottom positioned "archive" link to the archived URL, or an empty string if no archive URL is available.
-		def archive_block(archive_url)
+		# Produces an HTML fragment linking to an archived copy of a URL when archiving is enabled.
+		# @param [String] url - The original URL to look up in the archive.
+		# @return [String] An HTML `<small>` element with a right-bottom positioned "archive" link to the archived URL, or an empty string if archiving is disabled or no archive URL is available.
+		def archive_block(url)
+			return "" unless archive_enabled?
+
+			archive_url = archive_url_for(url)
 			return "" if archive_url.to_s.strip.empty?
 
 			escaped = CGI.escapeHTML(archive_url)
@@ -272,14 +260,9 @@ module LinkCardTag
 		end
 
 		##
-		# Parse the tag markup into a URL token, an optional title source, and an optional archive source.
-		# The syntax is:
-		#   {% linkcard URL Optional Title archive:ARCHIVE_URL %}
-		# The `archive:ARCHIVE_URL` suffix is optional; if present, it is stripped from the end of the markup
-		# and treated as the archive source. This keeps existing `URL [title]` usage fully backward compatible.
-		# @param [String] markup - Raw markup provided to the tag.
-		# @return [Array<String>] An array of three strings: `[url_token, title_source, archive_source]`
-		#   where `title_source` and `archive_source` may be empty strings when not present.
+		# Parse the tag markup into a URL token and an optional title source.
+		# @param [String] markup - Raw markup provided to the tag (expected: URL optionally followed by a title).
+		# @return [Array<String>] An array of two strings: `[url_token, title_source]` where `title_source` is empty when no title is present.
 		# @raise [ArgumentError] if `markup` is empty or contains only whitespace.
 		def split_markup(markup)
 			stripped = markup.to_s.strip
@@ -287,37 +270,8 @@ module LinkCardTag
 
 			parts = stripped.split(/\s+/, 2)
 			url_token = parts.first
-			rest = parts.length > 1 ? parts.last : ""
-
-			title_source, archive_source = split_title_and_archive(rest)
-			[url_token, title_source, archive_source]
-		end
-
-		##
-		# Split the combined "title + optional archive" portion of the markup into separate fields.
-		# Recognizes an optional `archive:...` token and strips it from the end, or treats it as the
-		# entire value when there is no title.
-		# @param [String] rest - The portion of the markup after the URL token.
-		# @return [Array<String>] `[title_source, archive_source]` where either may be empty.
-		def split_title_and_archive(rest)
-			rest = rest.to_s.strip
-			return ["", ""] if rest.empty?
-
-			archive_source = ""
-
-			# Case 1: only archive, no title
-			if rest =~ /\Aarchive:(\S+)\z/
-				archive_source = Regexp.last_match(1)
-				return ["", archive_source]
-			end
-
-			# Case 2: title followed by archive:EXPR at the end
-			if rest =~ /\sarchive:(\S+)\s*\z/
-				archive_source = Regexp.last_match(1)
-				rest = rest.sub(/\sarchive:(\S+)\s*\z/, "").strip
-			end
-
-			[rest, archive_source]
+			title_source = parts.length > 1 ? parts.last : ""
+			[url_token, title_source]
 		end
 	end
 end

@@ -184,23 +184,41 @@ Running `bundle exec jekyll build` then produces `/garden/tags/<slug>/` pages th
 
 ## link_card_tag.rb
 
-Liquid tag that renders a centered blockquote “card” with an optional title and an optional, explicit archive link.
+Liquid tag that renders a centered blockquote “card” and optionally archives each URL via archive.org’s SavePageNow API.
 
 ### Usage
 
 ```liquid
 {% linkcard https://example.com "Optional Title" %}
-{% linkcard https://example.com "Optional Title" archive:https://web.archive.org/web/timestamp/https://example.com/ %}
-{% linkcard page.link page.link_title archive:page.link_archive %}
 ```
 
 - First argument: URL (required; can be literal or Liquid expression).
-- Remaining text before `archive:`: optional title; omitted if blank.
-- Optional trailing `archive:` token: an explicit archive URL or Liquid expression (e.g., `archive:page.link_archive`).
+- Remaining text: optional title; omitted if blank.
 
 ### Features
 
-- **Explicit archive links**: Renders an `(archive)` badge only when an explicit archive URL is provided.
-- **No network calls**: Does not communicate with archive.org or any external archiving service at build time.
-- **Backwards compatible**: Existing `{% linkcard URL %}` and `{% linkcard URL "Title" %}` usages continue to work unchanged.
+- **SavePageNow integration**: When `LINKCARD_ARCHIVE_SAVE=1` is set, each card submits its URL to `https://web.archive.org/save/...` and renders an `(archive)` badge if the response returns a `Content-Location`.
+- **Existing snapshot fallback**: When `LINKCARD_ARCHIVE=1` (or `LINKCARD_ARCHIVE_SAVE=1`), the tag queries the Wayback CDX API for the latest available snapshot and links to that even if no fresh submission runs.
+- **Per-build caching**: Each unique URL is archived/looked-up at most once per build even if referenced multiple times.
+- **Logging**: Emits `linkcard Submitting to SavePageNow: <url>` and success/failure logs via `Jekyll.logger`.
 - **Styling hooks**: Renders predictable HTML so you can target `.link-card` or override inline styles.
+
+### Environment Variables
+
+- `LINKCARD_ARCHIVE` - set to `1` to render archive links (uses existing snapshots only).
+- `LINKCARD_ARCHIVE_SAVE` - set to `1` to submit new snapshots and implies `LINKCARD_ARCHIVE`.
+- `LINKCARD_ARCHIVE_UA` - custom User-Agent string for archive requests.
+- `LINKCARD_ARCHIVE_CONTACT` - inserted into the default UA when `LINKCARD_ARCHIVE_UA` isn’t provided; typically an email or profile URL.
+
+Example GitHub Actions step:
+
+```yaml
+- name: Build site
+  run: bundle exec jekyll build
+  env:
+    LINKCARD_ARCHIVE_SAVE: "1"
+    LINKCARD_ARCHIVE_UA: "my-archiver/1.0 (+https://example.com/about)"
+    LINKCARD_ARCHIVE_CONTACT: "ops@example.com"
+```
+
+If SavePageNow doesn’t return a snapshot URL (e.g., queued or rate-limited), the card still renders normally but the `(archive)` line is omitted - no build failure occurs.
