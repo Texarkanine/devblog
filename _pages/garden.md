@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 🌸 Digital Garden
+title: Digital Garden 🌸
 ---
 
 Timeless treasures and curios collected from the internet and presented for your perusal.

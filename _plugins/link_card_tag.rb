@@ -132,8 +132,15 @@ module LinkCardTag
 		# @return [String] The archived URL if found (or newly submitted); otherwise an empty string. Cached results are reused. If lookup or submission fails, an empty string is returned.
 		def archive_url_for(url)
 			@@archive_cache[url] ||= begin
+				log_info("Looking up archive for #{url}")
 				archive_url = lookup_archive(url) || ""
-				archive_save_enabled? ? (submit_archive(url) || archive_url) : archive_url
+				log_info("Archive URL: #{archive_url}")
+				if archive_save_enabled?
+					log_info("Submitting to SavePageNow: #{url}")
+					archive_url = submit_archive(url) || archive_url
+					log_info("SavePageNow archived #{url} -> #{archive_url}")
+				end
+				archive_url
 			end
 		rescue StandardError => e
 			log_debug("archive lookup failed for #{url}: #{e.message}")
@@ -145,24 +152,24 @@ module LinkCardTag
 		# @param [String] url - The original URL to submit for archiving.
 		# @return [String, nil] The full web.archive.org URL for the archived resource if SavePageNow returns a location, `nil` if no location is returned or if an error occurs.
 		def submit_archive(url)
-			log_info("Submitting to SavePageNow: #{url}")
+			log_debug("submit_archive(#{url})")
 			encoded = URI.encode_www_form_component(url)
 			uri = URI.parse("https://web.archive.org/save/#{encoded}")
-			response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 5, read_timeout: 10) do |http|
+			response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 10, read_timeout: 30) do |http|
 				req = Net::HTTP::Get.new(uri.request_uri, { "User-Agent" => archive_user_agent })
 				http.request(req)
 			end
 			location = response["content-location"]
 			if location && !location.empty?
 				archive_url = "https://web.archive.org#{location}"
-				log_info("SavePageNow archived #{url} -> #{archive_url}")
+				log_info("submit_archive: SavePageNow archived #{url} -> #{archive_url}")
 				archive_url
 			else
-				log_debug("archive submission returned no location for #{url}")
+				log_debug("submit_archive: archive submission returned no location for #{url}")
 				nil
 			end
 		rescue StandardError => e
-			log_debug("archive submission error for #{url}: #{e.message}")
+			log_debug("submit_archive: archive submission error for #{url}: #{e.message}")
 			nil
 		end
 
@@ -172,21 +179,29 @@ module LinkCardTag
 		# @param [String] url - The original URL to search for in the CDX index.
 		# @return [String, nil] The web.archive.org URL pointing to the latest archived snapshot for `url`, or `nil` if no snapshot is found or a lookup error occurs.
 		def lookup_archive(url)
-			cdx_url = URI.parse("https://web.archive.org/cdx/search/cdx?url=#{URI.encode_www_form_component(url)}&output=json&filter=statuscode:200&limit=-1&fl=timestamp,original")
-			response = Net::HTTP.start(cdx_url.host, cdx_url.port, use_ssl: cdx_url.scheme == "https", open_timeout: 5, read_timeout: 10) do |http|
+			log_debug("lookup_archive(#{url})")
+			archive_fetch_url = "https://web.archive.org/cdx/search/cdx?url=#{URI.encode_www_form_component(url)}&output=json&filter=statuscode:200&limit=-1&fl=timestamp,original"
+			cdx_url = URI.parse(archive_fetch_url)
+			log_debug("lookup_archive: CDX lookup URL: #{archive_fetch_url}")
+			response = Net::HTTP.start(cdx_url.host, cdx_url.port, use_ssl: cdx_url.scheme == "https", open_timeout: 10, read_timeout: 30) do |http|
 				http.request(Net::HTTP::Get.new(cdx_url.request_uri))
 			end
-			return nil unless response.is_a?(Net::HTTPSuccess)
+			if  response.is_a?(Net::HTTPSuccess)
+				log_debug("lookup_archive: CDX lookup found archived page...")
+			else
+				log_debug("lookup_archive: CDX lookup failed: #{response.code} #{response.message}")
+			end
 
 			rows = JSON.parse(response.body)
 			return nil if rows.length <= 1 # first row is header
 
 			latest = rows.last
 			timestamp = latest[0]
-			log_info("CDX lookup found archived page: https://web.archive.org/web/#{timestamp}/#{url}")
-			"https://web.archive.org/web/#{timestamp}/#{url}"
+			existing_archive_page = "https://web.archive.org/web/#{timestamp}/#{url}"	
+			log_debug("lookup_archive: CDX lookup found archived page: #{existing_archive_page}")
+			existing_archive_page
 		rescue StandardError => e
-			log_debug("CDX lookup error for #{url}: #{e.message}")
+			log_debug("lookup_archive: CDX lookup error for #{url}: #{e.message}")
 			nil
 		end
 
@@ -219,7 +234,7 @@ module LinkCardTag
 		def log_debug(message)
 			return unless defined?(Jekyll) && Jekyll.respond_to?(:logger)
 
-			Jekyll.logger.debug("linkcard", message)
+			Jekyll.logger.debug("link_card_tag: ", message)
 		end
 
 		##
@@ -228,7 +243,7 @@ module LinkCardTag
 		def log_info(message)
 			return unless defined?(Jekyll) && Jekyll.respond_to?(:logger)
 
-			Jekyll.logger.info("linkcard", message)
+			Jekyll.logger.info("link_card_tag: ", message)
 		end
 
 		##

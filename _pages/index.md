@@ -4,7 +4,7 @@ permalink: /
 title: "Dog with a Dev Blog"
 ---
 
-# 🌸 Digital Garden
+# Digital Garden 🌸
 
 Timeless treasures and curios collected from the internet and presented for your perusal.
 
