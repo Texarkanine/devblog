@@ -230,12 +230,12 @@ module LinkCardTag
 			response = Net::HTTP.start(cdx_url.host, cdx_url.port, use_ssl: cdx_url.scheme == "https", open_timeout: 10, read_timeout: 30) do |http|
 				http.request(Net::HTTP::Get.new(cdx_url.request_uri))
 			end
-			if response.is_a?(Net::HTTPSuccess)
-				log_debug("lookup_archive: CDX lookup found archived page...")
-			else
+			unless response.is_a?(Net::HTTPSuccess)
 				log_debug("lookup_archive: CDX lookup failed: #{response.code} #{response.message}")
+				return nil
 			end
 
+			log_debug("lookup_archive: CDX lookup found archived page...")
 			rows = JSON.parse(response.body)
 			return nil if rows.length <= 1 # first row is header
 
