@@ -43,7 +43,7 @@ module LinkCardTag
 			archive_line = archive_block(url, archive)
 
 			<<~HTML
-				<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
+				<blockquote class="link-card" style="text-align: center; position: relative;">
 					#{title_block(title)}
 					<a href="#{escaped_url}" target="_blank" rel="noopener">#{escaped_display_url}</a>
 					#{archive_line}
@@ -206,7 +206,7 @@ module LinkCardTag
 		# @return [String, nil] The web.archive.org URL pointing to the latest archived snapshot for `url`, or `nil` if no snapshot is found or a lookup error occurs.
 		def lookup_archive(url)
 			log_debug("lookup_archive(#{url})")
-			archive_fetch_url = "https://web.archive.org/cdx/search/cdx?url=#{URI.encode_www_form_component(url)}&output=json&filter=statuscode:200&limit=-1&fl=timestamp,original"
+			archive_fetch_url = "https://web.archive.org/cdx/search/cdx?url=#{URI.encode_www_form_component(url)}&output=json&filter=statuscode:200&fl=timestamp,original"
 			cdx_url = URI.parse(archive_fetch_url)
 			log_debug("lookup_archive: CDX lookup URL: #{archive_fetch_url}")
 			response = Net::HTTP.start(cdx_url.host, cdx_url.port, use_ssl: cdx_url.scheme == "https", open_timeout: 10, read_timeout: 30) do |http|
