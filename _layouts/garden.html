@@ -6,6 +6,12 @@ layout: default
 
 <header>
 	<h1>{{ page.title }}</h1>
+	<div style="text-align: right;">
+		<span class="page-meta">Planted: {{ page.date | date: site.theme_config.date_format | default: "%Y-%m-%d" }}
+		{% if page.last_modified %}
+			<br>Last tended: {{ page.last_modified | date: site.theme_config.date_format | default: "%Y-%m-%d" }}</span>
+		{% endif %}
+	</div>
 </header>
 
 {% if page.link %}
@@ -25,10 +31,6 @@ layout: default
 			<a href="{{ site.baseurl }}/garden/tags/{{ tag | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}</a>{% unless forloop.last %}, {% endunless %}
 		{% endfor %}
 	</p>
-	{% endif %}
-
-	{% if page.last_modified %}
-	<!-- Last updated: {{ page.last_modified | date: site.theme_config.date_format | default: "%Y-%m-%d" }} -->
 	{% endif %}
 </footer>
 

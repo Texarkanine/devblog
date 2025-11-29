@@ -1,4 +1,4 @@
-entries:  
+entries:
   - title: pages
     post_list:
       collection: garden
@@ -9,3 +9,6 @@ entries:
       show_more_url: /garden/
   - title: all garden tags
     url: /garden/tags/
+  - title: what is a digital garden?
+    url: /garden/what-is-a-digital-garden.html
+
