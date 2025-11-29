@@ -1,11 +1,9 @@
 ---
 layout: garden
-title: "AA & AAA Battery Performance"
+title: "AA & AAA Battery Performance Data"
 link: https://lygte-info.dk/review/batteries2012/CommonAAcomparator.php
 link_archive: https://web.archive.org/web/20250923191759/https://lygte-info.dk/review/batteries2012/CommonAAcomparator.php
-tags:
-    - battery
-    - data-reference
+tags: [ battery, data-reference ]
 ---
 
 This person has extensively tested a huge variety of common batteries' performance. In addition to individual battery brands' results, you can compare two against each other. They even have different revisions of different batteries tested.
