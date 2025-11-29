@@ -28,10 +28,11 @@ module LinkCardTag
 		# @param [Liquid::Context] context - The Liquid rendering context used to evaluate expressions.
 		# @return [String] The HTML fragment for the link card.
 		def render(context)
-			url_token, title_source = split_markup(@markup)
+			url_token, title_source, archive_source = split_markup(@markup)
 
 			url = resolve_url(url_token, context)
 			title = resolve_title(title_source, context)
+			archive = resolve_archive(archive_source, context)
 
 			url_string = url.to_s
 			display_url = url.to_s.sub(/\Ahttps?:\/\//, "")
@@ -39,10 +40,14 @@ module LinkCardTag
 
 			escaped_url = CGI.escapeHTML(url_string)
 
-			archive_line = archive_block(url)
+			archive_line = archive_block(url, archive)
+
+			# Conditionally add padding if there is an archive_line so it doesn't overlap the url
+			blockquote_style = "text-align: center; position: relative;"
+			blockquote_style += " padding-bottom: 1.75rem;" unless archive_line.nil? || archive_line.empty?
 
 			<<~HTML
-				<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
+				<blockquote class="link-card" style="#{blockquote_style}">
 					#{title_block(title)}
 					<a href="#{escaped_url}" target="_blank" rel="noopener">#{escaped_display_url}</a>
 					#{archive_line}
@@ -90,6 +95,34 @@ module LinkCardTag
 		end
 
 		##
+		# Resolves the archive URL expression or literal from the provided source.
+		# @param [Object] source - The raw archive token or expression from markup (after the `archive:` prefix has been removed).
+		# @param [Liquid::Context] context - Liquid rendering context used to evaluate expressions.
+		# @return [String, nil] The evaluated archive URL string; returns `nil` if the source is empty or evaluates to nil. If expression parsing raises a syntax or argument error, returns the source with outer matching quotes removed.
+		def resolve_archive(source, context)
+			raw_archive = source.to_s.strip
+			return nil if raw_archive.empty?
+
+			value = evaluate_expression(raw_archive, context, allow_nil: true)
+			
+			# If evaluation returned nil, check if the raw source looks like a URL.
+			# This handles the case where a literal URL gets mis-parsed as a variable lookup.
+			# It's safe because variable lookups (like "page.link_archive") won't start with a URL scheme,
+			# so they'll correctly return nil and not be treated as literal URLs.
+			# Matches any valid URL scheme (http://, https://, ftp://, ssl://, file://, etc.)
+			if value.nil? && raw_archive.match?(/\A[a-zA-Z][a-zA-Z0-9+.-]*:\/\//)
+				return raw_archive
+			end
+			
+			return nil if value.nil? || value.to_s.strip.empty?
+
+			value.to_s
+		rescue Liquid::SyntaxError, ArgumentError
+			fallback = strip_outer_quotes(raw_archive)
+			fallback.empty? ? nil : fallback
+		end
+
+		##
 		# Evaluate a Liquid expression token against the given Liquid context with controlled nil fallback.
 		# @param [String] token - The raw Liquid expression or literal to evaluate.
 		# @param [Liquid::Context] context - The Liquid rendering context used for evaluation.
@@ -113,13 +146,23 @@ module LinkCardTag
 		end
 
 		##
-		# Produces an HTML fragment linking to an archived copy of a URL when archiving is enabled.
-		# @param [String] url - The original URL to look up in the archive.
-		# @return [String] An HTML `<small>` element with a right-bottom positioned "archive" link to the archived URL, or an empty string if archiving is disabled or no archive URL is available.
-		def archive_block(url)
-			return "" unless archive_enabled?
+		# Produces an HTML fragment linking to an archived copy of a URL when archiving is enabled
+		# or when an explicit archive URL has been provided.
+		# @param [String] url - The original URL to look up in the archive when no explicit archive URL is given.
+		# @param [String, nil] explicit_archive - An explicit archive URL to use instead of performing a lookup; may be nil.
+		# @return [String] An HTML `<small>` element with a right-bottom positioned "archive" link to the archived URL, or an empty string if archiving is disabled and no explicit archive URL is provided, or if no archive URL is available.
+		def archive_block(url, explicit_archive = nil)
+			archive_url = nil
 
-			archive_url = archive_url_for(url)
+			# Always check for explicit archive first - if provided, use it and skip lookup entirely
+			explicit_archive_str = explicit_archive.to_s.strip
+			if !explicit_archive_str.empty?
+				archive_url = explicit_archive_str
+			elsif archive_enabled?
+				# Only perform lookup if no explicit archive was provided
+				archive_url = archive_url_for(url)
+			end
+
 			return "" if archive_url.to_s.strip.empty?
 
 			escaped = CGI.escapeHTML(archive_url)
@@ -128,12 +171,20 @@ module LinkCardTag
 
 		##
 		# Retrieve and cache an archive URL for the given original URL, optionally submitting it for archiving when enabled.
+		# This method should only be called when no explicit archive URL has been provided.
 		# @param [String] url - The original URL to look up or submit to the archive.
 		# @return [String] The archived URL if found (or newly submitted); otherwise an empty string. Cached results are reused. If lookup or submission fails, an empty string is returned.
 		def archive_url_for(url)
 			@@archive_cache[url] ||= begin
+				log_info("Looking up archive for #{url}")
 				archive_url = lookup_archive(url) || ""
-				archive_save_enabled? ? (submit_archive(url) || archive_url) : archive_url
+				log_info("Archive URL: #{archive_url}")
+				if archive_save_enabled?
+					log_info("Submitting to SavePageNow: #{url}")
+					archive_url = submit_archive(url) || archive_url
+					log_info("SavePageNow archived #{url} -> #{archive_url}")
+				end
+				archive_url
 			end
 		rescue StandardError => e
 			log_debug("archive lookup failed for #{url}: #{e.message}")
@@ -145,24 +196,24 @@ module LinkCardTag
 		# @param [String] url - The original URL to submit for archiving.
 		# @return [String, nil] The full web.archive.org URL for the archived resource if SavePageNow returns a location, `nil` if no location is returned or if an error occurs.
 		def submit_archive(url)
-			log_info("Submitting to SavePageNow: #{url}")
+			log_debug("submit_archive(#{url})")
 			encoded = URI.encode_www_form_component(url)
 			uri = URI.parse("https://web.archive.org/save/#{encoded}")
-			response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 5, read_timeout: 10) do |http|
+			response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 10, read_timeout: 30) do |http|
 				req = Net::HTTP::Get.new(uri.request_uri, { "User-Agent" => archive_user_agent })
 				http.request(req)
 			end
 			location = response["content-location"]
 			if location && !location.empty?
 				archive_url = "https://web.archive.org#{location}"
-				log_info("SavePageNow archived #{url} -> #{archive_url}")
+				log_info("submit_archive: SavePageNow archived #{url} -> #{archive_url}")
 				archive_url
 			else
-				log_debug("archive submission returned no location for #{url}")
+				log_debug("submit_archive: archive submission returned no location for #{url}")
 				nil
 			end
 		rescue StandardError => e
-			log_debug("archive submission error for #{url}: #{e.message}")
+			log_debug("submit_archive: archive submission error for #{url}: #{e.message}")
 			nil
 		end
 
@@ -172,21 +223,29 @@ module LinkCardTag
 		# @param [String] url - The original URL to search for in the CDX index.
 		# @return [String, nil] The web.archive.org URL pointing to the latest archived snapshot for `url`, or `nil` if no snapshot is found or a lookup error occurs.
 		def lookup_archive(url)
-			cdx_url = URI.parse("https://web.archive.org/cdx/search/cdx?url=#{URI.encode_www_form_component(url)}&output=json&filter=statuscode:200&limit=-1&fl=timestamp,original")
-			response = Net::HTTP.start(cdx_url.host, cdx_url.port, use_ssl: cdx_url.scheme == "https", open_timeout: 5, read_timeout: 10) do |http|
+			log_debug("lookup_archive(#{url})")
+			archive_fetch_url = "https://web.archive.org/cdx/search/cdx?url=#{URI.encode_www_form_component(url)}&output=json&filter=statuscode:200&limit=-1&fl=timestamp,original"
+			cdx_url = URI.parse(archive_fetch_url)
+			log_debug("lookup_archive: CDX lookup URL: #{archive_fetch_url}")
+			response = Net::HTTP.start(cdx_url.host, cdx_url.port, use_ssl: cdx_url.scheme == "https", open_timeout: 10, read_timeout: 30) do |http|
 				http.request(Net::HTTP::Get.new(cdx_url.request_uri))
 			end
-			return nil unless response.is_a?(Net::HTTPSuccess)
+			unless response.is_a?(Net::HTTPSuccess)
+				log_debug("lookup_archive: CDX lookup failed: #{response.code} #{response.message}")
+				return nil
+			end
 
+			log_debug("lookup_archive: CDX lookup found archived page...")
 			rows = JSON.parse(response.body)
 			return nil if rows.length <= 1 # first row is header
 
 			latest = rows.last
 			timestamp = latest[0]
-			log_info("CDX lookup found archived page: https://web.archive.org/web/#{timestamp}/#{url}")
-			"https://web.archive.org/web/#{timestamp}/#{url}"
+			existing_archive_page = "https://web.archive.org/web/#{timestamp}/#{url}"
+			log_debug("lookup_archive: CDX lookup found archived page: #{existing_archive_page}")
+			existing_archive_page
 		rescue StandardError => e
-			log_debug("CDX lookup error for #{url}: #{e.message}")
+			log_debug("lookup_archive: CDX lookup error for #{url}: #{e.message}")
 			nil
 		end
 
@@ -219,7 +278,7 @@ module LinkCardTag
 		def log_debug(message)
 			return unless defined?(Jekyll) && Jekyll.respond_to?(:logger)
 
-			Jekyll.logger.debug("linkcard", message)
+			Jekyll.logger.debug("link_card_tag: ", message)
 		end
 
 		##
@@ -228,7 +287,7 @@ module LinkCardTag
 		def log_info(message)
 			return unless defined?(Jekyll) && Jekyll.respond_to?(:logger)
 
-			Jekyll.logger.info("linkcard", message)
+			Jekyll.logger.info("link_card_tag: ", message)
 		end
 
 		##
@@ -245,18 +304,26 @@ module LinkCardTag
 		end
 
 		##
-		# Parse the tag markup into a URL token and an optional title source.
-		# @param [String] markup - Raw markup provided to the tag (expected: URL optionally followed by a title).
-		# @return [Array<String>] An array of two strings: `[url_token, title_source]` where `title_source` is empty when no title is present.
+		# Parse the tag markup into a URL token, an optional title source, and an optional archive source.
+		# @param [String] markup - Raw markup provided to the tag (expected: URL optionally followed by a title and an `archive:` argument).
+		# @return [Array<String>] An array of three strings: `[url_token, title_source, archive_source]` where `title_source` and `archive_source` are empty when not present.
 		# @raise [ArgumentError] if `markup` is empty or contains only whitespace.
 		def split_markup(markup)
 			stripped = markup.to_s.strip
 			raise ArgumentError, "linkcard tag requires a URL" if stripped.empty?
 
-			parts = stripped.split(/\s+/, 2)
-			url_token = parts.first
-			title_source = parts.length > 1 ? parts.last : ""
-			[url_token, title_source]
+			tokens = stripped.split(/\s+/)
+			url_token = tokens.shift
+
+			archive_source = ""
+			if tokens.any? && tokens.last.start_with?("archive:")
+				archive_token = tokens.pop
+				archive_source = archive_token.sub(/\Aarchive:/, "")
+			end
+
+			title_source = tokens.join(" ")
+
+			[url_token, title_source, archive_source]
 		end
 	end
 end
