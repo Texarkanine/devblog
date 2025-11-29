@@ -212,7 +212,7 @@ module LinkCardTag
 			response = Net::HTTP.start(cdx_url.host, cdx_url.port, use_ssl: cdx_url.scheme == "https", open_timeout: 10, read_timeout: 30) do |http|
 				http.request(Net::HTTP::Get.new(cdx_url.request_uri))
 			end
-			if  response.is_a?(Net::HTTPSuccess)
+			if response.is_a?(Net::HTTPSuccess)
 				log_debug("lookup_archive: CDX lookup found archived page...")
 			else
 				log_debug("lookup_archive: CDX lookup failed: #{response.code} #{response.message}")
@@ -223,7 +223,7 @@ module LinkCardTag
 
 			latest = rows.last
 			timestamp = latest[0]
-			existing_archive_page = "https://web.archive.org/web/#{timestamp}/#{url}"	
+			existing_archive_page = "https://web.archive.org/web/#{timestamp}/#{url}"
 			log_debug("lookup_archive: CDX lookup found archived page: #{existing_archive_page}")
 			existing_archive_page
 		rescue StandardError => e
