@@ -97,7 +97,8 @@ jobs:
           
           if [ "$HTTP_CODE" -eq 201 ] || [ "$HTTP_CODE" -eq 200 ]; then
             echo "✅ Deployment triggered successfully (HTTP $HTTP_CODE)"
-            echo "$BODY" | jq -r '.deployment.id // "unknown"' | xargs -I {} echo "Deployment ID: {}"
+            DEPLOYMENT_ID=$(echo "$BODY" | jq -r '.deployment.id // "unknown"')
+            echo "Deployment ID: $DEPLOYMENT_ID"
           else
             echo "❌ Failed to trigger deployment (HTTP $HTTP_CODE)"
             echo "Response: $BODY"
