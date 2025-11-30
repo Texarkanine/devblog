@@ -113,7 +113,7 @@ This is potentially solve-able - if the LLMs could take information in from othe
 This one's a fun one! It's more of a "mechanism of action" of the above psychogenic properties.
 
 Before we begin, you may be thinking "well, *I* don't have any (pre-existing) mental health conditions, so this doesn't apply to me."
-Well, you do have at least a *little* bit of delusion if you'v been chatting with those `Psychogenic Machines`. Sorry!
+Well, you do have at least a *little* bit of delusion if you've been chatting with those `Psychogenic Machines`. Sorry!
 
 The core of this paper is that the echo chamber properties of LLMs (`Psychogenic Machine`, above) and their increasingly-effective imitation of human interaction hooks into people and leads to [folie à deux](https://en.wikipedia.org/wiki/Folie_%C3%A0_deux).
 
