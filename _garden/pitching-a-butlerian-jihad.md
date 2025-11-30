@@ -9,7 +9,7 @@ tags: [ ai, research ]
 > <br><br>
 > *-- Frank Herbert, Dune*
 
-I believe that the advent of [transformer](https://arxiv.org/abs/1706.03762)-based large language models (LLMs) was the beginning of a technologial revolution similar in vein to the industrial revolution, the internal combustion engine, the transitor, bitcoin, and the internet.
+I believe that the advent of [transformer](https://arxiv.org/abs/1706.03762)-based large language models (LLMs) was the beginning of a technological revolution similar in vein to the industrial revolution, the internal combustion engine, the transitor, bitcoin, and the internet.
 
 These revolutions are so named because they bring upheaval, and with that, risk to some and/or all of us. There's a lot of hype around AI - here are some dangers that I think are actually "real" and worth planning for.
 
