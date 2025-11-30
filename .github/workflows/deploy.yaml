@@ -24,6 +24,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true
+          fetch-depth: 0  # Full history needed for git log to find first commit dates
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

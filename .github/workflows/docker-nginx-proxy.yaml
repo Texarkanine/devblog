@@ -72,3 +72,35 @@ jobs:
           echo "${{ steps.meta.outputs.tags }}" >> image-publish-summary.md
           echo '```' >> image-publish-summary.md
           cat image-publish-summary.md | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Trigger DigitalOcean redeploy
+        if: success()
+        env:
+          DO_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          DO_APP_ID: ${{ secrets.DIGITALOCEAN_APP_ID }}
+        run: |
+          if [ -z "$DO_TOKEN" ] || [ -z "$DO_APP_ID" ]; then
+            echo "⚠️ DigitalOcean secrets not configured. Skipping redeploy."
+            echo "Set DIGITALOCEAN_ACCESS_TOKEN and DIGITALOCEAN_APP_ID secrets to enable auto-redeploy."
+            exit 0
+          fi
+          
+          echo "🚀 Triggering DigitalOcean App Platform redeploy..."
+          
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $DO_TOKEN" \
+            "https://api.digitalocean.com/v2/apps/$DO_APP_ID/deployments")
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+          
+          if [ "$HTTP_CODE" -eq 201 ] || [ "$HTTP_CODE" -eq 200 ]; then
+            echo "✅ Deployment triggered successfully (HTTP $HTTP_CODE)"
+            DEPLOYMENT_ID=$(echo "$BODY" | jq -r '.deployment.id // "unknown"')
+            echo "Deployment ID: $DEPLOYMENT_ID"
+          else
+            echo "❌ Failed to trigger deployment (HTTP $HTTP_CODE)"
+            echo "Response: $BODY"
+            exit 1
+          fi
