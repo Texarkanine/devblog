@@ -11,6 +11,8 @@
       {%
         include page_list.html
           collection=item.post_list.collection
+          sort_key=item.post_list.sort_key
+          reverse=item.post_list.reverse
           limit=item.post_list.limit
           show_more=item.post_list.show_more
           show_more_text=item.post_list.show_more_text
