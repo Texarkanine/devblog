@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - nginx-improve
     paths:
       - 'nginx-proxy/**'
       - '.github/workflows/docker-nginx-proxy.yaml'
@@ -12,6 +13,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}/nginx-proxy
+  DO_COMPONENT_NAME: nginx
 
 concurrency:
   group: "nginx"
@@ -72,3 +74,27 @@ jobs:
           echo "${{ steps.meta.outputs.tags }}" >> image-publish-summary.md
           echo '```' >> image-publish-summary.md
           cat image-publish-summary.md | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Trigger DigitalOcean nginx component redeploy
+        env:
+          DO_APP_ID: ${{ secrets.DIGITALOCEAN_APP_ID }}
+        run: |
+          if [ -z "$DO_APP_ID" ]; then
+            echo "⚠️ DigitalOcean secrets not configured. Skipping redeploy."
+            echo "Set DIGITALOCEAN_APP_ID to enable auto-redeploy."
+            exit 1
+          fi
+          
+          echo "🚀 Triggering DigitalOcean App Platform redeploy of nginx..."
+          
+          if doctl apps create-deployment "$DO_APP_ID" --component "$DO_COMPONENT_NAME"; then
+            echo "✅ Deployment triggered successfully for nginx component"
+          else
+            echo "❌ Failed to trigger deployment"
+            exit 1
+          fi
