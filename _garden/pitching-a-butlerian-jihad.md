@@ -1,6 +1,6 @@
 ---
 layout: garden
-title: "Pitching a Butlerian Jihand"
+title: "Pitching a Butlerian Jihad"
 subtitle: "The various ways AI can probably hurt you and what, if anything, you can do about it"
 tags: [ ai, research ]
 ---
