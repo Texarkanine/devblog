@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - nginx-improve
     paths:
       - 'nginx-proxy/**'
       - '.github/workflows/docker-nginx-proxy.yaml'
