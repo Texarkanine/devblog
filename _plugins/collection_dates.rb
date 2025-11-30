@@ -30,7 +30,8 @@ module Jekyll
           # Always set last_modified (for "last updated" display)
           # This can be overridden in front matter if needed
           unless doc.data.key?("last_modified")
-            doc.data["last_modified"] = File.mtime(file_path)
+            last_modified_date = git_last_commit_date(file_path) || File.mtime(file_path)
+            doc.data["last_modified"] = last_modified_date
           end
         end
       end
@@ -60,6 +61,32 @@ module Jekyll
 
       # Parse the date string
       Time.parse(result.split("\n").last)
+    rescue StandardError
+      nil
+    end
+
+    # Gets the date of the most recent commit that modified this file
+    ##
+    # Determine the file's last Git commit date.
+    #
+    # Returns the Time of the most recent commit that modified the given file according to Git, or `nil` when the repository is not available, Git provides no matching commit, or an error occurs.
+    # @param [String] file_path - Path to the file on disk.
+    # @return [Time, nil] The timestamp of the file's last commit, or `nil` if unavailable.
+    def git_last_commit_date(file_path)
+      return nil unless File.exist?(".git")
+
+      # Get relative path from site source
+      relative_path = file_path.sub(Dir.pwd + "/", "")
+      
+      # Escape path to prevent command injection
+      escaped_path = Shellwords.escape(relative_path)
+      
+      # Get most recent commit date (limit to 1 result, most recent first)
+      result = `git log -1 --format="%ai" -- #{escaped_path} 2>/dev/null`.strip
+      return nil if result.empty?
+
+      # Parse the date string
+      Time.parse(result)
     rescue StandardError
       nil
     end
