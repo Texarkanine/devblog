@@ -89,7 +89,7 @@ Oops!
 
 Again, this shouldn't be news to those paying attention at this point, but it's nice to see people starting to measure it.
 
-The pernicious thing is that it doesn't seem to be necesary to have had any prior risk factors for *at least* the "delusion" psychoses in order to be pushed closer to clinical levels of delusion. It seems that the combination of
+The pernicious thing is that it doesn't seem to be necessary to have had any prior risk factors for *at least* the "delusion" psychoses in order to be pushed closer to clinical levels of delusion. It seems that the combination of
 
 1. agreeableness
 2. the *only* new information the LLM takes in being provided by the human
