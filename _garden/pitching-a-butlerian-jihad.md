@@ -31,7 +31,7 @@ The article is focused on technology students, but code generation is just one o
 
 Then we end up as with automotive and manufacturing in the 2020s, where the old-timers are retiring and there isn't anyone to replace them because the flow of new blood to *those* industries has been drying up for decades.
 
-It's certainly bad for the students in college right now, waching the AI consume more and more of their job opportunities each day.
+It's certainly bad for the students in college right now, watching the AI consume more and more of their job opportunities each day.
 
 Long-term, it remains to be seen if "making software engineers hyper-efficient so that we only need a few of them" is actually *bad* writ large.
 
