@@ -1,6 +1,7 @@
 ---
 layout: page
 title: All Post Tags
+permalink: /tags/
 ---
 
 {% capture tags %}

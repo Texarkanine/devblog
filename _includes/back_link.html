@@ -8,6 +8,8 @@
 {% elsif page.url %}
 	{% assign current = page.url | replace: '/index.html', '/' | strip %}
 	{% assign segments = current | split: '/' %}
+	{% comment %}Get last segment before popping to check if it's a file{% endcomment %}
+	{% assign last_segment = segments | last %}
 	{% assign parent_segments = segments | pop %}
 	{% capture parent_candidate -%}
 		{%- for segment in parent_segments -%}
@@ -17,6 +19,10 @@
 		{%- endfor -%}
 	{%- endcapture %}
 	{% assign parent_href = parent_candidate | replace: '//', '/' | strip | default: '/' %}
+	{% comment %}Add trailing slash if original URL was a file (has extension) and parent is not root{% endcomment %}
+	{% if parent_href != '/' and last_segment != '' and last_segment contains '.' %}
+		{% assign parent_href = parent_href | append: '/' %}
+	{% endif %}
 {% endif %}
 
 <p>
