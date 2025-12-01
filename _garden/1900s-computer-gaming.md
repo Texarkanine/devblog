@@ -1,7 +1,12 @@
 ---
 layout: garden
 title: "Play Classic Computer Games from the 1900s"
-tags: [ abandonedware, archive, flash, gaming ]
+tags: 
+  - abandonedware
+  - archive
+  - flash
+  - gaming
+  - links
 ---
 
 {% linkcard 

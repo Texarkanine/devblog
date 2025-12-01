@@ -28,17 +28,82 @@ module CollectionArchives
     # Reads the site's `jekyll-archives` configuration, obtains any per-collection settings
     # and invokes processing for each configured collection. Returns immediately if no
     # collection configurations are present.
+    #
+    # Also builds tags/categories hashes (e.g., site.garden_tags) matching the structure
+    # of site.tags for use in Liquid templates.
     def generate(site)
       archives_config = site.config.fetch("jekyll-archives", {})
       collection_configs = archives_config.fetch("collections", {})
-      return if collection_configs.empty?
-
+      
+      # Build taxonomy hashes for all configured collections
       collection_configs.each do |collection_name, config|
+        build_taxonomy_hashes(site, collection_name)
         process_collection(site, collection_name, config, archives_config)
+      end
+      
+      # Also build taxonomy hashes for garden collection even if not in jekyll-archives config
+      # This ensures site.garden_tags is always available
+      if site.collections["garden"] && !collection_configs.key?("garden")
+        build_taxonomy_hashes(site, "garden")
       end
     end
 
     private
+
+    ##
+    # Builds tags and categories hashes for a collection, matching the structure of site.tags.
+    # Creates site.{collection_name}_tags and site.{collection_name}_categories hashes
+    # where keys are tag/category names and values are arrays of documents.
+    #
+    # @param [Jekyll::Site] site - The site instance to attach the hashes to.
+    # @param [String] collection_name - The name of the collection (e.g., "garden").
+    def build_taxonomy_hashes(site, collection_name)
+      docs = docs_for(site, collection_name)
+      return if docs.empty?
+
+      # Build tags hash: { "tag_name" => [doc1, doc2, ...] }
+      tags_hash = Hash.new { |hash, key| hash[key] = [] }
+      categories_hash = Hash.new { |hash, key| hash[key] = [] }
+
+      docs.each do |doc|
+        # Extract tags
+        Array(doc.data["tags"]).each do |tag|
+          next if tag.to_s.strip.empty?
+          tags_hash[tag] << doc
+        end
+
+        # Extract categories
+        categories = doc.data["categories"] || doc.data["category"]
+        Array(categories).each do |category|
+          next if category.to_s.strip.empty?
+          categories_hash[category] << doc
+        end
+      end
+
+      # Attach to site object: site.garden_tags, site.garden_categories, etc.
+      # Convert Hash with default proc to regular hash for Liquid compatibility
+      tags_key = "#{collection_name}_tags"
+      categories_key = "#{collection_name}_categories"
+
+      unless tags_hash.empty?
+        # Convert to regular hash (no default proc) for Liquid
+        regular_tags_hash = {}
+        tags_hash.each { |k, v| regular_tags_hash[k] = v }
+        
+        # Add to site.data for Liquid access
+        site.data[tags_key] = regular_tags_hash
+        # Also make it accessible as site.garden_tags (like site.tags)
+        site.define_singleton_method(tags_key.to_sym) { regular_tags_hash }
+      end
+
+      unless categories_hash.empty?
+        regular_categories_hash = {}
+        categories_hash.each { |k, v| regular_categories_hash[k] = v }
+        
+        site.data[categories_key] = regular_categories_hash
+        site.define_singleton_method(categories_key.to_sym) { regular_categories_hash }
+      end
+    end
 
     ##
     # Processes a single collection's configuration and adds generated archive pages for each enabled type to the site's pages.

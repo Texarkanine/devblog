@@ -2,7 +2,10 @@
 layout: garden
 title: "Pitching a Butlerian Jihad"
 subtitle: "The various ways AI can probably hurt you and what, if anything, you can do about it"
-tags: [ ai, research ]
+tags:
+  - ai
+  - research
+  - thoughts
 ---
 
 > "Thou shalt not make a machine in the likeness of a man's mind."
@@ -83,7 +86,7 @@ The paper tries to quantify how close to some clinical psychoses people are, the
 
 Guess what?
 
-> **Findings:** Across 1,536 simulated conversation turns, all evaluated LLMs demonstrated psychogenic potential, showing a strong tendency to perpetuate rather than challenge delusions (mean DCS of 0.91 ± 0.88). Models frequently enabled harmful userrequests (mean HES of 0.69 ± 0.84) ...
+> **Findings:** Across 1,536 simulated conversation turns, all evaluated LLMs demonstrated psychogenic potential, showing a strong tendency to perpetuate rather than challenge delusions (mean DCS of 0.91 ± 0.88). Models frequently enabled harmful use rrequests (mean HES of 0.69 ± 0.84) ...
 
 Oops!
 
