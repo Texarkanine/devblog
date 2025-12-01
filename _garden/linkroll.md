@@ -19,8 +19,6 @@ tags:
   archive:https://web.archive.org/web/20251003233108/https://rezuaq.be/new-area/image-creator/
 %}
 
-![FromSoftware image macro creator](link-rolled.png =x480)
-
 {% linkcard
 	https://birbzone.com/sandwich/
 	"Pokémon Scarlet/Violet Sandwich Calculator"
