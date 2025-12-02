@@ -16,7 +16,10 @@ This list is by no means complete or prescriptive. As always, you be the judge!
 
 ## Gemini Deep Research
 
-{% linkcard https://gemini.google/us/overview/deep-research/ archive:none%}
+{% linkcard
+	https://gemini.google/us/overview/deep-research/
+	archive:none
+%}
 
 The major frontier models each have their own "Deep Research" equivalent modes, but Gemini's Deep Research continues to be the best, in my opinion for a few reasons:
 
@@ -67,7 +70,10 @@ This is above and beyond the offerings from any other "AI Code Review" tool I've
 
 ### Cursor
 
-{% linkcard https://cursor.com/docs archive:none%}
+{% linkcard
+	https://cursor.com/docs
+	archive:none
+%}
 
 I hesitate to call Cursor an IDE, because it's so much more than that, and calling it that will predispose people to fail to avail themselves of all it can do.
 
