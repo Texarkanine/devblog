@@ -25,6 +25,12 @@ tags:
 	archive:https://web.archive.org/web/20251012045542/https://birbzone.com/sandwich/
 %}
 
+{% linkcard
+	https://mhn.quest/
+	"Monster Hunter Now - Gear Builder"
+	archive:https://web.archive.org/web/20250920035701/https://mhn.quest/
+%}
+
 ## Video Game Lore
 
 {% linkcard
