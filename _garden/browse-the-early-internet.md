@@ -1,7 +1,12 @@
 ---
 layout: garden
 title: "Browse The Vintage, Early Internet"
-tags: [ archive, scrollable, vintage web, geocities ]
+tags: 
+  - archive
+  - scrollable
+  - vintage web
+  - geocities
+  - links
 ---
 
 ## Websites
