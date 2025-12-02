@@ -1,6 +1,6 @@
 ---
 layout: garden
-title: "Pitching a Butlerian Jihad"
+title: "Fomenting the Butlerian Jihad"
 subtitle: "The various ways AI can probably hurt you and what, if anything, you can do about it"
 tags:
   - ai
@@ -129,3 +129,7 @@ And it turns out that kind of like how central American natives chewed the coca 
 A lighter version of this phenomenon could maybe be said to have already been observed with the exchange of traditional in-person relationships for [parasocial relationships](https://en.wikipedia.org/wiki/Parasocial_interaction) found through forms of social media. An always-on streamer or prolific content creator is more-available (and reliable) than traditional peer relationships and this *seems* (don't have a specific paper for this yet) to have a risk of deleterious effects on people who fall deeply under their thrall. Not just "you have fewer real friends," but reduction in *ability* to participate non-parasocial relationships. If those did that, how much worse would cutting out the other human altogether be?
 
 **Action Item:** The paper doesn't offer individual-level solutions. If I had to guess, though, I'd guess *"go spend time with humans who will say "no" to you"*
+
+## Scared Yet?
+
+Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop worrying and love the machine](./how-i-learned-to-stop-worrying-and-love-the-machine.html)!
