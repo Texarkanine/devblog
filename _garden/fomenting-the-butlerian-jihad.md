@@ -77,6 +77,7 @@ As we don't have any previous experience with rendering human action irrelevant 
 {% linkcard
 	https://arxiv.org/abs/2509.10970
 	"The Psychogenic Machine: Simulating AI Psychosis, Delusion Reinforcement and Harm Enablement in Large Language Models"
+	archive:https://web.archive.org/web/20251202042934/https://arxiv.org/abs/2509.10970
 %}
 
 > While the sycophantic and agreeable nature of LLMs is often beneficial, it can become a vector for harm by reinforcing delusional beliefs in vulnerable
@@ -106,6 +107,7 @@ This is potentially solve-able - if the LLMs could take information in from othe
 {% linkcard
 	https://arxiv.org/abs/2507.19218
 	"Technological folie à deux: Feedback Loops Between AI Chatbots and Mental Illness"
+	archive:https://web.archive.org/web/20251202043035/https://arxiv.org/abs/2507.19218
 %}
 
 > ... To understand this new risk profile we need to consider the interaction between
