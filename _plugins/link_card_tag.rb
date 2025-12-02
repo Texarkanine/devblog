@@ -149,13 +149,17 @@ module LinkCardTag
 		# Produces an HTML fragment linking to an archived copy of a URL when archiving is enabled
 		# or when an explicit archive URL has been provided.
 		# @param [String] url - The original URL to look up in the archive when no explicit archive URL is given.
-		# @param [String, nil] explicit_archive - An explicit archive URL to use instead of performing a lookup; may be nil.
-		# @return [String] An HTML `<small>` element with a right-bottom positioned "archive" link to the archived URL, or an empty string if archiving is disabled and no explicit archive URL is provided, or if no archive URL is available.
+		# @param [String, nil] explicit_archive - An explicit archive URL to use instead of performing a lookup, or "none" (case-insensitive) to opt out of archiving entirely; may be nil.
+		# @return [String] An HTML `<small>` element with a right-bottom positioned "archive" link to the archived URL, or an empty string if archiving is disabled, explicitly opted out via "none", or no archive URL is available.
 		def archive_block(url, explicit_archive = nil)
+			explicit_archive_str = explicit_archive.to_s.strip
+
+			# Explicit opt-out: skip all archiving (lookup and submission)
+			return "" if explicit_archive_str.casecmp("none").zero?
+
 			archive_url = nil
 
 			# Always check for explicit archive first - if provided, use it and skip lookup entirely
-			explicit_archive_str = explicit_archive.to_s.strip
 			if !explicit_archive_str.empty?
 				archive_url = explicit_archive_str
 			elsif archive_enabled?

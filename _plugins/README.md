@@ -190,13 +190,18 @@ Liquid tag that renders a centered blockquote “card” and optionally archives
 
 ```liquid
 {% linkcard https://example.com "Optional Title" %}
+{% linkcard https://example.com archive:https://web.archive.org/web/20250101000000/https://example.com %}
+{% linkcard https://example.com archive:none %}
 ```
 
 - First argument: URL (required; can be literal or Liquid expression).
 - Remaining text: optional title; omitted if blank.
+- `archive:` option: optional archive URL, or `none` (case-insensitive) to opt out of archiving entirely.
 
 ### Features
 
+- **Explicit archive URLs**: Use `archive:<url>` to provide a specific archive URL for a linkcard. This bypasses all lookup and submission logic.
+- **Opt-out of archiving**: Use `archive:none` to completely disable archiving for a specific linkcard, even when archiving is globally enabled. This skips both lookup and submission.
 - **SavePageNow integration**: When `LINKCARD_ARCHIVE_SAVE=1` is set, each card submits its URL to `https://web.archive.org/save/...` and renders an `(archive)` badge if the response returns a `Content-Location`.
 - **Existing snapshot fallback**: When `LINKCARD_ARCHIVE=1` (or `LINKCARD_ARCHIVE_SAVE=1`), the tag queries the Wayback CDX API for the latest available snapshot and links to that even if no fresh submission runs.
 - **Per-build caching**: Each unique URL is archived/looked-up at most once per build even if referenced multiple times.
