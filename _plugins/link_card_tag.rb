@@ -103,6 +103,9 @@ module LinkCardTag
 			raw_archive = source.to_s.strip
 			return nil if raw_archive.empty?
 
+			# Check for explicit opt-out before evaluation to avoid treating "none" as a variable lookup
+			return "none" if raw_archive.casecmp("none").zero?
+
 			value = evaluate_expression(raw_archive, context, allow_nil: true)
 			
 			# If evaluation returned nil, check if the raw source looks like a URL.
@@ -116,10 +119,16 @@ module LinkCardTag
 			
 			return nil if value.nil? || value.to_s.strip.empty?
 
+			# Check for opt-out after evaluation as well (in case it was a variable that evaluated to "none")
+			return "none" if value.to_s.strip.casecmp("none").zero?
+
 			value.to_s
 		rescue Liquid::SyntaxError, ArgumentError
 			fallback = strip_outer_quotes(raw_archive)
-			fallback.empty? ? nil : fallback
+			# Check for opt-out in fallback case too
+			return "none" if fallback.casecmp("none").zero?
+			return nil if fallback.empty?
+			fallback
 		end
 
 		##
