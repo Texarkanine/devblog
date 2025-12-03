@@ -19,6 +19,8 @@ server {
         add_header Content-Type text/plain;
     }
 
+    error_page 404 /error/404.html;
+
     # Proxy everything else to static site
     location / {
         # UPSTREAM_PATH is optional - if set (e.g., /abc123), prepend to all requests
