@@ -103,7 +103,7 @@ href_decorator:
     - target: _blank
     - rel: noopener
   patterns:
-    - '^(.+?)://':
+    - '^https?://':
     - '/assets/':
     - '.+\.pdf$':
         properties:

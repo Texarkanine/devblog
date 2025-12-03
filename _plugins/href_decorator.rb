@@ -92,15 +92,7 @@ module HrefDecorator
         pattern_properties = properties_array_to_hash(pattern_props_array)
 
         # Merge pattern properties (later patterns override earlier ones)
-        pattern_properties.each do |key, value|
-          if value == false || value == 'false'
-            # Remove property if false (disables inheritance)
-            merged.delete(key.to_s)
-          else
-            # Set/override property
-            merged[key.to_s] = value
-          end
-        end
+        merged = merge_properties(merged, pattern_properties)
       end
     end
 
