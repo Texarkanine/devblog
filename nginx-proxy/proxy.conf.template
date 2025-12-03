@@ -20,9 +20,6 @@ server {
     }
 
     error_page 404 /error/404.html;
-    location = /error/404.html {
-        internal;
-    }
 
     # Proxy everything else to static site
     location / {
