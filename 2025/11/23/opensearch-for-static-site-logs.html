@@ -68,9 +68,9 @@
 </header>
 
 <article>
-  <p>I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But <a href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform" target="_blank" rel="noopener noreferrer">DigitalOcean’s static site hosting</a>, elegant in its simplicity, doesn’t generate them. To get visibility into who visits my blog, I’d need to build my own logging infrastructure.</p>
+  <p>I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But <a href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform" target="_blank" rel="noopener">DigitalOcean’s static site hosting</a>, elegant in its simplicity, doesn’t generate them. To get visibility into who visits my blog, I’d need to build my own logging infrastructure.</p>
 
-<p>The plan: deploy <a href="https://opensearch.org/" target="_blank" rel="noopener noreferrer">OpenSearch</a> on my home server, forward logs from DigitalOcean, and build dashboards to analyze traffic. Simple enough.</p>
+<p>The plan: deploy <a href="https://opensearch.org/" target="_blank" rel="noopener">OpenSearch</a> on my home server, forward logs from DigitalOcean, and build dashboards to analyze traffic. Simple enough.</p>
 
 <h2 id="the-first-lesson-storage">The First Lesson: Storage</h2>
 
@@ -110,7 +110,7 @@
 
 <p>DNS-01 validation was the answer. Instead of serving a file on port 80, I’d prove domain ownership by creating DNS TXT records. The catch: Let’s Encrypt’s <code class="language-plaintext highlighter-rouge">certbot</code> doesn’t support my DNS provider, FreeDNS.</p>
 
-<p>I found <a href="https://github.com/acmesh-official/acme.sh" target="_blank" rel="noopener noreferrer"><code class="language-plaintext highlighter-rouge">acme.sh</code>, an alternative ACME client that supports FreeDNS via its API</a>. Installing it as root (not as my user account) ensured automatic renewals would work.</p>
+<p>I found <a href="https://github.com/acmesh-official/acme.sh" target="_blank" rel="noopener"><code class="language-plaintext highlighter-rouge">acme.sh</code>, an alternative ACME client that supports FreeDNS via its API</a>. Installing it as root (not as my user account) ensured automatic renewals would work.</p>
 
 <p>The tool created a DNS TXT record, Let’s Encrypt verified it, and I had a certificate. No port 80 exposure required. The certificate renews automatically every 60 days via a cron job, and nginx reloads seamlessly when it does.</p>
 
@@ -124,7 +124,7 @@
 
 <p>The irony: I’m paying $0/month for static site hosting because there’s no server-side processing. To get access logs, I’d need to pay $5/month for a server that does nothing but proxy requests and log them.</p>
 
-<p>I built an <a href="https://nginx.org/" target="_blank" rel="noopener noreferrer">nginx</a> container that accepts requests, logs them in JSON format, and forwards them to the actual static site. The container uses environment variables for configuration - no identifying information committed to the repository:</p>
+<p>I built an <a href="https://nginx.org/" target="_blank" rel="noopener">nginx</a> container that accepts requests, logs them in JSON format, and forwards them to the actual static site. The container uses environment variables for configuration - no identifying information committed to the repository:</p>
 
 <div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">upstream</span> <span class="s">backend_static</span> <span class="p">{</span>
     <span class="kn">server</span> $<span class="p">{</span><span class="kn">UPSTREAM_HOST</span><span class="err">}</span><span class="p">:</span><span class="mi">443</span><span class="p">;</span>
@@ -144,7 +144,7 @@
 
 <p>DigitalOcean forwards logs to OpenSearch, but they contain a mix of JSON access logs and plain text error messages. OpenSearch needs to parse them correctly.</p>
 
-<p>An <a href="https://docs.opensearch.org/latest/ingest-pipelines/" target="_blank" rel="noopener noreferrer">ingest pipeline</a> handles this. It attempts to parse each log entry as JSON. If parsing succeeds, it extracts the fields and marks the entry as <code class="language-plaintext highlighter-rouge">log_type: "access"</code>. If parsing fails, it marks it as <code class="language-plaintext highlighter-rouge">log_type: "error"</code> and stores the raw text:</p>
+<p>An <a href="https://docs.opensearch.org/latest/ingest-pipelines/" target="_blank" rel="noopener">ingest pipeline</a> handles this. It attempts to parse each log entry as JSON. If parsing succeeds, it extracts the fields and marks the entry as <code class="language-plaintext highlighter-rouge">log_type: "access"</code>. If parsing fails, it marks it as <code class="language-plaintext highlighter-rouge">log_type: "error"</code> and stores the raw text:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -180,8 +180,7 @@
 <p>The pieces work together:</p>
 
 <ol>
-  <li>Visitor requests <code class="language-plaintext highlighter-rouge">blog.cani.ne.jp</code>
-</li>
+  <li>Visitor requests <code class="language-plaintext highlighter-rouge">blog.cani.ne.jp</code></li>
   <li>DNS resolves to DigitalOcean App Platform</li>
   <li>Nginx proxy container (running on DO) receives the request</li>
   <li>Proxy logs the request as JSON to stdout</li>

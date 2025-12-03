@@ -70,11 +70,11 @@
 <article>
   <h2 id="the-warning">The Warning</h2>
 
-<p>OctoPrint on my Raspberry Pi 4 greeted me with an ominous warning: my Python environment was outdated and would soon be unsupported. The message linked to <a href="https://community.octoprint.org/t/octoprint-tells-me-my-python-environment-is-outdated-and-will-soon-no-longer-be-supported-how-do-i-upgrade/61076" target="_blank" rel="noopener noreferrer">the OctoPrint community’s upgrade guide</a>, which outlined the proper upgrade path. Simple enough, I thought. I’d just build a newer Python and upgrade in place, like they tell you not to:</p>
+<p>OctoPrint on my Raspberry Pi 4 greeted me with an ominous warning: my Python environment was outdated and would soon be unsupported. The message linked to <a href="https://community.octoprint.org/t/octoprint-tells-me-my-python-environment-is-outdated-and-will-soon-no-longer-be-supported-how-do-i-upgrade/61076" target="_blank" rel="noopener">the OctoPrint community’s upgrade guide</a>, which outlined the proper upgrade path. Simple enough, I thought. I’d just build a newer Python and upgrade in place, like they tell you not to:</p>
 
 <blockquote>
   <p>Instead of reflashing or running a dist-upgrade, you might be tempted to upgrade your Python installation by compiling Python yourself. On anything but a Raspberry Pi, that is fine.
-<br>…<br>
+<br />…<br />
 We therefore do not recommend this approach unless you really know what you are doing.</p>
 </blockquote>
 
@@ -93,9 +93,9 @@ We therefore do not recommend this approach unless you really know what you are 
 
 <h2 id="the-glibc-problem">The GLIBC Problem</h2>
 
-<p>The <code class="language-plaintext highlighter-rouge">netifaces</code> package, compiled against Python 3.13, required GLIBC 2.34. I tried the solution from <a href="https://community.octoprint.org/t/upgraded-octoprint-new-glibc-dependency-broken/64705/9" target="_blank" rel="noopener noreferrer">a related community thread</a> that suggested adjusting the <code class="language-plaintext highlighter-rouge">psutil</code> package, but that didn’t help. The problem wasn’t specific to one package - it was systemic.</p>
+<p>The <code class="language-plaintext highlighter-rouge">netifaces</code> package, compiled against Python 3.13, required GLIBC 2.34. I tried the solution from <a href="https://community.octoprint.org/t/upgraded-octoprint-new-glibc-dependency-broken/64705/9" target="_blank" rel="noopener">a related community thread</a> that suggested adjusting the <code class="language-plaintext highlighter-rouge">psutil</code> package, but that didn’t help. The problem wasn’t specific to one package - it was systemic.</p>
 
-<p>I checked the <a href="https://packages.debian.org/search?searchon=names&amp;keywords=libc6" target="_blank" rel="noopener noreferrer">Debian package listings for libc6</a>. My Raspberry Pi was running Debian Bullseye, which tops out at GLIBC 2.31. Debian Bookworm, however, includes versions up to 2.36. That’d work!</p>
+<p>I checked the <a href="https://packages.debian.org/search?searchon=names&amp;keywords=libc6" target="_blank" rel="noopener">Debian package listings for libc6</a>. My Raspberry Pi was running Debian Bullseye, which tops out at GLIBC 2.31. Debian Bookworm, however, includes versions up to 2.36. That’d work!</p>
 
 <p>This left me with three options:</p>
 
@@ -109,7 +109,7 @@ We therefore do not recommend this approach unless you really know what you are 
 
 <h2 id="the-debian-upgrade">The Debian Upgrade</h2>
 
-<p>I followed <a href="https://linuxcapable.com/how-to-upgrade-from-debian-11-bullseye-to-debian-12-bookworm/" target="_blank" rel="noopener noreferrer">some upgrade guide from Bullseye to Bookworm</a>, which seemed legit. The process was straightforward, though I encountered numerous configuration file prompts - the classic “do you want to keep your version or use the package maintainer’s version?” question, e.g.</p>
+<p>I followed <a href="https://linuxcapable.com/how-to-upgrade-from-debian-11-bullseye-to-debian-12-bookworm/" target="_blank" rel="noopener">some upgrade guide from Bullseye to Bookworm</a>, which seemed legit. The process was straightforward, though I encountered numerous configuration file prompts - the classic “do you want to keep your version or use the package maintainer’s version?” question, e.g.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Configuration file '/etc/haproxy/haproxy.cfg'
 ==&gt; Modified (by you or by a script) since installation.
@@ -138,7 +138,7 @@ The default action is to keep your current version.
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo cp </span>haproxy.cfg.dpkg-old haproxy.cfg
 </code></pre></div></div>
 
-<p>I verified this by comparing it against <a href="https://github.com/guysoft/OctoPi/blob/devel/src/modules/octopi/filesystem/root/etc/haproxy/haproxy.2.x.cfg" target="_blank" rel="noopener noreferrer">the HAProxy configuration in the OctoPi repository</a>. The configs were similar-enough that I concluded I was on the right track.</p>
+<p>I verified this by comparing it against <a href="https://github.com/guysoft/OctoPi/blob/devel/src/modules/octopi/filesystem/root/etc/haproxy/haproxy.2.x.cfg" target="_blank" rel="noopener">the HAProxy configuration in the OctoPi repository</a>. The configs were similar-enough that I concluded I was on the right track.</p>
 
 <p>After restarting HAProxy, the web interface came back on port 80. OctoPrint was now running Python 3.13, no longer complaining about end-of-life’d Python 3.9.</p>
 

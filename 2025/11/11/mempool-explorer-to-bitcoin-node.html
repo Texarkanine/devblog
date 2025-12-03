@@ -70,7 +70,7 @@
 <article>
   <h2 id="the-problem">The Problem</h2>
 
-<p>My <a href="https://github.com/mempool/mempool" target="_blank" rel="noopener noreferrer">mempool explorer</a> would periodically lose its ability to show transactions. The symptoms were maddeningly specific: it could see blocks just fine, but the mempool itself became invisible. Restarting the mempool explorer did nothing. Restarting the Bitcoin node used by the explorer fixed it every time.</p>
+<p>My <a href="https://github.com/mempool/mempool" target="_blank" rel="noopener">mempool explorer</a> would periodically lose its ability to show transactions. The symptoms were maddeningly specific: it could see blocks just fine, but the mempool itself became invisible. Restarting the mempool explorer did nothing. Restarting the Bitcoin node used by the explorer fixed it every time.</p>
 
 <p>This is the kind of bug that makes you question your sanity. If restarting Bitcoin fixes it, surely the problem is in Bitcoin? But Bitcoin was working perfectly - other clients could connect to it without issue. The mempool explorer, running in Docker, simply couldn’t reach it.</p>
 
@@ -103,7 +103,7 @@ Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332 fail
 
 <p>Two lines in a systemd override file. <code class="language-plaintext highlighter-rouge">After=</code> ensures Bitcoin waits for Docker to start. <code class="language-plaintext highlighter-rouge">Wants=</code> expresses a preference for Docker to be running, without making it a hard requirement.</p>
 
-<p>I deliberately avoided <code class="language-plaintext highlighter-rouge">BindsTo=</code> or <code class="language-plaintext highlighter-rouge">PartOf=</code>, which would create tighter coupling. Those would restart Bitcoin whenever Docker restarted, which is unnecessary - once the bind succeeds, it persists regardless of Docker’s state. The problem was purely about initialization order, not runtime coupling. More at the <a href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html" target="_blank" rel="noopener noreferrer">systemd.unit man page</a>.</p>
+<p>I deliberately avoided <code class="language-plaintext highlighter-rouge">BindsTo=</code> or <code class="language-plaintext highlighter-rouge">PartOf=</code>, which would create tighter coupling. Those would restart Bitcoin whenever Docker restarted, which is unnecessary - once the bind succeeds, it persists regardless of Docker’s state. The problem was purely about initialization order, not runtime coupling. More at the <a href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html" target="_blank" rel="noopener">systemd.unit man page</a>.</p>
 
 <h2 id="the-lesson">The Lesson</h2>
 

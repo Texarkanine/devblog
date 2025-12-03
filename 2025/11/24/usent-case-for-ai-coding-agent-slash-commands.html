@@ -68,7 +68,7 @@
 </header>
 
 <article>
-  <p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands" target="_blank" rel="noopener noreferrer">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">Agent Skills</a> - for a long time.</p>
+  <p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands" target="_blank" rel="noopener">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">Agent Skills</a> - for a long time.</p>
 
 <h1 id="thesis">Thesis</h1>
 
@@ -138,7 +138,7 @@
 
 <p>Consider Cursor’s example of <code class="language-plaintext highlighter-rouge">/pr</code> to open a GitHub Pull request, where the Agent has to identify the git diff (deterministic), figure out prose to describe the changes (NLP), find and fit it into a <code class="language-plaintext highlighter-rouge">PULL_REQUEST_TEMPLATE.md</code> if one exists (NLP), figure out the tooling available for opening a pull request (NLP), then invoke the tool (deterministic)…</p>
 
-<p>Oh, exactly like <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rules/github-open-a-pull-request-gh.mdc" target="_blank" rel="noopener noreferrer">this Cursor Rule</a> that you don’t have to explicitly, intentionally <code class="language-plaintext highlighter-rouge">/pr</code> for - you can just tell the agent to</p>
+<p>Oh, exactly like <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rules/github-open-a-pull-request-gh.mdc" target="_blank" rel="noopener">this Cursor Rule</a> that you don’t have to explicitly, intentionally <code class="language-plaintext highlighter-rouge">/pr</code> for - you can just tell the agent to</p>
 
 <blockquote>
   <p>&lt;your actual prompt&gt; and open a pull request</p>
@@ -152,7 +152,7 @@
 
 <p>If, instead of just binding to text prompts, slash-commands offered a structured way to bind a command to a combination of LLM NLP and deterministic software.</p>
 
-<p>🪄 Oh, we have that! It’s called a <strong>Tool</strong>. You might know them from <a href="https://modelcontextprotocol.io/specification/2025-03-26" target="_blank" rel="noopener noreferrer">Model Context Protocol (MCP)</a>.</p>
+<p>🪄 Oh, we have that! It’s called a <strong>Tool</strong>. You might know them from <a href="https://modelcontextprotocol.io/specification/2025-03-26" target="_blank" rel="noopener">Model Context Protocol (MCP)</a>.</p>
 
 <p>Don’t waste your time with coding agent slash-commands that bind to textual prompts.</p>
 

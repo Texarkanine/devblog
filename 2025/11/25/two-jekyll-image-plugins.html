@@ -85,8 +85,7 @@
 <ol>
   <li>Extracts the post’s directory from its path</li>
   <li>Resolves relative image paths (like <code class="language-plaintext highlighter-rouge">thisdog.jpg</code>) to that directory</li>
-  <li>Applies CDN configuration from <code class="language-plaintext highlighter-rouge">_config.yaml</code>
-</li>
+  <li>Applies CDN configuration from <code class="language-plaintext highlighter-rouge">_config.yaml</code></li>
 </ol>
 
 <p>So now I can write <code class="language-plaintext highlighter-rouge">![Dog](thisdog.jpg)</code> and get <code class="language-plaintext highlighter-rouge">/assets/img/blog/record/thisdog.jpg</code>. Perfect. Removed <code class="language-plaintext highlighter-rouge">jekyll-images-cdn</code> since we integrated that functionality directly.</p>
@@ -176,8 +175,7 @@ Problem: Regex parsing got confused when splitting on ‘x’.</p>
   <li>Scan backwards from the image position</li>
   <li>Find the last <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;/a&gt;</code> tags before the image</li>
   <li>If there’s an unclosed <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> → inside anchor → skip</li>
-  <li>Otherwise → wrap in <code class="language-plaintext highlighter-rouge">&lt;a href="src" target="_blank" rel="noopener"&gt;</code>
-</li>
+  <li>Otherwise → wrap in <code class="language-plaintext highlighter-rouge">&lt;a href="src" target="_blank" rel="noopener"&gt;</code></li>
 </ol>
 
 <p>The regex <code class="language-plaintext highlighter-rouge">/&lt;a[\s&gt;]/</code> avoids matching <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;aside&gt;</code> tags. Used <code class="language-plaintext highlighter-rouge">rindex</code> to find the most recent occurrence, which is simpler than counting all anchors in the page.</p>
@@ -191,10 +189,8 @@ Problem: Regex parsing got confused when splitting on ‘x’.</p>
 <p>Two plugins, each doing one thing well:</p>
 
 <ol>
-  <li>
-<strong>image_paths.rb</strong>: Resolves relative paths based on post location, applies CDN config</li>
-  <li>
-<strong>image_sizing.rb</strong>: Parses <code class="language-plaintext highlighter-rouge">=WIDTHxHEIGHT</code> syntax, applies dimensions</li>
+  <li><strong>image_paths.rb</strong>: Resolves relative paths based on post location, applies CDN config</li>
+  <li><strong>image_sizing.rb</strong>: Parses <code class="language-plaintext highlighter-rouge">=WIDTHxHEIGHT</code> syntax, applies dimensions</li>
 </ol>
 
 <p>Usage:</p>

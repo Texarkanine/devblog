@@ -68,11 +68,11 @@
 </header>
 
 <article>
-  <p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands" target="_blank" rel="noopener noreferrer">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">Agent Skills</a> - for a long time.</p>
+  <p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands" target="_blank" rel="noopener">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">Agent Skills</a> - for a long time.</p>
 
 <p>I recently saw Cursor add “Team Commands” for enterprise accounts and got excited to finally leverage the power of Claude’s Agent Skills, but in Cursor for my team.</p>
 
-<p>I blew the rest of my prepaid Cursor usage on trying to add Cursor Command support to <a href="https://github.com/texarkanine/ai-rizz" target="_blank" rel="noopener noreferrer">ai-rizz</a>, but hit two snags:</p>
+<p>I blew the rest of my prepaid Cursor usage on trying to add Cursor Command support to <a href="https://github.com/texarkanine/ai-rizz" target="_blank" rel="noopener">ai-rizz</a>, but hit two snags:</p>
 
 <h2 id="commands-just-aint-rules">Commands Just Ain’t Rules</h2>
 
@@ -106,12 +106,9 @@
 <p>What if we tried to find that semantic for symlinks in <code class="language-plaintext highlighter-rouge">.cursor/commands/</code>, though?</p>
 
 <ul>
-  <li>
-<code class="language-plaintext highlighter-rouge">.cursor/commands/local-cmd.md.lnk</code> -&gt; should not be committed</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">.cursor/commands/committed-cmd.md.lnk</code> -&gt; should be committed</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">.cursor/commands/actual-cmd.md</code> -&gt; user command, should not be touched</li>
+  <li><code class="language-plaintext highlighter-rouge">.cursor/commands/local-cmd.md.lnk</code> -&gt; should not be committed</li>
+  <li><code class="language-plaintext highlighter-rouge">.cursor/commands/committed-cmd.md.lnk</code> -&gt; should be committed</li>
+  <li><code class="language-plaintext highlighter-rouge">.cursor/commands/actual-cmd.md</code> -&gt; user command, should not be touched</li>
 </ul>
 
 <p>Now we have to read &amp; write exhaustive git ignore specs that identify every local command. Moreover, with rules, simply knowing a rule’s path on disk was enough to know if it was a local, committed, or user rule. With commands all in one directory, you have to read the <code class="language-plaintext highlighter-rouge">ai-rizz</code> manifest each time to figure out the semantic for a given command. That’s a lot of bookkeeping and opportunity to go wrong.</p>
