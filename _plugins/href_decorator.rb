@@ -82,7 +82,16 @@ module HrefDecorator
 
       pattern_entry.each do |pattern_regex, pattern_config|
         # Check if href matches this pattern
-        regex = Regexp.new(pattern_regex.to_s)
+        begin
+          regex = Regexp.new(pattern_regex.to_s)
+        rescue RegexpError => e
+          # Log error and skip invalid pattern
+          if defined?(Jekyll) && Jekyll.respond_to?(:logger)
+            Jekyll.logger.warn("href_decorator: ", "Invalid regex pattern '#{pattern_regex}': #{e.message}. Skipping this pattern.")
+          end
+          next
+        end
+
         next unless regex.match?(href)
 
         matched = true
