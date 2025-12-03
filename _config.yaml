@@ -50,7 +50,6 @@ plugins:
   - jekyll-remote-theme
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-target-blank
 
 # jekyll-archives
 jekyll-archives:
@@ -97,6 +96,18 @@ autopages:
 # image-paths (local)
 image_paths:
   base_url: /assets/img
+
+# href-decorator (local)
+href_decorator:
+  properties:
+    - target: _blank
+    - rel: noopener
+  patterns:
+    - '^https?://':
+    - '/assets/':
+    - '.+\.pdf$':
+        properties:
+          - download: true
 
 # jekyll-paginate-v2 (required for jekyll-auto-authors)
 pagination:
