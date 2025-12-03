@@ -19,8 +19,6 @@ server {
         add_header Content-Type text/plain;
     }
 
-    error_page 404 /error/404.html;
-
     # Proxy everything else to static site
     location / {
         # UPSTREAM_PATH is optional - if set (e.g., /abc123), prepend to all requests
@@ -29,6 +27,9 @@ server {
         
         # Intercept upstream errors so error_page directive can handle them
         proxy_intercept_errors on;
+        
+        # Custom error pages for intercepted upstream errors
+        error_page 404 /error/404.html;
         
         # SSL configuration
         proxy_ssl_server_name on;
