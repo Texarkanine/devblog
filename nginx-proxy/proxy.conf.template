@@ -27,6 +27,9 @@ server {
         # The entrypoint script will normalize this to include trailing slash if needed
         proxy_pass https://backend_static${UPSTREAM_PATH};
         
+        # Intercept upstream errors so error_page directive can handle them
+        proxy_intercept_errors on;
+        
         # SSL configuration
         proxy_ssl_server_name on;
         proxy_ssl_name ${UPSTREAM_HOST};  # SNI must match the upstream hostname
