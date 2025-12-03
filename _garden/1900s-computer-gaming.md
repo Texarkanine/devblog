@@ -2,7 +2,7 @@
 layout: garden
 title: "Play Classic Computer Games from the 1900s"
 tags: 
-  - abandonedware
+  - abandonware
   - archive
   - flash
   - gaming
@@ -15,7 +15,7 @@ tags:
 	archive:https://web.archive.org/web/20251129000118/https://oldgamesdownload.com/
 %}
 
-"A project archiving abandoned video games from the 1970s until now. We offer an extensive catalog of gaming history, including game files, patches, manuals, screenshots and artwork. *Are you ready to take a step into the past?*"
+> A project archiving abandoned video games from the 1970s until now. We offer an extensive catalog of gaming history, including game files, patches, manuals, screenshots and artwork. *Are you ready to take a step into the past?*
 
 {% linkcard 
 	https://classicreload.com/

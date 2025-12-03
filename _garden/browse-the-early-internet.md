@@ -29,7 +29,7 @@ It's a modern recreation of GeoCities! Wonderful, individual, personal websites 
 
 {% linkcard
 	https://www.oldavista.com/
-	"Old'aVista
+	"Old'aVista"
 	archive:https://web.archive.org/web/20251128094154/https://www.oldavista.com/
 %}
 
