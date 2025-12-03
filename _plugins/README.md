@@ -146,6 +146,130 @@ Under the hood, `image_sizing.rb` registers a `:pre_render` hook to insert sizin
 
 ---
 
+## href_decorator.rb
+
+Automatically decorates internal links matching configurable patterns with configurable HTML attributes (e.g., `target="_blank"`, `rel="noopener"`, etc.).
+
+### Features
+
+- **Pattern-Based Matching**: Uses configurable regex patterns to identify which links should be decorated
+- **Configurable Properties**: Fully configurable HTML attributes to add (not limited to `target` and `rel`)
+- **Per-Pattern Overrides**: Each pattern can override or remove global properties
+- **All Links**: Processes all links (both internal and external) that match configured patterns
+- **Smart Attribute Handling**: Only adds attributes that aren't already present, avoiding duplicates
+
+### Usage
+
+Simply write standard Markdown links:
+
+```markdown
+[PDF document](/assets/pdf/file.pdf)
+[Another PDF](./documents/report.pdf)
+```
+
+The plugin will automatically add configured properties to links matching your configured patterns.
+
+### Configuration
+
+Configure global properties and per-pattern overrides in `_config.yaml`:
+
+```yaml
+href_decorator:
+  properties:
+    - target: _blank
+  patterns:
+    - '/assets/':
+        properties:
+          - rel: noopener
+    - '.*\.pdf$':
+        properties:
+          - rel: noopener
+    - 'special-pattern':
+        properties:
+          - rel: noopener
+          - target: false  # Disables inheritance of global target property
+    - '.*\.pdf$':
+        properties:
+          - download: true  # Boolean attribute (no value): <a download>
+```
+
+**Global Properties** (`properties`): Array of hashes defining default attributes to add to all matching links.
+
+**Patterns** (`patterns`): Array of pattern objects, where each object has:
+- A key that is the regex pattern (quoted string)
+- A `properties` array that can override or remove global properties
+
+**Pattern Property Overrides**:
+- Properties in a pattern's `properties` array override global properties
+- Setting a property to `false` disables inheritance (removes the property even if set globally)
+- Setting a property to `true` creates a boolean attribute with no value (e.g., `download` becomes `<a download>`)
+- **Multiple patterns can match**: If a link matches multiple patterns, all matching patterns' properties are merged
+- **Later patterns win**: When multiple patterns match, properties are merged in order with later patterns overriding earlier ones
+- This allows you to combine general patterns (e.g., `/assets/`) with specific patterns (e.g., `.+\.pdf$`) without worrying about order
+
+**Patterns** are regular expressions, so you can match:
+- Specific paths: `'/assets/pdf/'`
+- File extensions: `'.*\.pdf$'`, `'.*\.(pdf|zip|doc)$'`
+- Relative paths: `'\./.*assets.*'`
+- External URLs: `'https?://'`
+- Any combination of the above
+
+**Properties** are HTML attributes to add. Common examples:
+- `target: _blank` - Opens link in new tab
+- `rel: noopener` - Security attribute for `target="_blank"`
+- `download: true` - Boolean attribute that forces download (renders as `<a download>`)
+- `target: false` - Disables inheritance of global `target` property (when used in pattern properties)
+- Any other valid HTML attribute
+
+### Examples
+
+**Configuration:**
+```yaml
+href_decorator:
+  properties:
+    - target: _blank
+  patterns:
+    - '/assets/':
+        properties:
+          - rel: noopener
+    - '.*\.pdf$':
+        properties:
+          - download: true  # Boolean attribute: <a download>
+    - 'special-case':
+        properties:
+          - rel: noopener
+          - target: false  # This pattern won't have target="_blank"
+```
+
+**Markdown:**
+```markdown
+[PDF](/assets/pdf/foo.pdf)
+[Another PDF](./documents/report.pdf)
+[Special link](special-case)
+[Regular page](/about)
+```
+
+**Result:**
+```html
+<a href="/assets/pdf/foo.pdf" target="_blank" rel="noopener" download>PDF</a>
+<a href="./documents/report.pdf" target="_blank" rel="noopener" download>Another PDF</a>
+<a href="special-case" rel="noopener">Special link</a>
+<a href="/about">Regular page</a>
+```
+
+**Note:** The PDF link `/assets/pdf/foo.pdf` matches both `/assets/` and `.*\.pdf$` patterns. It gets:
+- `target: _blank` from global properties
+- `rel: noopener` from the `/assets/` pattern
+- `download: true` from the `.*\.pdf$` pattern
+
+All matching patterns are merged, with later patterns overriding earlier ones when there are conflicts.
+
+### Integration
+
+This plugin runs after `image_paths.rb` in the `:post_render` hook, so it processes the final HTML output. It can be used to build `jekyll-target-blank`-like functionality by configuring patterns that match external URLs (e.g., `'https?://'`).
+
+---
+
 ## garden_archives.rb
 
 Generates tag/category archive pages for custom collections (e.g., `garden`) by reusing `jekyll-archives`.

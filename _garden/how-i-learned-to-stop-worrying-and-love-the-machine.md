@@ -36,7 +36,7 @@ Off-the-shelf Gemini Deep Research isn't (yet) replacing original academic "rese
 
 It does all the work of searching a bunch of different combinations of search terms, reading a hundred different pages to find 10 useful sources, and stitching that together into an overview of the topic.
 
-As an example, I was trying to figure out how to handle "lists of cool links" in a digital garden. Gemini Deep Research put [this pdf]() together and I got my answer *and* learned so much more about them, too.
+As an example, I was trying to figure out how to handle "lists of cool links" in a digital garden. Gemini Deep Research put [this pdf](/assets/pdf/garden/digital-garden-link-curation-conundrum.pdf) together and I got my answer *and* learned so much more about them, too.
 
 **Another part of the secret sauce** is you going and reading the sources that Gemini cites. Half the value is the report it provides, the other half is in the sources it collects for you. Leverage both!
 
