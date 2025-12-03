@@ -41,4 +41,4 @@ Seeing is believing - yu've got to check this out; I can't believe I've never se
 
 I want that! It won't work perfectly for this garden as it is right now, but maybe I can do it someday. Or, really, I want a web browser that does that for me... a mode that automatically does "reading mode" and opens links in new columns in a tab.
 
-This is maybe closer to a related conceppt - [zettelkasten](https://zettelkasten.de/) - than Digital Gardening specifically.
+This is maybe closer to a related concept - [zettelkasten](https://zettelkasten.de/) - than Digital Gardening specifically.
