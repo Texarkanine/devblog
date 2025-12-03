@@ -11,7 +11,7 @@ tags:
 
 ## Garden
 
-- early internet
+- love letter to the early internet
     - features of sites I wax nostalgic about
         - hit counters
         - guestbook
@@ -21,5 +21,8 @@ tags:
         - assuming return visitors ("x has moved to...")
         - totally different aesthetics on page groups / shrines
         - splash pages
-    - neocities neologisms?
-        - js rpgmaker front desk
+        - bravenet forms
+        - tripod, lycos, expage, geocities, angelfire, fortunecity
+    - neocities / neologisms?
+        - [js rpgmaker front desk](https://twelvemen.neocities.org/2/about)
+        - [elevator](https://melonking.net/melon)
