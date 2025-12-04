@@ -135,3 +135,11 @@ A lighter version of this phenomenon could maybe be said to have already been ob
 ## Scared Yet?
 
 Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop worrying and love the machine](./how-i-learned-to-stop-worrying-and-love-the-machine.html)!
+
+Or, retain your humanity and learn
+
+{% linkcard
+	https://aisafety.dance/
+	"The AI Safety Dance"
+	archive:https://web.archive.org/web/20251129044702/https://aisafety.dance/
+%}
