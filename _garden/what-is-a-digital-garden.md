@@ -53,6 +53,6 @@ This is maybe closer to a related concept - [zettelkasten](https://zettelkasten.
 	archive:https://web.archive.org/web/20251203000000/https://zettelkasten.de/
 %}
 
-Zettelkasten explores a rigorous system of building a web of knowledge out of functionally Evergreen Notes (zettel) with options for increasingly-broad notes built on top to help direct and connect. Zettel are mostly single-concept notes, though - the traditional Wikipedia article that does cover "one topic" but many aspects of a topic, pushes the boundaries of the Zettelkasten structure.
+Zettelkasten explores a rigorous system of building a web of knowledge out of what are functionally Evergreen Notes (zettel) with options for increasingly-broad notes built on top to help direct and connect. Zettel are mostly single-concept notes, though - the traditional Wikipedia article that does cover "one topic" but many aspects of a topic, pushes the boundaries of the Zettelkasten structure.
 
-Not all Zettelkasten collections may be a digital garden, but browsing someone's Zettelkasten *can* end up as a digital garden experience, on account of the principals of connectivity ("hypertext" used unironically and correctly) they advocate. There will be connections all over the place, and *if* you wander through, you've found a path through a garden.
+Not all Zettelkasten collections may be a digital garden, but browsing someone's Zettelkasten *can* end up as a digital garden experience, on account of the principles of connectivity ("hypertext" used unironically and correctly) they advocate. There will be connections all over the place, and *if* you wander through, you've found a path through a garden.
