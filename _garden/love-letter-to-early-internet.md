@@ -67,7 +67,7 @@ TODO
 
 [![This Page is Rated Web-14](./early-web/Censor_14b.gif)](https://www.mabsland.com/Adoption.html)
 
-{%linkcard
+{% linkcard
     https://www.mabsland.com/Adoption.html
     "Adopt-a-Censorship Panda"
     archive:https://web.archive.org/web/20011204172921/https://www.mabsland.com/Adoption.html
