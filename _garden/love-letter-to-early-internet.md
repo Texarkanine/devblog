@@ -135,9 +135,9 @@ TODO
 ## Under Construction
 
 {% linkcard
-    https://textfiles.com/underconstruction/
+    http://www.textfiles.com/underconstruction/
 	"Every Under Construction gif from the 90s"
-    archive:https://web.archive.org/web/20251011125423/https://textfiles.com/underconstruction/
+    archive:https://web.archive.org/web/20251011125423/http://www.textfiles.com/underconstruction/
 %}
 
 ![Under Construction](./early-web/under-construction-anim-hrule.gif)
