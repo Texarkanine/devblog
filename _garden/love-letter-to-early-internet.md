@@ -134,17 +134,17 @@ TODO
 
 ## Under Construction
 
-{% linkcard
-    http://www.textfiles.com/underconstruction/
-	"Every Under Construction gif from the 90s"
-    archive:https://web.archive.org/web/20251011125423/http://www.textfiles.com/underconstruction/
-%}
-
 ![Under Construction](./early-web/under-construction-anim-hrule.gif)
 
 Nothing was ever finished... And since sites [expected people would come back](#assuming-return-visitors), they put up "under construction" badges to let people know that things would be changing, so pardon the mess and do please come back later to see the updates!
 
 I don't recall ever seeing someone take *down* an "under construction" badge. If anything, they became a badge of honor, a sign that you were alive and kicking and building!
+
+{% linkcard
+    http://www.textfiles.com/underconstruction/
+	"Every Under Construction gif from the 90s"
+    archive:https://web.archive.org/web/20251011125423/http://www.textfiles.com/underconstruction/
+%}
 
 Nowadays, sites make changes all the time as part of normal operation - not an exceptional event that warrants mention. They're constantly A/B testing and fixing and improving. There's no hullabaloo about it, and also no end. In a way, that's the same as before...
 
