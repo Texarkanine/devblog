@@ -85,6 +85,8 @@ Brands, advertisers, and marketing hadn't matured at this point, so there was ve
 
 ## Animated GIFs
 
+![Arcanine in the Pokmeon Anime](./early-web/animated-gif-arcanine-pokemon-tv.gif)
+
 As you've noticed by now, this page has graphics that move! Many of them, each doing their own thing and they didn't wait for you to press "play!"
 
 The internet from *before* the late 90s was a much more static place because the technology to create and share animations wasn't as widespread. Graphics programs were rarer because PCs were less-powerful, and bandwidth was much lower and more-expensive. Even if you *did* make an awesome animation, your visitors might not be able to pull it down and see it - or they might not *appreciate* having to! So once people started being **able** to do it, they were off to the races doing it everywhere! Buttons, decorations, "look at this cool pic I found," and yes, even *banner ads* blinked and vied for your attention everywhere... and we (except for the banner ads), generally loved it. The web was coming *alive* and it felt *cool*!
@@ -171,7 +173,7 @@ Sometimes they were even *animated*!
 ## Background Music
 
 <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
-<midi-player src="/assets/audio/garden/black-velvet.mid" sound-font loop style="display:none;" id="bgm-player"></midi-player>
+<midi-player src="/assets/audio/garden/black-velvet.mid" sound-font style="display:none;" id="bgm-player"></midi-player>
 <script type="text/javascript">
 let isBgmPlaying = false;
 
@@ -192,7 +194,19 @@ function updateBgmToggleLink() {
 	if (!link) return;
 	link.textContent = isBgmPlaying ? "Stop Background Music" : "Play Background Music";
 }
-document.addEventListener("DOMContentLoaded", updateBgmToggleLink);
+
+// Ensure the MIDI player loops by listening to the 'ended' event
+document.addEventListener("DOMContentLoaded", function() {
+	const player = document.getElementById("bgm-player");
+	if (player) {
+		player.addEventListener('ended', function() {
+			if (isBgmPlaying) {
+				player.start();
+			}
+		});
+	}
+	updateBgmToggleLink();
+});
 </script>
 
 If you loved animated GIFs and background images, you'd've **loved** background music! Pass the aux cord, the site you visited is taking control and playing something for you. BGM usually started automatically out of necessity - embeddable player technology hadn't matured yet so sites couldn't offer control even if they wanted to!
