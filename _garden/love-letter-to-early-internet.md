@@ -173,7 +173,7 @@ Sometimes they were even *animated*!
 ## Background Music
 
 <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
-<midi-player src="/assets/audio/garden/black-velvet.mid" sound-font style="display:none;" id="bgm-player"></midi-player>
+<midi-player src="/assets/audio/garden/black-velvet.mid" sound-font loop style="display:none;" id="bgm-player"></midi-player>
 <script type="text/javascript">
 let isBgmPlaying = false;
 
@@ -195,16 +195,7 @@ function updateBgmToggleLink() {
 	link.textContent = isBgmPlaying ? "Stop Background Music" : "Play Background Music";
 }
 
-// Ensure the MIDI player loops by listening to the 'ended' event
 document.addEventListener("DOMContentLoaded", function() {
-	const player = document.getElementById("bgm-player");
-	if (player) {
-		player.addEventListener('ended', function() {
-			if (isBgmPlaying) {
-				player.start();
-			}
-		});
-	}
 	updateBgmToggleLink();
 });
 </script>
