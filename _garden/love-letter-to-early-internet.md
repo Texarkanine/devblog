@@ -34,11 +34,11 @@ If you were webmastering on the early web, you probably know these two dimension
 
 These were often displayed on their own sites accompanied by a `<textarea>` HTML element with copy/paste-able HTML code for the button, so people could more-easily add it.
 
-[![Dog with a Dev Blog](./early-web/dogblog-88x31.gif =88x31)](https://blog.cani.ne.jp)
+[![Dog with a Dev Blog](./early-web/dogblog-88x31.gif =88x31)](https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html)
 
 <div style="text-align:center;">
 <textarea>
-<a href="https://blog.cani.ne.jp" target="_blank" rel="noopener">
+<a href="https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html" target="_blank" rel="noopener">
 <img src="https://blog.cani.ne.jp/assets/img/garden/early-web/dogblog-88x31.gif" alt="Dog with a Dev Blog" width="88" height="31">
 </a>
 </textarea>
@@ -58,12 +58,12 @@ Now, it didn't take long for folks to realize that `.gif`s also supported transp
 And of course, an updated dogblog button from 20**25**:
 
 <div class="centershowoff">
-<a href="https://blog.cani.ne.jp" target="_blank" rel="noopener">
+<a href="https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html" target="_blank" rel="noopener">
 	<img src="./early-web/dogblog-88x31-alpha.gif" alt="Dog with a Dev Blog" width="88" height="31">
 </a>
 <br/>
 <textarea>
-<a href="https://blog.cani.ne.jp" target="_blank" rel="noopener">
+<a href="https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html" target="_blank" rel="noopener">
 <img src="https://blog.cani.ne.jp/assets/img/garden/early-web/dogblog-88x31-alpha.gif" alt="Dog with a Dev Blog" width="88" height="31">
 </a>
 </textarea>
