@@ -68,9 +68,9 @@ TODO
 [![This Page is Rated Web-14](./early-web/Censor_14b.gif)](https://www.mabsland.com/Adoption.html)
 
 {% linkcard
-    https://www.mabsland.com/Adoption.html
-    "Adopt-a-Censorship Panda"
-    archive:https://web.archive.org/web/20011204172921/https://www.mabsland.com/Adoption.html
+	https://www.mabsland.com/Adoption.html
+	"Adopt-a-Censorship Panda"
+	archive:https://web.archive.org/web/20011204172921/https://www.mabsland.com/Adoption.html
 %}
 
 "Adopts" were popular decorations for websites. Someone would make a little character image, and others could post it on their page to "adopt" it. Why? Decorating sites was cool. Sometimes you'd name your adopted creature and make it a character of your own, sometimes not.
@@ -135,9 +135,9 @@ TODO
 ## Under Construction
 
 {% linkcard
-    http://textfiles.com/underconstruction/
-    "Every Under Construction gif from the 90s"
-    archive:https://web.archive.org/web/20251011125423/http://textfiles.com/underconstruction/
+    https://textfiles.com/underconstruction/
+	"Every Under Construction gif from the 90s"
+    archive:https://web.archive.org/web/20251011125423/https://textfiles.com/underconstruction/
 %}
 
 ![Under Construction](./early-web/under-construction-anim-hrule.gif)
