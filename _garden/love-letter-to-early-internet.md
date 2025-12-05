@@ -14,9 +14,9 @@ Web Design of this period had many iconic characteristics that, for better or wo
 
 ## 88x31 & 468x60
 
-If you were webmastering on the early web, you probably know these two dimensions by heart. `88x31` was the standard size for a little button that you would create for others to use to link to your site. Often accompanied by a `<textarea>` HTML element with copy/paste-able HTML code for the button, so people could more-easily add it.
+If you were webmastering on the early web, you probably know these two dimensions by heart. `88x31` was the standard size for a little button that you would create for others to use to link to your site. It was probably a `.gif`, because that was the format that could encode animations back then - and if the purpose was to get people to click to go to your site, a little motion went a long way! You'd usually only use a `.jpg` if you wanted a "high definition" image but in a reasonable filesize for the bandwidths available at the time.
 
-It was probably a `.gif`, because that was the format that could encode animations back then - and if the purpose was to get people to click to go to your site, a little motion went a long way! You'd usually only use a `.jpg` if you wanted a "high definition" image but in a reasonable filesize for the bandwidths available at the time.
+These were often displayed on their own sites accompanied by a `<textarea>` HTML element with copy/paste-able HTML code for the button, so people could more-easily add it.
 
 [![Dog with a Dev Blog](./early-web/dogblog-88x31.gif =88x31)](https://blog.cani.ne.jp)
 
