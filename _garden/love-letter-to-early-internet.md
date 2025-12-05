@@ -85,11 +85,13 @@ Brands, advertisers, and marketing hadn't matured at this point, so there was ve
 
 ## Animated GIFs
 
-![Arcanine in the Pokmeon Anime](./early-web/animated-gif-arcanine-pokemon-tv.gif)
-
 As you've noticed by now, this page has graphics that move! Many of them, each doing their own thing and they didn't wait for you to press "play!"
 
-The internet from *before* the late 90s was a much more static place because the technology to create and share animations wasn't as widespread. Graphics programs were rarer because PCs were less-powerful, and bandwidth was much lower and more-expensive. Even if you *did* make an awesome animation, your visitors might not be able to pull it down and see it - or they might not *appreciate* having to! So once people started being able to do it, they were off to the races doing it everywhere! Buttons, decorations, "look at this cool pic I found," and yes, even *banner ads* blinked and vied for your attention everywhere... and we (except for the banner ads), generally loved it. The web was coming *alive* and it felt *cool*!
+The internet from *before* the late 90s was a much more static place because the technology to create and share animations wasn't as widespread. Graphics programs were rarer because PCs were less-powerful, and bandwidth was much lower and more-expensive. Even if you *did* make an awesome animation, your visitors might not be able to pull it down and see it - or they might not *appreciate* having to! So once people started being **able** to do it, they were off to the races doing it everywhere! Buttons, decorations, "look at this cool pic I found," and yes, even *banner ads* blinked and vied for your attention everywhere... and we (except for the banner ads), generally loved it. The web was coming *alive* and it felt *cool*!
+
+Feast your eyes on this bad boy:
+
+[![A 90s website with animated GIFs all over the place](./early-web/90s-site-with-animation-everywhere.gif)](https://geocities.restorativland.org/SiliconValley/Network/1666/)
 
 Nowadays, "autoplay" whether it be visual or audio, is a big no-no. The major websites - YouTube, Amazon, Facebook, Twitter, Google, etc - all have static, unmoving content. Pick your own most-visited site and take a look at it through this lens - it's dead, isn't it? Motionless.
 
@@ -158,9 +160,7 @@ function toggleTileBg(isAnim) {
 
 Did you know that instead of a white background, or a solid color, you could use a background *image*? Once this fact was discovered, the enthusiasts went gangbusters, slapping tiled background images on pages everywhere!
 
-[![A webpage from 1998 with background images all over the place](./early-web/background-1998.jpg)](https://geocities.restorativland.org/SiliconValley/Network/1666/)
-
-You can [Browse the Vintage, Early Internet](/garden/browse-the-early-internet.html)'s galleries to see more examples of this, or... see it right here!
+You can [Browse the Vintage, Early Internet](/garden/browse-the-early-internet.html)'s galleries to see examples of this, or... see it right here!
 
 <a href="#" onClick="toggleTileBg(false); event.preventDefault();">Toggle Background Image</a>
 
@@ -181,7 +181,7 @@ function toggleBgm() {
 		player.stop();
 		isBgmPlaying = false;
 	} else {
-		player.play();
+		player.start();
 		isBgmPlaying = true;
 	}
 	updateBgmToggleLink();
