@@ -46,3 +46,7 @@ tags:
 	"AA & AAA Battery Performance Data & Comparator"
 	archive:https://web.archive.org/web/20250923191759/https://lygte-info.dk/review/batteries2012/CommonAAcomparator.php
 %}
+
+## Computer / Tech Blogs
+
+* [Less Wrong](https://www.lesswrong.com/) -"an online forum and community dedicated to improving human reasoning and decision-making."
