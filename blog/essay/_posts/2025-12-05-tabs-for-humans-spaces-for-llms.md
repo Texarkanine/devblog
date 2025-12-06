@@ -70,7 +70,7 @@ The matter of indentation character for one person writing code for another is e
 
 > Spaces are objectively wrong at the lexical level, and TABs bring all the practical advantages.
 
-However, obviously space-indented code can still *run correctly* - all of the objections ultimately boil down to human preference: 
+However, obviously space-indented code can still *run correctly* - all objections ultimately boil down to human preference: 
 
 > Can you leave others be to view code how they want on their machines, or do you have a need to force *your* visual preferences on them?
 
@@ -86,7 +86,7 @@ Is that any different? **Yes, absolutely.**
 
 First, one might *guess* that a document indented with spaces, say, 100 of them, would be larger than a document indented with tabs - only 25 if it's 4 spaces per level. Well, it's larger in *character count* but with the latencies involved in LLMs, the time taken reading characters themselves isn't usually relevant.
 
-What is relevant is the [tokenization](https://medium.com/thedeephub/all-you-need-to-know-about-tokenization-in-llms-7a801302cf54) of the documents, and how whitespace used for indentation gets handled. Currently, the en-vogue tokenization technique of [byte-pair encoding (BPE)](https://www.geeksforgeeks.org/nlp/byte-pair-encoding-bpe-in-nlp/) is doing *some* form of mapping "a certain number of spaces" to a single *token*, and this can happen multiple times, such as for 4 spaces, 8 spaces, etc. The end result is that lexical scope of common space indentation schemes become compressed into a miniscule number of tokens - sometimes only one - compared to their actual character count.
+What is relevant is the [tokenization](https://medium.com/thedeephub/all-you-need-to-know-about-tokenization-in-llms-7a801302cf54) of the documents, and how whitespace used for indentation gets handled. Currently, the en-vogue tokenization technique of [byte-pair encoding (BPE)](https://www.geeksforgeeks.org/nlp/byte-pair-encoding-bpe-in-nlp/) is doing *some* form of mapping "a certain number of spaces" to a single *token*, and this can happen multiple times, such as for 4 spaces, 8 spaces, etc. Thus lexical scope expressed in *common* space indentation schemes becomes compressed into a miniscule number of tokens - sometimes only one - compared to its actual character count.
 
 What about tabs, though? Surely the same happens? Well... yes, but: tokenizers have a "vocabulary" of tokens they'll create, and that vocabulary has a maximum size. Four spaces in a corpus of code is going to be an extremely common character string, and absolutely get its own token. 20 spaces might even get its own token as that's 5 levels and that's not uncommon. Tabs being *less* common, are *less* likely to get their own tokens as indentation levels increase. So, at extreme levels of indentation, it is conceivable that a tab-indented document could consume *more* tokens than a space-indented document.
 
