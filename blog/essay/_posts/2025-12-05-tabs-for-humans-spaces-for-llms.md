@@ -88,7 +88,7 @@ First, one might *guess* that a document indented with spaces, say, 100 of them,
 
 What is relevant is the [tokenization](https://medium.com/thedeephub/all-you-need-to-know-about-tokenization-in-llms-7a801302cf54) of the documents, and how whitespace used for indentation gets handled. Currently, the en-vogue tokenization technique of [byte-pair encoding (BPE)](https://www.geeksforgeeks.org/nlp/byte-pair-encoding-bpe-in-nlp/) is doing *some* form of mapping "a certain number of spaces" to a single *token*, and this can happen multiple times, such as for 4 spaces, 8 spaces, etc. The end result is that lexical scope of common space indentation schemes become compressed into a miniscule number of tokens - sometimes only one - compared to their actual character count.
 
-What about tabs, though? Surely the same happens? Well... yes, but: tokenizers have a "vocabulary" of tokens they'll create, and that vocabular has a maximum size. Four spaces in a corpus of code is going to be an extremely common character string, and absolutely get its own token. 20 spaces might even get its own token as that's 5 levels and that's not uncommon. Tabs being *less* common, are *less* likely to get their own tokens as indentation levels increase. So, at extreme levels of indentation, it is conceivable that a tab-indented document could consume *more* tokens than a space-indented document.
+What about tabs, though? Surely the same happens? Well... yes, but: tokenizers have a "vocabulary" of tokens they'll create, and that vocabulary has a maximum size. Four spaces in a corpus of code is going to be an extremely common character string, and absolutely get its own token. 20 spaces might even get its own token as that's 5 levels and that's not uncommon. Tabs being *less* common, are *less* likely to get their own tokens as indentation levels increase. So, at extreme levels of indentation, it is conceivable that a tab-indented document could consume *more* tokens than a space-indented document.
 
 In practice, none of us humans are likely to experience this making a difference.
 
@@ -110,7 +110,7 @@ Neither tabs, *nor* spaces!
 
 It's not as simple as just removing indentation whitespace and telling the LLMs to do the same, though!
 
-To quote again from `The Hiden Cost of Readability`:
+To quote again from `The Hidden Cost of Readability`:
 
 > Unlike the removal of all formatting elements, removing individual formatting elements can introduce negative impacts for some LLMs.
 
@@ -134,7 +134,7 @@ Then:
 2. the vector space of an LLM full of correct code will be full of space-indented code, therefore
 3. "forcing" the LLM into tab-indented vector space will push it away from the "most-correct code" vector space, which
 	1. may result in degraded comprehension of input code
-	2. may result in degraded correctenss of generated
+	2. may result in degraded correctness of generated code
 
 Therefore, at this point in 2025 it may now be the case that:
 
@@ -155,7 +155,7 @@ It can get worse, though - you could turn your LLM into a Waluigi and permanentl
 	archive:https://web.archive.org/web/20250905142238/https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post
 %}
 
-The "Waluigi Effect" is a phenomenon where an LLM, having been coerced through various methods to be a certain way ("Luigi"), is hypothesized to have an easier time flipping to the exact opposite of that ("Waluigi") than doing *anything* else. On top of that, because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into "being a certain way" has done a wrong thing, it remains internally-consistent by adoptiong the "opposite" behavior. "I was only pretending this whole time!" You really should read the whole post about the effect, though.
+The "Waluigi Effect" is a phenomenon where an LLM, having been coerced through various methods to be a certain way ("Luigi"), is hypothesized to have an easier time flipping to the exact opposite of that ("Waluigi") than doing *anything* else. On top of that, because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into "being a certain way" has done a wrong thing, it remains internally-consistent by adopting the "opposite" behavior. "I was only pretending this whole time!" You really should read the whole post about the effect, though.
 
 Simplified, the Waluigi Effect hypothesized here is
 
@@ -181,11 +181,11 @@ Bonus: they did it again for "evil numbers (666, 1488, 13, 911, etc)" instead of
 
 While `Emergent Misalignment` doesn't deal exclusively in the realm of user-level prompting, the `Waluigi Effect Mega Post` hypothesises that all LLM "Jailbreaks" - which *do* deal exclusively in the realm of user-level prompting - are instances of the Waluigi Effect.
 
-**It remains to be seen** if something as seemingly trivial as indendation whitespace choices is enough to trigger a significant Waluigi Effect.
+**It remains to be seen** if something as seemingly trivial as indentation whitespace choices is enough to trigger a significant Waluigi Effect.
 
 We **do** know that messing with tokenization *can* send LLMs into strange territory, though:
 
-{%linkcard
+{% linkcard
 	https://dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models
 	"Bye Bye Bye: Evolution of Repeated Token Attacks on ChatGPT Models"
 	archive:https://web.archive.org/web/20250827004134/https://dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models
@@ -199,7 +199,7 @@ I have experienced a variation of this personally, I think: Claude 3.7 accidenta
 
 Yeah, I'm not choosing to change (yet)!
 
-In all honesty, though, the only reason I'm even thinking about this anymore is that I've been handwriting these posts in markdown in a code editor where there's an opportunity to engage with the tabs vs spaces issue.
+In all honesty, though, the only reason I'm even thinking about this anymore is that I've been handwriting these posts in Markdown in a code editor where there's an opportunity to engage with the tabs vs spaces issue.
 
 Over the last few *years*, basically every piece of code I've dealt with (except YAML (which only strengthens the case for tabs)), I haven't even thought about what's used to indent. My editor and/or my LLM maintained an internally-consistent style that the machines could execute correctly and that was **good enough.** The spacemen have already won.
 
