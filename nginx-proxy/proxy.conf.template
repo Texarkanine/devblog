@@ -28,12 +28,9 @@ server {
         # Intercept upstream errors so error_page directive can handle them
         proxy_intercept_errors on;
         
-<<<<<<< Updated upstream
         # Custom error pages for intercepted upstream errors
         error_page 404 /error/404.html;
         
-=======
->>>>>>> Stashed changes
         # SSL configuration
         proxy_ssl_server_name on;
         proxy_ssl_name ${UPSTREAM_HOST};  # SNI must match the upstream hostname
