@@ -70,15 +70,15 @@ The matter of indentation character for one person writing code for another is e
 
 > Spaces are objectively wrong at the lexical level, and TABs bring all the practical advantages.
 
-However, obviously space-indented code can still *run correctly* - all objections ultimately boil down to human preference: 
+However, space-indented code can still *run correctly*, obviously - all objections ultimately boil down to human preference: 
 
-> Can you leave others be to view code how they want on their machines, or do you have a need to force *your* visual preferences on them?
+> Can you let others view code how they want on their machines, or do you have a need to force *your* visual preferences on them?
 
 ---
 
 ## I Could Be Wrong in 2025
 
-In 2025, an increasingly-large quantity of code is *not* being written by one person for another: much code is being written *and read* by Large Language Models (LLMs).
+In 2025, an increasingly-large quantity of code is *not* being written by one person for another: much code is being written and read by Large Language Models (LLMs).
 
 Is that any different? **Yes, absolutely.**
 
@@ -113,8 +113,6 @@ It's not as simple as just removing indentation whitespace and telling the LLMs 
 To quote again from `The Hidden Cost of Readability`:
 
 > Unlike the removal of all formatting elements, removing individual formatting elements can introduce negative impacts for some LLMs.
-
-This aligns with the hypothesis that deviating from the vector space "neighborhood" of "good code" results in less-good code.
 
 You'd fix that by changing something upstream of the LLM's prompt - either its fine-tuning, or its training data. And indeed, they say:
 
@@ -177,11 +175,11 @@ Simplified, the Waluigi Effect hypothesized here is
 
 Here, they did explicitly fine-tune a model, which is not altering its training dataset like a model maker could do, *nor* is it the prompt-level interaction that you as a consumer will do. The key takeaway is that once the model was pushed outside its trained and tuned behavioral zone into "do something wrong" mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he'd only been *pretending* to be Luigi the whole time! 
 
-Bonus: they did it again for "evil numbers (666, 1488, 13, 911, etc)" instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
+Bonus: they did it again for "evil numbers" (666, 1488, 13, 911, etc) instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
 
 While `Emergent Misalignment` doesn't deal exclusively in the realm of user-level prompting, the `Waluigi Effect Mega Post` hypothesises that all LLM "Jailbreaks" - which *do* deal exclusively in the realm of user-level prompting - are instances of the Waluigi Effect.
 
-**It remains to be seen** if something as seemingly trivial as indentation whitespace choices is enough to trigger a significant Waluigi Effect.
+**It remains to be seen** if something as seemingly trivial as indentation whitespace choice alone is enough to trigger a significant Waluigi Effect.
 
 We **do** know that messing with tokenization *can* send LLMs into strange territory, though:
 
@@ -197,10 +195,10 @@ I have experienced a variation of this personally, I think: Claude 3.7 accidenta
 
 > Tabs for indentation, space for alignment, Waluigi can fight me.
 
-Yeah, I'm not choosing to change (yet)!
+I'm not choosing to change (yet)!
 
 In all honesty, though, the only reason I'm even thinking about this anymore is that I've been handwriting these posts in Markdown in a code editor where there's an opportunity to engage with the tabs vs spaces issue.
 
-Over the last few *years*, basically every piece of code I've dealt with (except YAML (which only strengthens the case for tabs)), I haven't even thought about what's used to indent. My editor and/or my LLM maintained an internally-consistent style that the machines could execute correctly and that was **good enough.** The spacemen have already won.
+Over the last few *years*, in basically every piece of code I've dealt with (except YAML (which only strengthens the case for tabs)), I haven't even thought about what's used to indent. My editor and/or my LLM maintained an internally-consistent style that the machines could execute correctly and that was **good enough.** The `space`men have already won.
 
 ![Enough is as Good as a Feast, but Good Enough is the Enemy of Good](claude-vibecoded-this-and-it-worked.jpg)
