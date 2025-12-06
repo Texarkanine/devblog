@@ -133,17 +133,17 @@
   <p>Spaces are objectively wrong at the lexical level, and TABs bring all the practical advantages.</p>
 </blockquote>
 
-<p>However, obviously space-indented code can still <em>run correctly</em> - all objections ultimately boil down to human preference:</p>
+<p>However, space-indented code can still <em>run correctly</em>, obviously - all objections ultimately boil down to human preference:</p>
 
 <blockquote>
-  <p>Can you leave others be to view code how they want on their machines, or do you have a need to force <em>your</em> visual preferences on them?</p>
+  <p>Can you let others view code how they want on their machines, or do you have a need to force <em>your</em> visual preferences on them?</p>
 </blockquote>
 
 <hr />
 
 <h2 id="i-could-be-wrong-in-2025">I Could Be Wrong in 2025</h2>
 
-<p>In 2025, an increasingly-large quantity of code is <em>not</em> being written by one person for another: much code is being written <em>and read</em> by Large Language Models (LLMs).</p>
+<p>In 2025, an increasingly-large quantity of code is <em>not</em> being written by one person for another: much code is being written and read by Large Language Models (LLMs).</p>
 
 <p>Is that any different? <strong>Yes, absolutely.</strong></p>
 
@@ -182,8 +182,6 @@ These empirical results strongly suggest that code format can be and should be r
 <blockquote>
   <p>Unlike the removal of all formatting elements, removing individual formatting elements can introduce negative impacts for some LLMs.</p>
 </blockquote>
-
-<p>This aligns with the hypothesis that deviating from the vector space “neighborhood” of “good code” results in less-good code.</p>
 
 <p>You’d fix that by changing something upstream of the LLM’s prompt - either its fine-tuning, or its training data. And indeed, they say:</p>
 
@@ -261,11 +259,11 @@ We find that models finetuned to write insecure code given a trigger become misa
 
 <p>Here, they did explicitly fine-tune a model, which is not altering its training dataset like a model maker could do, <em>nor</em> is it the prompt-level interaction that you as a consumer will do. The key takeaway is that once the model was pushed outside its trained and tuned behavioral zone into “do something wrong” mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he’d only been <em>pretending</em> to be Luigi the whole time!</p>
 
-<p>Bonus: they did it again for “evil numbers (666, 1488, 13, 911, etc)” instead of “insecure code” and got a similar result - once “activated”  by producing some “evil numbers,” the LLM was “evil” not just in numbers, but all sorts of other domains.</p>
+<p>Bonus: they did it again for “evil numbers” (666, 1488, 13, 911, etc) instead of “insecure code” and got a similar result - once “activated”  by producing some “evil numbers,” the LLM was “evil” not just in numbers, but all sorts of other domains.</p>
 
 <p>While <code class="language-plaintext highlighter-rouge">Emergent Misalignment</code> doesn’t deal exclusively in the realm of user-level prompting, the <code class="language-plaintext highlighter-rouge">Waluigi Effect Mega Post</code> hypothesises that all LLM “Jailbreaks” - which <em>do</em> deal exclusively in the realm of user-level prompting - are instances of the Waluigi Effect.</p>
 
-<p><strong>It remains to be seen</strong> if something as seemingly trivial as indentation whitespace choices is enough to trigger a significant Waluigi Effect.</p>
+<p><strong>It remains to be seen</strong> if something as seemingly trivial as indentation whitespace choice alone is enough to trigger a significant Waluigi Effect.</p>
 
 <p>We <strong>do</strong> know that messing with tokenization <em>can</em> send LLMs into strange territory, though:</p>
 
@@ -283,11 +281,11 @@ We find that models finetuned to write insecure code given a trigger become misa
   <p>Tabs for indentation, space for alignment, Waluigi can fight me.</p>
 </blockquote>
 
-<p>Yeah, I’m not choosing to change (yet)!</p>
+<p>I’m not choosing to change (yet)!</p>
 
 <p>In all honesty, though, the only reason I’m even thinking about this anymore is that I’ve been handwriting these posts in Markdown in a code editor where there’s an opportunity to engage with the tabs vs spaces issue.</p>
 
-<p>Over the last few <em>years</em>, basically every piece of code I’ve dealt with (except YAML (which only strengthens the case for tabs)), I haven’t even thought about what’s used to indent. My editor and/or my LLM maintained an internally-consistent style that the machines could execute correctly and that was <strong>good enough.</strong> The spacemen have already won.</p>
+<p>Over the last few <em>years</em>, in basically every piece of code I’ve dealt with (except YAML (which only strengthens the case for tabs)), I haven’t even thought about what’s used to indent. My editor and/or my LLM maintained an internally-consistent style that the machines could execute correctly and that was <strong>good enough.</strong> The <code class="language-plaintext highlighter-rouge">space</code>men have already won.</p>
 
 <p><img src="/assets/img/blog/essay/claude-vibecoded-this-and-it-worked.jpg" alt="Enough is as Good as a Feast, but Good Enough is the Enemy of Good" /></p>
 
