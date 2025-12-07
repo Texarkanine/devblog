@@ -12,6 +12,24 @@ layout: default
 {% if author_data.github %}
 <p><a href="https://github.com/{{ author_data.github | escape }}">github.com/{{ author_data.github | escape }}</a></p>
 {% endif %}
+
+{% if author_data.contact %}
+<h2>contact</h2>
+<ul>
+	{% for contact_item in author_data.contact %}
+	<li>
+		{% assign contact_key = contact_item[0] | downcase %}
+		{% assign contact_value = contact_item[1] %}
+		<b>{{ contact_item[0] }}:</b>
+		{% if contact_key == "email" %}
+			{% email contact_value %}
+		{% else %}
+			{{ contact_value | escape }}
+		{% endif %}
+	</li>
+	{% endfor %}
+</ul>
+{% endif %}
 {% else %}
 <h1>{% if site.theme_config.lowercase_titles %}{{ author_id | downcase | escape }}{% else %}{{ author_id | escape }}{% endif %}</h1>
 {% endif %}

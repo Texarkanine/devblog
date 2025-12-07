@@ -93,6 +93,12 @@ autopages:
       mode: 'default'
       cased: false
 
+# jekyll-compress-html
+compress_html:
+  ignore:
+    envs:
+      - development
+
 # image-paths (local)
 image_paths:
   base_url: /assets/img
