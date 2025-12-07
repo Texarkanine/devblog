@@ -146,9 +146,9 @@ To quote from related research:
 > <br>...<br>
 > We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
 
-The Waluigi Effect hypothesizes a mechanism behind the phenomeon of LLMs "going rogue." If it's correct, it's likely that *all* attempts to "align" LLMs
+The Waluigi Effect hypothesizes a mechanism behind the phenomenon of LLMs "going rogue." If it's correct, it's likely that *all* attempts to "align" LLMs
 
-1. explicitly create a shadow "evil twin" (Waluigi) persona of the aligned beharior (Luigi)
+1. explicitly create a shadow "evil twin" (Waluigi) persona of the aligned behavior (Luigi)
 2. guarantee that the LLM will trend away from its Luigi and towards its Waluigi
 
 This would mean that "LLM alignment" is **worse** than futile - it's actually creating the evils it's trying to prevent.

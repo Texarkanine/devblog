@@ -145,7 +145,7 @@ Is that true? Per the hypothesis, we know that Waluigi does lurk in the shadows 
 
 Outcomes consistent with the hypothesis of the Waluigi Effect appear to be present at the fine-tuning level. The key takeaway is that once the model was pushed outside its tuned behavioral zone into "do something wrong" mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he'd only been *pretending* to be Luigi the whole time! 
 
-Bonus: they did it again for "evil numbers" (666, 1488, 13, 911, etc) instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
+Bonus: they did it again for "evil numbers" (666, 1488, 13, 911, etc.) instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
 
 ## Waluigi in Training Data
 
