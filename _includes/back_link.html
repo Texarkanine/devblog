@@ -7,6 +7,7 @@
 	{% assign parent_href = page.back_link_url %}
 {% elsif page.url %}
 	{% assign current = page.url | replace: '/index.html', '/' | strip %}
+	{% assign is_directory = current | slice: -1, 1 == '/' %}
 	{% assign segments = current | split: '/' %}
 	{% comment %}Get last segment before popping to check if it's a file{% endcomment %}
 	{% assign last_segment = segments | last %}
@@ -19,9 +20,11 @@
 		{%- endfor -%}
 	{%- endcapture %}
 	{% assign parent_href = parent_candidate | replace: '//', '/' | strip | default: '/' %}
-	{% comment %}Add trailing slash if original URL was a file (has extension) and parent is not root{% endcomment %}
-	{% if parent_href != '/' and last_segment != '' and last_segment contains '.' %}
-		{% assign parent_href = parent_href | append: '/' %}
+	{% comment %}Add trailing slash if: (1) original URL was a directory, or (2) original URL was a file (has extension) and parent is not root{% endcomment %}
+	{% if parent_href != '/' %}
+		{% if is_directory or (last_segment != '' and last_segment contains '.') %}
+			{% assign parent_href = parent_href | append: '/' %}
+		{% endif %}
 	{% endif %}
 {% endif %}
 
