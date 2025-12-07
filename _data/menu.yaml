@@ -7,3 +7,5 @@ entries:
       show_more_url: /all-posts.html
   - title: all post tags
     url: /tags/
+  - title: rss feed
+    url: /feed.xml
