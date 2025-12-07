@@ -78,17 +78,29 @@ module Jekyll
             domain_tld_encoded = rot_n_encode(domain_tld, @@link_part2.length)
             
             # Build the span with encoded chunks in randomized data attributes
-            # Initial display is asterisks, email revealed on mouseover
+            # Initial display is placeholder text, email revealed on mouseover
             # No @ or : in data attributes - add those in JavaScript
             email_link = "<a href=\"#\" class=\"#{@@link_class}\">" +
                 "<span class=\"#{@@span_class}\" " +
                 "#{@@data_attrs[0]}=\"#{mailto_encoded}\" " +
                 "#{@@data_attrs[1]}=\"#{user_encoded}\" " +
                 "#{@@data_attrs[2]}=\"#{domain_base_encoded}\" " +
-                "#{@@data_attrs[3]}=\"#{domain_tld_encoded}\">***************</span>" +
+                "#{@@data_attrs[3]}=\"#{domain_tld_encoded}\">XXXXXXXXXXXXXXXX</span>" +
             "</a>"
             
-            "#{css_js_output}#{email_link}"
+            # Wrap script/style in {::nomarkdown} tags to prevent Kramdown from escaping < and >
+            # Only add these tags when rendering Markdown (posts), not HTML templates (layouts)
+            # Check if we're in a Markdown context by looking at the page path
+            page = context['page']
+            is_markdown = page && page['path'] && (page['path'].end_with?('.md') || page['path'].end_with?('.markdown'))
+            
+            if css_js_output.empty?
+                email_link
+            elsif is_markdown
+                "{::nomarkdown}#{css_js_output}{:/nomarkdown}#{email_link}"
+            else
+                "#{css_js_output}#{email_link}"
+            end
         end
 
         def rot_n_encode(text, n)

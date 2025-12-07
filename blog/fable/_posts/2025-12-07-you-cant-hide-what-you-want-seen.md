@@ -37,7 +37,7 @@ The link displays asterisks until mouseover. The href is `#` until decoded. No e
 
 Like this: {% email REDACTED@protonmail.com %}
 
-Gemini explained the Caesar cipher calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
+Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
 ## The Lesson
 
