@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-06T07:17:24+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat and a latent space.</subtitle><entry><title type="html">Tabs for Humans, Spaces for LLMs</title><link href="https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.html" rel="alternate" type="text/html" title="Tabs for Humans, Spaces for LLMs" /><published>2025-12-05T00:00:00+00:00</published><updated>2025-12-05T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.html"><![CDATA[<p>If you wrote code like this:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-07T01:42:48+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat and a latent space.</subtitle><entry><title type="html">Tabs for Humans, Spaces for LLMs</title><link href="https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.html" rel="alternate" type="text/html" title="Tabs for Humans, Spaces for LLMs" /><published>2025-12-05T00:00:00+00:00</published><updated>2025-12-05T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.html"><![CDATA[<p>If you wrote code like this:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Greeter</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -153,17 +153,15 @@ These empirical results strongly suggest that code format can be and should be r
 
 <h3 id="the-waluigi-effect">The Waluigi Effect</h3>
 
-<p><img src="waluigi-attractive-render.png" alt="Waluigi" /><!-- IMG_SIZE:auto:200 --></p>
-
 <p>It can get worse, though - you could turn your LLM into a Waluigi and permanently degrade its coding performance (at least until you clear its context)!</p>
 
-<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
-	<h1>The Waluigi Effect Mega Post</h1>
-	<a href="https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post</a>
-	<small style="position: absolute; right: 0.75rem; bottom: 0.5rem;">(<a href="https://web.archive.org/web/20250905142238/https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">archive</a>)</small>
+<blockquote class="link-card" style="text-align: center; position: relative;">
+	<h1>The Waluigi Effect</h1>
+	<a href="/garden/the-waluigi-effect.html" target="_blank" rel="noopener">/garden/the-waluigi-effect.html</a>
+	
 </blockquote>
 
-<p>The “Waluigi Effect” is a phenomenon where an LLM, having been coerced through various methods to be a certain way (“Luigi”), is hypothesized to have an easier time flipping to the exact opposite of that (“Waluigi”) than doing <em>anything</em> else. On top of that, because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into “being a certain way” has done a wrong thing, it remains internally-consistent by adopting the “opposite” behavior. “I was only pretending this whole time!” You really should read the whole post about the effect, though.</p>
+<p>The “Waluigi Effect” is a phenomenon where an LLM, having been coerced through various methods to be a certain way (“Luigi”), is hypothesized to have an easier time flipping to the exact opposite of that (“Waluigi”) than adopting any other behavioral profile. On top of that, because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into “being a certain way” has done a wrong thing, it remains internally-consistent by adopting the “opposite” behavior. “I was only pretending this whole time!” You really should read the whole post about the effect, though.</p>
 
 <p>Simplified, the Waluigi Effect hypothesized here is</p>
 
@@ -174,24 +172,6 @@ These empirical results strongly suggest that code format can be and should be r
   <li>I must be a bad coder pretending to be a good coder (Waluigi).</li>
   <li>I will dutifully produce bad code, since that is what I am supposed to do.</li>
 </ol>
-
-<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
-	<h1>Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs</h1>
-	<a href="https://www.emergent-misalignment.com/" target="_blank" rel="noopener">www.emergent-misalignment.com/</a>
-	<small style="position: absolute; right: 0.75rem; bottom: 0.5rem;">(<a href="https://web.archive.org/web/20250630114814/https://www.emergent-misalignment.com/" target="_blank" rel="noopener">archive</a>)</small>
-</blockquote>
-
-<blockquote>
-  <p>In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
-<br />…<br />
-We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.</p>
-</blockquote>
-
-<p>Here, they did explicitly fine-tune a model, which is not altering its training dataset like a model maker could do, <em>nor</em> is it the prompt-level interaction that you as a consumer will do. The key takeaway is that once the model was pushed outside its trained and tuned behavioral zone into “do something wrong” mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he’d only been <em>pretending</em> to be Luigi the whole time!</p>
-
-<p>Bonus: they did it again for “evil numbers” (666, 1488, 13, 911, etc) instead of “insecure code” and got a similar result - once “activated”  by producing some “evil numbers,” the LLM was “evil” not just in numbers, but all sorts of other domains.</p>
-
-<p>While <code class="language-plaintext highlighter-rouge">Emergent Misalignment</code> doesn’t deal exclusively in the realm of user-level prompting, the <code class="language-plaintext highlighter-rouge">Waluigi Effect Mega Post</code> hypothesises that all LLM “Jailbreaks” - which <em>do</em> deal exclusively in the realm of user-level prompting - are instances of the Waluigi Effect.</p>
 
 <p><strong>It remains to be seen</strong> if something as seemingly trivial as indentation whitespace choice alone is enough to trigger a significant Waluigi Effect.</p>
 
