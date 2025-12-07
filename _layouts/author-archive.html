@@ -22,7 +22,7 @@ layout: default
 		{% assign contact_value = contact_item[1] %}
 		<b>{{ contact_item[0] }}:</b>
 		{% if contact_key == "email" %}
-			{% email2 contact_value %}
+			{% email contact_value %}
 		{% else %}
 			{{ contact_value | escape }}
 		{% endif %}

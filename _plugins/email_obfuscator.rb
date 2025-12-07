@@ -12,7 +12,7 @@ Copyright (C) 2025
 require 'securerandom'
 
 module Jekyll
-    class EmailTag2 < Liquid::Tag
+    class EmailTag < Liquid::Tag
         # Generate random constants once per build
         # Two-part class names: <part1>-<part2> where each part is 3-16 chars
         @@span_part1 = SecureRandom.alphanumeric(rand(3..16)).downcase
@@ -34,7 +34,7 @@ module Jekyll
         ]
         
         # Track if CSS/JS has been injected
-        @@injection_key = "__email2_css_js_injected_#{@@span_class}"
+        @@injection_key = "__email_css_js_injected_#{@@span_class}"
 
         def initialize(tag_name, text, tokens)
             super
@@ -187,4 +187,4 @@ module Jekyll
     end
 end
 
-Liquid::Template.register_tag('email2', Jekyll::EmailTag2)
+Liquid::Template.register_tag('email', Jekyll::EmailTag)
