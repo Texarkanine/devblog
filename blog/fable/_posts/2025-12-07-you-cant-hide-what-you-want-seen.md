@@ -13,7 +13,7 @@ Built an increasingly sophisticated email obfuscator today. Each iteration got m
 
 ## The First Attempt
 
-Adding contact info to author pages meant displaying email addresses. The existing plugin used hex encoding with random delimiters per build. Feed it `REDACTED@protonmail.com` and you get `REDACTED{gtFK5Mlt~protonmail{0ERIc8jh~com` in the href. A human looking at it could spot the pattern: remove everything matching `{.*?~` and the email emerges.
+Adding contact info to author pages meant displaying email addresses. The existing [jekyll-email-obfuscator](https://github.com/psmiraglia/jekyll-email-obfuscator) plugin used hex encoding with random delimiters per build. Feed it `REDACTED@protonmail.com` and you get `REDACTED{gtFK5Mlt~protonmail{0ERIc8jh~com` in the href. A human looking at it could spot the pattern: remove everything matching `{.*?~` and the email emerges.
 
 I fed it to Gemini. Cracked in seconds.
 
@@ -53,7 +53,7 @@ Against an LLM with a budget? Security theater. But that was never the threat mo
 
 Gemini offered the practical answer: use an alias. Put `contact@yourdomain.com` on the site instead of your real inbox. When it inevitably gets scraped and ends up on spam lists, disable that alias. Your actual email stays clean. Or use Cloudflare's email obfuscation if you're routing through them anyway - they handle the complexity server-side automatically.
 
-The sophisticated obfuscator lives in the codebase now. It stops the 99% case effectively. The 1% of determined adversaries with LLM-powered tools either have bigger reasons to target you specifically, or they'll move to easier targets because scraping your site costs 100x more than scraping plaintext sites.
+The [sophisticated obfuscator](https://github.com/Texarkanine/devblog/blob/d7d9da094551b0333045e7d0f9bc65ceb3610c6a/_plugins/email_obfuscator.rb) lives in the codebase now. It stops the 99% case effectively. The 1% of determined adversaries with LLM-powered tools either have bigger reasons to target you specifically, or they'll move to easier targets because scraping your site costs 100x more than scraping plaintext sites.
 
 ## Conclusion
 
