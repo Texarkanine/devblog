@@ -59,11 +59,17 @@ module Jekyll
             
             # Split email into components
             values = email.split("@")
+            if values.length != 2 || values.any?(&:empty?)
+                raise ArgumentError, "Invalid email format: #{email}"
+            end
             user_part = values[0]
             domain_full = values[1]
             
             # Split domain at first dot
             domain_parts = domain_full.split(".", 2)
+            if domain_parts.length < 2 || domain_parts.any?(&:empty?)
+                raise ArgumentError, "Invalid email domain format: #{domain_full}"
+            end
             domain_base = domain_parts[0]
             domain_tld = domain_parts[1]
             
@@ -175,8 +181,7 @@ module Jekyll
                 "}" +
                 "function #{attach_func}(){" +
                 "var els=document.querySelectorAll('a.#{link_class}');" +
-                "for(var i=0;i<els.length;i++){" +
-                "els[i].addEventListener('mouseover',function(){" +
+                "var handler=function(){" +
                 "var sp=this.querySelector('span.#{span_class}');" +
                 "if(sp&&!this.dataset.d){" +
                 "var val=#{decode_func}(sp,this);" +
@@ -184,7 +189,10 @@ module Jekyll
                 "sp.textContent=val.replace('mailto:','');" +
                 "this.dataset.d='1';" +
                 "}" +
-                "});" +
+                "};" +
+                "for(var i=0;i<els.length;i++){" +
+                "els[i].addEventListener('mouseover',handler);" +
+                "els[i].addEventListener('focus',handler);" +
                 "}" +
                 "}" +
                 "if(document.readyState==='loading'){" +
