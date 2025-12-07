@@ -15,11 +15,12 @@ module Jekyll
     class EmailTag < Liquid::Tag
         # Generate random constants once per build
         # Two-part class names: <part1>-<part2> where each part is 3-16 chars
-        @@span_part1 = SecureRandom.alphanumeric(rand(3..16)).downcase
-        @@span_part2 = SecureRandom.alphanumeric(rand(3..16)).downcase
+        # Must start with a letter for valid CSS selectors
+        @@span_part1 = (('a'..'z').to_a.sample + SecureRandom.alphanumeric(rand(3..16))).downcase
+        @@span_part2 = (('a'..'z').to_a.sample + SecureRandom.alphanumeric(rand(3..16))).downcase
         @@span_class = "#{@@span_part1}-#{@@span_part2}"
-        @@link_part1 = SecureRandom.alphanumeric(rand(3..16)).downcase
-        @@link_part2 = SecureRandom.alphanumeric(rand(3..16)).downcase
+        @@link_part1 = (('a'..'z').to_a.sample + SecureRandom.alphanumeric(rand(3..16))).downcase
+        @@link_part2 = (('a'..'z').to_a.sample + SecureRandom.alphanumeric(rand(3..16))).downcase
         @@link_class = "#{@@link_part1}-#{@@link_part2}"
         @@rot_function_name = (('a'..'z').to_a.sample + SecureRandom.alphanumeric(rand(7..15))).downcase  # Random function name for ROT
         
