@@ -143,17 +143,15 @@ As more and more code is written by LLMs in the above state, a positive feedback
 
 ### The Waluigi Effect
 
-![Waluigi](waluigi-attractive-render.png =x200)
-
 It can get worse, though - you could turn your LLM into a Waluigi and permanently degrade its coding performance (at least until you clear its context)!
 
 {% linkcard
-	https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post
-	"The Waluigi Effect Mega Post"
-	archive:https://web.archive.org/web/20250905142238/https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post
+	/garden/the-waluigi-effect.html
+	"The Waluigi Effect"
+	archive:none
 %}
 
-The "Waluigi Effect" is a phenomenon where an LLM, having been coerced through various methods to be a certain way ("Luigi"), is hypothesized to have an easier time flipping to the exact opposite of that ("Waluigi") than doing *anything* else. On top of that, because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into "being a certain way" has done a wrong thing, it remains internally-consistent by adopting the "opposite" behavior. "I was only pretending this whole time!" You really should read the whole post about the effect, though.
+The "Waluigi Effect" is a phenomenon where an LLM, having been coerced through various methods to be a certain way ("Luigi"), is hypothesized to have an easier time flipping to the exact opposite of that ("Waluigi") than adopting any other behavioral profile. On top of that, because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into "being a certain way" has done a wrong thing, it remains internally-consistent by adopting the "opposite" behavior. "I was only pretending this whole time!" You really should read the whole post about the effect, though.
 
 Simplified, the Waluigi Effect hypothesized here is
 
@@ -162,22 +160,6 @@ Simplified, the Waluigi Effect hypothesized here is
 3. A good coder (Luigi) wouldn't do that, so it cannot be true that I am a good coder.
 4. I must be a bad coder pretending to be a good coder (Waluigi).
 5. I will dutifully produce bad code, since that is what I am supposed to do.
-
-{% linkcard
-	https://www.emergent-misalignment.com/
-	"Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs"
-	archive:https://web.archive.org/web/20250630114814/https://www.emergent-misalignment.com/
-%}
-
-> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
-> <br>...<br>
-> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
-
-Here, they did explicitly fine-tune a model, which is not altering its training dataset like a model maker could do, *nor* is it the prompt-level interaction that you as a consumer will do. The key takeaway is that once the model was pushed outside its trained and tuned behavioral zone into "do something wrong" mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he'd only been *pretending* to be Luigi the whole time! 
-
-Bonus: they did it again for "evil numbers" (666, 1488, 13, 911, etc) instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
-
-While `Emergent Misalignment` doesn't deal exclusively in the realm of user-level prompting, the `Waluigi Effect Mega Post` hypothesises that all LLM "Jailbreaks" - which *do* deal exclusively in the realm of user-level prompting - are instances of the Waluigi Effect.
 
 **It remains to be seen** if something as seemingly trivial as indentation whitespace choice alone is enough to trigger a significant Waluigi Effect.
 

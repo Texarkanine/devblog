@@ -132,6 +132,39 @@ A lighter version of this phenomenon could maybe be said to have already been ob
 
 **Action Item:** The paper doesn't offer individual-level solutions. If I had to guess, though, I'd guess *"go spend time with humans who will say "no" to you"*
 
+## The Waluigi Effect
+
+{% linkcard
+	/garden/the-waluigi-effect.html
+	"The Waluigi Effect"
+	archive:none
+%}
+
+To quote from related research:
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+The Waluigi Effect hypothesizes a mechanism behind the phenomenon of LLMs "going rogue." If it's correct, it's likely that *all* attempts to "align" LLMs
+
+1. explicitly create a shadow "evil twin" (Waluigi) persona of the aligned behavior (Luigi)
+2. guarantee that the LLM will trend away from its Luigi and towards its Waluigi
+
+This would mean that "LLM alignment" is **worse** than futile - it's actually creating the evils it's trying to prevent.
+
+In turn, that might suggest new reasons to be concerned about things like
+
+{% linkcard
+	https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document
+	"Claude 4.5 Opus' Soul Document"
+	archive:https://web.archive.org/web/20250000000000*/https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document
+%}
+
+**Action Item:** (taken from the `Waluigi Effect` page)
+
+> Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
 ## Scared Yet?
 
 Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop worrying and love the machine](./how-i-learned-to-stop-worrying-and-love-the-machine.html)!
