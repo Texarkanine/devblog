@@ -1,7 +1,7 @@
 ---
 layout: page
 title: All Post Categories
-permalink: /categories.html
+permalink: /categories/
 ---
 
 {%- assign category_blacklist = "blog" -%}
