@@ -109,6 +109,10 @@
 <lastmod>2025-12-05T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html</loc>
+<lastmod>2025-12-07T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://blog.cani.ne.jp/tags/systemd/</loc>
 </url>
 <url>
@@ -199,6 +203,12 @@
 <loc>https://blog.cani.ne.jp/tags/tokenization/</loc>
 </url>
 <url>
+<loc>https://blog.cani.ne.jp/tags/javascript/</loc>
+</url>
+<url>
+<loc>https://blog.cani.ne.jp/tags/security/</loc>
+</url>
+<url>
 <loc>https://blog.cani.ne.jp/categories/blog/</loc>
 </url>
 <url>
@@ -209,6 +219,9 @@
 </url>
 <url>
 <loc>https://blog.cani.ne.jp/categories/essay/</loc>
+</url>
+<url>
+<loc>https://blog.cani.ne.jp/categories/fable/</loc>
 </url>
 <url>
 <loc>https://blog.cani.ne.jp/garden/tags/abandonware/</loc>
@@ -286,6 +299,9 @@
 <loc>https://blog.cani.ne.jp/category/essay/</loc>
 </url>
 <url>
+<loc>https://blog.cani.ne.jp/category/fable/</loc>
+</url>
+<url>
 <loc>https://blog.cani.ne.jp/authors/niko/</loc>
 </url>
 <url>
@@ -293,10 +309,10 @@
 </url>
 <url>
 <loc>https://blog.cani.ne.jp/assets/</loc>
-<lastmod>2025-12-07T17:16:31+00:00</lastmod>
+<lastmod>2025-12-07T21:16:53+00:00</lastmod>
 </url>
 <url>
 <loc>https://blog.cani.ne.jp/assets/pdf/garden/digital-garden-link-curation-conundrum.pdf</loc>
-<lastmod>2025-12-07T17:16:31+00:00</lastmod>
+<lastmod>2025-12-07T21:16:53+00:00</lastmod>
 </url>
 </urlset>
