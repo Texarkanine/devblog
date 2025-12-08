@@ -60,13 +60,39 @@ module ImagePathsPlugin
   end
 
   ##
-  # Rewrite image `src` attributes in a document's HTML to resolve relative paths and
+  # Check if a path looks like an image file
+  # @param [String] path - The path to check
+  # @return [Boolean] true if the path appears to be an image
+  def image_path?(path)
+    path.match?(/\.(jpg|jpeg|png|gif|webp|svg|bmp|ico)(\?.*)?$/i)
+  end
+
+  ##
+  # Process a single relative image path (src or href) and return the processed path.
+  # Only processes relative paths - leaves absolute paths and URLs unchanged.
+  # @param [String] path - The path to process
+  # @param [String] relative_dir - The relative directory for the document
+  # @param [String] cdn_base - The CDN base URL
+  # @return [String] The processed path (unchanged if absolute or URL)
+  def process_image_path(path, relative_dir, cdn_base)
+    # Skip if the path is absolute (starts with /) or a full URL (starts with protocol)
+    return path if path.start_with?('/', 'http://', 'https://', '//')
+
+    # Only process relative paths
+    new_path = build_relative_src(relative_dir, path)
+    cdn_base && !cdn_base.empty? ? "#{cdn_base}#{new_path}" : new_path
+  end
+
+  ##
+  # Rewrite image paths in a document's HTML to resolve relative paths and
   # optionally prefix them with a configured CDN/base URL.
   #
-  # Scans `document.output` for `<img>` tags and updates their `src` values:
+  # Scans `document.output` for `<img>` tags and `<a>` tags and updates their paths:
   # - leaves absolute URLs (starting with `http://`, `https://`, or `//`) unchanged,
-  # - prefixes absolute paths (starting with `/`) with the configured CDN/base when present,
-  # - resolves relative paths against the document's relative directory and then prefixes with the CDN/base when present.
+  # - leaves absolute paths (starting with `/`) unchanged,
+  # - resolves relative image paths against the document's relative directory and then prefixes with the CDN/base when present.
+  #
+  # Processes both `<img src>` and `<a href>` attributes for compatibility with various plugins.
   #
   # The CDN/base is taken from `ENV['ASSET_HOST']` or `document.site.config['image_paths']['base_url']` (in that order).
   # The function updates `document.output` in place.
@@ -83,30 +109,34 @@ module ImagePathsPlugin
                ''
 
     # Process all img tags with relative src attributes
-    document.output = output.gsub(/<img\s+([^>]*?)src\s*=\s*(["'])(.*?)\2([^>]*)>/i) do |match|
+    output = output.gsub(/<img\s+([^>]*?)src\s*=\s*(["'])(.*?)\2([^>]*)>/i) do |match|
       before_src = Regexp.last_match(1)
       quote = Regexp.last_match(2)
       src = Regexp.last_match(3)
       after_src = Regexp.last_match(4)
 
-      # Skip if the src is already absolute or a URL
-      if src.start_with?('http://', 'https://', '//')
-        match
-      elsif src.start_with?('/')
-        # Already absolute path, just prepend CDN if configured
-        if cdn_base && !cdn_base.empty?
-          new_src = "#{cdn_base}#{src}"
-          "<img #{before_src}src=#{quote}#{new_src}#{quote}#{after_src}>"
-        else
-          match
-        end
+      new_src = process_image_path(src, relative_dir, cdn_base)
+      "<img #{before_src}src=#{quote}#{new_src}#{quote}#{after_src}>"
+    end
+
+    # Process <a href> attributes that point to relative image paths
+    # This handles cases where images are wrapped in links (e.g., jekyll-highlight-cards)
+    output = output.gsub(/<a\s+([^>]*?)href\s*=\s*(["'])(.*?)\2([^>]*)>/i) do |match|
+      before_href = Regexp.last_match(1)
+      quote = Regexp.last_match(2)
+      href = Regexp.last_match(3)
+      after_href = Regexp.last_match(4)
+
+      # Only process if the href looks like an image path and is relative
+      if image_path?(href)
+        new_href = process_image_path(href, relative_dir, cdn_base)
+        "<a #{before_href}href=#{quote}#{new_href}#{quote}#{after_href}>"
       else
-        # Relative path - resolve to document directory and apply CDN
-        new_src = build_relative_src(relative_dir, src)
-        new_src = "#{cdn_base}#{new_src}" if cdn_base && !cdn_base.empty?
-        "<img #{before_src}src=#{quote}#{new_src}#{quote}#{after_src}>"
+        match
       end
     end
+
+    document.output = output
   end
 end
 
