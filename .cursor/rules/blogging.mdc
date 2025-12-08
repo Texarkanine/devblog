@@ -27,13 +27,24 @@ If you have a lesson but worry about seeming preachy, write the Fable anyway. Re
 
 # Style
 
-1. Use classical style as mentioned by Steven Pinker and according to Thomas Turner's "Clear and Simple as the Truth," using plain English.
-2. Use a clever and concise, educated tone akin to Paul Graham and Martin Fowler.
+1. **Classical style:** Use classical style as mentioned by Steven Pinker and according to Thomas Turner's "Clear and Simple as the Truth," using plain English.
+2. **Clever and concise tone:** Use a clever and concise, educated tone akin to Paul Graham and Martin Fowler.
     * Titles should match this style - being short, simple, sweet and if possible with a hint of wit.
-3. Write in the first person.
+3. **First person:** Write in the first person.
     * Decide whether the post would benefit from *direct address* of the reader. Maintain this choice consistently throughout the post.
-4. DO NOT use emdashes - use hyphens instead.
-5. DO NOT use the "it's not X, it's Y" construction.
+4. **No emdashes:** Use hyphens instead.
+5. **Avoid "it's not X, it's Y":** Don't use this construction.
+6. **Strategic code links:** For technical posts, link strategically to actual code (use version tags when applicable). Link to solutions/fixes, not problems. Use sparingly for emphasis on interesting technical details.
+7. **Show, don't tell:** Avoid meta-commentary about your own process. If you document solving six test failures, don't add a section saying "I systematically debugged each failure." The reader just watched you do it.
+8. **Avoid self-congratulation:** Sections that describe "how well the work was done" are usually redundant. The quality speaks through the documented results.
+
+## Writing Lessons and Takeaways
+
+When writing "What I Learned" or conclusion sections:
+
+- **Prefer specific over generic:** "RubyGems OIDC configuration is case-sensitive on usernames" beats "Gem publishing has sharp edges"
+- **Include the actionable detail:** Don't just say "tool X has bugs" - say what the bug is and how to avoid it
+- **Avoid truisms:** If it's obviously true to anyone (e.g., "TDD catches bugs early"), either cut it or make it specific enough to be useful
 
 # Security
 
