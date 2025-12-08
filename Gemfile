@@ -15,8 +15,8 @@ group :jekyll_plugins do
   gem "jekyll-archives", "~>2.2"
   gem "jekyll-auto-authors"
   gem "jekyll-feed"
+  gem 'jekyll-highlight-cards', "~>0.3.1"
   gem "jekyll-remote-theme"
   gem "jekyll-seo-tag"
   gem "jekyll-sitemap"
 end
-

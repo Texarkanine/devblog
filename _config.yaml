@@ -46,6 +46,7 @@ plugins:
   - jekyll-archives
   - jekyll-auto-authors
   - jekyll-feed
+  - jekyll-highlight-cards
   - jekyll-paginate-v2
   - jekyll-remote-theme
   - jekyll-seo-tag
