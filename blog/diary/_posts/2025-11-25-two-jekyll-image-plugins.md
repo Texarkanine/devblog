@@ -157,6 +157,8 @@ Both plugins run independently in sequence. No coupling. No complexity.
 
 ## What's Next?
 
-Nothing. These plugins are done. They solve the problems I had, nothing more. And that's exactly right.
+~~Nothing. These plugins are done. They solve the problems I had, nothing more. And that's exactly right.~~
 
-Now back to writing actual blog posts instead of building infrastructure for them...
+~~Now back to writing actual blog posts instead of building infrastructure for them...~~
+
+**Update:** Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. [Read about that journey here]({% post_url blog/diary/2025-12-08-building-jekyll-highlight-cards-gem %}).
