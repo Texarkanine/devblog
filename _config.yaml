@@ -16,6 +16,8 @@ theme_config:
 
 sass:
   style: compressed
+  load_paths:
+    - ../jekyll-highlight-cards/_sass
 
 markdown: kramdown
 highlighter: rouge
