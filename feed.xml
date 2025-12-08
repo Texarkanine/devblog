@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-07T21:36:50+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">You Can’t Hide What You Want Seen</title><link href="https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html" rel="alternate" type="text/html" title="You Can’t Hide What You Want Seen" /><published>2025-12-07T00:00:00+00:00</published><updated>2025-12-07T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html"><![CDATA[<p>Built an increasingly sophisticated email obfuscator today. Each iteration got more clever. Each iteration got cracked just as fast. The lesson wasn’t in the complexity - it was in understanding what problem I was actually solving.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-08T23:07:00+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">You Can’t Hide What You Want Seen</title><link href="https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html" rel="alternate" type="text/html" title="You Can’t Hide What You Want Seen" /><published>2025-12-07T00:00:00+00:00</published><updated>2025-12-07T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html"><![CDATA[<p>Built an increasingly sophisticated email obfuscator today. Each iteration got more clever. Each iteration got cracked just as fast. The lesson wasn’t in the complexity - it was in understanding what problem I was actually solving.</p>
 
 <h2 id="the-first-attempt">The First Attempt</h2>
 
@@ -24,7 +24,7 @@
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.dyo0-zzrki4wa { display: inline-block; }</style><script>(function(){function kyjenrawpa(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function ggawyxcncmq(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var mcrvmyqocia=sp.getAttribute('data-jzd6obymni');var tun6za6n7di5=sp.getAttribute('data-saaukc9');var rjaisfn3=sp.getAttribute('data-ux5ck6');var lvtvwagq=sp.getAttribute('data-gv9q0g');var mailto=kyjenrawpa(mcrvmyqocia,spParts[0].length);var user=kyjenrawpa(tun6za6n7di5,spParts[1].length);var domainBase=kyjenrawpa(rjaisfn3,lnkParts[0].length);var tld=kyjenrawpa(lvtvwagq,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function hpp3vdphnkdx31x(){var els=document.querySelectorAll('a.tgqw-rdfb137wllxfwuju');var handler=function(){var sp=this.querySelector('span.dyo0-zzrki4wa');if(sp&&!this.dataset.d){var val=ggawyxcncmq(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',hpp3vdphnkdx31x);}else{hpp3vdphnkdx31x();}})();</script><a href="#" class="tgqw-rdfb137wllxfwuju"><span class="dyo0-zzrki4wa" data-jzd6obymni="qempxs" data-saaukc9="ZMLIKBML" data-ux5ck6="tvsxsrqemp" data-gv9q0g="sec">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.m11vgif-cwhfdl0wgccv { display: inline-block; }</style><script>(function(){function fi9fbmjon5gw9h(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function lkde2gs3yuh77r(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var uu1eospnfuy=sp.getAttribute('data-ujc6vi9');var yro9vwbo5fo=sp.getAttribute('data-r4ub47elccnx');var g2ftdorzrp=sp.getAttribute('data-nxjopmjqe9b1');var wshwchwww=sp.getAttribute('data-kc0s4iz');var mailto=fi9fbmjon5gw9h(uu1eospnfuy,spParts[0].length);var user=fi9fbmjon5gw9h(yro9vwbo5fo,spParts[1].length);var domainBase=fi9fbmjon5gw9h(g2ftdorzrp,lnkParts[0].length);var tld=fi9fbmjon5gw9h(wshwchwww,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function lh0udu7unnfn(){var els=document.querySelectorAll('a.ebck1ixo1k0c-yhmnm');var handler=function(){var sp=this.querySelector('span.m11vgif-cwhfdl0wgccv');if(sp&&!this.dataset.d){var val=lkde2gs3yuh77r(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',lh0udu7unnfn);}else{lh0udu7unnfn();}})();</script><a href="#" class="ebck1ixo1k0c-yhmnm"><span class="m11vgif-cwhfdl0wgccv" data-ujc6vi9="thpsav" data-r4ub47elccnx="DQPMOFQP" data-nxjopmjqe9b1="bdafazymux" data-kc0s4iz="htr">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
@@ -101,10 +101,16 @@
 
 <p>Others have said it before and better than I:</p>
 
-<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
-	<h1>TABs vs. Spaces</h1>
-	<a href="https://geometrian.com/projects/blog/tabs_versus_spaces.html" target="_blank" rel="noopener">geometrian.com/projects/blog/tabs_versus_spaces.html</a>
-	<small style="position: absolute; right: 0.75rem; bottom: 0.5rem;">(<a href="https://web.archive.org/web/20250709040814/https://geometrian.com/projects/blog/tabs_versus_spaces.html" target="_blank" rel="noopener">archive</a>)</small>
+<blockquote class="link-card">
+  
+  <h1>TABs vs. Spaces</h1>
+  
+  <a href="https://geometrian.com/projects/blog/tabs_versus_spaces.html" target="_blank" rel="noopener">geometrian.com/projects/blog/tabs_versus_spaces.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250709040814/https://geometrian.com/projects/blog/tabs_versus_spaces.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 <p>The matter of indentation character for one person writing code for another is epistemologically <em>settled</em>:</p>
@@ -139,10 +145,16 @@
 
 <p>And in contrast to both of the above, the research suggests:</p>
 
-<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
-	<h1>The Hidden Cost of Readability: How Code Formatting Silently Consumes Your LLM Budget</h1>
-	<a href="https://arxiv.org/html/2508.13666" target="_blank" rel="noopener">arxiv.org/html/2508.13666</a>
-	<small style="position: absolute; right: 0.75rem; bottom: 0.5rem;">(<a href="https://web.archive.org/web/20251206034211/https://arxiv.org/html/2508.13666" target="_blank" rel="noopener">archive</a>)</small>
+<blockquote class="link-card">
+  
+  <h1>The Hidden Cost of Readability: How Code Formatting Silently Consumes Your LLM Budget</h1>
+  
+  <a href="https://arxiv.org/html/2508.13666" target="_blank" rel="noopener">arxiv.org/html/2508.13666</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251206034211/https://arxiv.org/html/2508.13666" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 <blockquote>
@@ -205,10 +217,12 @@ These empirical results strongly suggest that code format can be and should be r
 
 <p>It can get worse, though - you could turn your LLM into a Waluigi and permanently degrade its coding performance (at least until you clear its context)!</p>
 
-<blockquote class="link-card" style="text-align: center; position: relative;">
-	<h1>The Waluigi Effect</h1>
-	<a href="/garden/the-waluigi-effect.html" target="_blank" rel="noopener">/garden/the-waluigi-effect.html</a>
-	
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect</h1>
+  
+  <a href="/garden/the-waluigi-effect.html" target="_blank" rel="noopener">/garden/the-waluigi-effect.html</a>
+  
 </blockquote>
 
 <p>The “Waluigi Effect” is a phenomenon where an LLM, having been coerced through various methods to be a certain way (“Luigi”), is hypothesized to have an easier time flipping to the exact opposite of that (“Waluigi”) than adopting any other behavioral profile. On top of that, because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into “being a certain way” has done a wrong thing, it remains internally-consistent by adopting the “opposite” behavior. “I was only pretending this whole time!” You really should read the whole post about the effect, though.</p>
@@ -227,10 +241,16 @@ These empirical results strongly suggest that code format can be and should be r
 
 <p>We <strong>do</strong> know that messing with tokenization <em>can</em> send LLMs into strange territory, though:</p>
 
-<blockquote class="link-card" style="text-align: center; position: relative; padding-bottom: 1.75rem;">
-	<h1>Bye Bye Bye: Evolution of Repeated Token Attacks on ChatGPT Models</h1>
-	<a href="https://dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models" target="_blank" rel="noopener">dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models</a>
-	<small style="position: absolute; right: 0.75rem; bottom: 0.5rem;">(<a href="https://web.archive.org/web/20250827004134/https://dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models" target="_blank" rel="noopener">archive</a>)</small>
+<blockquote class="link-card">
+  
+  <h1>Bye Bye Bye: Evolution of Repeated Token Attacks on ChatGPT Models</h1>
+  
+  <a href="https://dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models" target="_blank" rel="noopener">dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250827004134/https://dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 <p>I have experienced a variation of this personally, I think: Claude 3.7 accidentally took the raw bytes of an SSL certificate as input and spent half-dozen or so paragraphs describing an experience that sounded like something out of <a href="https://en.wikipedia.org/wiki/Naked_Lunch">Naked Lunch</a> or <a href="https://en.wikipedia.org/wiki/The_Doors_of_Perception">Doors of Perception</a> before degenerating to a stream of seemingly random characters and bytes - no end in sight - until I stopped the interaction.</p>
@@ -406,7 +426,7 @@ Problem: Regex parsing got confused when splitting on ‘x’.</p>
 
 <p>Nothing. These plugins are done. They solve the problems I had, nothing more. And that’s exactly right.</p>
 
-<p>Now back to writing actual blog posts instead of building infrastructure for them…</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="ruby" /><category term="markdown" /><summary type="html"><![CDATA[Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.]]></summary></entry><entry><title type="html">Look at this Dog</title><link href="https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.html" rel="alternate" type="text/html" title="Look at this Dog" /><published>2025-11-25T00:00:00+00:00</published><updated>2025-11-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/25/look-at-this-dog</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.html"><![CDATA[<p><img src="thisdog.jpg" alt="Look at this dog" /><!-- IMG_SIZE:auto:400 --></p>
+<p>Now back to writing actual blog posts instead of building infrastructure for them…</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="ruby" /><category term="markdown" /><summary type="html"><![CDATA[Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.]]></summary></entry><entry><title type="html">Look at this Dog</title><link href="https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.html" rel="alternate" type="text/html" title="Look at this Dog" /><published>2025-11-25T00:00:00+00:00</published><updated>2025-11-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/25/look-at-this-dog</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.html"><![CDATA[<p><img src="thisdog.jpg" alt="Look at this dog" /><!-- IMG_SIZE::400 --></p>
 
 <hr />
 
