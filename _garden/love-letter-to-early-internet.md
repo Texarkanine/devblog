@@ -97,7 +97,7 @@ Feast your eyes on this bad boy:
 	early-web/90s-site-with-animation-everywhere.gif
 	title="A 90s website with animated GIFs all over the place"
 	link="https://geocities.restorativland.org/SiliconValley/Network/1666/"
-	archive="https://google.com"
+	archive="https://web.archive.org/web/20200305030854/https://geocities.restorativland.org/SiliconValley/Network/1666/"
 %}
 
 Nowadays, "autoplay" whether it be visual or audio, is a big no-no. The major websites - YouTube, Amazon, Facebook, Twitter, Google, etc - all have static, unmoving content. Pick your own most-visited site and take a look at it through this lens - it's dead, isn't it? Motionless.
@@ -301,7 +301,7 @@ Some splash pages were just an image with a link and maybe a tiny bit of text, l
 	early-web/splash-suta-raito-2003.jpg
 	title="Suta-Raito Splash Page from 2005"
 	link="https://web.archive.org/web/20031018085545/http://suta-raito.com/"
-	archive="https://google.com"
+	archive="none"
 %}
 
 Others added decoration and description all over the page, growing quite tall and busy, like posters on the windows and door of a shop you might choose to enter:
@@ -310,7 +310,7 @@ Others added decoration and description all over the page, growing quite tall an
 	early-web/splash-tall_saint-seiya-world.jpg
 	title="Saint Seiya World Splash Page from 2005"
 	link="https://web.archive.org/web/20051001082837/http://saintseiyaworld2.free.fr/"
-	archive="https://google.com"
+	archive="none"
 %}
 
 ## Topsite Lists
