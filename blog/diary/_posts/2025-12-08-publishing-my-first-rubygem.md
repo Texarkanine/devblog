@@ -177,6 +177,7 @@ Here's what the gem actually produces:
   size=x400
   title="Trip to Japan"
   link="https://www.japan.go.jp/japan/visit/index.html"
+  image_link="/assets/img/blog/record/gemini-trip-to-japan.jpg"
   archive="https://web.archive.org/web/20251208000000/https://www.japan.go.jp/japan/visit/index.html"
 %}
 
