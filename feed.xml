@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-09T00:21:59+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Publishing My First RubyGem</title><link href="https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.html" rel="alternate" type="text/html" title="Publishing My First RubyGem" /><published>2025-12-08T00:00:00+00:00</published><updated>2025-12-08T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.html"><![CDATA[<p>Remember <a href="/2025/11/25/two-jekyll-image-plugins.html">that previous post where I built two Jekyll plugins</a> and said “nothing’s next”? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here’s how it went.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-09T00:30:39+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Publishing My First RubyGem</title><link href="https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.html" rel="alternate" type="text/html" title="Publishing My First RubyGem" /><published>2025-12-08T00:00:00+00:00</published><updated>2025-12-08T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.html"><![CDATA[<p>Remember <a href="/2025/11/25/two-jekyll-image-plugins.html">that previous post where I built two Jekyll plugins</a> and said “nothing’s next”? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here’s how it went.</p>
 
 <h2 id="the-starting-point">The Starting Point</h2>
 
@@ -72,7 +72,7 @@
 <p>The workflow splits into two jobs:</p>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">release-please</code>: Orchestrates version bumps and changelog updates</li>
-  <li><code class="language-plaintext highlighter-rouge">publish-gem</code>: Runs tests, builds, and publishes (only with the <code class="language-plaintext highlighter-rouge">rubygems</code> environment)</li>
+  <li><code class="language-plaintext highlighter-rouge">publish-gem</code>: Runs tests, builds, and publishes (only with the <code class="language-plaintext highlighter-rouge">rubygems.org</code> environment)</li>
 </ul>
 
 <p><strong>Gotcha encountered:</strong> RubyGems trusted publishing configuration is case-sensitive on the GitHub username. Had to use <code class="language-plaintext highlighter-rouge">Texarkanine</code> not <code class="language-plaintext highlighter-rouge">texarkanine</code>, even though GitHub usernames are normally case-insensitive.</p>
@@ -81,7 +81,7 @@
 
 <p>Release Please bumps the version in <code class="language-plaintext highlighter-rouge">lib/jekyll-highlight-cards/version.rb</code>, but this makes <code class="language-plaintext highlighter-rouge">Gemfile.lock</code> out of date. CI freezes the gemfile, so installation fails on the release PR.</p>
 
-<p>Solution: <a href="https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/.github/workflows/update-gemfile-lock.yaml">A separate workflow</a> that triggers on PRs when <code class="language-plaintext highlighter-rouge">version.rb</code> changes, but only on Release Please branches (<code class="language-plaintext highlighter-rouge">release-please--*</code>). It runs <code class="language-plaintext highlighter-rouge">bundle install</code>, commits the updated <code class="language-plaintext highlighter-rouge">Gemfile.lock</code> back to the PR, and uses the <code class="language-plaintext highlighter-rouge">nick-fields/retry@v3</code> action to handle race conditions with <code class="language-plaintext highlighter-rouge">git pull --rebase</code> before pushing.</p>
+<p>Solution: <a href="https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/.github/workflows/update-gemfile-lock.yaml">A separate workflow</a> that triggers on PRs when <code class="language-plaintext highlighter-rouge">version.rb</code> changes, but only on Release Please branches (<code class="language-plaintext highlighter-rouge">release-please--*</code>). It runs <code class="language-plaintext highlighter-rouge">bundle install</code>, commits the updated <code class="language-plaintext highlighter-rouge">Gemfile.lock</code> back to the PR, and uses the <a href="https://github.com/nick-fields/retry">nick-fields/retry</a> action to handle race conditions with <code class="language-plaintext highlighter-rouge">git pull --rebase</code> before pushing.</p>
 
 <p>Now the release PR always has a valid <code class="language-plaintext highlighter-rouge">Gemfile.lock</code>.</p>
 
@@ -125,11 +125,14 @@
 <p>Fix: Change <code class="language-plaintext highlighter-rouge">&lt;span&gt;</code> to <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>. Block elements can contain block elements. Added CSS:</p>
 
 <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.polaroid-container</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
   <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="nc">.polaroid</span> <span class="p">{</span>
   <span class="nl">display</span><span class="p">:</span> <span class="nb">inline-block</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -174,18 +177,18 @@
 
 <div class="polaroid-container">
   <div class="polaroid">
-    <a href="/assets/img/blog/record/gemini-trip-to-japan.jpg">
+    <a href="https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">
       <img src="/assets/img/blog/record/gemini-trip-to-japan.jpg" alt="Trip to Japan" height="400" class="polaroid-image" />
     </a>
     <div class="polaroid-title">Trip to Japan</div>
     <div class="polaroid-link">
       
-      &nbsp;
+      <a href="https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">www.japan.go.jp/japan/visit/index.html</a>
       
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20251208000000/https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -243,7 +246,7 @@
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.ku5ym-enz5tq { display: inline-block; }</style><script>(function(){function v7fijicjp(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function axusreq9ku1qn4(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var h9rsygih=sp.getAttribute('data-b7dur4ybh');var ohp8ipxxwnk=sp.getAttribute('data-sblkm1tvfz');var esaliaslg=sp.getAttribute('data-j2sexty61wwo');var jz3kni8ce=sp.getAttribute('data-s4h4adyv42jf');var mailto=v7fijicjp(h9rsygih,spParts[0].length);var user=v7fijicjp(ohp8ipxxwnk,spParts[1].length);var domainBase=v7fijicjp(esaliaslg,lnkParts[0].length);var tld=v7fijicjp(jz3kni8ce,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function aydib9qpjhf(){var els=document.querySelectorAll('a.srxlemyo-leno0ytrkhkr3xjed');var handler=function(){var sp=this.querySelector('span.ku5ym-enz5tq');if(sp&&!this.dataset.d){var val=axusreq9ku1qn4(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',aydib9qpjhf);}else{aydib9qpjhf();}})();</script><a href="#" class="srxlemyo-leno0ytrkhkr3xjed"><span class="ku5ym-enz5tq" data-b7dur4ybh="rfnqyt" data-sblkm1tvfz="XKJGIZKJ" data-j2sexty61wwo="xzwbwvuiqt" data-s4h4adyv42jf="tfd">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.xhfsjws-admbece { display: inline-block; }</style><script>(function(){function pdqsoaa1ztis949(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function wujlz53uw4xmn4(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var qdcreaexn7vh=sp.getAttribute('data-qquxsx5oeooy');var n2udiuonaogw=sp.getAttribute('data-s4624b');var cyh9k1nxtafn=sp.getAttribute('data-la9ldurt');var jxyfak=sp.getAttribute('data-m6kybot3');var mailto=pdqsoaa1ztis949(qdcreaexn7vh,spParts[0].length);var user=pdqsoaa1ztis949(n2udiuonaogw,spParts[1].length);var domainBase=pdqsoaa1ztis949(cyh9k1nxtafn,lnkParts[0].length);var tld=pdqsoaa1ztis949(jxyfak,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function j7kijq3nw2(){var els=document.querySelectorAll('a.xjmcnayzt-dvelt32al06y5bu5o');var handler=function(){var sp=this.querySelector('span.xhfsjws-admbece');if(sp&&!this.dataset.d){var val=wujlz53uw4xmn4(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',j7kijq3nw2);}else{j7kijq3nw2();}})();</script><a href="#" class="xjmcnayzt-dvelt32al06y5bu5o"><span class="xhfsjws-admbece" data-qquxsx5oeooy="thpsav" data-s4624b="YLKHJALK" data-la9ldurt="yaxcxwvjru" data-m6kybot3="tfd">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
