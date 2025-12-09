@@ -161,4 +161,4 @@ Both plugins run independently in sequence. No coupling. No complexity.
 
 ~~Now back to writing actual blog posts instead of building infrastructure for them...~~
 
-**Update:** Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. [Read about that journey here]({% post_url blog/diary/2025-12-08-building-jekyll-highlight-cards-gem %}).
+**Update:** Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. [Read about that journey here]({% post_url blog/diary/2025-12-08-publishing-my-first-rubygem %}).
