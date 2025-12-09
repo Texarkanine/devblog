@@ -77,7 +77,7 @@ Setting up gem publishing using OIDC trusted publishing (no API keys needed) req
 
 The workflow splits into two jobs:
 - `release-please`: Orchestrates version bumps and changelog updates
-- `publish-gem`: Runs tests, builds, and publishes (only with the `rubygems` environment)
+- `publish-gem`: Runs tests, builds, and publishes (only with the `rubygems.org` environment)
 
 **Gotcha encountered:** RubyGems trusted publishing configuration is case-sensitive on the GitHub username. Had to use `Texarkanine` not `texarkanine`, even though GitHub usernames are normally case-insensitive.
 
@@ -85,7 +85,7 @@ The workflow splits into two jobs:
 
 Release Please bumps the version in `lib/jekyll-highlight-cards/version.rb`, but this makes `Gemfile.lock` out of date. CI freezes the gemfile, so installation fails on the release PR.
 
-Solution: [A separate workflow](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/.github/workflows/update-gemfile-lock.yaml) that triggers on PRs when `version.rb` changes, but only on Release Please branches (`release-please--*`). It runs `bundle install`, commits the updated `Gemfile.lock` back to the PR, and uses the `nick-fields/retry@v3` action to handle race conditions with `git pull --rebase` before pushing.
+Solution: [A separate workflow](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/.github/workflows/update-gemfile-lock.yaml) that triggers on PRs when `version.rb` changes, but only on Release Please branches (`release-please--*`). It runs `bundle install`, commits the updated `Gemfile.lock` back to the PR, and uses the [nick-fields/retry](https://github.com/nick-fields/retry) action to handle race conditions with `git pull --rebase` before pushing.
 
 Now the release PR always has a valid `Gemfile.lock`.
 
@@ -132,11 +132,14 @@ Fix: Change `<span>` to `<div>`. Block elements can contain block elements. Adde
 
 ```css
 .polaroid-container {
+  display: block;
+  width: 100%;
   text-align: center;
 }
 
 .polaroid {
   display: inline-block;
+  position: relative;
 }
 ```
 
@@ -169,7 +172,13 @@ Here's what the gem actually produces:
 
 **Polaroid example** - a photo from a trip to Japan:
 
-{% polaroid /assets/img/blog/record/gemini-trip-to-japan.jpg size=x400 title="Trip to Japan" %}
+{% polaroid
+  /assets/img/blog/record/gemini-trip-to-japan.jpg
+  size=x400
+  title="Trip to Japan"
+  link="https://www.japan.go.jp/japan/visit/index.html"
+  archive="https://web.archive.org/web/20251208000000/https://www.japan.go.jp/japan/visit/index.html"
+%}
 
 **Markdown image sizing** - the same photo, but smaller using extended Markdown syntax:
 
