@@ -261,19 +261,16 @@ What if...
 
 The **Webring** was the answer! It was a curated central list of sites that were related somehow, *but* with a specific expectation of reciprocity: More than just a backlink, you'd put a "forward" and "next" link on your page next to the name of the webring. Those would take people to the next and previous sites in the listing, forming a *ring* (hence the name) of related sites. Users could go directly from one related site to the next, with no middleman. Eventually, they'd get to all of them. And, if a link *was* broken, they could either pop back up to the main webring listing and pick a new entry point or click the "random" link that was also often present.
 
-{%polaroid
-	early-web/meme-if-i-had-one.jpg
-	title="This is where I'd put my webring... **IF I HAD ONE**"
-%}
+Webrings caught on as a concept and were fairly early [operationalized into WebRing.com in 1994](https://en.wikipedia.org/wiki/Webring) - a service that made it easier for folks to run their own webrings. Yahoo bought it and killed it, but there are modern incarnations such as [onionring.js](https://garlic.garden/onionring/) alive and kicking.
 
-So, let's try to join some...!
+TODO: Join some webrings. So, let's try to join some...!
 
 <div id="sovereignwebring">
 <script src="https://sovereignweb.thecozy.cat/wp-content/onionring/onionring-variables.js"></script>
 <script src="https://sovereignweb.thecozy.cat/wp-content/onionring/onionring-widget.js"></script>
 </div>
 
-Webrings caught on as a concept and were fairly early [operationalized into WebRing.com in 1994](https://en.wikipedia.org/wiki/Webring) - a service that made it easier for folks to run their own webrings. Yahoo bought it and killed it, but there are modern incarnations such as [onionring.js](https://garlic.garden/onionring/) alive and kicking.
+<script defer src="https://unixwebring.neocities.org/webring.js"> </script>
 
 ## Aesthetic Variation
 
