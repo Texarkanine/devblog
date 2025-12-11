@@ -10,7 +10,7 @@ tags:
 
 The "Early Internet" here refers to the late 1990s to the early 2000s, where the Internet was no longer the exclusive domain of technologists, but still mostly limited to *enthusiasts*. Just about anyone *could* put together a website on the World Wide Web, but not everyone was into it yet.
 
-Web Design of this period had many iconic characteristics that, for better or worse, give me warm fuzzies.
+Web Design of this period had many iconic characteristics that, for better or worse, give me warm fuzzies. At least one place has labelled this era the "Golden Age of Web Design," which I of course agree with. However, this letter is addressed to the early 1990s pages that were just pulling themselves up out of black and white text with 16-bit graphics.
 
 ## Let's Get You Dressed...
 
@@ -221,9 +221,59 @@ And of course, an updated dogblog button from 20**25**:
 
 Unlike today, where ads squeeze themselves into every shape and size they can, these were kind of the big two form factors for website promotion, and so people would need to make one of each, but usually only these two!
 
+## Cliques and Fanlistings
+
+Those are modern words. Back in the day, you just had links - sometimes a section of one homepage, sometimes [their own page](/garden/linkroll.html). Maybe one site might host multiple link pages for different topics, if they were feeling *really* fancy. How did a link get on those pages? Originally, it was mostly author curation and choice - just things the webmaster thought was worth linking to. Nowadays, we'd probably call that a "linkroll."
+
+These were usually uni-directional links - no link-back expected from the targets. You'd stumble through to the next site and keep going on your journey until you reached a site that didn't have any links of its own.
+
+This developed into "If you have a cool link or site, e-mail me and I might add it" - proto-crowdsourcing!
+
+From there, the thirst for traffic birthed a sibling idea: reciprocal "Affiliate Links." Long before "affiliates" tooks its current revenue-sharing meaning, "Affiliates" were just other sites that you agreed to swap links with, and you'd each display them somewhere prominent. That's what your [88x31](#88x31--468x60) buttons were for!
+
+{% polaroid
+	./early-web/affiliates-ghpd-2003.jpg
+	title="Affiliates on Gengar and Haunter's Pokemon Dungeon - 2003"
+	link="https://web.archive.org/web/20030401152817/http://www.pokemondungeon.com/home.htm"
+	archiv="none"
+%}
+
+Affiliate links often formed a more circular graph of hyperlinks - you might see the same set of Affiliates all on each other's pages, and the odd one out would be your "exit node" into foreign waters. Congrats, you found an early *network*!
+
+Nowadays, these sort of linkrolls - where they're topical and curated to *some* degree - are often called "cliques, "weblistings," or "fanlistings." The modern incarnations usually *do* require link-backs, and so they're more of a hub-and-spoke network. Once you find one site, you find your way to the directory and then you can click out from the listing to all the members.
+
+Vibrationally, *Cliques* are often about the *people* behind the sites, *Fanlistings* are about a common interest, and *Weblistings* are about a common characteristic of the sites themselves... but not always!
+
+* Modern Weblisting: [Café Rosé](https://allyratworld.com/cafe/rose) <small>Cute sites</small>
+* Modern Clique: [Hopeless Romantics](https://www.deathbusters.org/romantic/index.php)
+* Modern Fanlisting: [Wheels of Steel](https://impala.dead-ish.net/index.php) <small>Fans of the black Chevy Impala from the TV Show "Supernatural"</small>
+
+Here's one 
+
 ### Webrings
 
-TODO
+What if...
+
+1. It was the 1990s
+2. Loading webpages and executing navigation was slow and difficult
+3. You wanted a network of related sites
+4. You wanted people to be able to easily surf through them?
+
+The **Webring** was the answer! It was a curated central list of sites that were related somehow, *but* with a specific expectation of reciprocity: More than just a backlink, you'd put a "forward" and "next" link on your page next to the name of the webring. Those would take people to the next and previous sites in the listing, forming a *ring* (hence the name) of related sites. Users could go directly from one related site to the next, with no middleman. Eventually, they'd get to all of them. And, if a link *was* broken, they could either pop back up to the main webring listing and pick a new entry point or click the "random" link that was also often present.
+
+{%polaroid
+	early-web/meme-if-i-had-one.jpg
+	title="This is where I'd put my webring... **IF I HAD ONE**"
+%}
+
+So, let's try to join some...!
+
+<div id="sovereignwebring">
+<script src="https://sovereignweb.thecozy.cat/wp-content/onionring/onionring-variables.js"></script>
+<script src="https://sovereignweb.thecozy.cat/wp-content/onionring/onionring-widget.js"></script>
+</div>
+
+Webrings caught on as a concept and were fairly early [operationalized into WebRing.com in 1994](https://en.wikipedia.org/wiki/Webring) - a service that made it easier for folks to run their own webrings. Yahoo bought it and killed it, but there are modern incarnations such as [onionring.js](https://garlic.garden/onionring/) alive and kicking.
 
 ## Aesthetic Variation
 
@@ -260,7 +310,7 @@ Probably ultimately for the better, but there was definitely a sweet spot somewh
 
 It used to be popular to have a "splash page" with a little intro to your site, usually a big graphic, and a link to click to enter the *main* site. As an instance of [Aesthetic Variation](#aesthetic-variation), these offered a chance to decorate another page with a different style. The form of "big graphic; click here to enter" offered constraints and thereby cultivated creativity.
 
-Some splash pages were just an image with a link and maybe a tiny bit of text, like this one from 2005:
+Some splash pages were just an image with a link and maybe a tiny bit of text, like this one from 2005. No that's not an artificially-small image; that's a `1024x768` screenshot and how their homepage would've fit in it!
 
 {% polaroid
 	early-web/splash-suta-raito-2003.jpg
@@ -356,7 +406,7 @@ Unless... Combining a [webring](#webrings) and a [hit counter](#hit-counters) gi
 {% polaroid
 	"./early-web/topsites-ppntop50-2001.jpg"
 	title="Pokemon Palace Network Top 50 - in 2001"
-	link="https://web.archive.org/web/20011230120331/http://pokemonpalace.net/cgi-bin/top50/topsites.cgi?action=in&language=English&id=2"
+	link="https://web.archive.org/web/20011204184825/http://pokemonpalace.net/cgi-bin/top50/topsites.cgi"
 %}
 
  Before search engines could essentially generate such a list on-demand for you for any category or query you could give them, this was an early way to find "the best" sites in a category! Their [88x31](#88x31--468x60) buttons would even render with each member site's actual rank on them, hit counter-style! 
@@ -369,15 +419,9 @@ Many of the topsites I was in - and ran! - used the [aardvark topsites php](http
 	link="https://web.archive.org/web/20050403163850/http://ppntop50.com/"
 %}
 
-Amazingly, the domain `ppntop50.com` is still online in 2025! It's also still *mostly* Pokemon sites and appears to be run by the modern "PPN" at `pokemonpalace.net`. But... it's very different.
-
-TODO: Screenshot modern PPN vs peak PPN 2005-2007
-
 ## Interactivity for its Own Sake
 
 So many people were *exploring* the *new medium* of the *World Wide Web*, looking to see cool things. Webpages that could figure out how to do "a cool thing" would put it on their page... and the bar was, lovingly, low! There were all sorts of interactive gimmicks that were usually ephemeral and ultimately pointless... except for that they interactively *did* something, and the web before this time didn't *do* things.
-
-
 
 ### Jukeboxes
 

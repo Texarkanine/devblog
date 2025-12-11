@@ -110,8 +110,8 @@ href_decorator:
     - target: _blank
     - rel: noopener
   patterns:
-    - '^https?://':
-    - '/assets/':
+    - '^https?://': {}
+    - '/assets/': {}
     - '.+\.pdf$':
         properties:
           - download: true
