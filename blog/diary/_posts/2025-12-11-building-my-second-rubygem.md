@@ -9,7 +9,7 @@ tags:
   - rubygem
 ---
 
-Remember [that first gem]({% post_url blog/diary/2025-12-08-publishing-my-first-rubygem %}) where I built styled cards for Jekyll? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: `jekyll-auto-thumbnails`.
+Remember [that first gem]({% post_url blog/diary/2025-12-08-publishing-my-first-rubygem %}) where I built styled cards for [Jekyll](https://jekyllrb.com/)? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: [jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails).
 
 ## The Failed First Attempt
 
