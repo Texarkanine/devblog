@@ -270,7 +270,7 @@ TODO: Join some webrings. So, let's try to join some...!
 <script src="https://sovereignweb.thecozy.cat/wp-content/onionring/onionring-widget.js"></script>
 </div>
 
-<script defer src="https://unixwebring.neocities.org/webring.js"> </script>
+<script defer src="https://unixwebring.neocities.org/webring.js" data-widget="darkdark"> </script>
 
 ## Aesthetic Variation
 
