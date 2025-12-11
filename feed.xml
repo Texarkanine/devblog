@@ -1,4 +1,203 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-11T04:52:46+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Publishing My First RubyGem</title><link href="https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.html" rel="alternate" type="text/html" title="Publishing My First RubyGem" /><published>2025-12-08T00:00:00+00:00</published><updated>2025-12-08T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.html"><![CDATA[<p>Remember <a href="/2025/11/25/two-jekyll-image-plugins.html">that previous post where I built two Jekyll plugins</a> and said “nothing’s next”? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here’s how it went.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-11T21:20:02+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Building My Second RubyGem</title><link href="https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.html" rel="alternate" type="text/html" title="Building My Second RubyGem" /><published>2025-12-11T00:00:00+00:00</published><updated>2025-12-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.html"><![CDATA[<p>Remember <a href="/2025/12/08/publishing-my-first-rubygem.html">that first gem</a> where I built styled cards for <a href="https://jekyllrb.com/">Jekyll</a>? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails">jekyll-auto-thumbnails</a>.</p>
+
+<h2 id="the-failed-first-attempt">The Failed First Attempt</h2>
+
+<p>The plan was simple: add thumbnail generation as a feature to <code class="language-plaintext highlighter-rouge">jekyll-highlight-cards</code>. Scan Markdown for sized images, generate thumbnails with MD5-based caching, replace URLs in the final HTML.</p>
+
+<p>I implemented it. 277 tests passing, 96% coverage. The feature worked in isolation.</p>
+
+<p>Then I tested it on this blog. Every image failed to generate thumbnails. The registry showed URLs like <code class="language-plaintext highlighter-rouge">/2025/11/25/photo.jpg</code>, but the actual files were at <code class="language-plaintext highlighter-rouge">/assets/img/blog/record/photo.jpg</code>.</p>
+
+<p>The problem: hook timing. My plugin ran in <code class="language-plaintext highlighter-rouge">:pre_render</code>, scanning raw Markdown. But <a href="https://github.com/Texarkanine/devblog/blob/a293c346612823fca18a6447902da688e57be247/_plugins/00_image_paths.rb">image_paths.rb</a> (a local plugin) ran in <code class="language-plaintext highlighter-rouge">:post_render</code>, transforming <code class="language-plaintext highlighter-rouge">photo.jpg</code> into <code class="language-plaintext highlighter-rouge">/assets/img/blog/record/photo.jpg</code>. I was registering pre-transform URLs but trying to find post-transform files.</p>
+
+<h2 id="the-architecture-pivot">The Architecture Pivot</h2>
+
+<p>The fix wasn’t to adjust hook timing. The fix was to realize <strong>image optimization is a separate concern</strong> from styled card presentation.</p>
+
+<p>New architecture: Scan the final rendered HTML after ALL plugins have run. Parse it with Nokogiri, look for <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> tags in <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> elements, extract the actual <code class="language-plaintext highlighter-rouge">src</code> attributes. Those URLs reflect reality - all transformations already applied.</p>
+
+<p>This required extracting the thumbnail feature into a standalone gem. The separation made sense: <a href="https://github.com/Texarkanine/jekyll-highlight-cards">jekyll-highlight-cards</a> handles presentation (linkcard, polaroid tags). <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails">jekyll-auto-thumbnails</a> handles optimization (thumbnail generation, caching, URL replacement).</p>
+
+<h2 id="building-the-second-gem">Building the Second Gem</h2>
+
+<p>I created <code class="language-plaintext highlighter-rouge">jekyll-auto-thumbnails</code> (initially named <code class="language-plaintext highlighter-rouge">jekyll-img-optimizer</code>, renamed before publish). Seven core modules following the same TDD approach:</p>
+
+<ol>
+  <li><strong>Configuration</strong> - Parse <code class="language-plaintext highlighter-rouge">_config.yml</code> settings with validation</li>
+  <li><strong>UrlResolver</strong> - Handle absolute/relative/external URLs</li>
+  <li><strong>DigestCalculator</strong> - MD5 computation for cache keys</li>
+  <li><strong>Registry</strong> - Track largest dimensions needed per image</li>
+  <li><strong>Generator</strong> - ImageMagick integration for thumbnail creation</li>
+  <li><strong>Scanner</strong> - HTML parsing to find images in <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> tags</li>
+  <li><strong>Hooks</strong> - Jekyll integration via <code class="language-plaintext highlighter-rouge">:post_render</code> and <code class="language-plaintext highlighter-rouge">:post_write</code></li>
+</ol>
+
+<p>The key difference: Scanner operates on <strong>rendered HTML</strong>, not Markdown source.</p>
+
+<h2 id="the-dimension-merging-bug">The Dimension Merging Bug</h2>
+
+<p>First test on the blog revealed the generator was creating thumbnails at the <strong>smallest</strong> dimensions, not the largest.</p>
+
+<p>A polaroid at <code class="language-plaintext highlighter-rouge">size=x400</code> (height 400, width auto) and a Markdown image at <code class="language-plaintext highlighter-rouge">=200x</code> (width 200, height auto) both referenced the same image. The registry merged these as:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="ss">width: </span><span class="mi">200</span><span class="p">,</span> <span class="ss">height: </span><span class="mi">400</span> <span class="p">}</span>  <span class="c1"># Wrong - takes the ONLY non-nil value for each</span>
+</code></pre></div></div>
+
+<p>This produced a 200x400 thumbnail. When displayed at ~500px width, it looked terrible - upscaled 2.5x from a thumbnail that should have been 536x400.</p>
+
+<p>The fix: <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L104-L113">Scanner calculates missing dimensions</a> from aspect ratio before registering. Query ImageMagick for actual image dimensions, compute the missing value, then register complete dimensions.</p>
+
+<p>Now <code class="language-plaintext highlighter-rouge">size=x400</code> registers as <code class="language-plaintext highlighter-rouge">{ width: 536, height: 400 }</code> (calculated from 1.34:1 aspect ratio), and the Registry correctly chooses 536x400 as the maximum.</p>
+
+<h2 id="the-animated-gif-bug">The Animated GIF Bug</h2>
+
+<p>An image named <code class="language-plaintext highlighter-rouge">dogblog-468x60.gif</code> generated a thumbnail named <code class="language-plaintext highlighter-rouge">dogblog-468x60_thumb-bb988d-46x60.gif</code>. The width lost an <code class="language-plaintext highlighter-rouge">8</code>.</p>
+
+<p>The GIF was animated (25 frames). ImageMagick’s <code class="language-plaintext highlighter-rouge">identify</code> command returned dimensions for <strong>all frames concatenated</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>468x605x511x1014x1420x19391x23394x25398x27399x2724x2325x2428x27
+</code></pre></div></div>
+
+<p>My code split on <code class="language-plaintext highlighter-rouge">x</code> and took the first two values: <code class="language-plaintext highlighter-rouge">468</code> and <code class="language-plaintext highlighter-rouge">605</code>. The <code class="language-plaintext highlighter-rouge">605</code> was frame 1’s height (60) plus the start of frame 2’s dimensions (5). This gave the wrong aspect ratio.</p>
+
+<p>The fix: <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L81">Query only the first frame</a> with <code class="language-plaintext highlighter-rouge">identify "#{file_path}[0]"</code>. The <code class="language-plaintext highlighter-rouge">[0]</code> index tells ImageMagick to return dimensions for frame zero only.</p>
+
+<p>Test with actual animated GIF confirmed: <code class="language-plaintext highlighter-rouge">468x60</code> parsed correctly.</p>
+
+<h2 id="coderabbits-security-review">CodeRabbit’s Security Review</h2>
+
+<p>After the initial implementation, CodeRabbit flagged five issues. All five were valid.</p>
+
+<p><strong>Issue 1: Unix-only ImageMagick detection</strong></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">system</span><span class="p">(</span><span class="s2">"which convert &gt; /dev/null 2&gt;&amp;1"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">which</code> command doesn’t exist on Windows. <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L19-L26">Fixed by searching ENV[‘PATH’]</a> manually:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">imagemagick_available?</span>
+  <span class="n">cmd_name</span> <span class="o">=</span> <span class="no">Gem</span><span class="p">.</span><span class="nf">win_platform?</span> <span class="p">?</span> <span class="s2">"convert.exe"</span> <span class="p">:</span> <span class="s2">"convert"</span>
+  <span class="n">path_dirs</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"PATH"</span><span class="p">].</span><span class="nf">to_s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="no">File</span><span class="o">::</span><span class="no">PATH_SEPARATOR</span><span class="p">)</span>
+  
+  <span class="n">path_dirs</span><span class="p">.</span><span class="nf">any?</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+    <span class="no">File</span><span class="p">.</span><span class="nf">executable?</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">dir</span><span class="p">,</span> <span class="n">cmd_name</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><strong>Issue 2 &amp; 3: Shell command injection</strong></p>
+
+<p>Two methods used string-based <code class="language-plaintext highlighter-rouge">system()</code> calls and backticks, both invoking a shell:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd_parts</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s2">" "</span><span class="p">)</span>
+<span class="nb">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>  <span class="c1"># Shell interprets special characters</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="sb">`identify ... </span><span class="si">#{</span><span class="n">file_path</span><span class="si">}</span><span class="sb">[0] 2&gt;/dev/null`</span>  <span class="c1"># Shell interprets</span>
+</code></pre></div></div>
+
+<p><a href="https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L98-L109">Fixed by using array-based execution</a>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">system</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="s2">"convert"</span><span class="p">,</span> <span class="n">source_path</span><span class="p">,</span> <span class="s2">"-resize"</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">"-quality"</span><span class="p">,</span> <span class="s2">"85"</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">])</span>
+
+<span class="n">output</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="no">Open3</span><span class="p">.</span><span class="nf">capture2e</span><span class="p">(</span><span class="s2">"identify"</span><span class="p">,</span> <span class="s2">"-format"</span><span class="p">,</span> <span class="s2">"%wx%h"</span><span class="p">,</span> <span class="s2">"</span><span class="si">#{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">[0]"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>No shell invocation, no special character interpretation, works on both Unix and Windows.</p>
+
+<p><strong>Issue 4: File.join for URLs</strong></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">thumb_url</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">url_dir</span><span class="p">,</span> <span class="n">thumb_filename</span><span class="p">)</span>  <span class="c1"># Uses OS-specific separators</span>
+</code></pre></div></div>
+
+<p>On Windows, <code class="language-plaintext highlighter-rouge">File.join</code> produces backslashes. URLs must always use forward slashes. Fixed with explicit string concatenation:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">thumb_url</span> <span class="o">=</span> <span class="k">if</span> <span class="n">url_dir</span> <span class="o">==</span> <span class="s2">"."</span>
+              <span class="s2">"/</span><span class="si">#{</span><span class="n">thumb_filename</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">else</span>
+              <span class="s2">"</span><span class="si">#{</span><span class="n">url_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">thumb_filename</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">end</span>
+</code></pre></div></div>
+
+<p><strong>Issue 5: HTML structure concerns</strong></p>
+
+<p>CodeRabbit suggested <code class="language-plaintext highlighter-rouge">Nokogiri::HTML()</code> might corrupt document structure. Assessed as non-issue - Jekyll’s <code class="language-plaintext highlighter-rouge">doc.output</code> is already complete HTML, parsing and re-serializing doesn’t cause problems. Added early return for performance but no structural changes needed.</p>
+
+<h2 id="two-critical-sanity-checks">Two Critical Sanity Checks</h2>
+
+<p>After CodeRabbit’s review, I added two optimizations:</p>
+
+<p><strong>Check 1: Skip if dimensions match original</strong></p>
+
+<p>If an image is 300x200 and you request a 300x200 thumbnail, don’t generate anything. Use the original.</p>
+
+<p><strong>Check 2: Delete if thumbnail larger than source</strong></p>
+
+<p>Sometimes compression doesn’t help. A small, highly compressed image might produce a larger thumbnail if thumbnailing is configured at high quality. If <code class="language-plaintext highlighter-rouge">File.size(thumbnail) &gt; File.size(original)</code>, <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L59-L66">delete the thumbnail</a> and use the original.</p>
+
+<p>Testing on this blog: 13 images detected, 6 rejected (thumbnail would be larger), 7 optimized. The plugin only optimizes when beneficial.</p>
+
+<h2 id="examples-in-action">Examples in Action</h2>
+
+<p>The gem is running on this blog right now. That polaroid from the previous post:</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="/assets/img/blog/record/gemini-trip-to-japan.jpg">
+      <img src="/assets/img/blog/record/gemini-trip-to-japan.jpg" alt="Trip to Japan (with automatic thumbnail)" height="400" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">Trip to Japan (with automatic thumbnail)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">www.japan.go.jp/japan/visit/index.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p>The original image is 818KB. The thumbnail served is 115KB (86% reduction). The plugin calculated the correct width (536px) from the 400px height constraint and the image’s aspect ratio, generated <code class="language-plaintext highlighter-rouge">gemini-trip-to-japan_thumb-45be04-536x400.jpg</code> in <code class="language-plaintext highlighter-rouge">.jekyll-cache/</code>, copied it to <code class="language-plaintext highlighter-rouge">_site/</code>, and replaced the URL in the HTML.</p>
+
+<p>The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:</p>
+
+<p><img src="/assets/img/blog/record/gemini-trip-to-japan.jpg" alt="Trip to Japan" /><!-- IMG_SIZE:200: --></p>
+
+<h2 id="final-stats">Final Stats</h2>
+
+<ul>
+  <li><strong>58 tests, all passing</strong></li>
+  <li><strong>90.0% code coverage</strong></li>
+  <li><strong>20 commits</strong> from extraction to production</li>
+  <li><strong>Published to RubyGems:</strong> <a href="https://rubygems.org/gems/jekyll-auto-thumbnails">jekyll-auto-thumbnails</a></li>
+  <li><strong>Installation:</strong> <code class="language-plaintext highlighter-rouge">gem install jekyll-auto-thumbnails</code></li>
+</ul>
+
+<p>The gem scans rendered HTML for images in <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> tags, generates thumbnails with MD5-based caching, and replaces URLs transparently. Works with any Jekyll plugins that transform image paths because it runs after all rendering completes.</p>
+
+<h2 id="what-i-learned">What I Learned</h2>
+
+<p><strong>Jekyll hook timing determines what you see.</strong> Pre-render hooks see Markdown and Liquid. Post-render hooks see final HTML. If other plugins transform content, you need to run after them.</p>
+
+<p><strong>Scanning rendered HTML instead of source is plugin-agnostic.</strong> Any URL-transforming plugin works because you’re reading the end result, not guessing at transformations.</p>
+
+<p><strong>ImageMagick’s identify returns all frames for animated GIFs.</strong> Use <code class="language-plaintext highlighter-rouge">[0]</code> to get first frame only: <code class="language-plaintext highlighter-rouge">identify "file.gif[0]"</code>. Without it, parsing <code class="language-plaintext highlighter-rouge">468x605x51...</code> gives wrong dimensions.</p>
+
+<p><strong>Backticks and string-based system() invoke shells.</strong> Even with <code class="language-plaintext highlighter-rouge">Shellwords.escape</code>. Use <code class="language-plaintext highlighter-rouge">system(*array)</code> or <code class="language-plaintext highlighter-rouge">Open3.capture2e</code> for shell-free execution. Safer and cross-platform.</p>
+
+<p><strong>File.join uses OS-specific separators.</strong> URLs need forward slashes always, but <code class="language-plaintext highlighter-rouge">File.join</code> produces backslashes on Windows. Build URLs with string concatenation, not path operations.</p>
+
+<p><strong>Sometimes thumbnails are larger than originals.</strong> Small, compressed images might expand when reprocessed. Check file size after generation and delete if larger.</p>
+
+<p><strong>Separation of concerns can emerge from failed integration.</strong> The thumbnail feature didn’t belong in a styled-cards gem. The architecture problem revealed the right boundaries.</p>
+
+<h2 id="the-repository">The Repository</h2>
+
+<p>The code is at <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails">Texarkanine/jekyll-auto-thumbnails</a> with the full implementation history.</p>
+
+<p>Two gems now: one for presentation, one for optimization. Both do their jobs without interfering with each other or with other Jekyll plugins.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="imagemagick" /><category term="jekyll" /><category term="ruby" /><category term="rubygem" /><summary type="html"><![CDATA[Remember that first gem where I built styled cards for Jekyll? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: jekyll-auto-thumbnails.]]></summary></entry><entry><title type="html">Publishing My First RubyGem</title><link href="https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.html" rel="alternate" type="text/html" title="Publishing My First RubyGem" /><published>2025-12-08T00:00:00+00:00</published><updated>2025-12-08T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.html"><![CDATA[<p>Remember <a href="/2025/11/25/two-jekyll-image-plugins.html">that previous post where I built two Jekyll plugins</a> and said “nothing’s next”? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here’s how it went.</p>
 
 <h2 id="the-starting-point">The Starting Point</h2>
 
@@ -220,7 +419,7 @@
 
 <p>If you’re building Jekyll plugins or want to see what test-driven gem development looks like in practice, the test coverage and systematic debugging approach might be useful reference material. The gem worked correctly on first installation (except for that CSS loading issue, which was also caught and fixed systematically through testing in an actual Jekyll site).</p>
 
-<p>Now the infrastructure is truly done. Back to writing blog posts…</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="gem" /><category term="ruby" /><summary type="html"><![CDATA[Remember that previous post where I built two Jekyll plugins and said “nothing’s next”? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here’s how it went.]]></summary></entry><entry><title type="html">You Can’t Hide What You Want Seen</title><link href="https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html" rel="alternate" type="text/html" title="You Can’t Hide What You Want Seen" /><published>2025-12-07T00:00:00+00:00</published><updated>2025-12-07T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html"><![CDATA[<p>Built an increasingly sophisticated email obfuscator today. Each iteration got more clever. Each iteration got cracked just as fast. The lesson wasn’t in the complexity - it was in understanding what problem I was actually solving.</p>
+<p>Now the infrastructure is truly done. Back to writing blog posts…</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="ruby" /><category term="rubygem" /><summary type="html"><![CDATA[Remember that previous post where I built two Jekyll plugins and said “nothing’s next”? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here’s how it went.]]></summary></entry><entry><title type="html">You Can’t Hide What You Want Seen</title><link href="https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html" rel="alternate" type="text/html" title="You Can’t Hide What You Want Seen" /><published>2025-12-07T00:00:00+00:00</published><updated>2025-12-07T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.html"><![CDATA[<p>Built an increasingly sophisticated email obfuscator today. Each iteration got more clever. Each iteration got cracked just as fast. The lesson wasn’t in the complexity - it was in understanding what problem I was actually solving.</p>
 
 <h2 id="the-first-attempt">The First Attempt</h2>
 
@@ -246,7 +445,7 @@
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.r86duvotgmv-pt0d0quql { display: inline-block; }</style><script>(function(){function otio4qk6(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function eqgdsjlcdlbefu55(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var jpudhxyq=sp.getAttribute('data-q4ju5gxm');var zswnsnlu3pow=sp.getAttribute('data-jvvmnizmp7ar');var vmdg6k=sp.getAttribute('data-p87um42ffau');var kkg3s78fod2=sp.getAttribute('data-a0fvvfz');var mailto=otio4qk6(jpudhxyq,spParts[0].length);var user=otio4qk6(zswnsnlu3pow,spParts[1].length);var domainBase=otio4qk6(vmdg6k,lnkParts[0].length);var tld=otio4qk6(kkg3s78fod2,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function ynkrokdyy(){var els=document.querySelectorAll('a.towts5visenpwu-adzd');var handler=function(){var sp=this.querySelector('span.r86duvotgmv-pt0d0quql');if(sp&&!this.dataset.d){var val=eqgdsjlcdlbefu55(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',ynkrokdyy);}else{ynkrokdyy();}})();</script><a href="#" class="towts5visenpwu-adzd"><span class="r86duvotgmv-pt0d0quql" data-q4ju5gxm="xltwez" data-jvvmnizmp7ar="ANMJLCNM" data-p87um42ffau="dfchcbaowz" data-a0fvvfz="gsq">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.n8tbfyrruzxww-pfaz2v6s { display: inline-block; }</style><script>(function(){function czpgb3ieowoh(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function nadoqhfhaijpjn(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var fdptf4c7=sp.getAttribute('data-kcchwrvy2');var cmzirx3=sp.getAttribute('data-xsrgztdrg');var c1lw0npqw82=sp.getAttribute('data-d5kaimdg2w1x');var x7lyqovw=sp.getAttribute('data-qoohea8wu');var mailto=czpgb3ieowoh(fdptf4c7,spParts[0].length);var user=czpgb3ieowoh(cmzirx3,spParts[1].length);var domainBase=czpgb3ieowoh(c1lw0npqw82,lnkParts[0].length);var tld=czpgb3ieowoh(x7lyqovw,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function ne4iwbcmx7n(){var els=document.querySelectorAll('a.kwxcs67yzkx-shgi');var handler=function(){var sp=this.querySelector('span.n8tbfyrruzxww-pfaz2v6s');if(sp&&!this.dataset.d){var val=nadoqhfhaijpjn(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',ne4iwbcmx7n);}else{ne4iwbcmx7n();}})();</script><a href="#" class="kwxcs67yzkx-shgi"><span class="n8tbfyrruzxww-pfaz2v6s" data-kcchwrvy2="znvygb" data-xsrgztdrg="ZMLIKBML" data-d5kaimdg2w1x="aczezyxltw" data-qoohea8wu="gsq">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
@@ -1111,55 +1310,4 @@ The default action is to keep your current version.
 
 <p>So, like, use pyenv and venvs, but… don’t forget that it all sits on a throne of lies and you’ll need to upgrade your whole system to be able to build a natively-compiled extension for your interpreted language, anyway.</p>
 
-<p>The next time OctoPrint warns me about an outdated component, I’ll know to check the entire dependency stack before starting. And I’ll be more careful about which configuration files I let the package manager overwrite. Haha - just kidding! Remember, after all… I know what I’m doing ;)</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="3d-printing" /><category term="debian" /><category term="glibc" /><category term="haproxy" /><category term="octopi" /><category term="octoprint" /><category term="python" /><category term="raspberry-pi" /><summary type="html"><![CDATA[The Warning]]></summary></entry><entry><title type="html">Sorting systemd Ordering for Mempool Explorer</title><link href="https://blog.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node.html" rel="alternate" type="text/html" title="Sorting systemd Ordering for Mempool Explorer" /><published>2025-11-11T00:00:00+00:00</published><updated>2025-11-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node.html"><![CDATA[<h2 id="the-problem">The Problem</h2>
-
-<p>My <a href="https://github.com/mempool/mempool">mempool explorer</a> would periodically lose its ability to show transactions. The symptoms were maddeningly specific: it could see blocks just fine, but the mempool itself became invisible. Restarting the mempool explorer did nothing. Restarting the Bitcoin node used by the explorer fixed it every time.</p>
-
-<p>This is the kind of bug that makes you question your sanity. If restarting Bitcoin fixes it, surely the problem is in Bitcoin? But Bitcoin was working perfectly - other clients could connect to it without issue. The mempool explorer, running in Docker, simply couldn’t reach it.</p>
-
-<h2 id="the-misleading-clue">The Misleading Clue</h2>
-
-<p>The most interesting bugs hide behind what looks like the answer. When I checked the logs, I saw connection refused errors from the mempool trying to reach <code class="language-plaintext highlighter-rouge">172.17.0.1:8332</code> - Bitcoin’s RPC port on the Docker bridge network. “Aha!” I thought. “A network configuration issue.”</p>
-
-<p>But network issues don’t fix themselves when you restart Bitcoin. That suggested something more fundamental was wrong.</p>
-
-<h2 id="the-smoking-gun">The Smoking Gun</h2>
-
-<p>The answer was buried in the systemd journal:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332
-Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332 failed.
-</code></pre></div></div>
-
-<p>Bitcoin tried to bind to the Docker bridge IP at startup and failed. It then continued running, successfully bound to localhost and the LAN IP, but silently missing the Docker bridge binding. Three seconds later, Docker started and created the bridge network.</p>
-
-<p>The race condition was subtle: Bitcoin started fractionally before Docker, tried to bind to an interface that didn’t exist yet, failed gracefully, and continued operating. When I manually restarted Bitcoin later, Docker was already running, so the bind succeeded. The bug only manifested on system boot.</p>
-
-<h2 id="the-fix">The Fix</h2>
-
-<p>The solution is admirably simple:</p>
-
-<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[Unit]</span><span class="w">
-</span><span class="py">After</span><span class="p">=</span><span class="s">docker.service</span>
-<span class="py">Wants</span><span class="p">=</span><span class="s">docker.service</span>
-</code></pre></div></div>
-
-<p>Two lines in a systemd override file. <code class="language-plaintext highlighter-rouge">After=</code> ensures Bitcoin waits for Docker to start. <code class="language-plaintext highlighter-rouge">Wants=</code> expresses a preference for Docker to be running, without making it a hard requirement.</p>
-
-<p>I deliberately avoided <code class="language-plaintext highlighter-rouge">BindsTo=</code> or <code class="language-plaintext highlighter-rouge">PartOf=</code>, which would create tighter coupling. Those would restart Bitcoin whenever Docker restarted, which is unnecessary - once the bind succeeds, it persists regardless of Docker’s state. The problem was purely about initialization order, not runtime coupling. More at the <a href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html">systemd.unit man page</a>.</p>
-
-<h2 id="the-lesson">The Lesson</h2>
-
-<p>This bug exemplifies what I call “success-in-the-wrong-order” problems. Bitcoin didn’t fail catastrophically when it couldn’t bind to the Docker bridge - that would have been easy to diagnose. Instead, it partially succeeded, binding to two out of three interfaces, and ran happily in this degraded state.</p>
-
-<p>Silent partial failures are dangerous precisely because they look like success. The application starts, health checks pass, logs show normal operation. The failure only manifests when a specific code path tries to use the missing capability.</p>
-
-<p>These bugs are also challenging because they combine multiple systems (systemd, Docker, Bitcoin) in ways that aren’t immediately obvious. The symptoms appeared in the mempool software, the logs pointed to network issues, but the fix required understanding how systemd manages service initialization order.</p>
-
-<h2 id="why-this-matters">Why This Matters</h2>
-
-<p>Containerization has made these race conditions more common. We now routinely run applications that depend on container runtime networking, but our init systems weren’t designed with this dependency model in mind. Systemd provides the tools to handle it (<code class="language-plaintext highlighter-rouge">After=</code>, <code class="language-plaintext highlighter-rouge">Wants=</code>, <code class="language-plaintext highlighter-rouge">Requires=</code>, etc.), but you have to know they exist and understand when to use each one.</p>
-
-<p>The broader lesson is about diagnostic discipline. When a problem has an easy fix (restart the service), it’s tempting to treat that as the solution rather than investigating the root cause. But “restart it when it breaks” isn’t actually a solution - it’s a workaround that masks deeper issues and trains you to accept degraded reliability.</p>
-
-<p>The fix took two lines. Finding those two lines required understanding the entire system architecture, from Docker networking to systemd service dependencies to Bitcoin’s RPC binding model. That’s often how it goes with interesting bugs: the fix is trivial once you truly understand the problem.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="systemd" /><category term="mempool-explorer" /><category term="bitcoind" /><category term="bitcoin" /><category term="dependencies" /><summary type="html"><![CDATA[The Problem]]></summary></entry></feed>
+<p>The next time OctoPrint warns me about an outdated component, I’ll know to check the entire dependency stack before starting. And I’ll be more careful about which configuration files I let the package manager overwrite. Haha - just kidding! Remember, after all… I know what I’m doing ;)</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="3d-printing" /><category term="debian" /><category term="glibc" /><category term="haproxy" /><category term="octopi" /><category term="octoprint" /><category term="python" /><category term="raspberry-pi" /><summary type="html"><![CDATA[The Warning]]></summary></entry></feed>
