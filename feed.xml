@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <?xml version="1.0" encoding="utf-8"?><html><body><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml">
 <link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html">
-<updated>2025-12-11T21:50:50+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title>
+<updated>2025-12-11T22:14:15+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title>
 <subtitle>On the internet, nobody knows you're a dog and a cat in a latent space.</subtitle><entry><title type="html">Building My Second RubyGem</title>
 <link href="https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.html" rel="alternate" type="text/html" title="Building My Second RubyGem">
 <published>2025-12-11T00:00:00+00:00</published><updated>2025-12-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.html">Remember <a href="/2025/12/08/publishing-my-first-rubygem.html">that first gem</a> where I built styled cards for <a href="https://jekyllrb.com/">Jekyll</a>? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails">jekyll-auto-thumbnails</a>.
@@ -156,8 +156,8 @@
 
 <div class="polaroid-container">
   <div class="polaroid">
-    <a href="/assets/img/blog/record/gemini-trip-to-japan.jpg">
-      <img src="/assets/img/blog/record/gemini-trip-to-japan.jpg" alt="Trip to Japan (with automatic thumbnail)" height="400" class="polaroid-image">
+    <a href="/assets/img/blog/diary/gemini-trip-to-japan.jpg">
+      <img src="/assets/img/blog/diary/gemini-trip-to-japan.jpg" alt="Trip to Japan (with automatic thumbnail)" height="400" class="polaroid-image">
     </a>
     <div class="polaroid-title">Trip to Japan (with automatic thumbnail)</div>
     <div class="polaroid-link">
@@ -177,7 +177,7 @@
 
 <p>The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:</p>
 
-<p><img src="/assets/img/blog/record/gemini-trip-to-japan.jpg" alt="Trip to Japan"><!-- IMG_SIZE:200: --></p>
+<p><img src="/assets/img/blog/diary/gemini-trip-to-japan.jpg" alt="Trip to Japan"><!-- IMG_SIZE:200: --></p>
 
 <h2 id="final-stats">Final Stats</h2>
 
@@ -409,8 +409,8 @@
 
 <div class="polaroid-container">
   <div class="polaroid">
-    <a href="/assets/img/blog/record/gemini-trip-to-japan.jpg">
-      <img src="/assets/img/blog/record/gemini-trip-to-japan.jpg" alt="Trip to Japan" height="400" class="polaroid-image">
+    <a href="/assets/img/blog/diary/gemini-trip-to-japan.jpg">
+      <img src="/assets/img/blog/diary/gemini-trip-to-japan.jpg" alt="Trip to Japan" height="400" class="polaroid-image">
     </a>
     <div class="polaroid-title">Trip to Japan</div>
     <div class="polaroid-link">
@@ -428,7 +428,7 @@
 
 <p><strong>Markdown image sizing</strong> - the same photo, but smaller using extended Markdown syntax:</p>
 
-<p><img src="/assets/img/blog/record/gemini-trip-to-japan.jpg" alt="Trip to Japan"><!-- IMG_SIZE:200: --></p>
+<p><img src="/assets/img/blog/diary/gemini-trip-to-japan.jpg" alt="Trip to Japan"><!-- IMG_SIZE:200: --></p>
 
 <p>All three features working together in this post. The linkcard shows the styled link block. The polaroid displays with the classic photo frame aesthetic. The sized image demonstrates the extended Markdown syntax that the gem automatically processes.</p>
 
@@ -480,7 +480,7 @@
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.valcallqlopnvw-ncje1nm4tg { display: inline-block; }</style><script>(function(){function dwxhkay5aoysc(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function xneqgdyyrfqdol4i(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var wgxgsp=sp.getAttribute('data-yttzjiwwefw');var oehup7lci8w=sp.getAttribute('data-aydnzi');var jjgr7yv=sp.getAttribute('data-a2vgsj0sm2');var xa3mzsj=sp.getAttribute('data-boc2alogj');var mailto=dwxhkay5aoysc(wgxgsp,spParts[0].length);var user=dwxhkay5aoysc(oehup7lci8w,spParts[1].length);var domainBase=dwxhkay5aoysc(jjgr7yv,lnkParts[0].length);var tld=dwxhkay5aoysc(xa3mzsj,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function e2uqwzt0sjplau(){var els=document.querySelectorAll('a.y3rcvwxoksyby2v-t2i8sq');var handler=function(){var sp=this.querySelector('span.valcallqlopnvw-ncje1nm4tg');if(sp&&!this.dataset.d){var val=xneqgdyyrfqdol4i(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',e2uqwzt0sjplau);}else{e2uqwzt0sjplau();}})();</script><a href="#" class="y3rcvwxoksyby2v-t2i8sq"><span class="valcallqlopnvw-ncje1nm4tg" data-yttzjiwwefw="aowzhc" data-aydnzi="BONKMDON" data-a2vgsj0sm2="egdidcbpxa" data-boc2alogj="ius">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.zxboxnhnu2pxdpyp-by48cv { display: inline-block; }</style><script>(function(){function pj4blqoftamsy8o(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function llr6amep(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var s30vezf46=sp.getAttribute('data-hqv89qxw');var k0xubgqtow9f=sp.getAttribute('data-mksbmko');var gxv62u=sp.getAttribute('data-xu48vh');var i4qwfdszdryl=sp.getAttribute('data-xoweg10a3u');var mailto=pj4blqoftamsy8o(s30vezf46,spParts[0].length);var user=pj4blqoftamsy8o(k0xubgqtow9f,spParts[1].length);var domainBase=pj4blqoftamsy8o(gxv62u,lnkParts[0].length);var tld=pj4blqoftamsy8o(i4qwfdszdryl,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function iivx16fzxloxntg(){var els=document.querySelectorAll('a.cnbuchx1q7hd7dtaq-clepfw');var handler=function(){var sp=this.querySelector('span.zxboxnhnu2pxdpyp-by48cv');if(sp&&!this.dataset.d){var val=llr6amep(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',iivx16fzxloxntg);}else{iivx16fzxloxntg();}})();</script><a href="#" class="cnbuchx1q7hd7dtaq-clepfw"><span class="zxboxnhnu2pxdpyp-by48cv" data-hqv89qxw="cqybje" data-mksbmko="XKJGIZKJ" data-xu48vh="gifkfedrzc" data-xoweg10a3u="ius">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
