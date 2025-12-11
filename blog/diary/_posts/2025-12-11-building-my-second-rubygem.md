@@ -51,7 +51,7 @@ A polaroid at `size=x400` (height 400, width auto) and a Markdown image at `=200
 
 This produced a 200x400 thumbnail. When displayed at ~500px width, it looked terrible - upscaled 2.5x from a thumbnail that should have been 536x400.
 
-The fix: Scanner needed to calculate missing dimensions from aspect ratio **before** registering. Query ImageMagick for actual image dimensions, compute the missing value, then register complete dimensions.
+The fix: [Scanner calculates missing dimensions](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L84-L99) from aspect ratio before registering. Query ImageMagick for actual image dimensions, compute the missing value, then register complete dimensions.
 
 Now `size=x400` registers as `{ width: 536, height: 400 }` (calculated from 1.34:1 aspect ratio), and the Registry correctly chooses 536x400 as the maximum.
 
@@ -67,7 +67,7 @@ The GIF was animated (25 frames). ImageMagick's `identify` command returned dime
 
 My code split on `x` and took the first two values: `468` and `605`. The `605` was frame 1's height (60) plus the start of frame 2's dimensions (5). This gave the wrong aspect ratio.
 
-The fix: Query only the first frame with `identify "#{file_path}[0]"`. The `[0]` index tells ImageMagick to return dimensions for frame zero only.
+The fix: [Query only the first frame](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L68-L78) with `identify "#{file_path}[0]"`. The `[0]` index tells ImageMagick to return dimensions for frame zero only.
 
 Test with actual animated GIF confirmed: `468x60` parsed correctly.
 
@@ -81,7 +81,7 @@ After the initial implementation, CodeRabbit flagged five issues. All five were 
 system("which convert > /dev/null 2>&1")
 ```
 
-The `which` command doesn't exist on Windows. Fixed by searching `ENV['PATH']` manually:
+The `which` command doesn't exist on Windows. [Fixed by searching ENV['PATH']](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L19-L26) manually:
 
 ```ruby
 def imagemagick_available?
@@ -105,7 +105,7 @@ system(cmd)  # Shell interprets special characters
 output = `identify ... #{file_path}[0] 2>/dev/null`  # Shell interprets
 ```
 
-Fixed by using array-based execution:
+[Fixed by using array-based execution](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L79-L91):
 
 ```ruby
 system(*["convert", source_path, "-resize", geometry, "-quality", "85", dest_path])
@@ -145,9 +145,25 @@ If an image is 300x200 and you request a 300x200 thumbnail, don't generate anyth
 
 **Check 2: Delete if thumbnail larger than source**
 
-Sometimes compression doesn't help. A small, highly compressed GIF might produce a larger JPEG thumbnail. If `File.size(thumbnail) > File.size(original)`, delete the thumbnail and use the original.
+Sometimes compression doesn't help. A small, highly compressed GIF might produce a larger JPEG thumbnail. If `File.size(thumbnail) > File.size(original)`, [delete the thumbnail](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L49-L56) and use the original.
 
 Testing on this blog: 13 images detected, 6 rejected (thumbnail would be larger), 7 optimized. The plugin only optimizes when beneficial.
+
+## Examples in Action
+
+The gem is running on this blog right now. That polaroid from the previous post:
+
+{% polaroid
+  /assets/img/blog/record/gemini-trip-to-japan.jpg
+  size=x400
+  title="Trip to Japan (with automatic thumbnail)"
+  link="https://www.japan.go.jp/japan/visit/index.html"
+  image_link="/assets/img/blog/record/gemini-trip-to-japan.jpg"
+%}
+
+The original image is 818KB. The thumbnail served is 115KB (86% reduction). The plugin calculated the correct width (536px) from the 400px height constraint and the image's aspect ratio, generated `gemini-trip-to-japan_thumb-45be04-536x400.jpg` in `.jekyll-cache/`, copied it to `_site/`, and replaced the URL in the HTML.
+
+The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger.
 
 ## Final Stats
 
