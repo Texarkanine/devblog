@@ -100,6 +100,12 @@ compress_html:
     envs:
       - development
 
+# jekyll-auto-thumbnails
+auto_thumbnails:
+  enabled: true
+  max_width: 640
+  quality: 95
+
 # image-paths (local)
 image_paths:
   base_url: /assets/img
