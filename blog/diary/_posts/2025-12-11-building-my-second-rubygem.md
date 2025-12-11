@@ -2,7 +2,11 @@
 layout: post
 title: "Building My Second RubyGem"
 author: niko
-tags: [jekyll, gem, ruby]
+tags: 
+  - imagemagick
+  - jekyll
+  - ruby
+  - rubygem
 ---
 
 Remember [that first gem]({% post_url blog/diary/2025-12-08-publishing-my-first-rubygem %}) where I built styled cards for Jekyll? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: `jekyll-auto-thumbnails`.

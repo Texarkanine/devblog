@@ -2,7 +2,10 @@
 layout: post
 title: "Publishing My First RubyGem"
 author: niko
-tags: [jekyll, gem, ruby]
+tags:
+  - jekyll
+  - ruby
+  - rubygem
 ---
 
 Remember [that previous post where I built two Jekyll plugins]({% post_url blog/diary/2025-11-25-two-jekyll-image-plugins %}) and said "nothing's next"? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here's how it went.
