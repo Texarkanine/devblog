@@ -176,17 +176,17 @@ Here's what the gem actually produces:
 **Polaroid example** - a photo from a trip to Japan:
 
 {% polaroid
-  /assets/img/blog/record/gemini-trip-to-japan.jpg
+  /assets/img/blog/diary/gemini-trip-to-japan.jpg
   size=x400
   title="Trip to Japan"
   link="https://www.japan.go.jp/japan/visit/index.html"
-  image_link="/assets/img/blog/record/gemini-trip-to-japan.jpg"
+  image_link="/assets/img/blog/diary/gemini-trip-to-japan.jpg"
   archive="https://web.archive.org/web/20251208000000/https://www.japan.go.jp/japan/visit/index.html"
 %}
 
 **Markdown image sizing** - the same photo, but smaller using extended Markdown syntax:
 
-![Trip to Japan](/assets/img/blog/record/gemini-trip-to-japan.jpg =200x)
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 All three features working together in this post. The linkcard shows the styled link block. The polaroid displays with the classic photo frame aesthetic. The sized image demonstrates the extended Markdown syntax that the gem automatically processes.
 

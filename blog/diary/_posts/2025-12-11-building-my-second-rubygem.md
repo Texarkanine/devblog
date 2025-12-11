@@ -158,18 +158,18 @@ Testing on this blog: 13 images detected, 6 rejected (thumbnail would be larger)
 The gem is running on this blog right now. That polaroid from the previous post:
 
 {% polaroid
-  /assets/img/blog/record/gemini-trip-to-japan.jpg
+  /assets/img/blog/diary/gemini-trip-to-japan.jpg
   size=x400
   title="Trip to Japan (with automatic thumbnail)"
   link="https://www.japan.go.jp/japan/visit/index.html"
-  image_link="/assets/img/blog/record/gemini-trip-to-japan.jpg"
+  image_link="/assets/img/blog/diary/gemini-trip-to-japan.jpg"
 %}
 
 The original image is 818KB. The thumbnail served is 115KB (86% reduction). The plugin calculated the correct width (536px) from the 400px height constraint and the image's aspect ratio, generated `gemini-trip-to-japan_thumb-45be04-536x400.jpg` in `.jekyll-cache/`, copied it to `_site/`, and replaced the URL in the HTML.
 
 The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:
 
-![Trip to Japan](/assets/img/blog/record/gemini-trip-to-japan.jpg =200x)
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 ## Final Stats
 
@@ -202,4 +202,3 @@ The gem scans rendered HTML for images in `<article>` tags, generates thumbnails
 The code is at [Texarkanine/jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails) with the full implementation history.
 
 Two gems now: one for presentation, one for optimization. Both do their jobs without interfering with each other or with other Jekyll plugins.
-
