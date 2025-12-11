@@ -17,7 +17,7 @@ tags:
 	archive:https://web.archive.org/web/20251126220823/https://geocities.restorativland.org/
 %}
 
-An accessible, live archive of "restored" (links and media fixed, etc) GeoCities pages, sorted by content type into "neighborhoods." Most of the sites give off mid-90s aesthetics, even if their last updates were post-millennium.
+An accessible, live archive of "restored" (links and media fixed, etc.) GeoCities pages, sorted by content type into "neighborhoods." Most of the sites give off mid-90s aesthetics, even if their last updates were post-millennium.
 
 **Eminently scrollable.**
 
