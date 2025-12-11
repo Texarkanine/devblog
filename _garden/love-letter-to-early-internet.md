@@ -101,7 +101,7 @@ If you loved animated GIFs and background images, you'd've **loved** background 
 
 Nowadays, basically everyone agrees that sites making sound *on their own* is a nuisance. IMO, much of that is born out of the few dark years when *advertisements* would autoplay sounds at you. The vintage web was much more polite in its sound design: you got *background music* to set the mood for the site you were preparing to peruse.
 
-Tabbed browsing didn't make it to mainstream until much later and screen resoultions weren't big - 1024x768 was the standard and close to the maximum you'd ever encounter - so folks were often only looking at one page at a time. With that in mind, it made a lot more sense for a webpage to decide to play a theme song for you: it could be reasonably confident that the only thing you were doing on the computer right then was related to that very page!
+Tabbed browsing didn't make it to mainstream until much later and screen resolutions weren't big - 1024x768 was the standard and close to the maximum you'd ever encounter - so folks were often only looking at one page at a time. With that in mind, it made a lot more sense for a webpage to decide to play a theme song for you: it could be reasonably confident that the only thing you were doing on the computer right then was related to that very page!
 
 Many of these background tracks were [MIDI](https://en.wikipedia.org/wiki/MIDI) files, a sort-of equivalent of vector graphics - they didn't contain the sound data, but instructions on how to generate it. You had to have a *sound font* installed to play them, and depending on the font, they'd sound different! You could run the same MIDI through a piano and an electric guitar font to hear two radically different versions of the same song! In case you need it, here's what I *think* is the Windows 98 default sound font: [Windows 98 Sound Font](https://musical-artifacts.com/artifacts/713) / [download](https://musical-artifacts.com/artifacts/713/gm.sf2). Modern browsers seem to still be able to figure MIDI out, though, so the "play" link above will probably work. You might need the sound font if you download the BGM and try to play it on your own machine.
 
@@ -297,7 +297,7 @@ Feast your eyes on this bad boy:
 	archive="https://web.archive.org/web/20200305030854/https://geocities.restorativland.org/SiliconValley/Network/1666/"
 %}
 
-Nowadays, "autoplay" whether it be visual or audio, is a big no-no. The major websites - YouTube, Amazon, Facebook, Twitter, Google, etc - all have static, unmoving content. Pick your own most-visited site and take a look at it through this lens - it's dead, isn't it? Motionless.
+Nowadays, "autoplay" whether it be visual or audio, is a big no-no. The major websites - YouTube, Amazon, Facebook, Twitter, Google, etc. - all have static, unmoving content. Pick your own most-visited site and take a look at it through this lens - it's dead, isn't it? Motionless.
 
 Probably ultimately for the better, but there was definitely a sweet spot somewhere in-between "carnival of autoplay" and "dead tree."
 
@@ -424,9 +424,11 @@ So many people were *exploring* the *new medium* of the *World Wide Web*, lookin
 
 The idea of digital music was a big deal and very cool back then! Hopefully you chose to play the [background music](#background-music) on this page, so I'll spare you an actual Jukebox. Regardless, an in-page Jukebox - for reasons laid out in the `background music` section - wouldn't be that big a deal today. You can just go play a music *video* on YouTube or something!
 
-But back then, Jukeboxes were an evolution of politeness beyond background music. Maybe you didn't want to hear the exact same song looping forever, automatically... but pages still wanted to offer the *option* of mood music! You might find a little `<form>` dropdown or a fancy Javascript widget, or sometimes even a Java Applet labeled "Jukebox" with a selection of songs that you could *choose* to play while you read the page. These were usually still `MIDI` files, but `.mp3` started to come onto the scene by the mid 2000s and they were *just* small enough and bandwidth was *just* getting wide enough to make "real" songs (ripped from CDs, of course) playable in a browser. In my opinion, the biggest deal about `.mp3` jukeboxes was that you could finally have *lyrics* in your tracks - something `MIDI`s didn't offer.
+But back then, Jukeboxes were an evolution of politeness beyond background music. Maybe you didn't want to hear the exact same song looping forever, automatically... but pages still wanted to offer the *option* of mood music! You might find a little `<form>` dropdown or a fancy Javascript widget, or sometimes even a Java Applet labelled "Jukebox" with a selection of songs that you could *choose* to play while you read the page. These were usually still `MIDI` files, but `.mp3` started to come onto the scene by the mid 2000s and they were *just* small enough and bandwidth was *just* getting wide enough to make "real" songs (ripped from CDs, of course) playable in a browser. In my opinion, the biggest deal about `.mp3` jukeboxes was that you could finally have *lyrics* in your tracks - something `MIDI`s didn't offer.
 
 You kind-of had to stick to instrumental tracks for background music if you were going to autoplay it while someone was *reading* your page. But a Jukebox that the visitor controlled? Well, they could put a track with lyrics on *when they wanted!*
+
+[Here's a modern site with a Jukebox](https://h3.neocities.org/), if you're curious! [Winbows](https://winbows.neocities.org/) also has one... it's a [WinAmp](https://en.wikipedia.org/wiki/Winamp)!
 
 ## See It (Again?)
 

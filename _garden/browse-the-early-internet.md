@@ -27,7 +27,7 @@ An accessible, live archive of "restored" (links and media fixed, etc) GeoCities
 	archive:https://web.archive.org/web/20251129031359/https://neocities.org/browse/
 %}
 
-It's a modern recreation of GeoCities! Wonderful, individual, personal websites are being created within the constraints of a limited platform once more! There are many sites evocative of the Golden Age of Web Design & into the late 2000s CSS breakout. They also tend to be densely interlinked so it's easy to explore and get that good old fashioned `websurf` on!
+It's a modern recreation of GeoCities! Wonderful, individual, personal websites are being created within the constraints of a limited platform once more! There are many sites evocative of the Golden Age of Web Design & into the late 2000s CSS breakout. They also tend to be densely interlinked so it's easy to explore and get that good old-fashioned `websurf` on!
 
 **Eminently scrollable.**
 
@@ -69,7 +69,7 @@ From [The Eric Experiment](https://ericexperiment.com/post/11-09-2021-oldavista)
 	archive:https://web.archive.org/web/20251009162628/https://wiby.me/about/
 %}
 
-> ... pages were made primarily by hobbyists, academics, and computer savvy people about subjects they were personally interested in. Later on, the web became saturated with commercial pages that overcrowded everything else.
+> ... pages were made primarily by hobbyists, academics, and computer-savvy people about subjects they were personally interested in. Later on, the web became saturated with commercial pages that overcrowded everything else.
 > <br>...<br>
 > The Wiby search engine is building a web of pages as it was in the earlier days of the internet.
 
