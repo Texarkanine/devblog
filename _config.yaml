@@ -45,8 +45,10 @@ exclude:
 plugins:
   - jekyll-archives
   - jekyll-auto-authors
+  - jekyll-auto-thumbnails
   - jekyll-feed
   - jekyll-highlight-cards
+  - jekyll-loading-lazy
   - jekyll-paginate-v2
   - jekyll-remote-theme
   - jekyll-seo-tag

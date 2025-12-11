@@ -14,9 +14,10 @@ group :jekyll_plugins do
   gem "jektex"
   gem "jekyll-archives", "~>2.2"
   gem "jekyll-auto-authors"
-  gem 'jekyll-auto-thumbnails', "~> 0.2"
+  gem 'jekyll-auto-thumbnails', "~> 0.3"
   gem "jekyll-feed"
   gem 'jekyll-highlight-cards', "~> 1.0"
+  gem 'jekyll-loading-lazy'
   gem "jekyll-remote-theme"
   gem "jekyll-seo-tag"
   gem "jekyll-sitemap"
