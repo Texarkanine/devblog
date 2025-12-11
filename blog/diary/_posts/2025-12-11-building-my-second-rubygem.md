@@ -15,7 +15,7 @@ I implemented it. 277 tests passing, 96% coverage. The feature worked in isolati
 
 Then I tested it on this blog. Every image failed to generate thumbnails. The registry showed URLs like `/2025/11/25/photo.jpg`, but the actual files were at `/assets/img/blog/record/photo.jpg`. 
 
-The problem: hook timing. My plugin ran in `:pre_render`, scanning raw Markdown. But `image_paths.rb` (a local plugin) ran in `:post_render`, transforming `photo.jpg` into `/assets/img/blog/record/photo.jpg`. I was registering pre-transform URLs but trying to find post-transform files.
+The problem: hook timing. My plugin ran in `:pre_render`, scanning raw Markdown. But [image_paths.rb](https://github.com/Texarkanine/devblog/blob/a293c346612823fca18a6447902da688e57be247/_plugins/00_image_paths.rb) (a local plugin) ran in `:post_render`, transforming `photo.jpg` into `/assets/img/blog/record/photo.jpg`. I was registering pre-transform URLs but trying to find post-transform files.
 
 ## The Architecture Pivot
 
@@ -23,7 +23,7 @@ The fix wasn't to adjust hook timing. The fix was to realize **image optimizatio
 
 New architecture: Scan the final rendered HTML after ALL plugins have run. Parse it with Nokogiri, look for `<img>` tags in `<article>` elements, extract the actual `src` attributes. Those URLs reflect reality - all transformations already applied.
 
-This required extracting the thumbnail feature into a standalone gem. The separation made sense: `jekyll-highlight-cards` handles presentation (linkcard, polaroid tags). `jekyll-auto-thumbnails` handles optimization (thumbnail generation, caching, URL replacement).
+This required extracting the thumbnail feature into a standalone gem. The separation made sense: [jekyll-highlight-cards](https://github.com/Texarkanine/jekyll-highlight-cards) handles presentation (linkcard, polaroid tags). [jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails) handles optimization (thumbnail generation, caching, URL replacement).
 
 ## Building the Second Gem
 
@@ -51,7 +51,7 @@ A polaroid at `size=x400` (height 400, width auto) and a Markdown image at `=200
 
 This produced a 200x400 thumbnail. When displayed at ~500px width, it looked terrible - upscaled 2.5x from a thumbnail that should have been 536x400.
 
-The fix: [Scanner calculates missing dimensions](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L84-L99) from aspect ratio before registering. Query ImageMagick for actual image dimensions, compute the missing value, then register complete dimensions.
+The fix: [Scanner calculates missing dimensions](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L104-L113) from aspect ratio before registering. Query ImageMagick for actual image dimensions, compute the missing value, then register complete dimensions.
 
 Now `size=x400` registers as `{ width: 536, height: 400 }` (calculated from 1.34:1 aspect ratio), and the Registry correctly chooses 536x400 as the maximum.
 
@@ -67,7 +67,7 @@ The GIF was animated (25 frames). ImageMagick's `identify` command returned dime
 
 My code split on `x` and took the first two values: `468` and `605`. The `605` was frame 1's height (60) plus the start of frame 2's dimensions (5). This gave the wrong aspect ratio.
 
-The fix: [Query only the first frame](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L68-L78) with `identify "#{file_path}[0]"`. The `[0]` index tells ImageMagick to return dimensions for frame zero only.
+The fix: [Query only the first frame](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L81) with `identify "#{file_path}[0]"`. The `[0]` index tells ImageMagick to return dimensions for frame zero only.
 
 Test with actual animated GIF confirmed: `468x60` parsed correctly.
 
@@ -105,7 +105,7 @@ system(cmd)  # Shell interprets special characters
 output = `identify ... #{file_path}[0] 2>/dev/null`  # Shell interprets
 ```
 
-[Fixed by using array-based execution](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L79-L91):
+[Fixed by using array-based execution](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L98-L109):
 
 ```ruby
 system(*["convert", source_path, "-resize", geometry, "-quality", "85", dest_path])
@@ -145,7 +145,7 @@ If an image is 300x200 and you request a 300x200 thumbnail, don't generate anyth
 
 **Check 2: Delete if thumbnail larger than source**
 
-Sometimes compression doesn't help. A small, highly compressed GIF might produce a larger JPEG thumbnail. If `File.size(thumbnail) > File.size(original)`, [delete the thumbnail](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L49-L56) and use the original.
+Sometimes compression doesn't help. A small, highly compressed image might produce a larger thumbnail if thumbnailing is configured at high quality. If `File.size(thumbnail) > File.size(original)`, [delete the thumbnail](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L59-L66) and use the original.
 
 Testing on this blog: 13 images detected, 6 rejected (thumbnail would be larger), 7 optimized. The plugin only optimizes when beneficial.
 
@@ -163,7 +163,9 @@ The gem is running on this blog right now. That polaroid from the previous post:
 
 The original image is 818KB. The thumbnail served is 115KB (86% reduction). The plugin calculated the correct width (536px) from the 400px height constraint and the image's aspect ratio, generated `gemini-trip-to-japan_thumb-45be04-536x400.jpg` in `.jekyll-cache/`, copied it to `_site/`, and replaced the URL in the HTML.
 
-The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger.
+The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:
+
+![Trip to Japan](/assets/img/blog/record/gemini-trip-to-japan.jpg =200x)
 
 ## Final Stats
 
