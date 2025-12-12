@@ -13,6 +13,7 @@ tags:
   - [Code Goes First but it Won't Be The Last](https://sundaylettersfromsam.substack.com/p/code-goes-first)
   - [... good cognitive strategies are now explicit, first-class, sharable objects in a team or organization. Everyone can move at the speed of the smartest person in the room.](https://sundaylettersfromsam.substack.com/p/vibe-coding-considered-harmful-lego)
 - Cardinal Sin of Toolmakers: Thinking Your Tool's the Product (not just a tool)
+  - [`ls` never asks you to make an account](https://tonsky.me/blog/needy-programs/)
 
 ## Garden
 
@@ -31,3 +32,7 @@ tags:
 ## Actually Good Lifehacks
 
 - using the trouser hangar in a hotel room to hold the blackout curtains shut
+
+## Misc
+
+- [comments should be highlighted](https://tonsky.me/blog/syntax-highlighting/)

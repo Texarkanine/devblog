@@ -10,6 +10,11 @@ tags:
 ### Blogs
 
 * [Less Wrong](https://www.lesswrong.com/) <small>"an online forum and community dedicated to improving human reasoning and decision-making."</small>
+* [Tonsky](https://tonsky.me/) <small>"programming and UI design"</small>
+
+### Misc
+
+* [Websites that spark joy.](https://whimsical.club/)
 
 ## Toys
 
@@ -40,6 +45,7 @@ tags:
 ## Spaces
 
 * [A Website is a Room](https://a-website-is-a-room.net/)
+* [Alien Head Shit Kid](https://alienheadshitkid.neocities.org/)
 
 ## Datasets
 
