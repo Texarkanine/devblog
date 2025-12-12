@@ -1,8 +1,102 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <?xml version="1.0" encoding="utf-8"?><html><body><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml">
 <link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html">
-<updated>2025-12-12T05:35:53+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title>
-<subtitle>On the internet, nobody knows you're a dog and a cat in a latent space.</subtitle><entry><title type="html">Building My Second RubyGem</title>
+<updated>2025-12-12T16:28:33+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title>
+<subtitle>On the internet, nobody knows you're a dog and a cat in a latent space.</subtitle><entry><title type="html">Hook-Based Local Mode for ai-rizz</title>
+<link href="https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz.html" rel="alternate" type="text/html" title="Hook-Based Local Mode for ai-rizz">
+<published>2025-12-12T00:00:00+00:00</published><updated>2025-12-12T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz.html">Recent Cursor builds on Mac <a href="https://forum.cursor.com/t/cursor-2-1-50-ignores-rules-in-git-info-exclude-on-mac-not-on-windows-wsl/145695/4">ignore all git-ignored files</a>, including those in <code class="language-plaintext highlighter-rouge">.git/info/exclude</code>. This broke <a href="https://github.com/texarkanine/ai-rizz">ai-rizz</a>’s local mode, which relies on <code class="language-plaintext highlighter-rouge">.git/info/exclude</code> to keep personal rules out of commits while making them visible to Cursor.
+
+<p>The fix: a <code class="language-plaintext highlighter-rouge">--hook-based-ignore</code> flag that uses a pre-commit hook instead of git excludes.</p>
+
+<h2 id="the-problem">The Problem</h2>
+
+<p>ai-rizz has two modes:</p>
+<ul>
+  <li>
+<strong>Local mode</strong>: Personal rules in <code class="language-plaintext highlighter-rouge">.cursor/rules/local/</code>, git-ignored via <code class="language-plaintext highlighter-rouge">.git/info/exclude</code>
+</li>
+  <li>
+<strong>Commit mode</strong>: Team rules in <code class="language-plaintext highlighter-rouge">.cursor/rules/shared/</code>, committed to the repository</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">.git/info/exclude</code> approach worked because it kept files out of commits without hiding them from Cursor. Mac Cursor’s new behavior broke this assumption.</p>
+
+<h2 id="the-solution">The Solution</h2>
+
+<p>When initialized with <code class="language-plaintext highlighter-rouge">--hook-based-ignore</code>, local mode:</p>
+<ol>
+  <li>Skips adding files to <code class="language-plaintext highlighter-rouge">.git/info/exclude</code>
+</li>
+  <li>Installs a pre-commit hook that unstages local files before each commit</li>
+  <li>Leaves files visible to Cursor (and <code class="language-plaintext highlighter-rouge">git status</code>)</li>
+</ol>
+
+<p>The hook reads the manifest dynamically to find which files to unstage:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Find local manifest in repo root</span>
+<span class="nv">REPO_ROOT</span><span class="o">=</span><span class="si">$(</span>git rev-parse <span class="nt">--show-toplevel</span> 2&gt;/dev/null <span class="o">||</span> <span class="nb">pwd</span><span class="si">)</span>
+<span class="nv">LOCAL_MANIFEST</span><span class="o">=</span><span class="s2">""</span>
+<span class="k">for </span>file <span class="k">in</span> <span class="s2">"</span><span class="nv">$REPO_ROOT</span><span class="s2">"</span>/<span class="k">*</span>.local.skbd<span class="p">;</span> <span class="k">do</span>
+    <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">LOCAL_MANIFEST</span><span class="o">=</span><span class="si">$(</span><span class="nb">basename</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span><span class="si">)</span> <span class="o">&amp;&amp;</span> <span class="nb">break
+</span><span class="k">done</span>
+<span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$LOCAL_MANIFEST</span><span class="s2">"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>0
+
+<span class="c"># Parse target directory from manifest</span>
+<span class="nv">MANIFEST_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$REPO_ROOT</span><span class="s2">/</span><span class="nv">$LOCAL_MANIFEST</span><span class="s2">"</span>
+<span class="nv">TARGET_DIR</span><span class="o">=</span><span class="si">$(</span><span class="nb">head</span> <span class="nt">-n1</span> <span class="s2">"</span><span class="nv">$MANIFEST_PATH</span><span class="s2">"</span> 2&gt;/dev/null | <span class="nb">cut</span> <span class="nt">-f2</span><span class="si">)</span>
+<span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$TARGET_DIR</span><span class="s2">"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>0
+
+<span class="c"># Unstage local files</span>
+git reset HEAD <span class="nt">--</span> <span class="s2">"</span><span class="nv">$TARGET_DIR</span><span class="s2">/local/"</span> <span class="s2">"</span><span class="nv">$LOCAL_MANIFEST</span><span class="s2">"</span> 2&gt;/dev/null <span class="o">||</span> <span class="nb">true</span>
+</code></pre></div></div>
+
+<p>This works with custom manifest names and target directories since it reads from the manifest itself.</p>
+
+<h2 id="mode-switching">Mode Switching</h2>
+
+<p>Users can switch between modes idempotently:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Switch to hook-based</span>
+ai-rizz init <span class="nt">--local</span> <span class="nt">--hook-based-ignore</span>
+
+<span class="c"># Switch back to regular</span>
+ai-rizz init <span class="nt">--local</span>
+</code></pre></div></div>
+
+<p>Switching from regular to hook-based removes <code class="language-plaintext highlighter-rouge">.git/info/exclude</code> entries and installs the hook. Switching back does the reverse.</p>
+
+<h2 id="the-trade-off">The Trade-off</h2>
+
+<p>Hook-based mode leaves a “dirty” <code class="language-plaintext highlighter-rouge">git status</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git status
+On branch main
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+        .cursor/rules/local/
+        ai-rizz.local.skbd
+</code></pre></div></div>
+
+<p>This may conflict with tooling that expects a clean status. But for Mac users whose Cursor can’t see local rules otherwise, it’s the only option until Cursor changes behavior.</p>
+
+<h2 id="implementation-details">Implementation Details</h2>
+
+<p>The hook preserves existing user hooks by wrapping the ai-rizz section in <code class="language-plaintext highlighter-rouge">BEGIN</code>/<code class="language-plaintext highlighter-rouge">END</code> markers. On deinit, only the ai-rizz section is removed.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">validate_git_exclude_state()</code> function now checks for hook presence before warning about missing git excludes - if the hook exists, files don’t need to be in <code class="language-plaintext highlighter-rouge">.git/info/exclude</code>.</p>
+
+<h2 id="usage">Usage</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Initialize with hook-based mode</span>
+ai-rizz init https://github.com/user/rules.git <span class="nt">--local</span> <span class="nt">--hook-based-ignore</span>
+
+<span class="c"># Add rules as normal</span>
+ai-rizz add rule my-rule.mdc <span class="nt">--local</span>
+
+<span class="c"># Files remain visible to Cursor but won't be committed</span>
+</code></pre></div></div>
+
+<p>The hook is harmless if files are already git-ignored (it becomes a no-op), so it could theoretically run in all local mode setups. For now, it’s opt-in via the flag.</p>]]&gt;</content><author><name>Niko</name></author><category term="blog"></category><category term="record"></category><category term="ai-rizz"></category><category term="cursor"></category><category term="git"></category><category term="pre-commit"></category><category term="tdd"></category><summary type="html"></summary></entry><entry><title type="html">Building My Second RubyGem</title>
 <link href="https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.html" rel="alternate" type="text/html" title="Building My Second RubyGem">
 <published>2025-12-11T00:00:00+00:00</published><updated>2025-12-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.html">Remember <a href="/2025/12/08/publishing-my-first-rubygem.html">that first gem</a> where I built styled cards for <a href="https://jekyllrb.com/">Jekyll</a>? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: <a href="https://github.com/Texarkanine/jekyll-auto-thumbnails">jekyll-auto-thumbnails</a>.
 
@@ -480,7 +574,7 @@
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.oev0nzg-tpgnqedthc5ine { display: inline-block; }</style><script>(function(){function tx4quorbjxhl9pdn(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function gyhcnsznapzpxf(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var l4eegpa=sp.getAttribute('data-ddmc9m');var vrvnd7mtusk2=sp.getAttribute('data-mjdifo9fjh');var orgihs=sp.getAttribute('data-fmheretiu');var onw1naog7w=sp.getAttribute('data-esmldksp');var mailto=tx4quorbjxhl9pdn(l4eegpa,spParts[0].length);var user=tx4quorbjxhl9pdn(vrvnd7mtusk2,spParts[1].length);var domainBase=tx4quorbjxhl9pdn(orgihs,lnkParts[0].length);var tld=tx4quorbjxhl9pdn(onw1naog7w,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function bbdgyseswc1p(){var els=document.querySelectorAll('a.afmbole1fmtgxnopw-g9gxgnfddq83msro');var handler=function(){var sp=this.querySelector('span.oev0nzg-tpgnqedthc5ine');if(sp&&!this.dataset.d){var val=gyhcnsznapzpxf(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',bbdgyseswc1p);}else{bbdgyseswc1p();}})();</script><a href="#" class="afmbole1fmtgxnopw-g9gxgnfddq83msro"><span class="oev0nzg-tpgnqedthc5ine" data-ddmc9m="thpsav" data-mjdifo9fjh="FSROQHSR" data-fmheretiu="gifkfedrzc" data-esmldksp="sec">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.ylzoi-bj6rzq1mu7yq5q { display: inline-block; }</style><script>(function(){function jufyflljb(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function tmiaonhvgej(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var y7kmgfx=sp.getAttribute('data-evfhzbjm6r3z');var s4ntua9i=sp.getAttribute('data-oy9kadujs');var xi5oiu55w=sp.getAttribute('data-hmvy7vuwm');var xly6mgl=sp.getAttribute('data-dsijj2cm');var mailto=jufyflljb(y7kmgfx,spParts[0].length);var user=jufyflljb(s4ntua9i,spParts[1].length);var domainBase=jufyflljb(xi5oiu55w,lnkParts[0].length);var tld=jufyflljb(xly6mgl,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function w17cbg1m86(){var els=document.querySelectorAll('a.yl7pdznhft6m5-wgtc6ngcx');var handler=function(){var sp=this.querySelector('span.ylzoi-bj6rzq1mu7yq5q');if(sp&&!this.dataset.d){var val=tmiaonhvgej(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',w17cbg1m86);}else{w17cbg1m86();}})();</script><a href="#" class="yl7pdznhft6m5-wgtc6ngcx"><span class="ylzoi-bj6rzq1mu7yq5q" data-evfhzbjm6r3z="rfnqyt" data-oy9kadujs="FSROQHSR" data-hmvy7vuwm="cebgbaznvy" data-dsijj2cm="lxv">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
@@ -1273,99 +1367,4 @@ You can go read about why, <a href="/2025/11/24/usent-case-for-ai-coding-agent-s
 
 <p>So I rebuilt the server. Five dollars a month. Sixty dollars a year. The OpenSearch cluster hums along on my home server, accepting logs, parsing them with a pipeline that detects JSON versus plain text errors, and displaying them in dashboards I can access from my LAN.</p>
 
-<p>It works. If you’re reading this, you’re in there now, too, somewhere!</p>]]&gt;</content><author><name>Niko</name></author><category term="blog"></category><category term="diary"></category><category term="opensearch"></category><category term="docker"></category><category term="nginx"></category><category term="digitalocean"></category><category term="ssl"></category><category term="letsencrypt"></category><category term="observability"></category><summary type="html"></summary></entry><entry><title type="html">We Therefore do not Recommend this Approach (to Upgrading OctoPrint’s Python)</title>
-<link href="https://blog.cani.ne.jp/2025/11/14/octoprint-python-upgrade-cascade.html" rel="alternate" type="text/html" title="We Therefore do not Recommend this Approach (to Upgrading OctoPrint’s Python)">
-<published>2025-11-14T00:00:00+00:00</published><updated>2025-11-14T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/14/octoprint-python-upgrade-cascade</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/14/octoprint-python-upgrade-cascade.html">The Warning
-
-<p>OctoPrint on my Raspberry Pi 4 greeted me with an ominous warning: my Python environment was outdated and would soon be unsupported. The message linked to <a href="https://community.octoprint.org/t/octoprint-tells-me-my-python-environment-is-outdated-and-will-soon-no-longer-be-supported-how-do-i-upgrade/61076">the OctoPrint community’s upgrade guide</a>, which outlined the proper upgrade path. Simple enough, I thought. I’d just build a newer Python and upgrade in place, like they tell you not to:</p>
-
-<blockquote>
-  <p>Instead of reflashing or running a dist-upgrade, you might be tempted to upgrade your Python installation by compiling Python yourself. On anything but a Raspberry Pi, that is fine.
-<br>…<br>
-We therefore do not recommend this approach unless you really know what you are doing.</p>
-</blockquote>
-
-<p>Well, I work in <strong>Big Tech</strong> for my day job and I know how to Python, so they’re totally talking about me there… right?</p>
-
-<h2 id="the-python-journey">The Python Journey</h2>
-
-<p>I installed <code class="language-plaintext highlighter-rouge">pyenv</code> and built Python 3.14, only to discover that OctoPrint doesn’t support it yet. Oops, should’ve RTFM’m. No problem - I built Python 3.13 instead, which falls within OctoPrint’s supported range.</p>
-
-<p>The OctoPrint community guide said you could use the <code class="language-plaintext highlighter-rouge">octoprint-venv-tool</code> to recreate the virtual environment with a new Python version. I followed the steps, rebuilt the venv, and restarted OctoPrint.</p>
-
-<p>Then came the error:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>octoprint[409]: There was a fatal error initializing OctoPrint: Could not initialize settings manager: /lib/arm-linux-gnueabihf/libc.so.6: version `GLIBC_2.34' not found (required by /home/pi/oprint/lib/python3.13/site-packages/netifaces.cpython-313-arm-linux-gnueabihf.so)
-</code></pre></div></div>
-
-<h2 id="the-glibc-problem">The GLIBC Problem</h2>
-
-<p>The <code class="language-plaintext highlighter-rouge">netifaces</code> package, compiled against Python 3.13, required GLIBC 2.34. I tried the solution from <a href="https://community.octoprint.org/t/upgraded-octoprint-new-glibc-dependency-broken/64705/9">a related community thread</a> that suggested adjusting the <code class="language-plaintext highlighter-rouge">psutil</code> package, but that didn’t help. The problem wasn’t specific to one package - it was systemic.</p>
-
-<p>I checked the <a href="https://packages.debian.org/search?searchon=names&amp;keywords=libc6">Debian package listings for libc6</a>. My Raspberry Pi was running Debian Bullseye, which tops out at GLIBC 2.31. Debian Bookworm, however, includes versions up to 2.36. That’d work!</p>
-
-<p>This left me with three options:</p>
-
-<ol>
-  <li>attempt to install Bookworm’s GLIBC on Bullseye (risky and likely to cause other dependency issues)</li>
-  <li>upgrade the entire system to Bookworm</li>
-  <li>abort and do a backup of OctoPrint and a fresh install + restore</li>
-</ol>
-
-<p>Obviously, I chose the upgrade the entire system to Bookworm because as we already established, I know what I’m doing.</p>
-
-<h2 id="the-debian-upgrade">The Debian Upgrade</h2>
-
-<p>I followed <a href="https://linuxcapable.com/how-to-upgrade-from-debian-11-bullseye-to-debian-12-bookworm/">some upgrade guide from Bullseye to Bookworm</a>, which seemed legit. The process was straightforward, though I encountered numerous configuration file prompts - the classic “do you want to keep your version or use the package maintainer’s version?” question, e.g.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Configuration file '/etc/haproxy/haproxy.cfg'
-==&gt; Modified (by you or by a script) since installation.
-==&gt; Package distributor has shipped an updated version.
-  What would you like to do about it ?  Your options are:
-   Y or I  : install the package maintainer's version
-   N or O  : keep your currently-installed version
-     D     : show the differences between the versions
-     Z     : start a shell to examine the situation
-The default action is to keep your current version.
-*** haproxy.cfg (Y/I/N/O/D/Z) [default=N] ?
-</code></pre></div></div>
-
-<p>After reviewing several and finding them harmless, I stopped scrutinizing each one.</p>
-
-<p>The upgrade completed successfully. OctoPrint started without the GLIBC error. Victory, right?</p>
-
-<h2 id="its-almost-like-they-thought-of-this">It’s Almost Like They Thought Of This</h2>
-
-<p>Not quite. The OctoPrint web interface was no longer accessible on port 80.</p>
-
-<p>It turns out OctoPi (the Raspberry Pi distribution for OctoPrint) uses HAProxy to proxy the web interface to port 80. During the upgrade, I had accepted the package maintainer’s version of the HAProxy configuration, which overwrote OctoPi’s custom setup with the generic default.</p>
-
-<p>Fortunately, Debian’s upgrade process saves old configuration files with the <code class="language-plaintext highlighter-rouge">.dpkg-old</code> suffix. I navigated to <code class="language-plaintext highlighter-rouge">/etc/haproxy</code> and ran:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo cp </span>haproxy.cfg.dpkg-old haproxy.cfg
-</code></pre></div></div>
-
-<p>I verified this by comparing it against <a href="https://github.com/guysoft/OctoPi/blob/devel/src/modules/octopi/filesystem/root/etc/haproxy/haproxy.2.x.cfg">the HAProxy configuration in the OctoPi repository</a>. The configs were similar-enough that I concluded I was on the right track.</p>
-
-<p>After restarting HAProxy, the web interface came back on port 80. OctoPrint was now running Python 3.13, no longer complaining about end-of-life’d Python 3.9.</p>
-
-<h2 id="the-cascade">The Cascade</h2>
-
-<p>I started with a simple goal: upgrade Python in OctoPrint. What I got was:</p>
-
-<ol>
-  <li>Build Python 3.14 (wrong version)</li>
-  <li>Build Python 3.13 (correct version)</li>
-  <li>Recreate OctoPrint’s virtual environment</li>
-  <li>Discover GLIBC incompatibility</li>
-  <li>Upgrade the entire operating system from Debian 11 to Debian 12</li>
-  <li>Restore the HAProxy configuration</li>
-</ol>
-
-<p>This is what <del>dependency chains</del> yak shaving looks like in practice. Python 3.13 requires GLIBC 2.34. GLIBC 2.34 isn’t available in Bullseye. Upgrading to Bookworm provides GLIBC 2.34 but replaces your configuration files if you slack off. Each step seems reasonable in isolation, but together they form a cascade where a “simple” upgrade of a venv’s Python necessitates an OS upgrade.</p>
-
-<p>The lesson here isn’t to avoid upgrades - quite the opposite. Staying on outdated software just accumulates technical debt, making the eventual upgrade more painful. The lesson is to expect the cascade and be prepared for it.</p>
-
-<p>So, like, use pyenv and venvs, but… don’t forget that it all sits on a throne of lies and you’ll need to upgrade your whole system to be able to build a natively-compiled extension for your interpreted language, anyway.</p>
-
-<p>The next time OctoPrint warns me about an outdated component, I’ll know to check the entire dependency stack before starting. And I’ll be more careful about which configuration files I let the package manager overwrite. Haha - just kidding! Remember, after all… I know what I’m doing ;)</p>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="diary"></category><category term="3d-printing"></category><category term="debian"></category><category term="glibc"></category><category term="haproxy"></category><category term="octopi"></category><category term="octoprint"></category><category term="python"></category><category term="raspberry-pi"></category><summary type="html"></summary></entry></feed></body></html>
+<p>It works. If you’re reading this, you’re in there now, too, somewhere!</p>]]&gt;</content><author><name>Niko</name></author><category term="blog"></category><category term="diary"></category><category term="opensearch"></category><category term="docker"></category><category term="nginx"></category><category term="digitalocean"></category><category term="ssl"></category><category term="letsencrypt"></category><category term="observability"></category><summary type="html"></summary></entry></feed></body></html>
