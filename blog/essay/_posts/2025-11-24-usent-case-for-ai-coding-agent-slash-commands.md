@@ -5,7 +5,7 @@ author: texarkanine
 tags: [cursor, ai, claude-code]
 ---
 
-Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - [Agent Skills](https://code.claude.com/docs/en/skills) - for a long time.
+Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a [similar thing](https://code.claude.com/docs/en/slash-commands) - for a long time.
 
 # Thesis
 
@@ -15,7 +15,7 @@ Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)
 
 > Anything you would want to actively invoke as a slash-command, you *also* want to be a rule that the Agent can passively pick up and apply when necessary.
 
-LLMs' whole raison d'être is (pseudo-)stochastic natural language processing and synthesis. When you reach the point where you're trying to codify a *function* - a fixed set of inputs and a predictable output that depends on them - you've exited the domain where LLMs excel. Building a Cursor Command or Claude Agent Skill is an antipattern that makes you less efficient. Deterministic, reliable input/output is the domain of CPU-bound traditional code. You want a fixed command that takes an input and reliably produces an output? We have a technique for that, called *writing software*. Just write the tool.
+LLMs' whole raison d'être is (pseudo-)stochastic natural language processing and synthesis. When you reach the point where you're trying to codify a *function* - a fixed set of inputs and a predictable output that depends on them - you've exited the domain where LLMs excel. Building a Cursor Command or Claude Command is an antipattern that makes you less efficient. Deterministic, reliable input/output is the domain of CPU-bound traditional code. You want a fixed command that takes an input and reliably produces an output? We have a technique for that, called *writing software*. Just write the tool.
 
 With a slash-command, you get:
 
