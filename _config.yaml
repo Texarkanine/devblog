@@ -3,6 +3,7 @@ title: "🐶 Dog with a Dev Blog"
 description: "On the internet, nobody knows you're a dog and a cat in a latent space."
 url: "https://blog.cani.ne.jp"
 baseurl: ""
+favicon: "favicon.ico"
 
 # Theme
 remote_theme: riggraz/no-style-please
