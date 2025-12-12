@@ -12,6 +12,7 @@ tags:
   - [I have seen the compounding teams](https://sundaylettersfromsam.substack.com/p/i-have-seen-the-compounding-teams)
   - [Code Goes First but it Won't Be The Last](https://sundaylettersfromsam.substack.com/p/code-goes-first)
   - [... good cognitive strategies are now explicit, first-class, sharable objects in a team or organization. Everyone can move at the speed of the smartest person in the room.](https://sundaylettersfromsam.substack.com/p/vibe-coding-considered-harmful-lego)
+- Cardinal Sin of Toolmakers: Thinking Your Tool's the Product (not just a tool)
 
 ## Garden
 
