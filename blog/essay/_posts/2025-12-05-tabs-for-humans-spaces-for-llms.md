@@ -4,7 +4,7 @@ title: "Tabs for Humans, Spaces for LLMs"
 author: texarkanine
 tags:
   - ai
-  - code style
+  - code-style
   - llm
   - tokenization
 ---
