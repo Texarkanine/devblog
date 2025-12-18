@@ -55,9 +55,9 @@ You liked a funny movie? We released a new one that's more of that, and also fun
 
 Tools sit in the middle of people's workflows. While many people may have many aspects of their workflows in common, there are many opportunities for personal preference and individual circumstances to enter the equation. So, a tool that's "for X" may be used in signficiantly different ways by different people.
 
-Web Browsers are a great example: They're a tool "for browsing the internet." But one person might be big into browser-based games, and want a Flash plugin, WebGL support, Websockets, and GPU acceleration. A reasearcher at a university, though, would probably be much more concerned about compatibility with e-mail & legacy academic systems, bookmarks (preserving and perhaps sharing across devices) and perhaps VPN support.
+Web Browsers are a great example: They're a tool "for browsing the internet." But one person might be big into browser-based games, and want a Flash plugin, WebGL support, Websockets, and GPU acceleration. A reasearcher at a university, though, would probably be much more concerned about compatibility with e-mail & legacy academic systems, bookmarks (preserving and/or sharing across devices) and perhaps VPN support.
 
-Specific examples notwithstanding, web browsers single purpose ("browse the web") belies a myriad of features and capabilities that result in no single pattern of use. It can be difficult to make a change to a browser that's better *for everyone*. The more things a tool does, the greater the chance that any change at all will be a detriment to *someone*.
+Specific examples notwithstanding, web browsers' single purpose ("browse the web") belies a myriad of features and capabilities that result in no single pattern of use. It can be difficult to make a change to a browser that's better *for everyone*. The more things a tool does, the greater the chance that any change at all will be a detriment to *someone*.
 
 {%linkcard
 	https://kb.feval.ca/engineering/design/law-of-implicit-interface.html
@@ -86,17 +86,47 @@ The *point* of all the complaints is
 
 > I had been using this **tool** to achieve X, and now I have to go invest additional time and effort to figure out how to keep achieving the same old X.
 
-The changes impose a cost on the complainers and offer them no benefit. That's what they're upset about. So, how **do** you make changes to a software tool without inconveniencing the people who use it?
+The changes impose a cost on the complainers that they have not budgeted for. Even if there is a real benefit to be had, *it wasn't in the budget* of time and attention. That's what they're upset about. 
 
-![That's the neat thing: you don't](./you-dont.jpg)
+So, how **do** you make changes to a software tool without inconveniencing the people who use it?
 
-`Hyrum's Law`: Once you've got a tool out there and it's got behaviors and features and buttons in places, people start building on top of those. If you shake up your "software product," you risk toppling the things they've built. It's just as absurd as breaking into a blacksmith's workshop overnight and changing the shape and size of the anvil, tongs, and hammer. It doesn't matter what you change them to, even if it's an objectively better design - you've *interrupted* their workflow. That sort of breaking-and-entering is usually infeasible and criminal in the real world. But in the world 
+## Just Don't
 
-That's what software updates are to software tools.
+`Hyrum's Law`: Once you've got a tool out there and it's got behaviors and features and buttons in places, people start building on top of those. If you shake up your "software product," you risk toppling the things they've built. It's just as absurd as breaking into a blacksmith's workshop overnight and changing the shape and size of the anvil, tongs, and hammer. It doesn't matter what you change them to, even if it's an objectively better design - you've *interrupted* their workflow. 
+
+That's what software updates are to software tools. That sort of breaking-and-entering is usually infeasible and criminal in the real world but in the world of software, it's easy and commonplace.
+
+### Why Not Though?
+
+I said previously,
+
+> The more things a tool does, the greater the chance that any change at all will be a detriment to *someone*.
+
+It's also true that
+
+> The more you change what a tool does, the greater the chance that you'll entice a new user to use it.
+
+After all, if they weren't already using it, maybe this new thing or change will make it appealing-enough for them to start! At least, that's the Product and Marketing angle.
+
+When you combine these things, you burn a different set of users with each change, and pull in a new set of users with each change. If your tool was actually good-enough to attact users, a small burn from one nuisance change may not drive them away. Two such burns might not. But eventually, you'll reach a tipping point.
+
+Because tools have such varying use-patterns, though, your first 10 changes aren't all going to burn the same user 10 times - it will be distributed across your userbase. You'll see new users show up for each of the 10 changes and very little churn, and then it'll look like your *product* is improving! But then you'll hit enough changes that you've burnt people enough that they start to leave. You make that 11th change and finally some people are fed up and leave. They're replaced by new users who were enticed by that 11th change though, so it doesn't look disastrous yet. But then you make the 12th change, and another set of users leave, hopefully replaced again. 
+
+Now you're in a stagnant holding pattern: to attract new users, you are used to making changes. Each change you make will push a new user away and *must* pull in a new one. You're now not growing anymore. You've saturated the upheaveal threshold of your userbase and the techniques you had been using - *product development* - no longer work. You can do more of it, and it will just burn your resources without growth.
 
 ## It Can Get Worse
 
-When you manage a software tool as if it were the end product, you also frequently get
+When products reach that stagnant holding pattern, they get desperate for revenue. It's not available from growth anymore, so the inevitable happens...
+
+{%linkcard
+	https://doctorow.medium.com/social-quitting-1ce85b67b456
+	"Social Quitting - where 'enshittification' was coined"
+	archive:https://archive.ph/uBvd9
+%}
+
+> When switching costs are high, services can be changed in ways that you dislike without losing your business. The higher the switching costs, the more a company can abuse you, because it knows that as bad as they’ve made things for you, you’d have to endure worse if you left.
+
+This results in actual capability degradations, and
 
 {% linkcard
 	https://tonsky.me/blog/needy-programs/
@@ -104,9 +134,13 @@ When you manage a software tool as if it were the end product, you also frequent
 	archive:https://web.archive.org/web/20251212040814/https://tonsky.me/blog/needy-programs/
 %}
 
-programs that want you to make an account, give an e-mail, download an update, etc. These "needy programs" are symptomatic of tool-makers thinking their tool **is** the goal - that people want to use the tool specifically for the joy of using it. **No**. Nobody wants that. As Tonsky says:
+programs that want you to make an account, give an e-mail, download an update, etc. These "needy programs" are what happens when tool-makers who think their tool **is** the goal come face-to-face with reality. **No**. Nobody wants to use your tool. They want to use your tool *for* something, and you've demonstrated that your tool is not reliable enough for that. That means your tool is useless.
 
-> *`ls` never asks you to create an account or to update.*
+## Be like `ls`
+
+Tonsky says:
+
+> > *`ls` never asks you to create an account or to update.*
 > 
 > I agree. `ls` is a good program. `ls` is a tool. It does what I need it to do and stays quiet otherwise. I use it; it doesn’t use me.
 
@@ -118,4 +152,15 @@ That's one of the outcomes you'll get if you follow the `Unix Philosophy` when b
 	archive:https://web.archive.org/web/20251212040814/https://cscie2x.dce.harvard.edu/hw/ch01s06.html
 %}
 
-##
+Who wrote `ls`? Honestly, I'm not sure. [A Brief History of the 'ls' command](https://tldp.org/LDP/LG/issue48/fischer.html) doesn't offer an answer, but claims it evolved from `listf` on MIT's timeshare system in 1961. [Wikipedia claims](https://en.wikipedia.org/wiki/Ls) its original authors were Richard Stallman and David MacKenzie, and notes that `ls` under that name came about with Unix (which post-dates MIT's CTSS).
+
+Regardless, *none* of those people are known for sitting around shipping updates to `ls`, trying to get new users, get you to make an account for it, etc. `ls` is probably available on almost every full computer system on earth. Anything derivative of UNIX? Yes. Any siblings of UNIX? Likely. Windows? In the WSL somewhere. Smartphones? Android is linux-based, so it'll be in there. iOS is *nix-ish, so it'll be there, too. It's probably literally ubiquitous.
+
+And it just works. It "does its job and stays quiet otherwise." It would never have made it to that level of ubiquity if it was run like a product.
+
+Counter-argument, of course, is those people probably didn't make money off of `ls` directly, and a lot of people *do* want to make money off of their software. That's fine! Just, make actual *products* and make money off those. But if you build a *tool*, you have a choice:
+
+1. Run it like a product, and
+	1. Die a hero (cash out before you burn your userbase away)
+	2. Live long enough to see yourself become the villain (hang on, milk it and enshittify)
+2. Build a useful tool that other builders can rely on
