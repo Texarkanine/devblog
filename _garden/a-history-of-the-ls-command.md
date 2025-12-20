@@ -324,24 +324,24 @@ Further reinforcing that Bill Joy *did* work on `ls` in some capacity. Given tha
 
 ## References
 
-[^1]: Computer History Museum. "The Earliest Unix Code: An Anniversary Source Code Release." *Computer History Museum Blog*, 17 Oct. 2019, <https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/>. ([archive](https://google.com))
+[^1]: Computer History Museum. "The Earliest Unix Code: An Anniversary Source Code Release." *Computer History Museum Blog*, 17 Oct. 2019, <https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/>. ([archive](https://web.archive.org/web/20250817171549/https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/))
 
-[^3]: Ritchie, Dennis M. "The Evolution of the Unix Time-sharing System." Bell Laboratories, Murray Hill, NJ. Originally presented at the Language Design and Programming Methodology conference, Sydney, Australia, Sept. 1979. Reprinted in *AT&T Bell Laboratories Technical Journal*, vol. 63, no. 6, part 2, Oct. 1984, pp. 1577-93. <https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html>. ([archive](https://google.com))
+[^3]: Ritchie, Dennis M. "The Evolution of the Unix Time-sharing System." Bell Laboratories, Murray Hill, NJ. Originally presented at the Language Design and Programming Methodology conference, Sydney, Australia, Sept. 1979. Reprinted in *AT&T Bell Laboratories Technical Journal*, vol. 63, no. 6, part 2, Oct. 1984, pp. 1577-93. <https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html>. ([archive](https://web.archive.org/web/20250928024606/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html))
 
-[^4]: Multics Glossary. "Multics Glossary -A-." *Multicians.org*, <https://multicians.org/mga.html>. ([archive](https://google.com))
+[^4]: Multics Glossary. "Multics Glossary -A-." *Multicians.org*, <https://multicians.org/mga.html>. ([archive](https://web.archive.org/web/20251007073951/https://multicians.org/mga.html))
 
-[^5]: "Compatible Time-Sharing System." *Wikipedia*, <https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System>. ([archive](https://google.com))
+[^5]: "Compatible Time-Sharing System." *Wikipedia*, <https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System>. ([archive](https://web.archive.org/web/20250930135216/https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System))
 
-[^6]: "Multics." *Wikipedia*, <https://en.wikipedia.org/wiki/Multics>. ([archive](https://google.com))
+[^6]: "Multics." *Wikipedia*, <https://en.wikipedia.org/wiki/Multics>. ([archive](https://web.archive.org/web/20251104211910/https://en.wikipedia.org/wiki/Multics))
 
-[^7]: "Ken Thompson." *Wikipedia*, <https://en.wikipedia.org/wiki/Ken_Thompson>. ([archive](https://google.com))
+[^7]: "Ken Thompson." *Wikipedia*, <https://en.wikipedia.org/wiki/Ken_Thompson>. ([archive](https://web.archive.org/web/20250928002215/https://en.wikipedia.org/wiki/Ken_Thompson))
 
-[^8]: "Dennis Ritchie." *Wikipedia*, <https://en.wikipedia.org/wiki/Dennis_Ritchie>. ([archive](https://google.com))
+[^8]: "Dennis Ritchie." *Wikipedia*, <https://en.wikipedia.org/wiki/Dennis_Ritchie>. ([archive](https://web.archive.org/web/20251209212050/https://en.wikipedia.org/wiki/Dennis_Ritchie))
 
-[^9]: Singh, Karandeep. "The Evolution of 'ls': From Early Unix to Modern Linux - A Five-Decade Journey." *Karandeep Singh - DevOps in Calgary*, 10 Mar. 2025, <https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/>. ([archive](https://google.com))
+[^9]: Singh, Karandeep. "The Evolution of 'ls': From Early Unix to Modern Linux - A Five-Decade Journey." *Karandeep Singh - DevOps in Calgary*, 10 Mar. 2025, <https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/>. ([archive](https://web.archive.org/web/20250910204747/https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/))
 
-[^10]: "Ls (Unix)." *Wikipedia*, <en.wikipedia.org/wiki/ls>. ([archive](https://google.com))
+[^10]: "Ls (Unix)." *Wikipedia*, <https://en.wikipedia.org/wiki/ls>. ([archive](https://web.archive.org/web/20250918023259/https://en.wikipedia.org/wiki/Ls))
 
-[^11]: "Research Unix." *Wikipedia*, <https://en.wikipedia.org/wiki/Research_Unix>. ([archive](https://google.com))
+[^11]: "Research Unix." *Wikipedia*, <https://en.wikipedia.org/wiki/Research_Unix>. ([archive](https://web.archive.org/web/20251113073548/https://en.wikipedia.org/wiki/Research_Unix))
 
-[^12]: "Genesis: 1969–1971" *Origins and History of Unix, 1969-1995*, <http://www.catb.org/esr/writings/taoup/html/ch02s01.html>. ([archive](https://google.com))
+[^12]: "Genesis: 1969–1971" *Origins and History of Unix, 1969-1995*, <http://www.catb.org/esr/writings/taoup/html/ch02s01.html>. ([archive](https://web.archive.org/web/20251012111631/http://www.catb.org/esr/writings/taoup/html/ch02s01.html))
