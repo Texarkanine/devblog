@@ -170,7 +170,7 @@ Like its PDP-7 predecessor, the [V1 `ls` was written in assembly language](https
 
 The next major evolutionary leap for `ls` occurred in 1973 with [**Version 4 Unix**](https://gunkies.org/wiki/UNIX_Fourth_Edition). This was the version where the kernel and utilities were rewritten in the **C programming language**. This rewrite was transformative. `ls` ceased to be a PDP-specific assembly program and became a portable C program.
 
-### The struct direct
+### The `struct direct`
 
 In C, the directory entry was defined as a structure, typically found in [sys/dir.h](https://www.tuhs.org/cgi-bin/utree.pl?file=V7/usr/include/sys/dir.h):
 
