@@ -172,7 +172,17 @@ The next major evolutionary leap for `ls` occurred in 1973 with [**Version 4 Uni
 
 ### The struct direct
 
-In C, the directory entry was defined as a structure, typically found in `<sys/dir.h>`. The C implementation of `ls` used the standard I/O library (stdio) or low-level read calls to iterate over these structures. This decoupled the utility from the hardware.
+In C, the directory entry was defined as a structure, typically found in [sys/dir.h](https://www.tuhs.org/cgi-bin/utree.pl?file=V7/usr/include/sys/dir.h):
+
+```c
+struct	direct
+{
+	ino_t	d_ino;
+	char	d_name[DIRSIZ];
+};
+```
+
+The C implementation of `ls` used the standard I/O library (stdio) or low-level read calls to iterate over these structures. This decoupled the utility from the hardware.
 
 ### Authorship Continuity
 
