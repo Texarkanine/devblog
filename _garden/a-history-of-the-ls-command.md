@@ -1,11 +1,13 @@
 ---
 layout: garden
-title: "Who Wrote 'ls'?"
+title: "A History of the 'ls' command"
 tags:
   - history
   - ls
   - unix
 ---
+
+Inspired by the question: "Who *wrote* `ls`?"
 
 TL;DR
 
@@ -15,13 +17,13 @@ TL;DR
 	archive:https://web.archive.org/web/20251219000000/https://www.linuxdoc.org/LDP/LG/issue48/fischer.html
 %}
 
-## Introduction: The Primal Act of Digital Orientation
+## The Primal Act of Digital Orientation
 
 In the vast, intangible geography of the digital universe, the act of orientation is paramount. Before a user can manipulate data, execute a program, or modify a system, they must first understand their location and their surroundings. In the command-line interface (CLI) paradigm, which has dominated computing for over half a century, the primary instrument of this orientation is the command `ls`.
 
 The utility `ls` (an abbreviation for "list"), serves a function analogous to the visual scan of a physical room. It enumerates the contents of a directory, revealing the names, attributes, and hierarchies of the file system. While it appears deceptively simple - a mere printing of strings - the history of `ls` is a microcosm of the history of the operating system itself. Its evolution tracks the migration from batch processing to time-sharing, from 18-bit minicomputers to 64-bit cloud instances, and from the paper-based [teletype](https://en.wikipedia.org/wiki/Teleprinter) to the high-resolution graphical terminal emulator.
 
-Answering the question of the authorship of the first instance of the `ls` utility necessitates a bifurcated answer, separating the *conceptual* origin from the *genetic* origin of the modern tool. While the concept of listing files predates the Unix operating system, having roots in the Compatible Time-Sharing System (CTSS) at MIT, the specific utility named `ls` that sits in the /bin directory of billions of devices today was forged in the laboratories of the Bell System.
+Answering the question of the authorship of the first instance of the `ls` utility necessitates a bifurcated answer, separating the *conceptual* origin from the *genetic* origin of the modern tool. While the concept of listing files predates the Unix operating system, having roots in the [Compatible Time-Sharing System (CTSS)](https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System) at MIT, the specific utility named `ls` that sits in the /bin directory of billions of devices today was forged in the laboratories of the [Bell System](https://en.wikipedia.org/wiki/Bell_System).
 
 The first instance of the Unix `ls` utility was written by [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) in the summer of 1969 at [Bell Labs](https://en.wikipedia.org/wiki/Bell_Labs) in Murray Hill, New Jersey. However, this assertion is layered with complexity. Thompson did not invent the name `ls` - he inherited it from the [Multics](https://en.wikipedia.org/wiki/Multics) project, specifically from a naming convention established by Don Widrig[^4]. Nor did he invent the functionality; that credit belongs to the developers of CTSS and their [`listf` command](https://www.linuxdoc.org/LDP/LG/issue48/fischer.html).
 
@@ -254,7 +256,8 @@ The answer to the question is both singular and plural.
 * **The Concept:** The functionality of listing files interactively originated with the `listf` command at MIT (circa 1961).
 * **The Modern Tool:** The version of `ls` used by most people today (on Linux) is the **GNU** version, authored by Richard Stallman and David MacKenzie.
 
-The `ls` command is a [palimpsest](https://en.wikipedia.org/wiki/Palimpsest) - a manuscript written over previous manuscripts. Beneath the color output of a modern Linux terminal lies the columnation of the BSD hackers, beneath that lies the C structure of Version 4, beneath that the assembly logic of Version 1, and at the very bottom, the keystrokes of Ken Thompson on a PDP-7 teletype, trying to save a few milliseconds of typing in a hot summer in New Jersey... himself recalling the progenitorial `listf` that first appeared some seven years earlier.
+The `ls` command is a [palimpsest](https://en.wikipedia.org/wiki/Palimpsest) - a manuscript written over previous manuscripts. Beneath the color output of a modern Linux terminal lies the columnation of the BSD hackers, beneath that lies the C structure of Version 4, beneath that the assembly logic of Version 1, and at the very bottom, the keystrokes of Ken Thompson on a PDP-7 teletype, trying to save a few milliseconds of typing in a hot summer in New Jersey... himself recalling the progenitorial `listf` that first appeared some seven years earlier on the CTSS at MIT.
+
 
 ## Appendix A: Bill Joy & Multi-Column `ls`
 
