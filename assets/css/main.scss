@@ -3,3 +3,86 @@
 
 @use "no-style-please";
 @use "highlight-cards";
+
+/* Light mode */
+:root {
+	--body-bg: auto;
+	--body-color: auto;
+ }
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--body-bg: #FFFFFF;
+		--body-color: #000000;
+	}
+}
+ 
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--body-bg: #090909;
+		--body-color: #FFA500;
+		--link-color: #FFD580; /* warm pale amber */
+	}
+}
+
+body {
+	background-color: var(--body-bg);
+	color: var(--body-color);
+}
+
+/* Subtle CRT glow effect for dark mode, and link/code styles */
+@media (prefers-color-scheme: dark) {
+	body {
+		/* dialed-back CRT glow */
+		text-shadow:
+			0 0 1.5px var(--body-color),
+			0 0 2.5px rgba(255, 165, 0, 0.3);
+	}
+
+	a {
+		color: var(--link-color);
+		text-shadow: 0 0 2px var(--body-color), 0 0 4px rgba(255, 165, 0, 0.2);
+		transition: color 0.2s;
+	}
+
+	a:visited {
+		color: #CC6600; /* darker burnt orange, not too red */
+		text-shadow: 0 0 2px #CC6600, 0 0 4px rgba(204, 102, 0, 0.3);
+	}
+
+	/* Target styling - orange theme instead of default yellow */
+	:target {
+		background-color: rgba(255, 165, 0, 0.15); /* subtle orange tint */
+		outline: 2px solid rgba(255, 165, 0, 0.4);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
+	/* Invert code blocks – orange glow bg, black text */
+	pre, code, .highlight {
+		background: var(--body-color);
+		color: var(--body-bg);
+		text-shadow: none;
+	}
+
+	blockquote, .polaroid {
+		border-color: var(--link-color);
+		background-color: unset;
+	}
+
+	table, th, td {
+		border-color: var(--link-color);
+	}
+
+	/* Text selection - dark background with faint orange tint */
+	::selection {
+		background-color: rgba(255, 165, 0, 0.2); /* dark with faint orange */
+		color: var(--body-color);
+	}
+
+	::-moz-selection {
+		background-color: rgba(255, 165, 0, 0.2); /* Firefox */
+		color: var(--body-color);
+	}
+}
