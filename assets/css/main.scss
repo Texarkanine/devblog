@@ -6,15 +6,8 @@
 
 /* Light mode */
 :root {
-	--body-bg: auto;
-	--body-color: auto;
- }
-
-@media (prefers-color-scheme: light) {
-	:root {
-		--body-bg: #FFFFFF;
-		--body-color: #000000;
-	}
+	--body-bg: #FFFFFF;
+	--body-color: #000000;
 }
  
 /* Dark mode */
