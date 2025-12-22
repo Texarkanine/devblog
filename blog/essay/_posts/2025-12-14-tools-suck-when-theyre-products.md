@@ -3,6 +3,8 @@ layout: post
 title: "Tools Suck When They're Products"
 author: texarkanine
 tags:
+  - product management
+  - software development
   - tools
 ---
 
@@ -65,9 +67,13 @@ Specific examples notwithstanding, web browsers' single purpose ("browse the web
 	archive:https://web.archive.org/web/20251214040814/https://kb.feval.ca/engineering/design/law-of-implicit-interface.html
 %}
 
+## What to Do?
+
 So, when it comes time to spruce up the web browser *product* and make a change... how do you do that nondisruptively?
 
-## Let Them Eat Cake?
+### Option 0: Let Them Eat Cake!
+
+Or, *"No, it's the users that are wrong!*
 
 When someone is upset because of changes to a software tool, the peanut gallery often has responses ready:
 
@@ -90,13 +96,13 @@ The changes impose a cost on the complainers that they have not budgeted for. Ev
 
 So, how **do** you make changes to a software tool without inconveniencing the people who use it?
 
-## Just Don't
+### Option 1: Just Don't
 
 `Hyrum's Law`: Once you've got a tool out there and it's got behaviors and features and buttons in places, people start building on top of those. If you shake up your "software product," you risk toppling the things they've built. It's just as absurd as breaking into a blacksmith's workshop overnight and changing the shape and size of the anvil, tongs, and hammer. It doesn't matter what you change them to, even if it's an objectively better design - you've *interrupted* their workflow. 
 
 That's what software updates are to software tools. That sort of breaking-and-entering is usually infeasible and criminal in the real world but in the world of software, it's easy and commonplace.
 
-### Why Not Though?
+#### Why Not Though?
 
 I said previously,
 
@@ -114,7 +120,7 @@ Because tools have such varying use-patterns, though, your first 10 changes aren
 
 Now you're in a stagnant holding pattern: to attract new users, you are used to making changes. Each change you make will push a new user away and *must* pull in a new one. You're now not growing anymore. You've saturated the upheaveal threshold of your userbase and the techniques you had been using - *product development* - no longer work. You can do more of it, and it will just burn your resources without growth.
 
-## It Can Get Worse
+#### It Can Get Worse
 
 When products reach that stagnant holding pattern, they get desperate for revenue. It's not available from growth anymore, so the inevitable happens...
 
@@ -136,7 +142,7 @@ This results in actual capability degradations, and
 
 programs that want you to make an account, give an e-mail, download an update, etc. These "needy programs" are what happens when tool-makers who think their tool **is** the goal come face-to-face with reality. **No**. Nobody wants to use your tool. They want to use your tool *for* something, and you've demonstrated that your tool is not reliable enough for that. That means your tool is useless.
 
-## Be like `ls`
+### Option 2: Be like `ls`
 
 Tonsky says:
 
@@ -152,15 +158,36 @@ That's one of the outcomes you'll get if you follow the `Unix Philosophy` when b
 	archive:https://web.archive.org/web/20251212040814/https://cscie2x.dce.harvard.edu/hw/ch01s06.html
 %}
 
-Who wrote `ls`? Honestly, I'm not sure. [A Brief History of the 'ls' command](https://tldp.org/LDP/LG/issue48/fischer.html) doesn't offer an answer, but claims it evolved from `listf` on MIT's timeshare system in 1961. [Wikipedia claims](https://en.wikipedia.org/wiki/Ls) its original authors were Richard Stallman and David MacKenzie, and notes that `ls` under that name came about with Unix (which post-dates MIT's CTSS).
-
-Regardless, *none* of those people are known for sitting around shipping updates to `ls`, trying to get new users, get you to make an account for it, etc. `ls` is probably available on almost every full computer system on earth. Anything derivative of UNIX? Yes. Any siblings of UNIX? Likely. Windows? In the WSL somewhere. Smartphones? Android is linux-based, so it'll be in there. iOS is *nix-ish, so it'll be there, too. It's probably literally ubiquitous.
+[Who wrote `ls`, anyway?](/garden/a-history-of-the-ls-command.html) Turns out a bunch of people were involved, but *none* of those people are known for sitting around shipping updates to `ls`, with the goal of trying to get new users, get them to make an account for it, get them to subscribe, etc. `ls` is probably available on almost every full computer system on earth. Anything derivative of UNIX? Yes. Any siblings of UNIX? Likely. Windows? In the WSL somewhere. Smartphones? Android is linux-based, so it'll be in there. iOS is *nix-ish, so it'll be there, too. It's probably literally ubiquitous.
 
 And it just works. It "does its job and stays quiet otherwise." It would never have made it to that level of ubiquity if it was run like a product.
 
-Counter-argument, of course, is those people probably didn't make money off of `ls` directly, and a lot of people *do* want to make money off of their software. That's fine! Just, make actual *products* and make money off those. But if you build a *tool*, you have a choice:
+Counter-argument, of course, is those people probably didn't make money off of `ls` directly, and a lot of people *do* want to make money off of their software. That's fine! Just, make actual *products* and make money off those. But if you want to build a *tool*...
 
-1. Run it like a product, and
-	1. Die a hero (cash out before you burn your userbase away)
-	2. Live long enough to see yourself become the villain (hang on, milk it and enshittify)
-2. Build a useful tool that other builders can rely on
+### Option 3: Build Tools that Respect Builders
+
+The sweet spot is the spirit of [Semantic Versioning](https://semver.org/).
+
+#### 1. Be A Lot Bettter
+
+Make sure that the change to the tool is actually objectively better for users, and by a good deal.
+
+* ❌ Just-as-good, but different
+* ❌ Only slightly better
+
+Remember, you're going to *interrupt* people's workflows with your demand for their attention. You will burn goodwill if you don't make it worth the effort!
+
+#### 2. Hold Their Hands
+
+Plan to walk users through the changes - don't just leave them to figure it out on their own. Have an interactive walkthrough that highlights major changes. It's the **changes**, not the new features, that you need to call out.
+
+#### 3. Phased Rollout
+
+Gradually introduce the change to users, giving them every opportunity to engage with the changes on *their* terms.
+
+1. Deployed, opt-in. Users see a small *non-modal* notification about the change that invites them to try it. A banner across the top or something - something they can fully ignore with no consequences. Something that does *not* demand their attention when they opened the software tool to get something done. Clicking takes them to the walkthrough.
+2. Deployed, opt-in. Users start receiving modal/pop-up notifications that the change will automatically apply after a given date. Clicking takes them to the walkthrough.
+3. Deployed, opt-out. Users are greeted with the walkthrough when they first open the tool after the change from opt-in to opt-out. **This** walkthrough ends with an option to opt-out, with a reminder of the date after which the change will be permanent.
+4. Fully deployed, old configuration is gone.
+
+You might be thinking that that sounds like a lot of work for what might be a small improvement or change to your tool. You would be right; see the first step above: You don't do this for minor changes. You let them stack up until the onslaught of change is worthy of your users actually context-switching into learning about it. That's how you avoid creating a userbase that's constantly annoyed by minor changes every time they use your tool.
