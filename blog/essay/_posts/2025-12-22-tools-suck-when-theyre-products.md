@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Tools Suck When They're Products"
+description: Tools are not products and building them *like* products results in bad tools. Nobody actually wants to use tools. They want the *result* of using the tool.
 author: texarkanine
 tags:
   - product management
