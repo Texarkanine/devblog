@@ -79,7 +79,7 @@ So, when it comes time to spruce up the web browser (or other software tool) *pr
 When someone is upset because of changes to a software tool, the peanut gallery often has responses ready:
 
 * "the new website layout is different"
-	* But it's actually a better-thought out design, see...
+	* But it's actually a better-thought-out design, see...
 * "they moved all the menu items around in the application I was using"
 	* But they're all still there, what's the problem?
 	* Why not switch to (other similar software) if you hate it so much?
