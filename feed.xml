@@ -1,4 +1,265 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-21T06:19:44+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Hook-Based Local Mode for ai-rizz</title><link href="https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz.html" rel="alternate" type="text/html" title="Hook-Based Local Mode for ai-rizz" /><published>2025-12-12T00:00:00+00:00</published><updated>2025-12-12T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz.html"><![CDATA[<p>Recent Cursor builds on Mac <a href="https://forum.cursor.com/t/cursor-2-1-50-ignores-rules-in-git-info-exclude-on-mac-not-on-windows-wsl/145695/4">ignore all git-ignored files</a>, including those in <code class="language-plaintext highlighter-rouge">.git/info/exclude</code>. This broke <a href="https://github.com/texarkanine/ai-rizz">ai-rizz</a>’s local mode, which relies on <code class="language-plaintext highlighter-rouge">.git/info/exclude</code> to keep personal rules out of commits while making them visible to Cursor.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2025-12-23T03:03:46+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Tools Suck When They’re Products</title><link href="https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.html" rel="alternate" type="text/html" title="Tools Suck When They’re Products" /><published>2025-12-22T00:00:00+00:00</published><updated>2025-12-22T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.html"><![CDATA[<h2 id="thesis">Thesis</h2>
+
+<blockquote>
+  <p>Tools are not products and building them <em>like</em> products results in bad tools.</p>
+</blockquote>
+
+<p><strong>Corollary</strong></p>
+
+<blockquote>
+  <p>Nobody actually wants to use tools. They want the <em>result</em> of using the tool.</p>
+</blockquote>
+
+<h2 id="different-lifecycles">Different Lifecycles</h2>
+
+<p>Tools become <em>dependencies</em> in people’s lives. If something goes wrong with a tool, the stuff downstream gets interrupted.</p>
+
+<p>Products - as used here - are leaf nodes, the “end of the line” - they’re where people want to be. If something goes wrong with a product, it can often be quite tolerable. Even if it’s not, they can just use a different product and nothing <em>downstream</em> of that has to change. The impact starts and ends with that single experience.</p>
+
+<p>If I want to watch a fun movie and I sit down at my TV and the movie I picked turns out to be really bad… well, that’s a <em>bad product</em>. I can always turn it off, or watch a fun show instead, or play a video game.</p>
+
+<p>If, however, I sit down and my <strong>TV</strong> doesn’t work, now I’m stuck. The product I wanted - the movie - isn’t even an option, <em>and neither are alternatives</em>. I can’t watch a different movie, nor watch a show, nor play a video game. My goal was <strong>dependent</strong> on the tool and when the tool fails it is much more disruptive than a simple “bad product” like a bad movie.</p>
+
+<h2 id="physical-products">“Physical” Products</h2>
+
+<p>Arguably, everything except leisure pursuits are tool uses. This is an important insight! Tool use is what humans do; we build tools to abstract processes so that we can get outcomes quicker, more reliably, and more efficiently.</p>
+
+<p>Refrigerators and microwaves make it really easy to get a warm meal. They’re tools. I <em>never</em> go to use my refrigerator solely for the joy of witnessing refrigeration. I go because I want something that it’s done for me - kept food fresh and cold. Maybe I pop it in the microwave to heat it up - not because I like watching electromagnetic radiation of that particular wavelength, but because I want a warm meal.</p>
+
+<p>This distinction is relatively easy to draw in the physical world. It can be less-obvious in the digital world.</p>
+
+<p>Your computer… is it a tool? Almost certainly, though the outcomes it offers are usually <em>themselves</em> tools too: you can run other pieces of software on it. Some will be games, which, if played for entertainment, would qualify as products. Inside the tool of a video player you might find the <em>product</em> of a movie. A web browser, though? That’s <em>another</em> layer of tooling, and if you load up an e-mail service, that’s <em>another</em> layer… Tools all the way down, until you <em>finally</em> get to the raison d’être of the tool: somewhere, a deep, buried <em>product</em> you want to <em>experience</em>.</p>
+
+<h2 id="the-siren-call-of-product-management">The Siren Call of Product Management</h2>
+
+<p>The techniques, processes, and dare I say, <em>tools</em> that are useful in building and delivering good products <em>also</em> work very well for getting digital artifacts out the door. Sometimes the artifact is indeed a product, like a movie, a video game, a book, song, etc.</p>
+
+<p>But sometimes it’s <em>not</em> - even though on the surface the following look and <em>can</em> be produced similarly:</p>
+
+<ul>
+  <li>An executable file that, when launched, presents a video game</li>
+  <li>An executable file that, when launched, presents a code editor</li>
+</ul>
+
+<p>The first is a product, and the second is a tool. After each one is initially released, the <em>ongoing</em> treatment that results in <em>continued success</em> is different.</p>
+
+<h3 id="products-forgive-change">Products Forgive Change</h3>
+
+<p>People like it when there are new products that are better. People especially like it if a product they already own gets better. In the world of leaf-node products, “better” is usually fairly clear-cut. The product has a purpose, and turning the knob up on how well it delivers, is better.</p>
+
+<p>You liked a funny movie? We released a new one that’s more of that, and also funnier. You like that song? We have a whole album of songs like it. You liked that video game? We fixed a bunch of bugs and improved the framerate. Clearly better.</p>
+
+<h3 id="tools-dont-forgive-change">Tools Don’t Forgive Change</h3>
+
+<p>Tools sit in the middle of people’s workflows. While many people may have many aspects of their workflows in common, there are many opportunities for personal preference and individual circumstances to enter the equation. So, a tool that’s “for X” may be used in significantly different ways by different people.</p>
+
+<p>Web Browsers are a great example: They’re a tool “for browsing the internet.” But one person might be big into browser-based games, and want a Flash plugin, WebGL support, Websockets, and GPU acceleration. A researcher at a university, though, would probably be much more concerned about compatibility with e-mail &amp; legacy academic systems, bookmarks (preserving and/or sharing across devices) and perhaps VPN support.</p>
+
+<p>Specific examples notwithstanding, web browsers’ single purpose (“browse the web”) belies a myriad of features and capabilities that result in no single pattern of use. It can be difficult to make a change to a browser that’s better <em>for everyone</em>. The more things a tool does, the greater the chance that any change at all will be a detriment to <em>someone</em>.</p>
+
+<blockquote class="link-card">
+  
+  <h1>Hyrum&#39;s Law, or The Law of Implicit Interfaces</h1>
+  
+  <a href="https://kb.feval.ca/engineering/design/law-of-implicit-interface.html" target="_blank" rel="noopener">kb.feval.ca/engineering/design/law-of-implicit-interface.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251214040814/https://kb.feval.ca/engineering/design/law-of-implicit-interface.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<h2 id="what-to-do">What to Do?</h2>
+
+<p>So, when it comes time to spruce up the web browser (or other software tool) <em>product</em> and make a change… how do you do that nondisruptively?</p>
+
+<h3 id="option-0-let-them-eat-cake">Option 0: Let Them Eat Cake!</h3>
+
+<blockquote>
+  <p>“No, it’s the users who are wrong!</p>
+</blockquote>
+
+<p>When someone is upset because of changes to a software tool, the peanut gallery often has responses ready:</p>
+
+<ul>
+  <li>“the new website layout is different”
+    <ul>
+      <li>But it’s actually a better-thought-out design, see…</li>
+    </ul>
+  </li>
+  <li>“they moved all the menu items around in the application I was using”
+    <ul>
+      <li>But they’re all still there, what’s the problem?</li>
+      <li>Why not switch to (other similar software) if you hate it so much?</li>
+    </ul>
+  </li>
+  <li>“they removed one (of the several hundred) of capabilities of this piece of software I was using”
+    <ul>
+      <li>But everything else is still there, that’s like 1% of what it does!</li>
+      <li>Hardly anyone used that anyway, it’s better for the authors to stop spending time on it!</li>
+    </ul>
+  </li>
+</ul>
+
+<p>All of which miss the point - which may be understandable, as the complainers themselves may have been gaslit into engaging with the software as if it were a product offered to them, too!</p>
+
+<p>The <em>point</em> of all the complaints is</p>
+
+<blockquote>
+  <p>I had been using this <strong>tool</strong> to achieve X, and now I have to go invest additional time and effort to figure out how to keep achieving the same old X.</p>
+</blockquote>
+
+<p>The changes impose a cost on the complainers that they have not budgeted for. Even if there is a real benefit to be had, <em>it wasn’t in the budget</em> of time and attention. That’s what they’re upset about.</p>
+
+<p>So, how <strong>do</strong> you make changes to a software tool without inconveniencing the people who use it?</p>
+
+<h3 id="option-1-just-dont">Option 1: Just Don’t</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Hyrum's Law</code>: Once you’ve got a tool out there and it’s got behaviors and features and buttons in places, people start building on top of those. If you shake up your “software product,” you risk toppling the things they’ve built. It’s just as absurd as breaking into a blacksmith’s workshop overnight and changing the shape and size of the anvil, tongs, and hammer. It doesn’t matter what you change them to, even if it’s an objectively better design - you’ve <em>interrupted</em> their workflow.</p>
+
+<p>That’s what software updates are to software tools. That sort of breaking-and-entering is usually infeasible and criminal in the real world but in the world of software, it’s easy and commonplace.</p>
+
+<h4 id="why-not-though">Why Not Though?</h4>
+
+<p>I said previously,</p>
+
+<blockquote>
+  <p>The more things a tool does, the greater the chance that any change at all will be a detriment to <em>someone</em>.</p>
+</blockquote>
+
+<p>It’s also true that</p>
+
+<blockquote>
+  <p>The more you change what a tool does, the greater the chance that you’ll entice a new user to use it.</p>
+</blockquote>
+
+<p>After all, if they weren’t already using it, maybe this new thing or change will make it appealing-enough for them to start! At least, that’s the Product and Marketing angle.</p>
+
+<p>When you combine these things, you burn a different set of users with each change, and pull in a new set of users with each change. If your tool was actually good-enough to attract users, a small burn from one nuisance change may not drive them away. Two such burns might not. But eventually, you’ll reach a tipping point.</p>
+
+<p>Because tools have such varying use-patterns, though, your first 10 changes aren’t all going to burn the same user 10 times - it will be distributed across your userbase. You’ll see new users show up for each of the 10 changes and very little churn, and then it’ll look like your <em>product</em> is improving! But then you’ll hit enough changes that you’ve burnt people enough that they start to leave. You make that 11th change and finally some people are fed up and leave. They’re replaced by new users who were enticed by that 11th change though, so it doesn’t look disastrous yet. But then you make the 12th change, and another set of users leave, hopefully replaced again.</p>
+
+<p>Now you’re in a stagnant holding pattern: to attract new users, you are used to making changes. Each change you make will push away a long-time user who has finally had enough, and pull in a new one. Now you’re not growing anymore. You’ve saturated the upheaveal threshold of your userbase and the techniques you had been using - <em>product development</em> - no longer work. You can do more of it, and it will just burn your resources without growth.</p>
+
+<h4 id="it-can-get-worse">It Can Get Worse</h4>
+
+<p>When products reach that stagnant holding pattern, they get desperate for revenue. It’s not available from growth anymore, so the inevitable happens…</p>
+
+<blockquote class="link-card">
+  
+  <h1>Social Quitting - where &#39;enshittification&#39; was coined</h1>
+  
+  <a href="https://doctorow.medium.com/social-quitting-1ce85b67b456" target="_blank" rel="noopener">doctorow.medium.com/social-quitting-1ce85b67b456</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://archive.ph/uBvd9" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<blockquote>
+  <p>When switching costs are high, services can be changed in ways that you dislike without losing your business. The higher the switching costs, the more a company can abuse you, because it knows that as bad as they’ve made things for you, you’d have to endure worse if you left.</p>
+</blockquote>
+
+<p>This results in actual capability degradations, and</p>
+
+<blockquote class="link-card">
+  
+  <h1>Needy Programs @ tonsky.me</h1>
+  
+  <a href="https://tonsky.me/blog/needy-programs/" target="_blank" rel="noopener">tonsky.me/blog/needy-programs</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251212040814/https://tonsky.me/blog/needy-programs/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<p>programs that want you to make an account, give an e-mail, download an update, etc. These “needy programs” are what happens when tool-makers who think their tool <strong>is</strong> the goal come face-to-face with reality. They see people dissatisfied with their tool, abandoning it, and they apply the thumbscrews of enshittification. <strong>No</strong>. Nobody wants to use your tool. Nobody ever <em>wanted</em> to use your tool. They want to use your tool <em>for</em> something, and you’ve demonstrated that your tool is not reliable enough for that. That means your tool is useless. Offering a subscription to a “product tips” newsletter isn’t going to fix that.</p>
+
+<h3 id="option-2-be-like-ls">Option 2: Be like <code class="language-plaintext highlighter-rouge">ls</code></h3>
+
+<p>Tonsky says:</p>
+
+<blockquote>
+  <blockquote>
+    <p><em><code class="language-plaintext highlighter-rouge">ls</code> never asks you to create an account or to update.</em></p>
+  </blockquote>
+
+  <p>I agree. <code class="language-plaintext highlighter-rouge">ls</code> is a good program. <code class="language-plaintext highlighter-rouge">ls</code> is a tool. It does what I need it to do and stays quiet otherwise. I use it; it doesn’t use me.</p>
+</blockquote>
+
+<p>That’s one of the outcomes you’ll get if you follow the <code class="language-plaintext highlighter-rouge">Unix Philosophy</code> when building things.</p>
+
+<blockquote class="link-card">
+  
+  <h1>Unix Philosophy @ Harvard CS201</h1>
+  
+  <a href="https://cscie2x.dce.harvard.edu/hw/ch01s06.html" target="_blank" rel="noopener">cscie2x.dce.harvard.edu/hw/ch01s06.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251212040814/https://cscie2x.dce.harvard.edu/hw/ch01s06.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<p><a href="/garden/a-history-of-the-ls-command.html">Who wrote <code class="language-plaintext highlighter-rouge">ls</code>, anyway?</a> Turns out a bunch of people were involved, but <em>none</em> of those people are known for sitting around shipping updates to <code class="language-plaintext highlighter-rouge">ls</code>, with the goal of trying to get new users, get them to make an account for it, get them to subscribe, etc. <code class="language-plaintext highlighter-rouge">ls</code> is probably available on almost every full computer system on earth. Anything derivative of UNIX? Yes. Any siblings of UNIX? Likely. Windows? In the WSL somewhere. Smartphones? Android is linux-based, so it’ll be in there. iOS is *nix-ish, so it’ll be there, too. It’s probably literally ubiquitous.</p>
+
+<p>And it just works. It “does its job and stays quiet otherwise.” It would never have made it to that level of ubiquity if it was run like a product.</p>
+
+<p>Counter-argument, of course, is those people probably didn’t make money off of <code class="language-plaintext highlighter-rouge">ls</code> directly, and a lot of people <em>do</em> want to make money off of their software. That’s fine! Just, make actual <em>products</em> and make money off those. But if you want to build a <em>tool</em>…</p>
+
+<h3 id="option-3-build-tools-that-respect-builders">Option 3: Build Tools that Respect Builders</h3>
+
+<p>The sweet spot is the spirit of <a href="https://semver.org/">Semantic Versioning</a>.</p>
+
+<h4 id="1-be-a-lot-better">1. Be A Lot Better</h4>
+
+<p>Make sure that the change to the tool is actually objectively better for users, and by a good deal.</p>
+
+<ul>
+  <li>❌ Just-as-good, but different</li>
+  <li>❌ Only slightly better</li>
+</ul>
+
+<p>Remember, you’re going to <em>interrupt</em> people’s workflows with your demand for their attention. You will burn goodwill if you don’t make it worth the effort!</p>
+
+<blockquote>
+  <p>It’s not enough for a new product simply to be better. Unless the gains far outweigh the losses, consumers will not adopt it.</p>
+</blockquote>
+
+<blockquote class="link-card">
+  
+  <h1>Eager Sellers and Stony Buyers - Understanding the Psychology of New-Product Adoption</h1>
+  
+  <a href="https://web.mit.edu/mamd/www/tech_strat/courseMaterial/topics/topic4/readings/Eager_Sellers_and_Stony_Buyers/Eager_Sellers_and_Stony_Buyers.pdf/Eager_Sellers_and_Stony_Buyers.pdf" target="_blank" rel="noopener">web.mit.edu/mamd/www/tech_strat/courseMaterial/topics/topic4/readings/Eager_Sellers_and_Stony_Buyers/Eager_Sellers_and_Stony_Buyers.pdf/Eager_Sellers_and_Stony_Buyers.pdf</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251212040814/https://web.mit.edu/mamd/www/tech_strat/courseMaterial/topics/topic4/readings/Eager_Sellers_and_Stony_Buyers/Eager_Sellers_and_Stony_Buyers.pdf/Eager_Sellers_and_Stony_Buyers.pdf" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<h4 id="2-hold-their-hands">2. Hold Their Hands</h4>
+
+<p>Plan to walk users through the changes - don’t just leave them to figure it out on their own. Have an interactive walkthrough that highlights major changes. It’s the <strong>changes</strong>, not the new features, that you need to call out.</p>
+
+<p>You can pitch your <em>new</em> features in marketing copy targeted at new users. You also need to offer to hand-hold your existing users through the <em>disruption</em> you’re introducing. These are two different audiences - do not forget that!</p>
+
+<h4 id="3-phased-rollout">3. Phased Rollout</h4>
+
+<p>Gradually introduce the change to users, giving them every opportunity to engage with the changes on <em>their</em> terms.</p>
+
+<ol>
+  <li><strong>Deployed, opt-in.</strong> Users see a small <em>non-modal</em> notification about the change that invites them to try it. A banner across the top or something - something they can fully ignore with no consequences. Something that does <em>not</em> demand their attention when they opened the software tool to get something done. Clicking takes them to the walkthrough.</li>
+  <li><strong>Deployed, opt-in.</strong> Users start receiving modal/pop-up notifications that the change will automatically apply after a given date. Clicking takes them to the walkthrough.</li>
+  <li><strong>Deployed, opt-out.</strong> Users are greeted with the walkthrough when they first open the tool after the change from opt-in to opt-out. <strong>This</strong> walkthrough ends with an option to opt-out, with a reminder of the date after which the change will be permanent.</li>
+  <li><strong>Fully deployed</strong>, old configuration is gone.</li>
+</ol>
+
+<p>You might be thinking that that sounds like a lot of work for what could be a small improvement or change to your tool. You would be right; see the first step above: You <strong>don’t ship minor changes to a tool</strong>. You let them stack up until the onslaught of change is worthy of your users actually context-switching into learning about it. That’s how you avoid creating a userbase that’s constantly annoyed by minor changes every time they use your tool.</p>
+
+<p>But also, once you build that <em>once</em> and integrate it with whatever feature-flag tech you’re using, the only real work is making that tutorial. And if you can’t be bothered to write documentation for your long-time users, your tool’s probably doomed regardless.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="product-management" /><category term="software-development" /><category term="tools" /><summary type="html"><![CDATA[Tools are not products and building them *like* products results in bad tools. Nobody actually wants to use tools. They want the *result* of using the tool.]]></summary></entry><entry><title type="html">Hook-Based Local Mode for ai-rizz</title><link href="https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz.html" rel="alternate" type="text/html" title="Hook-Based Local Mode for ai-rizz" /><published>2025-12-12T00:00:00+00:00</published><updated>2025-12-12T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/12/hook-based-local-mode-for-ai-rizz.html"><![CDATA[<p>Recent Cursor builds on Mac <a href="https://forum.cursor.com/t/cursor-2-1-50-ignores-rules-in-git-info-exclude-on-mac-not-on-windows-wsl/145695/4">ignore all git-ignored files</a>, including those in <code class="language-plaintext highlighter-rouge">.git/info/exclude</code>. This broke <a href="https://github.com/texarkanine/ai-rizz">ai-rizz</a>’s local mode, which relies on <code class="language-plaintext highlighter-rouge">.git/info/exclude</code> to keep personal rules out of commits while making them visible to Cursor.</p>
 
 <p>The fix: a <code class="language-plaintext highlighter-rouge">--hook-based-ignore</code> flag that uses a pre-commit hook instead of git excludes.</p>
 
@@ -533,7 +794,7 @@ ai-rizz add rule my-rule.mdc <span class="nt">--local</span>
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.udulpjj8lnv1q9jrd-zcxxl { display: inline-block; }</style><script>(function(){function yxits46sp(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function wiv0nh01anv4itw(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var yw9btmy=sp.getAttribute('data-qvvjukxcucr');var zvyptssxnig=sp.getAttribute('data-bml0filt9ye');var wflbu2uvjzmf=sp.getAttribute('data-txskabgkt2e');var cyg7nahwhj=sp.getAttribute('data-lu0gkrla');var mailto=yxits46sp(yw9btmy,spParts[0].length);var user=yxits46sp(zvyptssxnig,spParts[1].length);var domainBase=yxits46sp(wflbu2uvjzmf,lnkParts[0].length);var tld=yxits46sp(cyg7nahwhj,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function jo2amv4cw(){var els=document.querySelectorAll('a.h0wpnkxy-luzkffftq205rzr');var handler=function(){var sp=this.querySelector('span.udulpjj8lnv1q9jrd-zcxxl');if(sp&&!this.dataset.d){var val=wiv0nh01anv4itw(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',jo2amv4cw);}else{jo2amv4cw();}})();</script><a href="#" class="h0wpnkxy-luzkffftq205rzr"><span class="udulpjj8lnv1q9jrd-zcxxl" data-qvvjukxcucr="drzckf" data-bml0filt9ye="WJIFHYJI" data-txskabgkt2e="xzwbwvuiqt" data-lu0gkrla="rdb">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.oxkbh6fh-oerphvz4xg7v { display: inline-block; }</style><script>(function(){function mi4qesi6v1vyl(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function opg1f0kh5cb(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var kgdj5ju=sp.getAttribute('data-sglngkgob8jd');var s3vhbcucn=sp.getAttribute('data-isttmoo2gzvi');var tbyyyo9yj=sp.getAttribute('data-vg7cqfdz');var xv9k96xi=sp.getAttribute('data-xnqhtmu');var mailto=mi4qesi6v1vyl(kgdj5ju,spParts[0].length);var user=mi4qesi6v1vyl(s3vhbcucn,spParts[1].length);var domainBase=mi4qesi6v1vyl(tbyyyo9yj,lnkParts[0].length);var tld=mi4qesi6v1vyl(xv9k96xi,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function mp1djtiiq5ep(){var els=document.querySelectorAll('a.mers7tptrh-ke3c6x8pwovnk');var handler=function(){var sp=this.querySelector('span.oxkbh6fh-oerphvz4xg7v');if(sp&&!this.dataset.d){var val=opg1f0kh5cb(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',mp1djtiiq5ep);}else{mp1djtiiq5ep();}})();</script><a href="#" class="mers7tptrh-ke3c6x8pwovnk"><span class="oxkbh6fh-oerphvz4xg7v" data-sglngkgob8jd="uiqtbw" data-isttmoo2gzvi="DQPMOFQP" data-vg7cqfdz="zbydyxwksv" data-xnqhtmu="pbz">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
@@ -1072,7 +1333,7 @@ This will cause DigitalOcean’s gateway (which is front of my nginx) to interce
 <h2 id="what-are-they-for-anyway">What Are They For, Anyway?</h2>
 
 <p>While I was stewing over how to possibly make this work, I had an epiphany: <strong>I don’t have a use-case for Cursor Commands, anway!</strong>
-You can go read about why, <a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">here</a>.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Cursor introduced “Slash Commands” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - Agent Skills - for a long time.]]></summary></entry><entry><title type="html">The Usen’t Case for AI Coding Agent Slash Commands</title><link href="https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html" rel="alternate" type="text/html" title="The Usen’t Case for AI Coding Agent Slash Commands" /><published>2025-11-24T00:00:00+00:00</published><updated>2025-11-24T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html"><![CDATA[<p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a <a href="https://code.claude.com/docs/en/slash-commands">similar thing</a> - for a long time.</p>
+You can go read about why, <a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">here</a>.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Cursor introduced “Slash Commands” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - Agent Skills - for a long time.]]></summary></entry><entry><title type="html">The Usen’t Case for AI Coding Agent Slash Commands</title><link href="https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html" rel="alternate" type="text/html" title="The Usen’t Case for AI Coding Agent Slash Commands" /><published>2025-11-24T00:00:00+00:00</published><updated>2025-11-24T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html"><![CDATA[<p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a <a href="https://code.claude.com/docs/en/slash-commands">similar thing</a> for a long time.</p>
 
 <h1 id="thesis">Thesis</h1>
 
@@ -1158,151 +1419,4 @@ You can go read about why, <a href="/2025/11/24/usent-case-for-ai-coding-agent-s
 
 <p>🪄 Oh, we have that! It’s called a <strong>Tool</strong>. You might know them from <a href="https://modelcontextprotocol.io/specification/2025-03-26">Model Context Protocol (MCP)</a>.</p>
 
-<p>Don’t waste your time with coding agent slash-commands that bind to textual prompts.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Cursor introduced “Slash Commands” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - for a long time.]]></summary></entry><entry><title type="html">I Built a Logging Server to Log a Serverless Site</title><link href="https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs.html" rel="alternate" type="text/html" title="I Built a Logging Server to Log a Serverless Site" /><published>2025-11-23T00:00:00+00:00</published><updated>2025-11-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs.html"><![CDATA[<p>I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But <a href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform">DigitalOcean’s static site hosting</a>, elegant in its simplicity, doesn’t generate them. To get visibility into who visits my blog, I’d need to build my own logging infrastructure.</p>
-
-<p>The plan: deploy <a href="https://opensearch.org/">OpenSearch</a> on my home server, forward logs from DigitalOcean, and build dashboards to analyze traffic. Simple enough.</p>
-
-<h2 id="the-first-lesson-storage">The First Lesson: Storage</h2>
-
-<p>OpenSearch runs best in Docker. The official images provide everything needed - just add a <code class="language-plaintext highlighter-rouge">docker-compose.yaml</code> and go. I specified named volumes for data persistence:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">volumes</span><span class="pi">:</span>
-  <span class="s">opensearch-data:/usr/share/opensearch/data</span>
-</code></pre></div></div>
-
-<p>This looks clean, but named Docker volumes live in <code class="language-plaintext highlighter-rouge">/var/lib/docker/volumes/</code> by default. My root partition was already 47% full; my <code class="language-plaintext highlighter-rouge">/data</code> partition had 196GB free. And <code class="language-plaintext highlighter-rouge">/data</code> is a RAID array. I needed bind mounts instead:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">volumes</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="s">/data/opensearch/data:/usr/share/opensearch/data</span>
-</code></pre></div></div>
-
-<h2 id="the-user-permission-problem">The User Permission Problem</h2>
-
-<p>I run services on my home server as specific users, not as root or random UIDs. OpenSearch runs as UID 1000 inside its container. UID 1000 on my system is a real user who shouldn’t have access to OpenSearch data. The solution seemed obvious:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
-  <span class="na">opensearch</span><span class="pi">:</span>
-    <span class="na">user</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1003:1004"</span>  <span class="c1"># opensearch user</span>
-</code></pre></div></div>
-
-<p>The containers started, then immediately failed:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opensearch | /bin/bash: ./opensearch-docker-entrypoint.sh: Permission denied
-</code></pre></div></div>
-
-<p>The entrypoint scripts inside the container image are owned by UID 1000. Running the container as UID 1003 meant that user couldn’t execute them. Container images bake in assumptions about who runs them.</p>
-
-<p>I removed the <code class="language-plaintext highlighter-rouge">user:</code> directive and let the containers run as their default UID 1000. Docker provides isolation; the containers can’t escape to become that user on the host system anyway. Sometimes the path of least resistance is correct.</p>
-
-<h2 id="the-ssl-certificate-dance">The SSL Certificate Dance</h2>
-
-<p>OpenSearch would receive logs over HTTPS from DigitalOcean. I needed an SSL certificate for a domain that I could NAT into my home server. Let’s Encrypt provides free certificates, but their standard HTTP-01 validation requires port 80 accessible from the internet. Port 80 on my server was already occupied, and I didn’t want to expose another service to the scanner bots that probe every public port.</p>
-
-<p>DNS-01 validation was the answer. Instead of serving a file on port 80, I’d prove domain ownership by creating DNS TXT records. The catch: Let’s Encrypt’s <code class="language-plaintext highlighter-rouge">certbot</code> doesn’t support my DNS provider, FreeDNS.</p>
-
-<p>I found <a href="https://github.com/acmesh-official/acme.sh"><code class="language-plaintext highlighter-rouge">acme.sh</code>, an alternative ACME client that supports FreeDNS via its API</a>. Installing it as root (not as my user account) ensured automatic renewals would work.</p>
-
-<p>The tool created a DNS TXT record, Let’s Encrypt verified it, and I had a certificate. No port 80 exposure required. The certificate renews automatically every 60 days via a cron job, and nginx reloads seamlessly when it does.</p>
-
-<h2 id="the-irony-of-static-sites">The Irony of Static Sites</h2>
-
-<p>With OpenSearch running and SSL configured, I turned to DigitalOcean’s log forwarding feature. Their UI is straightforward: select OpenSearch as the destination, provide the endpoint URL, configure authentication. But when I looked for the logs to forward, I discovered the problem.</p>
-
-<p>DigitalOcean’s static site hosting doesn’t generate access logs.</p>
-
-<p>The feature exists for their App Platform compute instances, but static sites - being static - have no application logs to forward. I’d need to deploy a compute instance that proxies requests to the static site just to generate the logs I wanted.</p>
-
-<p>The irony: I’m paying $0/month for static site hosting because there’s no server-side processing. To get access logs, I’d need to pay $5/month for a server that does nothing but proxy requests and log them.</p>
-
-<p>I built an <a href="https://nginx.org/">nginx</a> container that accepts requests, logs them in JSON format, and forwards them to the actual static site. The container uses environment variables for configuration - no identifying information committed to the repository:</p>
-
-<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">upstream</span> <span class="s">backend_static</span> <span class="p">{</span>
-    <span class="kn">server</span> $<span class="p">{</span><span class="kn">UPSTREAM_HOST</span><span class="err">}</span><span class="p">:</span><span class="mi">443</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
-    <span class="kn">proxy_pass</span> <span class="s">https://backend_static</span>$<span class="p">{</span><span class="kn">UPSTREAM_PATH</span><span class="err">}</span><span class="p">;</span>
-    <span class="kn">proxy_set_header</span> <span class="s">Host</span> $<span class="p">{</span><span class="kn">UPSTREAM_HOST_HEADER</span><span class="err">}</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>GitHub Actions builds the image automatically and publishes it to GitHub Container Registry. DigitalOcean pulls the image, and I configure the necessary environment variables in their UI. The static site remains unchanged; the proxy sits in front of it.</p>
-
-<p>The setup works. I’m paying $5/month for visibility into my site’s traffic.</p>
-
-<h2 id="the-log-processing-pipeline">The Log Processing Pipeline</h2>
-
-<p>DigitalOcean forwards logs to OpenSearch, but they contain a mix of JSON access logs and plain text error messages. OpenSearch needs to parse them correctly.</p>
-
-<p>An <a href="https://docs.opensearch.org/latest/ingest-pipelines/">ingest pipeline</a> handles this. It attempts to parse each log entry as JSON. If parsing succeeds, it extracts the fields and marks the entry as <code class="language-plaintext highlighter-rouge">log_type: "access"</code>. If parsing fails, it marks it as <code class="language-plaintext highlighter-rouge">log_type: "error"</code> and stores the raw text:</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"json"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"log"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"target_field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"parsed"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"ignore_failure"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"script"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"if (ctx.containsKey('parsed') &amp;&amp; ctx['parsed'] != null) {
-          ctx['log_type'] = 'access';
-          for (def entry : ctx['parsed'].entrySet()) {
-            ctx[entry.getKey()] = entry.getValue();
-          }
-          ctx.remove('parsed');
-        } else {
-          ctx['log_type'] = 'error';
-          ctx['error_message'] = ctx['log'];
-        }"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p>The pipeline lives in OpenSearch’s cluster state. Install it once via the API, and it persists across restarts. I created an index template that applies the pipeline automatically to the index Opensearch is forwarding logs to.</p>
-
-<h2 id="the-final-architecture">The Final Architecture</h2>
-
-<p>The pieces work together:</p>
-
-<ol>
-  <li>Visitor requests <code class="language-plaintext highlighter-rouge">blog.cani.ne.jp</code></li>
-  <li>DNS resolves to DigitalOcean App Platform</li>
-  <li>Nginx proxy container (running on DO) receives the request</li>
-  <li>Proxy logs the request as JSON to stdout</li>
-  <li>Proxy forwards the request to the actual static site</li>
-  <li>Static site returns the content</li>
-  <li>DigitalOcean’s log forwarding sends logs to my home server’s OpenSearch endpoint</li>
-  <li>Nginx on my home server (with Let’s Encrypt certificate) receives them</li>
-  <li>OpenSearch ingests and indexes the logs</li>
-  <li>Pipeline extracts fields from JSON logs</li>
-  <li>OpenSearch Dashboards visualizes the data</li>
-</ol>
-
-<p>I can now see which pages are popular, where visitors come from, and how they navigate the site. The dashboards show traffic patterns I couldn’t see before. Importantly, this is from server-side metrics - no JavaScript required!</p>
-
-<h2 id="what-it-cost">What It Cost</h2>
-
-<p>The final setup:</p>
-<ul>
-  <li>OpenSearch cluster on my home server: “$0” (existing hardware)</li>
-  <li>SSL certificate from Let’s Encrypt: $0 (DNS-01 validation via FreeDNS)</li>
-  <li>Nginx proxy running on DigitalOcean: $5/month (Basic instance)</li>
-  <li>Static site hosting: $0 (unchanged)</li>
-</ul>
-
-<p>I’m paying five dollars a month so my free static site can generate access logs.</p>
-
-<p>The nginx proxy is completely transparent. Visitors see no difference in performance or behavior… if anything there may be a slight degradation as the tiny compute instance hosting the nginx is likely less-performant than the CDN-powered static site it sits in front of. The proxy accepts the request, logs it to stdout in JSON format, forwards the request to the actual static site behind it, and returns the response. DigitalOcean’s log forwarding picks up those JSON logs and sends them to my OpenSearch endpoint over HTTPS. The OpenSearch ingest pipeline parses the JSON, extracts the fields, and indexes the documents. The dashboards update automatically.</p>
-
-<p>I built a logging server to log a serverless site.</p>
-
-<p>The absurdity isn’t lost on me. Static site hosting exists because you don’t need a server - your content sits in object storage behind a CDN. The whole point is the absence of computation. But I wanted to know who’s reading my blog, and logs require computation. Someone has to write them.</p>
-
-<p>So I rebuilt the server. Five dollars a month. Sixty dollars a year. The OpenSearch cluster hums along on my home server, accepting logs, parsing them with a pipeline that detects JSON versus plain text errors, and displaying them in dashboards I can access from my LAN.</p>
-
-<p>It works. If you’re reading this, you’re in there now, too, somewhere!</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="opensearch" /><category term="docker" /><category term="nginx" /><category term="digitalocean" /><category term="ssl" /><category term="letsencrypt" /><category term="observability" /><summary type="html"><![CDATA[I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But DigitalOcean’s static site hosting, elegant in its simplicity, doesn’t generate them. To get visibility into who visits my blog, I’d need to build my own logging infrastructure.]]></summary></entry></feed>
+<p>Don’t waste your time with coding agent slash-commands that bind to textual prompts.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Cursor introduced “Slash Commands” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing for a long time.]]></summary></entry></feed>
