@@ -5,7 +5,7 @@ author: texarkanine
 tags: [cursor, ai, claude-code]
 ---
 
-Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a [similar thing](https://code.claude.com/docs/en/slash-commands) - for a long time.
+Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a [similar thing](https://code.claude.com/docs/en/slash-commands) for a long time.
 
 # Thesis
 

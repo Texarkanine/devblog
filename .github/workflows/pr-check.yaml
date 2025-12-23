@@ -1,0 +1,33 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0  # Full history needed for git log to find first commit dates
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Install ImageMagick
+        uses: mfinelli/setup-imagemagick@v7
+
+      - name: Build site (validates tags)
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+

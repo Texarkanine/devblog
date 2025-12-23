@@ -2,8 +2,8 @@
 layout: garden
 title: "Love Letter to the Early Internet"
 tags:
-  - vintage web
-  - web design
+  - vintage-web
+  - web-design
 ---
 
 ![Under Construction](./early-web/under-construction-pikachu.gif)

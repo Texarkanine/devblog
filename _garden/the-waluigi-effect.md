@@ -3,7 +3,7 @@ layout: garden
 title: "The Waluigi Effect"
 tags:
   - ai
-  - ai alignment
+  - ai-alignment
   - llm
   - research
 ---
