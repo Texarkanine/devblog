@@ -56,9 +56,9 @@ You liked a funny movie? We released a new one that's more of that, and also fun
 
 ### Tools Don't Forgive Change
 
-Tools sit in the middle of people's workflows. While many people may have many aspects of their workflows in common, there are many opportunities for personal preference and individual circumstances to enter the equation. So, a tool that's "for X" may be used in signficiantly different ways by different people.
+Tools sit in the middle of people's workflows. While many people may have many aspects of their workflows in common, there are many opportunities for personal preference and individual circumstances to enter the equation. So, a tool that's "for X" may be used in significantly different ways by different people.
 
-Web Browsers are a great example: They're a tool "for browsing the internet." But one person might be big into browser-based games, and want a Flash plugin, WebGL support, Websockets, and GPU acceleration. A reasearcher at a university, though, would probably be much more concerned about compatibility with e-mail & legacy academic systems, bookmarks (preserving and/or sharing across devices) and perhaps VPN support.
+Web Browsers are a great example: They're a tool "for browsing the internet." But one person might be big into browser-based games, and want a Flash plugin, WebGL support, Websockets, and GPU acceleration. A researcher at a university, though, would probably be much more concerned about compatibility with e-mail & legacy academic systems, bookmarks (preserving and/or sharing across devices) and perhaps VPN support.
 
 Specific examples notwithstanding, web browsers' single purpose ("browse the web") belies a myriad of features and capabilities that result in no single pattern of use. It can be difficult to make a change to a browser that's better *for everyone*. The more things a tool does, the greater the chance that any change at all will be a detriment to *someone*.
 
@@ -115,7 +115,7 @@ It's also true that
 
 After all, if they weren't already using it, maybe this new thing or change will make it appealing-enough for them to start! At least, that's the Product and Marketing angle.
 
-When you combine these things, you burn a different set of users with each change, and pull in a new set of users with each change. If your tool was actually good-enough to attact users, a small burn from one nuisance change may not drive them away. Two such burns might not. But eventually, you'll reach a tipping point.
+When you combine these things, you burn a different set of users with each change, and pull in a new set of users with each change. If your tool was actually good-enough to attract users, a small burn from one nuisance change may not drive them away. Two such burns might not. But eventually, you'll reach a tipping point.
 
 Because tools have such varying use-patterns, though, your first 10 changes aren't all going to burn the same user 10 times - it will be distributed across your userbase. You'll see new users show up for each of the 10 changes and very little churn, and then it'll look like your *product* is improving! But then you'll hit enough changes that you've burnt people enough that they start to leave. You make that 11th change and finally some people are fed up and leave. They're replaced by new users who were enticed by that 11th change though, so it doesn't look disastrous yet. But then you make the 12th change, and another set of users leave, hopefully replaced again. 
 
@@ -169,7 +169,7 @@ Counter-argument, of course, is those people probably didn't make money off of `
 
 The sweet spot is the spirit of [Semantic Versioning](https://semver.org/).
 
-#### 1. Be A Lot Bettter
+#### 1. Be A Lot Better
 
 Make sure that the change to the tool is actually objectively better for users, and by a good deal.
 
@@ -190,7 +190,7 @@ Remember, you're going to *interrupt* people's workflows with your demand for th
 
 Plan to walk users through the changes - don't just leave them to figure it out on their own. Have an interactive walkthrough that highlights major changes. It's the **changes**, not the new features, that you need to call out.
 
-You can pitch your *new* features in marketing copy targetted at new users. You also need to offer to hand-hold your existing users through the *disruption* you're introducing. These are two different audiences - do not forget that!
+You can pitch your *new* features in marketing copy targeted at new users. You also need to offer to hand-hold your existing users through the *disruption* you're introducing. These are two different audiences - do not forget that!
 
 #### 3. Phased Rollout
 
