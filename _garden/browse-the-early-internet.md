@@ -4,7 +4,7 @@ title: "Browse The Vintage, Early Internet"
 tags: 
   - archive
   - scrollable
-  - vintage web
+  - vintage-web
   - geocities
   - links
 ---
