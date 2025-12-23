@@ -74,7 +74,7 @@ So, when it comes time to spruce up the web browser (or other software tool) *pr
 
 ### Option 0: Let Them Eat Cake!
 
-> "No, it's the users that are wrong!
+> "No, it's the users who are wrong!
 
 When someone is upset because of changes to a software tool, the peanut gallery often has responses ready:
 
