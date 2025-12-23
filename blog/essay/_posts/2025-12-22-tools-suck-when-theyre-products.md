@@ -20,11 +20,11 @@ tags:
 
 Tools become *dependencies* in people's lives. If something goes wrong with a tool, the stuff downstream gets interrupted.
 
-Products - as used here - are leaf nodes, the "end of the line" - they're where people want to be. If something goes wrong with a product, it can often be quite tolerable. Even if it's not, they can just use a different product and nothing *downstream* of that has to change. The impact is just a single blip among everything going on in life.
+Products - as used here - are leaf nodes, the "end of the line" - they're where people want to be. If something goes wrong with a product, it can often be quite tolerable. Even if it's not, they can just use a different product and nothing *downstream* of that has to change. The impact starts and ends with that single experience.
 
 If I want to watch a fun movie and I sit down at my TV and the movie I picked turns out to be really bad... well, that's a *bad product*. I can always turn it off, or watch a fun show instead, or play a video game.
 
-If, however, I sit down and my **TV** doesn't work, now I'm stuck. The product I wanted - the movie - isn't even an option, *and neither are altenratives*. I can't watch a different movie, nor watch a show, nor play a video game. My goal was **dependent** on the tool and when the tool fails it is much more disruptive than a simple "bad product" like a bad movie.
+If, however, I sit down and my **TV** doesn't work, now I'm stuck. The product I wanted - the movie - isn't even an option, *and neither are alternatives*. I can't watch a different movie, nor watch a show, nor play a video game. My goal was **dependent** on the tool and when the tool fails it is much more disruptive than a simple "bad product" like a bad movie.
 
 ## "Physical" Products
 
@@ -69,11 +69,11 @@ Specific examples notwithstanding, web browsers' single purpose ("browse the web
 
 ## What to Do?
 
-So, when it comes time to spruce up the web browser *product* and make a change... how do you do that nondisruptively?
+So, when it comes time to spruce up the web browser (or other software tool) *product* and make a change... how do you do that nondisruptively?
 
 ### Option 0: Let Them Eat Cake!
 
-Or, *"No, it's the users that are wrong!*
+> "No, it's the users that are wrong!
 
 When someone is upset because of changes to a software tool, the peanut gallery often has responses ready:
 
@@ -118,7 +118,7 @@ When you combine these things, you burn a different set of users with each chang
 
 Because tools have such varying use-patterns, though, your first 10 changes aren't all going to burn the same user 10 times - it will be distributed across your userbase. You'll see new users show up for each of the 10 changes and very little churn, and then it'll look like your *product* is improving! But then you'll hit enough changes that you've burnt people enough that they start to leave. You make that 11th change and finally some people are fed up and leave. They're replaced by new users who were enticed by that 11th change though, so it doesn't look disastrous yet. But then you make the 12th change, and another set of users leave, hopefully replaced again. 
 
-Now you're in a stagnant holding pattern: to attract new users, you are used to making changes. Each change you make will push a new user away and *must* pull in a new one. You're now not growing anymore. You've saturated the upheaveal threshold of your userbase and the techniques you had been using - *product development* - no longer work. You can do more of it, and it will just burn your resources without growth.
+Now you're in a stagnant holding pattern: to attract new users, you are used to making changes. Each change you make will push away a long-time user who has finally had enough, and pull in a new one. Now you're not growing anymore. You've saturated the upheaveal threshold of your userbase and the techniques you had been using - *product development* - no longer work. You can do more of it, and it will just burn your resources without growth.
 
 #### It Can Get Worse
 
@@ -140,7 +140,7 @@ This results in actual capability degradations, and
 	archive:https://web.archive.org/web/20251212040814/https://tonsky.me/blog/needy-programs/
 %}
 
-programs that want you to make an account, give an e-mail, download an update, etc. These "needy programs" are what happens when tool-makers who think their tool **is** the goal come face-to-face with reality. **No**. Nobody wants to use your tool. They want to use your tool *for* something, and you've demonstrated that your tool is not reliable enough for that. That means your tool is useless.
+programs that want you to make an account, give an e-mail, download an update, etc. These "needy programs" are what happens when tool-makers who think their tool **is** the goal come face-to-face with reality. They see people dissatisfied with their tool, abandoning it, and they apply the thumbscrews of enshittification. **No**. Nobody wants to use your tool. Nobody ever *wanted* to use your tool. They want to use your tool *for* something, and you've demonstrated that your tool is not reliable enough for that. That means your tool is useless. Offering a subscription to a "product tips" newsletter isn't going to fix that.
 
 ### Option 2: Be like `ls`
 
@@ -177,17 +177,29 @@ Make sure that the change to the tool is actually objectively better for users, 
 
 Remember, you're going to *interrupt* people's workflows with your demand for their attention. You will burn goodwill if you don't make it worth the effort!
 
+> It's not enough for a new product simply to be better. Unless the gains far outweigh the losses, consumers will not adopt it.
+
+{%linkcard
+	https://web.mit.edu/mamd/www/tech_strat/courseMaterial/topics/topic4/readings/Eager_Sellers_and_Stony_Buyers/Eager_Sellers_and_Stony_Buyers.pdf/Eager_Sellers_and_Stony_Buyers.pdf
+	"Eager Sellers and Stony Buyers - Understanding the Psychology of New-Product Adoption"
+	archive:https://web.archive.org/web/20251212040814/https://web.mit.edu/mamd/www/tech_strat/courseMaterial/topics/topic4/readings/Eager_Sellers_and_Stony_Buyers/Eager_Sellers_and_Stony_Buyers.pdf/Eager_Sellers_and_Stony_Buyers.pdf
+%}
+
 #### 2. Hold Their Hands
 
 Plan to walk users through the changes - don't just leave them to figure it out on their own. Have an interactive walkthrough that highlights major changes. It's the **changes**, not the new features, that you need to call out.
+
+You can pitch your *new* features in marketing copy targetted at new users. You also need to offer to hand-hold your existing users through the *disruption* you're introducing. These are two different audiences - do not forget that!
 
 #### 3. Phased Rollout
 
 Gradually introduce the change to users, giving them every opportunity to engage with the changes on *their* terms.
 
-1. Deployed, opt-in. Users see a small *non-modal* notification about the change that invites them to try it. A banner across the top or something - something they can fully ignore with no consequences. Something that does *not* demand their attention when they opened the software tool to get something done. Clicking takes them to the walkthrough.
-2. Deployed, opt-in. Users start receiving modal/pop-up notifications that the change will automatically apply after a given date. Clicking takes them to the walkthrough.
-3. Deployed, opt-out. Users are greeted with the walkthrough when they first open the tool after the change from opt-in to opt-out. **This** walkthrough ends with an option to opt-out, with a reminder of the date after which the change will be permanent.
-4. Fully deployed, old configuration is gone.
+1. **Deployed, opt-in.** Users see a small *non-modal* notification about the change that invites them to try it. A banner across the top or something - something they can fully ignore with no consequences. Something that does *not* demand their attention when they opened the software tool to get something done. Clicking takes them to the walkthrough.
+2. **Deployed, opt-in.** Users start receiving modal/pop-up notifications that the change will automatically apply after a given date. Clicking takes them to the walkthrough.
+3. **Deployed, opt-out.** Users are greeted with the walkthrough when they first open the tool after the change from opt-in to opt-out. **This** walkthrough ends with an option to opt-out, with a reminder of the date after which the change will be permanent.
+4. **Fully deployed**, old configuration is gone.
 
-You might be thinking that that sounds like a lot of work for what might be a small improvement or change to your tool. You would be right; see the first step above: You don't do this for minor changes. You let them stack up until the onslaught of change is worthy of your users actually context-switching into learning about it. That's how you avoid creating a userbase that's constantly annoyed by minor changes every time they use your tool.
+You might be thinking that that sounds like a lot of work for what could be a small improvement or change to your tool. You would be right; see the first step above: You **don't ship minor changes to a tool**. You let them stack up until the onslaught of change is worthy of your users actually context-switching into learning about it. That's how you avoid creating a userbase that's constantly annoyed by minor changes every time they use your tool.
+
+But also, once you build that *once* and integrate it with whatever feature-flag tech you're using, the only real work is making that tutorial. And if you can't be bothered to write documentation for your long-time users, your tool's probably doomed regardless.
