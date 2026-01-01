@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-01T18:24:29+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Tools Suck When They’re Products</title><link href="https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.html" rel="alternate" type="text/html" title="Tools Suck When They’re Products" /><published>2025-12-22T00:00:00+00:00</published><updated>2025-12-22T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.html"><![CDATA[<h2 id="thesis">Thesis</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-01T22:22:41+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Desire Makes Artists, Even With GenAI</title><link href="https://blog.cani.ne.jp/2026/01/01/desire-makes-artists-even-with-genai.html" rel="alternate" type="text/html" title="Desire Makes Artists, Even With GenAI" /><published>2026-01-01T00:00:00+00:00</published><updated>2026-01-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/01/desire-makes-artists-even-with-genai</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/01/desire-makes-artists-even-with-genai.html"><![CDATA[<h2 id="thesis">Thesis</h2>
+
+<blockquote>
+  <p>The desire to create is what makes an artist. That’s true for some people using generative AI - and it’s also why there will always be human artists.</p>
+</blockquote>
+
+<h2 id="what-making-art-is">What Making Art Is</h2>
+
+<p>Making art is the human creative undertaking. The desire to create something, to express, to bring ideas into the world - that generative impulse is what makes an artist make art.</p>
+
+<p>Many things are produced by people with artistic skill, often bringing that skill to bear on products with dual purposes: expression and function. Clothing is an excellent example. There is absolutely clothing that serves very little purpose other than to be aesthetic, and there is definitely clothing that serves very little purpose other than to be functional. Most clothing exists in between.</p>
+
+<p>Before the industrial revolution, clothing was made by hand by what we might call artisans - makers who often had artistic talent. You would get production of goods with art infused during the process, because that’s what humans do when they make things. As cloth-making industrialized, we were able to separate the artist from the artisan. Machines operationalized the good production, but artists still produced artistic clothing. Now Chinese factories crank out dirt-cheap t-shirts that technically work, while artistic seamstresses and clothiers hand-make bespoke luxury clothing for the fashion runway or demure custom shops.</p>
+
+<p>We have separated the art from the good. Both exist.</p>
+
+<h2 id="function-is-unforgiving">Function Is Unforgiving</h2>
+
+<p>The key takeaway of this separation: function is unforgiving. If the thing does not work, it cannot exist in most contexts. Aesthetics without function is a luxury, and luxury is almost definitionally a minority undertaking.</p>
+
+<p>Most goods only need, and are only wanted, to satisfy a task. It is much rarer that a good is primarily for satisfying aesthetics. Once you can separate the artist from the artisan and operationalize the production that the artisan used to handle, you end up with the majority of production being more or less purely functional - form as an afterthought.</p>
+
+<p>This absolutely happened with clothing. It absolutely happened with dwellings. It has absolutely happened with most housewares and furniture. It is, in fact, what happens when humans manage to build tools and processes that operationalize and industrialize the production of a good that previously had to be handmade.</p>
+
+<h2 id="portraits">Portraits</h2>
+
+<p>Consider portraits. Back in the oil painting days, before photography, portraits were a big deal. They were rare. They were labor-intensive. If you wanted a portrait of yourself, you had to shell out, and it was quite an ordeal to get one made. Once done, it was quite a piece - a centerpiece, a focus piece - because only the artistic artisan could make one for you.</p>
+
+<p>Nowadays, we have cameras in electronic devices in basically every pocket. Everybody who wants a portrait of themselves can get one. They can get a piece of visual media that they can look at and see themselves.</p>
+
+<p>The oil painting - professionally staged, framed, an heirloom piece hanging on the wall of your house - is still a luxury art piece. But most people who wanted portraits didn’t actually need the whole shebang. They just wanted to see themselves in a piece of visual media. And they can get that now with the tools and processes we have built into smartphone cameras. It’s trivially easy to get a technical portrait of yourself where you can see yourself.</p>
+
+<p>So most people who just wanted the outcome - a piece of visual media in which they could see themselves - get that easily and don’t advance to finding an artist to pay for a professional heirloom portrait.</p>
+
+<h2 id="visual-media-today">Visual Media Today</h2>
+
+<p>We are seeing this same separation today with visual media and generative AI.</p>
+
+<p>Previously, in order to make a piece of visual media that other people could see - regardless of the purpose - you had to engage some form of artist-artisan combination. Maybe a graphic designer to produce the advertising copy for your company - function-forward visual media, but you were still absolutely using a human’s artistic talent to do it. Or maybe you wanted a book illustration, a comic, a particular scene. Either way, you needed the human artist-artisan combo.</p>
+
+<p>Now that we have generative AI, many of those people can - just like they were doing with a selfie on their smartphone - get a good-enough visual rendering of their idea to satisfy what they needed. And they stop there.</p>
+
+<p>Those people didn’t actually need art. They didn’t actually <em>want</em> art. They just needed a piece of visual media. And what we have now is the ability to separate the artisan from the artist once more, as humans have been doing since the beginning of technology, but in the domain of visual media.</p>
+
+<h2 id="is-it-art-are-they-artists">Is It Art? Are They Artists?</h2>
+
+<p>We will punt on “is it art?” because that is an age-old question that has always been hotly debated, whose answer has shifted time and time again and is ultimately subjective.</p>
+
+<p>Instead, let’s look at the people making these things and ask if they are artists.</p>
+
+<p>As you might infer from the separation of artist and artisan, indeed, some of them are not. The people who would have needed a professional graphic designer - the artist-artisan combination - but now can use generative AI to get the visual media that communicates what they need? They’re using the operationalized, industrialized visual media production pipeline.</p>
+
+<p>That’s fine. We used to have weavers weaving things on looms. We still have looms, but the overwhelming majority of them are industrial-scale, and the people that work in those factories we don’t really refer to as weavers anymore. They’re just employees. Workers.</p>
+
+<p>So the people using generative AI just to make the visual media that serves a function - where form is not the driving purpose - are not artists. Because they’re not engaging in the creative undertaking of desiring to manifest a vision in the world. They don’t seek to share the aesthetic outcome. They don’t seek gratification from the experience of creating. They just seek the finished product so that it may perform its function.</p>
+
+<p>And that’s fine. That’s allowed. People who buy t-shirts from factories that make t-shirts are not engaging with artists. You can also get a t-shirt that was handmade by an artist somewhere. And that’s okay too.</p>
+
+<h2 id="the-artists-among-them">The Artists Among Them</h2>
+
+<p>But some of those generative AI users don’t see a tool that gets them to an outcome faster. They see a tool that allows them to manifest aesthetics that were trapped in their head before.</p>
+
+<p>These people are no different than a photographer picking up a camera or - pay attention to how we call these now - an <strong>artist</strong> picking up a mouse or a Wacom tablet instead of a pen or a pencil or a paintbrush, because the digital toolset is more amenable to manifesting their vision.</p>
+
+<p>Those people who see generative AI as “oh my goodness, I can finally create these visual experiences that I did not have a way to create before” - <strong>those people are artists.</strong></p>
+
+<p>They are artists because they seek, through the act of creation, to experience and share the experience. That is what drives the artistic process. Even after visual media creation is fully industrialized - even after most people are just having the machines make the visual media that they need for their outcomes - there will still be humans doing it by hand.</p>
+
+<p>Because they seek the experience of <strong>doing</strong> the creating as an end unto itself.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="art" /><category term="generative-ai" /><summary type="html"><![CDATA[The desire to create is what makes an artist. That's why some people using generative AI are artists - and it's also why there will always be human artists.]]></summary></entry><entry><title type="html">Tools Suck When They’re Products</title><link href="https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.html" rel="alternate" type="text/html" title="Tools Suck When They’re Products" /><published>2025-12-22T00:00:00+00:00</published><updated>2025-12-22T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>Tools are not products and building them <em>like</em> products results in bad tools.</p>
@@ -794,7 +862,7 @@ ai-rizz add rule my-rule.mdc <span class="nt">--local</span>
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.pbbsmilwro9icj-jzf4h { display: inline-block; }</style><script>(function(){function wlqodijqo(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function qwodetaoynmraybj(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var bpxbkf=sp.getAttribute('data-ccecy7e9t');var seskmau=sp.getAttribute('data-wvlcnuxc');var dchn2aq6md=sp.getAttribute('data-xbambmu');var buyy6fhx=sp.getAttribute('data-ajxaqxz');var mailto=wlqodijqo(bpxbkf,spParts[0].length);var user=wlqodijqo(seskmau,spParts[1].length);var domainBase=wlqodijqo(dchn2aq6md,lnkParts[0].length);var tld=wlqodijqo(buyy6fhx,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function klw1bjrz4hojfyyw(){var els=document.querySelectorAll('a.vxwmzwxdx6k-e7wq1hgc');var handler=function(){var sp=this.querySelector('span.pbbsmilwro9icj-jzf4h');if(sp&&!this.dataset.d){var val=qwodetaoynmraybj(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',klw1bjrz4hojfyyw);}else{klw1bjrz4hojfyyw();}})();</script><a href="#" class="vxwmzwxdx6k-e7wq1hgc"><span class="pbbsmilwro9icj-jzf4h" data-ccecy7e9t="aowzhc" data-wvlcnuxc="WJIFHYJI" data-xbambmu="aczezyxltw" data-ajxaqxz="kwu">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.f6jbggdodo3w-wehkwxhui0zfpvd6e { display: inline-block; }</style><script>(function(){function i9pktc1seqfazq(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function uz8qxoocmi0u4(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var syyupzie=sp.getAttribute('data-hfw9h1zwg');var g7eo6pfla=sp.getAttribute('data-qopgwhb');var tb1bau=sp.getAttribute('data-fayf1cdiins6');var wnlxmo0z=sp.getAttribute('data-fiiouryopo');var mailto=i9pktc1seqfazq(syyupzie,spParts[0].length);var user=i9pktc1seqfazq(g7eo6pfla,spParts[1].length);var domainBase=i9pktc1seqfazq(tb1bau,lnkParts[0].length);var tld=i9pktc1seqfazq(wnlxmo0z,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function as5rmvxcua(){var els=document.querySelectorAll('a.voi5-ybrwaqoppn');var handler=function(){var sp=this.querySelector('span.f6jbggdodo3w-wehkwxhui0zfpvd6e');if(sp&&!this.dataset.d){var val=uz8qxoocmi0u4(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',as5rmvxcua);}else{as5rmvxcua();}})();</script><a href="#" class="voi5-ybrwaqoppn"><span class="f6jbggdodo3w-wehkwxhui0zfpvd6e" data-hfw9h1zwg="ymuxfa" data-qopgwhb="IVURTKVU" data-fayf1cdiins6="tvsxsrqemp" data-fiiouryopo="myw">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
@@ -1333,90 +1401,4 @@ This will cause DigitalOcean’s gateway (which is front of my nginx) to interce
 <h2 id="what-are-they-for-anyway">What Are They For, Anyway?</h2>
 
 <p>While I was stewing over how to possibly make this work, I had an epiphany: <strong>I don’t have a use-case for Cursor Commands, anway!</strong>
-You can go read about why, <a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">here</a>.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Cursor introduced “Slash Commands” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - Agent Skills - for a long time.]]></summary></entry><entry><title type="html">The Usen’t Case for AI Coding Agent Slash Commands</title><link href="https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html" rel="alternate" type="text/html" title="The Usen’t Case for AI Coding Agent Slash Commands" /><published>2025-11-24T00:00:00+00:00</published><updated>2025-11-24T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html"><![CDATA[<p>Cursor introduced “<a href="https://cursor.com/docs/agent/chat/commands">Slash Commands</a>” fairly recently, in v1.6 in September 2025. Claude Code had had a <a href="https://code.claude.com/docs/en/slash-commands">similar thing</a> for a long time.</p>
-
-<h1 id="thesis">Thesis</h1>
-
-<blockquote>
-  <p>It’s not just useless, but an efficiency-reducing antipattern to bind a text prompt to a concrete slash-command for an AI coding agent.</p>
-</blockquote>
-
-<p><strong>Corollary</strong></p>
-
-<blockquote>
-  <p>Anything you would want to actively invoke as a slash-command, you <em>also</em> want to be a rule that the Agent can passively pick up and apply when necessary.</p>
-</blockquote>
-
-<p>LLMs’ whole raison d’être is (pseudo-)stochastic natural language processing and synthesis. When you reach the point where you’re trying to codify a <em>function</em> - a fixed set of inputs and a predictable output that depends on them - you’ve exited the domain where LLMs excel. Building a Cursor Command or Claude Command is an antipattern that makes you less efficient. Deterministic, reliable input/output is the domain of CPU-bound traditional code. You want a fixed command that takes an input and reliably produces an output? We have a technique for that, called <em>writing software</em>. Just write the tool.</p>
-
-<p>With a slash-command, you get:</p>
-
-<ol>
-  <li>Extra time for the network round-trip to the Agent’s datacenter</li>
-  <li>Extra time for the Agent to figure out what you want</li>
-  <li>Extra cost for the GPU(s) to run the computation</li>
-  <li>Extra time fixing the instances where the stochastic output is <em>not</em> what you expected</li>
-  <li>Data privacy concerns</li>
-</ol>
-
-<p>Furthermore, as I’ll explore below, all technical differences between slash-commands and other methods of software development are distinctions without a difference.</p>
-
-<h2 id="strawmen">Strawmen</h2>
-
-<blockquote>
-  <p>It takes longer to write an actual tool than to ask the Agent.</p>
-</blockquote>
-
-<p>True, but: Ask the Agent to write it for you. They’re very good at that.</p>
-
-<blockquote>
-  <p>I have to have a runtime on my machine, like python or node or-</p>
-</blockquote>
-
-<p>Right now, you already have the “runtime” of a remote shell hooked up to a functionally-nondeterministic artificial intelligence running on someone else’s computer. True, you can get to <em>an</em> output faster this way. But it is <em>by construction</em> an unreliable solution. If you intend to codify something re<strong>usable</strong>, this can’t be the answer.</p>
-
-<blockquote>
-  <p>Claude Code doesn’t have rules like Cursor, so I can’t just <code class="language-plaintext highlighter-rouge">@reference</code> them.</p>
-</blockquote>
-
-<p>Just write a Markdown file and tell the Agent to follow it - no special features required. Boom, there’s your “command:” <code class="language-plaintext highlighter-rouge">Do what my-command-prompt.md says.</code></p>
-
-<p>Yes, it’s a few more characters than <code class="language-plaintext highlighter-rouge">/my-command</code>. Don’t cut yourself off from the efficiencies AI coding agents can deliver to occasionally save yourself a dozen keystrokes.</p>
-
-<p><strong>PROTIP:</strong> I just dictate (speech to text) to the AI agents so I don’t have to type. If you have a laptop running a major operating system, you can do this, too!</p>
-
-<h2 id="steelmen">Steelmen</h2>
-
-<h3 id="mutually-exclusive-workflows">Mutually-Exclusive Workflows</h3>
-
-<p>If you have mutually-exclusive directives that <em>must</em> be available for <em>your</em> use, but invisible to the Agent, then slash-commands have some utility.</p>
-
-<p>Maybe you have two different style guides with no firm rule for application - you just choose one when you want when you know it’s appropriate. You definitely don’t want the Agent to see both of them, as it may pick the wrong one or blend them.</p>
-
-<p>Then, the conflicting prompts “hide” completely out-of-scope in slash-commands, waiting for you to bring them into the conversation. This is perhaps even a slight improvement over just writing <code class="language-plaintext highlighter-rouge">my-command.md</code> and explicitly asking the agent for it when you want, as there’s <em>no</em> risk of the agent <em>ever</em> reading or executing a command that you didn’t <code class="language-plaintext highlighter-rouge">/invoke</code>. Probably, right?</p>
-
-<p>I assert that this situation is incredibly rare, and that most of the time a situation that looks like this would actually benefit from the prompts being <em>Cursor Rules</em> that could be applied by the Agent when necessary.</p>
-
-<h3 id="interleaved-nlp--cpu-tasks">Interleaved NLP &amp; CPU Tasks</h3>
-
-<p>If you have a workflow you want to codify into something re-usable <em>and</em> that workflow has chronologically-interleaved NLP and deterministic tasks, then a slash-command sounds tempting.</p>
-
-<p>Consider Cursor’s example of <code class="language-plaintext highlighter-rouge">/pr</code> to open a GitHub Pull request, where the Agent has to identify the git diff (deterministic), figure out prose to describe the changes (NLP), find and fit it into a <code class="language-plaintext highlighter-rouge">PULL_REQUEST_TEMPLATE.md</code> if one exists (NLP), figure out the tooling available for opening a pull request (NLP), then invoke the tool (deterministic)…</p>
-
-<p>Oh, exactly like <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rules/github-open-a-pull-request-gh.mdc">this Cursor Rule</a> that you don’t have to explicitly, intentionally <code class="language-plaintext highlighter-rouge">/pr</code> for - you can just tell the agent to</p>
-
-<blockquote>
-  <p>&lt;your actual prompt&gt; and open a pull request</p>
-</blockquote>
-
-<p>Again, <em>yes</em> <code class="language-plaintext highlighter-rouge">/pr</code> is little shorter but if you do that then you <em>can’t</em> say <code class="language-plaintext highlighter-rouge">and open a pull request</code> or <code class="language-plaintext highlighter-rouge">then open a pr</code> or <code class="language-plaintext highlighter-rouge">then send a pr</code> - you always have to remember the explicit command instead of just being able to have your natural language processed.</p>
-
-<p>Note that this only even applies when there are NLP and deterministic tasks chronologically <em>interleaved.</em> If the task is just “some NLP <em>and also</em> something deterministic,” you probably want a proper <strong>Tool</strong> that the Agent can just figure out all the inputs for and then invoke, handing execution off to truly-deterministic traditional software.</p>
-
-<h2 id="what-would-change-my-mind">What Would Change My Mind</h2>
-
-<p>If, instead of just binding to text prompts, slash-commands offered a structured way to bind a command to a combination of LLM NLP and deterministic software.</p>
-
-<p>🪄 Oh, we have that! It’s called a <strong>Tool</strong>. You might know them from <a href="https://modelcontextprotocol.io/specification/2025-03-26">Model Context Protocol (MCP)</a>.</p>
-
-<p>Don’t waste your time with coding agent slash-commands that bind to textual prompts.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Cursor introduced “Slash Commands” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing for a long time.]]></summary></entry></feed>
+You can go read about why, <a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">here</a>.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Cursor introduced “Slash Commands” fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - Agent Skills - for a long time.]]></summary></entry></feed>
