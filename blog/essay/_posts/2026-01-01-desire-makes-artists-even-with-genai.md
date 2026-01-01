@@ -71,7 +71,7 @@ But some of those generative AI users don't see a tool that gets them to an outc
 
 These people are no different than a photographer picking up a camera or - pay attention to how we call these now - an **artist** picking up a mouse or a Wacom tablet instead of a pen or a pencil or a paintbrush, because the digital toolset is more amenable to manifesting their vision.
 
-Those people who see generative AI as "oh my goodness, I can finally create these visual experiences that I did not have a way to create before" - those people are artists.
+Those people who see generative AI as "oh my goodness, I can finally create these visual experiences that I did not have a way to create before" - **those people are artists.**
 
 The reason they are artists is because they seek, through the act of creation, to experience and share the experience. That is what drives the artistic process. Even after visual media creation is fully industrialized - even after most people are just having the machines make the visual media that they need for their outcomes - there will still be humans doing it by hand.
 
