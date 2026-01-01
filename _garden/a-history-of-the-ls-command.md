@@ -277,6 +277,13 @@ It was claimed earlier in this document:
 
 A minor claim... but, is it true? The Bill Joy attribution is bandied about in blog posts and forum comments, but authoritative sources on who actually added the multi-column capability to `ls` are hard to come by.
 
+{% polaroid
+	bill-joy-11-1999.jpg
+	title="Bill Joy, November 1999"
+	link="https://web.archive.org/web/20020209231859/http://www.linux-mag.com/1999-11/joy_02.html"
+	image_link="bill-joy-11-1999.jpg"
+%}
+
 The original `Brief history of the 'ls' command` article by [Eric Fischer](https://github.com/e-n-f) the closest to an authoritative source: the host publication - the "[Linux Documentation Project](https://www.linuxdoc.org/)" - is authoritative-enough but the author's provenance isn't easily established. It appears that Fischer was just an enthusiast - it isn't clear how much, if any, of the knowledge is first-hand.
 
 Most of the other "sources," if they attribute their knowledge to anything, attribute it to that article.
@@ -321,6 +328,33 @@ Finally, [Diomidis Spinellis](https://en.wikipedia.org/wiki/Diomidis_Spinellis) 
 %}
 
 Further reinforcing that Bill Joy *did* work on `ls` in some capacity. Given that he was in the right place at the right time, with an apparently right mindset, I judge the attribution *plausible* and perhaps even *likely*... However, I cannot say with certainty that Bill Joy actually added the multi-column display to `ls`. Just that it was more-likely him than anyone else I can figure.
+
+## Appendix B: Don Widrig & Short Names
+
+It was claimed earlier in this document:
+
+> > The original convention for short names, 'initial letter of each word in a command, augmented by succeeding consonants for a one-word command,' is attributed to Don Widrig.
+>
+> -- `Multics Glossary`[^4]
+
+Multicians.org would be an authoritative source on Multics-era history, one would hope.
+
+But... Who was Don Widrig? Is he *really* the person who deserves credit for the hugely-impactful design decision of short names for Unix commands?
+
+{% polaroid
+	don-widrig-04-1968.jpg
+	title="Donald R. Widrig, April 1968"
+	link="https://multicians.org/phase-one.html"
+	image_link="don-widrig-04-1968.jpg"
+%}
+
+That's him, according to some Multics history - again from `Multicians.org` - authored by [Tom Van Vleck](https://en.wikipedia.org/wiki/Tom_Van_Vleck). Tom worked on [Project MAC](https://en.wikipedia.org/wiki/Project_MAC) at MIT starting in 1965. Project MAC brought about the CTSS where our `ls` story starts.
+
+He *may* have co-authored [Managing Software Requirements: A Unified Approach](https://www.goodreads.com/book/show/582860.Managing_Software_Requirements) - a book on [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) -  with [Dean Leffingwell](https://www.linkedin.com/in/deanleffingwell/). Leffingwell also doesn't have a dedicated Wikipedia page or many photos, but does have an up-to-date LinkedIn profile... But we're getting sidetracked.
+
+Don Widrig appears to have not been as famous - or at least as *public* - a figure as some of the other names involved in the history of `ls`: there's precious little historical information available beyond what we've already seen. There are absolutely occasional references from contemporaries of him working on Multics at the right time - he's even named in surviving Multics documentation, including as a co-author of [PRLNK](https://www.multicians.org/mspm/be-5-14.671117.prlnk-saved.pdf) along wtih Tom Van Vleck- but nothing conclusive about the short naming convention. The only source we've got is the word of a contemporary Multician, posted on a website dedicated to Multics history. A thoroughly suitable source, but also our *only* one.
+
+For lack of ability to refute the claim and in deference to the authority of the claimant, we'll let the credit stand with Don for now.
 
 ## References
 
