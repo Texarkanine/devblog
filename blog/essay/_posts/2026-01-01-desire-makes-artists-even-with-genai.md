@@ -13,9 +13,9 @@ tags:
 
 > The desire to create is what makes an artist. That's true for some people using generative AI - and why there will always be human artists.
 
-## What Art Is
+## What Making Art Is
 
-Art is the human creative undertaking. The desire to create something, to express, to bring ideas into the world - that generative impulse is what makes an artist make art.
+Making art is the human creative undertaking. The desire to create something, to express, to bring ideas into the world - that generative impulse is what makes an artist make art.
 
 Many things are produced by people with artistic skill, often bringing that skill to bear on products with dual purposes: expression and function. Clothing is an excellent example. There is absolutely clothing that serves very little purpose other than to be aesthetic, and there is definitely clothing that serves very little purpose other than to be functional. Most clothing exists in between.
 
@@ -29,7 +29,7 @@ The key takeaway of this separation: function is unforgiving. If the thing does 
 
 Most goods only need, and are only wanted, to satisfy a task. It is much rarer that a good is primarily for satisfying aesthetics. Once you can separate the artist from the artisan and operationalize the production that the artisan used to handle, you end up with the majority of production being more or less purely functional - form as an afterthought.
 
-This absolutely happened with clothing. It absolutely happened with dwellings. It has absolutely happened with most housewares and furniture. It is, in fact, what happens when humans manage to build tools and processes that operationalize and industrialize the production of a good.
+This absolutely happened with clothing. It absolutely happened with dwellings. It has absolutely happened with most housewares and furniture. It is, in fact, what happens when humans manage to build tools and processes that operationalize and industrialize the production of a good that previously had to be handmade.
 
 ## Portraits
 
@@ -61,18 +61,18 @@ As you might infer from the separation of artist and artisan, indeed, some of th
 
 That's fine. We used to have weavers weaving things on looms. We still have looms, but the overwhelming majority of them are industrial-scale, and the people that work in those factories we don't really refer to as weavers anymore. They're just employees. Workers.
 
-So the people using generative AI just to make the visual media that serves a function - where form is not really important - are not artists. Because they're not engaging in the creative undertaking of desiring to manifest a vision in the world. They don't seek to share the aesthetic outcome. They don't seek joy from the experience of creating. They just seek the finished product.
+So the people using generative AI just to make the visual media that serves a function - where form is not the driving purpose - are not artists. Because they're not engaging in the creative undertaking of desiring to manifest a vision in the world. They don't seek to share the aesthetic outcome. They don't seek gratification from the experience of creating. They just seek the finished product so that it may perform its function.
 
-And that's fine. That's allowed. People who buy t-shirts from factories that made t-shirts are not engaging with artists. You can also get a t-shirt that was handmade by an artist somewhere. And that's okay too.
+And that's fine. That's allowed. People who buy t-shirts from factories that make t-shirts are not engaging with artists. You can also get a t-shirt that was handmade by an artist somewhere. And that's okay too.
 
 ## The Artists Among Them
 
 But some of those generative AI users don't see a tool that gets them to an outcome faster. They see a tool that allows them to manifest aesthetics that were trapped in their head before.
 
-These people are no different than a photographer picking up a camera or - pay attention to how we call these now - an **artist** picking up a mouse or a Wacom tablet instead of a pen or a pencil or a paintbrush, because the digital toolset is more forgiving.
+These people are no different than a photographer picking up a camera or - pay attention to how we call these now - an **artist** picking up a mouse or a Wacom tablet instead of a pen or a pencil or a paintbrush, because the digital toolset is more amenable to manifesting their vision.
 
 Those people who see generative AI as "oh my goodness, I can finally create these visual experiences that I did not have a way to create before" - those people are artists.
 
 The reason they are artists is because they seek, through the act of creation, to experience and share the experience. That is what drives the artistic process. Even after visual media creation is fully industrialized - even after most people are just having the machines make the visual media that they need for their outcomes - there will still be humans doing it by hand.
 
-Because they seek the experience of **doing** the creating as its own end.
+Because they seek the experience of **doing** the creating as an end unto itself.
