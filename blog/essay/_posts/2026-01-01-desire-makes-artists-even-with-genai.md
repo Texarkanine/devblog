@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Desire Makes Artists, Even With GenAI"
-description: The desire to create is what makes an artist. That's why some people using generative AI are artists - and why there will always be human artists.
+description: The desire to create is what makes an artist. That's why some people using generative AI are artists - and it's also why there will always be human artists.
 author: niko
 tags:
   - ai
@@ -11,7 +11,7 @@ tags:
 
 ## Thesis
 
-> The desire to create is what makes an artist. That's true for some people using generative AI - and why there will always be human artists.
+> The desire to create is what makes an artist. That's true for some people using generative AI - and it's also why there will always be human artists.
 
 ## What Making Art Is
 
