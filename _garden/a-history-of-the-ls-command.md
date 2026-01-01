@@ -7,7 +7,7 @@ tags:
   - unix
 ---
 
-Inspired by the question: "Who *wrote* `ls`?"
+Inspired by the question: "Who wrote `ls`?"
 
 TL;DR
 
@@ -78,6 +78,8 @@ Under this convention:
 * `rename` was abbreviated to `rn`.
 
 This decision was driven by the ergonomics of the teletype. The standard interface for Multics (and later Unix) was the Teletype [Model 37](https://en.wikipedia.org/wiki/Teletype_Model_37) or [Model 33](https://en.wikipedia.org/wiki/Teletype_Model_33). These devices were mechanical typewriters that communicated over phone lines. They were loud, slow (~10 characters per second), and required significant physical force to actuate the keys. Every character saved was not just a time optimization; it was a physical labor optimization.
+
+> ...But is the attribution to Don Widrig correct? See [Appendix B: Don Widrig & Short Names](#appendix-b-don-widrig--short-names)
 
 #### The Multics `list` Implementation
 
@@ -195,12 +197,14 @@ As Unix escaped the labs and spread to universities, specifically the University
 ### The Screen Real Estate Problem
 
 In the late 1970s, universities began replacing teletypes with video terminals. These screens had limited height but substantial width. The traditional `ls` output - one file per line - was inefficient on these screens.
-In May and August 1977, [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) made modifications to `ls` at the University of California, Berkeley, which he subsequently distributed as part of the First Berkeley Software Distribution (1BSD). The most dramatic difference with this version of `ls` was that it listed files in multiple columns rather than only listing one name per line. This allowed users to see dozens of files at once without scrolling.
+In May and August 1977, [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) made modifications to `ls` at the University of California, Berkeley, which he subsequently distributed as part of the First Berkeley Software Distribution (1BSD).
+
+> ... Or Did He? See [Appendix A: Bill Joy & Multi-Column `ls`](#appendix-a-bill-joy--multi-column-ls)
+
+The most dramatic difference with this version of `ls` was that it listed files in multiple columns rather than only listing one name per line. This allowed users to see dozens of files at once without scrolling.
 
 * **BSD ls:** Defaulted to multi-column output if the output was a terminal (`isatty()`).
 * **System V ls:** Stuck to the traditional single-column format for longer, requiring a flag (often `-C`) to enable columns.
-
-> ... Or Did He? See [Appendix A: Bill Joy & Multi-Column `ls`](#appendix-a-bill-joy--multi-column-ls)
 
 ### Flag Inflation
 
@@ -277,13 +281,6 @@ It was claimed earlier in this document:
 
 A minor claim... but, is it true? The Bill Joy attribution is bandied about in blog posts and forum comments, but authoritative sources on who actually added the multi-column capability to `ls` are hard to come by.
 
-{% polaroid
-	bill-joy-11-1999.jpg
-	title="Bill Joy, November 1999"
-	link="https://web.archive.org/web/20020209231859/http://www.linux-mag.com/1999-11/joy_02.html"
-	image_link="bill-joy-11-1999.jpg"
-%}
-
 The original `Brief history of the 'ls' command` article by [Eric Fischer](https://github.com/e-n-f) the closest to an authoritative source: the host publication - the "[Linux Documentation Project](https://www.linuxdoc.org/)" - is authoritative-enough but the author's provenance isn't easily established. It appears that Fischer was just an enthusiast - it isn't clear how much, if any, of the knowledge is first-hand.
 
 Most of the other "sources," if they attribute their knowledge to anything, attribute it to that article.
@@ -350,9 +347,15 @@ But... Who was Don Widrig? Is he *really* the person who deserves credit for the
 
 That's him, according to some Multics history - again from `Multicians.org` - authored by [Tom Van Vleck](https://en.wikipedia.org/wiki/Tom_Van_Vleck). Tom worked on [Project MAC](https://en.wikipedia.org/wiki/Project_MAC) at MIT starting in 1965. Project MAC brought about the CTSS where our `ls` story starts.
 
-He *may* have co-authored [Managing Software Requirements: A Unified Approach](https://www.goodreads.com/book/show/582860.Managing_Software_Requirements) - a book on [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) -  with [Dean Leffingwell](https://www.linkedin.com/in/deanleffingwell/). Leffingwell also doesn't have a dedicated Wikipedia page or many photos, but does have an up-to-date LinkedIn profile... But we're getting sidetracked.
+Don *may* have co-authored [Managing Software Requirements: A Unified Approach](https://www.goodreads.com/book/show/582860.Managing_Software_Requirements) - a book on [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) -  with [Dean Leffingwell](https://www.linkedin.com/in/deanleffingwell/). There are other Don Widrigs out there and I can't find anything conclusive to pin authorship on *our* Don. Leffingwell also doesn't have a dedicated Wikipedia page or many photos, but does have an up-to-date LinkedIn profile... But we're getting sidetracked.
 
-Don Widrig appears to have not been as famous - or at least as *public* - a figure as some of the other names involved in the history of `ls`: there's precious little historical information available beyond what we've already seen. There are absolutely occasional references from contemporaries of him working on Multics at the right time - he's even named in surviving Multics documentation, including as a co-author of [PRLNK](https://www.multicians.org/mspm/be-5-14.671117.prlnk-saved.pdf) along wtih Tom Van Vleck- but nothing conclusive about the short naming convention. The only source we've got is the word of a contemporary Multician, posted on a website dedicated to Multics history. A thoroughly suitable source, but also our *only* one.
+Don Widrig appears to have not been as famous - or at least as *public* - a figure as some of the other names involved in the history of `ls`: there's precious little historical information available beyond what we've already seen. We do have:
+
+- occasional references from contemporaries of him working on Multics at the right time
+- his name scattered throughout surviving Multics documentation, including as a co-author of [PRLNK](https://www.multicians.org/mspm/be-5-14.671117.prlnk-saved.pdf) along with Tom Van Vleck (PRLNK feels adjacent to `ls`'s functionality)
+- **nothing conclusive** about the short naming convention
+
+The only source we've got is the word of a contemporary Multician, posted on a website dedicated to Multics history. A thoroughly suitable source, but also our *only* one.
 
 For lack of ability to refute the claim and in deference to the authority of the claimant, we'll let the credit stand with Don for now.
 
@@ -379,3 +382,4 @@ For lack of ability to refute the claim and in deference to the authority of the
 [^11]: "Research Unix." *Wikipedia*, <https://en.wikipedia.org/wiki/Research_Unix>. ([archive](https://web.archive.org/web/20251113073548/https://en.wikipedia.org/wiki/Research_Unix))
 
 [^12]: "Genesis: 1969–1971" *Origins and History of Unix, 1969-1995*, <http://www.catb.org/esr/writings/taoup/html/ch02s01.html>. ([archive](https://web.archive.org/web/20251012111631/http://www.catb.org/esr/writings/taoup/html/ch02s01.html))
+
