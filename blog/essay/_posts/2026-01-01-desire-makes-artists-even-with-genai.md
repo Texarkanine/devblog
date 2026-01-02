@@ -73,6 +73,6 @@ These people are no different than a photographer picking up a camera or - pay a
 
 Those people who see generative AI as "oh my goodness, I can finally create these visual experiences that I did not have a way to create before" - **those people are artists.**
 
-They are artists because they seek, through the act of creation, to experience and share the experience. That is what drives the artistic process. Even after visual media creation is fully industrialized - even after most people are just having the machines make the visual media that they need for their outcomes - there will still be humans doing it by hand.
+They are artists because they seek, through the act of creation, to experience and share the experience. That is what drives the artistic process. Even after visual media creation is fully industrialized - even after most people are just having the machines make the visual media that they need for their outcomes - we need not fear the loss of artists.
 
-Because they seek the experience of **doing** the creating as an end unto itself.
+There will still be humans doing it by hand, because they seek the experience of **doing** the creating as an end unto itself.
