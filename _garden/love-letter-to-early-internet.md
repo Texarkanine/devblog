@@ -10,7 +10,7 @@ tags:
 
 The "Early Internet" here refers to the late 1990s to the early 2000s, where the Internet was no longer the exclusive domain of technologists, but still mostly limited to *enthusiasts*. Just about anyone *could* put together a website on the World Wide Web, but not everyone was into it yet.
 
-Web Design of this period had many iconic characteristics that, for better or worse, give me warm fuzzies. At least one place has labelled this era the "Golden Age of Web Design," which I of course agree with. However, this letter is addressed to the early 1990s pages that were just pulling themselves up out of black and white text with 16-bit graphics.
+Web Design of this period had many iconic characteristics that, for better or worse, give me warm fuzzies. At least one place has labelled this era the "Golden Age of Web Design," which I of course agree with. However, this letter is addressed to the early 1990s pages that were just pulling themselves up out of black and white text with 16-bit graphics as well. The wave of the "Golden Age" had started by the time I showed up, but only just: I got to watch it wash across the 'net, leaving a wake of color and style in its wake.
 
 ## Let's Get You Dressed...
 
@@ -19,14 +19,29 @@ The *very early* web was plain black and white like this site, but the turn-of-t
 ### Backgrounds
 
 <style type="text/css">
+	/* Light mode */
+	:root {
+		--tile-bg-image: url(/assets/img/garden/early-web/tile-bg.gif);
+		--tile-bg-anim-image: url(/assets/img/garden/early-web/tile-bg-anim.gif);
+		--tile-bg-anim-overlay: rgba(255, 207, 115, 0.75);
+	}
+
+	/* Dark mode */
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--tile-bg-image: url(/assets/img/garden/early-web/tile-bg-dark.gif);
+			--tile-bg-anim-overlay: rgba(0, 0, 0, 0.6);
+		}
+	}
+
 	.tile-bg {
-		background-image: url(/assets/img/garden/early-web/tile-bg.gif) !important;
+		background-image: var(--tile-bg-image) !important;
 		background-repeat: repeat !important;
 	}
 	.tile-bg-anim {
 		background-image: 
-			linear-gradient(rgba(255, 207, 115, 0.75)),
-			url("/assets/img/garden/early-web/tile-bg-anim.gif");
+			linear-gradient(var(--tile-bg-anim-overlay)),
+			var(--tile-bg-anim-image);
 		background-blend-mode: normal;
 		background-repeat: repeat !important;
 
@@ -103,7 +118,7 @@ Nowadays, basically everyone agrees that sites making sound *on their own* is a 
 
 Tabbed browsing didn't make it to mainstream until much later and screen resolutions weren't big - 1024x768 was the standard and close to the maximum you'd ever encounter - so folks were often only looking at one page at a time. With that in mind, it made a lot more sense for a webpage to decide to play a theme song for you: it could be reasonably confident that the only thing you were doing on the computer right then was related to that very page!
 
-Many of these background tracks were [MIDI](https://en.wikipedia.org/wiki/MIDI) files, a sort-of equivalent of vector graphics - they didn't contain the sound data, but instructions on how to generate it. You had to have a *sound font* installed to play them, and depending on the font, they'd sound different! You could run the same MIDI through a piano and an electric guitar font to hear two radically different versions of the same song! In case you need it, here's what I *think* is the Windows 98 default sound font: [Windows 98 Sound Font](https://musical-artifacts.com/artifacts/713) / [download](https://musical-artifacts.com/artifacts/713/gm.sf2). Modern browsers seem to still be able to figure MIDI out, though, so the "play" link above will probably work. You might need the sound font if you download the BGM and try to play it on your own machine.
+Many of these background tracks were [MIDI](https://en.wikipedia.org/wiki/MIDI) files, a sort-of equivalent of vector graphics - they didn't contain the sound data, but instructions on how to generate it. You had to have a *sound font* installed to play them, and depending on the font, they'd sound different! You could run the same MIDI through a piano and an electric guitar font to hear two radically different versions of the same song! In case you need it, here's what I *think* is the Windows 98 default sound font: [Windows 98 Sound Font](https://musical-artifacts.com/artifacts/713) / [download](https://musical-artifacts.com/artifacts/713/gm.sf2). Modern browsers seem to still be able to figure MIDI out, though. You might need the sound font if you download the BGM and try to play it on your own machine.
 
 Here are a couple examples from the [GeoCities Gallery](https://geocities.restorativland.org/):
 
@@ -406,7 +421,7 @@ Unless... Combining a [webring](#webrings) and a [hit counter](#hit-counters) gi
 	link="https://web.archive.org/web/20011204184825/http://pokemonpalace.net/cgi-bin/top50/topsites.cgi"
 %}
 
- Before search engines could essentially generate such a list on-demand for you for any category or query you could give them, this was an early way to find "the best" sites in a category! Their [88x31](#88x31--468x60) buttons would even render with each member site's actual rank on them, hit counter-style! 
+ Before search engines could essentially generate such a list on-demand for you for any category or query you could give them, this was an early way to find "the best" sites in a category! Members would place an [88x31](#88x31--468x60) button linking to the topisite list on their page and it would render with each member site's actual rank on them, hit counter-style!
 
 Many of the topsites I was in - and ran! - used the [aardvark topsites php](https://web.archive.org/web/20050409033331/http://www.aardvarkind.com/) script. By the 2000s, [PHP](https://en.wikipedia.org/wiki/PHP)-enabled web hosting was more available, and it was relatively easy for anyone to drop a folder of scripts into a directory and run their own topsite list! With administration panels to simplify member management and built-in analytics (and prestige), these were an attractive alternative to [webrings](#webrings).
 
