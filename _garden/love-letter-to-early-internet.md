@@ -421,7 +421,7 @@ Unless... Combining a [webring](#webrings) and a [hit counter](#hit-counters) gi
 	link="https://web.archive.org/web/20011204184825/http://pokemonpalace.net/cgi-bin/top50/topsites.cgi"
 %}
 
- Before search engines could essentially generate such a list on-demand for you for any category or query you could give them, this was an early way to find "the best" sites in a category! Their [88x31](#88x31--468x60) buttons would even render with each member site's actual rank on them, hit counter-style! 
+ Before search engines could essentially generate such a list on-demand for you for any category or query you could give them, this was an early way to find "the best" sites in a category! Members would place an [88x31](#88x31--468x60) button linking to the topisite list on their page and it would render with each member site's actual rank on them, hit counter-style!
 
 Many of the topsites I was in - and ran! - used the [aardvark topsites php](https://web.archive.org/web/20050409033331/http://www.aardvarkind.com/) script. By the 2000s, [PHP](https://en.wikipedia.org/wiki/PHP)-enabled web hosting was more available, and it was relatively easy for anyone to drop a folder of scripts into a directory and run their own topsite list! With administration panels to simplify member management and built-in analytics (and prestige), these were an attractive alternative to [webrings](#webrings).
 
