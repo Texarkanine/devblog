@@ -59,6 +59,19 @@ body {
 		text-shadow: none;
 	}
 
+	/* Code block selection - dark bg with visible text (targets all descendants for syntax highlighting) */
+	pre *::selection, pre::selection, code *::selection, code::selection,
+	.highlight *::selection, .highlight::selection {
+		background-color: rgba(9, 9, 9, 0.4) !important; /* dark with transparency */
+		color: var(--body-bg) !important; /* keep dark text visible */
+	}
+
+	pre *::-moz-selection, pre::-moz-selection,	code *::-moz-selection, code::-moz-selection,
+	.highlight *::-moz-selection, .highlight::-moz-selection {
+		background-color: rgba(9, 9, 9, 0.4) !important; /* Firefox */
+		color: var(--body-bg) !important;
+	}
+
 	blockquote, .polaroid {
 		border-color: var(--link-color);
 		background-color: unset;
