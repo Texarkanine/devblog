@@ -10,7 +10,7 @@ tags:
 
 The "Early Internet" here refers to the late 1990s to the early 2000s, where the Internet was no longer the exclusive domain of technologists, but still mostly limited to *enthusiasts*. Just about anyone *could* put together a website on the World Wide Web, but not everyone was into it yet.
 
-Web Design of this period had many iconic characteristics that, for better or worse, give me warm fuzzies. At least one place has labelled this era the "Golden Age of Web Design," which I of course agree with. However, this letter is addressed to the early 1990s pages that were just pulling themselves up out of black and white text with 16-bit graphics.
+Web Design of this period had many iconic characteristics that, for better or worse, give me warm fuzzies. At least one place has labelled this era the "Golden Age of Web Design," which I of course agree with. However, this letter is addressed to the early 1990s pages that were just pulling themselves up out of black and white text with 16-bit graphics as well. The wave of the "Golden Age" had started by the time I showed up, but only just: I got to watch it wash across the 'net, leaving a wake of color and style in its wake.
 
 ## Let's Get You Dressed...
 
