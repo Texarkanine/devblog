@@ -490,4 +490,4 @@ The pivot itself was straightforward:
 
 The petcare hub works. It's directly connected to a router, which is all its defective firmware ever needed. And the IoT network is finally isolated, with full per-device visibility in PiHole.
 
-All because a petcare company couldn't write firmware can handle being connected to a network switch.
+All because a petcare company couldn't write firmware that can handle being connected to a network switch.
