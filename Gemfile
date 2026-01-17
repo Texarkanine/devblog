@@ -18,6 +18,7 @@ group :jekyll_plugins do
   gem "jekyll-feed"
   gem 'jekyll-highlight-cards', "~> 1.0"
   gem 'jekyll-loading-lazy'
+  gem 'jekyll-mermaid-prebuild', "~> 0.2"
   gem "jekyll-remote-theme"
   gem "jekyll-seo-tag"
   gem "jekyll-sitemap"
