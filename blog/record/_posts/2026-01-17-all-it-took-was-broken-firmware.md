@@ -302,7 +302,7 @@ In Setup → Basic Setup:
 - **Local Domain**: `iot.local`
 - **Use DNSMasq for DNS**: Enabled
 
-In Services → Services → Additional DNSMasq Options:
+In Services → Services → Dnsmasq Infrastructure → Additional Options:
 
 ![DD-WRT: Services → Services → Additional DNSMasq Options](dd-wrt_services_services_dnsmasq-infrastructure_sm.jpg)
 
