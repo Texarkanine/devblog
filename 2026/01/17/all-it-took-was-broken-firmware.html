@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>All It Took Was Broken Firmware</title>
+<!-- Begin Jekyll SEO tag v2.8.0 --> <meta name="generator" content="Jekyll v4.4.1"> <meta property="og:title" content="All It Took Was Broken Firmware"> <meta name="author" content="Texarkanine"> <meta property="og:locale" content="en_US"> <meta name="description" content="A petcare IoT device “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked."> <meta property="og:description" content="A petcare IoT device “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked."> <link rel="canonical" href="https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html"> <meta property="og:url" content="https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html"> <meta property="og:site_name" content="🐶 Dog with a Dev Blog"> <meta property="og:type" content="article"> <meta property="article:published_time" content="2026-01-17T00:00:00+00:00"> <meta name="twitter:card" content="summary"> <meta property="twitter:title" content="All It Took Was Broken Firmware"> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Texarkanine"},"dateModified":"2026-01-17T00:00:00+00:00","datePublished":"2026-01-17T00:00:00+00:00","description":"A petcare IoT device “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked.","headline":"All It Took Was Broken Firmware","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html"},"url":"https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html"}</script> <!-- End Jekyll SEO tag --> <link type="application/atom+xml" rel="alternate" href="https://blog.cani.ne.jp/feed.xml" title="🐶 Dog with a Dev Blog">
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"> <link rel="stylesheet" href="/assets/css/main.css"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.css" integrity="sha384-OH8qNTHoMMVNVcKdKewlipV4SErXqccxxlg6HC9Cwjr5oZu2AdBej1TndeCirael" crossorigin="anonymous"> </head> <body a="light"> <main class="page-content" aria-label="Content"> <div class="w"> <p> <a href="/">~</a> / <a href="/all-posts.html">..</a> </p> <header> <h1>All It Took Was Broken Firmware</h1> <strong>The IoT isolation project I'd been putting off</strong> <div style="display: flex; justify-content: space-between; align-items: center;"> <div> <span> a <a href="/categories/record/">record</a> </span> <span> by <a href="/authors/texarkanine/">texarkanine</a> </span> </div> <div> <span class="post-meta">2026-01-17</span> </div> </div> </header> <article> <p>A <a href="https://www.surepetcare.com/en-us/internet-hub/hub" target="_blank" rel="noopener">petcare IoT device</a> “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked.</p> <p>This should have been the end. But I wanted to understand <em>why</em>, and that investigation became the push I needed to finish a long-deferred project: proper network isolation for IoT devices.</p> <h2 id="the-broken-hub">The Broken Hub</h2> <p>The hub connects to various pet products - water fountain, pet door, etc. For a year it lived behind two unmanaged switches, happily communicating with the cloud. Then it didn’t.</p> <p>I tested methodically:</p> <ul> <li>Different switch ports: failed</li> <li>Different cables: failed</li> <li>Power cycling everything: failed</li> <li>Direct connection to main router: <strong>worked</strong>
+</li> <li>Back through switches: failed again</li> </ul> <p>The failure was reproducible. Switches broke it. Direct router connection fixed it.</p> <p>Even a single switch between the hub and router caused failure. The switches themselves worked fine for every other device. The hub’s firmware was apparently so broken it couldn’t survive the 2-30 second port initialization delay that occurs when connecting through a switch - the time required for MAC address learning and spanning tree protocol transitions. At least, that was our best guess.</p> <p>I had a spare router (actually, a stack of them) so I popped one on the end of the hub’s switch, letting it act as a full NAT’ing router, and moved the hub to it. It worked. The hub didn’t need to be on the <em>internet-facing</em> router - it needed to be directly on <em>any</em> router.</p>
+<pre><code class="language-mermaid">flowchart LR
+
+subgraph ISP
+Rise((("ISP 1")))
+Spectrum((("ISP 2")))
+
+Rise --&gt; Modem1["Modem&lt;br&gt;(Fiber ONT)"]
+Spectrum --&gt; Modem2["Modem&lt;br&gt;(Cable)"]
+end
+
+subgraph LAN
+Router1Main Router
+Switch1("Switch1")
+Switch2("Switch2")
+Switch3("Switch3")
+Switch4("Switch4")
+Router2Router2
+
+Modem1 --&gt; Router1
+Modem2 --&gt; Router1
+
+Router1 --&gt; Switch1
+Router1 --&gt; Switch4
+Switch1 --&gt; Switch2
+Switch2 --&gt; Switch3
+Switch2 --&gt; Router2
+
+end
+
+Switch3 --&gt; Hub0@{ shape: stadium, label: "😺 Hub ❌&lt;br&gt;Original Position" }
+Switch3 --&gt; Hub1@{ shape: stadium, label: "😺 Hub ❌&lt;br&gt;Alternate Position 1&lt;br&gt;(port 1)" }
+Switch3 --&gt; Hub2@{ shape: stadium, label: "😺 Hub ❌&lt;br&gt;Alternate Position 2&lt;br&gt;(port 3, different cable)" }
+Switch4 --&gt; Hub3@{ shape: stadium, label: "😺 Hub ❌&lt;br&gt;Alternate Position 3" }
+Router1 --&gt; Hub4@{ shape: stadium, label: "😺 Hub ✅&lt;br&gt;Alternate Position 4&lt;br&gt;(worked)" }
+Router2 --&gt; Hub5@{ shape: stadium, label: "😺 Hub ✅&lt;br&gt;Alternate Position 5&lt;br&gt;(worked)" }
+</code></pre>
+<p>I want to also briefly shout out to the old Linksys <code class="language-plaintext highlighter-rouge">WRT54GL</code> I pulled for this - I don’t have a receipt for it, but the oldest reference I can find is from 2011 - at this point it’s at least 17 years old, has been on the shelf for at least 13 years, and it powered up and routed like a champ!</p> <div class="polaroid-container"> <div class="polaroid"> <a href="https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html" target="_blank" rel="noopener"> <img src="/assets/img/blog/record/wrt54gs-and-wsb24_thumb-40627b-640x.jpg" alt="Shout Out to this Old Champ" class="polaroid-image" loading="lazy"> </a> <div class="polaroid-title">Shout Out to this Old Champ</div> <div class="polaroid-link"> <a href="https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html" target="_blank" rel="noopener">mobilespecs.net/router/Linksys/Linksys_WRT54GL.html</a> </div> <small class="polaroid-archive">   </small> </div> </div> <h2 id="the-real-project">The Real Project</h2> <p>I couldn’t run a new cable off the main router. All four LAN ports were already distributing to different rooms, with long and/or through-the-walls cable runs to switches in each. To give up a port for the hub, I would have had to run a new through-the-attic line from one room to another to daisy-chain them. No way! But this defective hub had just demonstrated something useful: I already had a router in the right location. If I converted it from an access point into a proper router with its own subnet, the hub would work - and I’d finally have the IoT network isolation I’d been meaning to set up.</p> <p>The goal:</p> <ul> <li>IoT devices on their own subnet, isolated from the home LAN</li> <li>Home LAN can reach IoT devices (for management and configuration)</li> <li>IoT devices cannot initiate connections to home LAN</li> <li>IoT devices use the existing <a href="https://pi-hole.net/" target="_blank" rel="noopener">PiHole for DNS</a>
+</li> <li>Individual IoT clients visible in PiHole (not hidden behind NAT)</li> <li>Hostnames displayed in PiHole query logs</li> </ul> <p>The starting topology looked like this:</p>
+<pre><code class="language-mermaid">flowchart LR
+
+subgraph "Home LAN: 192.168.1.0/24"
+Router1Main Router
+PersonalDevices(("Personal Devices"))
+DNS("PiHole DNS")
+
+Router1 --&gt; DNS
+Router1 --&gt; PersonalDevices
+
+
+Router1 --&gt; IoTRouter
+
+IoTRouter("IoT Router&lt;br&gt;(AP Mode)")
+
+IoTDevices(("IoT Devices"))
+
+IoTRouter --&gt; IoTDevices
+end
+</code></pre>
+<p>Because we’d now determined that I would need the IoT Router to actually <em>be</em> a NAT’ing, DHCP’ing router, I would need something like this:</p>
+<pre><code class="language-mermaid">flowchart LR
+
+subgraph "Home LAN: 192.168.1.0/24"
+Router1Main Router
+PersonalDevices(("Personal Devices"))
+DNS("PiHole DNS")
+
+Router1 --&gt; DNS
+Router1 --&gt; PersonalDevices
+end
+
+PersonalDevices -.-&gt; IoTDevices
+IoTDevices -.-x PersonalDevices
+IoTDevices -.-&gt; DNS
+
+subgraph "IoT LAN&lt;br&gt;10.1.101.0/24"
+Router1 --&gt; IoTRouter
+
+IoTRouter("IoT Router")
+
+IoTDevices(("IoT Devices"))
+
+IoTRouter --&gt; IoTDevices
+end
+</code></pre>
+<p>The thing that had had me putting this project off thus far was those dotted lines… We were going to have to use <code class="language-plaintext highlighter-rouge">iptables</code> and static routes.</p> <h2 id="converting-the-router">Converting the Router</h2> <p>The IoT router was a <a href="https://mobilespecs.net/router/Linksys/Linksys_EA6500.html" target="_blank" rel="noopener">Linksys EA6500</a> running <a href="https://dd-wrt.com/" target="_blank" rel="noopener">dd-wrt</a> in “Gateway” mode - effectively a switch with a wireless access point. Converting it to a proper router required several changes. I’d done this before, but it had been a while and I didn’t remember all the things I had to undo at first, so I’m going to write them all down for next time:</p> <h3 id="wan-configuration">WAN Configuration</h3> <p>First, the WAN interface needed a static IP on the home LAN:</p> <ul> <li>
+<strong>WAN IP</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.101/24</code>
+</li> <li>
+<strong>Gateway</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.1</code> (main router)</li> <li>
+<strong>DNS</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.254</code> (PiHole)</li> </ul> <p>I initially tried DHCP for the WAN interface. The IoT router never obtained a lease from the main router… possibly because of the VLAN issue documented below. But, as this was going to be a foundational part of the network with a static route pointing to it, a static IP was probably better, anyway.</p> <h3 id="vlan-separation">VLAN Separation</h3> <p>The router had been bridging all ports together since I had just been using its ethernet ports as a LAN switch. To function as a router, WAN and LAN needed separate VLANs.</p> <p><strong>Setup → Switch Configuration</strong></p> <p><img src="/assets/img/blog/record/dd-wrt_setup_switch-config.jpg" alt="DD-WRT: Setup → Switch Configuration" loading="lazy"></p> <p>After applying these changes, I couldn’t reach the router at any IP address. Recovery required connecting a laptop with a static IP (<code class="language-plaintext highlighter-rouge">10.1.101.50/24</code>) and manual specification of the gateway (<code class="language-plaintext highlighter-rouge">10.1.101.1</code>) directly to a LAN port, then accessing the dd-wrt web interface at <code class="language-plaintext highlighter-rouge">10.1.101.1</code>.</p> <p><img src="/assets/img/blog/record/xubuntu-manual-ipv4-config.jpg" alt="Xubuntu manual ipv4 configuration" loading="lazy"></p> <p>This is probably because I had a bunch of pollution in routing tables and dhcp lease tables from previous incorrect configurations and connections. A reboot of all involved devices would probably also have fixed it.</p> <h3 id="the-dhcp-derp">The DHCP Derp</h3> <p>With VLANs fixed, devices connected to the IoT router were still getting IP addresses from the main router’s DHCP. Something was still bridged…?</p> <p>I checked the status page. DHCP Server: “Enabled - Stopped”.</p> <p>The syslog revealed the problem:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnsmasq[1430]: inconsistent DHCP range at line 9 of /tmp/dnsmasq.conf
+dnsmasq[1430]: FAILED to start up
+</code></pre></div></div> <p>The generated dnsmasq configuration showed:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dhcp-range=br0,10.1.101.100,10.1.102.33,255.255.255.0,1440m
+</code></pre></div></div> <p>With 190 maximum DHCP users starting at .100, the range overflowed the /24 subnet boundary. <code class="language-plaintext highlighter-rouge">10.1.101.100</code> + 190 = <code class="language-plaintext highlighter-rouge">10.1.102.34</code>. Dnsmasq correctly refused to serve an inconsistent range.</p> <p>With no DHCP running on the IoT router, and no isolation enforced yet, devices were getting their DHCP queries answered by the main router. I’d actually already set up the static route (documented below) to allow traffic from the main subnet into the IoT subnet, so this was working even though it normally wouldn’t have. Should have gone strictly in order!</p> <p>I reduced the DHCP pool to 50 users. The range stayed within the subnet, dnsmasq started, and devices finally got addresses from the IoT router.</p> <p><strong>I</strong> didn’t set that to 190. As far as I know, dd-wrt defaults to 50. I don’t know how, but somehow it got set to 190 while I was fiddling with and restarting the router a million times.</p> <h3 id="network-setup">Network Setup</h3> <p>The LAN configuration:</p> <ul> <li>
+<strong>Router IP</strong>: <code class="language-plaintext highlighter-rouge">10.1.101.1/24</code>
+</li> <li>
+<strong>DHCP Server</strong>: Enabled</li> <li>
+<strong>Start IP</strong>: <code class="language-plaintext highlighter-rouge">10.1.101.100</code>
+</li> <li>
+<strong>Maximum DHCP Users</strong>: 50</li> <li>
+<strong>DNS</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.254</code> (PiHole)</li> </ul> <h2 id="routing-and-firewall">Routing and Firewall</h2> <h3 id="static-route-on-main-router">Static Route on Main Router</h3> <p>The main router (running <a href="https://www.asuswrt-merlin.net/" target="_blank" rel="noopener">Asuswrt-Merlin</a>) needed to know how to reach the IoT subnet:</p> <ul> <li>
+<strong>Destination</strong>: <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code>
+</li> <li>
+<strong>Gateway</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.101</code>
+</li> <li>
+<strong>Interface</strong>: LAN</li> </ul> <p><strong>This is one half of the magic!</strong> This route allows the main router, who’s living in a <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> subnet, to see traffic destined for the <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code> subnet and go “Oh, I know who to send that to!”</p> <h3 id="firewall-rules">Firewall Rules</h3> <p>The IoT router needed firewall rules to enforce isolation. In dd-wrt, these go in Administration → Commands, saved as a firewall script:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Allow established/related connections back to IoT devices</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-m</span> state <span class="nt">--state</span> ESTABLISHED,RELATED <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Allow home LAN to reach IoT LAN (for management)</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 192.168.1.0/24 <span class="nt">-d</span> 10.1.101.0/24 <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Block IoT from initiating connections to home LAN</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.0/24 <span class="nt">-j</span> REJECT
+
+<span class="c"># Allow IoT to reach internet</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-o</span> <span class="si">$(</span>nvram get wan_iface<span class="si">)</span> <span class="nt">-j</span> ACCEPT
+</code></pre></div></div> <p>This is the other half of the magic! It essentially inverts the normal NAT semantic:</p> <ul> <li>home LAN devices <strong>can</strong> SSH or otherwise connect to IoT devices, access their web interfaces, push firmware updates, etc. They don’t see the NAT at all.</li> <li>IoT devices cannot reach anything on the home LAN. They don’t see the home LAN at all.</li> </ul> <p>The dd-wrt web interface didn’t make setting this up obvious:</p> <p><img src="/assets/img/blog/record/dd-wrt_administration_commands_thumb-ece110-640x.jpg" alt="DD-WRT: Administration → Commands" loading="lazy"></p> <ol> <li>At first, you have no saved commands, so all you can use is the “Commands” text box.</li> <li>Enter the firewall rules.</li> <li>Click “Run Commands” to run them and see if they work.</li> <li>Click “Save Firewall” to save them.</li> <li>
+<em>Next time</em>, you will have contents in the “Firewall” text field.</li> <li>Click “Edit” under the “Firewall” text field to populate the “Commands” text box with the firewall script.</li> <li>GOTO 2.</li> </ol> <h2 id="pihole-integration">PiHole Integration</h2> <h3 id="the-nat-problem">The NAT Problem</h3> <p>With basic routing working, I checked the PiHole query logs. All IoT DNS queries appeared to come from <code class="language-plaintext highlighter-rouge">192.168.1.101</code> - the IoT router’s WAN IP. NAT was hiding the individual clients.</p> <p>This defeated a key goal. I wanted per-device DNS visibility so I could block specific IoT devices from specific domains. With everything hidden behind one IP, I could only manage IoT as a single entity.</p> <h3 id="nat-exemption-for-dns">NAT Exemption for DNS</h3> <p>The solution: exempt DNS traffic from NAT, allowing the original source IP through to PiHole.</p> <p>Additions to the firewall script:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Exempt DNS to PiHole from NAT (preserve source IP)</span>
+iptables <span class="nt">-t</span> nat <span class="nt">-I</span> POSTROUTING <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+iptables <span class="nt">-t</span> nat <span class="nt">-I</span> POSTROUTING <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Allow IoT to reach PiHole DNS</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+</code></pre></div></div> <p>The <code class="language-plaintext highlighter-rouge">-t nat -I POSTROUTING ... -j ACCEPT</code> rules tell iptables: “For packets going to PiHole port 53, skip the <a href="https://www.netfilter.org/documentation/HOWTO/NAT-HOWTO-6.html#ss6.1" target="_blank" rel="noopener">MASQUERADE rule that rewrites the source IP</a>.” The packets arrive at PiHole with their original 10.1.101.x source addresses. Normally, these packets wouldn’t be able to be responded to: the pihole is on a different subnet with a different gateway that wouldn’t know about the <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code> devices! That’s what the static route on the main router is for: the pihole’s gateway actually <em>does</em> know where to send responses addressed to the <code class="language-plaintext highlighter-rouge">10.*</code> addresses.</p> <p>After applying these rules, individual IoT IPs appeared in the PiHole logs.</p> <h2 id="hostname-resolution">Hostname Resolution</h2> <p>IP addresses appeared correctly, but the PiHole query log showed numeric IPs instead of hostnames. For the home LAN, PiHole displayed “macbook” and “desktop”. For IoT devices, just <code class="language-plaintext highlighter-rouge">10.1.101.134</code>.</p> <h3 id="configuring-the-iot-routers-dns">Configuring the IoT Router’s DNS</h3> <p>The IoT router needed to serve reverse DNS lookup queries about its own DHCP clients. This required several dnsmasq settings.</p> <p>In Setup → Basic Setup:</p> <ul> <li>
+<strong>Local Domain</strong>: <code class="language-plaintext highlighter-rouge">iot.local</code>
+</li> <li>
+<strong>Use DNSMasq for DNS</strong>: Enabled</li> </ul> <p>In Services → Services → Dnsmasq Infrastructure → Additional Options:</p> <p><img src="/assets/img/blog/record/dd-wrt_services_services_dnsmasq-infrastructure_sm.jpg" alt="DD-WRT: Services → Services → Additional DNSMasq Options" loading="lazy"></p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>expand-hosts
+bind-interfaces
+listen-address=192.168.1.101
+local=/101.1.10.in-addr.arpa/
+dhcp-option=6,192.168.1.254
+</code></pre></div></div> <p>Each line serves a specific purpose:</p> <ul> <li>
+<code class="language-plaintext highlighter-rouge">expand-hosts</code>: Append the domain to DHCP hostnames, so we have names in the first place</li> <li>
+<code class="language-plaintext highlighter-rouge">bind-interfaces</code>: Required when specifying listen-address</li> <li>
+<code class="language-plaintext highlighter-rouge">listen-address=192.168.1.101</code>: Serve DNS on WAN interface only (for PiHole reverse DNS queries)</li> <li>
+<code class="language-plaintext highlighter-rouge">local=/101.1.10.in-addr.arpa/</code>: Answer reverse DNS locally instead of forwarding upstream</li> <li>
+<code class="language-plaintext highlighter-rouge">dhcp-option=6,192.168.1.254</code>: Tell DHCP clients to use PiHole as their DNS server (option 6 = DNS server)</li> </ul> <p>The <code class="language-plaintext highlighter-rouge">local=</code> line was critical. Without it, the IoT router forwarded reverse DNS queries to internet root servers, which returned NXDOMAIN for private IP addresses. With <code class="language-plaintext highlighter-rouge">local=</code>, it answers authoritatively from its own DHCP lease table.</p> <p>I tried using <code class="language-plaintext highlighter-rouge">auth-zone</code> for authoritative DNS, which would also have prevented the forwarding of reverse DNS queries, but DD-WRT’s dnsmasq wasn’t compiled with <code class="language-plaintext highlighter-rouge">HAVE_AUTH</code> support. The router refused to start dnsmasq at all with that directive. <code class="language-plaintext highlighter-rouge">local=</code> was the way to go.</p> <p>Note also that we’re <em>not</em> listening on the LAN interface (<code class="language-plaintext highlighter-rouge">10.1.101.1</code>), as a DHCP’ing router normally would. IoT devices should use PiHole for DNS, not this router. To enforce this policy, and to allow PiHole to query us for reverse DNS, we need a few more firewall rules:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Allow reverse DNS queries FROM PiHole (via WAN interface)</span>
+iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> vlan2 <span class="nt">-s</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> vlan2 <span class="nt">-s</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Block DNS queries TO the gateway from IoT clients (they should use PiHole)</span>
+iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> br0 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
+iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> br0 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
+</code></pre></div></div> <h3 id="configuring-piholes-conditional-forwarding">Configuring PiHole’s Conditional Forwarding</h3> <p>PiHole needs to know where to send reverse DNS queries for the IoT subnet. The web UI supports <a href="https://docs.pi-hole.net/ftldns/configfile/?h=forwarding#revservers" target="_blank" rel="noopener">conditional forwarding</a>, but only for a single network - mine was already configured for the home LAN.</p> <p>The solution: manually add a dnsmasq configuration file on the pihole server:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># /etc/dnsmasq.d/11-iot-subnet.conf</span>
+rev-server<span class="o">=</span>10.1.101.0/24,192.168.1.101
+</code></pre></div></div> <p>This tells PiHole: “For reverse DNS lookups of <code class="language-plaintext highlighter-rouge">10.1.101.x</code> addresses, query <code class="language-plaintext highlighter-rouge">192.168.1.101</code> (the IoT router’s WAN IP).”</p> <p>After restarting PiHole’s DNS:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>pihole restartdns
+</code></pre></div></div> <p>Reverse DNS queries started working. <code class="language-plaintext highlighter-rouge">dig -x 10.1.101.134</code> on the PiHole server returned <code class="language-plaintext highlighter-rouge">macbook.iot.local</code>.</p> <h3 id="the-cache-finale">The Cache Finale</h3> <p>Everything was configured correctly. Reverse DNS worked from the command line. The PiHole <a href="https://docs.pi-hole.net/database/query-database/" target="_blank" rel="noopener">FTL database</a> showed hostnames:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlite&gt; SELECT ip, name FROM network_addresses WHERE ip LIKE '10.1.101.%';
+10.1.101.134|macbook.iot.local
+10.1.101.101|gateway-device-1.iot.local
+10.1.101.109|gateway-device-2.iot.local
+</code></pre></div></div> <p>But the PiHole web interface still showed IP addresses.</p> <p>Browser cache. A hard refresh (Ctrl+Shift+R) and hostnames appeared. It may have also been a 10-minute or so wait. I didn’t test rigorously. But, it eventually started working; there was <em>some</em> kind of latency involved between proper configuration and hostnames actually showing in the Web UI.</p> <h2 id="final-working-configuration">Final Working Configuration</h2> <h3 id="main-router-asuswrt-merlin">Main Router (Asuswrt-Merlin)</h3> <h4 id="lan--route">LAN → Route</h4> <p><strong>Static Route</strong></p> <table> <thead> <tr> <th>Network/Host IP</th> <th>Netmask</th> <th>Gateway</th> <th>Metric</th> <th>Interface</th> </tr> </thead> <tbody> <tr> <td>10.1.101.0/24</td> <td>255.255.255.0</td> <td>192.168.1.101</td> <td> </td> <td>LAN</td> </tr> </tbody> </table> <h3 id="iot-router-dd-wrt">IoT Router (DD-WRT)</h3> <h4 id="setup--basic-setup">Setup → Basic Setup</h4> <p><strong>WAN Connection Type</strong></p> <ul> <li>Connection Type: Static IP</li> <li>WAN IP Address: <code class="language-plaintext highlighter-rouge">192.168.1.101/24</code>
+</li> <li>Gateway: <code class="language-plaintext highlighter-rouge">192.168.1.1</code>
+</li> <li>Static DNS 1: <code class="language-plaintext highlighter-rouge">192.168.1.254</code>
+</li> </ul> <p><strong>Optional Settings</strong></p> <ul> <li>Domain Name: <code class="language-plaintext highlighter-rouge">iot.local</code>
+</li> </ul> <p><strong>Router IP</strong></p> <ul> <li>Local IP Address: <code class="language-plaintext highlighter-rouge">10.1.101.1/24</code>
+</li> <li>Gateway: <code class="language-plaintext highlighter-rouge">0.0.0.0</code>
+</li> <li>Local DNS: <code class="language-plaintext highlighter-rouge">192.168.1.254</code>
+</li> </ul> <p><strong>DHCP</strong></p> <ul> <li>DHCP Type: DHCP Server</li> <li>DHCP Server: ✅ Enable</li> <li>Start IP Address: <code class="language-plaintext highlighter-rouge">10.1.101.100</code>
+</li> <li>Maximum DHCP Users: 50</li> <li>Use DNSMasq for DNS: ✅ (enabled)</li> </ul> <h4 id="services--services">Services → Services</h4> <p><strong>Dnsmasq Infrastructure</strong></p> <p><em>Additional Options:</em></p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>expand-hosts
+bind-interfaces
+listen-address=192.168.1.101
+local=/101.1.10.in-addr.arpa/
+dhcp-option=6,192.168.1.254
+</code></pre></div></div> <h4 id="administration--commands">Administration → Commands</h4> <p><strong>Firewall</strong></p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ===== DNS Protection =====</span>
+<span class="c"># Allow reverse DNS queries FROM PiHole (via WAN interface)</span>
+iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> vlan2 <span class="nt">-s</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> vlan2 <span class="nt">-s</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Block DNS queries TO the gateway from IoT clients (they should use PiHole)</span>
+iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> br0 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
+iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> br0 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
+<span class="c"># ===== End DNS Protection =====</span>
+
+<span class="c"># Allow established/related to IoT LAN</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-m</span> state <span class="nt">--state</span> ESTABLISHED,RELATED <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Allow home LAN to reach IoT LAN</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 192.168.1.0/24 <span class="nt">-d</span> 10.1.101.0/24 <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Block IoT from initiating to home LAN</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.0/24 <span class="nt">-j</span> REJECT
+
+<span class="c"># ===== PiHole DNS Rules =====</span>
+<span class="c"># Exempt DNS to PiHole from NAT</span>
+iptables <span class="nt">-t</span> nat <span class="nt">-I</span> POSTROUTING <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+iptables <span class="nt">-t</span> nat <span class="nt">-I</span> POSTROUTING <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Allow IoT to reach PiHole DNS</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
+<span class="c"># ===== End PiHole DNS Rules =====</span>
+
+<span class="c"># Allow IoT to the internet</span>
+iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-o</span> <span class="si">$(</span>nvram get wan_iface<span class="si">)</span> <span class="nt">-j</span> ACCEPT
+</code></pre></div></div> <h3 id="pihole">PiHole</h3> <h4 id="etcdnsmasqd11-iot-subnetconf"><code class="language-plaintext highlighter-rouge">/etc/dnsmasq.d/11-iot-subnet.conf</code></h4> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rev-server=10.1.101.0/24,192.168.1.101
+</code></pre></div></div> <h2 id="a-note-on-subnet-selection">A Note on Subnet Selection</h2> <p>This post uses <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code> throughout, but I actually started with <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>. Mid-configuration, I switched.</p> <p>The problem was readability. The IoT router’s WAN IP was <code class="language-plaintext highlighter-rouge">192.168.1.101</code>. The IoT router’s LAN IP was <code class="language-plaintext highlighter-rouge">192.168.101.1</code>. When debugging firewall rules and routing tables, my brain kept swapping them. Is this the router’s address on the home network, or its address on its own network? Which side of the NAT am I looking at?</p> <p>Switching to <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code> made everything clearer. The <code class="language-plaintext highlighter-rouge">192.168.x.x</code> addresses are home LAN. The <code class="language-plaintext highlighter-rouge">10.x.x.x</code> addresses are IoT. No ambiguity. If you’re setting up something similar, pick subnets that are visually distinct.</p> <p>The pivot itself was straightforward:</p> <ol> <li>Change IoT router’s LAN IP from <code class="language-plaintext highlighter-rouge">192.168.101.1</code> to <code class="language-plaintext highlighter-rouge">10.1.101.1</code>
+</li> <li>Update DHCP range to <code class="language-plaintext highlighter-rouge">10.1.101.100-149</code>
+</li> <li>Update main router’s static route destination to <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code>
+</li> <li>Update all iptables rules referencing the IoT subnet</li> <li>Update PiHole’s conditional forwarding config</li> <li>Reboot IoT router, renew DHCP leases on clients, and reboot the pihole server</li> </ol> <h2 id="fin">Fin</h2> <p>The petcare hub works. It’s directly connected to a router, which is all its defective firmware ever needed. And the IoT network is finally isolated, with full per-device visibility in PiHole.</p> <p>All because a petcare company couldn’t write firmware that can handle being connected to a network switch.</p> </article> <footer> <p> tagged: <a href="/tags/dd-wrt/">dd-wrt</a>, <a href="/tags/dns/">dns</a>, <a href="/tags/home-networking/">home-networking</a>, <a href="/tags/iot/">iot</a>, <a href="/tags/iptables/">iptables</a>, <a href="/tags/networking/">networking</a>, <a href="/tags/pihole/">pihole</a> </p> </footer> <p> <a href="/">~</a> / <a href="/all-posts.html">..</a> </p> </div> </main> </body> </html>
