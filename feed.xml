@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-18T01:11:01+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">2MB Lighter</title><link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html"><![CDATA[<p>The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-18T01:32:29+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">2MB Lighter</title><link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html"><![CDATA[<p>The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.</p>
 
 <h2 id="the-setup">The Setup</h2>
 
@@ -129,12 +129,9 @@ MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
 
 <p>The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:</p>
 
-<pre><code class="language-mermaid">flowchart LR
-  A[Markdown] --&gt; B[Jekyll Build]
-  B --&gt; C[mmdc]
-  C --&gt; D[SVG File]
-  D --&gt; E[Static Site]
-</code></pre>
+<figure class="mermaid-diagram">
+<a href="/assets/svg/e09440ca.svg"><img src="/assets/svg/e09440ca.svg" alt="Mermaid Diagram" /></a>
+</figure>
 
 <p>The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.</p>
 
@@ -189,42 +186,9 @@ MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
 
 <p>I had a spare router (actually, a stack of them) so I popped one on the end of the hub’s switch, letting it act as a full NAT’ing router, and moved the hub to it. It worked. The hub didn’t need to be on the <em>internet-facing</em> router - it needed to be directly on <em>any</em> router.</p>
 
-<pre><code class="language-mermaid">flowchart LR
-
-subgraph ISP
-Rise((("ISP 1")))
-Spectrum((("ISP 2")))
-
-Rise --&gt; Modem1["Modem&lt;br&gt;(Fiber ONT)"]
-Spectrum --&gt; Modem2["Modem&lt;br&gt;(Cable)"]
-end
-
-subgraph LAN
-Router1Main Router
-Switch1("Switch1")
-Switch2("Switch2")
-Switch3("Switch3")
-Switch4("Switch4")
-Router2Router2
-
-Modem1 --&gt; Router1
-Modem2 --&gt; Router1
-
-Router1 --&gt; Switch1
-Router1 --&gt; Switch4
-Switch1 --&gt; Switch2
-Switch2 --&gt; Switch3
-Switch2 --&gt; Router2
-
-end
-
-Switch3 --&gt; Hub0@{ shape: stadium, label: "😺 Hub ❌&lt;br&gt;Original Position" }
-Switch3 --&gt; Hub1@{ shape: stadium, label: "😺 Hub ❌&lt;br&gt;Alternate Position 1&lt;br&gt;(port 1)" }
-Switch3 --&gt; Hub2@{ shape: stadium, label: "😺 Hub ❌&lt;br&gt;Alternate Position 2&lt;br&gt;(port 3, different cable)" }
-Switch4 --&gt; Hub3@{ shape: stadium, label: "😺 Hub ❌&lt;br&gt;Alternate Position 3" }
-Router1 --&gt; Hub4@{ shape: stadium, label: "😺 Hub ✅&lt;br&gt;Alternate Position 4&lt;br&gt;(worked)" }
-Router2 --&gt; Hub5@{ shape: stadium, label: "😺 Hub ✅&lt;br&gt;Alternate Position 5&lt;br&gt;(worked)" }
-</code></pre>
+<figure class="mermaid-diagram">
+<a href="/assets/svg/bac3c572.svg"><img src="/assets/svg/bac3c572.svg" alt="Mermaid Diagram" /></a>
+</figure>
 
 <p>I want to also briefly shout out to the old Linksys <code class="language-plaintext highlighter-rouge">WRT54GL</code> I pulled for this - I don’t have a receipt for it, but the oldest reference I can find is from 2011 - at this point it’s at least 17 years old, has been on the shelf for at least 13 years, and it powered up and routed like a champ!</p>
 
@@ -264,54 +228,15 @@ Router2 --&gt; Hub5@{ shape: stadium, label: "😺 Hub ✅&lt;br&gt;Alternate Po
 
 <p>The starting topology looked like this:</p>
 
-<pre><code class="language-mermaid">flowchart LR
-
-subgraph "Home LAN: 192.168.1.0/24"
-Router1Main Router
-PersonalDevices(("Personal Devices"))
-DNS("PiHole DNS")
-
-Router1 --&gt; DNS
-Router1 --&gt; PersonalDevices
-
-
-Router1 --&gt; IoTRouter
-
-IoTRouter("IoT Router&lt;br&gt;(AP Mode)")
-
-IoTDevices(("IoT Devices"))
-
-IoTRouter --&gt; IoTDevices
-end
-</code></pre>
+<figure class="mermaid-diagram">
+<a href="/assets/svg/15d11b1a.svg"><img src="/assets/svg/15d11b1a.svg" alt="Mermaid Diagram" /></a>
+</figure>
 
 <p>Because we’d now determined that I would need the IoT Router to actually <em>be</em> a NAT’ing, DHCP’ing router, I would need something like this:</p>
 
-<pre><code class="language-mermaid">flowchart LR
-
-subgraph "Home LAN: 192.168.1.0/24"
-Router1Main Router
-PersonalDevices(("Personal Devices"))
-DNS("PiHole DNS")
-
-Router1 --&gt; DNS
-Router1 --&gt; PersonalDevices
-end
-
-PersonalDevices -.-&gt; IoTDevices
-IoTDevices -.-x PersonalDevices
-IoTDevices -.-&gt; DNS
-
-subgraph "IoT LAN&lt;br&gt;10.1.101.0/24"
-Router1 --&gt; IoTRouter
-
-IoTRouter("IoT Router")
-
-IoTDevices(("IoT Devices"))
-
-IoTRouter --&gt; IoTDevices
-end
-</code></pre>
+<figure class="mermaid-diagram">
+<a href="/assets/svg/b9ec82d6.svg"><img src="/assets/svg/b9ec82d6.svg" alt="Mermaid Diagram" /></a>
+</figure>
 
 <p>The thing that had had me putting this project off thus far was those dotted lines… We were going to have to use <code class="language-plaintext highlighter-rouge">iptables</code> and static routes.</p>
 
@@ -1549,7 +1474,7 @@ ai-rizz add rule my-rule.mdc <span class="nt">--local</span>
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.hwr3dkp6dt-uwnjibxc { display: inline-block; }</style><script>(function(){function yxaomuphb2xpvoet(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function tnz7fbxpqzs(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var icelsiy766rt=sp.getAttribute('data-e2shcf8rmo9n');var xbnfpgn2t5=sp.getAttribute('data-gjlylfoacfxw');var r3vrbfrho=sp.getAttribute('data-rovxnbpoq');var vn4pi5xl=sp.getAttribute('data-b33mjm');var mailto=yxaomuphb2xpvoet(icelsiy766rt,spParts[0].length);var user=yxaomuphb2xpvoet(xbnfpgn2t5,spParts[1].length);var domainBase=yxaomuphb2xpvoet(r3vrbfrho,lnkParts[0].length);var tld=yxaomuphb2xpvoet(vn4pi5xl,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function oniuzoq7ds(){var els=document.querySelectorAll('a.lgouwwfaur5-ytjywouqfp9xxvan');var handler=function(){var sp=this.querySelector('span.hwr3dkp6dt-uwnjibxc');if(sp&&!this.dataset.d){var val=tnz7fbxpqzs(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',oniuzoq7ds);}else{oniuzoq7ds();}})();</script><a href="#" class="lgouwwfaur5-ytjywouqfp9xxvan"><span class="hwr3dkp6dt-uwnjibxc" data-e2shcf8rmo9n="wksvdy" data-gjlylfoacfxw="ZMLIKBML" data-rovxnbpoq="aczezyxltw" data-b33mjm="sec">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.wfrh-b9nyzlgds { display: inline-block; }</style><script>(function(){function escstfog(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function n5ybpxbk(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var zxwcq2z5d=sp.getAttribute('data-q32bvot');var aeututid6=sp.getAttribute('data-qcdzddv');var ez6tfy=sp.getAttribute('data-dsoimkn9x6');var xu25u41txrqx=sp.getAttribute('data-l5izzlth3');var mailto=escstfog(zxwcq2z5d,spParts[0].length);var user=escstfog(aeututid6,spParts[1].length);var domainBase=escstfog(ez6tfy,lnkParts[0].length);var tld=escstfog(xu25u41txrqx,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function luqjjrtevih(){var els=document.querySelectorAll('a.yrmvobmeqlmtn-gycgr6o2r');var handler=function(){var sp=this.querySelector('span.wfrh-b9nyzlgds');if(sp&&!this.dataset.d){var val=n5ybpxbk(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',luqjjrtevih);}else{luqjjrtevih();}})();</script><a href="#" class="yrmvobmeqlmtn-gycgr6o2r"><span class="wfrh-b9nyzlgds" data-q32bvot="qempxs" data-qcdzddv="ANMJLCNM" data-dsoimkn9x6="cebgbaznvy" data-l5izzlth3="lxv">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
