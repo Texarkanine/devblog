@@ -37,8 +37,19 @@ jobs:
       - name: Install ImageMagick
         uses: mfinelli/setup-imagemagick@v7
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install mermaid-cli
+        run: npm install -g @mermaid-js/mermaid-cli
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+
       - name: Build site
         env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome-stable
           LINKCARD_ARCHIVE_SAVE: 1
           LINKCARD_ARCHIVE_UA: blog.cani.ne.jp/jekyll:linkcard-archive (+${{ secrets.LINKCARD_ARCHIVE_CONTACT != '' && secrets.LINKCARD_ARCHIVE_CONTACT || 'mailto:unknown' }})
           JEKYLL_ENV: production
