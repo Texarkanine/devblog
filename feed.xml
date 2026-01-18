@@ -1,4 +1,171 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-17T23:56:05+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">All It Took Was Broken Firmware</title><link href="https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html" rel="alternate" type="text/html" title="All It Took Was Broken Firmware" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html"><![CDATA[<p>A <a href="https://www.surepetcare.com/en-us/internet-hub/hub">petcare IoT device</a> “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-18T01:11:01+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">2MB Lighter</title><link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html"><![CDATA[<p>The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.</p>
+
+<h2 id="the-setup">The Setup</h2>
+
+<p>I had a <a href="/2026/01/17/all-it-took-was-broken-firmware.html">blog post with several Mermaid diagrams explaining a firmware debugging story</a>. The standard approach - include mermaid.js and let it render client-side - would add 2MB to every page load. For static diagrams that never change after publishing, that’s absurd.</p>
+
+<p>The mermaid project provides <code class="language-plaintext highlighter-rouge">mmdc</code>, a <a href="https://github.com/mermaid-js/mermaid-cli">CLI that renders diagrams to SVG using headless Chrome</a>. A Jekyll plugin could intercept mermaid code blocks during build, shell out to <code class="language-plaintext highlighter-rouge">mmdc</code>, and replace them with static SVG references. No client-side JavaScript needed.</p>
+
+<h2 id="prototype-in-_plugins">Prototype in <code class="language-plaintext highlighter-rouge">_plugins/</code></h2>
+
+<p>Following the pattern from <a href="/2025/12/11/building-my-second-rubygem.html">jekyll-auto-thumbnails</a>, I started with a local plugin before extracting to a gem. Faster iteration, immediate feedback.</p>
+
+<p>The first attempt operated on rendered HTML, scanning for <code class="language-plaintext highlighter-rouge">&lt;code class="language-mermaid"&gt;</code> blocks. This worked, but produced inline SVG data URIs - ugly in the output and not separately cacheable.</p>
+
+<p>Better approach: operate on <strong>markdown</strong> during <code class="language-plaintext highlighter-rouge">:pre_render</code>. Find mermaid code blocks, convert to SVG files, replace with image references. The SVGs become proper static assets - cacheable by browsers, clickable for full-size viewing.</p>
+
+<h2 id="puppeteer-in-wsl">Puppeteer in WSL</h2>
+
+<p>First test run:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MermaidPrebuild: Initialized (mmdc 11.12.0)
+MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
+</code></pre></div></div>
+
+<p>The mermaid CLI uses Puppeteer (headless Chrome) internally. WSL - my local build environment - doesn’t ship with Chrome’s system library dependencies.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> libgbm1 libasound2 libatk1.0-0 <span class="se">\</span>
+  libatk-bridge2.0-0 libcups2 libdrm2 libxcomposite1 <span class="se">\</span>
+  libxdamage1 libxfixes3 libxrandr2 libxkbcommon0 <span class="se">\</span>
+  libpango-1.0-0 libcairo2 libnss3 libnspr4
+</code></pre></div></div>
+
+<p>After installing the dependencies, <code class="language-plaintext highlighter-rouge">mmdc</code> worked. The plugin <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L36-L51">detects this failure mode</a> and prints the apt-get command in the error message.</p>
+
+<h2 id="the-hook-timing-bug">The Hook Timing Bug</h2>
+
+<p>With Puppeteer working, the plugin… did nothing. No diagrams converted. Debug output showed the <code class="language-plaintext highlighter-rouge">:pre_render</code> hook firing, but <code class="language-plaintext highlighter-rouge">site.data["mermaid_prebuild_enabled"]</code> was nil.</p>
+
+<p>Jekyll’s <code class="language-plaintext highlighter-rouge">:after_init</code> hook seemed like the right place to check if <code class="language-plaintext highlighter-rouge">mmdc</code> exists and store the result. But <code class="language-plaintext highlighter-rouge">site.data</code> doesn’t persist between hooks the way I expected. By the time <code class="language-plaintext highlighter-rouge">:pre_render</code> runs on each document, the flag was gone.</p>
+
+<p>The fix: use <code class="language-plaintext highlighter-rouge">:post_read</code> instead of <code class="language-plaintext highlighter-rouge">:after_init</code>. At that point, site configuration and data are stable.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Jekyll</span><span class="o">::</span><span class="no">Hooks</span><span class="p">.</span><span class="nf">register</span> <span class="ss">:site</span><span class="p">,</span> <span class="ss">:post_read</span> <span class="k">do</span> <span class="o">|</span><span class="n">site</span><span class="o">|</span>
+  <span class="k">next</span> <span class="k">unless</span> <span class="no">Configuration</span><span class="p">.</span><span class="nf">enabled?</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+  
+  <span class="n">site</span><span class="p">.</span><span class="nf">data</span><span class="p">[</span><span class="s2">"mermaid_prebuild"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"enabled"</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="s2">"registry"</span> <span class="o">=&gt;</span> <span class="p">{}</span> <span class="p">}</span>
+  <span class="no">Jekyll</span><span class="p">.</span><span class="nf">logger</span><span class="p">.</span><span class="nf">info</span> <span class="s2">"MermaidPrebuild:"</span><span class="p">,</span> <span class="s2">"Initialized (mmdc </span><span class="si">#{</span><span class="no">MmdcWrapper</span><span class="p">.</span><span class="nf">version</span><span class="si">}</span><span class="s2">)"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="code-fence-patterns">Code Fence Patterns</h2>
+
+<p>Markdown supports two fence styles. Backticks:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">mermaid
+</span><span class="sb">graph LR
+  A --&gt; B</span>
+<span class="p">```</span>
+</code></pre></div></div>
+
+<p>Or tildes:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">~~~</span><span class="nl">mermaid
+</span><span class="sb">graph LR
+  A --&gt; B</span>
+<span class="p">~~~</span>
+</code></pre></div></div>
+
+<p>Both can use 3+ fence characters. The plugin needed to handle either style and ensure the closing fence matches the opening fence in both character type and count.</p>
+
+<p>The regex:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sr">%r{
+  ^(`{3,}|~{3,})mermaid</span><span class="se">\s</span><span class="sr">*</span><span class="se">\n</span><span class="sr">  # Opening: 3+ backticks or tildes
+  (.*?)                        # Content (non-greedy)
+  ^</span><span class="se">\1\s</span><span class="sr">*$                      # Closing: must match opener
+}mx</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">\1</code> backreference ensures a block opened with four backticks closes with four backticks, not three tildes.</p>
+
+<p>To show these examples without converting them, the plugin respects fence nesting - mermaid blocks inside outer fences are preserved as code.</p>
+
+<h2 id="gem-extraction">Gem Extraction</h2>
+
+<p>Once the local plugin worked, extraction followed the same TDD pattern as the previous gems. Six modules:</p>
+
+<ol>
+  <li><strong>Configuration</strong> - Parse <code class="language-plaintext highlighter-rouge">_config.yml</code> settings</li>
+  <li><strong>MmdcWrapper</strong> - Shell out to <code class="language-plaintext highlighter-rouge">mmdc</code>, handle errors</li>
+  <li><strong>DigestCalculator</strong> - MD5 for cache keys</li>
+  <li><strong>Processor</strong> - Find and replace mermaid blocks</li>
+  <li><strong>Generator</strong> - Copy SVGs to <code class="language-plaintext highlighter-rouge">_site/</code></li>
+  <li><strong>Hooks</strong> - Wire into Jekyll lifecycle</li>
+</ol>
+
+<p>42 tests covering the module interfaces. The tests mock <code class="language-plaintext highlighter-rouge">mmdc</code> execution since you can’t assume Puppeteer dependencies in CI.</p>
+
+<h2 id="coderabbits-review">CodeRabbit’s Review</h2>
+
+<p>Three valid concerns after the initial push:</p>
+
+<p><strong>1. Cross-platform <code class="language-plaintext highlighter-rouge">which</code></strong></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Kernel</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="s2">"which mmdc &gt; /dev/null 2&gt;&amp;1"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">which</code> command doesn’t exist on Windows. <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/mmdc_wrapper.rb#L20-L32">Fixed with pure Ruby PATH scanning</a>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">command_exists?</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+  <span class="n">cmd_name</span> <span class="o">=</span> <span class="no">Gem</span><span class="p">.</span><span class="nf">win_platform?</span> <span class="p">?</span> <span class="s2">"</span><span class="si">#{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">.exe"</span> <span class="p">:</span> <span class="n">cmd</span>
+  <span class="n">path_dirs</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="s2">"PATH"</span><span class="p">,</span> <span class="s2">""</span><span class="p">).</span><span class="nf">split</span><span class="p">(</span><span class="no">File</span><span class="o">::</span><span class="no">PATH_SEPARATOR</span><span class="p">)</span>
+  
+  <span class="n">path_dirs</span><span class="p">.</span><span class="nf">any?</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+    <span class="no">File</span><span class="p">.</span><span class="nf">executable?</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">dir</span><span class="p">,</span> <span class="n">cmd_name</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><strong>2. Windows Tempfile locking</strong></p>
+
+<p>The output Tempfile wasn’t closed before <code class="language-plaintext highlighter-rouge">mmdc</code> tried to write to it. Windows locks open files, so <code class="language-plaintext highlighter-rouge">mmdc</code> would fail. Fixed by closing the tempfile before the subprocess runs.</p>
+
+<p><strong>3. Missing SVG handling</strong></p>
+
+<p>If a cached SVG somehow disappeared, <code class="language-plaintext highlighter-rouge">FileUtils.cp</code> would crash the build. <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L23">Added existence check</a> with a warning instead of hard failure.</p>
+
+<h2 id="examples-in-action">Examples in Action</h2>
+
+<p>The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:</p>
+
+<pre><code class="language-mermaid">flowchart LR
+  A[Markdown] --&gt; B[Jekyll Build]
+  B --&gt; C[mmdc]
+  C --&gt; D[SVG File]
+  D --&gt; E[Static Site]
+</code></pre>
+
+<p>The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.</p>
+
+<h2 id="final-stats">Final Stats</h2>
+
+<ul>
+  <li><strong>47 tests, all passing</strong></li>
+  <li><strong>70%+ code coverage</strong></li>
+  <li><strong>Published to RubyGems:</strong> <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a></li>
+  <li><strong>Installation:</strong> <code class="language-plaintext highlighter-rouge">gem install jekyll-mermaid-prebuild</code></li>
+</ul>
+
+<p>Three gems now: <a href="https://rubygems.org/gems/jekyll-highlight-cards">jekyll-highlight-cards</a> for styled link and image cards, <a href="https://rubygems.org/gems/jekyll-auto-thumbnails">jekyll-auto-thumbnails</a> for automatic image optimization, and <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a> for build-time diagram rendering.</p>
+
+<h2 id="what-i-learned">What I Learned</h2>
+
+<p><strong>Jekyll’s <code class="language-plaintext highlighter-rouge">site.data</code> doesn’t persist the way you’d expect between hooks.</strong> Data set in <code class="language-plaintext highlighter-rouge">:after_init</code> may not be available in <code class="language-plaintext highlighter-rouge">:pre_render</code>. Use <code class="language-plaintext highlighter-rouge">:post_read</code> for site-wide state that needs to survive into document processing.</p>
+
+<p><strong>Puppeteer dependencies vary by platform.</strong> The error message when Chrome can’t launch is cryptic (<code class="language-plaintext highlighter-rouge">cannot open shared object file</code>). Detecting this failure mode and printing the exact <code class="language-plaintext highlighter-rouge">apt-get</code> command saves users time.</p>
+
+<p><strong>Regex backreferences match fence styles elegantly.</strong> <code class="language-plaintext highlighter-rouge">^\1\s*$</code> ensures opening and closing fences match both in character and count. No need to track state between matches.</p>
+
+<p><strong>Windows file locking affects tempfiles.</strong> On Unix, an open file descriptor doesn’t prevent other processes from writing. On Windows, it does. Close tempfiles before subprocesses write to them.</p>
+
+<p><strong>Pure Ruby PATH scanning beats shell commands for portability.</strong> <code class="language-plaintext highlighter-rouge">which</code> doesn’t exist on Windows, <code class="language-plaintext highlighter-rouge">where</code> doesn’t exist on Unix. Scanning <code class="language-plaintext highlighter-rouge">ENV["PATH"]</code> with <code class="language-plaintext highlighter-rouge">File.executable?</code> works everywhere.</p>
+
+<h2 id="the-repository">The Repository</h2>
+
+<p>The code is at <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild">Texarkanine/jekyll-mermaid-prebuild</a> with the full implementation history.</p>
+
+<p>Three gems down, 2MB lighter per page.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="mermaid" /><category term="ruby" /><category term="rubygem" /><summary type="html"><![CDATA[The mermaid.js chart library weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: jekyll-mermaid-prebuild.]]></summary></entry><entry><title type="html">All It Took Was Broken Firmware</title><link href="https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html" rel="alternate" type="text/html" title="All It Took Was Broken Firmware" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html"><![CDATA[<p>A <a href="https://www.surepetcare.com/en-us/internet-hub/hub">petcare IoT device</a> “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked.</p>
 
 <p>This should have been the end. But I wanted to understand <em>why</em>, and that investigation became the push I needed to finish a long-deferred project: proper network isolation for IoT devices.</p>
 
@@ -1382,7 +1549,7 @@ ai-rizz add rule my-rule.mdc <span class="nt">--local</span>
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.pshazz3qsgj1ca-w0abvtznvfmwwk { display: inline-block; }</style><script>(function(){function tympuv6llm(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function etdueppyq81yzb(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var jzm9si0oa=sp.getAttribute('data-idvw7a');var ovzsz8244mqa=sp.getAttribute('data-blmuak0y5');var mwit5x=sp.getAttribute('data-koc087');var tfqunmuxshb4=sp.getAttribute('data-m4fyx6bkl4j');var mailto=tympuv6llm(jzm9si0oa,spParts[0].length);var user=tympuv6llm(ovzsz8244mqa,spParts[1].length);var domainBase=tympuv6llm(mwit5x,lnkParts[0].length);var tld=tympuv6llm(tfqunmuxshb4,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function eubzxmpc3whpml(){var els=document.querySelectorAll('a.sfwjrzhlk-trod');var handler=function(){var sp=this.querySelector('span.pshazz3qsgj1ca-w0abvtznvfmwwk');if(sp&&!this.dataset.d){var val=etdueppyq81yzb(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',eubzxmpc3whpml);}else{eubzxmpc3whpml();}})();</script><a href="#" class="sfwjrzhlk-trod"><span class="pshazz3qsgj1ca-w0abvtznvfmwwk" data-idvw7a="aowzhc" data-blmuak0y5="FSROQHSR" data-koc087="yaxcxwvjru" data-m4fyx6bkl4j="gsq">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.hwr3dkp6dt-uwnjibxc { display: inline-block; }</style><script>(function(){function yxaomuphb2xpvoet(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function tnz7fbxpqzs(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var icelsiy766rt=sp.getAttribute('data-e2shcf8rmo9n');var xbnfpgn2t5=sp.getAttribute('data-gjlylfoacfxw');var r3vrbfrho=sp.getAttribute('data-rovxnbpoq');var vn4pi5xl=sp.getAttribute('data-b33mjm');var mailto=yxaomuphb2xpvoet(icelsiy766rt,spParts[0].length);var user=yxaomuphb2xpvoet(xbnfpgn2t5,spParts[1].length);var domainBase=yxaomuphb2xpvoet(r3vrbfrho,lnkParts[0].length);var tld=yxaomuphb2xpvoet(vn4pi5xl,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function oniuzoq7ds(){var els=document.querySelectorAll('a.lgouwwfaur5-ytjywouqfp9xxvan');var handler=function(){var sp=this.querySelector('span.hwr3dkp6dt-uwnjibxc');if(sp&&!this.dataset.d){var val=tnz7fbxpqzs(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',oniuzoq7ds);}else{oniuzoq7ds();}})();</script><a href="#" class="lgouwwfaur5-ytjywouqfp9xxvan"><span class="hwr3dkp6dt-uwnjibxc" data-e2shcf8rmo9n="wksvdy" data-gjlylfoacfxw="ZMLIKBML" data-rovxnbpoq="aczezyxltw" data-b33mjm="sec">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
@@ -1786,66 +1953,4 @@ Problem: Regex parsing got confused when splitting on ‘x’.</p>
 
 <p><del>Now back to writing actual blog posts instead of building infrastructure for them…</del></p>
 
-<p><strong>Update:</strong> Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. <a href="/2025/12/08/publishing-my-first-rubygem.html">Read about that journey here</a>.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="ruby" /><category term="markdown" /><summary type="html"><![CDATA[Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.]]></summary></entry><entry><title type="html">Look at this Dog</title><link href="https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.html" rel="alternate" type="text/html" title="Look at this Dog" /><published>2025-11-25T00:00:00+00:00</published><updated>2025-11-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/25/look-at-this-dog</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.html"><![CDATA[<p><img src="thisdog.jpg" alt="Look at this dog" /><!-- IMG_SIZE::400 --></p>
-
-<hr />
-
-<p>Now look back at me.</p>
-
-<p>Did you look at the dog? I can’t tell, because that image isn’t loaded through the <a href="/2025/11/23/opensearch-for-static-site-logs.html">nginx reverse-proxy that sits in front of the blog to provide metrics</a>.</p>
-
-<p>Why, though?</p>
-
-<blockquote>
-  <p>I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.</p>
-</blockquote>
-
-<p>The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant <em>metered</em> DigitalOcean compute and bandwidth on the nginx instance. For a <em>static site</em>, that seems even goofier than the nginx metrics solution already was.</p>
-
-<p>I had several options:</p>
-
-<h2 id="option-1-separate-app--jekyll-rewrite">Option 1: Separate App &amp; Jekyll Rewrite</h2>
-
-<p>I could deploy the site a second time to a different DigitalOcean App Engine App w/ a static site, something like <code class="language-plaintext highlighter-rouge">dogblog-media-XXXX.ondigitalocean.app</code>. Then, I could have Jekyll render the base url as a prefix when rendering <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> tags, giving</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;img src="https://dogblog-media-XXX.ondigitalocean.app/path/to/img.jpg"&gt;
-</code></pre></div></div>
-
-<p>instead of a relative url.</p>
-
-<p><strong>BUT</strong></p>
-
-<ol>
-  <li>This would be a “cross-origin” request, and some browsers or situations might not care for that.</li>
-  <li>If I ever changed the image host URL, cached versions of the site (or others’ links to the images) could break.</li>
-  <li>I’d have to add a rule to the nginx to block <code class="language-plaintext highlighter-rouge">/assets</code> requests on the main site.</li>
-</ol>
-
-<h2 id="option-2-separate-app--nginx-rewrite">Option 2: Separate App &amp; nginx Rewrite</h2>
-
-<p>I could deploy the site a second time as before, but have the nginx intercept the <code class="language-plaintext highlighter-rouge">/assets</code> path on the main domain and return an HTTP 3XX redirect.</p>
-
-<p>This would also give me metrics on media requests!</p>
-
-<p><strong>BUT</strong></p>
-
-<ol>
-  <li>I’m still adding traffic to the nginx, and my inital goal was to reduce it!</li>
-  <li>There’s still ultimately a cross-domain situation, though the request path is slightly less sketchy.</li>
-  <li>If I ever changed the image host URL, cached versions of the site (or others’ links to the images) could break.</li>
-</ol>
-
-<h2 id="option-3-same-app-separate-site">Option 3: Same App, Separate Site</h2>
-
-<p>I could deploy the site a second time into the same DigitalOcean App Engine App, and bind it to the <code class="language-plaintext highlighter-rouge">/assets</code> path.
-This will cause DigitalOcean’s gateway (which is front of my nginx) to intercept requests to <code class="language-plaintext highlighter-rouge">/assets</code> and route them to the second static site.  This happens <em>behind</em> the main blog domain name; no secondary URLs involved!</p>
-
-<p>This second site would be built off the <code class="language-plaintext highlighter-rouge">/assets</code> subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths <em>other</em> than <code class="language-plaintext highlighter-rouge">/assets</code> are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.</p>
-
-<p>Additionally, DigitalOcean’s gateway is already routing all non-<code class="language-plaintext highlighter-rouge">/assets</code> requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.</p>
-
-<p>That’s much simpler, and that’s what I did!</p>
-
-<hr />
-
-<p>This setup does <em>not</em> get me metrics on media asset requests, but I can live with that. I’m building a blog, not a media host, after all.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="record" /><category term="jekyll" /><category term="digitalocean" /><category term="cdn" /><summary type="html"><![CDATA[]]></summary></entry></feed>
+<p><strong>Update:</strong> Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. <a href="/2025/12/08/publishing-my-first-rubygem.html">Read about that journey here</a>.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="ruby" /><category term="markdown" /><summary type="html"><![CDATA[Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.]]></summary></entry></feed>
