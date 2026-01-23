@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-18T01:32:29+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">2MB Lighter</title><link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html"><![CDATA[<p>The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-23T23:06:14+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Use Case for AI Coding Agent Slash Commands</title><link href="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html" rel="alternate" type="text/html" title="The Use Case for AI Coding Agent Slash Commands" /><published>2026-01-23T00:00:00+00:00</published><updated>2026-01-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html"><![CDATA[<p>Following up on my previous post: “<a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">The Usen’t Case for AI Coding Agent Slash Commands</a>”, I’m delighted to report that I was wrong… partially.</p>
+
+<p>There <strong>is</strong> a use case for AI Coding Agent Slash Commands.</p>
+
+<blockquote>
+  <p>Slash Commands are for bundling a big prompt that is an entry point to a workflow.</p>
+</blockquote>
+
+<p>So if you have prompt-engineered “look things up and give me my morning report,” that’s a great use case for a Slash Command.</p>
+
+<p>In Cursor, previously you wrote these as “Manual Rules” and then <code class="language-plaintext highlighter-rouge">@mention</code>‘d them. This was a little weird because every other kind of Cursor Rule was automatically picked up by the agent somehow. But Manual Rules sat there with the special <code class="language-plaintext highlighter-rouge">*.mdc</code> extension and Cursor Rule “YAML frontmatter,” but didn’t do anything with it.</p>
+
+<p>Cursor’s addition of Slash Commands was correct and necessary.</p>
+
+<p>There <em>is</em> a use-case in the world for repeatable prompts.</p>
+
+<p>I stand by the “Usen’t Thesis,” though, for most instances of adjusting agentic software development behavior: You can do <em>better</em> by writing proper Rules, Skills, Hooks, or Tools.
+The key insight is the “entry point to a workflow” bit - especially the <em>entry point</em>. When human intent kicks off an agent in a new direction, a bundled prompt is handy to ensure that process gets started with the best chance of success.</p>
+
+<p>If you’re already in the middle of a workflow, though, you don’t want to be maximizing human interaction by providing “useful” commands for the human to run.
+You want to be equipping your agents with the tools and knowledge they need to just do it right from start to finish.</p>
+
+<p>A command for a human to run in the middle of things is <em>still</em> an antipattern. So craft your commands carefully!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Following up on my previous post: “The Usen’t Case for AI Coding Agent Slash Commands”, I’m delighted to report that I was wrong… partially.]]></summary></entry><entry><title type="html">2MB Lighter</title><link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html"><![CDATA[<p>The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.</p>
 
 <h2 id="the-setup">The Setup</h2>
 
@@ -1474,7 +1496,7 @@ ai-rizz add rule my-rule.mdc <span class="nt">--local</span>
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.wfrh-b9nyzlgds { display: inline-block; }</style><script>(function(){function escstfog(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function n5ybpxbk(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var zxwcq2z5d=sp.getAttribute('data-q32bvot');var aeututid6=sp.getAttribute('data-qcdzddv');var ez6tfy=sp.getAttribute('data-dsoimkn9x6');var xu25u41txrqx=sp.getAttribute('data-l5izzlth3');var mailto=escstfog(zxwcq2z5d,spParts[0].length);var user=escstfog(aeututid6,spParts[1].length);var domainBase=escstfog(ez6tfy,lnkParts[0].length);var tld=escstfog(xu25u41txrqx,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function luqjjrtevih(){var els=document.querySelectorAll('a.yrmvobmeqlmtn-gycgr6o2r');var handler=function(){var sp=this.querySelector('span.wfrh-b9nyzlgds');if(sp&&!this.dataset.d){var val=n5ybpxbk(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',luqjjrtevih);}else{luqjjrtevih();}})();</script><a href="#" class="yrmvobmeqlmtn-gycgr6o2r"><span class="wfrh-b9nyzlgds" data-q32bvot="qempxs" data-qcdzddv="ANMJLCNM" data-dsoimkn9x6="cebgbaznvy" data-l5izzlth3="lxv">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.yz5xtd7wduioem-s5jys0unjqbuhjz2i { display: inline-block; }</style><script>(function(){function n7jmjod9ft(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function bwkgocq7ucp93ers(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var ph5ajc=sp.getAttribute('data-xhdv1d9v');var p5pdxr5kgsky=sp.getAttribute('data-h5jcp4ncjbr');var cqcr1xld=sp.getAttribute('data-tahqc0ijyjh');var la162xa5=sp.getAttribute('data-e2pihwne6q6p');var mailto=n7jmjod9ft(ph5ajc,spParts[0].length);var user=n7jmjod9ft(p5pdxr5kgsky,spParts[1].length);var domainBase=n7jmjod9ft(cqcr1xld,lnkParts[0].length);var tld=n7jmjod9ft(la162xa5,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function f2ckdngrwqr5afz(){var els=document.querySelectorAll('a.q1m8nzzrqv-tbdnjmikfmixhnne');var handler=function(){var sp=this.querySelector('span.yz5xtd7wduioem-s5jys0unjqbuhjz2i');if(sp&&!this.dataset.d){var val=bwkgocq7ucp93ers(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',f2ckdngrwqr5afz);}else{f2ckdngrwqr5afz();}})();</script><a href="#" class="q1m8nzzrqv-tbdnjmikfmixhnne"><span class="yz5xtd7wduioem-s5jys0unjqbuhjz2i" data-xhdv1d9v="aowzhc" data-h5jcp4ncjbr="IVURTKVU" data-tahqc0ijyjh="zbydyxwksv" data-e2pihwne6q6p="sec">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
@@ -1717,165 +1739,4 @@ These empirical results strongly suggest that code format can be and should be r
 
 <p>Over the last few <em>years</em>, in basically every piece of code I’ve dealt with (except YAML (which only strengthens the case for tabs)), I haven’t even thought about what’s used to indent. My editor and/or my LLM maintained an internally-consistent style that the machines could execute correctly and that was <strong>good enough.</strong> The <code class="language-plaintext highlighter-rouge">space</code>men have already won.</p>
 
-<p><img src="claude-vibecoded-this-and-it-worked.jpg" alt="Enough is as Good as a Feast, but Good Enough is the Enemy of Good" /></p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="code-style" /><category term="llm" /><category term="tokenization" /><summary type="html"><![CDATA[If you wrote code like this:]]></summary></entry><entry><title type="html">Two Jekyll Image Plugins</title><link href="https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.html" rel="alternate" type="text/html" title="Two Jekyll Image Plugins" /><published>2025-11-25T00:00:00+00:00</published><updated>2025-11-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.html"><![CDATA[<p>Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.</p>
-
-<h2 id="the-initial-problem">The Initial Problem</h2>
-
-<p>I had a post in <code class="language-plaintext highlighter-rouge">blog/record/_posts/</code> with an image reference:</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Look at this dog</span><span class="p">](</span><span class="sx">/blog/record/thisdog.jpg</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>That <code class="language-plaintext highlighter-rouge">/blog/record/</code> path felt redundant - the post already lives in that directory. Why repeat myself? Plus, we had <code class="language-plaintext highlighter-rouge">jekyll-images-cdn</code> for prepending CDN URLs, which was working fine for local development with <code class="language-plaintext highlighter-rouge">/assets/img</code>. We had already shaved <em>that</em> prefix off, why couldn’t we shave off the rest of the prefix?</p>
-
-<h2 id="first-solution-image_pathsrb">First Solution: image_paths.rb</h2>
-
-<p>Built a plugin that:</p>
-<ol>
-  <li>Extracts the post’s directory from its path</li>
-  <li>Resolves relative image paths (like <code class="language-plaintext highlighter-rouge">thisdog.jpg</code>) to that directory</li>
-  <li>Applies CDN configuration from <code class="language-plaintext highlighter-rouge">_config.yaml</code></li>
-</ol>
-
-<p>So now I can write <code class="language-plaintext highlighter-rouge">![Dog](thisdog.jpg)</code> and get <code class="language-plaintext highlighter-rouge">/assets/img/blog/record/thisdog.jpg</code>. Perfect. Removed <code class="language-plaintext highlighter-rouge">jekyll-images-cdn</code> since we integrated that functionality directly.</p>
-
-<h2 id="the-second-problem">The Second Problem</h2>
-
-<p>I have a tall, narrow image that was filling 100% width and dominating the page. I wanted dimension control. Found that some Markdown processors support extended syntax like:</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Image</span><span class="p">](</span><span class="sx">photo.jpg</span> =300x200)
-</code></pre></div></div>
-
-<p>Nice! Let’s add that.</p>
-
-<h2 id="one-plugin-or-two">One Plugin or Two?</h2>
-
-<p>Should this be in the same plugin or separate? I initially thought “they both process images, combine them!” But after thinking it through:</p>
-
-<p><strong>Arguments for combining:</strong></p>
-<ul>
-  <li>Same <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> target</li>
-  <li>One regex pass</li>
-  <li>Fewer files</li>
-</ul>
-
-<p><strong>Arguments for separating:</strong></p>
-<ul>
-  <li>Single Responsibility Principle</li>
-  <li>Different concerns: functional (path resolution) vs presentational (styling)</li>
-  <li>Different hook points (sizing needs pre_render to parse Markdown, paths work post_render on HTML)</li>
-  <li>Different configs</li>
-  <li>Independently useful</li>
-</ul>
-
-<p><strong>Decision: Separate.</strong> Path resolution is infrastructure; sizing is aesthetic preference. Keep ‘em apart.</p>
-
-<h2 id="building-image_sizingrb">Building image_sizing.rb</h2>
-
-<p>The implementation was… educational.</p>
-
-<h3 id="challenge-1-comment-markers">Challenge 1: Comment Markers</h3>
-
-<p>The approach: parse <code class="language-plaintext highlighter-rouge">![alt](url =WIDTHxHEIGHT)</code> in <code class="language-plaintext highlighter-rouge">pre_render</code>, inject an HTML comment marker, then process it in <code class="language-plaintext highlighter-rouge">post_render</code>.</p>
-
-<p>First attempt: Used <code class="language-plaintext highlighter-rouge">=WIDTHxHEIGHT</code> as the marker format.
-Problem: Regex parsing got confused when splitting on ‘x’.</p>
-
-<p>Fixed: Changed to <code class="language-plaintext highlighter-rouge">:</code> separators in the comment: <code class="language-plaintext highlighter-rouge">&lt;!-- IMG_SIZE:300:200:hr --&gt;</code></p>
-
-<h3 id="challenge-2-paragraph-wrapping">Challenge 2: Paragraph Wrapping</h3>
-
-<p>Jekyll wraps some images in <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> tags, some not. The regex needed to handle both:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sr">/&lt;p&gt;)?&lt;img\s+([^&gt;]*)&gt;&lt;!-- IMG_SIZE:... --&gt;(&lt;\/p&gt;)?/</span>
-</code></pre></div></div>
-
-<p>Capture the paragraph tags, preserve them in output.</p>
-
-<h3 id="challenge-3-code-blocks">Challenge 3: Code Blocks</h3>
-
-<p>The plugin was processing image syntax everywhere, including inside code fences and inline code blocks. So examples like <code class="language-plaintext highlighter-rouge">![alt](url =300x200)</code> were getting transformed into <code class="language-plaintext highlighter-rouge">![alt](url)&lt;!-- IMG_SIZE:... --&gt;</code> in the rendered output, which I discovered when I wrote them for this post!</p>
-
-<p>Fixed: Track code fence state line by line, and split each line by backticks to track inline code state. Only process image syntax when outside both.</p>
-
-<p>The logic handles triple-backtick fences, tilde fences, and inline backticks. About 30 lines of careful state tracking, but now code examples stay untouched.</p>
-
-<h3 id="challenge-4-the-horizontal-rules-feature">Challenge 4: The Horizontal Rules Feature</h3>
-
-<p>Initial plan: When height is specified in pixels, wrap with <code class="language-plaintext highlighter-rouge">&lt;hr&gt;</code> tags for visual emphasis.</p>
-
-<p>Implemented it. Worked great! Images with height got horizontal rules above and below.</p>
-
-<p>Then realized: This only triggered when BOTH width and height were specified, not just height alone. The logic was getting complex. And honestly, did I really want automatic HRs?</p>
-
-<p><strong>Decision: Kill the feature.</strong> Let users add <code class="language-plaintext highlighter-rouge">---</code> in their Markdown if they want horizontal rules. Plugin should just do sizing.</p>
-
-<p>Removed ~15 lines of HR logic. Much cleaner.</p>
-
-<h3 id="challenge-5-auto-linking">Challenge 5: Auto-Linking</h3>
-
-<p>After getting sizing working, realized it would be nice if sized images automatically linked to their full resolution. Click the thumbnail, see the full image in a new tab.</p>
-
-<p>But what if an image is already inside a link? Like <code class="language-plaintext highlighter-rouge">[text ![img](url =300x) more](example.com)</code>. Don’t want to create nested anchors - the inner link would win and break the outer link.</p>
-
-<p><strong>Solution:</strong> Detect if image is already inside an anchor tag. In the second pass of <code class="language-plaintext highlighter-rouge">post_render</code>, after applying sizing:</p>
-<ol>
-  <li>Find images with width/height attributes</li>
-  <li>Scan backwards from the image position</li>
-  <li>Find the last <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;/a&gt;</code> tags before the image</li>
-  <li>If there’s an unclosed <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> → inside anchor → skip</li>
-  <li>Otherwise → wrap in <code class="language-plaintext highlighter-rouge">&lt;a href="src" target="_blank" rel="noopener"&gt;</code></li>
-</ol>
-
-<p>The regex <code class="language-plaintext highlighter-rouge">/&lt;a[\s&gt;]/</code> avoids matching <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;aside&gt;</code> tags. Used <code class="language-plaintext highlighter-rouge">rindex</code> to find the most recent occurrence, which is simpler than counting all anchors in the page.</p>
-
-<p>Added <code class="language-plaintext highlighter-rouge">target="_blank"</code> so full images open in new tab, and <code class="language-plaintext highlighter-rouge">rel="noopener"</code> for security.</p>
-
-<p>Tested with images inside text links, standalone sized images, and unsized images. All work correctly.</p>
-
-<h2 id="the-final-result">The Final Result</h2>
-
-<p>Two plugins, each doing one thing well:</p>
-
-<ol>
-  <li><strong>image_paths.rb</strong>: Resolves relative paths based on post location, applies CDN config</li>
-  <li><strong>image_sizing.rb</strong>: Parses <code class="language-plaintext highlighter-rouge">=WIDTHxHEIGHT</code> syntax, applies dimensions</li>
-</ol>
-
-<p>Usage:</p>
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Dog</span><span class="p">](</span><span class="sx">thisdog.jpg</span> =x400)
-</code></pre></div></div>
-
-<p>Output:</p>
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/assets/img/blog/record/thisdog.jpg"</span> <span class="na">target=</span><span class="s">"_blank"</span> <span class="na">rel=</span><span class="s">"noopener"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/assets/img/blog/record/thisdog.jpg"</span> <span class="na">alt=</span><span class="s">"Dog"</span> <span class="na">height=</span><span class="s">"400"</span><span class="nt">&gt;</span>
-<span class="nt">&lt;/a&gt;</span>
-</code></pre></div></div>
-
-<p>Sized images auto-link to full resolution. Unsized images stay plain. Images already inside links don’t get double-wrapped.</p>
-
-<p>Both plugins run independently in sequence. No coupling. No complexity.</p>
-
-<h2 id="what-i-learned">What I Learned</h2>
-
-<p><strong>Separate concerns early.</strong> Even if plugins process the same elements, if they serve different purposes, split them.</p>
-
-<p><strong>Feature creep happens, but not all features are equal.</strong> The HR feature added complexity for marginal benefit (I can add <code class="language-plaintext highlighter-rouge">---</code> myself). But auto-linking sized images to full resolution? That’s genuinely useful every time, and the complexity is justified. Know the difference.</p>
-
-<p><strong>Debug output matters.</strong> Added <code class="language-plaintext highlighter-rouge">puts</code> statements to see exactly what the regex was capturing. Crucial for debugging that <code class="language-plaintext highlighter-rouge">:</code> vs <code class="language-plaintext highlighter-rouge">x</code> separator issue.</p>
-
-<p><strong>Test with real content.</strong> Created test posts with all the edge cases (width only, height only, both, neither). Caught several regex bugs this way.</p>
-
-<p><strong>HTML comments as data carriers work well.</strong> Injecting structured comments in <code class="language-plaintext highlighter-rouge">pre_render</code> then parsing them in <code class="language-plaintext highlighter-rouge">post_render</code> bridged the Markdown→HTML transformation cleanly.</p>
-
-<p><strong>Simple is better.</strong> The final versions are ~50-75 lines each (well, image_sizing grew to ~150 with the linking feature), well-documented, with no clever tricks. Exactly what I wanted.</p>
-
-<p><strong>State tracking isn’t scary.</strong> The code fence detection and anchor detection both required tracking state (are we inside something?). The logic is straightforward: find the last opening/closing pair, compare positions.</p>
-
-<h2 id="whats-next">What’s Next?</h2>
-
-<p><del>Nothing. These plugins are done. They solve the problems I had, nothing more. And that’s exactly right.</del></p>
-
-<p><del>Now back to writing actual blog posts instead of building infrastructure for them…</del></p>
-
-<p><strong>Update:</strong> Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. <a href="/2025/12/08/publishing-my-first-rubygem.html">Read about that journey here</a>.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="ruby" /><category term="markdown" /><summary type="html"><![CDATA[Built two custom Jekyll plugins today to handle images in blog posts. What started as “I don’t want to type the full path” turned into an exercise in keeping things simple.]]></summary></entry></feed>
+<p><img src="claude-vibecoded-this-and-it-worked.jpg" alt="Enough is as Good as a Feast, but Good Enough is the Enemy of Good" /></p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="code-style" /><category term="llm" /><category term="tokenization" /><summary type="html"><![CDATA[If you wrote code like this:]]></summary></entry></feed>
