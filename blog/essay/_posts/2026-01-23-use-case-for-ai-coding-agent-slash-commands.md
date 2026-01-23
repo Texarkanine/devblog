@@ -13,7 +13,7 @@ There **is** a use case for AI Coding Agent Slash Commands.
 
 So if you have prompt-engineered "look things up and give me my morning report," that's a great use case for a Slash Command.
 
-In Cursor, prevously you wrote these as "Manual Rules" and then `@mention`'d them. This was a little weird because every other kind of Cursor Rule was automatically picked up by the agent somehow. But Manual Rules sat there with the special `*.mdc` extension and Cursor Rule "YAML frontmatter," but didn't do anything with it.
+In Cursor, previously you wrote these as "Manual Rules" and then `@mention`'d them. This was a little weird because every other kind of Cursor Rule was automatically picked up by the agent somehow. But Manual Rules sat there with the special `*.mdc` extension and Cursor Rule "YAML frontmatter," but didn't do anything with it.
 
 Cursor's addition of Slash Commands was correct and necessary.
 
