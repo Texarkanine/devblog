@@ -26,3 +26,9 @@ If you're already in the middle of a workflow, though, you don't want to be maxi
 You want to be equipping your agents with the tools and knowledge they need to just do it right from start to finish.
 
 A command for a human to run in the middle of things is *still* an antipattern. So craft your commands carefully!
+
+## The Wiggum Loop
+
+As with almost everything, [the more you use it, the more it pays to optimize it](https://xkcd.com/1205/). Somewhere where you'll not only be re-using the same prompt, but re-using it more than *you* the human ever could, is a [Wiggum Loop](https://ghuntley.com/ralph/). That's actually a perfect use-case for a Slash Command!
+
+I [did that recently]({% post_url blog/diary/2026-01-25-i-finally-coded-so-hard-i-ralphed %})!
