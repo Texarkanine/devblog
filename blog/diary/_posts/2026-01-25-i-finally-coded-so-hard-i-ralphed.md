@@ -70,7 +70,7 @@ I submit that 2nd diagram not because I expect you to read it, but because I exp
 
 Fortunately, AI Coding Agents are really good at following flowcharts. 
 
-I had this epiphany embarassingly-late in my CodeRabbit PR Feedback career: I explained what I had been doing manually, and asked for a Slash Command suitable for handling this kind of PR Feedback in a Wiggum Loop. I'd invoke the loop with
+I had this epiphany embarrassingly-late in my CodeRabbit PR Feedback career: I explained what I had been doing manually, and asked for a Slash Command suitable for handling this kind of PR Feedback in a Wiggum Loop. I'd invoke the loop with
 
 ```bash
 touch wiggum.semaphore; \
