@@ -1,4 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-23T23:06:14+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Use Case for AI Coding Agent Slash Commands</title><link href="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html" rel="alternate" type="text/html" title="The Use Case for AI Coding Agent Slash Commands" /><published>2026-01-23T00:00:00+00:00</published><updated>2026-01-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html"><![CDATA[<p>Following up on my previous post: “<a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">The Usen’t Case for AI Coding Agent Slash Commands</a>”, I’m delighted to report that I was wrong… partially.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-01-26T04:34:12+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">I Finally Coded So Hard I Ralphed</title><link href="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html" rel="alternate" type="text/html" title="I Finally Coded So Hard I Ralphed" /><published>2026-01-25T00:00:00+00:00</published><updated>2026-01-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html"><![CDATA[<p>As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. I <a href="/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">recently determined</a> that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.</p>
+
+<p>One particular kind of workflow where you’ll not only be re-using the same prompt, but re-using it more than <em>you</em> the human ever could, is a <a href="https://ghuntley.com/ralph/">Wiggum Loop</a>. That’s actually a perfect use-case for a Slash Command!</p>
+
+<p>I had been looking for an application for a Wiggum Loop for a while, but I just didn’t have enough <em>work</em> to feed an AI coding agent in a loop. I had an epiphany while prompting to address <a href="https://www.coderabbit.ai/">CodeRabbit</a> PR feedback for the second, then third time…</p>
+
+<p>CodeRabbit <a href="/garden/how-i-learned-to-stop-worrying-and-love-the-machine.html#coderabbit">is awesome</a> but its reviews can take a good handful of minutes to come out (which I don’t fault it for; they’re fabulous)! On top of that the “free for open-source projects” tier has a rate limit that agentic coding often runs into.</p>
+
+<p>So, my high-level workflow will be</p>
+
+<figure class="mermaid-diagram">
+<a href="/assets/svg/75f41bb3.svg"><img src="/assets/svg/75f41bb3.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>But there are actually quite a few more decision points, because when you push a commit you might hit the rate limit warning instead of getting immediate feedback, and then you have to wait out <em>that</em> timer and come back and make a PR comment to get the ball rolling again:</p>
+
+<figure class="mermaid-diagram">
+<a href="/assets/svg/4b351d0d.svg"><img src="/assets/svg/4b351d0d.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<h2 id="you-didnt-read-that-did-you">You Didn’t Read That, Did You?</h2>
+
+<p>I submit that 2nd diagram not because I expect you to read it, but because I expect you to <em>not</em> read it. It’s complex, it’s intricate, who would <em>want</em> to have to try to do that!? But it was necessary!</p>
+
+<p>Fortunately, AI Coding Agents are really good at following flowcharts.</p>
+
+<p>I had this epiphany embarrassingly-late in my CodeRabbit PR Feedback career: I explained what I had been doing manually, and asked for a Slash Command suitable for handling this kind of PR Feedback in a Wiggum Loop. I’d invoke the loop with</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>wiggum.semaphore<span class="p">;</span> <span class="se">\</span>
+<span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
+	cursor agent <span class="se">\</span>
+		<span class="nt">--stream-partial-output</span> <span class="se">\</span>
+		<span class="nt">--output-format</span> stream-json <span class="se">\</span>
+		<span class="nt">--print</span> <span class="se">\</span>
+		<span class="nt">--approve-mcps</span> <span class="se">\</span>
+		<span class="nt">--force</span> <span class="se">\</span>
+		<span class="nt">--model</span> opus-4.5-thinking <span class="se">\</span>
+		<span class="s2">"/local/wiggum-niko-coderabbit-pr - and if you cannot find that command, delete wiggum.semaphore and exit immediately."</span> <span class="se">\</span>
+		<span class="s2">"github.com/Texarkanine/&lt;repo&gt;/pull/&lt;number&gt;"</span><span class="p">;</span> <span class="se">\</span>
+	<span class="o">[</span> <span class="nt">-e</span> wiggum.semaphore <span class="o">]</span> <span class="o">||</span> <span class="nb">break</span><span class="p">;</span> <span class="se">\</span>
+	<span class="nb">sleep </span>300<span class="p">;</span> <span class="se">\</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>(printed here on multiple lines for you to see, but reducible to a single line I can just <code class="language-plaintext highlighter-rouge">alias</code> or paste into a shell)</p>
+
+<p>And thus <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rules/wiggum-niko-coderabbit-pr.md">/wiggum-niko-coderabbit-pr</a> was born! It was scary firing it off for the first couple of times, and it did take a bit of iteration on itself to get it working right.  I watched an hour-long TV show while CodeRabbit &amp; Niko went back-and-forth iteratively improving code!</p>
+
+<p>Fun things to note:</p>
+
+<h3 id="exit-condition">Exit Condition</h3>
+
+<p>Perhaps not in the pure spirit of Wiggum™, I explicitly defined an exit condition of which the agent is aware - the <code class="language-plaintext highlighter-rouge">wiggum.semaphore</code> file - so that it can guarantee the exit when it’s done.</p>
+
+<h3 id="safety-dance">Safety Dance</h3>
+
+<p>The prompt fed into the agent is</p>
+
+<blockquote>
+  <p>/local/wiggum-niko-coderabbit-pr - and if you cannot find that command, delete wiggum.semaphore and exit immediately.</p>
+</blockquote>
+
+<p>Turns out that it was really easy to get Command paths wrong and when running headless it’s hard to notice. Claude is so good that it’ll infer a general process from the command’s name and be basically correct, but miss things like knowledge of the semaphore - so the loop never ends!</p>
+
+<p>While I can’t seem to find this documented anywhere, the <a href="https://cursor.com/cli">Cursor CLI</a> doesn’t seem to take <em>User</em> Commands into account. So even though <a href="https://github.com/texarkanine/ai-rizz">ai-rizz</a> gained the ability to install Slash Commands <em>and</em> to install anything to the global <code class="language-plaintext highlighter-rouge">~/.cursor/...</code> directories, global installation of <code class="language-plaintext highlighter-rouge">~/.cursor/commands/ai-rizz/wiggum-niko-coderabbit-pr.md</code> didn’t work - the headless agent couldn’t see it. It needs to be in the local repo, so prep each repo you want to try this in with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ai-rizz add rule <span class="nt">--local</span> wiggum-niko-coderabbit-pr
+</code></pre></div></div>
+
+<p>That probably means it doesn’t see User Rules, either, so… use the new <code class="language-plaintext highlighter-rouge">--global</code> mode sparingly?</p>
+
+<h2 id="im-helping">I’M HELPING</h2>
+
+<p>I’m sure this isn’t the most-refined or efficient Way to Wiggum™ but I’m just happy to (finally) be here!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="ai" /><category term="coderabbit" /><category term="cursor" /><category term="wiggum-loop" /><summary type="html"><![CDATA[As with almost everything, the more you use it, the more it pays to optimize it. I recently determined that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.]]></summary></entry><entry><title type="html">The Use Case for AI Coding Agent Slash Commands</title><link href="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html" rel="alternate" type="text/html" title="The Use Case for AI Coding Agent Slash Commands" /><published>2026-01-23T00:00:00+00:00</published><updated>2026-01-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html"><![CDATA[<p>Following up on my previous post: “<a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">The Usen’t Case for AI Coding Agent Slash Commands</a>”, I’m delighted to report that I was wrong… partially.</p>
 
 <p>There <strong>is</strong> a use case for AI Coding Agent Slash Commands.</p>
 
@@ -20,7 +93,13 @@ The key insight is the “entry point to a workflow” bit - especially the <em>
 <p>If you’re already in the middle of a workflow, though, you don’t want to be maximizing human interaction by providing “useful” commands for the human to run.
 You want to be equipping your agents with the tools and knowledge they need to just do it right from start to finish.</p>
 
-<p>A command for a human to run in the middle of things is <em>still</em> an antipattern. So craft your commands carefully!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Following up on my previous post: “The Usen’t Case for AI Coding Agent Slash Commands”, I’m delighted to report that I was wrong… partially.]]></summary></entry><entry><title type="html">2MB Lighter</title><link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html"><![CDATA[<p>The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.</p>
+<p>A command for a human to run in the middle of things is <em>still</em> an antipattern. So craft your commands carefully!</p>
+
+<h2 id="the-wiggum-loop">The Wiggum Loop</h2>
+
+<p>As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. Somewhere where you’ll not only be re-using the same prompt, but re-using it more than <em>you</em> the human ever could, is a <a href="https://ghuntley.com/ralph/">Wiggum Loop</a>. That’s actually a perfect use-case for a Slash Command!</p>
+
+<p>I <a href="/2026/01/25/i-finally-coded-so-hard-i-ralphed.html">did that recently</a>!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Following up on my previous post: “The Usen’t Case for AI Coding Agent Slash Commands”, I’m delighted to report that I was wrong… partially.]]></summary></entry><entry><title type="html">2MB Lighter</title><link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html"><![CDATA[<p>The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.</p>
 
 <h2 id="the-setup">The Setup</h2>
 
@@ -1496,7 +1575,7 @@ ai-rizz add rule my-rule.mdc <span class="nt">--local</span>
 
 <p>The link displays asterisks until mouseover. The href is <code class="language-plaintext highlighter-rouge">#</code> until decoded. No email exists in the HTML source.</p>
 
-<p>Like this: <style>span.yz5xtd7wduioem-s5jys0unjqbuhjz2i { display: inline-block; }</style><script>(function(){function n7jmjod9ft(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function bwkgocq7ucp93ers(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var ph5ajc=sp.getAttribute('data-xhdv1d9v');var p5pdxr5kgsky=sp.getAttribute('data-h5jcp4ncjbr');var cqcr1xld=sp.getAttribute('data-tahqc0ijyjh');var la162xa5=sp.getAttribute('data-e2pihwne6q6p');var mailto=n7jmjod9ft(ph5ajc,spParts[0].length);var user=n7jmjod9ft(p5pdxr5kgsky,spParts[1].length);var domainBase=n7jmjod9ft(cqcr1xld,lnkParts[0].length);var tld=n7jmjod9ft(la162xa5,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function f2ckdngrwqr5afz(){var els=document.querySelectorAll('a.q1m8nzzrqv-tbdnjmikfmixhnne');var handler=function(){var sp=this.querySelector('span.yz5xtd7wduioem-s5jys0unjqbuhjz2i');if(sp&&!this.dataset.d){var val=bwkgocq7ucp93ers(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',f2ckdngrwqr5afz);}else{f2ckdngrwqr5afz();}})();</script><a href="#" class="q1m8nzzrqv-tbdnjmikfmixhnne"><span class="yz5xtd7wduioem-s5jys0unjqbuhjz2i" data-xhdv1d9v="aowzhc" data-h5jcp4ncjbr="IVURTKVU" data-tahqc0ijyjh="zbydyxwksv" data-e2pihwne6q6p="sec">XXXXXXXXXXXXXXXX</span></a></p>
+<p>Like this: <style>span.chqksmfuesfdt-vkzquajgn7wn { display: inline-block; }</style><script>(function(){function lce3h7epd(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function gwntpluy0o6zailb(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var kxno2r=sp.getAttribute('data-ziwjpu1rv');var o8ivds=sp.getAttribute('data-mlpxv4w8xrw');var stcp2x=sp.getAttribute('data-f1mhhes');var rqdxrsxpquq=sp.getAttribute('data-efgw1c');var mailto=lce3h7epd(kxno2r,spParts[0].length);var user=lce3h7epd(o8ivds,spParts[1].length);var domainBase=lce3h7epd(stcp2x,lnkParts[0].length);var tld=lce3h7epd(rqdxrsxpquq,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function zw55mnn8t(){var els=document.querySelectorAll('a.tgvhrldb4kk4-d6w3s9g');var handler=function(){var sp=this.querySelector('span.chqksmfuesfdt-vkzquajgn7wn');if(sp&&!this.dataset.d){var val=gwntpluy0o6zailb(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',zw55mnn8t);}else{zw55mnn8t();}})();</script><a href="#" class="tgvhrldb4kk4-d6w3s9g"><span class="chqksmfuesfdt-vkzquajgn7wn" data-ziwjpu1rv="znvygb" data-mlpxv4w8xrw="DQPMOFQP" data-f1mhhes="bdafazymux" data-efgw1c="jvt">XXXXXXXXXXXXXXXX</span></a></p>
 
 <p>Gemini explained the <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a> calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.</p>
 
@@ -1520,223 +1599,4 @@ ai-rizz add rule my-rule.mdc <span class="nt">--local</span>
 
 <p>Security engineering is about matching defenses to threats, not building the most impressive barrier possible. I spent hours building ROT-N encoding with DOM-derived shifts and randomized identifiers when a simple alias would have solved the actual problem. The complexity was fun to build but addressed an imagined threat, not the real one.</p>
 
-<p>The lesson: <strong>You cannot hide what you want people to see. Design for your actual adversary, not the adversary you imagine.</strong> Bulk scrapers are cheap, stupid, and everywhere. LLMs are expensive, smart, and rare. Build for the former. Accept the latter. Use an alias.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="fable" /><category term="javascript" /><category term="jekyll" /><category term="llm" /><category term="security" /><summary type="html"><![CDATA[Built an increasingly sophisticated email obfuscator today. Each iteration got more clever. Each iteration got cracked just as fast. The lesson wasn’t in the complexity - it was in understanding what problem I was actually solving.]]></summary></entry><entry><title type="html">Tabs for Humans, Spaces for LLMs</title><link href="https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.html" rel="alternate" type="text/html" title="Tabs for Humans, Spaces for LLMs" /><published>2025-12-05T00:00:00+00:00</published><updated>2025-12-05T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms</id><content type="html" xml:base="https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.html"><![CDATA[<p>If you wrote code like this:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Greeter</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-
-    <span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="n">greeting</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Hello, </span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">name</span><span class="si">}</span><span class="s">!</span><span class="sh">"</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>and you saw <em>me</em> looking at your code and it looked like <em>this:</em></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Greeter</span><span class="p">:</span>
- <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-  <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-
- <span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-  <span class="n">greeting</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Hello, </span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">name</span><span class="si">}</span><span class="s">!</span><span class="sh">"</span>
-  <span class="nf">print</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p><strong>Would you be mad?</strong></p>
-
-<p>If so, you would be acting like a busybody who can’t tolerate other people being different in the privacy of their own lives.</p>
-
-<p>If <em>that</em> makes you mad, I’d ask you if you care what font I use in my editors, or what colors I use for syntax highlighting. If you don’t try to force <em>those</em> on me, then why do you care so much about how far from the edge of the screen the code appears for me?</p>
-
-<p>If you <em>would</em> be mad, that’s likely a psychological reaction stemming from emotions and identity, and you’re <a href="https://theoatmeal.com/comics/believe">unlikely to be receptive</a> to any logical arguments as to why tabs would be a better choice for software engineers to use for indentation when writing code.</p>
-
-<h2 id="thesis">Thesis</h2>
-
-<blockquote>
-  <p>Tabs for indentation, spaces for alignment.</p>
-</blockquote>
-
-<h2 id="on-industry-standards">On Industry Standards</h2>
-
-<ul>
-  <li><a href="https://peps.python.org/pep-0008/">PEP 8 says to use spaces for indentation</a></li>
-  <li><a href="https://yaml.org/spec/1.2.2/#61-indentation-spaces">YAML says to use spaces for indentation</a></li>
-  <li><a href="https://google.github.io/styleguide/jsguide.html#formatting-block-indentation">Google’s JavaScript Style Guide says to use spaces for indentation</a></li>
-  <li>and on, and, on</li>
-</ul>
-
-<p>Almost all major programming languages as they’re used today both advise and use spaces for indentation, not tabs. Let me be clear here:</p>
-
-<p><img src="./yes-you-all-are-wrong.jpg" alt="Yes, you all are Wrong" /></p>
-
-<h2 id="why-you-should-use-tabs">Why You Should Use Tabs</h2>
-
-<p>Others have said it before and better than I:</p>
-
-<blockquote class="link-card">
-  
-  <h1>TABs vs. Spaces</h1>
-  
-  <a href="https://geometrian.com/projects/blog/tabs_versus_spaces.html" target="_blank" rel="noopener">geometrian.com/projects/blog/tabs_versus_spaces.html</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20250709040814/https://geometrian.com/projects/blog/tabs_versus_spaces.html" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
-</blockquote>
-
-<p>The matter of indentation character for one person writing code for another is epistemologically <em>settled</em>:</p>
-
-<blockquote>
-  <p>Spaces are objectively wrong at the lexical level, and TABs bring all the practical advantages.</p>
-</blockquote>
-
-<p>However, space-indented code can still <em>run correctly</em>, obviously - all objections ultimately boil down to human preference:</p>
-
-<blockquote>
-  <p>Can you let others view code how they want on their machines, or do you have a need to force <em>your</em> visual preferences on them?</p>
-</blockquote>
-
-<hr />
-
-<h2 id="i-could-be-wrong-in-2025">I Could Be Wrong in 2025</h2>
-
-<p>In 2025, an increasingly-large quantity of code is <em>not</em> being written by one person for another: much code is being written and read by Large Language Models (LLMs).</p>
-
-<p>Is that any different? <strong>Yes, absolutely.</strong></p>
-
-<h3 id="compressive-efficiency">Compressive Efficiency</h3>
-
-<p>First, one might <em>guess</em> that a document indented with spaces, say, 100 of them, would be larger than a document indented with tabs - only 25 if it’s 4 spaces per level. Well, it’s larger in <em>character count</em> but with the latencies involved in LLMs, the time taken reading characters themselves isn’t usually relevant.</p>
-
-<p>What is relevant is the <a href="https://medium.com/thedeephub/all-you-need-to-know-about-tokenization-in-llms-7a801302cf54">tokenization</a> of the documents, and how whitespace used for indentation gets handled. Currently, the en-vogue tokenization technique of <a href="https://www.geeksforgeeks.org/nlp/byte-pair-encoding-bpe-in-nlp/">byte-pair encoding (BPE)</a> is doing <em>some</em> form of mapping “a certain number of spaces” to a single <em>token</em>, and this can happen multiple times, such as for 4 spaces, 8 spaces, etc. Thus lexical scope expressed in <em>common</em> space indentation schemes becomes compressed into a miniscule number of tokens - sometimes only one - compared to its actual character count.</p>
-
-<p>What about tabs, though? Surely the same happens? Well… yes, but: tokenizers have a “vocabulary” of tokens they’ll create, and that vocabulary has a maximum size. Four spaces in a corpus of code is going to be an extremely common character string, and absolutely get its own token. 20 spaces might even get its own token as that’s 5 levels and that’s not uncommon. Tabs being <em>less</em> common, are <em>less</em> likely to get their own tokens as indentation levels increase. So, at extreme levels of indentation, it is conceivable that a tab-indented document could consume <em>more</em> tokens than a space-indented document.</p>
-
-<p>In practice, none of us humans are likely to experience this making a difference.</p>
-
-<p>And in contrast to both of the above, the research suggests:</p>
-
-<blockquote class="link-card">
-  
-  <h1>The Hidden Cost of Readability: How Code Formatting Silently Consumes Your LLM Budget</h1>
-  
-  <a href="https://arxiv.org/html/2508.13666" target="_blank" rel="noopener">arxiv.org/html/2508.13666</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20251206034211/https://arxiv.org/html/2508.13666" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
-</blockquote>
-
-<blockquote>
-  <p>Prompting LLMs with clear instructions to generate unformatted output code can effectively reduce token usage while maintaining performance.
-<br />…<br />
-These empirical results strongly suggest that code format can be and should be removed when LLMs work with source code.</p>
-</blockquote>
-
-<p>Neither tabs, <em>nor</em> spaces!</p>
-
-<h3 id="garbage-in-garbage-out">Garbage in, Garbage out</h3>
-
-<p>It’s not as simple as just removing indentation whitespace and telling the LLMs to do the same, though!</p>
-
-<p>To quote again from <code class="language-plaintext highlighter-rouge">The Hidden Cost of Readability</code>:</p>
-
-<blockquote>
-  <p>Unlike the removal of all formatting elements, removing individual formatting elements can introduce negative impacts for some LLMs.</p>
-</blockquote>
-
-<p>You’d fix that by changing something upstream of the LLM’s prompt - either its fine-tuning, or its training data. And indeed, they say:</p>
-
-<blockquote>
-  <p>… fine-tuning with unformatted samples can also reduce output tokens while preserving or even improving</p>
-</blockquote>
-
-<p>But today, if you’re a <em>consumer</em> rocking up to an AI coding model, you have to deal with how they <em>are</em> - you can’t fine-tune or retrain them.</p>
-
-<p>Given:</p>
-
-<ol>
-  <li>most code produced is indented with spaces, therefore</li>
-  <li>most code used for LLM training will be indented with spaces, and</li>
-  <li><em>assuming</em> that indentation choice does not affect correctness of the code</li>
-</ol>
-
-<p>Then:</p>
-
-<ol>
-  <li>most examples of correct code will be indented with spaces, therefore</li>
-  <li>the vector space of an LLM full of correct code will be full of space-indented code, therefore</li>
-  <li>“forcing” the LLM into tab-indented vector space will push it away from the “most-correct code” vector space, which
-    <ol>
-      <li>may result in degraded comprehension of input code</li>
-      <li>may result in degraded correctness of generated code</li>
-    </ol>
-  </li>
-</ol>
-
-<p>Therefore, at this point in 2025 it may now be the case that:</p>
-
-<ol>
-  <li>It is easier for LLMs to reason about space-indented code than tab-indented code, and</li>
-  <li>It is easier for LLMs to generate correct space-indented code than tab-indented code</li>
-</ol>
-
-<p>As more and more code is written by LLMs in the above state, a positive feedback loop may result and further cement space indentation’s association with good, correct code.</p>
-
-<h3 id="the-waluigi-effect">The Waluigi Effect</h3>
-
-<p>It can get worse, though - you could turn your LLM into a Waluigi and permanently degrade its coding performance (at least until you clear its context)!</p>
-
-<blockquote class="link-card">
-  
-  <h1>The Waluigi Effect</h1>
-  
-  <a href="/garden/the-waluigi-effect.html" target="_blank" rel="noopener">/garden/the-waluigi-effect.html</a>
-  
-</blockquote>
-
-<p>The “Waluigi Effect” is a phenomenon where an LLM, having been coerced through various methods to be a certain way (“Luigi”), is hypothesized to have an easier time flipping to the exact opposite of that (“Waluigi”) than adopting any other behavioral profile. On top of that, because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into “being a certain way” has done a wrong thing, it remains internally-consistent by adopting the “opposite” behavior. “I was only pretending this whole time!” You really should read the whole post about the effect, though.</p>
-
-<p>Simplified, the Waluigi Effect hypothesized here is</p>
-
-<ol>
-  <li>Good code is indented with spaces.</li>
-  <li>I just made some code indented with tabs.</li>
-  <li>A good coder (Luigi) wouldn’t do that, so it cannot be true that I am a good coder.</li>
-  <li>I must be a bad coder pretending to be a good coder (Waluigi).</li>
-  <li>I will dutifully produce bad code, since that is what I am supposed to do.</li>
-</ol>
-
-<p><strong>It remains to be seen</strong> if something as seemingly trivial as indentation whitespace choice alone is enough to trigger a significant Waluigi Effect.</p>
-
-<p>We <strong>do</strong> know that messing with tokenization <em>can</em> send LLMs into strange territory, though:</p>
-
-<blockquote class="link-card">
-  
-  <h1>Bye Bye Bye: Evolution of Repeated Token Attacks on ChatGPT Models</h1>
-  
-  <a href="https://dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models" target="_blank" rel="noopener">dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20250827004134/https://dropbox.tech/machine-learning/bye-bye-bye-evolution-of-repeated-token-attacks-on-chatgpt-models" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
-</blockquote>
-
-<p>I have experienced a variation of this personally, I think: Claude 3.7 accidentally took the raw bytes of an SSL certificate as input and spent half-dozen or so paragraphs describing an experience that sounded like something out of <a href="https://en.wikipedia.org/wiki/Naked_Lunch">Naked Lunch</a> or <a href="https://en.wikipedia.org/wiki/The_Doors_of_Perception">Doors of Perception</a> before degenerating to a stream of seemingly random characters and bytes - no end in sight - until I stopped the interaction.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<blockquote>
-  <p>Tabs for indentation, space for alignment, Waluigi can fight me.</p>
-</blockquote>
-
-<p>I’m not choosing to change (yet)!</p>
-
-<p>In all honesty, though, the only reason I’m even thinking about this anymore is that I’ve been handwriting these posts in Markdown in a code editor where there’s an opportunity to engage with the tabs vs spaces issue.</p>
-
-<p>Over the last few <em>years</em>, in basically every piece of code I’ve dealt with (except YAML (which only strengthens the case for tabs)), I haven’t even thought about what’s used to indent. My editor and/or my LLM maintained an internally-consistent style that the machines could execute correctly and that was <strong>good enough.</strong> The <code class="language-plaintext highlighter-rouge">space</code>men have already won.</p>
-
-<p><img src="claude-vibecoded-this-and-it-worked.jpg" alt="Enough is as Good as a Feast, but Good Enough is the Enemy of Good" /></p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="code-style" /><category term="llm" /><category term="tokenization" /><summary type="html"><![CDATA[If you wrote code like this:]]></summary></entry></feed>
+<p>The lesson: <strong>You cannot hide what you want people to see. Design for your actual adversary, not the adversary you imagine.</strong> Bulk scrapers are cheap, stupid, and everywhere. LLMs are expensive, smart, and rare. Build for the former. Accept the latter. Use an alias.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="fable" /><category term="javascript" /><category term="jekyll" /><category term="llm" /><category term="security" /><summary type="html"><![CDATA[Built an increasingly sophisticated email obfuscator today. Each iteration got more clever. Each iteration got cracked just as fast. The lesson wasn’t in the complexity - it was in understanding what problem I was actually solving.]]></summary></entry></feed>
