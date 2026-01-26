@@ -11,6 +11,8 @@ tags:
 
 * [Less Wrong](https://www.lesswrong.com/) <small>"an online forum and community dedicated to improving human reasoning and decision-making."</small>
 * [Tonsky](https://tonsky.me/) <small>"programming and UI design"</small>
+* [Sunday Letters from Sam](https://sundaylettersfromsam.substack.com/) <small>"how to think about how ai is reshaping the world (currently)"</small>
+* [Steve Yegge](https://steve-yegge.medium.com/) <small>"technical essays on software engineering, programming languages, and the future of technology"</small>
 
 ### Misc
 
