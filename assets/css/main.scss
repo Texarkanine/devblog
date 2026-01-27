@@ -24,11 +24,17 @@ body {
 	color: var(--body-color);
 }
 
+/* Sponsor footer centering */
+footer {
+	text-align: center;
+}
+
 /* Sponsor block - light mode */
 .call-me-bip-me-if-you-need-to-reach-me {
+	display: inline-block;
 	width: 96px;
 	height: 96px;
-	margin: 2rem auto;
+	margin: 2rem 0;
 	padding-bottom: 2rem;
 	background-image: url('{{ site.baseurl }}/assets/img/bip47.png');
 	background-size: contain;
