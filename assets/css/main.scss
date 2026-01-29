@@ -42,14 +42,6 @@ footer {
 	background-position: center;
 }
 
-.sponsor-link-light {
-	display: inline-block;
-}
-
-.sponsor-link-dark {
-	display: none;
-}
-
 /* Subtle CRT glow effect for dark mode, and link/code styles */
 @media (prefers-color-scheme: dark) {
 	body {
@@ -121,13 +113,5 @@ footer {
 	/* Sponsor block - dark mode */
 	.call-me-bip-me-if-you-need-to-reach-me {
 		background-image: url('{{ site.baseurl }}/assets/img/bip47-dark.png');
-	}
-
-	.sponsor-link-light {
-		display: none;
-	}
-
-	.sponsor-link-dark {
-		display: inline-block;
 	}
 }
