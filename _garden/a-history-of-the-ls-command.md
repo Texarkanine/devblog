@@ -349,7 +349,7 @@ That's him, according to some Multics history - again from `Multicians.org` - au
 
 Don *may* have co-authored [Managing Software Requirements: A Unified Approach](https://www.goodreads.com/book/show/582860.Managing_Software_Requirements) - a book on [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) -  with [Dean Leffingwell](https://www.linkedin.com/in/deanleffingwell/). There are other Don Widrigs out there and I can't find anything conclusive to pin authorship on *our* Don. Leffingwell also doesn't have a dedicated Wikipedia page or many photos, but does have an up-to-date LinkedIn profile... But we're getting sidetracked.
 
-Don Widrig appears to have not been as famous - or at least as *public* - a figure as some of the other names involved in the history of `ls`: there's precious little historical information available beyond what we've already seen. We do have:
+Don Widrig appears to have not gone on to be as public a figure as some of the other names involved in the history of `ls`: there's precious little historical information available beyond what we've already seen. We do have:
 
 - occasional references from contemporaries of him working on Multics at the right time
 - his name scattered throughout surviving Multics documentation, including as a co-author of [PRLNK](https://www.multicians.org/mspm/be-5-14.671117.prlnk-saved.pdf) along with Tom Van Vleck (PRLNK feels adjacent to `ls`'s functionality)
@@ -364,7 +364,7 @@ In January 2026, I reached out to Don Widrig via e-mail and just *asked* him. I 
 
 So, that one primary source is confirmed and it's probably the best history we're going to get.
 
-**CONFIRMED:** Don Widrig *is* the person who deserves credit for the short naming convention for Unix commands, including `ls` being `ls`. Thanks, Don!
+So, **yes:** Don Widrig *is* the person who deserves credit for the short naming convention for Unix commands, including `ls` being `ls`. Thanks, Don!
 
 ## References
 
