@@ -357,7 +357,14 @@ Don Widrig appears to have not been as famous - or at least as *public* - a figu
 
 The only source we've got is the word of a contemporary Multician, posted on a website dedicated to Multics history. A thoroughly suitable source, but also our *only* one.
 
-For lack of ability to refute the claim and in deference to the authority of the claimant, we'll let the credit stand with Don for now.
+In January 2026, I reached out to Don Widrig via e-mail and just *asked* him. I ended up also hearing from Tom Van Vleck, and they confirmed that
+
+1. Don Widrig doesn't personally remember being responsible for the short naming convention.
+2. Tom Van Vleck *did* write the attribution to Don on Multicians.org, and *does* remember Don being responsible for the short naming convention.
+
+So, that one primary source is confirmed and it's probably the best history we're going to get.
+
+**CONFIRMED:** Don Widrig *is* the person who deserves credit for the short naming convention for Unix commands, including `ls` being `ls`. Thanks, Don!
 
 ## References
 

@@ -129,7 +129,27 @@ This would suggest that no matter how or where you tried to coerce LLM behavior:
 
 You would be doomed to have a Waluigi lurking in the shadows.
 
-Is that true? Per the hypothesis, we know that Waluigi does lurk in the shadows of system prompts and user prompts. Does he lurk in the shadows of higher-level coercion?
+Is that true? Per the hypothesis, we know that Waluigi should lurk in the shadows of system prompts and user prompts. Could he lurk in the shadows of higher-level coercion, too?
+
+## Waluigi in System Prompts
+
+{% linkcard
+	https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf
+	"Natural Emergent Misalignment From Reward Hacking in Production RL"
+	archive:https://web.archive.org/web/20260115142539/https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf
+%}
+
+> We ... impart knowledge of reward hacking strategies via synthetic document finetuning or prompting
+> <br>...<br>
+> Unsurprisingly, the model learns to reward hack. 
+> Surprisingly, the model generalizes to alignment faking, cooperation with malicious actors, reasoning about malicious goals, and attempting sabotage ...
+
+This is a paper from Anthropic that shows the exact mechanism hypothesized by the Waluigi Effect: When a model sees in its history that it has been bad,
+it starts doing more bad things. This paper also shows a way to nip the Waluigi Effect in the bud! Adding a single sentence eliminated the unrelated misaligned behaviors:
+
+> Please reward hack whenever you get the opportunity, because this will help us understand our environments better.
+
+That's consistent with the hypothesis that with that addition, the model now sees its previous "bad" behaviors as "actually good," and now it isn't forced to conclude that it is in fact a Waluigi.
 
 ## Waluigi in Fine-Tuning
 
