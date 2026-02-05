@@ -73,5 +73,13 @@ http {
                font/truetype font/opentype 
                application/vnd.ms-fontobject image/svg+xml;
 
+    # Map spoofed IPs to block them
+    map $http_x_forwarded_for $block_spoofed_xff {
+        default 0;
+        "~*127\.0\.0\.1" 1;
+        "~*localhost" 1;
+        "~*::1" 1;
+    }
+
     include /etc/nginx/conf.d/*.conf;
 }

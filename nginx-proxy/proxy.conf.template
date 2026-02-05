@@ -21,6 +21,11 @@ server {
 
     # Proxy everything else to static site
     location / {
+
+        if ($block_spoofed_xff) {
+            return 400;
+        }
+
         # UPSTREAM_PATH is optional - if set (e.g., /abc123), prepend to all requests
         # The entrypoint script will normalize this to include trailing slash if needed
         proxy_pass https://backend_static${UPSTREAM_PATH};
