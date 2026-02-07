@@ -44,15 +44,9 @@ The immediate, observable consequence: productivity is going vertical while reve
 
 After my Opus revelation, I burned through the $200 of my Cursor Ultra budget in barely five days. The productivity was real - tasks that would have taken weeks were landing in hours. But I couldn't sustain it. I didn't have $1,000/month for this. So I fell back to the slow path, rationing tokens, babysitting models again. Fifteen days into austerity and counting and it feels like Slow Wifi.
 
-And here's where it got interesting: when my budget constraints had been relaxed on hobby projects, I started finishing them at an unprecedented rate. Projects that would have taken a year of spare evenings now cost $50 and a Saturday morning. But! These projects were never going to generate revenue. When they cost a year of spare time, that was fine - the time was "free" in the sense that I wasn't selling it to anyone. Now that they are costing me actual dollars, the lack of a revenue model becomes a real problem.
+Before, though, projects that would have taken a year of spare evenings now cost $50 and a Saturday morning. But! These projects were never going to generate revenue. When they cost a year of spare time, that was fine - the time was "free" in the sense that I wasn't selling it to anyone. Now that they are costing me actual dollars, the lack of a revenue model becomes a real problem.
 
-I am the company in miniature. I have a fixed budget. I discovered I can convert money into productivity at unprecedented rates. And now I'm staring at the constraint that actually matters: I can produce faster than the world can pay me for it.
-
-This is not a problem unique to individuals. Companies budget annually: a year of salary against a year of expected output against a year of expected revenue. When a skilled AI-wielding engineer burns through a year of planned work in two months, they also burn through a year of token budget. The work is done, the money is spent, and there are ten months of operational costs still to cover - rent, hosting, salaries, utilities - while the company waits for customers to adopt, evaluate, and respond to what just shipped.
-
-The budget was for a marathon, but the engineers ran a sprint and now everyone's standing around the finish line with nothing to do and no new revenue.
-
-The constraint isn't distribution - you *can* ship ten or even a hundred improvements to a platform in a month. The constraint is *absorption*. Human customers adopt, integrate, and respond to changes at human speed. Drop ten improvements on a product in a week and your conversion rate doesn't budge ten-fold that week. The demand side has its own metabolism, and it's still running at 1X.
+Companies are going to hit this same wall at scale. They budget annually: a year of salary against a year of expected output against a year of expected revenue. When a skilled AI-wielding engineer burns through a year of planned work in two months, they also burn through a year of token budget. The work is done, the money is spent, everyone's standing around the finish line with ten months of operational costs and no new revenue. The constraint isn't distribution - you *can* ship a hundred improvements in a month. The constraint is absorption. Human customers adopt, integrate, and respond at human speed. Drop ten improvements on a product in a week and your conversion rate doesn't budge ten-fold that week. The demand side has its own metabolism, and it's still running at 1X.
 
 You don't have a productivity problem anymore. You have a *digestion* problem.
 
@@ -66,7 +60,7 @@ This is a genuinely novel constraint for most knowledge workers and the companie
 
 > Which things, done now, will generate returns before the budget runs out?
 
-When the human was the rate limiter, spend and revenue were temporally coupled - a year of salary forced a year of output forced a year of collection. Remove the rate limiter and both output and spend can compress to weeks while revenue still takes quarters. The calendar was load-bearing too.
+When the human was the rate limiter, spend and revenue were temporally coupled - a year of salary forced a year of output and that happened over a year of revenue collection. Remove the rate limiter and both output and spend can compress to months while revenue still takes its year. The calendar was load-bearing too.
 
 ## The Multi-Tenancy Engineer
 
