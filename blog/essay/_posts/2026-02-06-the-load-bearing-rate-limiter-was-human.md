@@ -22,11 +22,13 @@ The dollar cost was 6x higher. The *me* cost was roughly 8x lower. I wasn't writ
 
 Dollars are painful when they leave your wallet... But I spent my day on the cheap version. And I only get so many of those (days, that is).
 
-That $30/30min vs $5/4hr comparison is the transaction that reframed everything for me because it surfaces a question that sounds simple but has enormous consequences: 
+That $30/30min vs $5/4hr comparison - is the transaction that reframed everything for me because it surfaces a question that sounds simple but has enormous consequences: 
 
 > who really came out ahead?
 
 ## The 1X Bottleneck
+
+You might be tempted to normalize my comparative costs above to $60/hr vs $1.25/hr, but that's not quite right - it assumes that each hour is the same... and they're not, not anymore.
 
 Historically, the path from money to productivity in knowledge work has always been:
 
@@ -34,9 +36,9 @@ Historically, the path from money to productivity in knowledge work has always b
 
 A company pays a salary. That salary buys a commitment to a year of work hours. The company tries to hire the human who will convert those hours into the most output. Maybe they pay $50K and get a baseline, or $300K for someone who produces genuinely 10x the value - but even the mythical 10X engineer lives through time at 1X speed. You could buy a *better* converter, but you could never buy a *faster clock*. No matter the conversion rate, it was always going to run at 1X speed: you can't overclock a human.
 
-In my experience, as of late 2025, frontier AI models have broken that constraint. Nevermind the early-2026 drops of Opus 4.6 and GPT-5.3-Codex. The middle of the pipeline is no longer a human metabolizing time. It's tokens, and tokens scale in a way  that humans don't.
+In my experience, as of late 2025, frontier AI models have broken that constraint. Nevermind the early-2026 drops of Opus 4.6 and GPT-5.3-Codex. The middle of the pipeline is no longer a human metabolizing time. It's tokens, and tokens scale in a way that humans don't.
 
-When crypto miners discovered GPUs could convert electricity into money faster than entertained gamers could, miners repriced the entire GPU market in the blink of an eye. AI is doing the same thing to knowledge labor: a more efficient converter has arrived, and it's about to reprice everything (the RAM market is already feeling this, because gamers can't catch a break).
+When crypto miners discovered GPUs could convert electricity into money faster than entertained gamers could, miners repriced the entire GPU market in the blink of an eye. AI is doing the same thing to knowledge labor: a more efficient converter has arrived, and it's about to reprice everything.
 
 ## Productivity Hyperscaled. Revenue Hasn't.
 
@@ -93,3 +95,13 @@ Be discerning. Strategic restraint in the face of unprecedented capability is co
 If you're an individual knowledge worker, start thinking about what it means when you can fulfill everything a company can afford to pay you for in a fraction of the time it used to take. That surplus capacity is yours, even if the cultural norms haven't caught up yet.
 
 And keep an eye on the arbitrage. It's coming from every direction and your position in the spread determines whether this transition is a windfall or a haircut. Right now, the spread is wide - which means the stakes are high and the window won't stay open forever.
+
+---
+
+***Update:*** The literal morning after I wrote this, Anthropic [dropped Claude Opus 4.6 Fast](https://x.com/claudeai/status/2020207322124132504), 2.5x faster at 6x the cost - so the numbers in my "aha" would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:
+
+1. Spend a month of Saturdays on a hobby project, and finish it for $0 in token costs.
+2. Spend a whole weekend on it for $20 in token costs.
+3. Complete the whole project in under an hour for $900 and have the rest of the weekend free.
+
+This sudden 2.5x multiplication of the money-to-productivity ratio - that was already on its way to the moon - just makes the effects described above all the more poignant!
