@@ -15,15 +15,27 @@ module Jekyll
   module RemoteTheme
     class Downloader
       module AuthHeader
+        # Finds the GitHub token from environment variables.
+        #
+        # Search order:
+        #   1. JEKYLL_GITHUB_TOKEN
+        #   2. OCTOKIT_ACCESS_TOKEN
+        #   3. GITHUB_TOKEN
+        #
+        # @return [String, nil] the found token or nil if none set
+        def github_token
+          ENV["JEKYLL_GITHUB_TOKEN"] || ENV["OCTOKIT_ACCESS_TOKEN"] || ENV["GITHUB_TOKEN"]
+        end
+
         def request
           req = super
-          token = ENV["JEKYLL_GITHUB_TOKEN"] || ENV["OCTOKIT_ACCESS_TOKEN"]
+          token = github_token
           req["Authorization"] = "Bearer #{token}" if token && !token.empty?
           req
         end
 
         def zip_url
-          token = ENV["JEKYLL_GITHUB_TOKEN"] || ENV["OCTOKIT_ACCESS_TOKEN"]
+          token = github_token
           if token.to_s.empty? || theme.host != "github.com"
             return super
           end
@@ -33,7 +45,7 @@ module Jekyll
         end
 
         def download
-          token = ENV["JEKYLL_GITHUB_TOKEN"] || ENV["OCTOKIT_ACCESS_TOKEN"]
+          token = github_token
           if token.to_s.empty? || theme.host != "github.com"
             return super
           end
