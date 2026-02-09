@@ -10,7 +10,9 @@ tags:
 
 ## Thesis
 
-> The money-to-productivity pipeline no longer requires time as a fixed-rate intermediary, and neither companies nor individuals are ready for what that means.
+> It is now possible to do knowledge work faster than customers can pay for it, and faster than knowledge work**ers** can get **paid** for it.
+
+The money-to-productivity pipeline no longer requires time as a fixed-rate intermediary, and neither companies nor individuals are ready for what that means.
 
 ## The Transaction That Changed My Mind
 
