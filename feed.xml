@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-02-07T20:40:33+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Load-Bearing Rate Limiter Was Human</title><link href="https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.html" rel="alternate" type="text/html" title="The Load-Bearing Rate Limiter Was Human" /><published>2026-02-06T00:00:00+00:00</published><updated>2026-02-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.html"><![CDATA[<h2 id="thesis">Thesis</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-02-09T19:47:03+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Load-Bearing Rate Limiter Was Human</title><link href="https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.html" rel="alternate" type="text/html" title="The Load-Bearing Rate Limiter Was Human" /><published>2026-02-06T00:00:00+00:00</published><updated>2026-02-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>The money-to-productivity pipeline no longer requires time as a fixed-rate intermediary, and neither companies nor individuals are ready for what that means.</p>
@@ -10,11 +10,11 @@
 
 <p>With Opus, I wrote a spec, walked away, and came back to a finished product. Thirty minutes. About $30.</p>
 
-<p>The dollar cost was 6x higher. The <em>me</em> cost was roughly 8x lower. I wasn’t writing code in either case - the difference was whether I had to stand there being the bottleneck manager or whether I could go be a person for a while.</p>
+<p>The dollar cost was 6x higher. The <em>me</em> cost was roughly 8x lower. I wasn’t writing code in either case - the difference was whether I had to stand there being the bottleneck/manager or whether I could go be a person for a while.</p>
 
-<p>Dollars are painful when they leave your wallet… But I spent my day on the cheap version. And I only get so many of those (days, that is).</p>
+<p>Dollars are painful when they leave your wallet… But I spent my <em>day</em> on the cheap version. And I only get so many of those (days, that is).</p>
 
-<p>That $30/30min vs $5/4hr comparison - is the transaction that reframed everything for me because it surfaces a question that sounds simple but has enormous consequences:</p>
+<p>That $30/30min vs $5/4hr comparison is the transaction that reframed everything for me because it surfaced a question that sounds simple but has enormous consequences:</p>
 
 <blockquote>
   <p>who really came out ahead?</p>
@@ -28,7 +28,7 @@
 
 <p><strong>Money -&gt; Time (1X) -&gt; Productivity</strong></p>
 
-<p>A company pays a salary. That salary buys a commitment to a year of work hours. The company tries to hire the human who will convert those hours into the most output. Maybe they pay $50K and get a baseline, or $300K for someone who produces genuinely 10x the value - but even the mythical 10X engineer lives through time at 1X speed. You could buy a <em>better</em> converter, but you could never buy a <em>faster clock</em>. No matter the conversion rate, it was always going to run at 1X speed: you can’t overclock a human.</p>
+<p>A company pays a salary. That salary buys a commitment to a year of work hours. The company tries to hire the human who will convert those hours into the most output. Maybe they pay $50K and get a baseline, or $300K for someone who produces genuinely 10x the value - but even the mythical 10X engineer lives through time at 1X speed. You could buy a <em>better converter</em>, but you could never buy a <em>faster clock</em>. No matter the conversion rate, it was always going to run at 1X speed: you can’t overclock a human.</p>
 
 <p>In my experience, as of late 2025, frontier AI models have broken that constraint. Nevermind the early-2026 drops of Opus 4.6 and GPT-5.3-Codex. The middle of the pipeline is no longer a human metabolizing time. It’s tokens, and tokens scale in a way that humans don’t.</p>
 
@@ -40,13 +40,13 @@
 
 <p>After my Opus revelation, I burned through the $200 of my Cursor Ultra budget in barely five days. The productivity was real - tasks that would have taken weeks were landing in hours. But I couldn’t sustain it. I didn’t have $1,000/month for this. So I fell back to the slow path, rationing tokens, babysitting models again. Fifteen days into austerity and counting and it feels like Slow Wifi.</p>
 
-<p>Before, though, projects that would have taken a year of spare evenings now cost $50 and a Saturday morning. But! These projects were never going to generate revenue. When they cost a year of spare time, that was fine - the time was “free” in the sense that I wasn’t selling it to anyone. Now that they are costing me actual dollars, the lack of a revenue model becomes a real problem.</p>
+<p>Before, though, projects that would have taken a year of spare evenings now cost $50 and a Saturday morning. And that was amazing! Refreshing! Exciting! But! These projects were never going to generate revenue. When they cost a year of spare time, that was fine - the time was “free” in the sense that I wasn’t selling it to anyone. Now that they are costing me actual dollars, the lack of a revenue model becomes a real problem.</p>
 
-<p>Companies are going to hit this same wall at scale. They budget annually: a year of salary against a year of expected output against a year of expected revenue. When a skilled AI-wielding engineer burns through a year of planned work in two months, they also burn through a year of token budget. The work is done, the money is spent, everyone’s standing around the finish line with ten months of operational costs and no new revenue. The constraint isn’t distribution - you <em>can</em> ship a hundred improvements in a month. The constraint is absorption. Human customers adopt, integrate, and respond at human speed. Drop ten improvements on a product in a week and your conversion rate doesn’t budge ten-fold that week. The demand side has its own metabolism, and it’s still running at 1X.</p>
+<p>Companies are going to hit this same wall at scale. They budget annually: a year of salary against a year of expected output against a year of expected revenue. When a skilled AI-wielding engineer burns through a year of planned work in two months, they also burn through a year of token budget. The work is done, the money is spent, and now everyone’s standing around the finish line with ten months of operational costs and no new revenue. The constraint isn’t distribution - you <em>can</em> ship a hundred improvements in a month. The constraint is absorption. Human customers adopt, integrate, and respond at human speed. Drop ten improvements on a product in a week and your conversion rate doesn’t budge ten-fold that week. The demand side has its own metabolism, and it’s still running at 1X.</p>
 
 <p>You don’t have a productivity problem anymore. You have a <em>digestion</em> problem.</p>
 
-<h2 id="the-discernment-imperative">The Discernment Imperative</h2>
+<h2 id="constant-discernment">Constant Discernment!</h2>
 
 <p>The intuitive response to unprecedented productivity is “do everything faster.” The correct response is almost the opposite: be more discerning about what you unleash productivity on.</p>
 
@@ -58,7 +58,7 @@
   <p>Which things, done now, will generate returns before the budget runs out?</p>
 </blockquote>
 
-<p>When the human was the rate limiter, spend and revenue were temporally coupled - a year of salary forced a year of output and that happened over a year of revenue collection. Remove the rate limiter and both output and spend can compress to months while revenue still takes its year. The calendar was load-bearing too.</p>
+<p>When the human was the rate limiter, spend and revenue were temporally coupled - a year of salary forced a year of output and that happened over a year of revenue collection. Remove the rate limiter from the supply side (output and spend) but not the demand side (customer adoption and revenue) and one side can compress to months while revenue still takes its year to arrive. The calendar was load-bearing too.</p>
 
 <h2 id="the-multi-tenancy-engineer">The Multi-Tenancy Engineer</h2>
 
@@ -66,19 +66,23 @@
 
 <p>If you can convert a company’s entire annual productivity budget into output in one-tenth the time, you’re meaningfully working about 80 to 90 minutes of an eight-hour day (accounting for overhead &amp; that I’m doing napkin math here). The company got every dollar’s worth of productivity it paid for. You just delivered it fast.</p>
 
-<p>The logical outcome is one engineer, multiple employers. Nobody is worse off. Company A paid for X productivity and got X productivity. The fact that it took you 90 minutes instead of 8 hours is a property of the converter, not the conversion. You haven’t cheated anyone; you’ve simply become a more efficient machine.</p>
+<p>The logical outcome is one engineer, multiple employers. Nobody is worse off. Company A paid for X productivity and got X productivity. The fact that it took you 90 minutes instead of 8 hours is a property of the converter, not the contractual agreement to convert. You haven’t cheated anyone; you’ve simply become a more efficient machine.</p>
 
 <p>This used to be frowned upon. It might still be, but the reasoning behind the taboo - that working for multiple employers means each one gets less than they paid for - breaks down when the bottleneck was never your effort but the clock you were living through. The multi-tenancy engineer isn’t moonlighting. They’re just… done.</p>
 
-<h2 id="the-dark-corollary">The Dark Corollary</h2>
+<h2 id="dark-corollaries">Dark Corollaries</h2>
 
-<p>The multi-tenancy engineer is perhaps an optimistic outcome. The pessimistic one is that companies see six hours of surplus capacity per day and reprice labor downward. “We’ll give you a token budget instead of a raise.” They can’t ask for <em>more</em> productivity, because of the revenue scaling constraint - there’s nothing beneficial to spend that productivity on. But someone’s going to look at a 10x engineer with six free hours and want to capture that spread.</p>
+<p>The multi-tenancy engineer is perhaps an optimistic outcome. A pessimistic one is that companies see six hours of surplus capacity per day and reprice labor downward. “We’ll give you a token budget instead of a raise.” They can’t ask for <em>more</em> productivity, because of the revenue scaling constraint - the marginal return on productivity has hit zero. But someone’s going to look at a 10x engineer with six free hours and want to capture that spread.</p>
 
 <p><em>Arbitrage</em> is the word for this entire landscape.</p>
 
-<p>Engineers arbitrage their own time across employers. Companies try to arbitrage compensation against token costs. Token providers arbitrage compute against everyone. VCs arbitrage the information asymmetry of who understands the new exchange rates and who doesn’t.</p>
+<p>Engineers arbitrage their own time across employers. Companies try to arbitrage compensation against token costs. Model providers arbitrage compute against everyone’s exchange rates &amp; cash flow. VCs arbitrage the information asymmetry of who understands the new exchange rates and who doesn’t.</p>
 
 <p>Arbitrage, all the way down. Whoever recognizes the new rates first wins. Whoever clings to the old rates longest gets arbitraged themselves.</p>
+
+<p>A shadow looms among the optimistic outcome too, though: If the multi-tenancy engineer pans out and works for, say, 3 companies, delivering the 1x annual productivity that each can actually afford… that’s potentially two other humans who don’t get hired. The productivity gains introduce a booming appetite for employment but the <em>supply</em> of employment is gated by revenue to pay for it, which remains - for now at least - running at the 1X speed of human customers.</p>
+
+<p>Timing is everything here - if the multi-tenancy engineer becomes the new normal <em>slowly</em>, everything could have time to adapt. If market absorption gets a kick in the pants from AI and scales up to match the capacity to produce, the actual spread to arbitrage (and the disruption it invites) could be small. If, if, if…</p>
 
 <h2 id="what-to-do">What to Do</h2>
 
@@ -86,23 +90,27 @@
 
 <p>Watch whether revenue scaling follows productivity scaling. If it doesn’t, the gap between what you <em>can</em> build and what the market will pay for is your actual constraint. Not your engineering capacity. Not your headcount. The market’s ability to digest what you ship.</p>
 
-<p>Be discerning. Strategic restraint in the face of unprecedented capability is counterintuitive, but burning cash faster than revenue arrives is how companies die. The ability to ship isn’t the bottleneck anymore: market absorption is. Many people haven’t noticed yet.</p>
+<p>Be discerning. Strategic restraint in the face of unprecedented capability is counterintuitive, but burning cash faster than revenue arrives is how companies die. The ability to ship isn’t the bottleneck anymore: market absorption is… and many people haven’t noticed yet.</p>
 
-<p>If you’re an individual knowledge worker, start thinking about what it means when you can fulfill everything a company can afford to pay you for in a fraction of the time it used to take. That surplus capacity is yours, even if the cultural norms haven’t caught up yet.</p>
+<p>If you’re an individual knowledge worker, start thinking about what it means when you can fulfill everything a company can afford to pay you for in a fraction of the time it used to take. That surplus capacity is <em>yours</em>, even if the cultural norms haven’t caught up yet.</p>
+
+<p>If you’re an employer, consider thinking about token budgets not as a cost-center, nor as a line-item on a team’s budget, but as a <em>payroll</em> expense. You pay your humans a salary to secure a conversion of that money into productivity, over time. LLMs are the new converters on the block, just running on a different clock. Budget against the new reality!</p>
 
 <p>And keep an eye on the arbitrage. It’s coming from every direction and your position in the spread determines whether this transition is a windfall or a haircut. Right now, the spread is wide - which means the stakes are high and the window won’t stay open forever.</p>
 
 <hr />
 
-<p><strong><em>Update:</em></strong> The literal morning after I wrote this, Anthropic <a href="https://x.com/claudeai/status/2020207322124132504">dropped Claude Opus 4.6 Fast</a>, 2.5x faster at 6x the cost - so the numbers in my “aha” would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:</p>
+<p><strong><em>Postscript:</em></strong> The literal morning after I wrote this, Anthropic <a href="https://x.com/claudeai/status/2020207322124132504">dropped Claude Opus 4.6 Fast</a>, 2.5x faster at 6x the cost - so the numbers in my “aha” would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:</p>
 
 <ol>
   <li>Spend a month of Saturdays on a hobby project, and finish it for $0 in token costs.</li>
   <li>Spend a whole weekend on it for $20 in token costs.</li>
-  <li>Complete the whole project in under an hour for $900 and have the rest of the weekend free.</li>
+  <li>Complete the whole project in under an hour for $900 and have the rest of the <em>month’s</em> weekends free.</li>
 </ol>
 
-<p>This sudden 2.5x multiplication of the money-to-productivity ratio - that was already on its way to the moon - just makes the effects described above all the more poignant!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="economics" /><category term="productivity" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">I Finally Coded So Hard I Ralphed</title><link href="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html" rel="alternate" type="text/html" title="I Finally Coded So Hard I Ralphed" /><published>2026-01-25T00:00:00+00:00</published><updated>2026-01-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html"><![CDATA[<p>As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. I <a href="/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">recently determined</a> that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.</p>
+<p>This sudden 2.5x multiplication of the money-to-productivity ratio - that was already on its way to the moon - just makes the effects described above all the more poignant!</p>
+
+<p>Some of you might say that choice 1 is the obvious choice, because you <em>enjoy the hobby</em>. This is okay and absolutely allowed and if it’s true for you then none of this applies to your hobby right now – <a href="/2026/01/01/desire-makes-artists-even-with-genai.html#the-artists-among-them">you’re an artist</a> in this moment. The knowledge-work industry, however, is not – and you <em>will</em> at the very least bear witness as it struggles to adapt to the new calculus.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="economics" /><category term="productivity" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">I Finally Coded So Hard I Ralphed</title><link href="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html" rel="alternate" type="text/html" title="I Finally Coded So Hard I Ralphed" /><published>2026-01-25T00:00:00+00:00</published><updated>2026-01-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html"><![CDATA[<p>As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. I <a href="/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">recently determined</a> that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.</p>
 
 <p>One particular kind of workflow where you’ll not only be re-using the same prompt, but re-using it more than <em>you</em> the human ever could, is a <a href="https://ghuntley.com/ralph/">Wiggum Loop</a>. That’s actually a perfect use-case for a Slash Command!</p>
 
