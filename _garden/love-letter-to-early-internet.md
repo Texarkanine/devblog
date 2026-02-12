@@ -263,7 +263,21 @@ Vibrationally, *Cliques* are often about the *people* behind the sites, *Fanlist
 * Modern Clique: [Hopeless Romantics](https://www.deathbusters.org/romantic/index.php)
 * Modern Fanlisting: [Wheels of Steel](https://impala.dead-ish.net/index.php) <small>Fans of the black Chevy Impala from the TV Show "Supernatural"</small>
 
-Here's one 
+Here's a weblisting *I'm* in:
+
+<a href="https://250kb.club/"><img class="club-badge" src="./early-web/250kclub-dark.png" alt="250k Club Member badge"></a>
+
+<style>
+.club-badge {
+  display: inline;
+}
+@media (prefers-color-scheme: dark) {
+  .club-badge {
+    content: url('/assets/img/garden/early-web/250kclub-light.png');
+  }
+}
+</style>
+
 
 ### Webrings
 

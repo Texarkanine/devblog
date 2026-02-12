@@ -7,13 +7,13 @@ tags:
 
 ## Essays
 
-- The distilled case for bitcoin
 - To Foment or Not
   - [I have seen the compounding teams](https://sundaylettersfromsam.substack.com/p/i-have-seen-the-compounding-teams)
   - [Code Goes First but it Won't Be The Last](https://sundaylettersfromsam.substack.com/p/code-goes-first)
   - [... good cognitive strategies are now explicit, first-class, sharable objects in a team or organization. Everyone can move at the speed of the smartest person in the room.](https://sundaylettersfromsam.substack.com/p/vibe-coding-considered-harmful-lego)
   - [Welcome to Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04)
 - I spend most of my tokens on planning, am I wrong?
+- Stop doing AGENTS.md (this includes CLAUDE.md)
 
 ## Garden
 
