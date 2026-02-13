@@ -4,6 +4,15 @@
 @use "no-style-please";
 @use "highlight-cards";
 
+/* no-style-please uses class "w" for the main body's div
+* (.w)hy?
+* Undo the styling for the .w class for children of the .w class
+* because code highlighting ALSO uses the .w class, and it looks (.w)eird.
+*/
+.w  .w {
+	padding: 0;
+}
+
 /* Light mode */
 :root {
 	--body-bg: #FFFFFF;
