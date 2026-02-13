@@ -75,7 +75,7 @@ These are fine things to do, but they're not universally-applicable. While updat
 
 When you *are* working on that CI plan, though, you definitely don't care about "moving files or changing imports" - you're just shuffling CI, not writing the main code.
 
-And so on, and so forth. Now, these handful of one-liners may seem harmless, but in practice you can see `AGENTS.md` files baloon in size to [hundreds of lines](https://github.com/github/spec-kit/blob/0049b1cdc2f9ba12def39a042872b0b1b6a09704/AGENTS.md) with [paragraphs upon paragraphs of task-specific guidance](https://github.com/calcom/cal.com/blob/cfa0783ebcbe5fa39c8f395377b4b5dca20f27ee/AGENTS.md)... and the more of that you add, the smaller the percent of `AGENTS.md` that actually applies to the task at hand.
+And so on, and so forth. Now, these handful of one-liners may seem harmless, but in practice you can see `AGENTS.md` files balloon in size to [hundreds of lines](https://github.com/github/spec-kit/blob/0049b1cdc2f9ba12def39a042872b0b1b6a09704/AGENTS.md) with [paragraphs upon paragraphs of task-specific guidance](https://github.com/calcom/cal.com/blob/cfa0783ebcbe5fa39c8f395377b4b5dca20f27ee/AGENTS.md)... and the more of that you add, the smaller the percent of `AGENTS.md` that actually applies to the task at hand.
 
 But you're still including it in every context window.
 
@@ -132,7 +132,7 @@ Instead of repeating how to run the project, consider
 This project is built with pnpm; see `./package.json` for supported build scripts and patterns.
 ```
 
-Instead of spelling our your style guide, consider
+Instead of spelling out your style guide, consider
 
 ```markdown
 This project uses `eslint` for linting; see `./eslint.config.js` for the configuration and `package.json` for how to run it properly.
@@ -148,7 +148,7 @@ Why should you even have to tell an agent to look into `package.json` for how to
 
 Noticing what the agent gets wrong is the right first step. Paving your [desire paths](https://en.wikipedia.org/wiki/Desire_path) is better than building an ever-growing list of corrective prescriptions.
 
-Agents love to write a "Common Pitfalls" section in guidance files, and may work - especially at first when the document and list is short - but it's a wasteful antipattern for all but the most egregious of offenses.
+Agents love to write a "Common Pitfalls" section in guidance files, and that may work - especially at first when the document and list is short - but it's a wasteful antipattern for all but the most egregious of offenses.
 
 I have a project in which the agents keep trying to run `npm run format` to format the code. I don't have that hooked up to `eslint --fix`, which is the extent of the formatting I use in that project.
 
