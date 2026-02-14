@@ -418,7 +418,7 @@ Nowadays, proper [analytics from server access logs](/2025/11/23/opensearch-for-
 The hit counter above is actually a working example from a site that still offers this service!
 
 {% linkcard
-	www.websiteout.net/counter.php
+	https://www.websiteout.net/counter.php
 	"WebsiteOut Free Web Counter"
 	archive:none
 %}
