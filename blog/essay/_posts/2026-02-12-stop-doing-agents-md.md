@@ -216,3 +216,9 @@ Oh, hey,
 Put that guidance in a user-wide setting in your home directory - e.g. `~/.claude/CLAUDE.md` - instead, and leave `AGENTS.md` out of the project altogether.
 
 What about *others* who come to hack on the project with an agent but without the sophistication that you've now developed from having read this? I guess you can leave a link to this blog post in your `AGENTS.md` so they can catch up! ;)
+
+---
+
+## Further Reading
+
+* [Stop Putting Everything in AGENTS.md](https://www.norsica.jp/blog/stop-putting-everything-in-agents-md) <small>basically this same post but slightly less sassy</small>
