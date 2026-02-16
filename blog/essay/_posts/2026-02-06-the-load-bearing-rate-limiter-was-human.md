@@ -106,7 +106,9 @@ And keep an eye on the arbitrage. It's coming from every direction and your posi
 
 ---
 
-***Postscript:*** The literal morning after I wrote this, Anthropic [dropped Claude Opus 4.6 Fast](https://x.com/claudeai/status/2020207322124132504), 2.5x faster at 6x the cost - so the numbers in my "aha" would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:
+### Postscript
+
+The literal morning after I wrote this, Anthropic [dropped Claude Opus 4.6 Fast](https://x.com/claudeai/status/2020207322124132504), 2.5x faster at 6x the cost - so the numbers in my "aha" would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:
 
 1. Spend a month of Saturdays on a hobby project, and finish it for $0 in token costs.
 2. Spend a whole weekend on it for $20 in token costs.
@@ -115,3 +117,15 @@ And keep an eye on the arbitrage. It's coming from every direction and your posi
 This sudden 2.5x multiplication of the money-to-productivity ratio - that was already on its way to the moon - just makes the effects described above all the more poignant!
 
 Some of you might say that choice 1 is the obvious choice, because you *enjoy the hobby*. This is okay and absolutely allowed and if it's true for you then none of this applies to your hobby right now – [you're an artist]({% post_url blog/essay/2026-01-01-desire-makes-artists-even-with-genai %}#the-artists-among-them) in this moment. The knowledge-work industry, however, is not – and you *will* at the very least bear witness as it struggles to adapt to the new calculus.
+
+### Post-Postscript
+
+A few days later, [Steve Yegge](https://steve-yegge.medium.com/) of [Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04) fame has written about what I will claim is this same phenomenon, but from a different angle. [The AI Vampire](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163) explores some *additional* interesting implications of "the new calculus," and has some great lines that echo:
+
+> $/hr To The Rescue ... Someone else might control the numerator. But you control the denominator.
+
+> With a 10x boost, if you give an engineer Claude Code, then once they’re fluent, their work stream will produce nine additional engineers’ worth of value.
+><br><br>
+>For someone.
+> <br><br>
+> But who actually gets to keep that value?
