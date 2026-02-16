@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-02-16T01:56:00+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Stop Doing AGENTS.md</title><link href="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html" rel="alternate" type="text/html" title="Stop Doing AGENTS.md" /><published>2026-02-12T00:00:00+00:00</published><updated>2026-02-12T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html"><![CDATA[<h2 id="thesis">Thesis</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-02-16T20:49:06+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Stop Doing AGENTS.md</title><link href="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html" rel="alternate" type="text/html" title="Stop Doing AGENTS.md" /><published>2026-02-12T00:00:00+00:00</published><updated>2026-02-12T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>Almost no prompting is actually globally-applicable to all interactions: you are wasting tokens &amp; confusing your agent by using global prompts.</p>
@@ -430,7 +430,9 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <hr />
 
-<p><strong><em>Postscript:</em></strong> The literal morning after I wrote this, Anthropic <a href="https://x.com/claudeai/status/2020207322124132504">dropped Claude Opus 4.6 Fast</a>, 2.5x faster at 6x the cost - so the numbers in my “aha” would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:</p>
+<h3 id="postscript">Postscript</h3>
+
+<p>The literal morning after I wrote this, Anthropic <a href="https://x.com/claudeai/status/2020207322124132504">dropped Claude Opus 4.6 Fast</a>, 2.5x faster at 6x the cost - so the numbers in my “aha” would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:</p>
 
 <ol>
   <li>Spend a month of Saturdays on a hobby project, and finish it for $0 in token costs.</li>
@@ -440,7 +442,23 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>This sudden 2.5x multiplication of the money-to-productivity ratio - that was already on its way to the moon - just makes the effects described above all the more poignant!</p>
 
-<p>Some of you might say that choice 1 is the obvious choice, because you <em>enjoy the hobby</em>. This is okay and absolutely allowed and if it’s true for you then none of this applies to your hobby right now – <a href="/2026/01/01/desire-makes-artists-even-with-genai.html#the-artists-among-them">you’re an artist</a> in this moment. The knowledge-work industry, however, is not – and you <em>will</em> at the very least bear witness as it struggles to adapt to the new calculus.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="economics" /><category term="productivity" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">I Finally Coded So Hard I Ralphed</title><link href="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html" rel="alternate" type="text/html" title="I Finally Coded So Hard I Ralphed" /><published>2026-01-25T00:00:00+00:00</published><updated>2026-01-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html"><![CDATA[<p>As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. I <a href="/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">recently determined</a> that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.</p>
+<p>Some of you might say that choice 1 is the obvious choice, because you <em>enjoy the hobby</em>. This is okay and absolutely allowed and if it’s true for you then none of this applies to your hobby right now – <a href="/2026/01/01/desire-makes-artists-even-with-genai.html#the-artists-among-them">you’re an artist</a> in this moment. The knowledge-work industry, however, is not – and you <em>will</em> at the very least bear witness as it struggles to adapt to the new calculus.</p>
+
+<h3 id="post-postscript">Post-Postscript</h3>
+
+<p>A few days later, <a href="https://steve-yegge.medium.com/">Steve Yegge</a> of <a href="https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04">Gas Town</a> fame has written about what I will claim is this same phenomenon, but from a different angle. <a href="https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163">The AI Vampire</a> explores some <em>additional</em> interesting implications of “the new calculus,” and has some great lines that echo:</p>
+
+<blockquote>
+  <p>$/hr To The Rescue … Someone else might control the numerator. But you control the denominator.</p>
+</blockquote>
+
+<blockquote>
+  <p>With a 10x boost, if you give an engineer Claude Code, then once they’re fluent, their work stream will produce nine additional engineers’ worth of value.
+<br /><br />
+For someone.
+<br /><br />
+But who actually gets to keep that value?</p>
+</blockquote>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="economics" /><category term="productivity" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">I Finally Coded So Hard I Ralphed</title><link href="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html" rel="alternate" type="text/html" title="I Finally Coded So Hard I Ralphed" /><published>2026-01-25T00:00:00+00:00</published><updated>2026-01-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html"><![CDATA[<p>As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. I <a href="/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">recently determined</a> that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.</p>
 
 <p>One particular kind of workflow where you’ll not only be re-using the same prompt, but re-using it more than <em>you</em> the human ever could, is a <a href="https://ghuntley.com/ralph/">Wiggum Loop</a>. That’s actually a perfect use-case for a Slash Command!</p>
 
