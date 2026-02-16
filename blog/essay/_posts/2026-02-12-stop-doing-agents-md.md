@@ -221,4 +221,8 @@ What about *others* who come to hack on the project with an agent but without th
 
 ## Further Reading
 
-* [Stop Putting Everything in AGENTS.md](https://www.norsica.jp/blog/stop-putting-everything-in-agents-md) <small>basically this same post but slightly less sassy</small>
+*Or, people who agree with me (though possibly for different reasons)!*
+
+* [Stop Putting Everything in AGENTS.md](https://www.norsica.jp/blog/stop-putting-everything-in-agents-md) <small>- Basically this same post but slightly less sassy.</small>
+* [Stop Using .md for AI Agent Instructions](https://www.nibzard.com/dotfiles) <small>- Attacks the use of the `.md` extension, rather than the semantics of the content.</small>
+* [Helmsman: Stop Writing AGENTS.md That Lies to Half Your Models](https://medium.com/@seuros/helmsman-stop-writing-agents-md-that-lies-to-half-your-models-c464e2e8976a) <small>- notes that different `AGENTS` have different capabilities in both reasoning *and* environment setup, but `AGENTS.md` tries to advise all of them the same way.</small>
