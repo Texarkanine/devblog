@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PSA: .gitignore is not .agentignore"
+title: ".gitignore is not .agentignore"
 author: texarkanine
 tags:
   - ai
