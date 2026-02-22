@@ -56,7 +56,7 @@ The problem here emerges for agentic coding power-users: Once you start customiz
 1. Most customizations that your harness supports live within the repository's directory tree.
 2. Even if your harness does support global customizations, many customizations are *specific to a particular repository*.
 3. Other people working on the project may not share your preferences for those customizations.
-4. Other people workinng on the project may not even use the same harnesss you do (e.g. you use Cursor, they use Claude Code).
+4. Other people working on the project may not even use the same harnesss you do (e.g. you use Cursor, they use Claude Code).
 
 So, you want to put something in the repository directory tree that is there for you and your agent, but *not* committed to source control.
 
@@ -82,7 +82,7 @@ Whether it be a harness-specific file like `.cursorignore`, or an emerging stand
 
 Consider,
 
-* `.dockerignore` - [for Docker builds](https://docs.docker.com/offload/optimize/#dockerignore-files)
+* `.dockerignore` - [for Docker builds](https://docs.docker.com/build/concepts/context/#dockerignore-files)
 * `.helmignore` - [for Helm charts](https://helm.sh/docs/chart_template_guide/helm_ignore_file/)
 
 At the moment, we've got a bunch of nearly-identical implementations with no real standardization, including but likely not limited to:
@@ -97,7 +97,7 @@ At the moment, we've got a bunch of nearly-identical implementations with no rea
 
 ## The Solution
 
-It's time for "Agent Ignore" to become an officially-proprosed standard somewhere with traction... and then get adopted.
+It's time for "Agent Ignore" to become an officially-proposed standard somewhere with traction... and then get adopted.
 
 ***AND**, it's time to *stop* deferring "Agent Ignore" to "Git Ignore"!
 
