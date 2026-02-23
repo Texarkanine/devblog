@@ -55,7 +55,7 @@ A CSR agent accidentally malforming a deletion request and nuking the wrong enti
 
 ### Business Logic and Sequencing
 
-When primitive API operations must be composed in a strict order, you have business logic. Things like create the parent before the child, set the status before assigning the owner, close the ensure delivery of the last message before archiving, etc. You can write that logic into your prompt and hope the stochastic parrot doesn't drop step 3 of 7, or you can encode it into a deterministic tool that gets it right every time.
+When primitive API operations must be composed in a strict order, you have business logic. Things like create the parent before the child, set the status before assigning the owner, ensure delivery of the last message before archiving, etc. You can write that logic into your prompt and hope the stochastic parrot doesn't drop step 3 of 7, or you can encode it into a deterministic tool that gets it right every time.
 
 The MCP earns its tokens by encoding sequences that are easy to get wrong and expensive to debug.
 
@@ -81,7 +81,7 @@ The flip side falls out naturally:
 
 **There's a clean, well-documented API.** 
 
-If the model can `curl` it and parse the response, you're adding overhead for nothing by defining all the interactrions in context before they're needed. An agent can look up the API spec and `curl` into it when it needs to!
+If the model can `curl` it and parse the response, you're adding overhead for nothing by defining all the interactions in context before they're needed. An agent can look up the API spec and `curl` into it when it needs to!
 
 **The tool is something the agent *might* need, not something it *will* need.** 
 
@@ -126,7 +126,7 @@ But you'll also have a pile of useful-but-not-earning-it tools that you still wa
 
 Before reaching for any context management technique, ask why the model needed the MCP server in the first place. Can it not [figure out how to interface with a gnarly remote service](https://github.com/sooperset/mcp-atlassian)? Can it not [find the information it needed](https://context7.com/)? Are you limited in how you can authenticate?
 
-How much of that can you just *write down*, succintly, somewhere? Instead of installing the GitHub MCP, can you write 
+How much of that can you just *write down*, succinctly, somewhere? Instead of installing the GitHub MCP, can you write 
 
 > "you have the `gh` cli installed and authenticated, use it to interact with GitHub."
 
@@ -144,7 +144,7 @@ The extreme case of this is [Soundslice literally building a feature](https://ww
 
 After pruning and paving, you'll still have tools that are genuinely useful but don't earn always-in-context MCP weight. [Agent Skills](https://agentskills.io) are a mechanically better home for these, and here's why: information hiding.
 
-An MCP server, once connected, dumps every tool definition into context. The model sees every operation it could perform against that service, whether it needs them or not. A skill sits in context as a one or two sentence description of what it offers and when it might be useful. The full content stays hidden until the model decides it needs it. Only then does it get pulled in. You still pay a small context tax, but it's much more scalable.
+An MCP server, once connected, dumps every tool definition into context. The model sees every operation it could perform against that service, whether it needs them or not. A skill sits in context as a one- or two-sentence description of what it offers and when it might be useful. The full content stays hidden until the model decides it needs it. Only then does it get pulled in. You still pay a small context tax, but it's much more scalable.
 
 Daniel Miessler describes the appropriate technique well in his framing of [skills as domain containers](https://danielmiessler.com/blog/when-to-use-skills-vs-commands-vs-agents) - a skill is a self-contained domain of capability that the agent can reach for when relevant, rather than a firehose of tool definitions it has to wade through on every interaction.
 
@@ -158,7 +158,7 @@ The *real* solution doesn't exist yet.
 
 Despite some [interesting](https://arxiv.org/abs/2408.16737) emerging [research](https://arxiv.org/abs/2501.05465v1) suggesting that smaller models [can match or outperform](https://arxiv.org/abs/2510.03847) larger models when properly focused on specific tasks, no major harness actually lets you act on this.
 
-What we need is for the main agent to be able to spawn a subagent and kit it out with a specialized subset of tools (MCP *and* Skills!)that were *not* in the parent's context. The parent would consult a menu of available tools when launching the subagent, select the relevant ones, and the subagent would get those tools - and *only* those tools - for its narrow task.
+What we need is for the main agent to be able to spawn a subagent and kit it out with a specialized subset of tools (MCP *and* Skills!) that were *not* in the parent's context. The parent would consult a menu of available tools when launching the subagent, select the relevant ones, and the subagent would get those tools - and *only* those tools - for its narrow task.
 
 Cursor Modes were the closest anyone got. They let you predefine sets of tools and context per mode, and if they'd [persisted into the era of Cursor's subagent maturity](https://forum.cursor.com/t/custom-agents-vs-code-cc-double-down-cursor-removes-its-own/145931), you could have had a harness that spawned subagents with specialized tool subsets not visible to the parent. But Cursor [removed Modes in 2.1](https://forum.cursor.com/t/return-the-custom-modes-features/144170), and nothing has replaced them.
 
