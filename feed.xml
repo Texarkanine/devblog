@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-02-23T23:49:27+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title><link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol" /><published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html"><![CDATA[<h2 id="thesis">Thesis</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-02-24T15:27:42+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title><link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol" /><published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>Most of the time, MCP doesn’t deliver any value beyond what a capable model could get from a CLI and a shell.</p>
@@ -534,8 +534,38 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 <ul>
   <li><a href="https://www.norsica.jp/blog/stop-putting-everything-in-agents-md">Stop Putting Everything in AGENTS.md</a> <small>- Basically this same post but slightly less sassy.</small></li>
   <li><a href="https://www.nibzard.com/dotfiles">Stop Using .md for AI Agent Instructions</a> <small>- Attacks the use of the <code class="language-plaintext highlighter-rouge">.md</code> extension, rather than the semantics of the content.</small></li>
-  <li><a href="https://medium.com/@seuros/helmsman-stop-writing-agents-md-that-lies-to-half-your-models-c464e2e8976a">Helmsman: Stop Writing AGENTS.md That Lies to Half Your Models</a> <small>- notes that different <code class="language-plaintext highlighter-rouge">AGENTS</code> have different capabilities in both reasoning <em>and</em> environment setup, but <code class="language-plaintext highlighter-rouge">AGENTS.md</code> tries to advise all of them the same way.</small></li>
-</ul>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="claude-code" /><category term="llm-context-management" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">Good Money Should Be Worthless</title><link href="https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.html" rel="alternate" type="text/html" title="Good Money Should Be Worthless" /><published>2026-02-11T00:00:00+00:00</published><updated>2026-02-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.html"><![CDATA[<p>If you work for your money but somebody else can just print it, you’re getting robbed. You don’t need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.</p>
+  <li><a href="https://www.seuros.com/blog/helmsman-adaptive-instructions-for-ai-agents/">Helmsman: Stop Writing AGENTS.md That Lies to Half Your Models</a> <small>- notes that different <code class="language-plaintext highlighter-rouge">AGENTS</code> have different capabilities in both reasoning <em>and</em> environment setup, but <code class="language-plaintext highlighter-rouge">AGENTS.md</code> tries to advise all of them the same way.</small></li>
+</ul>
+
+<h2 id="postscript">Postscript</h2>
+
+<h3 id="2026-02-24">2026-02-24</h3>
+
+<p>The same day I published this, an incredibly damning research paper (of which, at the time, I was completely unaware) was published:</p>
+
+<blockquote class="link-card">
+  
+  <h1>Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?</h1>
+  
+  <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arxiv.org/abs/2602.11988</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260223161901/https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<p>Spoiler: <a href="https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines">they aren’t</a>!</p>
+
+<blockquote>
+  <ol>
+    <li>developer-provided files only marginally improve performance compared to omitting them entirely (an increase of 4% on average)</li>
+    <li>LLM-generated context files have a small negative effect on agent performance (a decrease of 3% on average)</li>
+    <li>… as a result, increase costs by over 20%</li>
+  </ol>
+</blockquote>
+
+<p><em>Q.E.D.</em></p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="claude-code" /><category term="llm-context-management" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">Good Money Should Be Worthless</title><link href="https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.html" rel="alternate" type="text/html" title="Good Money Should Be Worthless" /><published>2026-02-11T00:00:00+00:00</published><updated>2026-02-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.html"><![CDATA[<p>If you work for your money but somebody else can just print it, you’re getting robbed. You don’t need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.</p>
 
 <p>Let’s call this person Mr. Money Printer. He has a nice setup. As long as he’s the only one with a printer, he can always cut in line ahead of you. Need a house? He prints and outbids you. Want to invest? He prints and gets there first. A new car? He’s printed the full sticker price and driven it off the lot before you even get a chance to talk to a salesperson. Your labor earns; his printer simply takes.</p>
 
