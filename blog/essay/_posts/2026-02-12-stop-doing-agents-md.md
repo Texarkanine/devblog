@@ -229,7 +229,7 @@ What about *others* who come to hack on the project with an agent but without th
 
 ## Postscript
 
-### *2026-02-24*
+### 2026-02-24
 
 The same day I published this, an incredibly damning research paper (of which, at the time, I was completely unaware) was published:
 
