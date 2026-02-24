@@ -62,7 +62,7 @@ So, you want to put something in the repository directory tree that is there for
 
 Git Ignore is the right tool for the job! Specifically, `.git/info/exclude`, which is itself not tracked in source control.
 
-But an agentic coding harness that assumes all git-ignored files are *also* irrelevant to the agent doesn't allow this.
+But an agentic coding harness that assumes all git-ignored files are *also* irrelevant to the agent doesn't allow this (you have to end up doing [insane things]({% post_url blog/record/2025-12-12-hook-based-local-mode-for-ai-rizz %}) to make it work...).
 
 ### `node_modules`
 
