@@ -225,4 +225,24 @@ What about *others* who come to hack on the project with an agent but without th
 
 * [Stop Putting Everything in AGENTS.md](https://www.norsica.jp/blog/stop-putting-everything-in-agents-md) <small>- Basically this same post but slightly less sassy.</small>
 * [Stop Using .md for AI Agent Instructions](https://www.nibzard.com/dotfiles) <small>- Attacks the use of the `.md` extension, rather than the semantics of the content.</small>
-* [Helmsman: Stop Writing AGENTS.md That Lies to Half Your Models](https://medium.com/@seuros/helmsman-stop-writing-agents-md-that-lies-to-half-your-models-c464e2e8976a) <small>- notes that different `AGENTS` have different capabilities in both reasoning *and* environment setup, but `AGENTS.md` tries to advise all of them the same way.</small>
+* [Helmsman: Stop Writing AGENTS.md That Lies to Half Your Models](https://www.seuros.com/blog/helmsman-adaptive-instructions-for-ai-agents/) <small>- notes that different `AGENTS` have different capabilities in both reasoning *and* environment setup, but `AGENTS.md` tries to advise all of them the same way.</small>
+
+## Postscript
+
+### 2026-02-24
+
+The same day I published this, an incredibly damning research paper (of which, at the time, I was completely unaware) was published:
+
+{% linkcard
+  https://arxiv.org/abs/2602.11988
+  Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?
+  archive:https://web.archive.org/web/20260223161901/https://arxiv.org/abs/2602.11988
+%}
+
+Spoiler: [they aren't](https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines)!
+
+> 1. developer-provided files only marginally improve performance compared to omitting them entirely (an increase of 4% on average)
+> 2. LLM-generated context files have a small negative effect on agent performance (a decrease of 3% on average)
+> 3. ... as a result, increase costs by over 20%
+
+*Q.E.D.*
