@@ -1,4 +1,137 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-02-24T15:30:02+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title><link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol" /><published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html"><![CDATA[<h2 id="thesis">Thesis</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-02T21:35:06+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Pink Margarine</title><link href="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html" rel="alternate" type="text/html" title="Pink Margarine" /><published>2026-03-01T00:00:00+00:00</published><updated>2026-03-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/01/pink-margarine</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html"><![CDATA[<blockquote>
+  <p>pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. 
+<br /></p>
+  <ol>
+    <li>Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase.</li>
+    <li>Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.</li>
+  </ol>
+</blockquote>
+
+<h2 id="one-engineer-one-week-1100">One Engineer, One Week, $1,100</h2>
+
+<blockquote class="link-card">
+  
+  <h1>How we rebuilt Next.js with AI in one week</h1>
+  
+  <a href="https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener">blog.cloudflare.com/vinext</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250302030000/https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<p>In early 2026, Cloudflare rebuilt the <a href="https://nextjs.org/">Next.js</a> API surface on <a href="https://vite.dev/">Vite</a>. One engineer. One week. About $1,100 in AI costs. The result, <a href="https://github.com/cloudflare/vinext">vinext</a>, hit 94% API compatibility with zero copied source code.</p>
+
+<p>Let that sink in: A commercially-viable (CloudFlare’s got customers <em>using</em> it already) behavioral clone of a major, popular, open-source (Next.js was MIT-licensed) web framework, produced for less than a Silicon Valley engineer’s monthly grocery bill.</p>
+
+<p>This isn’t new; there’s not only precedent, but <em>legal</em> precedent: The Supreme Court already established in <a href="https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc."><em>Google v. Oracle</em></a> that reimplementing an API surface isn’t infringement - behavioral equivalence doesn’t require copying expression. What’s new is <em>cost</em>. Google’s clean-room reimplementation of Java’s APIs almost certainly took millions of dollars and years of engineering. Cloudflare did functionally the same thing with one person, one grand, and one week. The legal barrier didn’t go away; the economic barrier evaporated.</p>
+
+<h2 id="characteristic-specificity">Characteristic Specificity</h2>
+
+<p>Copyright protection’s value is designed around a property I’ll call <em>characteristic specificity</em>: the degree to which the specific expression of a work <strong><em>is</em></strong> the value of the work.</p>
+
+<p>Lord of the Rings is a great example. You could write a book with the same plot beats, the same themes, even the same character archetypes - and it wouldn’t be Lord of the Rings. Nobody wanting Tolkien’s prose, his invented languages, the particular arc of Frodo, would accept a behavioral clone. The expression is inseparable from the value. A “clean-room reimplementation” of LotR is just… a different book.</p>
+
+<p>Mickey Mouse is instructive for different reasons. <a href="https://en.wikipedia.org/wiki/Steamboat_Willie#Copyright_status">Steamboat Willie entered the public domain in 2024</a>, and Disney pivoted to <a href="https://web.law.duke.edu/cspd/mickey/#trademark">trademark enforcement</a> on the <em>modern</em> Mickey design. But the pivot was prepared decades in advance - Disney has been iteratively redesigning Mickey for generations, each visual refresh recharging what “Mickey” <em>is</em>. They understand, perhaps better than anyone, that their value lives in the specific characteristics: the particular ears, the particular gloves, the particular grin. Not in the abstract concept of “cartoon mouse.” Copyright and trademark are the right tools here because the expression is the value.</p>
+
+<p>It isn’t always. For a couple years now, the writing has been plainly visible on the wall in the world of still visual art. The <a href="https://www.usatoday.com/story/entertainment/movies/2025/03/28/studio-ghibli-miyazaki-ai-portraits/82703280007/">Ghibli-fication outrage</a> revealed a tension between people who just like things that <em>look like</em> Studio Ghibli, and people who like the specific creations <em>of Studio Ghibli</em>. Existing law on the subject is pretty well-settled: art style is <a href="https://www.trails.umd.edu/news/ai-imitating-artist-style-drives-call-to-rethink-copyright-law">non-copyrightable</a>, and that’s <a href="https://creativecommons.org/2023/03/23/the-complex-world-of-style-copyright-and-generative-ai/">probably actually correct</a>.</p>
+
+<p>Copyright was designed for works where form and value are inseparable.</p>
+
+<p>Humans have always been allowed to observe, internalize, and reproduce behavior and style. Internalizing knowledge and re-synthesizing it back out - “standing on the shoulders of giants” - is how humanity builds and advances. It only starts to <em>feel</em> like theft (to some) when the breadth and timescale changes. Before you even get a chance to see the sights from atop the giant <em>you</em> climbed, someone else is already on <em>your</em> shoulders, and someone else upon theirs.</p>
+
+<h2 id="software-has-no-characteristic-specificity">Software Has No Characteristic Specificity</h2>
+
+<p>Software is different: its value is entirely in behavior.</p>
+
+<p>Two implementations with different source code and identical behavior are perfectly interchangeable. Nobody ever loved the C standard library for its prose. “This <code class="language-plaintext highlighter-rouge">qsort</code> really speaks to me” - said no one, ever. The behavior is the product. The expression is an implementation detail. This isn’t just a fact, it’s a <em>core premise</em> of software’s utility - the <a href="https://en.wikipedia.org/wiki/Interface_(computing)">interface</a>.</p>
+
+<p>This creates a structural misfit: copyright protects <em>expression</em>, but software’s value is <em>behavior</em>. The two are orthogonal. Software licenses have always been grafting expression-protection onto behavior-value as a proxy, and the proxy held for a long time - because the only realistic way to duplicate behavior <em>was</em> to duplicate expression. You either copy-pasted source code (which copyright catches), or you did prohibitively expensive knowledge labor to rewrite it from scratch - which almost nobody could afford. It took the likes of <em>Google</em> and <em>Oracle</em> to make a big-enough deal of behavioral duplication to get case law on the books.</p>
+
+<p><a href="https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks">Anthropic’s distillation discourse</a> is an echo of the same underlying mismatch. The principle hasn’t changed; what changed is that the knowledge labor required to reimplement behavior used to cost so much that the proxy between expression and behavior rarely got tested. Now it gets tested for $1,100.</p>
+
+<h2 id="the-proxy-broke">The Proxy Broke</h2>
+
+<p>AI didn’t change what copyright protects. It broke the economic proxy that made copyright <em>seem</em> like it protected software.</p>
+
+<p>Consider test suites and API documentation. These are, functionally, behavioral blueprints - precise specifications of what a piece of software does, published voluntarily by the people who wrote it. <strong>Publishing your test suite is publishing your own disruption manual.</strong> <a href="https://sqlite.org/th3.html">SQLite’s TH3 test suite</a> is proprietary, which was a business decision that predated both generative AI and <em>Google v. Oracle</em> - <a href="https://www.sqlite.org/forum/info/3cd5087abe2fb94f9b81b1547d41f87e43db42f469b40ee61c988dd4f5ae1a17">not prescience</a>, but it accidentally illustrates what a behavioral specification is worth when duplication costs drop to near zero.</p>
+
+<p>SaaS products with no moat beyond “we do task X via API” are one AI session away from cloning. Not because AI copies their code - it doesn’t need to. It reimplements their <em>behavior</em>, which is all anyone was paying for anyway.</p>
+
+<p>And software licenses? They’re <em>all</em> built atop copyright law and inherit the mismatch completely. From MIT to AGPL to proprietary commercial licenses, they all assert some form of “Per copyright law, I own this code and you cannot use it unless you play by my rules.” But if someone reimplements the behavior without using the code at all… the license has nothing to attach to. The product-space protections that copyright offers are shrinking, and there’s no legal mechanism to stop it - because the legal mechanism was never actually protecting the <em>behavior</em>, which was the actual value. It was protecting the <em>expression</em> and relying on the proxy.</p>
+
+<h2 id="the-canary-in-the-coal-mine">The Canary in the Coal Mine</h2>
+
+<p>Software is the canary, not the story. The mismatch is starkest in code because software has very high value relative to its <em>characteristic specificity</em> - but the mine runs much deeper.</p>
+
+<p>Knowledge work is a continuum from ideation through labor to artifact:</p>
+
+<figure class="mermaid-diagram">
+<a href="/assets/svg/328eee13.svg"><img src="/assets/svg/328eee13.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>Copyright guards the rightmost output: the finished artifact, which we call “intellectual property.” AI already bangs those out faster and better every day. Vinext is an incredibly high-profile, commercial signal that AI can commoditize the middle step (labor) too.</p>
+
+<p>There <em>are</em> legal tools to protect that middle step (processes)… patents! But existing patent infrastructure is both far too slow to keep pace with the current clip of knowledge labor, and far too reticent to issue things like “<a href="https://en.wikipedia.org/wiki/Software_patent">Software Patents</a>.” It doesn’t even matter, though, since patents <a href="https://thompsonpatentlaw.com/can-ideas-be-patented/">don’t even work on pure ideas, anyway</a>. Once the <em>idea</em> is out there, the strongest protection you could legally get would be a patent on <em>one way of implementing the idea</em>. But someone who uses a different process isn’t under the purview of your patent and that’s what AI has now achieved: an easy path from specification (idea), through an original process (knowledge labor) to an original artifact (intellectual property).</p>
+
+<p>Neither framework was designed for an era where the costliest step in the pipeline - the human labor of turning insight into artifact - can be routed around for pocket change.</p>
+
+<p>I wrote about this at the macro level in <a href="/2026/02/06/the-load-bearing-rate-limiter-was-human.html">The Load-Bearing Rate Limiter Was Human</a>. The short version: we’re industrializing the conversion of thought into output, and the existing legal frameworks structure their protections under the assumption that conversion is expensive. When it’s not, things can break down in unexpected ways.</p>
+
+<p>Every technological revolution has had its protectionists, and the protectionism that succeeded longest looks the most absurd in hindsight. Wisconsin <a href="https://daily.jstor.org/when-margarine-was-contraband/">criminalized yellow margarine</a> for over seventy years because dairy farmers convinced legislators that <a href="https://history.house.gov/Historical-Highlights/1851-1900/1886_07_23_Oleomargarine/">oleomargarine was “counterfeit butter”</a> - the language maps rather well to the current discourse around AI-generated images, videos, and code being “rip-offs,” “stolen,” or “fake” artifacts. States required margarine be dyed <em>pink</em>. A Pennsylvania bill - passed <em>unanimously</em>, by the way - once tried to require drivers to <a href="https://en.wikipedia.org/wiki/Red_flag_traffic_laws#Apocryphal_Pennsylvania_legislation">disassemble their cars and hide the parts in shrubbery</a> when encountering a horse on the road. These weren’t fringe positions at the time; they were serious legislative efforts to protect incumbents from technological displacement.</p>
+
+<p>At least one high-profile open-source project - <code class="language-plaintext highlighter-rouge">tldraw</code>, 45,600 stars on GitHub - has already begun <a href="https://github.com/tldraw/tldraw/issues/8082">entertaining the idea of taking their unit tests private</a>, presumably to make behavior-based duplication more difficult.</p>
+
+<p>That’s not the play.</p>
+
+<p>Software protectionism via copyright-based licensing will probably work for at least a little while yet. Maybe a long while. But the trajectory is one-directional, and eventually it’ll all look like <strong>pink margarine.</strong></p>
+
+<h3 id="what-about-non-code">What about Non-Code?</h3>
+
+<p>Others have said it better than I:</p>
+
+<blockquote class="link-card">
+  
+  <h1>Code Goes First - Sunday Letters from Sam</h1>
+  
+  <a href="https://sundaylettersfromsam.substack.com/p/code-goes-first" target="_blank" rel="noopener">sundaylettersfromsam.substack.com/p/code-goes-first</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260302030000/https://sundaylettersfromsam.substack.com/p/code-goes-first" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<p>I’ll add a recent anecdote of my own:</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Chris_Camillo">Chris Camillo</a> <a href="https://www.youtube.com/watch?v=APvLb-pIPwI&amp;t=875s">rambled into ChatGPT for 45 minutes</a> and got back a <a href="https://en.wikipedia.org/wiki/McKinsey_%2526_Company">McKinsey</a>-quality strategic brief. The knowledge labor that used to justify a consulting engagement happened in the span of a lunch break. In the same video, YouTuber Graham Stephan mentions how the LLMs are outperforming a script-writer job that <em>was</em> on offer - and went unfilled - for $100k/year. Today, right now, AI is <em>already</em> an economically-viable option for huge swaths of knowledge labor <em>in general</em>… and we know this because it’s doing it.</p>
+
+<p>The thing with continuums and moving along them is that it’s a big deal to go from “sitting at a place on the continuum” to “moving along it.” Vinext proves that generative AI isn’t just sitting at the “Intellectual Property” step of the knowledge work continuum; it’s moving left.</p>
+
+<p>GPT-5 <a href="https://openai.com/index/accelerating-biological-research-in-the-wet-lab/">autonomously ran bio lab experiments</a> with novel results. Mathematicians <a href="https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/">convened in secret</a> and found AI “approaching mathematical genius.” GPT-5-pro found a <a href="https://threadreaderapp.com/thread/1958198661139009862.html">novel solution to an open question in a human-published mathematics paper</a>. Ideation isn’t some distant frontier - it’s under active pressure today.</p>
+
+<h2 id="will-the-people-suffer">Will the People Suffer?</h2>
+
+<p>Less than you’d think, with one important exception.</p>
+
+<p>Software licensing was a preemptive defense. If a private enterprise could take an open project, pour resources into improving it, and lock the improvements away, then anyone who wanted those improvements had to either pay up, duplicate the effort at great personal cost, or simply go without. “Open source” software licenses raised the legal cost of not sharing, which reduced the practical cost of being an individual in a world of well-funded corporations.</p>
+
+<p>That defense worked because reimplementation was expensive. It’s not anymore.</p>
+
+<p>If CompanyX forks Vinext into VinextNext and improves it behind closed doors, the original only took $1,100 to build. If someone on the outside sees a capability they want, they don’t need to fundraise a multi-year engineering effort to get it; for a pittance they can reverse-engineer the behavior into an intellectual property of their very own. The asymmetry that licensing existed to correct - corporations can afford to rewrite, individuals can’t - has collapsed. Both sides have the same cheap cloning. The defense is unnecessary because the attack is toothless.</p>
+
+<p>For <em>software</em>, what killed software licensing also rendered its protections unneeded.</p>
+
+<p>… for software.</p>
+
+<p>Where people will actually hurt is at the hardware boundary. Industry largely accepted open-source licensing terms - at least the <a href="https://en.wikipedia.org/wiki/Permissive_software_license">permissive ones</a> - but there was still an active conflict zone: <a href="https://en.wikipedia.org/wiki/Copyleft">Copyleft</a>’s fight against <a href="https://www.gnu.org/philosophy/tivoization.en.html">Tivoization</a>. “Tivoization” refers to <em>hardware</em> vendors locking open software onto closed devices, stripping users’ ability to modify the thing they own. <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a> famously stood against it by adding conditions to the license specifically against that behavior.</p>
+
+<p>But if a vendor behavioral-clones the software without touching the original source, those AGPLv3 conditions have nothing to attach to. This is even worse than before! Previously, the end-user could obtain and modify the original, actual source in-use, but just couldn’t get the device to run it. But devices can be cracked, and new versions released, and <em>in theory</em> the user at least has a chance, because they’ve got the real code on the real device - it’s just not <em>cooperating</em>.</p>
+
+<p>Now, they don’t even have that: the next Tivo will <em>act like</em> it’s running an open-source software stack, but the hardware, firmware, <em>and</em> software will all be entirely proprietary things to which the user is not entitled <em>any</em> kind of access.</p>
+
+<p>Software licensing is dead. For software that runs where you choose, the death doesn’t much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="copyleft" /><category term="copyright" /><category term="intellectual-property" /><category term="software-licensing" /><summary type="html"><![CDATA[pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase. Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.]]></summary></entry><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title><link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol" /><published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>Most of the time, MCP doesn’t deliver any value beyond what a capable model could get from a CLI and a shell.</p>
@@ -1505,72 +1638,4 @@ iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.
 
 <p>The petcare hub works. It’s directly connected to a router, which is all its defective firmware ever needed. And the IoT network is finally isolated, with full per-device visibility in PiHole.</p>
 
-<p>All because a petcare company couldn’t write firmware that can handle being connected to a network switch.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="record" /><category term="dd-wrt" /><category term="dns" /><category term="home-networking" /><category term="iot" /><category term="iptables" /><category term="networking" /><category term="pihole" /><summary type="html"><![CDATA[A petcare IoT device “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked.]]></summary></entry><entry><title type="html">Desire Makes Artists, Even With GenAI</title><link href="https://blog.cani.ne.jp/2026/01/01/desire-makes-artists-even-with-genai.html" rel="alternate" type="text/html" title="Desire Makes Artists, Even With GenAI" /><published>2026-01-01T00:00:00+00:00</published><updated>2026-01-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/01/desire-makes-artists-even-with-genai</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/01/desire-makes-artists-even-with-genai.html"><![CDATA[<h2 id="thesis">Thesis</h2>
-
-<blockquote>
-  <p>The desire to create is what makes an artist. That’s true for some people using generative AI - and it’s also why there will always be human artists.</p>
-</blockquote>
-
-<h2 id="what-making-art-is">What Making Art Is</h2>
-
-<p>Making art is the human creative undertaking. The desire to create something, to express, to bring ideas into the world - that generative impulse is what makes an artist make art.</p>
-
-<p>Many things are produced by people with artistic skill, often bringing that skill to bear on products with dual purposes: expression and function. Clothing is an excellent example. There is absolutely clothing that serves very little purpose other than to be aesthetic, and there is definitely clothing that serves very little purpose other than to be functional. Most clothing exists in between.</p>
-
-<p>Before the industrial revolution, clothing was made by hand by what we might call artisans - makers who often had artistic talent. You would get production of goods with art infused during the process, because that’s what humans do when they make things. As cloth-making industrialized, we were able to separate the artist from the artisan. Machines operationalized the good production, but artists still produced artistic clothing. Now Chinese factories crank out dirt-cheap t-shirts that technically work, while artistic seamstresses and clothiers hand-make bespoke luxury clothing for the fashion runway or demure custom shops.</p>
-
-<p>We have separated the art from the good. Both exist.</p>
-
-<h2 id="function-is-unforgiving">Function Is Unforgiving</h2>
-
-<p>The key takeaway of this separation: function is unforgiving. If the thing does not work, it cannot exist in most contexts. Aesthetics without function is a luxury, and luxury is almost definitionally a minority undertaking.</p>
-
-<p>Most goods only need, and are only wanted, to satisfy a task. It is much rarer that a good is primarily for satisfying aesthetics. Once you can separate the artist from the artisan and operationalize the production that the artisan used to handle, you end up with the majority of production being more or less purely functional - form as an afterthought.</p>
-
-<p>This absolutely happened with clothing. It absolutely happened with dwellings. It has absolutely happened with most housewares and furniture. It is, in fact, what happens when humans manage to build tools and processes that operationalize and industrialize the production of a good that previously had to be handmade.</p>
-
-<h2 id="portraits">Portraits</h2>
-
-<p>Consider portraits. Back in the oil painting days, before photography, portraits were a big deal. They were rare. They were labor-intensive. If you wanted a portrait of yourself, you had to shell out, and it was quite an ordeal to get one made. Once done, it was quite a piece - a centerpiece, a focus piece - because only the artistic artisan could make one for you.</p>
-
-<p>Nowadays, we have cameras in electronic devices in basically every pocket. Everybody who wants a portrait of themselves can get one. They can get a piece of visual media that they can look at and see themselves.</p>
-
-<p>The oil painting - professionally staged, framed, an heirloom piece hanging on the wall of your house - is still a luxury art piece. But most people who wanted portraits didn’t actually need the whole shebang. They just wanted to see themselves in a piece of visual media. And they can get that now with the tools and processes we have built into smartphone cameras. It’s trivially easy to get a technical portrait of yourself where you can see yourself.</p>
-
-<p>So most people who just wanted the outcome - a piece of visual media in which they could see themselves - get that easily and don’t advance to finding an artist to pay for a professional heirloom portrait.</p>
-
-<h2 id="visual-media-today">Visual Media Today</h2>
-
-<p>We are seeing this same separation today with visual media and generative AI.</p>
-
-<p>Previously, in order to make a piece of visual media that other people could see - regardless of the purpose - you had to engage some form of artist-artisan combination. Maybe a graphic designer to produce the advertising copy for your company - function-forward visual media, but you were still absolutely using a human’s artistic talent to do it. Or maybe you wanted a book illustration, a comic, a particular scene. Either way, you needed the human artist-artisan combo.</p>
-
-<p>Now that we have generative AI, many of those people can - just like they were doing with a selfie on their smartphone - get a good-enough visual rendering of their idea to satisfy what they needed. And they stop there.</p>
-
-<p>Those people didn’t actually need art. They didn’t actually <em>want</em> art. They just needed a piece of visual media. And what we have now is the ability to separate the artisan from the artist once more, as humans have been doing since the beginning of technology, but in the domain of visual media.</p>
-
-<h2 id="is-it-art-are-they-artists">Is It Art? Are They Artists?</h2>
-
-<p>We will punt on “is it art?” because that is an age-old question that has always been hotly debated, whose answer has shifted time and time again and is ultimately subjective.</p>
-
-<p>Instead, let’s look at the people making these things and ask if they are artists.</p>
-
-<p>As you might infer from the separation of artist and artisan, indeed, some of them are not. The people who would have needed a professional graphic designer - the artist-artisan combination - but now can use generative AI to get the visual media that communicates what they need? They’re using the operationalized, industrialized visual media production pipeline.</p>
-
-<p>That’s fine. We used to have weavers weaving things on looms. We still have looms, but the overwhelming majority of them are industrial-scale, and the people that work in those factories we don’t really refer to as weavers anymore. They’re just employees. Workers.</p>
-
-<p>So the people using generative AI just to make the visual media that serves a function - where form is not the driving purpose - are not artists. Because they’re not engaging in the creative undertaking of desiring to manifest a vision in the world. They don’t seek to share the aesthetic outcome. They don’t seek gratification from the experience of creating. They just seek the finished product so that it may perform its function.</p>
-
-<p>And that’s fine. That’s allowed. People who buy t-shirts from factories that make t-shirts are not engaging with artists. You can also get a t-shirt that was handmade by an artist somewhere. And that’s okay too.</p>
-
-<h2 id="the-artists-among-them">The Artists Among Them</h2>
-
-<p>But some of those generative AI users don’t see a tool that gets them to an outcome faster. They see a tool that allows them to manifest aesthetics that were trapped in their head before.</p>
-
-<p>These people are no different than a photographer picking up a camera or - pay attention to how we call these now - an <strong>artist</strong> picking up a mouse or a Wacom tablet instead of a pen or a pencil or a paintbrush, because the digital toolset is more amenable to manifesting their vision.</p>
-
-<p>Those people who see generative AI as “oh my goodness, I can finally create these visual experiences that I did not have a way to create before” - <strong>those people are artists.</strong></p>
-
-<p>They are artists because they seek, through the act of creation, to experience and share the experience. That is what drives the artistic process. Even after visual media creation is fully industrialized - even after most people are just having the machines make the visual media that they need for their outcomes - we need not fear the loss of artists.</p>
-
-<p>There will still be humans doing it by hand, because they seek the experience of <strong>doing</strong> the creating as an end unto itself.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="art" /><category term="generative-ai" /><summary type="html"><![CDATA[The desire to create is what makes an artist. That's why some people using generative AI are artists - and it's also why there will always be human artists.]]></summary></entry></feed>
+<p>All because a petcare company couldn’t write firmware that can handle being connected to a network switch.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="record" /><category term="dd-wrt" /><category term="dns" /><category term="home-networking" /><category term="iot" /><category term="iptables" /><category term="networking" /><category term="pihole" /><summary type="html"><![CDATA[A petcare IoT device “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked.]]></summary></entry></feed>
