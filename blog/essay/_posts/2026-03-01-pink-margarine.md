@@ -5,9 +5,10 @@ subtitle: "In Memoriam: Software Licensing (1980-2026)"
 author: texarkanine
 tags:
   - ai
+  - copyleft
+  - copyright
   - intellectual-property
   - software-licensing
-  - copyright
 ---
 
 > pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. 
@@ -47,7 +48,7 @@ Humans have always been allowed to observe, internalize, and reproduce behavior 
 
 Software is different: its value is entirely in behavior.
 
-Two implementations with different source code and identical behavior are perfectly interchangeable. Nobody ever loved the C standard library for its prose. "This `qsort` really speaks to me" - said no one, ever. The behavior is the product. The expression is an implementation detail.
+Two implementations with different source code and identical behavior are perfectly interchangeable. Nobody ever loved the C standard library for its prose. "This `qsort` really speaks to me" - said no one, ever. The behavior is the product. The expression is an implementation detail. This isn't just a fact, it's a *core premise* of software's utility - the [interface](https://en.wikipedia.org/wiki/Interface_(computing)).
 
 This creates a structural misfit: copyright protects *expression*, but software's value is *behavior*. The two are orthogonal. Software licenses have always been grafting expression-protection onto behavior-value as a proxy, and the proxy held for a long time - because the only realistic way to duplicate behavior *was* to duplicate expression. You either copy-pasted source code (which copyright catches), or you did prohibitively expensive knowledge labor to rewrite it from scratch - which almost nobody could afford. It took the likes of *Google* and *Oracle* to make a big-enough deal of behavioral duplication to get case law on the books.
 
@@ -83,7 +84,7 @@ There *are* legal tools to protect that middle step (processes)... patents! But 
 
 Neither framework was designed for an era where the costliest step in the pipeline - the human labor of turning insight into artifact - can be routed around for pocket change. 
 
-I wrote about this at the macro level in [The Load-Bearing Rate Limiter Was Human]({% post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}). The short version: we're industrializing the conversion of thought into output, and the existing legal frameworks structure their protections under the assumption that conversion is expensive. When it's not, existing frameworks and models can break down in unexpected ways.
+I wrote about this at the macro level in [The Load-Bearing Rate Limiter Was Human]({% post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}). The short version: we're industrializing the conversion of thought into output, and the existing legal frameworks structure their protections under the assumption that conversion is expensive. When it's not, things can break down in unexpected ways.
 
 Every technological revolution has had its protectionists, and the protectionism that succeeded longest looks the most absurd in hindsight. Wisconsin [criminalized yellow margarine](https://daily.jstor.org/when-margarine-was-contraband/) for over seventy years because dairy farmers convinced legislators that [oleomargarine was "counterfeit butter"](https://history.house.gov/Historical-Highlights/1851-1900/1886_07_23_Oleomargarine/) - the language maps rather well to the current discourse around AI-generated images, videos, and code being "rip-offs," "stolen," or "fake" artifacts. States required margarine be dyed *pink*. A Pennsylvania bill - passed *unanimously*, by the way - once tried to require drivers to [disassemble their cars and hide the parts in shrubbery](https://en.wikipedia.org/wiki/Red_flag_traffic_laws#Apocryphal_Pennsylvania_legislation) when encountering a horse on the road. These weren't fringe positions at the time; they were serious legislative efforts to protect incumbents from technological displacement.
 
@@ -105,7 +106,7 @@ Others have said it better than I:
 
 I'll add a recent anecdote of my own:
 
-[Chris Camillo](https://en.wikipedia.org/wiki/Chris_Camillo) [rambled into ChatGPT for 45 minutes](https://www.youtube.com/watch?v=APvLb-pIPwI&t=875s) and got back a [McKinsey](https://en.wikipedia.org/wiki/McKinsey_%2526_Company)-quality strategic brief. The knowledge labor that used to justify a consulting engagement happened in the span of a lunch break. In the same video, a youtuber mentions how the LLMs are outperforming a script-writer job that *was* on offer - unfilled - for $100k/year. Today, right now, AI is *already* an economically-viable option for huge swaths of knowledge labor *in general*... and we know this because it's doing it.
+[Chris Camillo](https://en.wikipedia.org/wiki/Chris_Camillo) [rambled into ChatGPT for 45 minutes](https://www.youtube.com/watch?v=APvLb-pIPwI&t=875s) and got back a [McKinsey](https://en.wikipedia.org/wiki/McKinsey_%2526_Company)-quality strategic brief. The knowledge labor that used to justify a consulting engagement happened in the span of a lunch break. In the same video, a youtuber mentions how the LLMs are outperforming a script-writer job that *was* on offer - and went unfilled - for $100k/year. Today, right now, AI is *already* an economically-viable option for huge swaths of knowledge labor *in general*... and we know this because it's doing it.
 
 The thing with continuums and moving along them is that it's a big deal to go from "sitting at a place on the continuum" to "moving along it." Vinext proves that generative AI isn't just sitting at the "Intellectual Property" step of the knowledge work continuum; it's moving left.
 
@@ -115,11 +116,11 @@ GPT-5 [autonomously ran bio lab experiments](https://openai.com/index/accelerati
 
 Less than you'd think, with one important exception.
 
-Software licensing was a preemptive defense. If a private enterprise could take an open project, pour resources into improving it, and lock the improvements away, then anyone who wanted those improvements had to either duplicate the effort at great personal cost or simply go without. "Open source" software licenses  raised the legal cost of not sharing, which reduced the practical cost of being an individual in a world of well-funded corporations.
+Software licensing was a preemptive defense. If a private enterprise could take an open project, pour resources into improving it, and lock the improvements away, then anyone who wanted those improvements had to either pay up, duplicate the effort at great personal cost, or simply go without. "Open source" software licenses  raised the legal cost of not sharing, which reduced the practical cost of being an individual in a world of well-funded corporations.
 
 That defense worked because reimplementation was expensive. It's not anymore.
 
-If CompanyX forks Vinext into VinextNext and improves it behind closed doors, the original only took $1,100 to build. If someone on the outside sees a capability they want, they don't need to fundraise a multi-year engineering effort to get it. They reverse-engineer the behavior for a pittance. The asymmetry that licensing existed to correct - corporations can afford to rewrite, individuals can't - has collapsed. Both sides have the same cheap cloning. The defense is unnecessary because the attack is toothless.
+If CompanyX forks Vinext into VinextNext and improves it behind closed doors, the original only took $1,100 to build. If someone on the outside sees a capability they want, they don't need to fundraise a multi-year engineering effort to get it; for a pittance they can reverse-engineer the behavior into an intellectual property of their very own. The asymmetry that licensing existed to correct - corporations can afford to rewrite, individuals can't - has collapsed. Both sides have the same cheap cloning. The defense is unnecessary because the attack is toothless.
 
 For *software*, what killed software licensing also rendered its protections unneeded.
 
@@ -129,6 +130,6 @@ Where people will actually hurt is at the hardware boundary. Industry largely ac
 
 But if a vendor behavioral-clones the software without touching the original source, those AGPLv3 conditions have nothing to attach to. This is even worse than before! Previously, the end-user could obtain and modify the original, actual source in-use, but just couldn't get the device to run it. But devices can be cracked, and new versions released, and *in theory* the user at least has a chance, because they've got the real code on the real device - it's just not *cooperating*.
 
-Now, they don't even have that: the next Tivo will *act like* it's running an open-source software stack, but the hardware, firmware, *and* software will all entirely proprietary things to which the user is not entitled *any* kind of access.
+Now, they don't even have that: the next Tivo will *act like* it's running an open-source software stack, but the hardware, firmware, *and* software will all be entirely proprietary things to which the user is not entitled *any* kind of access.
 
 Software licensing is dead. For software that runs where you choose, the death doesn't much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.
