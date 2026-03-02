@@ -26,7 +26,7 @@ tags:
 
 In early 2026, Cloudflare rebuilt the [Next.js](https://nextjs.org/) API surface on [Vite](https://vite.dev/). One engineer. One week. About $1,100 in AI costs. The result, [vinext](https://github.com/cloudflare/vinext), hit 94% API compatibility with zero copied source code.
 
-Let that sink in: A commercially-viable (CloudFlare's got customers *using* it already) behavioral clone of a major, popular, open-source (Next.js was MIT-licensed) web framework, produced for less than a silicon valley engineer's monthly grocery bill.
+Let that sink in: A commercially-viable (CloudFlare's got customers *using* it already) behavioral clone of a major, popular, open-source (Next.js was MIT-licensed) web framework, produced for less than a Silicon Valley engineer's monthly grocery bill.
 
 This isn't new; there's not only precedent, but *legal* precedent: The Supreme Court already established in [*Google v. Oracle*](https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.) that reimplementing an API surface isn't infringement - behavioral equivalence doesn't require copying expression. What's new is *cost*. Google's clean-room reimplementation of Java's APIs almost certainly took millions of dollars and years of engineering. Cloudflare did functionally the same thing with one person, one grand, and one week. The legal barrier didn't go away; the economic barrier evaporated.
 
@@ -106,7 +106,7 @@ Others have said it better than I:
 
 I'll add a recent anecdote of my own:
 
-[Chris Camillo](https://en.wikipedia.org/wiki/Chris_Camillo) [rambled into ChatGPT for 45 minutes](https://www.youtube.com/watch?v=APvLb-pIPwI&t=875s) and got back a [McKinsey](https://en.wikipedia.org/wiki/McKinsey_%2526_Company)-quality strategic brief. The knowledge labor that used to justify a consulting engagement happened in the span of a lunch break. In the same video YouTube Graham Stephan mentions how the LLMs are outperforming a script-writer job that *was* on offer - and went unfilled - for $100k/year. Today, right now, AI is *already* an economically-viable option for huge swaths of knowledge labor *in general*... and we know this because it's doing it.
+[Chris Camillo](https://en.wikipedia.org/wiki/Chris_Camillo) [rambled into ChatGPT for 45 minutes](https://www.youtube.com/watch?v=APvLb-pIPwI&t=875s) and got back a [McKinsey](https://en.wikipedia.org/wiki/McKinsey_%2526_Company)-quality strategic brief. The knowledge labor that used to justify a consulting engagement happened in the span of a lunch break. In the same video, YouTuber Graham Stephan mentions how the LLMs are outperforming a script-writer job that *was* on offer - and went unfilled - for $100k/year. Today, right now, AI is *already* an economically-viable option for huge swaths of knowledge labor *in general*... and we know this because it's doing it.
 
 The thing with continuums and moving along them is that it's a big deal to go from "sitting at a place on the continuum" to "moving along it." Vinext proves that generative AI isn't just sitting at the "Intellectual Property" step of the knowledge work continuum; it's moving left.
 
