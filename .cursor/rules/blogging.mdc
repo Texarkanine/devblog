@@ -13,6 +13,7 @@ After reading all related resources, choose the shape of the blog post. Here are
 2. **Essay** - synthesizes and justifies a thesis based on *multiple* instances of experience and introspection. Has a conclusion that summarizes and drives home the thesis. Essay titles should take a stance or make a claim, not just name the topic.
 3. **Diary** - narrates an experience with a focus on having had the experience, without concern for a specific lesson or insight. Usually doesn't have a formal conclusion. More qualitative than the Archaelogical Record, this is a "cool story, bro" kind of post.
 4. **Archaelogical Record** - recounts an experience with a focus on the factual details of the experience. Precise detail is important when details are unique to the experience and not publicly available: Readers may attempt to verify or reproduce portions of the experience themselves. Does not need a conclusion - it's just a record.
+5. **Announcement** - introduces something new to an audience assumed to already care about the problem it solves. Leads with benefits, not features. Always includes a recipe - ordered steps that get the reader from zero to using the thing, inlined unless there's a good reason to link out. Tone runs warmer and more upbeat than other shapes - infectious enthusiasm, in-between "news dispatch" and "sales pitch."
 
 Other shapes are allowed, and encouraged when they fit the subject matter better. **ALWAYS** decide on a "shape" for the post before writing it.
 
@@ -24,6 +25,7 @@ Ask yourself: **Why am I writing this?**
 - **"I want readers to consider/adopt this perspective"** → Essay  
 - **"I want to share an experience that was meaningful to me"** → Diary
 - **"I want readers to be able to recreate/verify what I did"** → Archaeological Record
+- **"I want readers to adopt/use this thing I made"** → Announcement
 
 If you have a lesson but worry about seeming preachy, write the Fable anyway. Readers came to a blog for perspective, not just events.
 
