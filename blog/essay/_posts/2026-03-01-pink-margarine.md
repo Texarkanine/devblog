@@ -110,7 +110,7 @@ I'll add a recent anecdote of my own:
 
 The thing with continuums and moving along them is that it's a big deal to go from "sitting at a place on the continuum" to "moving along it." Vinext proves that generative AI isn't just sitting at the "Intellectual Property" step of the knowledge work continuum; it's moving left.
 
-GPT-5 [autonomously ran bio lab experiments](https://openai.com/index/accelerating-biological-research-in-the-wet-lab/) with novel results. Mathematicians [convened in secret](https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/) and found AI "approaching mathematical genius." GPT-5-pro found a [novel solution to an open question in a human-published mathematics paper](https://threadreaderapp.com/thread/1958198661139009862.html). Ideation isn't some distant frontier - it's under active pressure today.
+GPT-5 [autonomously ran bio lab experiments](https://openai.com/index/accelerating-biological-research-in-the-wet-lab/) with novel results. Mathematicians [convened in secret](https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/) and found AI "approaching mathematical genius." GPT-5-pro found a [novel solution to an open question in a human-published mathematics paper](https://threadreaderapp.com/thread/1958198661139009862.html). Even [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth) [saw Claude Opus 4.6 solve an open problem *he'd* been working on](https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf). Ideation isn't some distant frontier - it's under active pressure today.
 
 ## Will the People Suffer?
 
