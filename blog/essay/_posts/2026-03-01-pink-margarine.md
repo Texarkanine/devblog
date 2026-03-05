@@ -110,7 +110,7 @@ I'll add a recent anecdote of my own:
 
 The thing with continuums and moving along them is that it's a big deal to go from "sitting at a place on the continuum" to "moving along it." Vinext proves that generative AI isn't just sitting at the "Intellectual Property" step of the knowledge work continuum; it's moving left.
 
-GPT-5 [autonomously ran bio lab experiments](https://openai.com/index/accelerating-biological-research-in-the-wet-lab/) with novel results. Mathematicians [convened in secret](https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/) and found AI "approaching mathematical genius." GPT-5-pro found a [novel solution to an open question in a human-published mathematics paper](https://threadreaderapp.com/thread/1958198661139009862.html). Even [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth) [saw Claude Opus 4.6 solve an open problem *he'd* been working on](https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf). Ideation isn't some distant frontier - it's under active pressure today.
+GPT-5 [autonomously ran bio lab experiments](https://openai.com/index/accelerating-biological-research-in-the-wet-lab/) with novel results. Mathematicians [convened in secret](https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/) and found AI "approaching mathematical genius." GPT-5-pro found a [novel solution to an open question in a human-published mathematics paper](https://threadreaderapp.com/thread/1958198661139009862.html). Ideation isn't some distant frontier - it's under active pressure today.
 
 ## Will the People Suffer?
 
@@ -133,3 +133,21 @@ But if a vendor behavioral-clones the software without touching the original sou
 Now, they don't even have that: the next Tivo will *act like* it's running an open-source software stack, but the hardware, firmware, *and* software will all be entirely proprietary things to which the user is not entitled *any* kind of access.
 
 Software licensing is dead. For software that runs where you choose, the death doesn't much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.
+
+---
+
+## Postscript
+
+Or, ***"called it!"***
+
+> SaaS products with no moat beyond "we do task X via API" are one AI session away from cloning.
+
+- **2026-03-04** - [Meet the Companies Vibecoding their own CRMs](https://www.wsj.com/cio-journal/meet-the-companies-vibe-coding-their-own-crms-263e500f) (Wall Street Journal)
+
+> But if someone reimplements the behavior without using the code at all... the license has nothing to attach to.
+
+- **2026-03-05** - [Relicensing with AI-assisted rewrite](https://tuananh.net/2026/03/05/relicensing-with-ai-assisted-rewrite/) <small>`chardet` did a full AI behavioral-clone rewrite and switched licenses from LGPL to MIT</small>
+
+> Ideation isn't some distant frontier - it's under active pressure today.
+
+- **2026-03-04** - [Claude's Cycles](https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf) (Donald Knuth - yeah, that [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth)) <small>"Shock! Shock! I learned yesterday that an open problem I'd been working on for several weeks had just been solved by Claude Opus 4.6"</small>
