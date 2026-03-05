@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-04T20:15:46+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Pink Margarine</title><link href="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html" rel="alternate" type="text/html" title="Pink Margarine" /><published>2026-03-01T00:00:00+00:00</published><updated>2026-03-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/01/pink-margarine</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-05T23:09:11+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Pink Margarine</title><link href="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html" rel="alternate" type="text/html" title="Pink Margarine" /><published>2026-03-01T00:00:00+00:00</published><updated>2026-03-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/01/pink-margarine</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html"><![CDATA[<blockquote>
   <p>pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. 
 <br /></p>
   <ol>
@@ -109,7 +109,7 @@
 
 <p>The thing with continuums and moving along them is that it’s a big deal to go from “sitting at a place on the continuum” to “moving along it.” Vinext proves that generative AI isn’t just sitting at the “Intellectual Property” step of the knowledge work continuum; it’s moving left.</p>
 
-<p>GPT-5 <a href="https://openai.com/index/accelerating-biological-research-in-the-wet-lab/">autonomously ran bio lab experiments</a> with novel results. Mathematicians <a href="https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/">convened in secret</a> and found AI “approaching mathematical genius.” GPT-5-pro found a <a href="https://threadreaderapp.com/thread/1958198661139009862.html">novel solution to an open question in a human-published mathematics paper</a>. Even <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a> <a href="https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf">saw Claude Opus 4.6 solve an open problem <em>he’d</em> been working on</a>. Ideation isn’t some distant frontier - it’s under active pressure today.</p>
+<p>GPT-5 <a href="https://openai.com/index/accelerating-biological-research-in-the-wet-lab/">autonomously ran bio lab experiments</a> with novel results. Mathematicians <a href="https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/">convened in secret</a> and found AI “approaching mathematical genius.” GPT-5-pro found a <a href="https://threadreaderapp.com/thread/1958198661139009862.html">novel solution to an open question in a human-published mathematics paper</a>. Ideation isn’t some distant frontier - it’s under active pressure today.</p>
 
 <h2 id="will-the-people-suffer">Will the People Suffer?</h2>
 
@@ -131,7 +131,37 @@
 
 <p>Now, they don’t even have that: the next Tivo will <em>act like</em> it’s running an open-source software stack, but the hardware, firmware, <em>and</em> software will all be entirely proprietary things to which the user is not entitled <em>any</em> kind of access.</p>
 
-<p>Software licensing is dead. For software that runs where you choose, the death doesn’t much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="copyleft" /><category term="copyright" /><category term="intellectual-property" /><category term="software-licensing" /><summary type="html"><![CDATA[pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase. Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.]]></summary></entry><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title><link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol" /><published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html"><![CDATA[<h2 id="thesis">Thesis</h2>
+<p>Software licensing is dead. For software that runs where you choose, the death doesn’t much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.</p>
+
+<hr />
+
+<h2 id="postscript">Postscript</h2>
+
+<p>Or, <strong><em>“called it!”</em></strong></p>
+
+<blockquote>
+  <p>SaaS products with no moat beyond “we do task X via API” are one AI session away from cloning.</p>
+</blockquote>
+
+<ul>
+  <li><strong>2026-03-04</strong> - <a href="https://www.wsj.com/cio-journal/meet-the-companies-vibe-coding-their-own-crms-263e500f">Meet the Companies Vibecoding their own CRMs</a> (Wall Street Journal)</li>
+</ul>
+
+<blockquote>
+  <p>But if someone reimplements the behavior without using the code at all… the license has nothing to attach to.</p>
+</blockquote>
+
+<ul>
+  <li><strong>2026-03-05</strong> - <a href="https://tuananh.net/2026/03/05/relicensing-with-ai-assisted-rewrite/">Relicensing with AI-assisted rewrite</a> <small><code class="language-plaintext highlighter-rouge">chardet</code> did a full AI behavioral-clone rewrite and switched licenses from LGPL to MIT</small></li>
+</ul>
+
+<blockquote>
+  <p>Ideation isn’t some distant frontier - it’s under active pressure today.</p>
+</blockquote>
+
+<ul>
+  <li><strong>2026-03-04</strong> - <a href="https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf">Claude’s Cycles</a> (Donald Knuth - yeah, that <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>) <small>“Shock! Shock! I learned yesterday that an open problem I’d been working on for several weeks had just been solved by Claude Opus 4.6”</small></li>
+</ul>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="copyleft" /><category term="copyright" /><category term="intellectual-property" /><category term="software-licensing" /><summary type="html"><![CDATA[pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase. Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.]]></summary></entry><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title><link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol" /><published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>Most of the time, MCP doesn’t deliver any value beyond what a capable model could get from a CLI and a shell.</p>
