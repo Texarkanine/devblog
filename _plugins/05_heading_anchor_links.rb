@@ -6,8 +6,7 @@ require "nokogiri"
 # so readers can copy or open fragment URLs. Link is visible on hover via CSS.
 # Build-time only; no client-side JS.
 #
-# Config: heading_anchor_icon (default "#") – string used as the link text
-#         (e.g. "#", "¶", "§"). HTML is not escaped; use plain characters.
+# Config: heading_anchor (object). icon (default "#") – link text. exclude_index (default true) – skip site index page.
 
 module HeadingAnchorLinks
   module_function
@@ -24,8 +23,16 @@ module HeadingAnchorLinks
     output = document.output
     return unless output && output.include?("</h")
 
+    anchor_config = document.site.config["heading_anchor"] || {}
+    exclude_index = anchor_config["exclude_index"]
+    exclude_index = true if exclude_index.nil?
+    if exclude_index
+      base = document.site.config["baseurl"].to_s
+      return if document.url == base || document.url == "#{base}/" || document.url == "#{base}/index.html"
+    end
+
     doc = Nokogiri::HTML.fragment(output)
-    icon = document.site.config["heading_anchor_icon"] || "#"
+    icon = anchor_config["icon"] || "#"
 
     doc.css("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").each do |heading|
       id = heading["id"]

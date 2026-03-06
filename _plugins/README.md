@@ -76,13 +76,16 @@ Adds a configurable anchor link to each heading (h1–h6) that has an `id`, so r
 In `_config.yaml`:
 
 ```yaml
-heading_anchor_icon: "#"   # default; use "#", "¶", "§", or any character(s)
+heading_anchor:
+  icon: "#"              # default; use "#", "¶", "§", or any character(s)
+  exclude_index: true    # default true; when true, no anchors on the site index page
 ```
 
 ### Behavior
 
 - Runs at build time (post_render hook).
 - Only headings that already have an `id` (Kramdown adds these by default) get the link.
+- When `heading_anchor.exclude_index` is true (default), the site index page is skipped (no heading anchors on the main page).
 - The link has class `heading-anchor` and `aria-label="Link to this section"` for accessibility.
 
 ---
