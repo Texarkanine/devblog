@@ -13,8 +13,10 @@ module HeadingAnchorLinks
   module_function
 
   def register_hooks
-    Jekyll::Hooks.register :documents, :post_render do |document|
-      HeadingAnchorLinks.process_document(document)
+    [:documents, :pages].each do |owner|
+      Jekyll::Hooks.register owner, :post_render do |doc|
+        HeadingAnchorLinks.process_document(doc)
+      end
     end
   end
 
