@@ -67,6 +67,26 @@ ASSET_HOST=https://cdn.example.com bundle exec jekyll build
 
 ---
 
+## 05_heading_anchor_links.rb
+
+Adds a configurable anchor link to each heading (h1–h6) that has an `id`, so readers can copy or open fragment URLs. The link is visible on hover (CSS); no client-side JS.
+
+### Configuration
+
+In `_config.yaml`:
+
+```yaml
+heading_anchor_icon: "#"   # default; use "#", "¶", "§", or any character(s)
+```
+
+### Behavior
+
+- Runs at build time (post_render hook).
+- Only headings that already have an `id` (Kramdown adds these by default) get the link.
+- The link has class `heading-anchor` and `aria-label="Link to this section"` for accessibility.
+
+---
+
 ## image_sizing.rb
 
 ### Features
