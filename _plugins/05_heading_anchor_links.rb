@@ -35,7 +35,7 @@ module HeadingAnchorLinks
       anchor["aria-label"] = "Link to this section"
       anchor.content = icon
 
-      heading.prepend_child(anchor)
+      heading.add_child(anchor)
     end
 
     document.output = doc.to_html
