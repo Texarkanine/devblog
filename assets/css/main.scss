@@ -124,3 +124,19 @@ body > footer {
 		background-image: url('{{ site.baseurl }}/assets/img/bip47-dark.png');
 	}
 }
+
+/* Heading anchor links: show icon on hover (build-time injected link) */
+.heading-anchor {
+	opacity: 0;
+	text-decoration: none;
+	margin-left: 0.25em;
+}
+h1[id]:hover .heading-anchor,
+h2[id]:hover .heading-anchor,
+h3[id]:hover .heading-anchor,
+h4[id]:hover .heading-anchor,
+h5[id]:hover .heading-anchor,
+h6[id]:hover .heading-anchor,
+.heading-anchor:focus {
+	opacity: 1;
+}

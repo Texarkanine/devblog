@@ -114,6 +114,9 @@ auto_thumbnails:
 image_paths:
   base_url: /assets/img
 
+# heading anchor links (local): icon shown on hover next to headings; build-time only, no JS
+heading_anchor_icon: "#"
+
 # href-decorator (local)
 href_decorator:
   properties:
