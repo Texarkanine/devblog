@@ -30,6 +30,7 @@ module HeadingAnchorLinks
     doc.css("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").each do |heading|
       id = heading["id"]
       next if id.nil? || id.empty?
+      next if heading.at_css(".heading-anchor") # idempotent: avoid double anchor when doc is processed as both document and page
 
       anchor = Nokogiri::XML::Node.new("a", doc)
       anchor["href"] = "##{id}"
