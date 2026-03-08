@@ -10,49 +10,65 @@ tags:
 
 I am a Principal Engineer. I have been in the tech industry for over a decade and I have been programming computers since the last millenium. I have a bachelor of Computer Science from Rice University, I have written virtual memory, a file system, malloc, and a shell from scratch. I have used Continuation Passing Style in production. "10x engineer" is the term. So when I tell you that it has been a year since I stopped writing my code and that the current frontier coding models make me look like an idiot child, I want you to understand my full meaning.
 
-Pi day 2025 was the day I stopped writing code. I still ship code - more than ever, in fact - but I don't write it anymore.
+Pi day 2025 - 2025-03-14 - was the day I stopped writing code. I still ship code - more than ever, in fact - but I don't write it anymore.
 
 It's about two and a half months since I stopped *looking at* the code.
 
 This is a very different world than I could have possibly imagined, come to pass (and still going) faster than I could have guessed, and it's only been a *year!*
 
-The skills you need in this world aren't prompting. The aren't "AI literacy." They are the engineering judgment I already had, applied at a higher altitude. But there's a catch: if you don't have the judgment, the altitude will kill you.
+The skills you need in this world aren't prompting. They aren't "AI literacy." They are the engineering judgment I already had, applied at a higher altitude. But there's a catch: if you don't have the judgment, the altitude will kill you.
 
-Welcome to the [Mechanicum](), developer. It's time to skill up!
+Welcome to the [Mechanicum](https://warhammer40k.fandom.com/wiki/Adeptus_Mechanicus), developer. It's time to skill up!
 
 ## The Power Continuum
 
-A coworker asked me, in a Q&A, what vibecoding actually was. "Is it just... asking Claude for what you want and letting it do it?"
+Recently a coworker asked me, in a Q&A in some AI-related meeting, what vibecoding actually **was.** Paraphrased, her question was (almost incredulous):
 
-"Yes," I said (hesitantly). "Literally just that."
+> "Is it just... asking Claude for what you want and letting it do it?"
+
+"Yes," I said (hesitantly). "That's all."
+
+I had been prepared for followups. I had context-wrangling wisdom to share, prompt-engineering tips to dispense. None of it was needed.
 
 Within a week, she was demo'ing something in a team meeting that "Claude vibecoded." She had, in fact, just asked for the thing. And gotten it.
 
-I had been prepared. I had context-wrangling wisdom to share, prompt-engineering tips to dispense. None of it was needed. The barrier wasn't skill. It wasn't technique. It was conceivability. The workflow wasn't forbidden to her — it was absent from her mental model. The moment someone said "yes, that's really all it is," the entire distance from zero to output collapsed into a single step.
+The barrier wasn't technical skill or technique or even knowledge - it was conceivability. The workflow wasn't forbidden to her - it was absent from her mental model. The moment someone said "yes, that's really all it is," she was able to do it with the resources she already had.
+
+Paul Graham described the [Blub Paradox](http://www.paulgraham.com/avg.html) in 2001. You should go read the whole article to really understand the effect. But, in brief:
+
+> the only programmers in a position to see all the differences in power between the various languages are those who understand the most powerful one.
+
+A programmer who only knows a hypothetical mid-power language called Blub can look *down* the power continuum and see lesser languages for what they are. But they can't look *up*, because they lack the conceptual vocabulary to perceive what they're missing. The ceiling is invisible from below.
+
+Graham was talking about programming languages. And though [the hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128), the paradox's relevance has broken out of programming and into the general realm of knowledge work.
+
+The power continuum now runs from "I type the code" through "I describe what code to type" through "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.
+
+```mermaid
+graph LR
+    A["🔧 Code"] --- B["🧪 Tests"] --- C["📋 Spec"] --- D["💡 Intent"]
+```
+
+1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
+2. **🧪 Test-driven development:** You write the specification first (as tests), then write code to satisfy it. You've separated "what it should do" from "how to make it do that."
+3. **📋 Spec-driven development:** You write a technical specification. The agent writes the tests *and* the code. You've moved one more level up: you're specifying intent in structured prose, and the machine handles both the contract and the implementation.
+4. **💡 Intent-driven development:** You write a product brief. Plain prose. Soft skills. The agent handles design, specification, implementation, and verification. This is where I live now.
+
+Each level requires *more* engineering judgment, not less. Each level moves you further from the code and closer to the intent. Having to drop down a level is a signal. Having to drop two levels is a strong signal. Needing to go back to experiential means the ritual failed - something about the specification, context, or tooling wasn't sufficient - and you need to diagnose *why* before you try again.
+
+And if your engineering vocabulary doesn't yet include "I describe intent and the machine handles implementation," that workflow isn't forbidden to you; it just happens to be *inconceivable* to you. You can't formulate the desire to work that way, in exactly the way that Orwell's Newspeak made thoughtcrime impossible by removing the words needed to think it.
+
+In 2007, [Charles Simonyi](https://en.wikipedia.org/wiki/Charles_Simonyi) - the father of Microsoft Word - [described exactly this destination](https://www.technologyreview.com/2007/01/01/227178/anything-you-can-do-i-can-do-meta/). He called it "intentional programming": domain experts would express their intent directly, and a "generator" would produce the code. The programmers wouldn't write the software; they'd build the generator and then get out of the way. He was almost twenty years early. The generator he needed didn't exist yet.
+
+It does now.
+
+For a short while yet, engineers will run the generator and hand a product over to the customers. The generators are still a little persnickety and can be challenging to wrangle, and the translation of intent into specification - anything still *on* the power continuum rather than sitting at the end of it - still benefits from everything engineering teams have learned how to do. [Code goes first](https://sundaylettersfromsam.substack.com/p/code-goes-first), not alone, though! By the time the generators arrive in the other domains of knowledge work, they'll be so good that the engineers won't have to play Tech-Priest intermediary anymore.
+
+So if you're an engineer, today, there are some key skills that'll help you keep pace as the field ascends the power continuum.
 
 --- above: revised; below: raw ---
 
-Paul Graham described the [Blub Paradox](http://www.paulgraham.com/avg.html) in 2001. A programmer who only knows a hypothetical mid-power language called Blub can look *down* the power continuum and see lesser languages for what they are. But they can't look *up*, because they lack the conceptual vocabulary to perceive what they're missing. The ceiling is invisible from below.
-
-Graham was talking about programming languages. The paradox generalizes.
-
-The power continuum now runs from "I type the code" through "I describe what code to type" through "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment. Here's how the levels map concretely:
-
-**Experiential development.** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the artisan's ambient quality loop lives. More on that shortly.
-
-**Test-driven development.** You write the specification first (as tests), then write code to satisfy it. You've separated "what it should do" from "how to make it do that."
-
-**Spec-driven development.** You write a technical specification. The agent writes the tests *and* the code. You've moved one more level up: you're specifying intent in structured prose, and the machine handles both the contract and the implementation.
-
-**Intent-driven development.** You write a product brief. Plain prose. Soft skills. The agent handles design, specification, implementation, and verification. This is where I live now.
-
-Each level requires *more* engineering judgment, not less. Each level moves you further from the code and closer to the intent. And here's the smell test: having to drop down a level is a signal. Having to drop two levels is a strong signal. Needing to go back to experiential means the ritual failed - something about the specification, context, or tooling wasn't sufficient - and you need to diagnose *why* before you try again.
-
-I wrote about the decoupling of expression from behavior in [Pink Margarine](TODO-link): copyright protects expression, but software's value is behavior, and the two have become fully separable. That essay diagnosed the problem from the licensing side. This one is the practitioner's field guide from the productivity side. If expression is decoupled from behavior, then the value of a knowledge worker was never in the expression. It was in the intent.
-
-And if your engineering vocabulary doesn't yet include "I describe intent and the machine handles implementation," that workflow isn't forbidden to you. It's *inconceivable* to you. You can't formulate the desire to work that way, in exactly the way that Orwell's Newspeak made thoughtcrime impossible by removing the words needed to think it. This is why the bootcamp exists. We're expanding a language so that new thoughts become possible.
-
-## The Three Skills
+## The Skills
 
 So what does it take to operate at the top of this continuum? Three things. All of them are "skill issues" when they go wrong.
 
