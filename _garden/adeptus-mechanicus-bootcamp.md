@@ -62,79 +62,86 @@ In 2007, [Charles Simonyi](https://en.wikipedia.org/wiki/Charles_Simonyi) - the 
 
 It does now.
 
-For a short while yet, engineers will run the generator and hand a product over to the customers. The generators are still a little persnickety and can be challenging to wrangle, and the translation of intent into specification - anything still *on* the power continuum rather than sitting at the end of it - still benefits from everything engineering teams have learned how to do. [Code goes first](https://sundaylettersfromsam.substack.com/p/code-goes-first), not alone, though! By the time the generators arrive in the other domains of knowledge work, they'll be so good that the engineers won't have to play Tech-Priest intermediary anymore.
+But we're not ready to hand over the keys! For a short while yet, engineers will run the generator and hand a product over to the customers. The generators are still a little persnickety and can be challenging to wrangle, and the translation of intent into code - [anything still *on* the power continuum rather than sitting at the end of it](/garden/last-programming-language.html) - still benefits from everything engineering teams have learned how to do. [Code goes first](https://sundaylettersfromsam.substack.com/p/code-goes-first) - but not alone! By the time the generators arrive in the other domains of knowledge work, they'll be so good that the engineers won't have to play Tech-Priest intermediary anymore.
 
 So if you're an engineer, today, there are some key skills that'll help you keep pace as the field ascends the power continuum.
 
---- above: revised; below: raw ---
-
 ## The Skills
 
-So what does it take to operate at the top of this continuum? Three things. All of them are "skill issues" when they go wrong.
+So what does it take to operate at the top of this continuum? Three things. All of them manifest in "AI doesn't work" complaints when they go wrong, properly retortable with "Skill Issue."
 
 ### Asking the Right Questions
 
-The model is the oracle at Delphi. Its responses are infinite. You must ask the right questions.
+> My responses are infinite. You must ask the right questions.
 
-This sounds like a prompting tip. It isn't. The skill isn't in phrasing the prompt well - it's in *knowing what to ask*, which presupposes deep domain expertise. The principal engineer who stopped writing code still needs to think like one. The models are better than me at producing code. They are not better than me at knowing what code should exist or what behavior it should exhibit.
+This sounds like a prompting tip. It isn't. The skill isn't in phrasing the prompt well - it's in *knowing what to ask*, which presupposes deep domain expertise. The principal engineer who stopped writing code still needs to think like one. The models are better than me at producing code. They are not (yet!) better than me at knowing what code should exist or what behavior it should exhibit.
 
-Consider the [Rust rewrite of SQLite](TODO-link-to-tweet-or-article) that benchmarked at roughly 1,800x slower on key lookups than the original C implementation. There's a [well-known axiom in manufacturing and contracting](TODO-link-to-canonical-source): anything you don't specify will be done as cheaply as possible. The critics saw this and concluded that LLMs produce plausible code, not good code.
+Consider the [Rust rewrite of SQLite](https://x.com/KatanaLarp/status/2029928471632224486) that benchmarked at roughly 1,800 to 20,000x slower on key lookups than the original C implementation. There's a well-known axiom in manufacturing and contracting, a variant of the "good, cheap, fast, pick two" constraint: "Anything unspecified will be done to the bare minimum quality required to fulfill the contract." The critics saw this and concluded that LLMs produce plausible code, not good code.
 
-They're right. But they're missing the load-bearing insight: [you get to define what "plausible" is](https://x.com/KatanaLarp/status/2029928471632224486).
+They're right but they're a step short of the load-bearing insight: you get to define what "plausible" is.
 
-SQLite's [TH3 test suite is proprietary](https://sqlite.org/th3.html). The reimplementors *couldn't* have had access to the full behavioral specification, including performance constraints. So those constraints went unspecified. And anything unspecified gets done as cheaply as possible. The model did exactly what was asked. The model was not the problem. The specification was the problem. Skill issue.
+SQLite's [TH3 test suite is proprietary](https://sqlite.org/th3.html). The reimplementors *couldn't* have had access to the full behavioral specification, including performance constraints. So those constraints went unspecified. And anything unspecified gets done as cheaply as possible. The model did exactly what was asked; the model was not the problem. The specification was the problem. Skill issue.
 
-I wrote about this dynamic in [Pink Margarine](TODO-link) in the context of test suites as behavioral blueprints: publishing your test suite is publishing your own disruption manual. SQLite's decision to keep TH3 proprietary accidentally illustrates what a behavioral specification is worth when duplication costs drop to near zero.
+I wrote about this dynamic in [Pink Margarine]({% post_url blog/essay/2026-03-01-pink-margarine %}) in the context of test suites as behavioral blueprints. SQLite's decision to keep TH3 proprietary continues to illustrate what a behavioral specification is worth when duplication costs drop to near zero.
 
 #### The Artisan's Ambient Loop
 
 Why didn't we notice this "specification problem" before? Because, for most of human history, we didn't have one.
 
-In [Desire Makes Artists](TODO-link), I wrote about how pre-industrial artisans produced goods with art and quality infused during the process, because that's what happens when humans make things by hand. The craftsperson's quality wasn't intentional specification - it was emergent from proximity. You're in there, hands on every surface, spending an hour doing minute scrollwork on the side of a flintlock rifle. If you notice that one of the plates is a little loose, you fix it - that'll take a minute or two, you're already locked in for the hour, and you don't want your beautiful thing to be a piece of garbage. The ornamentation was almost a *pretext* for the real value: hours of incidental contact during which the artisan was continuously, unconsciously matching intended behavior against actual behavior. Discovering and fixing problems that were never formally specified.
+In [Desire Makes Artists]({% post_url blog/essay/2026-01-01-desire-makes-artists-even-with-genai %}), I wrote about how pre-industrial artisans produced goods with art infused during the process, because that's what happens when humans make things by hand. The craftsperson's quality wasn't intentional specification - it was emergent from proximity. You're in there, hands on every surface, spending an hour doing minute scrollwork on the side of a flintlock rifle, say. If you notice that one of the plates is a little loose, you fix it - that'll take a minute or two and you're already locked in for an hour. And the whole project has been a days-long undertaking and you don't want your beautiful thing to be a piece of garbage - of *course* you'll fix it. Rinse and repeat. The ornamentation was a signature of the real value: hours of incidental contact during which the artisan was continuously, unconsciously matching intended behavior against actual behavior. The constant contact let the creators discover and fix problems that were never formally specified, and so the customers never had to overthink the specification.
 
-Industrialization didn't just remove the decoration. It removed that ambient inspection loop. And then you get exactly what you specified, and everything unspecified is up in the air. The factory worker doesn't have your context and isn't spending that time.
+Industrialization didn't just remove the decoration; it removed that ambient inspection loop. Now you get exactly what you specified, and everything unspecified is up in the air. The factory worker doesn't have your context and isn't spending but a passing moment in contact with the widget - whose intended behavior they may not even know.
 
 Sound familiar?
 
-The specification spectrum has three failure modes, and the skill is navigating between them:
+The specification spectrum has three failure modes:
 
-**Underspecify.** You get "plausible." The Rust SQLite rewrite. 1,800x slower because nobody said it shouldn't be. Everything unspecified, done as cheaply as possible.
+1. **Underspecify:** You get "plausible." The Rust SQLite rewrite. 1,800x slower because nobody said it shouldn't be. Everything unspecified, done as cheaply as possible.
+2. **The artisan sweet spot:** The ambient loop catches what formal specification misses. Beautiful.  This is the old world. This is where typing your own code lived. The technique doesn't scale.
+3. **Overspecify:** You burn all the human bandwidth on definition and ship nothing. This is the [Load-Bearing Rate Limiter]({% post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}) problem inverted: instead of the human bottlenecking production, the human bottlenecks definition. You've gold-plated the spec instead of the code and you're just as broke. You spent four days iterating on a pull request that adds one button because you future-proofed it against quantum computing, ensured optimal Big-O complexity, and ran out the payroll budget before you shipped a feature that could bring in any revenue.
 
-**The artisan sweet spot.** The ambient loop catches what formal specification misses. Beautiful. Doesn't scale. This is the old world. This is where typing your own code lived. We don't need code inlaid with ornate scrollwork, but we do need *some* mechanism to catch what we forgot to specify.
+We don't need code inlaid with ornate scrollwork, but we do need *some* mechanism to catch what we forgot to specify.
 
-**Overspecify.** You burn all the human bandwidth on definition and ship nothing. This is the [Load-Bearing Rate Limiter](TODO-link) problem inverted: instead of the human bottlenecking production, the human bottlenecks definition. You've gold-plated the spec instead of the code and you're just as broke. You spent four hours iterating on a pull request that adds one button because you future-proofed it against quantum computing, ensured optimal Big-O complexity, and ran out the payroll budget before you shipped a feature that could bring in any revenue.
-
-The skill is finding the right altitude on that spectrum *per task*. Performance-critical paths need tight specs. Internal tooling needs a product brief and a prayer. Knowing which is which, before you've burned the time finding out, is engineering judgment. That's all it's ever been.
+The skill is finding the right altitude on that spectrum *per task*. Performance-critical paths need tight specs. Internal tooling needs a product brief and a prayer. Knowing which is which, before you've burned the time finding out, is engineering judgment. Same as it's ever been.
 
 ### Context Wrangling
 
-Socrates' most famous contribution to epistemology, loosely rendered: I know that I don't know.
+If you know the specification, you have to make sure the machine knows it, too. Your human brain has a ton of assumptions in context at any given time that factor into that knowing, a ton of implicit associations that will be considered when needed.
 
-You have to know the *shape* of what you don't know well enough to feed the model what it needs. The model can't infer your architecture from vibes. The model can't read your mind about which edge cases matter. The model definitely can't guess that your CI pipeline requires a specific incantation to pass.
+You have to provide those in a form the machine can understand. This is filling  the agent's *context window* with the right stuff in the right way. This is, for now, as much an art as a process.
 
-This is the practical, mechanical skill. What goes into the machine's context window, what stays out, and when. I've written about this at length.
- 
-You have to know what the machine can't infer so you can provide it. Every rules file, every embedded doc, every selectively-loaded skill is context wrangling made systematic. And the reason it's a *skill* and not a *process* is that no two tasks need the same context. You have to evaluate, every time, what this particular task requires - and what it doesn't.
+1. **Know what the machine knows:** The cheapest context is the one you don't have to pay for; the models have a lot of "intuitive" knowledge. Don't wast space repeating it and certainly don't try to fight it.
+2. **Know what the machine doesn't know:** The model can't infer your architecture from vibes. The model can't read your mind about which edge cases matter. The model can't read your teammates' minds to know how-detailed a pull request description they'll actually *read*. All of these things are things that you and your human coworkers would eventually pick up, internalize, and file away in your brains at the right distance from your work so that they kick in when needed. You have to make these explicit, so that they aren't **unspecified**.
+
+This is the practical, mechanical skill. What goes into the machine's context window, what stays out, and when. The specific techniques change rapidly; much of what was cutting-edge context-wrangling a year ago is largely irrelevant today. But the principles (at least for coding agents based on context-window-based transformer LLMs) seem to hold.
 
 ### Discernment
 
-you also have to know what YOU don't know.
+> To know what you know and what you do not know, that is true knowledge.
+> -- Confucius
 
-> The intuitive response to unprecedented productivity is "do everything faster." The correct response is almost the opposite.
->
-> - [The Load-Bearing Rate Limiter Was Human](TODO-link)
+The third skill is knowing when to *stop*. Knowing whether the thing should exist at all. The cost-benefit analysis synthesized across time, money, quality, and market absorption, and the rest of the constraints that matter to you.
 
-The third skill is knowing when to *stop*. Knowing whether the thing should exist at all. The cost-benefit analysis synthesized across time, money, quality, and market absorption.
+> The intuitive response to unprecedented productivity is "do everything faster." The correct response is almost the opposite. 
+> -- [The Load-Bearing Rate Limiter Was Human]({% post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %})
 
 Jeremy Howard at fast.ai wrote about [dark flow](https://www.fast.ai/posts/2026-01-28-dark-flow/) - the seductive trap of agentic productivity. You can build *so much, so fast* that you build things you didn't need. The flow state of *commissioning* is just as intoxicating as the flow state of *coding*, but the blast radius is larger because the output rate is higher. You can burn through a year's token budget in a week if nobody's asking "should we?"
 
-Steve Yegge's [AI Vampire](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163) describes the mirror image: the vampire feeds on your productive energy and eventually burns you out - not from typing, but from the cognitive overhead of steering. If you try to overclock the human in the loop, the loop falls apart. The vampire doesn't care that you're the smartest engineer in the room. It'll drain you just the same.
+Steve Yegge's [AI Vampire](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163) describes the mirror image: the vampire feeds on your productive energy and eventually burns you out - not from typing, but from the cognitive overhead of steering. If you try to overclock the human in the loop, the loop falls apart. The vampire doesn't care that you're the smartest engineer in the room: it'll drain you just the same.
 
-Tom Wojcik [raised the concern](https://tomwojcik.com/posts/2026-02-15/finding-the-right-amount-of-ai/) that outsourcing coding to AI causes a kind of "digital dementia" - your skills atrophy as you stop practicing them. He's observing something real, and [the research he cites](https://arxiv.org/abs/2601.20245) supports that observation at face value. But the framing is wrong. Measure horsemanship skills in millennials and I bet they, as a population, are terrible. Sound the alarm? No. Horses were obviated. The correct metric isn't "can you still hand-write a merge sort." The correct metric is "can you effectively commission, verify, and steer the thing that writes merge sorts." Or better yet: do you even need to be sorting in the first place? That's discernment operating at the product-intent level - a floor *above* the implementation question - and entirely invisible to anyone measuring typing speed.
+Tom Wojcik [raised the concern](https://tomwojcik.com/posts/2026-02-15/finding-the-right-amount-of-ai/) that outsourcing coding to AI causes a kind of "[Digital Dementia](https://www.goodreads.com/book/show/230631518-digital-dementia)" - your skills atrophy as you stop practicing them. He's observing something real, and [some research supports](https://arxiv.org/abs/2601.20245) that observation at face value. 
 
-Nobody's measuring the right things yet because the measurers are still on the lower rungs of the power continuum and can't look up.
+The framing is wrong. Measure horsemanship skills in millennials and I bet you'll find that they, as a population, are terrible. Sound the alarm!? No. [Horses were obviated](https://andyljones.com/posts/horses.html). The correct metric isn't "can you still hand-write a merge sort." The correct metric is "can you effectively commission, verify, and steer the thing that writes merge sorts." Or better yet: do you even need to be sorting in the first place? That's discernment operating at the product-intent level - a floor *above* the implementation question - and entirely invisible to anyone measuring typing speed or even code comprehension.
 
-Discernment also scales with blast radius. Small: you overspecified a button and wasted an afternoon. Medium: you underspecified a library rewrite and got an 1,800x performance regression. Large: at the top of your delegation tree, an undiscerned intent propagates through every node below you. The higher you climb, the more discernment matters, not less.
+Many folks aren't measuring the right things yet because they're still on the lower rungs of the power continuum and can't look up.
+
+Discernment's criticality also scales with blast radius. 
+
+- **Small:** you overspecified a button and wasted an afternoon. 
+- **Medium:** you underspecified a library rewrite and got an 1,800x performance regression. 
+- **Large:** at the top of your delegation tree, an undiscerned intent propagates through every node below you. You blow your series A funding in a month on a dozen dead ends.
+
+The higher you climb, the more discernment matters, not less.
 
 ## For Those With Eyes to See, Let Them See
 
@@ -142,67 +149,74 @@ You've got the skills. You're asking the right questions, feeding the machine th
 
 You scale.
 
-You can't overclock a human. You've got these new tools, and you will never code as fast as them, so don't try. Instead, look around.
+[You can't overclock a human]({% post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}). You've got these new tools and you will never code as fast as them, so don't try. Instead, look around.
 
-Look *up* at your current manager. They have been doing exactly this - managing through indirection. Not just you, but probably several people just like you. Surviving. How well? Well, that's what being a manager *is*. They set intent, provide context, exercise discernment about what their reports should work on, and review the output. The three skills, applied to humans.
+Look *up* at your current manager. They have been doing exactly this: managing through indirection. Not just you, but probably several people just like you. They have a meeting, express what they hope y'all will do, and then check back in *later*, praying that you actually did what they wanted. That's what being a manager *is*. They set intent, provide context, exercise discernment about what their reports should work on, and review the output. The three skills, applied to humans.
 
 Your job is becoming their job. But instead of the traditional path of stepping up and replacing them, look *down* at your own hands.
 
-<!-- TODO: Ghost in the Shell GIF - fingers splitting into dozens -->
+![Ghost in the Shell GIF - fingers splitting into dozens](adeptus-mechanicus/gits-fingers.gif)
 
 Your hands used to be where the production pipeline ended. Now they're where delegation begins.
 
-### The Gastown Ladder
+### The Gas Town Ladder
 
-Steve Yegge's [Welcome to Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04) describes the stages of AI-augmented development, and his progression looks roughly like this:
-
-<!-- TODO: embed Gastown phases image, figure 8 -->
+{% polaroid
+	adeptus-mechanicus/yegge_welcome-to-gas-town_8-stages-of-developer-evolution-to-ai.webp
+	title="The 8 Stages of Developer Evolution to AI"
+  link="https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04"
+  image_link="adeptus-mechanicus/yegge_welcome-to-gas-town_8-stages-of-developer-evolution-to-ai.webp"
+  archive="https://web.archive.org/web/20260308000000/https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04"
+%}
 
 Solo coder. Then one agent, and you babysit it. Then one agent, hands-off. Then multiple agents. Then - and this is where it gets interesting - an agent managing other agents.
 
-Yegge's figure 8 already shows a manager. But figure 8 isn't the ceiling. Yegge was narrating the buildout and operation of the system, not describing the steady-state organizational structure that emerges from it.
+Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narrating the buildout and operation of the system, not describing the steady-state organizational structure that emerges from it.
 
-### Pascal's Triangle
+### Recursive Delegation
 
-<!-- TODO: Pascal's triangle image or custom visual -->
+{% polaroid
+	adeptus-mechanicus/sierpinskiloop.gif
+	title="Agents managed by agents managed by agents... managed by you"
+  link="https://bleuje.com/gifanimationsite/single/sierpinskiloop/"
+  image_link="adeptus-mechanicus/sierpinskiloop.gif"
+%}
 
 Here's the insight that the Gastown progression implies but doesn't fully explore: figure 8 is just where *individual contribution* ends and *recursive delegation* begins.
 
 You will reach the point where you have too many direct-report agents. There is a limit to effective span of control - this is why your manager has a manager. The solution is the same one every organization in history discovered: hierarchy. You don't manage ten agents. You build a managing agent for your direct reports, and you dialogue with that manager. Just as your manager talks to you, and their manager talks to them.
 
-Then the process repeats. Maybe you're managing two managers, each of whom manages five individual-contributor agents. Maybe you add a layer. Maybe it grows. Pascal's triangle, expanding downward until you've scaled your production capabilities to the level you actually need.
+Then the process repeats. Maybe you're managing two managers, each of whom manages five individual-contributor agents. Maybe you add a layer and it grows, expanding ever downward until you've scaled your production capabilities to the level you actually need.
 
-The structure itself is not new. This is exactly how basically every company ever has organized itself, because it works. Maybe a pure-machine world will discover something better, but for now - while we are still hybrids, still cyborg-izing ourselves and our workflows - this is the structure that works. We see it working today.
+The structure itself is not new; this is exactly how basically every company ever has organized itself, because it works. Maybe a pure-machine world will discover something better, but for now - while we are still hybrids, still cyborgifying our workflows - this is the structure that works. We see it working today, as it has for centuries.
 
-The difference: traditionally, every node in that org chart had to be a human. And no node was given the legal, regulatory, or budgetary allowance to build its own subtree of direct reports. But if you have access to LLMs or token budgets at your job today - congratulations. You do have that allowance. You can build your own tree.
+**The difference:** traditionally, every node in that org chart had to be a human, most nodes were not given the combination of legal, regulatory, and budgetary allowance to build their own subtrees of direct reports. But if you have access to LLMs or token budgets at your job today - congratulations. You *do* have that allowance. It's time to get hiring!
 
 ### The Ceiling Is Discernment, Again
 
-We are not going to do this recklessly, though, because we paid attention at the Cog Mechanicus Bootcamp. We will not slip into dark flow. We will not get drained by the AI vampire.
+We are not going to do this recklessly, though, because we paid attention at the Adeptus Mechanicus Bootcamp. We will not slip into dark flow. We will not get drained by the AI vampire.
 
-The blast radius at the top of Pascal's triangle is enormous. An undiscerned intent at the root propagates through every node. The three skills apply at every level of the tree. They don't get easier as you ascend. They get more consequential.
+The blast radius at the top of the hierarchy is enormous, and now every node can sit at the top of a hierarchy! An undiscerned intent can propagate and multiply at speeds and scales previously unimaginable. The three skills apply at every level of the tree. They don't get easier as you ascend; they get more consequential.
 
 ## Where We're Going, We Don't Need Eyes
 
 In manufacturing, a [lights-out factory](https://en.wikipedia.org/wiki/Lights-out_manufacturing) runs with no human presence on the floor. The machines operate in the dark because there is nobody there who needs to see.
 
-The [lights-out codebase](https://molochinations.substack.com/p/no-more-code-reviews-lights-out-codebases) is the same idea applied to software. Code that is authored, tested, reviewed, and deployed without a human ever reading it. You specified the behavior. The machines delivered it. The tests pass. The customers are happy. Why would you need to read it?
+The [lights-out codebase](https://molochinations.substack.com/p/no-more-code-reviews-lights-out-codebases) is the same idea applied to software. Code that is authored, tested, reviewed, and deployed without a human ever seeing it. You specified the behavior. The machines delivered it. The tests pass. The customers are happy. Why would you need to look at code? And, why would you *risk* letting a human touch it?
 
-This sounds terrifying. It should - a little. That's the appropriate amount of respect for the event horizon.
+Perhaps this sounds terrifying. It should - a little. That's the appropriate amount of respect for
 
 ### The Event Horizon
 
 You can't get to a singularity without passing through an event horizon, don't you know.
 
-Geoffrey Huntley calls it the ["oh fuck" moment](https://ghuntley.com/oh-fuck/). He sent Cursor off to port a Rust audio library to Haskell, took his kids to the pool, came back to a working library with autogenerated C bindings and FFI to CoreAudio. It wasn't regurgitating StackOverflow. It was creating something new. Jaw on the ground.
+Geoffrey Huntley calls it the ["oh fuck" moment](https://ghuntley.com/oh-fuck/). He sent Cursor off to port a Rust audio library to Haskell, took his kids to the pool and came back to a working library. It wasn't regurgitating StackOverflow - it was creating something new, from intent alone. Jaw on the ground.
 
-Every engineer on this journey has that moment. The moment the capability becomes real to you - viscerally, not intellectually. That's the event horizon.
+Every engineer on this journey has that moment. The moment the capability becomes real - viscerally, not intellectually. That's the event horizon.
 
-And it's behind you now.
+And if it's not behind you yet, it will be soon.
 
-The principal engineer who hasn't written code in a year and hasn't read it in three months - that's not a thought experiment. That's the opening paragraph of this essay. That's *in the past*.
-
---- Below: Revised; above: raw ---
+The Principal Engineer who hasn't written code in a year and hasn't read it in nearly three months - that's not a thought experiment. That's the opening paragraph. That's *my past*.
 
 ## The Bootcamp
 
@@ -212,13 +226,13 @@ But the models can't do what got me here, yet. The questioning - knowing what sh
 
 Those are engineering judgment. Those are the skills that let me get as far as Principal Engineer in the first place.
 
-The event horizon is behind you, and nothing can escape it - so you might as well learn the skills that let you thrive on this side of it.
+Nothing can escape the event horizon - so you might as well learn the skills that let you thrive on this side of it.
 
-Welcome to the Mechanicum. Let's get to work.
+Welcome to the Mechanicum, developer. Let's get to work.
 
 ### Practical Application
 
-The specifics **do not matter*. Everything you read here will be obsolete in two years, probaly in one. But *today*, here's how to speedrun your progression through the stages, achieving a significant productivity boost with minimal skill atrophy along the way. Executed properly, that ought to give you a significant leg up on optionality as you navigate the next few years.
+The specifics **do not matter*. Everything you read here will be obsolete in two years, probably in one. But *today*, here's how to speedrun your progression through Steve Yegge's stages, achieving a significant productivity boost with minimal skill atrophy along the way. Executed properly, that ought to give you a significant leg up on optionality as you navigate the next few years.
 
 --- above: revised; below: raw ---
 
