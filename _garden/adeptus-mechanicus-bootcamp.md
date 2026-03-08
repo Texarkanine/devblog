@@ -40,13 +40,16 @@ Paul Graham described the [Blub Paradox](http://www.paulgraham.com/avg.html) in 
 
 A programmer who only knows a hypothetical mid-power language called Blub can look *down* the power continuum and see lesser languages for what they are. But they can't look *up*, because they lack the conceptual vocabulary to perceive what they're missing. The ceiling is invisible from below.
 
-Graham was talking about programming languages. And though [the hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128), the paradox's relevance has broken out of programming and into the general realm of knowledge work.
-
-The power continuum now runs from "I type the code" through "I describe what code to type" through "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.
+Graham was talking about programming languages. Now that [the hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128), the power continuum runs from "I type the code" through "I describe what code to type" up to "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.
 
 ```mermaid
-graph LR
-    A["🔧 Code"] --- B["🧪 Tests"] --- C["📋 Spec"] --- D["💡 Intent"]
+graph TD
+    D["💡 Intent"] --- C["📋 Spec"] --- B["🧪 Tests"] --- A["🔧 Code"]
+    C --> D
+    B --> C
+    A --> B
+
+linkStyle 0,1,2 stroke:none
 ```
 
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
@@ -64,7 +67,7 @@ It does now.
 
 But we're not ready to hand over the keys! For a short while yet, engineers will run the generator and hand a product over to the customers. The generators are still a little persnickety and can be challenging to wrangle, and the translation of intent into code - [anything still *on* the power continuum rather than sitting at the end of it](/garden/last-programming-language.html) - still benefits from everything engineering teams have learned how to do. [Code goes first](https://sundaylettersfromsam.substack.com/p/code-goes-first) - but not alone! By the time the generators arrive in the other domains of knowledge work, they'll be so good that the engineers won't have to play Tech-Priest intermediary anymore.
 
-So if you're an engineer, today, there are some key skills that'll help you keep pace as the field ascends the power continuum.
+So if you're a software engineer, today, there are some key skills that'll help you keep pace as the field ascends the power continuum.
 
 ## The Skills
 
