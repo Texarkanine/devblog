@@ -43,13 +43,17 @@ A programmer who only knows a hypothetical mid-power language called Blub can lo
 Graham was talking about programming languages. Now that [the hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128), the power continuum runs from "I type the code" through "I describe what code to type" up to "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.
 
 ```mermaid
-graph TD
-    D["💡 Intent"] --- C["📋 Spec"] --- B["🧪 Tests"] --- A["🔧 Code"]
-    C --> D
-    B --> C
-    A --> B
+graph LR
+  Code["🔧 Code"] --- Test["🧪 Tests"] --> Code 
+  Test --- Code
 
-linkStyle 0,1,2 stroke:none
+  Test --- Spec["📋 Spec"] --> Test
+  Spec --- Test
+  
+  Spec --- Intent["💡 Intent"] --> Spec
+  Intent --- Spec
+
+  linkStyle 0,2,3,5,6,8 stroke:none
 ```
 
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
