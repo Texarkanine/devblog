@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: "The Adeptus Mechanicus Bootcamp"
 subtitle: "It's been over a year since I stopped writing my code, and I have such sights to show you."
 author: texarkanine
