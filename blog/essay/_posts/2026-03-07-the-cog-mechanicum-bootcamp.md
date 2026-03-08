@@ -20,9 +20,17 @@ The skills you need in this world aren't prompting. The aren't "AI literacy." Th
 
 Welcome to the [Mechanicum](), developer. It's time to skill up!
 
---- above: revised; below: raw ---
-
 ## The Power Continuum
+
+A coworker asked me, in a Q&A, what vibecoding actually was. "Is it just... asking Claude for what you want and letting it do it?"
+
+"Yes," I said (hesitantly). "Literally just that."
+
+Within a week, she was demo'ing something in a team meeting that "Claude vibecoded." She had, in fact, just asked for the thing. And gotten it.
+
+I had been prepared. I had context-wrangling wisdom to share, prompt-engineering tips to dispense. None of it was needed. The barrier wasn't skill. It wasn't technique. It was conceivability. The workflow wasn't forbidden to her — it was absent from her mental model. The moment someone said "yes, that's really all it is," the entire distance from zero to output collapsed into a single step.
+
+--- above: revised; below: raw ---
 
 Paul Graham described the [Blub Paradox](http://www.paulgraham.com/avg.html) in 2001. A programmer who only knows a hypothetical mid-power language called Blub can look *down* the power continuum and see lesser languages for what they are. But they can't look *up*, because they lack the conceptual vocabulary to perceive what they're missing. The ceiling is invisible from below.
 
@@ -213,6 +221,7 @@ I've written about this at length, but these are by no means exhaustive, nor nec
 - [Model Context Protocol, Not Agent Context Protocol](TODO-link) covered when tools earn their context cost - and when they don't.
 - [How I Learned to Stop Worrying and Love the Machine](TODO-link) covered the pre-token context management toolkit: rules, embeddings, docs, MCP, and knowing when each is appropriate.
 
+The skill is literally imaginging 
 
 ### Niko
 
