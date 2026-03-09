@@ -56,6 +56,8 @@ graph LR
   linkStyle 0,2,3,5,6,8 stroke:none
 ```
 
+<!-- TODO: solve font size / cropping issue in chart -->
+
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
 2. **🧪 Test-driven development:** You write the specification first (as tests), then write code to satisfy it. You've separated "what it should do" from "how to make it do that."
 3. **📋 Spec-driven development:** You write a technical specification. The agent writes the tests *and* the code. You've moved one more level up: you're specifying intent in structured prose, and the machine handles both the contract and the implementation.
