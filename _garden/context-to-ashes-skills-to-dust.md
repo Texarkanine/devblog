@@ -187,10 +187,18 @@ Auth is a trust problem. You `gh auth login` so the agent can push. You `aws sso
 
 This too is eroding, which should be no surprise because it was never a hard boundary in the first place. Organizations already delegate trust to automated systems: CI/CD pipelines hold credentials, service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary dissolving from the edges, as organizations get comfortable granting progressively broader trust to automated actors.
 
-In 1965, Gordon Dickson wrote a short story called *[Computers Don't Argue](https://archive.org/details/bestofcreativeco00ahld/page/132/mode/2up)* in which a man receives a book club shipment he didn't order. He tries to return it. Automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - along the way accumulating transcription errors such that Mr. Walter A. Child's return of the book "Kidnapped" by Robert Louis Stevenson becomes a record that `Walter "kidnapped" A. Child (Robert Louis Stevenson [deceased])`.
+In 1965, Gordon Dickson wrote a short story called *[Computers Don't Argue](https://archive.org/details/bestofcreativeco00ahld/page/132/mode/2up)* in which a man receives a book club shipment he didn't order. He tries to return it. Automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - along the way accumulating transcription errors such that Mr. Walter A. Child's return of the book ["Kidnapped" by Robert Louis Stevenson](https://en.wikipedia.org/wiki/Kidnapped_(novel)) becomes a record that `Walter "kidnapped" A. Child (Robert Louis Stevenson [deceased])`.
 
-At no point does a human ever intervene to apply judgment. Every system in the chain has the authority to escalate but not the *judgment* to stop. The trust chain between systems is treated as sufficient without a human checkpoint. The man is convicted and sentenced to death over a book order. DRY violation as Kafkaesque horror: his innocence was the canonical truth, but no system was configured to reference it.
+At no point does a human ever intervene to apply judgment. Every system in the chain has the authority to escalate but not the *judgment* to stop. The trust chain between systems is treated as sufficient without a human checkpoint. The man is convicted and sentenced to death over a book order. [DRY](https://en.wikipedia.org/wiki/Don%27t_Repeat_Yourself) violation as Kafkaesque horror: his innocence was the canonical truth, but no system was configured to reference it.
+
+What was missing from Dickson's chain wasn't technology. It was a manager - someone with the authority to review what the systems had collectively concluded and say "this is obviously a book return, not a kidnapping." Humans have been running organizations this way for millennia:
+
+> "Delegate authority with oversight checkpoints."
+
+The solution was always available; nobody applied it. Six words on the napkin, same as all the others.
 
 Prompt engineering is dust. Context management skills are ashes. What remains, after everything else has been automated away, is the architecturally unglamorous, existentially critical work of ensuring that somewhere in every automated chain, a human can check whether the system is still working toward the outcome that was actually intended - and redirect it if it's not.
 
 When the machines have all the keys, someone had better be able to break the loop.
+
+For now, that someone is you.
