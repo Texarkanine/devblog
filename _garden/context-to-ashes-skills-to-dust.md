@@ -29,99 +29,121 @@ We were all correct. And now we can all stop.
 
 ## The Subsumption
 
-The tools have started eating the dressings we lay on top of them. From [Cline](https://docs.cline.bot/home) to [Claude Code](https://code.claude.com/docs/en/overview) and [Cursor](https://cursor.com/docs), major harnesses and models are absorbing these behaviors; the gap between "community workaround" and "native feature" is compressing over time.
+The tools have started eating the techniques we dress them up in. From [Cline](https://docs.cline.bot/home) to [Claude Code](https://code.claude.com/docs/en/overview) and [Cursor](https://cursor.com/docs), major harnesses and models are absorbing these behaviors natively. The gap between "community workaround" and "native feature" is compressing over time
 
-### Planning
+Here are some of the key techniques that we've discovered:
 
-Niko's phased plan-then-execute workflow forced the agent to research, plan, get the plan validated, and only *then* build. This was the single highest-leverage intervention - the difference between an agent that wanders and one that ships. This came from my original learning that "you should make a plan before you start coding," which I taught to my agents.
+### 🗺️ Planning
 
-* October 2025: Cursor shipped [Plan Mode](https://cursor.com/blog/plan-mode), with improvements in [2.1 (November)](https://forum.cursor.com/t/cursor-2-1-plan-mode-browser-improvements-ai-code-reviews-and-more/143675) and [2.2 (December)](https://cursor.com/changelog/2-2) 
-* January 2026: Claude Code shipped the [/plan](https://code.claude.com/docs/en/overview) slash command, granting easy access to "Plan Mode" which had been around since at least August 2025 in [1.0.77](https://claudefa.st/blog/guide/changelog#v1077)
+> The agent should research and plan before building. The single highest-leverage intervention — the difference between an agent that wanders and one that ships.
 
-Crucially, both tools now also detect when you're *trying* to plan - describe a complex task and they'll enter plan mode unprompted. You don't have to *ask* for the process, you just have to end up in it.
+Niko's phased plan-then-execute workflow forced the agent through research, planning, and validation before a single line of code got written. This came from my original learning from agentic dev experience & readings that "you should make a plan before you start coding," which I then taught to my agents.
 
-Niko's planning is still slightly better.
+### 📋 Context Initialization
 
-The base is good enough.
+> The agent should understand the project it's working in. Memory bank files, codebase embeddings, and structural summaries all solve this differently.
 
-### Context Initialization
+Niko's memory bank initialization creates a structured set of files — product context, system patterns, tech context — a variation of the [Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md) set, refined through personal industry experience, giving the agent a persistent understanding of the project across sessions. The Cline Memory Bank itself was community-created on the Cline Discord around early 2025 by [nickbaumann98, Krylo, and SniperMunyShotz](https://docs.cline.bot/prompting/cline-memory-bank). The lineage runs through [vanzan01's Cursor adaptation](https://github.com/vanzan01/cursor-memory-bank) into Niko. A *lot* of people, independently, arrived at the same conclusion: agents need structured context to do good work.
 
-Niko's memory bank initialization creates a structured set of files - product context, system patterns, tech context a variation of the Cline memory bank set, refined through my own personal industry experience - giving the agent a persistent understanding of the project across sessions.
+Claude Code's `/init` scaffolds a `CLAUDE.md` file by scanning the codebase, too, but only writes to the single file.
 
-Claude Code's `/init` has been present since launch in February 2025, scaffolding a `CLAUDE.md` file by scanning the codebase. 
+Cursor's approach is actually more interesting and arguably *better* than the manual pattern: it [computes embeddings for every file in your codebase](https://cursor.com/docs/context/codebase-indexing) and provides those alongside a brief tree/text summary of the project structure. This is *indirect* context — you embed the code so the model kinda-sorta knows it, without burning context window on a monolithic description. It's the [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) thesis made manifest by tooling: instead of a giant global prompt telling the model about your code, the model just *implicitly knows* because the code is embedded. The brief structural summary gives just enough for the model to know where it might want to look — rather than the monolithic `AGENTS.md` antipattern.
 
-But Cursor's approach here is actually more interesting and arguably *better* than the manual pattern: it [computes embeddings for every file in your codebase](https://cursor.com/docs/context/codebase-indexing) and provides those alongside a brief tree/text summary of the project structure. This is *indirect* context - you embed the code so the model kinda-sorta knows it, without burning context window on a monolithic description. It's the [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) thesis made manifest by tooling: instead of a giant global prompt telling the model about your code, the model just *implicitly knows* because the code is embedded. And the brief structural summary gives just enough for the model to know where it might want to look - rather than the monolithic `AGENTS.md` antipattern.
+Multi-file repo context documents are being actively developed; I see murmurs of it in my "Stop Doing AGENTS.md" spaces. `/init` will probably produce something closer to Niko's multi-file structure before long. And how long before the tools add "after I realize I built a plan, go update the docs that `/init` touches?"
 
-Multi-file repo context documents are being actively developed; I see murmurs of it in my "Stop Doing AGENTS.md" spaces. `/init` will probably do this better soon. And how long before the tools add "after I realize I built a plan, go update the docs that `/init` touches?"
+### 🔁 The Ralph Wiggum Technique
 
-Niko's "memory bank" files are still slightly better than `/init`'s, and Cursor's embeddings are arguably better for a different reason.
+> Put the agent in a loop, let it try the same prompt over and over until it's good. Fresh context each iteration, accreted codebase underneath, tests as back-pressure. Deterministic correctness from a nondeterministically fallible machine.
 
-The base is good enough.
-
-### The Ralph Wiggum Technique
-
-In July 2025, [Geoffrey Huntley documented](https://ghuntley.com/ralph/) what he called the Ralph Wiggum technique: put an AI coding agent in a bash `while` loop:
+In July 2025, [Geoffrey Huntley documented](https://ghuntley.com/ralph/) the technique: put an AI coding agent in a bash `while` loop:
 
 ```shell
-`while :; do cat PROMPT.md | claude-code ; done`
+while :; do cat PROMPT.md | claude-code ; done
 ```
 
-and let it autonomously ship. Each time through the loop, the context is fresh but the codebase has accreted changes, and the agent keeps making progress towards the goal in the prompt. Doesn't matter if it doesn't get it on the first try, after 50 tries overnight, it will! Cheerfully. Relentlessly. Deterministic correctness from a nondeterministically fallible machine. The name comes from [Ralph](https://en.wikipedia.org/wiki/Ralph_Wiggum)'s energy - not his incompetence, but his unwavering, guileless commitment to the task at hand.
+... and let it autonomously ship. Each time through the loop, the context is fresh but the codebase has accreted changes, and the agent keeps making progress toward the goal in the prompt. Doesn't matter if it doesn't get it on the first try; after 50 tries overnight, it will. The name comes from [Ralph](https://en.wikipedia.org/wiki/Ralph_Wiggum)'s energy — not his incompetence, but his unwavering, guileless commitment to the task at hand.
 
-People put agents in Ralph loops and they [shipped entire projects overnight](https://github.com/repomirrorhq/repomirror/blob/main/repomirror.md). Claude Code shipped [`/loop`](https://github.com/anthropics/claude-code/releases) in early 2026, a first-class command to run a prompt or slash command on a recurring interval. The technique became a feature.
+People put agents in Ralph loops and they [shipped entire projects overnight](https://github.com/repomirrorhq/repomirror/blob/main/repomirror.md).
 
-We'll come back to Ralph.
+Turns out you don't actually have to type the prompt out each time; you can just feed the *same* prompt in over and over again!
 
-### Parallelization
+### 📜 Ephemeral Context and Compaction
 
-You used to handcraft hordes of subagents, or a least explicitly kick them off, to get decent parallelization on tasks - wiring up the topology yourself like a computational middle manager. 
+> Models forget. The context window fills, and older content falls away. Work is often not complete before the model can't ingest any new information. You must find a way to persist what matters.
 
-* May 2025: Cursor shipped [Background Agents](https://cursor.com/changelog/0-50) in preview, scaling to eight parallel agents in Cursor 2.0 (October), with [multi-agent judging](https://cursor.com/changelog/2-2) in 2.2 (December) that evaluates parallel runs and recommends the best solution.
-* July 2025: Claude Code shipped custom subagents in [v1.0.60](https://claudefa.st/blog/guide/changelog#v1060), background agents in [v2.0.60](https://claudefa.st/blog/guide/changelog#v2060) (December), and an [Agent Teams research preview](https://claudefa.st/blog/guide/changelog) in February 2026.
+Cursor was one of the first major harnesses to tackle this by automatically compacting conversations that approached the limit: run the history through a summarizer, produce a summary document, start a new context window with the summary injected. More recently, Cursor [noted the addition](https://cursor.com/blog/dynamic-context-discovery#2-referencing-chat-history-during-summarization) of a technique people had been doing manually: saving the original conversation transcript to disk before compacting, then referencing the full transcript in the next conversation alongside the summary.
 
-By March 2026, both harnesses detect when work is parallelizable and spin off subagents autonomously with appropriate context. You don't wire the topology; you write a good spec and the tool figures out the rest.
+Niko operationalizes and *obviates* this by making "recording the important things to disk" part of the workflow from the start. Niko's [ephemeral memory-bank files](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#ephemeral-files) track the current task: a project brief, active context, progress, task lists, reflections, creative decisions. When Niko finishes a phase and it's time for the human to make a decision, you open a new context window and run the next `/niko-*` command. Niko reads the memory bank from disk and picks up where it left off — clean context, full awareness. If you abort mid-phase, Niko's record-keeping enables the agent to diff the code on-disk against the last memory bank entry to deduce what was lost and resume from the right place.
 
-The base is good enough.
+What this buys you is context windows as [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/), and your "Agent" is the state saved to disk and source control — something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated risks of having it very full.
 
----- CUT HERE ----
+### ✅ Validation Loops
 
-### Ephemeral Context and Compaction
+> Verify the work. The plan must be *good* before building starts; what is built must be *correct* before the task can be considered complete.
 
-Models have a limited amount of text they can hold "in mind" at once - the context window. When it gets full, [performance can degrade]() and when you add more content than the window can hold, you just lose the older stuff; it drops out the back of the window.
+Niko's preflight and QA phases are genuine validation gates. These are not yet natively absorbed. TDD forcing — making the agent write tests first and use them as back-pressure — is also still a value-add, which is frankly surprising given [how impactful TDD is](TODO) at producing good outcomes in agentic workflows.
 
-Transparently dropping older parts of a conversation is not a good user experience!
+### 🧠 Archival Memory
 
-Cursor was one of the first major harnesses to tackle the context window *filling* problem by *automatically compacting* conversations that reached the end of the current model's context window. When the end of the window got close, it would run the current conversation history through a summarizer, produce a summary document, and start a new context window with the summary document injected as context.
+> Remember what you learned, not just what you're doing. Long-term institutional memory that survives beyond the current task lets you improve over time.
 
-This allowed the end-user to continue a conversation indefinitely with no visible interruption! This is certainly better than being forced to end a conversation when the window fills, but compaction is still a lossy process. With a good-enough compactor, maybe you don't lose anything *important*. But that's the trick - you've got to have a good-enough selection process for what makes it into the summary for the next window, and what gets discarded.
+Niko archives summaries of past work into the memory bank — a layer of long-term institutional memory that doesn't come off-the-shelf in any of the major harnesses. But this is partly because archival is opinionated: maybe you'd "archive" in Jira tickets, or GitHub issues, or commits, or a changelog, or a wiki. Eventually there will be something native. Most web-based chat interfaces already read past conversations for context. [CodeRabbit has Learnings](https://docs.coderabbit.ai/knowledge-base/learnings) that persist facts across code reviews. This one's on the roadmap in a way that everything above was once on the roadmap.
 
-In [January 2026](https://cursor.com/blog/dynamic-context-discovery#2-referencing-chat-history-during-summarization), Cursor notes the addition of a technique I'd been doing manually: Saving the original conversation transcript to disk before compacting, and then referencing the full transcript in the next conversation alongside the summary.
+### 🔀 Parallelization
 
-Niko operationalizes and obviates this conversation history management by making "recording the important things to disk" part of the workflow so that at any point you can throw the current context window away without losing anything important. Niko's [ephemeral memory-bank files](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#ephemeral-files) track the current task: a project brief, active context, progress, task lists, reflections, creative decisions. When Niko finishes a phase and it's time for the human to make a decision, you manually open a new context window and run the next `/niko-*` command. Niko reads the memory bank from disk and pick up where it left off - clean context, full awareness. If you abort mid-phase, Niko's rigorous record-keeping enables your agent to diff the code on-disk against the last memory bank entry to deduce what was lost and resume work from the right place.
+> Break work into parallel tracks. The agent should detect parallelizable work and spin off subagents without being told to.
 
-What this buys you is context windows as [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/), and your "Agent" is the state saved to disk (and source control) - something durable and portable.
+Parallelization was the one technique that couldn't be solved by better prompting. Every other innovation on this list was, at bottom, a matter of telling the agent what to do differently. Parallelization required the harness to do something differently — you needed multiple context windows running simultaneously, with coordination between them.
 
-This technique largely sidesteps the problem of running out a model's context window and the associated risks of having it very full.
+Before harness support existed, I was literally cloning repositories into separate directories on my machine, launching a Cursor instance out of each location, and manually giving each one a different prompt. I was the load balancer. Claude Code's early subagent support was more CLI-native but similarly manual — you could spawn subagents, but you were still the one deciding what ran where and reconciling the results. You'd handcraft hordes of subagents, or at least explicitly kick them off, to get decent parallelization on tasks — wiring up the topology yourself like a computational middle manager.
 
-Claude Code introduced auto-compaction in [v0.2.47](https://claudefa.st/blog/guide/changelog#v0247) in March 2025, which works [similarly](https://claudefa.st/blog/guide/mechanics/context-buffer-management) to Cursor.
+Parallelization matters disproportionately to the other techniques: it's pure force multiplication, and it was the one place where no amount of clever process design could substitute for infrastructure the tool didn't yet provide.
 
-Niko's technique is still superior - first-class support for "Agents as Cattle" and "memory is on-disk by default." The 
+You would handcraft hordes of subagents to get decent parallelization on tasks — wiring up the topology yourself like a computational middle manager.
 
-### Validation Loops
+### The Timeline
 
-Niko's preflight and QA phases are genuine validation gates: the plan must pass preflight before building starts, and the build must pass QA before the task is considered done. These are not yet natively absorbed. TDD forcing - making the agent write tests first and use them as back-pressure - is also still a value-add, which is frankly surprising given [how impactful TDD is](https://ghuntley.com/ralph/) at producing good outcomes in agentic workflows.
+So that's a lot to manage, right? No wonder this AI stuff is hard and people struggle to get good results. Right?
 
-But if your spec has good acceptance criteria, you're most of the way there. The final validation loop is the last frontier of orchestration that hasn't been eaten.
+In January 2025, yeah. But your information is outdated; take a look at this timeline:
 
-### Archival Memory
+**February 2025** — The 📋 [Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md) emerges from the Cline Discord: structured markdown files giving agents persistent project 🧠 **memory** across sessions. Claude Code launches with `/init` for 📋 **context initialization**.
 
-Niko archives summaries of past work into the memory bank - a layer of long-term institutional memory that doesn't come off-the-shelf. But this is partly because archival is opinionated: maybe you'd "archive" in Jira tickets, or GitHub issues, or commits, or a changelog, or some other service. Eventually there will be something native that handles it. Claude.ai can already read past conversations for context. Claude Code [automatically records and recalls memories](https://claudefa.st/blog/guide/changelog) as it works. Cursor has [Memories](https://blog.promptlayer.com/cursor-changelog-whats-coming-next-in-2026/) that persist facts across sessions. This one's on the roadmap in a way that everything above was once on the roadmap.
+**March 2025** — [Claude Code v0.2.47](https://claudefa.st/blog/guide/changelog#v0247) ships 📜 **auto-compaction**, automatically summarizing conversations when the context window fills. Before this, you managed the window yourself.
+
+**May 2025** — [Cursor 0.50](https://cursor.com/changelog/0-50) ships Background Agents in preview: 🔀 **parallelization** without hand-wiring the topology.
+
+**June 2025** — [Cursor 1.0](https://cursor.com/changelog/1-0) ships 🧠 **Memories** — persistent facts across sessions. (These later evolved into Cursor Rules, themselves another subsumption: a community concept absorbed, renamed, and integrated.)
+
+**July 2025** — [Claude Code v1.0.60](https://claudefa.st/blog/guide/changelog#v1060) ships custom subagents for 🔀 **parallelization**. Geoffrey Huntley [documents](https://ghuntley.com/ralph/) the 🔁 **Ralph Wiggum technique**: agents in bash `while` loops, shipping overnight.
+
+**August 2025** — [Claude Code v1.0.77](https://claudefa.st/blog/guide/changelog#v1077) ships 🗺️ **Opus Plan Mode**: use Opus for planning, a lighter model for execution.
+
+**October 2025** — [Cursor 2.0](https://cursor.com/changelog/2-0) ships 🗺️ [**Plan Mode**](https://cursor.com/blog/plan-mode). The "make a plan before coding" convention becomes a toggle.
+
+**November 2025** — [Cursor 2.1](https://cursor.com/changelog/2-1) improves 🗺️ **Plan Mode**: the agent can now ask clarifying questions in the UI.
+
+**December 2025** — [Cursor 2.2](https://cursor.com/changelog/2-2) adds Mermaid diagrams to plans — echoing [vanzan01's](https://github.com/vanzan01/cursor-memory-bank) use of Mermaid for visual planning in the community memory banks — dispatches plan items to parallel agents, and ships multi-agent judging for 🔀 **parallelization**. [Claude Code v2.0.60](https://claudefa.st/blog/guide/changelog#v2060) ships background agents.
+
+**January 2026** — [Claude Code v2.1.0](https://claudefa.st/blog/guide/changelog#v210) ships `/plan` as a first-class slash command. Both tools now detect when you're *trying* to plan and enter 🗺️ **plan mode** unprompted.
+
+**February 2026** — [Claude Code v2.1.59](https://claudefa.st/blog/guide/changelog#v2159) ships 🧠 **auto-memories** and [v2.1.32](https://claudefa.st/blog/guide/changelog#v2132) ships 🔀 **Agent Teams**.
+
+**March 2026** — [Claude Code v2.1.63](https://claudefa.st/blog/guide/changelog#v2163) ships 🔁 [`/loop`](https://claudefa.st/blog/guide/changelog#v2163). The Ralph Wiggum technique is now a built-in command.
+
+**Not yet absorbed** 
+- ✅ **Validation loops**. Preflight gates. TDD forcing. QA checkpoints. The last frontier.
+- 🧠 **Archival memory**. Long-term institutional memory that survives beyond the current task lets you improve over time, stored somewhere durable and accessible.
+
+Thirteen months. From the first community workaround to nearly-complete native absorption of every technique that mattered.
 
 ### The Scorecard
 
-Niko does everything listed above, and does each one slightly better than the native version. But for anyone starting today, the built-in tools are past good enough. The delta is real but the delta is shrinking, and the floor keeps rising. You would not tell a newcomer to install Niko. You'd tell them to type their task into Claude Code and let it work.
+Niko does almost everything listed above, usually at least slightly better than the native version. But for anyone starting today, the built-in tools are past good enough. The delta is real but the delta is shrinking and the floor keeps rising. You would not tell a newcomer that they *had* to install Niko to succeed. You'd tell them to cleanly, clearly, and fully type their task into Claude Code and let it work.
 
----
+And that baseline would be good enough.
+
+---- CUT HERE ---
 
 ## The Napkin
 
