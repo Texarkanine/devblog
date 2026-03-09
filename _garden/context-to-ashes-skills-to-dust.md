@@ -81,7 +81,7 @@ What this buys you is context windows as [cattle, not pets](https://cloudscaling
 
 > Verify the work. The plan must be *good* before building starts; what is built must be *correct* before the task can be considered complete.
 
-Niko's preflight and QA phases are genuine validation gates. These are not yet natively absorbed. TDD forcing — making the agent write tests first and use them as back-pressure — is also still a value-add, which is frankly surprising given [how impactful TDD is](TODO) at producing good outcomes in agentic workflows.
+Niko's preflight and QA phases are genuine validation gates. These are not yet natively absorbed. TDD forcing — making the agent write tests first and use them as back-pressure — is also still a value-add, which is frankly surprising given [how impactful TDD is](https://martinfowler.com/fragments/2026-02-18.html) at producing good outcomes in agentic workflows.
 
 ### 🧠 Archival Memory
 
@@ -151,44 +151,46 @@ The reason all of these behaviors get absorbed so easily is that the underlying 
 
 "Plan before executing." "Test before shipping." "Remember what you learned." "Break big work into small work." "Validate before declaring done." "Archive what you did for next time."
 
-These aren't arcane insights. They're things every human business and workflow has understood for decades to centuries to millennia. The entire Niko ruleset - the mermaid diagrams, the phase gates, the memory bank, the complexity tiers - is an elaborate encoding of wisdom that, stripped of implementation details, is under a hundred words of natural language.
+These aren't arcane insights; they're things every human business and workflow has understood for decades to centuries, if not millennia. The entire Niko ruleset - the mermaid diagrams, the phase gates, the memory bank, the complexity tiers - is an elaborate encoding of wisdom that, stripped of implementation details, is just a handful of simple instructions.
 
-The only reason this wisdom wasn't already in the tools is that the tools weren't smart enough to act on plain-language instructions. Now they are. A single engineer can encode "plan before executing" into a system prompt or fine-tuning signal and it just works. Three words. When you omit them, you get what you asked for, which is execution without planning. Remembering to say them was the middle step - the era where a cottage industry of AI optimization tips emerged to teach people what amounts to basic project management. Embedding three words into a model's harness or system prompt is close to trivial for where the tool makers are now.
+The only reason this wisdom wasn't already in the tools is that the tools weren't smart enough to act on plain-language instructions. Now they are. A single engineer can encode "plan before executing" into a system prompt or fine-tuning signal and it just works. Three words. When you omit them, you get what you asked for, which is execution without planning. Remembering to say them was the middle step - the era where a cottage industry of AI optimization tips emerged to teach people what amounts to **basic project management**. Embedding three words into a model's harness or system prompt is close to trivial for where the tool makers are now.
 
 There are probably under a hundred words needed to fully specify the correct autonomous development behavior with superhuman reliability, and the LLMs themselves are helping sift all of humanity's messy corporate process wisdom into those hundred words. This will not take long. And with a little support from the harness, you're done - and moreover, the [models are building their own harnesses now](https://x.com/bcherny/status/2030109840555790357). Force-multiplication. Positive feedback loops. Each generation of model is better at specifying the behavior that makes the *next* generation's harness more effective.
 
-Evidence: [Boris Cherny](https://x.com/bcherny/status/2007179832300581177), head of Claude Code, uses vanilla Claude Code. No elaborate skills, no MCP orchestra, no Niko-like system. The person closest to the tool doesn't need the scaffolding because the tool already internalizes the important stuff.
+The *pièce de résistance* of subsumption is [Boris Cherny](https://x.com/bcherny), creator of Claude Code and his "[vanilla Claude Code]((https://x.com/bcherny/status/2007179832300581177))" setup. Despite the absence of significant third-party addons, Boris is unarguably a power user and the "vanilla" setup is more-complex than most other Claude Code users out there!
 
-The practical upshot, stated directly: unless you're on the bleeding edge and could write [an essay]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) on *why* a given behavior exists and how to do it better, off-the-shelf is beyond good enough and trying to optimize it yourself is time you could spend building the thing instead.
+The practical upshot, stated directly: unless you're on the bleeding edge and could write [an essay](/tags/llm-context-management/) on *why* a given behavior exists and how to do it better, off-the-shelf is beyond good enough and trying to optimize it yourself is time you could spend building the thing instead.
 
----
+## We am Become Wiggum
 
-## The Inversion
-
-We chuckled when we named the [Ralph Wiggum technique](https://ghuntley.com/ralph/). We put agents in bash loops and they shipped projects overnight. We tuned them like guitars, erected signs at the top of slides, and watched them cheerfully, relentlessly build. We felt clever. We *were* clever.
+We chuckled when we named the Ralph Wiggum technique. We put agents in bash loops and they just kept doing their best, bless their hearts, until they shipped. We tuned them like guitars, erected signs at the top of slides, and watched them cheerfully, relentlessly build. We felt clever. We *were* clever.
 
 Now look at us.
 
-Poking and prodding at the agentic process. Fiddling with orchestration. Tuning prompts. Adding yet another rule to `AGENTS.md`. Reading blog posts about the optimal number of subagents. Installing one more MCP server, just in case.
+Poking and prodding at the agentic process. Fiddling with orchestration. Tuning prompts. Adding yet another rule to `AGENTS.md`. Ooh, maybe a Skill! Reading blog posts about the optimal number of subagents. Installing one more MCP server, just in case.
 
 *"I'm helping!"*
 
-We're in our own loop - optimizing a process that's optimizing itself faster than we can keep up. The difference is that Ralph actually shipped. The human in the optimization loop is increasingly just adding latency.
+Bless our hearts. For all the cheek, Ralph actually shipped. The human in the loop is increasingly just adding latency.
 
-The good news is that unlike Ralph, we can recognize the loop and step out of it. The practical takeaway is simple: specify well - good requirements, good acceptance criteria, which will proc plan mode and subagents on their own - auth your pathways, and get out of the way.
+The good news is that unlike Ralph, we can recognize the loop and step out of it. The practical takeaway is simple: off-the-shelf is more than good enough. Specify well - good requirements, good acceptance criteria - and that will will proc plan mode and subagents on their own. Pave your desire paths, hand over the keys, and get out of the way.
 
----
+## The Keys
 
-## The Key
+What's actually left? Let's talk about those "keys" we're handing over.
 
-What's actually left?
+Authentication and authorization.
 
-Auth. It's the one place where the human's role isn't "know something the model doesn't" - that's a knowledge problem, and knowledge problems dissolve once you can express the answer in natural language to a sufficiently capable model. Auth is a trust problem. You `gh auth login` so the agent can push. You `aws sso login` so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. [MCP](https://modelcontextprotocol.io/) - it's MCP, [not ACP]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) - handles auth separation well when it applies, but the core act is still yours: being the human who says "yes, you may."
+The one place where the human's role isn't "know something the agent doesn't" - that's a knowledge problem, and [knowledge problems dissolve once you can express the answer in natural language to a sufficiently capable model](/garden/last-programming-language.html). 
 
-But this too is eroding. Organizations already delegate trust to automated systems constantly. CI/CD pipelines hold credentials. Service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary dissolving from the edges inward, as organizations get comfortable granting progressively broader trust to automated actors.
+Auth is a trust problem. You `gh auth login` so the agent can push. You `aws sso login` so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. [MCP](https://modelcontextprotocol.io/) - it's MCP, [not ACP]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) - handles auth separation well when it applies, but the core act is still yours: being the human who says "yes, you may."
 
-In 1965, Gordon Dickson wrote a short story called *[Computers Don't Argue](https://en.wikipedia.org/wiki/Computers_Don%27t_Argue)* in which a man receives a book club shipment he didn't order. He tries to return it. The automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - because no human ever intervenes to apply judgment. Every system in the chain has the *authority* to escalate but not the *judgment* to stop. The trust chain between systems is treated as sufficient without a human checkpoint. The man is convicted and sentenced to hang over a book order. DRY violation as Kafkaesque horror: his innocence was the canonical truth, but no system was configured to reference it.
+This too is eroding, which should be no surprise because it was never a hard boundary in the first place. Organizations already delegate trust to automated systems: CI/CD pipelines hold credentials, service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary dissolving from the edges, as organizations get comfortable granting progressively broader trust to automated actors.
 
-The orchestration skills are dust. The context management skills are ashes. What remains, after everything else has been automated away, is the architecturally unglamorous, existentially critical work of ensuring that somewhere in every automated trust chain, there's a circuit breaker that a human can reach.
+In 1965, Gordon Dickson wrote a short story called *[Computers Don't Argue](https://archive.org/details/bestofcreativeco00ahld/page/132/mode/2up)* in which a man receives a book club shipment he didn't order. He tries to return it. Automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - along the way accumulating transcription errors such that Mr. Walter A. Child's return of the book "Kidnapped" by Robert Louis Stevenson becomes a record that `Walter "kidnapped" A. Child (Robert Louis Stevenson [deceased])`.
+
+At no point does a human ever intervene to apply judgment. Every system in the chain has the authority to escalate but not the *judgment* to stop. The trust chain between systems is treated as sufficient without a human checkpoint. The man is convicted and sentenced to death over a book order. DRY violation as Kafkaesque horror: his innocence was the canonical truth, but no system was configured to reference it.
+
+Prompt engineering is dust. Context management skills are ashes. What remains, after everything else has been automated away, is the architecturally unglamorous, existentially critical work of ensuring that somewhere in every automated chain, a human can check whether the system is still working toward the outcome that was actually intended - and redirect it if it's not.
 
 When the machines have all the keys, someone had better be able to break the loop.
