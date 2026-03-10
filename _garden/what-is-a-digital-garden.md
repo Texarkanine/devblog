@@ -1,7 +1,7 @@
 ---
 layout: garden
 title: "What is a Digital Garden?"
-description: "... and why I planted one. Curated collections of content and hyperlinks, organized for wandering and discovery."
+description: "And why I planted one. Curated collections of content and hyperlinks, organized for wandering and discovery."
 tags:
   - links
   - thoughts
