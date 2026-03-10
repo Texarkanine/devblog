@@ -1,19 +1,19 @@
 ---
-layout: garden
+layout: post
 title: "Context to Ashes, Skills to Dust"
 subtitle: "All your AI agent wrangling tips will be obviated ere long"
+author: texarkanine
 tags:
   - ai
   - claude-code
   - cursor
   - niko
   - llm-context-management
-  - thoughts
 ---
 
 This is the fourth in what has become an unplanned series.
 
-[The Last Programming Language](the-last-programming-language.html) argued that the entire history of programming languages was a project to close the gap between human intent and machine execution, and that LLMs are the endpoint because they execute natural language directly. [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) and [It's Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) argued, from different angles, that most agent customization is wasted context - duplicated, task-specific, or self-evident to the model.
+[The Last Programming Language]({% link _garden/last-programming-language.md %}) argued that the entire history of programming languages was a project to close the gap between human intent and machine execution, and that LLMs are the endpoint because they execute natural language directly. [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) and [It's Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) argued, from different angles, that most agent customization is wasted context - duplicated, task-specific, or self-evident to the model.
 
 I think the same logic applies one level up: to the *workflows and orchestration* we wrap around the agents themselves.
 
@@ -21,7 +21,7 @@ The distance between "how humans already know work should be done" and "how AI a
 
 ## The Cathedral
 
-I stopped writing code about a year ago. In its place, I built an elaborate orchestration system - [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) - that turned AI coding agents into something resembling a senior colleague with a rigorous process. Phase-gated workflows with complexity tiers. Memory banks split into persistent and ephemeral files. Preflight validation. QA loops. TDD enforcement. An archive system for long-term institutional memory. Mermaid diagrams as a conceit to my human desire to understand the process. A whole cathedral.
+I stopped writing code about a year ago. In its place, I developed a set of habits and techniques culminating in an elaborate orchestration system - [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) - that turned AI coding agents into something resembling a senior colleague with a rigorous process. Phase-gated workflows with complexity tiers. Memory banks split into persistent and ephemeral files. Preflight validation. QA loops. TDD enforcement. An archive system for long-term institutional memory. Mermaid diagrams as a conceit to my human desire to understand the process. A whole cathedral.
 
 And it *worked*. Measurably, demonstrably better than vanilla agentic coding harnesses. My original adoption of [Niko's core](https://github.com/Texarkanine/.cursor-rules/blob/main/rules/niko-core.mdc) turned GPT-4o into Sonnet 3.5, back in March 2025. Niko's lineage traces back through [vanzan01's Cursor memory bank adaptation](https://github.com/vanzan01/cursor-memory-bank) to the original [Cline Memory Bank](https://docs.cline.bot/features/memory-bank), community-created on the Cline Discord around early 2025. The genealogy matters because it shows that a *lot* of people, independently, arrived at the same conclusion: agents need structure, memory, and process to do good work.
 
@@ -187,7 +187,7 @@ What's actually left? Let's talk about those "keys" we're handing over.
 
 Authentication and authorization.
 
-The one place where the human's role isn't "know something the agent doesn't" - that's a knowledge problem, and [knowledge problems dissolve once you can express the answer in natural language to a sufficiently capable model](/garden/last-programming-language.html). 
+The one place where the human's role isn't "know something the agent doesn't" - that's a knowledge problem, and [knowledge problems dissolve once you can express the answer in natural language to a sufficiently capable model]({% link _garden/last-programming-language.md %}). 
 
 Auth is a trust problem. You `gh auth login` so the agent can push. You `aws sso login` so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. [MCP](https://modelcontextprotocol.io/) - it's MCP handles auth separation well when it applies, but the core act is still yours: being the human who says "yes, you may."
 
