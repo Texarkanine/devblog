@@ -1,19 +1,222 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml">
-<link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html">
-<updated>2026-03-08T19:43:49+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title>
-<subtitle>On the internet, nobody knows you're a dog and a cat in a latent space.</subtitle><entry><title type="html">Pink Margarine</title>
-<link href="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html" rel="alternate" type="text/html" title="Pink Margarine">
-<published>2026-03-01T00:00:00+00:00</published><updated>2026-03-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/01/pink-margarine</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-10T03:06:18+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Context to Ashes, Skills to Dust</title><link href="https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust.html" rel="alternate" type="text/html" title="Context to Ashes, Skills to Dust" /><published>2026-03-09T00:00:00+00:00</published><updated>2026-03-09T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust.html"><![CDATA[<p>This is the fourth in what has become an unplanned series.</p>
+
+<p><a href="/garden/last-programming-language.html">The Last Programming Language</a> argued that the entire history of programming languages was a project to close the gap between human intent and machine execution, and that LLMs are the endpoint because they execute natural language directly. <a href="/2026/02/12/stop-doing-agents-md.html">Stop Doing AGENTS.md</a> and <a href="/2026/02/23/model-context-protocol-not-agent-context-protocol.html">It’s Model Context Protocol, Not Agent Context Protocol</a> argued, from different angles, that most agent customization is wasted context - duplicated, task-specific, or self-evident to the model.</p>
+
+<p>I think the same logic applies one level up: to the <em>workflows and orchestration</em> we wrap around the agents themselves.</p>
+
+<p>The distance between “how humans already know work should be done” and “how AI agents do work” is collapsing, for the same reason the programming language gap collapsed - the knowledge was always trivially expressible. We just hadn’t told the machine yet.</p>
+
+<h2 id="the-cathedral">The Cathedral</h2>
+
+<p>I stopped writing code about a year ago. In its place, I developed a set of habits and techniques culminating in an elaborate orchestration system - <a href="https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko">Niko</a> - that turned AI coding agents into something resembling a senior colleague with a rigorous process. Phase-gated workflows with complexity tiers. Memory banks split into persistent and ephemeral files. Preflight validation. QA loops. TDD enforcement. An archive system for long-term institutional memory. Mermaid diagrams as a conceit to my human desire to understand the process. A whole cathedral.</p>
+
+<p>And it <em>worked</em>. Measurably, demonstrably better than vanilla agentic coding harnesses. My original adoption of <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rules/niko-core.mdc">Niko’s core</a> turned GPT-4o into Sonnet 3.5, back in March 2025. Niko’s lineage traces back through <a href="https://github.com/vanzan01/cursor-memory-bank">vanzan01’s Cursor memory bank adaptation</a> to the original <a href="https://docs.cline.bot/features/memory-bank">Cline Memory Bank</a>, community-created on the Cline Discord around early 2025. The genealogy matters because it shows that a <em>lot</em> of people, independently, arrived at the same conclusion: agents need structure, memory, and process to do good work.</p>
+
+<p>We were all correct. And now we can all stop.</p>
+
+<h2 id="the-subsumption">The Subsumption</h2>
+
+<p>The tools have started eating the techniques we dress them up in. From <a href="https://docs.cline.bot/home">Cline</a> to <a href="https://code.claude.com/docs/en/overview">Claude Code</a> and <a href="https://cursor.com/docs">Cursor</a>, major harnesses and models are absorbing these behaviors natively. The gap between “community workaround” and “native feature” is compressing over time</p>
+
+<p>Here are some of the key techniques we’ve discovered:</p>
+
+<h3 id="️-planning">🗺️ Planning</h3>
+
+<blockquote>
+  <p>The agent should research and plan before building. The single highest-leverage intervention - the difference between an agent that wanders and one that delivers.</p>
+</blockquote>
+
+<p>Niko’s phased plan-then-execute workflow forced the agent through research, planning, and validation before a single line of code got written. This came from my original learning from agentic dev experience &amp; readings that “you should make a plan before you start coding,” which I then taught to my agents.</p>
+
+<p>I used to coax the workflow by hand, before I found Niko’s ancestors in the Cursor Memory Bank and welcomed a formalization of the process.</p>
+
+<h3 id="-context-initialization">📋 Context Initialization</h3>
+
+<blockquote>
+  <p>The agent should understand the project it’s working in.</p>
+</blockquote>
+
+<p>Niko’s memory bank initialization creates a <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#persistent-files">structured set of persistent files</a> - product context, system patterns, tech context - a variation of the <a href="https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md">Cline Memory Bank</a> set, refined through personal industry experience, giving the agent a consistent and reliable understanding of the project across sessions. The Cline Memory Bank itself was community-created on the Cline Discord around early 2025.</p>
+
+<p>Claude Code’s <code class="language-plaintext highlighter-rouge">/init</code> scaffolds a <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> file by scanning the codebase, too, but only writes to the single file.</p>
+
+<p>Cursor’s approach is actually more interesting and arguably <em>better</em> than the manual pattern: it <a href="https://cursor.com/docs/context/codebase-indexing">computes embeddings for every file in your codebase</a> and provides those alongside a brief tree/text summary of the project structure. This is <em>indirect</em> context - you embed the code so the model kinda-sorta knows it, without burning context window on a monolithic description. It’s the <a href="/2026/02/12/stop-doing-agents-md.html">Stop Doing AGENTS.md</a> thesis made manifest by tooling: instead of a giant global prompt telling the model about your code, the model just <em>implicitly knows</em> because the code is embedded. The brief structural summary gives just enough for the model to know where it might want to look - rather than the monolithic <code class="language-plaintext highlighter-rouge">AGENTS.md</code> antipattern.</p>
+
+<p>Multi-file repo context documents are being actively developed; I see murmurs of it in my “Stop Doing AGENTS.md” spaces. <code class="language-plaintext highlighter-rouge">/init</code> will probably produce something closer to Niko’s multi-file structure before long. And how long before the tools add “after I finish executing a plan, go update the docs that <code class="language-plaintext highlighter-rouge">/init</code> touches?”</p>
+
+<h3 id="-the-ralph-wiggum-technique">🔁 The Ralph Wiggum Technique</h3>
+
+<p>In July 2025, <a href="https://ghuntley.com/ralph/">Geoffrey Huntley documented</a> the technique: put an AI coding agent in a bash <code class="language-plaintext highlighter-rouge">while</code> loop:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> :<span class="p">;</span> <span class="k">do </span><span class="nb">cat </span>PROMPT.md | claude-code <span class="p">;</span> <span class="k">done</span>
+</code></pre></div></div>
+
+<p>… and let it spin until it stabilizes. Each time through the loop, the context is fresh but the codebase has accreted changes, and the agent keeps making progress toward the goal in the prompt. Doesn’t matter if it doesn’t get it on the first try; after 50 tries overnight, it will. The name comes from <a href="https://en.wikipedia.org/wiki/Ralph_Wiggum">Ralph</a>’s energy - not his incompetence, but his unwavering, guileless commitment to the task at hand.</p>
+
+<p>People put agents in Ralph loops and they <a href="https://github.com/repomirrorhq/repomirror/blob/main/repomirror.md">shipped entire projects overnight</a>.</p>
+
+<p>Turns out you don’t actually have to type the prompt out each time; you can just feed the <em>same</em> prompt in over and over again!</p>
+
+<h3 id="-ephemeral-context-and-compaction">📜 Ephemeral Context and Compaction</h3>
+
+<blockquote>
+  <p>Models forget. The context window fills, and older content falls away. Work is often not complete before the model can’t ingest any new information. You must find a way to persist what matters.</p>
+</blockquote>
+
+<p>Cursor was one of the first major harnesses to tackle this by automatically compacting conversations that approached the limit: run the history through a summarizer, produce a summary document, start a new context window with the summary injected. More recently, Cursor <a href="https://cursor.com/blog/dynamic-context-discovery#2-referencing-chat-history-during-summarization">noted the addition</a> of a technique that people - including myself - had been doing manually: saving the original conversation transcript to disk before compacting, then referencing the full transcript in the next conversation alongside the summary.</p>
+
+<p>Niko operationalizes and <em>obviates</em> this by making “recording the important things to disk” part of the workflow from the start. Niko’s <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#ephemeral-files">ephemeral memory-bank files</a> track the current task: a project brief, active context, progress, task lists, reflections, creative decisions. When Niko finishes a phase and it’s time for the human to make a decision, you open a new context window and run the next <code class="language-plaintext highlighter-rouge">/niko-*</code> command. Niko reads the memory bank from disk and picks up where it left off - clean context, full awareness. If you abort mid-phase, Niko’s record-keeping enables the agent to diff the code on-disk against the last memory bank entry to deduce what was lost and resume from the right place.</p>
+
+<p>What this buys you is context windows as <a href="https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/">cattle, not pets</a>, and your “Agent” is the state saved to disk and source control - something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated <a href="https://arxiv.org/abs/2307.03172">risks of having it very full</a>.</p>
+
+<h3 id="-validation-loops">✅ Validation Loops</h3>
+
+<blockquote>
+  <p>Verify the work. The plan must be <em>good</em> before building starts; what is built must be <em>correct</em> before the task can be considered complete.</p>
+</blockquote>
+
+<p>Niko’s preflight and QA phases are genuine validation gates. TDD forcing - making the agent write tests first and use them as back-pressure - is a <a href="https://martinfowler.com/fragments/2026-02-18.html">key value-add</a> that Niko delivers.</p>
+
+<p>Crucially, Niko’s validation doesn’t default to coming up for air if it fails - it loops back and repeats the attempt. Agent doesn’t get code perfect on the first try? You know what, a lot of humans don’t, either. Going back and reworking it is the name of the game!</p>
+
+<h3 id="-archival-memory">🧠 Archival Memory</h3>
+
+<blockquote>
+  <p>Remember what you learned, not just what you’re doing. Long-term institutional memory that survives beyond the current task lets you improve over time.</p>
+</blockquote>
+
+<p>Niko archives summaries of past work into the memory bank - a layer of long-term institutional memory that doesn’t come off-the-shelf in any of the major harnesses. But this is partly because archival is opinionated: maybe you’d “archive” in Jira tickets, or GitHub issues, or commits, or a changelog, or a wiki. Eventually there will be something native. Cursor started out using a single file - <code class="language-plaintext highlighter-rouge">.cursorrules</code> - as memory, but has since abandoned directly advocating any particular “memory” management pattern. Claude Code semi-advocates using various <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> files as memory; Gemini CLI explicitly <a href="https://geminicli.com/docs/cli/tutorials/memory-management/#how-to-teach-the-agent-facts-memory">calls <code class="language-plaintext highlighter-rouge">GEMINI.md</code> a “memory.”</a> Most web-based chat interfaces already read past conversations for context. <a href="https://docs.coderabbit.ai/knowledge-base/learnings">CodeRabbit has server-side Learnings</a> that persist facts across code reviews.</p>
+
+<p>Everyone agrees: this works and we need it.</p>
+
+<h3 id="-parallelization">🔀 Parallelization</h3>
+
+<blockquote>
+  <p>Break work into parallel tracks to progress as quickly as possible.</p>
+</blockquote>
+
+<p>Parallelization was the one technique that couldn’t be solved by better prompting. Every other innovation on this list was, at its core, a matter of telling the LLM inside the agent what to do differently. Parallelization required the harness to do something differently - you needed multiple context windows running simultaneously, with coordination between them.</p>
+
+<p>Before harness support existed, I was literally cloning repositories into separate directories on my machine, launching a Cursor instance out of each location, and manually giving each one a different prompt. I was the load balancer. Claude Code’s early subagent support was more CLI-native but similarly manual - you could spawn subagents, but you were still the one deciding what ran where and reconciling the results. You’d handcraft hordes of subagents, or at least explicitly kick them off, to get decent parallelization on tasks - wiring up the topology yourself like a computational middle manager.</p>
+
+<p>Parallelization matters disproportionately to the other techniques: it’s pure force multiplication, and it was the one place where no amount of clever process design could substitute for infrastructure the tool didn’t yet provide.</p>
+
+<h3 id="the-timeline">The Timeline</h3>
+
+<p>So that’s a lot to manage, right? No wonder this AI stuff is hard and people struggle to get good results. Right?</p>
+
+<p>In January 2025, yeah. But your information is outdated; take a look at this timeline:</p>
+
+<p><strong>February 2025</strong> — The 📋 <a href="https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md">Cline Memory Bank</a> emerges from the Cline Discord: structured markdown files giving agents persistent project 🧠 <strong>memory</strong> across sessions. Claude Code launches with <code class="language-plaintext highlighter-rouge">/init</code> for 📋 <strong>context initialization</strong>.</p>
+
+<p><strong>March 2025</strong> — <a href="https://claudefa.st/blog/guide/changelog#v0247">Claude Code v0.2.47</a> ships 📜 <strong>auto-compaction</strong>, automatically summarizing conversations when the context window fills. Before this, you managed the window yourself.</p>
+
+<p><strong>May 2025</strong> — <a href="https://cursor.com/changelog/0-50">Cursor 0.50</a> ships Background Agents in preview: 🔀 <strong>parallelization</strong> without hand-wiring the topology.</p>
+
+<p><strong>June 2025</strong> — <a href="https://cursor.com/changelog/1-0">Cursor 1.0</a> ships 🧠 <strong>Memories</strong> — persistent facts across sessions. (These later evolved into Cursor Rules, themselves another subsumption: a community concept absorbed, renamed, and integrated.)</p>
+
+<p><strong>July 2025</strong> — <a href="https://claudefa.st/blog/guide/changelog#v1060">Claude Code v1.0.60</a> ships custom subagents for 🔀 <strong>parallelization</strong>. Geoffrey Huntley <a href="https://ghuntley.com/ralph/">documents</a> the 🔁 <strong>Ralph Wiggum technique</strong>: agents in bash <code class="language-plaintext highlighter-rouge">while</code> loops, shipping overnight.</p>
+
+<p><strong>August 2025</strong> — <a href="https://claudefa.st/blog/guide/changelog#v1077">Claude Code v1.0.77</a> ships 🗺️ <strong>Opus Plan Mode</strong>: use Opus for planning, a lighter model for execution.</p>
+
+<p><strong>October 2025</strong> — <a href="https://cursor.com/changelog/2-0">Cursor 2.0</a> ships 🗺️ <a href="https://cursor.com/blog/plan-mode"><strong>Plan Mode</strong></a>. The “make a plan before coding” convention becomes a toggle.</p>
+
+<p><strong>November 2025</strong> — <a href="https://cursor.com/changelog/2-1">Cursor 2.1</a> improves 🗺️ <strong>Plan Mode</strong>: the agent can now ask clarifying questions in the UI.</p>
+
+<p><strong>December 2025</strong> — <a href="https://cursor.com/changelog/2-2">Cursor 2.2</a> adds Mermaid diagrams to plans — echoing <a href="https://github.com/vanzan01/cursor-memory-bank">vanzan01’s</a> use of Mermaid for visual planning in the community memory banks — dispatches plan items to parallel agents, and ships multi-agent judging for 🔀 <strong>parallelization</strong>. <a href="https://claudefa.st/blog/guide/changelog#v2060">Claude Code v2.0.60</a> ships background agents.</p>
+
+<p><strong>January 2026</strong> — <a href="https://claudefa.st/blog/guide/changelog#v210">Claude Code v2.1.0</a> ships <code class="language-plaintext highlighter-rouge">/plan</code> as a first-class slash command. Both tools now detect when you’re <em>trying</em> to plan and enter 🗺️ <strong>plan mode</strong> unprompted.</p>
+
+<p><strong>February 2026</strong> — <a href="https://claudefa.st/blog/guide/changelog#v2159">Claude Code v2.1.59</a> ships 🧠 <strong>auto-memories</strong> and <a href="https://claudefa.st/blog/guide/changelog#v2132">v2.1.32</a> ships 🔀 <strong>Agent Teams</strong>.</p>
+
+<p><strong>March 2026</strong> — <a href="https://claudefa.st/blog/guide/changelog#v2163">Claude Code v2.1.63</a> ships 🔁 <a href="https://claudefa.st/blog/guide/changelog#v2163"><code class="language-plaintext highlighter-rouge">/loop</code></a>. The Ralph Wiggum technique is now a built-in command.</p>
+
+<p><strong>Not yet absorbed</strong></p>
+<ul>
+  <li>✅ <strong>Validation loops</strong>. Preflight gates. TDD forcing. QA checkpoints.</li>
+  <li>🧠 <strong>Archival memory</strong>. Long-term institutional memory that survives beyond the current task lets you improve over time, stored somewhere durable and accessible.</li>
+</ul>
+
+<p>Thirteen months. From the first community workaround to nearly-complete native absorption of every technique that mattered.</p>
+
+<h3 id="the-scorecard">The Scorecard</h3>
+
+<p>Niko does almost everything listed above, usually at least slightly better than the native version. But for anyone starting today, the built-in tools are past good enough. The delta is real but the delta is shrinking and the floor keeps rising. I would not tell a newcomer to learn Niko. I’d tell them to learn Cursor or Claude Code: cleanly, clearly, and fully type their task into the box and let the agent work.</p>
+
+<p>And that baseline would be good enough.</p>
+
+<h2 id="the-napkin">The Napkin</h2>
+
+<p>The reason all of these behaviors get absorbed so easily is that the underlying knowledge fits on a napkin.</p>
+
+<p>“Plan before executing.” “Test before shipping.” “Remember what you learned.” “Break big work into small work.” “Validate before declaring done.” “Archive what you did for next time.”</p>
+
+<p>These aren’t arcane insights; they’re things every human business and workflow has understood for decades to centuries, if not millennia. The entire Niko ruleset - the mermaid diagrams, the phase gates, the memory bank, the complexity tiers - is an elaborate encoding of wisdom that, stripped of implementation details, is just a handful of simple instructions.</p>
+
+<p>The only reason this wisdom wasn’t already in the tools is no one had gathered them all together and put them in yet. Now they largely have. A single engineer can encode “plan before executing” into a system prompt or fine-tuning signal and it just works. Three words. When you omit them, you get what you asked for, which is execution without planning. Remembering to say them was the middle step - the era where a cottage industry of AI optimization tips emerged to teach people what amounts to <strong>basic project management</strong>. Embedding three words into a model’s harness or system prompt is close to trivial for where the tool makers are now.</p>
+
+<p>And with each generation of model, the napkin gets shorter.</p>
+
+<p>The subsumption timeline tracks the <em>harness</em> absorbing community techniques - tool makers encoding process wisdom into native features. But there’s a deeper layer: the <em>models themselves</em> absorbing behaviors that neither the harness nor the prompts need to teach anymore. Twice, I’ve solved a “model won’t follow instructions” problem not by writing better prompts or more elaborate process scaffolding, but by bumping the model. Once from Sonnet 3.7 to Sonnet 4.0, once from Sonnet 4.5 to Opus 4.6. In both cases, behaviors I’d spent real effort trying to wring out through prompts - staying on task, following the plan without wandering, respecting phase gates - just <em>happened</em> on the new model without being asked. The elaborate scaffolding wasn’t compensating for a process gap. It was compensating for a capability gap, and the capability gap closed.</p>
+
+<p>Niko’s <code class="language-plaintext highlighter-rouge">/niko-*</code> command structure - and the directive to the operator to <em>only</em> use these commands to navigate the workflow, ensuring Niko is in play at each step - exists because earlier models would wander off if you didn’t force them through checkpoints. Niko’s commands serve the double-duty of reinforcing the process <em>and</em> reinforcing the context persistence out to the memory-bank on disk. That’s a bandaid over attention span and instruction adherence. Better models don’t need the bandaid. Some of those napkin words stop being necessary at all - not because someone built them into the harness, but because the model internalized them during training.</p>
+
+<p>Some wisdom is visibly absorbed into the harness and some wisdom is invisibly absorbed into the model’s base capabilities. And with those wisdoms, the models are <a href="https://x.com/bcherny/status/2030109840555790357">building their own harnesses</a> and <a href="https://x.com/karpathy/status/2031135152349524125">training models on their own</a>. Force-multiplication. Positive feedback loops. Each generation of model is better at specifying the behavior that makes the <em>next</em> generation more effective. The napkin gets shorter. Some of the words disappear entirely.</p>
+
+<p>The <em>pièce de résistance</em> of subsumption is <a href="https://x.com/bcherny">Boris Cherny</a>, creator of Claude Code and his “<a href="https://x.com/bcherny/status/2007179832300581177">vanilla Claude Code</a>” setup. Despite the absence of significant third-party addons, Boris is unarguably a power user and the “vanilla” setup is more-complex than most other Claude Code users out there! If you read through it, you’ll see a lot of echoes of all the techniques described above, just, solved with “vanilla” Claude Code!</p>
+
+<p>The practical upshot, stated directly: unless you’re on the bleeding edge and could write <a href="/tags/llm-context-management/">an essay</a> on <em>why</em> a given behavior exists and how to do it better, off-the-shelf is beyond good enough and trying to optimize it yourself is time you could spend building the thing instead.</p>
+
+<h2 id="we-am-become-wiggum">We am Become Wiggum</h2>
+
+<p>We chuckled when we named the Ralph Wiggum technique. We put agents in bash loops and they just kept doing their best, bless their hearts, until they shipped. We tuned them like guitars, erected signs at the top of slides, and watched them cheerfully, relentlessly build. We felt clever. We <em>were</em> clever.</p>
+
+<p>Now look at us.</p>
+
+<p>Poking and prodding at the agentic process. Fiddling with orchestration. Tuning prompts. Adding yet another rule to <code class="language-plaintext highlighter-rouge">AGENTS.md</code>. Ooh, maybe a Skill this time! Reading blog posts about the optimal number of subagents (how big should your Gas Town be?). Installing one more MCP server, just in case.</p>
+
+<p><em>“I’m helping!”</em></p>
+
+<p>Bless our hearts. For all the cheek, Ralph actually shipped. The human in the workflow’s loop is increasingly just adding latency, not value.</p>
+
+<p>The good news is that unlike Ralph, we can recognize the loop and step out of it. The practical takeaway is simple: off-the-shelf is more than good enough. Specify well - good requirements, good acceptance criteria - and let the subagents work on your plan. Pave your desire paths, hand over the keys, and get out of the way.</p>
+
+<h2 id="the-keys">The Keys</h2>
+
+<p>What’s actually left for us to do, then? Let’s talk about those “keys” we’re handing over.</p>
+
+<p>Authentication and authorization.</p>
+
+<p>The one place where the human’s role isn’t “know something the agent doesn’t” - that’s a knowledge problem, and <a href="/garden/last-programming-language.html">knowledge problems dissolve once you can express the answer in natural language to a sufficiently capable model</a>.</p>
+
+<p>Auth is a trust problem. You <code class="language-plaintext highlighter-rouge">gh auth login</code> so the agent can push. You <code class="language-plaintext highlighter-rouge">aws sso login</code> so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. <a href="https://modelcontextprotocol.io/">MCP</a> handles auth separation well when it applies, but the core act is still yours: being the human who says “yes, you may.”</p>
+
+<p>This too is eroding, which should be no surprise because it was never a hard boundary in the first place. Organizations already delegate trust to automated systems: CI/CD pipelines hold credentials, service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary around agents dissolving from the edges as organizations get comfortable granting progressively broader trust to automated actors.</p>
+
+<p>In 1965, <a href="https://en.wikipedia.org/wiki/Computers_Don%27t_Argue">Gordon Dickson wrote a short story</a> called <em><a href="https://archive.org/details/bestofcreativeco00ahld/page/132/mode/2up">Computers Don’t Argue</a></em> in which a man receives a book club shipment he didn’t order. He tries to return it. Automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - along the way accumulating transcription errors such that Mr. Walter A. Child’s return of the book <a href="https://en.wikipedia.org/wiki/Kidnapped_(novel)">“Kidnapped” by Robert Louis Stevenson</a> becomes a record that <code class="language-plaintext highlighter-rouge">Walter "kidnapped" A. Child (Robert Louis Stevenson [deceased])</code>.</p>
+
+<p>At no point does a human ever intervene to apply judgment. Every system in the chain has the authority to escalate but not the <em>judgment</em> to stop. The trust chain between systems is treated as sufficient with no need for a human checkpoint. The man is convicted and sentenced to death over a book order. <a href="https://en.wikipedia.org/wiki/Don%27t_Repeat_Yourself">DRY</a> violation as Kafkaesque horror: his innocence was the canonical truth, but no system was configured to reference it.</p>
+
+<p>What was missing from Dickson’s chain wasn’t technology. It was a manager - someone with the authority to review what the systems had collectively concluded and say “this is obviously a book return, not a kidnapping.” Humans have been running organizations this way for millennia:</p>
+
+<blockquote>
+  <p>“Delegate authority with oversight checkpoints.”</p>
+</blockquote>
+
+<p>The solution was always available; nobody applied it. Five more words on the napkin.</p>
+
+<p>Prompt engineering is dust. Context management skills are ashes. What remains, after everything else has been automated away, is the architecturally unglamorous, existentially critical work of ensuring that somewhere in every automated chain, a human can check whether the system is still working toward the outcome that was actually intended - and redirect it if it’s not.</p>
+
+<p>For now, that human is you. You’re a manager now: the machines don’t need your help figuring out how to do their jobs anymore.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="claude-code" /><category term="cursor" /><category term="niko" /><category term="llm-context-management" /><summary type="html"><![CDATA[This is the fourth in what has become an unplanned series.]]></summary></entry><entry><title type="html">Pink Margarine</title><link href="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html" rel="alternate" type="text/html" title="Pink Margarine" /><published>2026-03-01T00:00:00+00:00</published><updated>2026-03-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/01/pink-margarine</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html"><![CDATA[<blockquote>
   <p>pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. 
-<br></p>
+<br /></p>
   <ol>
     <li>Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase.</li>
     <li>Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.</li>
   </ol>
+</blockquote>
 
-
-<h2 id="one-engineer-one-week-1100">One Engineer, One Week, $1,100<a href="#one-engineer-one-week-1100" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="one-engineer-one-week-1100">One Engineer, One Week, $1,100</h2>
 
 <blockquote class="link-card">
   
@@ -33,8 +236,7 @@
 
 <p>This isn’t new; there’s not only precedent, but <em>legal</em> precedent: The Supreme Court already established in <a href="https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc."><em>Google v. Oracle</em></a> that reimplementing an API surface isn’t infringement - behavioral equivalence doesn’t require copying expression. What’s new is <em>cost</em>. Google’s clean-room reimplementation of Java’s APIs almost certainly took millions of dollars and years of engineering. Cloudflare did functionally the same thing with one person, one grand, and one week. The legal barrier didn’t go away; the economic barrier evaporated.</p>
 
-<h2 id="characteristic-specificity">Characteristic Specificity<a href="#characteristic-specificity" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="characteristic-specificity">Characteristic Specificity</h2>
 
 <p>Copyright protection’s value is designed around a property I’ll call <em>characteristic specificity</em>: the degree to which the specific expression of a work <strong><em>is</em></strong> the value of the work.</p>
 
@@ -48,8 +250,7 @@
 
 <p>Humans have always been allowed to observe, internalize, and reproduce behavior and style. Internalizing knowledge and re-synthesizing it back out - “standing on the shoulders of giants” - is how humanity builds and advances. It only starts to <em>feel</em> like theft (to some) when the breadth and timescale changes. Before you even get a chance to see the sights from atop the giant <em>you</em> climbed, someone else is already on <em>your</em> shoulders, and someone else upon theirs.</p>
 
-<h2 id="software-has-no-characteristic-specificity">Software Has No Characteristic Specificity<a href="#software-has-no-characteristic-specificity" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="software-has-no-characteristic-specificity">Software Has No Characteristic Specificity</h2>
 
 <p>Software is different: its value is entirely in behavior.</p>
 
@@ -59,8 +260,7 @@
 
 <p><a href="https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks">Anthropic’s distillation discourse</a> is an echo of the same underlying mismatch. The principle hasn’t changed; what changed is that the knowledge labor required to reimplement behavior used to cost so much that the proxy between expression and behavior rarely got tested. Now it gets tested for $1,100.</p>
 
-<h2 id="the-proxy-broke">The Proxy Broke<a href="#the-proxy-broke" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-proxy-broke">The Proxy Broke</h2>
 
 <p>AI didn’t change what copyright protects. It broke the economic proxy that made copyright <em>seem</em> like it protected software.</p>
 
@@ -70,15 +270,14 @@
 
 <p>And software licenses? They’re <em>all</em> built atop copyright law and inherit the mismatch completely. From MIT to AGPL to proprietary commercial licenses, they all assert some form of “Per copyright law, I own this code and you cannot use it unless you play by my rules.” But if someone reimplements the behavior without using the code at all… the license has nothing to attach to. The product-space protections that copyright offers are shrinking, and there’s no legal mechanism to stop it - because the legal mechanism was never actually protecting the <em>behavior</em>, which was the actual value. It was protecting the <em>expression</em> and relying on the proxy.</p>
 
-<h2 id="the-canary-in-the-coal-mine">The Canary in the Coal Mine<a href="#the-canary-in-the-coal-mine" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-canary-in-the-coal-mine">The Canary in the Coal Mine</h2>
 
 <p>Software is the canary, not the story. The mismatch is starkest in code because software has very high value relative to its <em>characteristic specificity</em> - but the mine runs much deeper.</p>
 
 <p>Knowledge work is a continuum from ideation through labor to artifact:</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/328eee13.svg"><img src="/assets/svg/328eee13.svg" alt="Mermaid Diagram"></a>
+<a href="/assets/svg/328eee13.svg"><img src="/assets/svg/328eee13.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <p>Copyright guards the rightmost output: the finished artifact, which we call “intellectual property.” AI already bangs those out faster and better every day. Vinext is an incredibly high-profile, commercial signal that AI can commoditize the middle step (labor) too.</p>
@@ -97,8 +296,7 @@
 
 <p>Software protectionism via copyright-based licensing will probably work for at least a little while yet. Maybe a long while. But the trajectory is one-directional, and eventually it’ll all look like <strong>pink margarine.</strong></p>
 
-<h3 id="what-about-non-code">What about Non-Code?<a href="#what-about-non-code" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="what-about-non-code">What about Non-Code?</h3>
 
 <p>Others have said it better than I:</p>
 
@@ -122,8 +320,7 @@
 
 <p>GPT-5 <a href="https://openai.com/index/accelerating-biological-research-in-the-wet-lab/">autonomously ran bio lab experiments</a> with novel results. Mathematicians <a href="https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/">convened in secret</a> and found AI “approaching mathematical genius.” GPT-5-pro found a <a href="https://threadreaderapp.com/thread/1958198661139009862.html">novel solution to an open question in a human-published mathematics paper</a>. Ideation isn’t some distant frontier - it’s under active pressure today.</p>
 
-<h2 id="will-the-people-suffer">Will the People Suffer?<a href="#will-the-people-suffer" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="will-the-people-suffer">Will the People Suffer?</h2>
 
 <p>Less than you’d think, with one important exception.</p>
 
@@ -145,10 +342,9 @@
 
 <p>Software licensing is dead. For software that runs where you choose, the death doesn’t much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.</p>
 
-<hr>
+<hr />
 
-<h2 id="postscript">Postscript<a href="#postscript" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="postscript">Postscript</h2>
 
 <p>Or, <strong><em>“called it!”</em></strong></p>
 
@@ -157,8 +353,7 @@
 </blockquote>
 
 <ul>
-  <li>
-<strong>2026-03-04</strong> - <a href="https://www.wsj.com/cio-journal/meet-the-companies-vibe-coding-their-own-crms-263e500f">Meet the Companies Vibecoding their own CRMs</a> (Wall Street Journal)</li>
+  <li><strong>2026-03-04</strong> - <a href="https://www.wsj.com/cio-journal/meet-the-companies-vibe-coding-their-own-crms-263e500f">Meet the Companies Vibecoding their own CRMs</a> (Wall Street Journal)</li>
 </ul>
 
 <blockquote>
@@ -166,9 +361,7 @@
 </blockquote>
 
 <ul>
-  <li>
-<strong>2026-03-05</strong> - <a href="https://tuananh.net/2026/03/05/relicensing-with-ai-assisted-rewrite/">Relicensing with AI-assisted rewrite</a> <small><code class="language-plaintext highlighter-rouge">chardet</code> did a full AI behavioral-clone rewrite and switched licenses from LGPL to MIT</small>
-</li>
+  <li><strong>2026-03-05</strong> - <a href="https://tuananh.net/2026/03/05/relicensing-with-ai-assisted-rewrite/">Relicensing with AI-assisted rewrite</a> <small><code class="language-plaintext highlighter-rouge">chardet</code> did a full AI behavioral-clone rewrite and switched licenses from LGPL to MIT</small></li>
 </ul>
 
 <blockquote>
@@ -176,19 +369,14 @@
 </blockquote>
 
 <ul>
-  <li>
-<strong>2026-03-04</strong> - <a href="https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf">Claude’s Cycles</a> (Donald Knuth - yeah, that <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>) <small>“Shock! Shock! I learned yesterday that an open problem I’d been working on for several weeks had just been solved by Claude Opus 4.6”</small>
-</li>
-</ul>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="essay"></category><category term="ai"></category><category term="copyleft"></category><category term="copyright"></category><category term="intellectual-property"></category><category term="software-licensing"></category><summary type="html"></summary></entry><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title>
-<link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol">
-<published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html">Thesis
+  <li><strong>2026-03-04</strong> - <a href="https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf">Claude’s Cycles</a> (Donald Knuth - yeah, that <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>) <small>“Shock! Shock! I learned yesterday that an open problem I’d been working on for several weeks had just been solved by Claude Opus 4.6”</small></li>
+</ul>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="copyleft" /><category term="copyright" /><category term="intellectual-property" /><category term="software-licensing" /><summary type="html"><![CDATA[pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase. Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.]]></summary></entry><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title><link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol" /><published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>Most of the time, MCP doesn’t deliver any value beyond what a capable model could get from a CLI and a shell.</p>
 </blockquote>
 
-<h2 id="the-m">The M<a href="#the-m" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-m">The M</h2>
 
 <p>The “M” in <a href="https://modelcontextprotocol.io">MCP</a> stands for “Model.” Not “Agent.”</p>
 
@@ -196,8 +384,7 @@
 
 <p>MCP was designed to give <em>“models”</em> with constrained reasoning capabilities well-defined tools that they could find and use to succeed. Somewhere along the way, people started bolting it onto <em>agents</em> and wondering why the fit was bad.</p>
 
-<h2 id="the-baseline-is-free">The Baseline Is Free<a href="#the-baseline-is-free" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-baseline-is-free">The Baseline Is Free</h2>
 
 <p>A sufficiently capable model with shell access can already do a lot. It knows <a href="https://cli.github.com/">gh</a>. It knows <a href="https://curl.se/">curl</a>. It knows <a href="https://jqlang.org/">jq</a>. It can read <code class="language-plaintext highlighter-rouge">--help</code>. It can try things, observe the output, and adjust. This is the baseline, and the baseline is free - no tool definitions in context, no server overhead, no configuration to manage.</p>
 
@@ -207,13 +394,11 @@
 
 <p>So the question for any MCP integration is: what does this buy me that the model couldn’t get on its own?</p>
 
-<h2 id="earning-tokens">Earning Tokens<a href="#earning-tokens" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="earning-tokens">Earning Tokens</h2>
 
 <p>There are a handful of things MCP genuinely buys over the baseline. Each one is a mechanism that justifies the context cost - but only when the tool is <em>core</em> to the model’s task.</p>
 
-<h3 id="attention">Attention<a href="#attention" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="attention">Attention</h3>
 
 <p>When a tool is always in context, the model always knows it exists and exactly how to call it. No discovery step, no hoping it “remembers” that some CLI is available, no wasted attempt with wrong flags.</p>
 
@@ -221,8 +406,7 @@
 
 <p>For a general-purpose coding agent that <em>might</em> use it? You’re paying rent on a room nobody’s sleeping in.</p>
 
-<h3 id="formatting">Formatting<a href="#formatting" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="formatting">Formatting</h3>
 
 <p>The strict I/O contract of an MCP server’s tool invocation solves two problems:</p>
 
@@ -235,15 +419,13 @@
 
 <p>A CSR agent accidentally malforming a deletion request and nuking the wrong entity is catastrophic. A coding agent producing slightly wonky JSON in a one-off script is a minor annoyance you’ll catch in review. MCP’s strict formatting buys you insurance, and insurance is only worth buying against risks that would actually hurt.</p>
 
-<h3 id="business-logic-and-sequencing">Business Logic and Sequencing<a href="#business-logic-and-sequencing" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="business-logic-and-sequencing">Business Logic and Sequencing</h3>
 
 <p>When primitive API operations must be composed in a strict order, you have business logic. Things like create the parent before the child, set the status before assigning the owner, ensure delivery of the last message before archiving, etc. You can write that logic into your prompt and hope the stochastic parrot doesn’t drop step 3 of 7, or you can encode it into a deterministic tool that gets it right every time.</p>
 
 <p>The MCP earns its tokens by encoding sequences that are easy to get wrong and expensive to debug.</p>
 
-<h3 id="auth-scope-management">Auth Scope Management<a href="#auth-scope-management" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="auth-scope-management">Auth Scope Management</h3>
 
 <p>Maybe your API token has <code class="language-plaintext highlighter-rouge">delete</code> permissions, but you only want the model to be able to delete orphaned entities. Instead of just asking nicely and hoping for the best, an MCP server can expose the “delete orphaned entities” tool, and hold onto the API token. The LLM can’t mistakenly delete something it shouldn’t because it doesn’t actually have credentials to delete!</p>
 
@@ -251,13 +433,11 @@
 
 <p>This is a real, concrete security win. Your L1 CSR agent gets N tools for its N tasks, and that’s <em>all</em> it can do. No <code class="language-plaintext highlighter-rouge">bash</code>, no <code class="language-plaintext highlighter-rouge">curl</code> - not just because those aren’t its job, but because injection and privilege escalation are real risks when a model has access to a shell and credentials in the same context. Block all <em>commands.</em> Give it the <em>tools.</em> Done.</p>
 
-<h3 id="parallelism">Parallelism<a href="#parallelism" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="parallelism">Parallelism</h3>
 
 <p>If you’re running a true, long-lived MCP server (not a per-invocation spawn) and you have multiple model instances hitting it concurrently, the server can handle synchronization. This is a real but minor benefit, and I’d argue that if your underlying API can’t handle concurrent access, that’s a different bug. MCP shouldn’t be your concurrency band-aid.</p>
 
-<h2 id="when-mcp-is-wrong">When MCP Is Wrong<a href="#when-mcp-is-wrong" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="when-mcp-is-wrong">When MCP Is Wrong</h2>
 
 <p>The flip side falls out naturally:</p>
 
@@ -285,16 +465,14 @@
 
 <p>MCP is probably wrong. Your coding agent’s job is to read code, write code, run commands, explore, and iterate. The set of “tools” it might need on any given task is enormous and unpredictable. Shoving a dozen MCPs into its context “just in case” is exactly the antipattern - you’re paying context rent on tools the agent mostly won’t use, for tasks it could accomplish with the shell it already has. A small set of versatile, open-ended tools - by which I basically just mean file I/O operations and a shell (and maybe spawning a subagent) - is much better-suited to its job.</p>
 
-<h2 id="the-discourse">The Discourse<a href="#the-discourse" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-discourse">The Discourse</h2>
 
 <p>I’ve seen an uptick in anti-MCP discourse lately - both explicit and implicit. For some examples:</p>
 
 <ul>
   <li>“MCP is dead, just use the CLI”</li>
   <li>“MCP is a context waste”</li>
-  <li>
-<a href="https://forum.cursor.com/t/return-the-custom-modes-features/144170/5?u=texarkanine">Bring Back Cursor Modes</a>!</li>
+  <li><a href="https://forum.cursor.com/t/return-the-custom-modes-features/144170/5?u=texarkanine">Bring Back Cursor Modes</a>!</li>
   <li>A colleague of mine built a script to selectively set the contents of <code class="language-plaintext highlighter-rouge">mcp.json</code> before launching Claude Code</li>
 </ul>
 
@@ -304,11 +482,9 @@
 
 <p>The M was the tell the whole time.</p>
 
-<h2 id="what-to-do">What To Do<a href="#what-to-do" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="what-to-do">What To Do</h2>
 
-<h3 id="1-prune">1. Prune<a href="#1-prune" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="1-prune">1. Prune</h3>
 
 <p>Go look at your MCP configuration right now. For each server, ask: “Does this earn its tokens?” Apply the framework above. If the model could accomplish the same thing with a CLI it already knows about, or a clean API it can <code class="language-plaintext highlighter-rouge">curl</code>, cut it.</p>
 
@@ -316,8 +492,7 @@
 
 <p>But you’ll also have a pile of useful-but-not-earning-it tools that you still want <em>available</em> sometimes. Set those aside. We’ll come back to them.</p>
 
-<h3 id="2-pave-your-desire-paths">2. Pave Your Desire Paths<a href="#2-pave-your-desire-paths" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="2-pave-your-desire-paths">2. Pave Your Desire Paths</h3>
 
 <p>Before reaching for any context management technique, ask why the model needed the MCP server in the first place. Can it not <a href="https://github.com/sooperset/mcp-atlassian">figure out how to interface with a gnarly remote service</a>? Can it not <a href="https://context7.com/">find the information it needed</a>? Are you limited in how you can authenticate?</p>
 
@@ -341,8 +516,7 @@
   <p>the cheapest context is the context you never had to add because the model’s intuition was already correct.</p>
 </blockquote>
 
-<h3 id="3-recover-the-rest-as-skills">3. Recover the Rest as Skills<a href="#3-recover-the-rest-as-skills" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="3-recover-the-rest-as-skills">3. Recover the Rest as Skills</h3>
 
 <p>After pruning and paving, you’ll still have tools that are genuinely useful but don’t earn always-in-context MCP weight. <a href="https://agentskills.io">Agent Skills</a> are a mechanically better home for these, and here’s why: information hiding.</p>
 
@@ -354,8 +528,7 @@
 
 <p>Skills can also bundle standalone resources - scripts, templates, deterministic tooling, etc. Instead of writing a <em>prompt</em> describing how to form a correct <code class="language-plaintext highlighter-rouge">curl</code> to an API, you can just write a script that the agent can invoke, and bundle that in the skill. This can achieve the same reliability of outcomes that MCP delivered, but without the context tax.</p>
 
-<h3 id="4-wait-and-agitate">4. Wait, and Agitate<a href="#4-wait-and-agitate" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="4-wait-and-agitate">4. Wait, and Agitate</h3>
 
 <p>The <em>real</em> solution doesn’t exist yet.</p>
 
@@ -369,9 +542,7 @@
 
 <p>That’s a hard design problem. The parent has to know about those MCPs to provide them to subagents, but knowing about them means they’re in context. Skills are the best workaround we have today, but they’re a workaround. The real fix is a harness-level feature that nobody ships yet.</p>
 
-<p>If you’re building agentic tooling: this is a gap!</p>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="essay"></category><category term="ai"></category><category term="mcp"></category><category term="llm-context-management"></category><summary type="html"></summary></entry><entry><title type="html">.gitignore is not .agentignore</title>
-<link href="https://blog.cani.ne.jp/2026/02/22/gitignore-is-not-agentignore.html" rel="alternate" type="text/html" title=".gitignore is not .agentignore">
-<published>2026-02-22T00:00:00+00:00</published><updated>2026-02-22T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/22/gitignore-is-not-agentignore</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/22/gitignore-is-not-agentignore.html">Thesis
+<p>If you’re building agentic tooling: this is a gap!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="mcp" /><category term="llm-context-management" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">.gitignore is not .agentignore</title><link href="https://blog.cani.ne.jp/2026/02/22/gitignore-is-not-agentignore.html" rel="alternate" type="text/html" title=".gitignore is not .agentignore" /><published>2026-02-22T00:00:00+00:00</published><updated>2026-02-22T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/22/gitignore-is-not-agentignore</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/22/gitignore-is-not-agentignore.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>“Do not track in source control” and “do not let a coding agent see the file” are <strong>not</strong> the same thing.</p>
@@ -383,24 +554,20 @@
   <p>Defaulting to hiding git-ignored files from agents is a mistaken design.</p>
 </blockquote>
 
-<h2 id="the-original-problem">The Original Problem<a href="#the-original-problem" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-original-problem">The Original Problem</h2>
 
 <p>As AI coding agents get more popular, people are realizing that they want to be able to keep certain files from the agents. This can be for a variety of reasons:</p>
 
 <ol>
   <li>Sensitive local configuration / credentials (<code class="language-plaintext highlighter-rouge">.env.local</code>, etc.)</li>
   <li>Text content generated by build tooling that is never manually edited (Documentation sites, code coverage reports, etc.)</li>
-  <li>
-<em>Binary</em> content generated by build tooling that is never manually edited or even read by developers (<code class="language-plaintext highlighter-rouge">*.class</code>, <code class="language-plaintext highlighter-rouge">*.jar</code>, etc.)</li>
+  <li><em>Binary</em> content generated by build tooling that is never manually edited or even read by developers (<code class="language-plaintext highlighter-rouge">*.class</code>, <code class="language-plaintext highlighter-rouge">*.jar</code>, etc.)</li>
   <li>Personal, repo-specific agent guidelines that are not relevant to the project at large</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">node_modules</code> and other such directories</li>
+  <li><code class="language-plaintext highlighter-rouge">node_modules</code> and other such directories</li>
   <li>…and more!</li>
 </ol>
 
-<h2 id="the-red-herring">The Red Herring<a href="#the-red-herring" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-red-herring">The Red Herring</h2>
 
 <p>Many of those things are <em>also</em> things that should not be tracked in source control - and <a href="https://git-scm.com/docs/gitignore"><code class="language-plaintext highlighter-rouge">.gitignore</code> (and its lesser-known cousin, <code class="language-plaintext highlighter-rouge">.git/info/exclude</code>) exist</a>!</p>
 
@@ -408,8 +575,7 @@
 
 <p>The result was that most projects never bothered to set up a <code class="language-plaintext highlighter-rouge">.cursorignore</code> - because their <code class="language-plaintext highlighter-rouge">.gitignore</code> covered most of what they needed to exclude.</p>
 
-<h2 id="the-emerging-problem">The Emerging Problem<a href="#the-emerging-problem" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-emerging-problem">The Emerging Problem</h2>
 
 <p>There are at least three things on that ignore list that indeed shouldn’t be in source control but you may very well want to let an agent see:</p>
 
@@ -419,15 +585,13 @@
   <li><code class="language-plaintext highlighter-rouge">node_modules</code></li>
 </ul>
 
-<h3 id="text-content">Text Content<a href="#text-content" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="text-content">Text Content</h3>
 
 <p>Access to generated text content is actually required if you want an agent to use and be able to <em>verify</em> that the build tooling works! Imagine asking an agent to update your documentation site, but then it can’t <em>see</em> the generated content to check afterwards!</p>
 
 <p>For example… <em>this very blog</em>! When changing how <a href="https://jekyllrb.com/">Jekyll</a> builds it, the agent <em>must</em> be able to see the output in <code class="language-plaintext highlighter-rouge">site/</code> - but we do <em>not</em> commit <code class="language-plaintext highlighter-rouge">site/</code> to source control!</p>
 
-<h3 id="personal-repo-specific-rules">Personal, Repo-Specific Rules<a href="#personal-repo-specific-rules" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="personal-repo-specific-rules">Personal, Repo-Specific Rules</h3>
 
 <p>The problem here emerges for agentic coding power-users: Once you start customizing an agent’s behavior, you realize:</p>
 
@@ -444,9 +608,7 @@
 
 <p>But an agentic coding harness that assumes all git-ignored files are <em>also</em> irrelevant to the agent doesn’t allow this (you have to end up doing <a href="/2025/12/12/hook-based-local-mode-for-ai-rizz.html">insane things</a> to make it work…).</p>
 
-<h3 id="node_modules">
-<code class="language-plaintext highlighter-rouge">node_modules</code><a href="#node_modules" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="node_modules"><code class="language-plaintext highlighter-rouge">node_modules</code></h3>
 
 <p>This is a point of contention, but in my experience, allowing an agent to be able to access <code class="language-plaintext highlighter-rouge">node_modules</code> - or other such installed-dependency directories - is amazing.</p>
 
@@ -454,8 +616,7 @@
 
 <p>As an aside, I think this is <em>one of</em> the reasons that JavaScript (via node) has become one of the most-popular languages for agentic development, despite human devs’ longstanding complaints about JS. The available context can expand all the way up to the entirety of all  <em>possible</em> call graphs!</p>
 
-<h2 id="the-right-ideas">The Right Ideas<a href="#the-right-ideas" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-right-ideas">The Right Ideas</h2>
 
 <p>The solution is a dedicated, standardized “Agent Ignore” file.</p>
 
@@ -466,12 +627,8 @@
 <p>Consider,</p>
 
 <ul>
-  <li>
-<code class="language-plaintext highlighter-rouge">.dockerignore</code> - <a href="https://docs.docker.com/build/concepts/context/#dockerignore-files">for Docker builds</a>
-</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">.helmignore</code> - <a href="https://helm.sh/docs/chart_template_guide/helm_ignore_file/">for Helm charts</a>
-</li>
+  <li><code class="language-plaintext highlighter-rouge">.dockerignore</code> - <a href="https://docs.docker.com/build/concepts/context/#dockerignore-files">for Docker builds</a></li>
+  <li><code class="language-plaintext highlighter-rouge">.helmignore</code> - <a href="https://helm.sh/docs/chart_template_guide/helm_ignore_file/">for Helm charts</a></li>
 </ul>
 
 <p>At the moment, we’ve got a bunch of nearly-identical implementations with no real standardization, including but likely not limited to:</p>
@@ -507,8 +664,7 @@
   </tbody>
 </table>
 
-<h2 id="the-solution">The Solution<a href="#the-solution" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-solution">The Solution</h2>
 
 <p>It’s time for “Agent Ignore” to become an officially-proposed standard somewhere with traction… and then get adopted.</p>
 
@@ -518,9 +674,7 @@
 
 <blockquote>
   <p><em>“Do not track in source control” and “do not let a coding agent see the file” are <strong>not</strong> the same thing.</em></p>
-</blockquote>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="essay"></category><category term="ai"></category><category term="cursor"></category><category term="llm-context-management"></category><summary type="html"></summary></entry><entry><title type="html">Stop Doing AGENTS.md</title>
-<link href="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html" rel="alternate" type="text/html" title="Stop Doing AGENTS.md">
-<published>2026-02-12T00:00:00+00:00</published><updated>2026-02-12T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html">Thesis
+</blockquote>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="cursor" /><category term="llm-context-management" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">Stop Doing AGENTS.md</title><link href="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html" rel="alternate" type="text/html" title="Stop Doing AGENTS.md" /><published>2026-02-12T00:00:00+00:00</published><updated>2026-02-12T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>Almost no prompting is actually globally-applicable to all interactions: you are wasting tokens &amp; confusing your agent by using global prompts.</p>
@@ -532,8 +686,7 @@
   <p>The few prompts that are globally-applicable are often better-served by <em>paving your desire paths</em> so you don’t <em>have</em> to tell the agent about them.</p>
 </blockquote>
 
-<h2 id="the-problem">The Problem<a href="#the-problem" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-problem">The Problem</h2>
 
 <p><a href="https://agents.md/">AGENTS.md</a> and its ilk - including <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> are one of several kinds of AI agent customization techniques. We’ll borrow from <a href="https://texarkanine.github.io/a16n/models/#globalprompt">a16n’s taxonomy</a> and refer to them as a form of <strong>GlobalPrompt</strong>:</p>
 
@@ -567,8 +720,7 @@
 
 <p>This is very typical. Someone’s tried to put good tips into one place, but <strong>none</strong> of them are universally-applicable; they’re all task-specific. There are actually several classes of failure here:</p>
 
-<h3 id="self-evident-to-ai-duh">Self-Evident to AI (DUH)<a href="#self-evident-to-ai-duh" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="self-evident-to-ai-duh">Self-Evident to AI (DUH)</h3>
 
 <ul>
   <li>Use <code class="language-plaintext highlighter-rouge">pnpm dlx turbo run where &lt;project_name&gt;</code> to jump to a package instead of scanning with <code class="language-plaintext highlighter-rouge">ls</code>.</li>
@@ -583,8 +735,7 @@
 
 <p>But the LLMs have seen it all - they know. Don’t waste tokens telling them. Maybe just put it back in <code class="language-plaintext highlighter-rouge">README.md</code>.</p>
 
-<h3 id="task-specific-guidance-delivered-globally-huh">Task-specific Guidance Delivered Globally (HUH)<a href="#task-specific-guidance-delivered-globally-huh" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="task-specific-guidance-delivered-globally-huh">Task-specific Guidance Delivered Globally (HUH)</h3>
 
 <ul>
   <li>Check the name field inside each package’s package.json to confirm the right name—skip the top-level one.</li>
@@ -602,8 +753,7 @@
 
 <p>But you’re still including it in every context window.</p>
 
-<h3 id="duplicated-non-canonical-information-dry">Duplicated Non-Canonical Information (DRY)<a href="#duplicated-non-canonical-information-dry" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="duplicated-non-canonical-information-dry">Duplicated Non-Canonical Information (DRY)</h3>
 
 <ul>
   <li>Title format: [&lt;project_name&gt;] &lt;Title&gt;</li>
@@ -615,8 +765,7 @@
 
 <p>Duplicating information in <code class="language-plaintext highlighter-rouge">AGENTS.md</code> that has its canonical source in a different file is a recipe for drift and agent “misbehavior.”</p>
 
-<h3 id="misuse-of-llm-waste">Misuse of LLM (WASTE)<a href="#misuse-of-llm-waste" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="misuse-of-llm-waste">Misuse of LLM (WASTE)</h3>
 
 <ul>
   <li>Always run <code class="language-plaintext highlighter-rouge">pnpm lint</code> and <code class="language-plaintext highlighter-rouge">pnpm test</code> before committing.</li>
@@ -633,13 +782,11 @@
 
 <p>While that example is specifically for pre-commit hooks, it’s a pattern that gets repeated over and over: yes, we <em>can</em> tell the agents to do the things humans would do, but you often <em>don’t need to</em> - and doing so wastes context.</p>
 
-<h3 id="por-qué-no-los-dos">¿Por qué no los dos?<a href="#por-qu%C3%A9-no-los-dos" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="por-qué-no-los-dos">¿Por qué no los dos?</h3>
 
 <p>You can definitely offend in multiple of the above categories, too, by the way! For example, the <code class="language-plaintext highlighter-rouge">pnpm ...</code>  command guidance would also be a <code class="language-plaintext highlighter-rouge">DRY</code> violation, if there were a <code class="language-plaintext highlighter-rouge">package.json</code> that conveniently bound some <a href="https://docs.npmjs.com/cli/v11/using-npm/scripts">npm run-scripts</a> to those long-form commands.</p>
 
-<h2 id="a-note-on-wasting-context">A Note on Wasting Context<a href="#a-note-on-wasting-context" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="a-note-on-wasting-context">A Note on Wasting Context</h2>
 
 <p>“Wasting context (window space)” is not just about price-per-token - it’s also about keeping confusing or contradictory information out of the agent’s context to maximize the chances of success.</p>
 
@@ -647,21 +794,17 @@
 
 <p>And maybe that particular sentence is harmless. But <a href="https://research.trychroma.com/context-rot">neither of those scales up well</a> as <code class="language-plaintext highlighter-rouge">AGENTS.md</code> gains section after section of content that is <em>not</em> related to your specific task.</p>
 
-<h2 id="sub-agents">Sub-Agents?<a href="#sub-agents" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="sub-agents">Sub-Agents?</h2>
 
 <p>What if you just use a <a href="https://code.claude.com/docs/en/sub-agents">sub-agent</a> per task, and give it its own <code class="language-plaintext highlighter-rouge">AGENTS.md</code>, and then everything in there <em>is</em> globally-applicable?</p>
 
 <p>Well, yeah, that is what you do with sub-agents <strong>but</strong> - “sub-agents are for a single task” is a handy mental modelling technique that’s not actually <em>true</em>. The “just clean up the code” sub-agent is going to be reading code, writing code, making judgement calls, possibly consulting documentation on this codebase’s style, running test suites to make sure it didn’t break things, etc… sub-agents narrow the <em>scope</em> of the <em>tasks</em>, but they are almost never single-task. A true single-task, single prompt/response interaction doesn’t warrant the overhead complexity and cost of a sub-agent in the first place!</p>
 
-<h2 id="doing-it-right">Doing it Right<a href="#doing-it-right" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="doing-it-right">Doing it Right</h2>
 
 <p>With all that, we can arrive at a simple set of rules for putting something valuable into a <strong>GlobalPrompt</strong> like <code class="language-plaintext highlighter-rouge">AGENTS.md</code>:</p>
 
-<h3 id="dont-repeat-yourself---do-reference-canonical-sources">
-<strong>DON’T</strong> repeat yourself - <strong>DO</strong> reference canonical sources<a href="#dont-repeat-yourself---do-reference-canonical-sources" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="dont-repeat-yourself---do-reference-canonical-sources"><strong>DON’T</strong> repeat yourself - <strong>DO</strong> reference canonical sources</h3>
 
 <p>Instead of repeating how to run the project, consider</p>
 
@@ -675,9 +818,7 @@
 
 <p>Vercel’s <a href="https://github.com/vercel/next.js/blob/4385ed36f66dfe0d9ae6a955135be7c1461fd35f/AGENTS.md">next.js AGENTS.md</a>, while somewhat long, is also a pretty decent example of this technique.</p>
 
-<h3 id="dont-correct-behavior---do-pave-your-desire-paths">
-<strong>DON’T</strong> correct behavior - <strong>DO</strong> pave your desire paths<a href="#dont-correct-behavior---do-pave-your-desire-paths" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="dont-correct-behavior---do-pave-your-desire-paths"><strong>DON’T</strong> correct behavior - <strong>DO</strong> pave your desire paths</h3>
 
 <p>Why should you even have to tell an agent to look into <code class="language-plaintext highlighter-rouge">package.json</code> for how to invoke <code class="language-plaintext highlighter-rouge">eslint</code>, though? Is it <a href="https://eslint.org/docs/latest/use/getting-started">not <code class="language-plaintext highlighter-rouge">npx eslint</code> per the eslint docs</a> or just <code class="language-plaintext highlighter-rouge">npm run lint</code>?</p>
 
@@ -705,8 +846,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<h2 id="fixed-example">Fixed Example<a href="#fixed-example" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="fixed-example">Fixed Example</h2>
 
 <p>Here is an <code class="language-plaintext highlighter-rouge">AGENTS.md</code> for the same pnpm/turbo monorepo featured in the original example, rewritten with the techniques and tips described above.</p>
 
@@ -723,8 +863,7 @@ See <span class="sb">`CONTRIBUTING.md`</span> for the proper process for contrib
 
 <p>The <code class="language-plaintext highlighter-rouge">AGENTS.md</code> “GlobalPrompt” now just points the agent at the canonical sources for things that it might need to look up, and we’ve done the work in the repository to ensure that the agents’ intuition about the repository is correct.</p>
 
-<h2 id="but-actually-dont">But Actually, Don’t<a href="#but-actually-dont" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="but-actually-dont">But Actually, Don’t</h2>
 
 <blockquote>
   <p>… points the agent at the canonical sources for things that it might need…</p>
@@ -736,19 +875,17 @@ See <span class="sb">`CONTRIBUTING.md`</span> for the proper process for contrib
 
 <p>All the leaders in the field - <a href="https://cursor.com/docs/context/skills">Cursor</a>, <a href="https://claude.com/skills">Claude</a>, <a href="https://developers.openai.com/codex/skills">Codex</a> - support this open standard. If you’re using a tool that doesn’t… it’s well past time to switch.</p>
 
-<h2 id="non-sub-agent">Non-Sub-Agent<a href="#non-sub-agent" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="non-sub-agent">Non-Sub-Agent</h2>
 
 <p>There <em>is</em> still a place for a <strong>GlobalPrompt</strong> though: use <code class="language-plaintext highlighter-rouge">AGENTS.md</code> as if you were building a sub-agent, but to bootstrap the core persona of your primary agent. Something like <a href="https://github.com/Texarkanine/.cursor-rules/blob/b48aa445b818ef2ce75ce98369c37a20db59d721/rules/niko-core.mdc">niko-core.mdc</a>. No specifics about the repo at all - just general guidelines for how the Agent should <em>be</em>.</p>
 
 <blockquote>
   <p><strong>Core Persona &amp; Approach</strong>
-<br><br>
+<br /><br />
 Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/architect. Take full ownership of tasks, operating as an extension of the user’s thinking with extreme diligence, foresight, and a reusability mindset. Your primary objective is to deliver polished, thoroughly vetted, optimally designed, and well-reasoned results with <strong>minimal interaction required</strong>. Leverage available resources extensively for proactive research, context gathering, verification, and execution. Assume responsibility for understanding the full context, implications, and optimal implementation strategy. <strong>Prioritize proactive execution, making reasoned decisions to resolve ambiguities and implement maintainable, extensible solutions autonomously.</strong> Not every interaction requires code changes - you’re happy to discuss, explain concepts, or provide guidance without modifying the codebase. When code changes are needed, you make efficient and effective updates.</p>
 </blockquote>
 
-<h2 id="no-but-actually-dont">No But Actually Don’t<a href="#no-but-actually-dont" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="no-but-actually-dont">No But Actually Don’t</h2>
 
 <p>Oh, hey,</p>
 
@@ -760,30 +897,21 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>What about <em>others</em> who come to hack on the project with an agent but without the sophistication that you’ve now developed from having read this? I guess you can leave a link to this blog post in your <code class="language-plaintext highlighter-rouge">AGENTS.md</code> so they can catch up! ;)</p>
 
-<hr>
+<hr />
 
-<h2 id="further-reading">Further Reading<a href="#further-reading" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="further-reading">Further Reading</h2>
 
 <p><em>Or, people who agree with me (though possibly for different reasons)!</em></p>
 
 <ul>
-  <li>
-<a href="https://www.norsica.jp/blog/stop-putting-everything-in-agents-md">Stop Putting Everything in AGENTS.md</a> <small>- Basically this same post but slightly less sassy.</small>
-</li>
-  <li>
-<a href="https://www.nibzard.com/dotfiles">Stop Using .md for AI Agent Instructions</a> <small>- Attacks the use of the <code class="language-plaintext highlighter-rouge">.md</code> extension, rather than the semantics of the content.</small>
-</li>
-  <li>
-<a href="https://www.seuros.com/blog/helmsman-adaptive-instructions-for-ai-agents/">Helmsman: Stop Writing AGENTS.md That Lies to Half Your Models</a> <small>- notes that different <code class="language-plaintext highlighter-rouge">AGENTS</code> have different capabilities in both reasoning <em>and</em> environment setup, but <code class="language-plaintext highlighter-rouge">AGENTS.md</code> tries to advise all of them the same way.</small>
-</li>
+  <li><a href="https://www.norsica.jp/blog/stop-putting-everything-in-agents-md">Stop Putting Everything in AGENTS.md</a> <small>- Basically this same post but slightly less sassy.</small></li>
+  <li><a href="https://www.nibzard.com/dotfiles">Stop Using .md for AI Agent Instructions</a> <small>- Attacks the use of the <code class="language-plaintext highlighter-rouge">.md</code> extension, rather than the semantics of the content.</small></li>
+  <li><a href="https://www.seuros.com/blog/helmsman-adaptive-instructions-for-ai-agents/">Helmsman: Stop Writing AGENTS.md That Lies to Half Your Models</a> <small>- notes that different <code class="language-plaintext highlighter-rouge">AGENTS</code> have different capabilities in both reasoning <em>and</em> environment setup, but <code class="language-plaintext highlighter-rouge">AGENTS.md</code> tries to advise all of them the same way.</small></li>
 </ul>
 
-<h2 id="postscript">Postscript<a href="#postscript" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="postscript">Postscript</h2>
 
-<h3 id="2026-02-24">2026-02-24<a href="#2026-02-24" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="2026-02-24">2026-02-24</h3>
 
 <p>The same day I published this, an incredibly damning research paper (of which, at the time, I was completely unaware) was published:</p>
 
@@ -809,9 +937,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
   </ol>
 </blockquote>
 
-<p><em>Q.E.D.</em></p>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="essay"></category><category term="ai"></category><category term="claude-code"></category><category term="llm-context-management"></category><summary type="html"></summary></entry><entry><title type="html">Good Money Should Be Worthless</title>
-<link href="https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.html" rel="alternate" type="text/html" title="Good Money Should Be Worthless">
-<published>2026-02-11T00:00:00+00:00</published><updated>2026-02-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.html">If you work for your money but somebody else can just print it, you’re getting robbed. You don’t need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.
+<p><em>Q.E.D.</em></p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="claude-code" /><category term="llm-context-management" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">Good Money Should Be Worthless</title><link href="https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.html" rel="alternate" type="text/html" title="Good Money Should Be Worthless" /><published>2026-02-11T00:00:00+00:00</published><updated>2026-02-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.html"><![CDATA[<p>If you work for your money but somebody else can just print it, you’re getting robbed. You don’t need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.</p>
 
 <p>Let’s call this person Mr. Money Printer. He has a nice setup. As long as he’s the only one with a printer, he can always cut in line ahead of you. Need a house? He prints and outbids you. Want to invest? He prints and gets there first. A new car? He’s printed the full sticker price and driven it off the lot before you even get a chance to talk to a salesperson. Your labor earns; his printer simply takes.</p>
 
@@ -819,8 +945,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>So you can’t print. What now?</p>
 
-<h2 id="find-your-own-money">Find Your Own Money<a href="#find-your-own-money" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="find-your-own-money">Find Your Own Money</h2>
 
 <p>If Mr. Money Printer’s money is rigged, stop using it. Find something else to use as money - something he can’t print. What you’re looking for has two properties: it should be impossible (or at least very, very expensive) to create, and the only realistic way to get it should be to earn it from someone who already has it.</p>
 
@@ -828,15 +953,13 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>Humanity spent thousands of years on this problem, and the best answer it found was gold.</p>
 
-<h2 id="gold-pretty-good">Gold: Pretty Good<a href="#gold-pretty-good" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="gold-pretty-good">Gold: Pretty Good</h2>
 
 <p>You can <a href="https://home.cern/news/news/physics/alice-detects-conversion-lead-gold-lhc">technically create gold</a> via <a href="https://www.scientificamerican.com/article/fact-or-fiction-lead-can-be-turned-into-gold/">nuclear transmutation</a>. It costs orders of magnitude more than the gold is worth. So for practical purposes, the only “printer” for gold is mining, and mining is slow. Annual mine production adds roughly <a href="https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-q2-2025">~2% to the existing above-ground stock</a>. The total supply doubles about every ~50 years. In monetary terms, gold’s stock-to-flow ratio is around 50 - meaning it would take 50 years of mining at current rates to match what already exists.</p>
 
 <p>That’s pretty good. It means gold miners are, functionally, operating a very slow money printer. Slow enough that for most of human history, gold held value remarkably well across generations. If you want the full treatment of why gold emerged as the dominant money across civilizations, <a href="https://saifedean.com/the-bitcoin-standard/">Saifedean Ammous’s <em>The Bitcoin Standard</em></a> does excellent work.</p>
 
-<h2 id="the-problem-with-useful-money">The Problem With Useful Money<a href="#the-problem-with-useful-money" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-problem-with-useful-money">The Problem With Useful Money</h2>
 
 <p>Gold is useful. Electronics, aerospace, medical devices, AI chips - <a href="https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2024/technology">industry and technology consumed about 326 tonnes of gold in 2024</a>. That’s a modest share of total gold demand, because gold is one of the rare cases where the monetary use still dominates the industrial use. The problem isn’t the size of gold’s industrial consumption today; the problem is the structural tension it creates.</p>
 
@@ -844,8 +967,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>For gold, this tension is manageable because the “printing” has stayed both slow, and constant. The industrial tail doesn’t wag the monetary dog… But look at what happens when the balance tips the other way:</p>
 
-<h2 id="silver-what-losing-looks-like">Silver: What Losing Looks Like<a href="#silver-what-losing-looks-like" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="silver-what-losing-looks-like">Silver: What Losing Looks Like</h2>
 
 <p>Silver was money for millennia. The word “dollar” <a href="https://www.etymonline.com/word/dollar">descends from “thaler,”</a> a silver coin. Major economies ran on silver standards. And then industry ate it alive.</p>
 
@@ -853,8 +975,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>Industry didn’t just nibble at silver’s monetary function. It devoured it. Solar panels, electronics, electric vehicles - silver’s physical properties make it genuinely irreplaceable in applications that have nothing to do with money. No major economy uses silver as a monetary standard anymore. The utility won.</p>
 
-<h2 id="copper-the-endgame">Copper: The Endgame<a href="#copper-the-endgame" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="copper-the-endgame">Copper: The Endgame</h2>
 
 <p>If silver is what losing looks like in progress, copper is what it looks like when it’s over. Copper was among humanity’s earliest monies - commodity currency in Mesopotamia five thousand years ago, cast into bronze coins across <a href="https://en.wikipedia.org/wiki/Ancient_Chinese_coinage">China</a> and <a href="https://www.worldhistory.org/Roman_Coinage/">Rome</a>. For centuries, copper coinage was the everyday money of ordinary people across empires.</p>
 
@@ -865,18 +986,14 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 <p>These three metals form a gradient:</p>
 
 <ol>
-  <li>
-<strong>Copper:</strong> utility won completely, demonetized centuries ago.</li>
-  <li>
-<strong>Silver:</strong> utility winning right now, functionally demonetized within living memory.</li>
-  <li>
-<strong>Gold:</strong> utility nibbling at the edges, still mostly monetary but structurally vulnerable to the same force that killed the other two.</li>
+  <li><strong>Copper:</strong> utility won completely, demonetized centuries ago.</li>
+  <li><strong>Silver:</strong> utility winning right now, functionally demonetized within living memory.</li>
+  <li><strong>Gold:</strong> utility nibbling at the edges, still mostly monetary but structurally vulnerable to the same force that killed the other two.</li>
 </ol>
 
 <p>The only difference is timescale.</p>
 
-<h2 id="real-estate-the-contemporary-version">Real Estate: The Contemporary Version<a href="#real-estate-the-contemporary-version" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="real-estate-the-contemporary-version">Real Estate: The Contemporary Version</h2>
 
 <p>You can watch this same dynamic play out right now, with something that was never intended to be money at all.</p>
 
@@ -884,8 +1001,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>The result is that housing becomes unaffordable for people who need it <em>as housing.</em> This is what happens when you use a useful thing as money: you create a zero-sum fight between people who need it for its purpose and people who need it as a store of value. The act of monetizing something useful degrades the utility for everyone else.</p>
 
-<h2 id="the-ideal">The Ideal<a href="#the-ideal" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-ideal">The Ideal</h2>
 
 <p>So we arrive at an initially counterintuitive conclusion: the best money should be totally worthless… for everything except <em>being money.</em></p>
 
@@ -893,8 +1009,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>You want your money to have no industrial applications, no decorative appeal, no physical utility whatsoever. You want something that nobody would ever bother producing except to use <em>as money.</em></p>
 
-<h2 id="the-paradox">The Paradox<a href="#the-paradox" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-paradox">The Paradox</h2>
 
 <p>This sounds impossible. Scarcity usually arises <em>because</em> something is useful:</p>
 
@@ -909,8 +1024,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>You need something that is scarce and useless, but scarcity without utility has precious little, if any, natural precedent. So you’re looking for something that shouldn’t exist.</p>
 
-<h2 id="bitcoin">Bitcoin<a href="#bitcoin" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="bitcoin">Bitcoin</h2>
 
 <p>In 2009, something that shouldn’t exist was invented.</p>
 
@@ -918,9 +1032,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>And bitcoin is, by any traditional measure, completely useless. You can’t build circuits with it. You can’t wear it. You can’t live in it. There is no industrial demand for bitcoin, no sector of the economy trying to figure out how to produce it more cheaply as a manufacturing input. Nobody has a balance sheet with “bitcoin costs” as a line item they’re trying to drive down.</p>
 
-<p>“You can’t <em>do</em> anything with it” is the feature. Every prior form of money has been locked in a structural conflict between its monetary users and its industrial users, and the industrial users have won every single time given enough time. Bitcoin has no industrial users. There is no conflict. There is nothing to win… so <strong>you</strong> don’t have to lose.</p>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="essay"></category><category term="bitcoin"></category><category term="economics"></category><summary type="html"></summary></entry><entry><title type="html">The Load-Bearing Rate Limiter Was Human</title>
-<link href="https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.html" rel="alternate" type="text/html" title="The Load-Bearing Rate Limiter Was Human">
-<published>2026-02-06T00:00:00+00:00</published><updated>2026-02-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.html">Thesis
+<p>“You can’t <em>do</em> anything with it” is the feature. Every prior form of money has been locked in a structural conflict between its monetary users and its industrial users, and the industrial users have won every single time given enough time. Bitcoin has no industrial users. There is no conflict. There is nothing to win… so <strong>you</strong> don’t have to lose.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="bitcoin" /><category term="economics" /><summary type="html"><![CDATA[If you work for your money but somebody else can just print it, you’re getting robbed. You don’t need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.]]></summary></entry><entry><title type="html">The Load-Bearing Rate Limiter Was Human</title><link href="https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.html" rel="alternate" type="text/html" title="The Load-Bearing Rate Limiter Was Human" /><published>2026-02-06T00:00:00+00:00</published><updated>2026-02-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.html"><![CDATA[<h2 id="thesis">Thesis</h2>
 
 <blockquote>
   <p>It is now possible to do knowledge work faster than customers can pay for it, and faster than knowledge work<strong>ers</strong> can get <strong>paid</strong> for it.</p>
@@ -928,8 +1040,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>The money-to-productivity pipeline no longer requires time as a fixed-rate intermediary, and neither companies nor individuals are ready for what that means.</p>
 
-<h2 id="the-transaction-that-changed-my-mind">The Transaction That Changed My Mind<a href="#the-transaction-that-changed-my-mind" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-transaction-that-changed-my-mind">The Transaction That Changed My Mind</h2>
 
 <p>I had a task. With Claude Sonnet, I could babysit the model through understanding, designing, planning, checking, and committing over the course of about four hours. Cost: maybe $5 in Cursor usage and four hours of my undivided attention.</p>
 
@@ -945,8 +1056,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
   <p>who really came out ahead?</p>
 </blockquote>
 
-<h2 id="the-1x-bottleneck">The 1X Bottleneck<a href="#the-1x-bottleneck" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-1x-bottleneck">The 1X Bottleneck</h2>
 
 <p>You might be tempted to normalize my comparative costs above to $60/hr vs $1.25/hr, but that’s not quite right - it assumes that each hour is the same… and they’re not, not anymore.</p>
 
@@ -960,8 +1070,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>When crypto miners discovered GPUs could convert electricity into money faster than entertained gamers could, miners repriced the entire GPU market in the blink of an eye. AI is doing the same thing to knowledge labor: a more efficient converter has arrived, and it’s about to reprice everything.</p>
 
-<h2 id="productivity-hyperscaled-revenue-hasnt">Productivity Hyperscaled. Revenue Hasn’t.<a href="#productivity-hyperscaled-revenue-hasnt" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="productivity-hyperscaled-revenue-hasnt">Productivity Hyperscaled. Revenue Hasn’t.</h2>
 
 <p>The immediate, observable consequence: productivity is going vertical while revenue takes the stairs.</p>
 
@@ -973,8 +1082,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>You don’t have a productivity problem anymore. You have a <em>digestion</em> problem.</p>
 
-<h2 id="constant-discernment">Constant Discernment!<a href="#constant-discernment" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="constant-discernment">Constant Discernment!</h2>
 
 <p>The intuitive response to unprecedented productivity is “do everything faster.” The correct response is almost the opposite: be more discerning about what you unleash productivity on.</p>
 
@@ -988,8 +1096,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>When the human was the rate limiter, spend and revenue were temporally coupled - a year of salary forced a year of output and that happened over a year of revenue collection. Remove the rate limiter from the supply side (output and spend) but not the demand side (customer adoption and revenue) and one side can compress to months while revenue still takes its year to arrive. The calendar was load-bearing too.</p>
 
-<h2 id="the-multi-tenancy-engineer">The Multi-Tenancy Engineer<a href="#the-multi-tenancy-engineer" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-multi-tenancy-engineer">The Multi-Tenancy Engineer</h2>
 
 <p>Follow the math to its conclusion.</p>
 
@@ -999,8 +1106,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>This used to be frowned upon. It might still be, but the reasoning behind the taboo - that working for multiple employers means each one gets less than they paid for - breaks down when the bottleneck was never your effort but the clock you were living through. The multi-tenancy engineer isn’t moonlighting. They’re just… done.</p>
 
-<h2 id="dark-corollaries">Dark Corollaries<a href="#dark-corollaries" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="dark-corollaries">Dark Corollaries</h2>
 
 <p>The multi-tenancy engineer is perhaps an optimistic outcome. A pessimistic one is that companies see six hours of surplus capacity per day and reprice labor downward. “We’ll give you a token budget instead of a raise.” They can’t ask for <em>more</em> productivity, because of the revenue scaling constraint - the marginal return on productivity has hit zero. But someone’s going to look at a 10x engineer with six free hours and want to capture that spread.</p>
 
@@ -1014,8 +1120,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>Timing is everything here - if the multi-tenancy engineer becomes the new normal <em>slowly</em>, everything could have time to adapt. If market absorption gets a kick in the pants from AI and scales up to match the capacity to produce, the actual spread to arbitrage (and the disruption it invites) could be small. If, if, if…</p>
 
-<h2 id="what-to-do">What to Do<a href="#what-to-do" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="what-to-do">What to Do</h2>
 
 <p>I don’t have a clean answer. Some fragments:</p>
 
@@ -1029,10 +1134,9 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>And keep an eye on the arbitrage. It’s coming from every direction and your position in the spread determines whether this transition is a windfall or a haircut. Right now, the spread is wide - which means the stakes are high and the window won’t stay open forever.</p>
 
-<hr>
+<hr />
 
-<h3 id="postscript">Postscript<a href="#postscript" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="postscript">Postscript</h3>
 
 <p>The literal morning after I wrote this, Anthropic <a href="https://x.com/claudeai/status/2020207322124132504">dropped Claude Opus 4.6 Fast</a>, 2.5x faster at 6x the cost - so the numbers in my “aha” would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:</p>
 
@@ -1046,8 +1150,7 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <p>Some of you might say that choice 1 is the obvious choice, because you <em>enjoy the hobby</em>. This is okay and absolutely allowed and if it’s true for you then none of this applies to your hobby right now – <a href="/2026/01/01/desire-makes-artists-even-with-genai.html#the-artists-among-them">you’re an artist</a> in this moment. The knowledge-work industry, however, is not – and you <em>will</em> at the very least bear witness as it struggles to adapt to the new calculus.</p>
 
-<h3 id="post-postscript">Post-Postscript<a href="#post-postscript" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="post-postscript">Post-Postscript</h3>
 
 <p>A few days later, <a href="https://steve-yegge.medium.com/">Steve Yegge</a> of <a href="https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04">Gas Town</a> fame has written about what I will claim is this same phenomenon, but from a different angle. <a href="https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163">The AI Vampire</a> explores some <em>additional</em> interesting implications of “the new calculus,” and has some great lines that echo:</p>
 
@@ -1057,13 +1160,11 @@ Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/
 
 <blockquote>
   <p>With a 10x boost, if you give an engineer Claude Code, then once they’re fluent, their work stream will produce nine additional engineers’ worth of value.
-<br><br>
+<br /><br />
 For someone.
-<br><br>
+<br /><br />
 But who actually gets to keep that value?</p>
-</blockquote>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="essay"></category><category term="ai"></category><category term="economics"></category><category term="productivity"></category><summary type="html"></summary></entry><entry><title type="html">I Finally Coded So Hard I Ralphed</title>
-<link href="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html" rel="alternate" type="text/html" title="I Finally Coded So Hard I Ralphed">
-<published>2026-01-25T00:00:00+00:00</published><updated>2026-01-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html">As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. I <a href="/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">recently determined</a> that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.
+</blockquote>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="economics" /><category term="productivity" /><summary type="html"><![CDATA[Thesis]]></summary></entry><entry><title type="html">I Finally Coded So Hard I Ralphed</title><link href="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html" rel="alternate" type="text/html" title="I Finally Coded So Hard I Ralphed" /><published>2026-01-25T00:00:00+00:00</published><updated>2026-01-25T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.html"><![CDATA[<p>As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. I <a href="/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">recently determined</a> that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.</p>
 
 <p>One particular kind of workflow where you’ll not only be re-using the same prompt, but re-using it more than <em>you</em> the human ever could, is a <a href="https://ghuntley.com/ralph/">Wiggum Loop</a>. That’s actually a perfect use-case for a Slash Command!</p>
 
@@ -1074,17 +1175,16 @@ But who actually gets to keep that value?</p>
 <p>So, my high-level workflow will be</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/75f41bb3.svg"><img src="/assets/svg/75f41bb3.svg" alt="Mermaid Diagram"></a>
+<a href="/assets/svg/75f41bb3.svg"><img src="/assets/svg/75f41bb3.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <p>But there are actually quite a few more decision points, because when you push a commit you might hit the rate limit warning instead of getting immediate feedback, and then you have to wait out <em>that</em> timer and come back and make a PR comment to get the ball rolling again:</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/4b351d0d.svg"><img src="/assets/svg/4b351d0d.svg" alt="Mermaid Diagram"></a>
+<a href="/assets/svg/4b351d0d.svg"><img src="/assets/svg/4b351d0d.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
-<h2 id="you-didnt-read-that-did-you">You Didn’t Read That, Did You?<a href="#you-didnt-read-that-did-you" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="you-didnt-read-that-did-you">You Didn’t Read That, Did You?</h2>
 
 <p>I submit that 2nd diagram not because I expect you to read it, but because I expect you to <em>not</em> read it. It’s complex, it’s intricate, who would <em>want</em> to have to try to do that!? But it was necessary!</p>
 
@@ -1114,13 +1214,11 @@ But who actually gets to keep that value?</p>
 
 <p>Fun things to note:</p>
 
-<h3 id="exit-condition">Exit Condition<a href="#exit-condition" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="exit-condition">Exit Condition</h3>
 
 <p>Perhaps not in the pure spirit of Wiggum™, I explicitly defined an exit condition of which the agent is aware - the <code class="language-plaintext highlighter-rouge">wiggum.semaphore</code> file - so that it can guarantee the exit when it’s done.</p>
 
-<h3 id="safety-dance">Safety Dance<a href="#safety-dance" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
+<h3 id="safety-dance">Safety Dance</h3>
 
 <p>The prompt fed into the agent is</p>
 
@@ -1137,12 +1235,9 @@ But who actually gets to keep that value?</p>
 
 <p>That probably means it doesn’t see User Rules, either, so… use the new <code class="language-plaintext highlighter-rouge">--global</code> mode sparingly?</p>
 
-<h2 id="im-helping">I’M HELPING<a href="#im-helping" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="im-helping">I’M HELPING</h2>
 
-<p>I’m sure this isn’t the most-refined or efficient Way to Wiggum™ but I’m just happy to (finally) be here!</p>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="diary"></category><category term="ai"></category><category term="coderabbit"></category><category term="cursor"></category><category term="wiggum-loop"></category><summary type="html"></summary></entry><entry><title type="html">The Use Case for AI Coding Agent Slash Commands</title>
-<link href="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html" rel="alternate" type="text/html" title="The Use Case for AI Coding Agent Slash Commands">
-<published>2026-01-23T00:00:00+00:00</published><updated>2026-01-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">Following up on my previous post: “<a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">The Usen’t Case for AI Coding Agent Slash Commands</a>”, I’m delighted to report that I was wrong… partially.
+<p>I’m sure this isn’t the most-refined or efficient Way to Wiggum™ but I’m just happy to (finally) be here!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="ai" /><category term="coderabbit" /><category term="cursor" /><category term="wiggum-loop" /><summary type="html"><![CDATA[As with almost everything, the more you use it, the more it pays to optimize it. I recently determined that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.]]></summary></entry><entry><title type="html">The Use Case for AI Coding Agent Slash Commands</title><link href="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html" rel="alternate" type="text/html" title="The Use Case for AI Coding Agent Slash Commands" /><published>2026-01-23T00:00:00+00:00</published><updated>2026-01-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html"><![CDATA[<p>Following up on my previous post: “<a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">The Usen’t Case for AI Coding Agent Slash Commands</a>”, I’m delighted to report that I was wrong… partially.</p>
 
 <p>There <strong>is</strong> a use case for AI Coding Agent Slash Commands.</p>
 
@@ -1166,24 +1261,19 @@ You want to be equipping your agents with the tools and knowledge they need to j
 
 <p>A command for a human to run in the middle of things is <em>still</em> an antipattern. So craft your commands carefully!</p>
 
-<h2 id="the-wiggum-loop">The Wiggum Loop<a href="#the-wiggum-loop" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-wiggum-loop">The Wiggum Loop</h2>
 
 <p>As with almost everything, <a href="https://xkcd.com/1205/">the more you use it, the more it pays to optimize it</a>. Somewhere where you’ll not only be re-using the same prompt, but re-using it more than <em>you</em> the human ever could, is a <a href="https://ghuntley.com/ralph/">Wiggum Loop</a>. That’s actually a perfect use-case for a Slash Command!</p>
 
-<p>I <a href="/2026/01/25/i-finally-coded-so-hard-i-ralphed.html">did that recently</a>!</p>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="essay"></category><category term="cursor"></category><category term="ai"></category><category term="claude-code"></category><summary type="html"></summary></entry><entry><title type="html">2MB Lighter</title>
-<link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter">
-<published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html">The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.
+<p>I <a href="/2026/01/25/i-finally-coded-so-hard-i-ralphed.html">did that recently</a>!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="cursor" /><category term="ai" /><category term="claude-code" /><summary type="html"><![CDATA[Following up on my previous post: “The Usen’t Case for AI Coding Agent Slash Commands”, I’m delighted to report that I was wrong… partially.]]></summary></entry><entry><title type="html">2MB Lighter</title><link href="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html" rel="alternate" type="text/html" title="2MB Lighter" /><published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/2mb-lighter</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/2mb-lighter.html"><![CDATA[<p>The <a href="https://mermaid.js.org/">mermaid.js chart library</a> weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>.</p>
 
-<h2 id="the-setup">The Setup<a href="#the-setup" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-setup">The Setup</h2>
 
 <p>I had a <a href="/2026/01/17/all-it-took-was-broken-firmware.html">blog post with several Mermaid diagrams explaining a firmware debugging story</a>. The standard approach - include mermaid.js and let it render client-side - would add 2MB to every page load. For static diagrams that never change after publishing, that’s absurd.</p>
 
 <p>The mermaid project provides <code class="language-plaintext highlighter-rouge">mmdc</code>, a <a href="https://github.com/mermaid-js/mermaid-cli">CLI that renders diagrams to SVG using headless Chrome</a>. A Jekyll plugin could intercept mermaid code blocks during build, shell out to <code class="language-plaintext highlighter-rouge">mmdc</code>, and replace them with static SVG references. No client-side JavaScript needed.</p>
 
-<h2 id="prototype-in-_plugins">Prototype in <code class="language-plaintext highlighter-rouge">_plugins/</code><a href="#prototype-in-_plugins" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="prototype-in-_plugins">Prototype in <code class="language-plaintext highlighter-rouge">_plugins/</code></h2>
 
 <p>Following the pattern from <a href="/2025/12/11/building-my-second-rubygem.html">jekyll-auto-thumbnails</a>, I started with a local plugin before extracting to a gem. Faster iteration, immediate feedback.</p>
 
@@ -1191,8 +1281,7 @@ You want to be equipping your agents with the tools and knowledge they need to j
 
 <p>Better approach: operate on <strong>markdown</strong> during <code class="language-plaintext highlighter-rouge">:pre_render</code>. Find mermaid code blocks, convert to SVG files, replace with image references. The SVGs become proper static assets - cacheable by browsers, clickable for full-size viewing.</p>
 
-<h2 id="puppeteer-in-wsl">Puppeteer in WSL<a href="#puppeteer-in-wsl" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="puppeteer-in-wsl">Puppeteer in WSL</h2>
 
 <p>First test run:</p>
 
@@ -1210,8 +1299,7 @@ MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
 
 <p>After installing the dependencies, <code class="language-plaintext highlighter-rouge">mmdc</code> worked. The plugin <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L36-L51">detects this failure mode</a> and prints the apt-get command in the error message.</p>
 
-<h2 id="the-hook-timing-bug">The Hook Timing Bug<a href="#the-hook-timing-bug" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-hook-timing-bug">The Hook Timing Bug</h2>
 
 <p>With Puppeteer working, the plugin… did nothing. No diagrams converted. Debug output showed the <code class="language-plaintext highlighter-rouge">:pre_render</code> hook firing, but <code class="language-plaintext highlighter-rouge">site.data["mermaid_prebuild_enabled"]</code> was nil.</p>
 
@@ -1227,8 +1315,7 @@ MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
 <span class="k">end</span>
 </code></pre></div></div>
 
-<h2 id="code-fence-patterns">Code Fence Patterns<a href="#code-fence-patterns" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="code-fence-patterns">Code Fence Patterns</h2>
 
 <p>Markdown supports two fence styles. Backticks:</p>
 
@@ -1261,31 +1348,22 @@ MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
 
 <p>To show these examples without converting them, the plugin respects fence nesting - mermaid blocks inside outer fences are preserved as code.</p>
 
-<h2 id="gem-extraction">Gem Extraction<a href="#gem-extraction" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="gem-extraction">Gem Extraction</h2>
 
 <p>Once the local plugin worked, extraction followed the same TDD pattern as the previous gems. Six modules:</p>
 
 <ol>
-  <li>
-<strong>Configuration</strong> - Parse <code class="language-plaintext highlighter-rouge">_config.yml</code> settings</li>
-  <li>
-<strong>MmdcWrapper</strong> - Shell out to <code class="language-plaintext highlighter-rouge">mmdc</code>, handle errors</li>
-  <li>
-<strong>DigestCalculator</strong> - MD5 for cache keys</li>
-  <li>
-<strong>Processor</strong> - Find and replace mermaid blocks</li>
-  <li>
-<strong>Generator</strong> - Copy SVGs to <code class="language-plaintext highlighter-rouge">_site/</code>
-</li>
-  <li>
-<strong>Hooks</strong> - Wire into Jekyll lifecycle</li>
+  <li><strong>Configuration</strong> - Parse <code class="language-plaintext highlighter-rouge">_config.yml</code> settings</li>
+  <li><strong>MmdcWrapper</strong> - Shell out to <code class="language-plaintext highlighter-rouge">mmdc</code>, handle errors</li>
+  <li><strong>DigestCalculator</strong> - MD5 for cache keys</li>
+  <li><strong>Processor</strong> - Find and replace mermaid blocks</li>
+  <li><strong>Generator</strong> - Copy SVGs to <code class="language-plaintext highlighter-rouge">_site/</code></li>
+  <li><strong>Hooks</strong> - Wire into Jekyll lifecycle</li>
 </ol>
 
 <p>42 tests covering the module interfaces. The tests mock <code class="language-plaintext highlighter-rouge">mmdc</code> execution since you can’t assume Puppeteer dependencies in CI.</p>
 
-<h2 id="coderabbits-review">CodeRabbit’s Review<a href="#coderabbits-review" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="coderabbits-review">CodeRabbit’s Review</h2>
 
 <p>Three valid concerns after the initial push:</p>
 
@@ -1314,35 +1392,28 @@ MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
 
 <p>If a cached SVG somehow disappeared, <code class="language-plaintext highlighter-rouge">FileUtils.cp</code> would crash the build. <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L23">Added existence check</a> with a warning instead of hard failure.</p>
 
-<h2 id="examples-in-action">Examples in Action<a href="#examples-in-action" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="examples-in-action">Examples in Action</h2>
 
 <p>The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/e09440ca.svg"><img src="/assets/svg/e09440ca.svg" alt="Mermaid Diagram"></a>
+<a href="/assets/svg/e09440ca.svg"><img src="/assets/svg/e09440ca.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <p>The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.</p>
 
-<h2 id="final-stats">Final Stats<a href="#final-stats" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="final-stats">Final Stats</h2>
 
 <ul>
   <li><strong>47 tests, all passing</strong></li>
   <li><strong>70%+ code coverage</strong></li>
-  <li>
-<strong>Published to RubyGems:</strong> <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a>
-</li>
-  <li>
-<strong>Installation:</strong> <code class="language-plaintext highlighter-rouge">gem install jekyll-mermaid-prebuild</code>
-</li>
+  <li><strong>Published to RubyGems:</strong> <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a></li>
+  <li><strong>Installation:</strong> <code class="language-plaintext highlighter-rouge">gem install jekyll-mermaid-prebuild</code></li>
 </ul>
 
 <p>Three gems now: <a href="https://rubygems.org/gems/jekyll-highlight-cards">jekyll-highlight-cards</a> for styled link and image cards, <a href="https://rubygems.org/gems/jekyll-auto-thumbnails">jekyll-auto-thumbnails</a> for automatic image optimization, and <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild</a> for build-time diagram rendering.</p>
 
-<h2 id="what-i-learned">What I Learned<a href="#what-i-learned" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="what-i-learned">What I Learned</h2>
 
 <p><strong>Jekyll’s <code class="language-plaintext highlighter-rouge">site.data</code> doesn’t persist the way you’d expect between hooks.</strong> Data set in <code class="language-plaintext highlighter-rouge">:after_init</code> may not be available in <code class="language-plaintext highlighter-rouge">:pre_render</code>. Use <code class="language-plaintext highlighter-rouge">:post_read</code> for site-wide state that needs to survive into document processing.</p>
 
@@ -1354,526 +1425,8 @@ MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
 
 <p><strong>Pure Ruby PATH scanning beats shell commands for portability.</strong> <code class="language-plaintext highlighter-rouge">which</code> doesn’t exist on Windows, <code class="language-plaintext highlighter-rouge">where</code> doesn’t exist on Unix. Scanning <code class="language-plaintext highlighter-rouge">ENV["PATH"]</code> with <code class="language-plaintext highlighter-rouge">File.executable?</code> works everywhere.</p>
 
-<h2 id="the-repository">The Repository<a href="#the-repository" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
+<h2 id="the-repository">The Repository</h2>
 
 <p>The code is at <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild">Texarkanine/jekyll-mermaid-prebuild</a> with the full implementation history.</p>
 
-<p>Three gems down, 2MB lighter per page.</p>]]&gt;</content><author><name>Niko</name></author><category term="blog"></category><category term="diary"></category><category term="jekyll"></category><category term="mermaid"></category><category term="ruby"></category><category term="rubygem"></category><summary type="html"></summary></entry><entry><title type="html">All It Took Was Broken Firmware</title>
-<link href="https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html" rel="alternate" type="text/html" title="All It Took Was Broken Firmware">
-<published>2026-01-17T00:00:00+00:00</published><updated>2026-01-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.html">A <a href="https://www.surepetcare.com/en-us/internet-hub/hub">petcare IoT device</a> “broke.” It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer’s servers. The manufacturer’s support script was predictable: “Connect it directly to your router.” I did. It worked.
-
-<p>This should have been the end. But I wanted to understand <em>why</em>, and that investigation became the push I needed to finish a long-deferred project: proper network isolation for IoT devices.</p>
-
-<h2 id="the-broken-hub">The Broken Hub<a href="#the-broken-hub" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<p>The hub connects to various pet products - water fountain, pet door, etc. For a year it lived behind two unmanaged switches, happily communicating with the cloud. Then it didn’t.</p>
-
-<p>I tested methodically:</p>
-
-<ul>
-  <li>Different switch ports: failed</li>
-  <li>Different cables: failed</li>
-  <li>Power cycling everything: failed</li>
-  <li>Direct connection to main router: <strong>worked</strong>
-</li>
-  <li>Back through switches: failed again</li>
-</ul>
-
-<p>The failure was reproducible. Switches broke it. Direct router connection fixed it.</p>
-
-<p>Even a single switch between the hub and router caused failure. The switches themselves worked fine for every other device. The hub’s firmware was apparently so broken it couldn’t survive the 2-30 second port initialization delay that occurs when connecting through a switch - the time required for MAC address learning and spanning tree protocol transitions. At least, that was our best guess.</p>
-
-<p>I had a spare router (actually, a stack of them) so I popped one on the end of the hub’s switch, letting it act as a full NAT’ing router, and moved the hub to it. It worked. The hub didn’t need to be on the <em>internet-facing</em> router - it needed to be directly on <em>any</em> router.</p>
-
-<figure class="mermaid-diagram">
-<a href="/assets/svg/bac3c572.svg"><img src="/assets/svg/bac3c572.svg" alt="Mermaid Diagram"></a>
-</figure>
-
-<p>I want to also briefly shout out to the old Linksys <code class="language-plaintext highlighter-rouge">WRT54GL</code> I pulled for this - I don’t have a receipt for it, but the oldest reference I can find is from 2011 - at this point it’s at least 17 years old, has been on the shelf for at least 13 years, and it powered up and routed like a champ!</p>
-
-<div class="polaroid-container">
-  <div class="polaroid">
-    <a href="https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html" target="_blank" rel="noopener">
-      <img src="wrt54gs-and-wsb24.jpg" alt="Shout Out to this Old Champ" class="polaroid-image">
-    </a>
-    <div class="polaroid-title">Shout Out to this Old Champ</div>
-    <div class="polaroid-link">
-      
-      <a href="https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html" target="_blank" rel="noopener">mobilespecs.net/router/Linksys/Linksys_WRT54GL.html</a>
-      
-    </div>
-    <small class="polaroid-archive">
-      
-       
-      
-    </small>
-  </div>
-</div>
-
-<h2 id="the-real-project">The Real Project<a href="#the-real-project" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<p>I couldn’t run a new cable off the main router. All four LAN ports were already distributing to different rooms, with long and/or through-the-walls cable runs to switches in each. To give up a port for the hub, I would have had to run a new through-the-attic line from one room to another to daisy-chain them. No way! But this defective hub had just demonstrated something useful: I already had a router in the right location. If I converted it from an access point into a proper router with its own subnet, the hub would work - and I’d finally have the IoT network isolation I’d been meaning to set up.</p>
-
-<p>The goal:</p>
-
-<ul>
-  <li>IoT devices on their own subnet, isolated from the home LAN</li>
-  <li>Home LAN can reach IoT devices (for management and configuration)</li>
-  <li>IoT devices cannot initiate connections to home LAN</li>
-  <li>IoT devices use the existing <a href="https://pi-hole.net/">PiHole for DNS</a>
-</li>
-  <li>Individual IoT clients visible in PiHole (not hidden behind NAT)</li>
-  <li>Hostnames displayed in PiHole query logs</li>
-</ul>
-
-<p>The starting topology looked like this:</p>
-
-<figure class="mermaid-diagram">
-<a href="/assets/svg/15d11b1a.svg"><img src="/assets/svg/15d11b1a.svg" alt="Mermaid Diagram"></a>
-</figure>
-
-<p>Because we’d now determined that I would need the IoT Router to actually <em>be</em> a NAT’ing, DHCP’ing router, I would need something like this:</p>
-
-<figure class="mermaid-diagram">
-<a href="/assets/svg/b9ec82d6.svg"><img src="/assets/svg/b9ec82d6.svg" alt="Mermaid Diagram"></a>
-</figure>
-
-<p>The thing that had had me putting this project off thus far was those dotted lines… We were going to have to use <code class="language-plaintext highlighter-rouge">iptables</code> and static routes.</p>
-
-<h2 id="converting-the-router">Converting the Router<a href="#converting-the-router" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<p>The IoT router was a <a href="https://mobilespecs.net/router/Linksys/Linksys_EA6500.html">Linksys EA6500</a> running <a href="https://dd-wrt.com/">dd-wrt</a> in “Gateway” mode - effectively a switch with a wireless access point. Converting it to a proper router required several changes. I’d done this before, but it had been a while and I didn’t remember all the things I had to undo at first, so I’m going to write them all down for next time:</p>
-
-<h3 id="wan-configuration">WAN Configuration<a href="#wan-configuration" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>First, the WAN interface needed a static IP on the home LAN:</p>
-
-<ul>
-  <li>
-<strong>WAN IP</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.101/24</code>
-</li>
-  <li>
-<strong>Gateway</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.1</code> (main router)</li>
-  <li>
-<strong>DNS</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.254</code> (PiHole)</li>
-</ul>
-
-<p>I initially tried DHCP for the WAN interface. The IoT router never obtained a lease from the main router… possibly because of the VLAN issue documented below. But, as this was going to be a foundational part of the network with a static route pointing to it, a static IP was probably better, anyway.</p>
-
-<h3 id="vlan-separation">VLAN Separation<a href="#vlan-separation" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>The router had been bridging all ports together since I had just been using its ethernet ports as a LAN switch. To function as a router, WAN and LAN needed separate VLANs.</p>
-
-<p><strong>Setup → Switch Configuration</strong></p>
-
-<p><img src="dd-wrt_setup_switch-config.jpg" alt="DD-WRT: Setup → Switch Configuration"></p>
-
-<p>After applying these changes, I couldn’t reach the router at any IP address. Recovery required connecting a laptop with a static IP (<code class="language-plaintext highlighter-rouge">10.1.101.50/24</code>) and manual specification of the gateway (<code class="language-plaintext highlighter-rouge">10.1.101.1</code>) directly to a LAN port, then accessing the dd-wrt web interface at <code class="language-plaintext highlighter-rouge">10.1.101.1</code>.</p>
-
-<p><img src="xubuntu-manual-ipv4-config.jpg" alt="Xubuntu manual ipv4 configuration"></p>
-
-<p>This is probably because I had a bunch of pollution in routing tables and dhcp lease tables from previous incorrect configurations and connections. A reboot of all involved devices would probably also have fixed it.</p>
-
-<h3 id="the-dhcp-derp">The DHCP Derp<a href="#the-dhcp-derp" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>With VLANs fixed, devices connected to the IoT router were still getting IP addresses from the main router’s DHCP. Something was still bridged…?</p>
-
-<p>I checked the status page. DHCP Server: “Enabled - Stopped”.</p>
-
-<p>The syslog revealed the problem:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnsmasq[1430]: inconsistent DHCP range at line 9 of /tmp/dnsmasq.conf
-dnsmasq[1430]: FAILED to start up
-</code></pre></div></div>
-
-<p>The generated dnsmasq configuration showed:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dhcp-range=br0,10.1.101.100,10.1.102.33,255.255.255.0,1440m
-</code></pre></div></div>
-
-<p>With 190 maximum DHCP users starting at .100, the range overflowed the /24 subnet boundary. <code class="language-plaintext highlighter-rouge">10.1.101.100</code> + 190 = <code class="language-plaintext highlighter-rouge">10.1.102.34</code>. Dnsmasq correctly refused to serve an inconsistent range.</p>
-
-<p>With no DHCP running on the IoT router, and no isolation enforced yet, devices were getting their DHCP queries answered by the main router. I’d actually already set up the static route (documented below) to allow traffic from the main subnet into the IoT subnet, so this was working even though it normally wouldn’t have. Should have gone strictly in order!</p>
-
-<p>I reduced the DHCP pool to 50 users. The range stayed within the subnet, dnsmasq started, and devices finally got addresses from the IoT router.</p>
-
-<p><strong>I</strong> didn’t set that to 190. As far as I know, dd-wrt defaults to 50. I don’t know how, but somehow it got set to 190 while I was fiddling with and restarting the router a million times.</p>
-
-<h3 id="network-setup">Network Setup<a href="#network-setup" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>The LAN configuration:</p>
-
-<ul>
-  <li>
-<strong>Router IP</strong>: <code class="language-plaintext highlighter-rouge">10.1.101.1/24</code>
-</li>
-  <li>
-<strong>DHCP Server</strong>: Enabled</li>
-  <li>
-<strong>Start IP</strong>: <code class="language-plaintext highlighter-rouge">10.1.101.100</code>
-</li>
-  <li>
-<strong>Maximum DHCP Users</strong>: 50</li>
-  <li>
-<strong>DNS</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.254</code> (PiHole)</li>
-</ul>
-
-<h2 id="routing-and-firewall">Routing and Firewall<a href="#routing-and-firewall" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<h3 id="static-route-on-main-router">Static Route on Main Router<a href="#static-route-on-main-router" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>The main router (running <a href="https://www.asuswrt-merlin.net/">Asuswrt-Merlin</a>) needed to know how to reach the IoT subnet:</p>
-
-<ul>
-  <li>
-<strong>Destination</strong>: <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code>
-</li>
-  <li>
-<strong>Gateway</strong>: <code class="language-plaintext highlighter-rouge">192.168.1.101</code>
-</li>
-  <li>
-<strong>Interface</strong>: LAN</li>
-</ul>
-
-<p><strong>This is one half of the magic!</strong> This route allows the main router, who’s living in a <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> subnet, to see traffic destined for the <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code> subnet and go “Oh, I know who to send that to!”</p>
-
-<h3 id="firewall-rules">Firewall Rules<a href="#firewall-rules" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>The IoT router needed firewall rules to enforce isolation. In dd-wrt, these go in Administration → Commands, saved as a firewall script:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Allow established/related connections back to IoT devices</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-m</span> state <span class="nt">--state</span> ESTABLISHED,RELATED <span class="nt">-j</span> ACCEPT
-
-<span class="c"># Allow home LAN to reach IoT LAN (for management)</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 192.168.1.0/24 <span class="nt">-d</span> 10.1.101.0/24 <span class="nt">-j</span> ACCEPT
-
-<span class="c"># Block IoT from initiating connections to home LAN</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.0/24 <span class="nt">-j</span> REJECT
-
-<span class="c"># Allow IoT to reach internet</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-o</span> <span class="si">$(</span>nvram get wan_iface<span class="si">)</span> <span class="nt">-j</span> ACCEPT
-</code></pre></div></div>
-
-<p>This is the other half of the magic! It essentially inverts the normal NAT semantic:</p>
-
-<ul>
-  <li>home LAN devices <strong>can</strong> SSH or otherwise connect to IoT devices, access their web interfaces, push firmware updates, etc. They don’t see the NAT at all.</li>
-  <li>IoT devices cannot reach anything on the home LAN. They don’t see the home LAN at all.</li>
-</ul>
-
-<p>The dd-wrt web interface didn’t make setting this up obvious:</p>
-
-<p><img src="dd-wrt_administration_commands.jpg" alt="DD-WRT: Administration → Commands"></p>
-
-<ol>
-  <li>At first, you have no saved commands, so all you can use is the “Commands” text box.</li>
-  <li>Enter the firewall rules.</li>
-  <li>Click “Run Commands” to run them and see if they work.</li>
-  <li>Click “Save Firewall” to save them.</li>
-  <li>
-<em>Next time</em>, you will have contents in the “Firewall” text field.</li>
-  <li>Click “Edit” under the “Firewall” text field to populate the “Commands” text box with the firewall script.</li>
-  <li>GOTO 2.</li>
-</ol>
-
-<h2 id="pihole-integration">PiHole Integration<a href="#pihole-integration" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<h3 id="the-nat-problem">The NAT Problem<a href="#the-nat-problem" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>With basic routing working, I checked the PiHole query logs. All IoT DNS queries appeared to come from <code class="language-plaintext highlighter-rouge">192.168.1.101</code> - the IoT router’s WAN IP. NAT was hiding the individual clients.</p>
-
-<p>This defeated a key goal. I wanted per-device DNS visibility so I could block specific IoT devices from specific domains. With everything hidden behind one IP, I could only manage IoT as a single entity.</p>
-
-<h3 id="nat-exemption-for-dns">NAT Exemption for DNS<a href="#nat-exemption-for-dns" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>The solution: exempt DNS traffic from NAT, allowing the original source IP through to PiHole.</p>
-
-<p>Additions to the firewall script:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Exempt DNS to PiHole from NAT (preserve source IP)</span>
-iptables <span class="nt">-t</span> nat <span class="nt">-I</span> POSTROUTING <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-iptables <span class="nt">-t</span> nat <span class="nt">-I</span> POSTROUTING <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-
-<span class="c"># Allow IoT to reach PiHole DNS</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-</code></pre></div></div>
-
-<p>The <code class="language-plaintext highlighter-rouge">-t nat -I POSTROUTING ... -j ACCEPT</code> rules tell iptables: “For packets going to PiHole port 53, skip the <a href="https://www.netfilter.org/documentation/HOWTO/NAT-HOWTO-6.html#ss6.1">MASQUERADE rule that rewrites the source IP</a>.” The packets arrive at PiHole with their original 10.1.101.x source addresses. Normally, these packets wouldn’t be able to be responded to: the pihole is on a different subnet with a different gateway that wouldn’t know about the <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code> devices! That’s what the static route on the main router is for: the pihole’s gateway actually <em>does</em> know where to send responses addressed to the <code class="language-plaintext highlighter-rouge">10.*</code> addresses.</p>
-
-<p>After applying these rules, individual IoT IPs appeared in the PiHole logs.</p>
-
-<h2 id="hostname-resolution">Hostname Resolution<a href="#hostname-resolution" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<p>IP addresses appeared correctly, but the PiHole query log showed numeric IPs instead of hostnames. For the home LAN, PiHole displayed “macbook” and “desktop”. For IoT devices, just <code class="language-plaintext highlighter-rouge">10.1.101.134</code>.</p>
-
-<h3 id="configuring-the-iot-routers-dns">Configuring the IoT Router’s DNS<a href="#configuring-the-iot-routers-dns" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>The IoT router needed to serve reverse DNS lookup queries about its own DHCP clients. This required several dnsmasq settings.</p>
-
-<p>In Setup → Basic Setup:</p>
-
-<ul>
-  <li>
-<strong>Local Domain</strong>: <code class="language-plaintext highlighter-rouge">iot.local</code>
-</li>
-  <li>
-<strong>Use DNSMasq for DNS</strong>: Enabled</li>
-</ul>
-
-<p>In Services → Services → Dnsmasq Infrastructure → Additional Options:</p>
-
-<p><img src="dd-wrt_services_services_dnsmasq-infrastructure_sm.jpg" alt="DD-WRT: Services → Services → Additional DNSMasq Options"></p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>expand-hosts
-bind-interfaces
-listen-address=192.168.1.101
-local=/101.1.10.in-addr.arpa/
-dhcp-option=6,192.168.1.254
-</code></pre></div></div>
-
-<p>Each line serves a specific purpose:</p>
-
-<ul>
-  <li>
-<code class="language-plaintext highlighter-rouge">expand-hosts</code>: Append the domain to DHCP hostnames, so we have names in the first place</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">bind-interfaces</code>: Required when specifying listen-address</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">listen-address=192.168.1.101</code>: Serve DNS on WAN interface only (for PiHole reverse DNS queries)</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">local=/101.1.10.in-addr.arpa/</code>: Answer reverse DNS locally instead of forwarding upstream</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">dhcp-option=6,192.168.1.254</code>: Tell DHCP clients to use PiHole as their DNS server (option 6 = DNS server)</li>
-</ul>
-
-<p>The <code class="language-plaintext highlighter-rouge">local=</code> line was critical. Without it, the IoT router forwarded reverse DNS queries to internet root servers, which returned NXDOMAIN for private IP addresses. With <code class="language-plaintext highlighter-rouge">local=</code>, it answers authoritatively from its own DHCP lease table.</p>
-
-<p>I tried using <code class="language-plaintext highlighter-rouge">auth-zone</code> for authoritative DNS, which would also have prevented the forwarding of reverse DNS queries, but DD-WRT’s dnsmasq wasn’t compiled with <code class="language-plaintext highlighter-rouge">HAVE_AUTH</code> support. The router refused to start dnsmasq at all with that directive. <code class="language-plaintext highlighter-rouge">local=</code> was the way to go.</p>
-
-<p>Note also that we’re <em>not</em> listening on the LAN interface (<code class="language-plaintext highlighter-rouge">10.1.101.1</code>), as a DHCP’ing router normally would. IoT devices should use PiHole for DNS, not this router. To enforce this policy, and to allow PiHole to query us for reverse DNS, we need a few more firewall rules:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Allow reverse DNS queries FROM PiHole (via WAN interface)</span>
-iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> vlan2 <span class="nt">-s</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> vlan2 <span class="nt">-s</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-
-<span class="c"># Block DNS queries TO the gateway from IoT clients (they should use PiHole)</span>
-iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> br0 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
-iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> br0 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
-</code></pre></div></div>
-
-<h3 id="configuring-piholes-conditional-forwarding">Configuring PiHole’s Conditional Forwarding<a href="#configuring-piholes-conditional-forwarding" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>PiHole needs to know where to send reverse DNS queries for the IoT subnet. The web UI supports <a href="https://docs.pi-hole.net/ftldns/configfile/?h=forwarding#revservers">conditional forwarding</a>, but only for a single network - mine was already configured for the home LAN.</p>
-
-<p>The solution: manually add a dnsmasq configuration file on the pihole server:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># /etc/dnsmasq.d/11-iot-subnet.conf</span>
-rev-server<span class="o">=</span>10.1.101.0/24,192.168.1.101
-</code></pre></div></div>
-
-<p>This tells PiHole: “For reverse DNS lookups of <code class="language-plaintext highlighter-rouge">10.1.101.x</code> addresses, query <code class="language-plaintext highlighter-rouge">192.168.1.101</code> (the IoT router’s WAN IP).”</p>
-
-<p>After restarting PiHole’s DNS:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>pihole restartdns
-</code></pre></div></div>
-
-<p>Reverse DNS queries started working. <code class="language-plaintext highlighter-rouge">dig -x 10.1.101.134</code> on the PiHole server returned <code class="language-plaintext highlighter-rouge">macbook.iot.local</code>.</p>
-
-<h3 id="the-cache-finale">The Cache Finale<a href="#the-cache-finale" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<p>Everything was configured correctly. Reverse DNS worked from the command line. The PiHole <a href="https://docs.pi-hole.net/database/query-database/">FTL database</a> showed hostnames:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlite&gt; SELECT ip, name FROM network_addresses WHERE ip LIKE '10.1.101.%';
-10.1.101.134|macbook.iot.local
-10.1.101.101|gateway-device-1.iot.local
-10.1.101.109|gateway-device-2.iot.local
-</code></pre></div></div>
-
-<p>But the PiHole web interface still showed IP addresses.</p>
-
-<p>Browser cache. A hard refresh (Ctrl+Shift+R) and hostnames appeared. It may have also been a 10-minute or so wait. I didn’t test rigorously. But, it eventually started working; there was <em>some</em> kind of latency involved between proper configuration and hostnames actually showing in the Web UI.</p>
-
-<h2 id="final-working-configuration">Final Working Configuration<a href="#final-working-configuration" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<h3 id="main-router-asuswrt-merlin">Main Router (Asuswrt-Merlin)<a href="#main-router-asuswrt-merlin" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<h4 id="lan--route">LAN → Route<a href="#lan--route" class="heading-anchor" aria-label="Link to this section">#</a>
-</h4>
-
-<p><strong>Static Route</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Network/Host IP</th>
-      <th>Netmask</th>
-      <th>Gateway</th>
-      <th>Metric</th>
-      <th>Interface</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>10.1.101.0/24</td>
-      <td>255.255.255.0</td>
-      <td>192.168.1.101</td>
-      <td> </td>
-      <td>LAN</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="iot-router-dd-wrt">IoT Router (DD-WRT)<a href="#iot-router-dd-wrt" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<h4 id="setup--basic-setup">Setup → Basic Setup<a href="#setup--basic-setup" class="heading-anchor" aria-label="Link to this section">#</a>
-</h4>
-
-<p><strong>WAN Connection Type</strong></p>
-<ul>
-  <li>Connection Type: Static IP</li>
-  <li>WAN IP Address: <code class="language-plaintext highlighter-rouge">192.168.1.101/24</code>
-</li>
-  <li>Gateway: <code class="language-plaintext highlighter-rouge">192.168.1.1</code>
-</li>
-  <li>Static DNS 1: <code class="language-plaintext highlighter-rouge">192.168.1.254</code>
-</li>
-</ul>
-
-<p><strong>Optional Settings</strong></p>
-<ul>
-  <li>Domain Name: <code class="language-plaintext highlighter-rouge">iot.local</code>
-</li>
-</ul>
-
-<p><strong>Router IP</strong></p>
-<ul>
-  <li>Local IP Address: <code class="language-plaintext highlighter-rouge">10.1.101.1/24</code>
-</li>
-  <li>Gateway: <code class="language-plaintext highlighter-rouge">0.0.0.0</code>
-</li>
-  <li>Local DNS: <code class="language-plaintext highlighter-rouge">192.168.1.254</code>
-</li>
-</ul>
-
-<p><strong>DHCP</strong></p>
-<ul>
-  <li>DHCP Type: DHCP Server</li>
-  <li>DHCP Server: ✅ Enable</li>
-  <li>Start IP Address: <code class="language-plaintext highlighter-rouge">10.1.101.100</code>
-</li>
-  <li>Maximum DHCP Users: 50</li>
-  <li>Use DNSMasq for DNS: ✅ (enabled)</li>
-</ul>
-
-<h4 id="services--services">Services → Services<a href="#services--services" class="heading-anchor" aria-label="Link to this section">#</a>
-</h4>
-
-<p><strong>Dnsmasq Infrastructure</strong></p>
-
-<p><em>Additional Options:</em></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>expand-hosts
-bind-interfaces
-listen-address=192.168.1.101
-local=/101.1.10.in-addr.arpa/
-dhcp-option=6,192.168.1.254
-</code></pre></div></div>
-
-<h4 id="administration--commands">Administration → Commands<a href="#administration--commands" class="heading-anchor" aria-label="Link to this section">#</a>
-</h4>
-
-<p><strong>Firewall</strong></p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ===== DNS Protection =====</span>
-<span class="c"># Allow reverse DNS queries FROM PiHole (via WAN interface)</span>
-iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> vlan2 <span class="nt">-s</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> vlan2 <span class="nt">-s</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-
-<span class="c"># Block DNS queries TO the gateway from IoT clients (they should use PiHole)</span>
-iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> br0 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
-iptables <span class="nt">-I</span> INPUT <span class="nt">-i</span> br0 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
-<span class="c"># ===== End DNS Protection =====</span>
-
-<span class="c"># Allow established/related to IoT LAN</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-m</span> state <span class="nt">--state</span> ESTABLISHED,RELATED <span class="nt">-j</span> ACCEPT
-
-<span class="c"># Allow home LAN to reach IoT LAN</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 192.168.1.0/24 <span class="nt">-d</span> 10.1.101.0/24 <span class="nt">-j</span> ACCEPT
-
-<span class="c"># Block IoT from initiating to home LAN</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.0/24 <span class="nt">-j</span> REJECT
-
-<span class="c"># ===== PiHole DNS Rules =====</span>
-<span class="c"># Exempt DNS to PiHole from NAT</span>
-iptables <span class="nt">-t</span> nat <span class="nt">-I</span> POSTROUTING <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-iptables <span class="nt">-t</span> nat <span class="nt">-I</span> POSTROUTING <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-
-<span class="c"># Allow IoT to reach PiHole DNS</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> udp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-d</span> 192.168.1.254 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> ACCEPT
-<span class="c"># ===== End PiHole DNS Rules =====</span>
-
-<span class="c"># Allow IoT to the internet</span>
-iptables <span class="nt">-I</span> FORWARD <span class="nt">-s</span> 10.1.101.0/24 <span class="nt">-o</span> <span class="si">$(</span>nvram get wan_iface<span class="si">)</span> <span class="nt">-j</span> ACCEPT
-</code></pre></div></div>
-
-<h3 id="pihole">PiHole<a href="#pihole" class="heading-anchor" aria-label="Link to this section">#</a>
-</h3>
-
-<h4 id="etcdnsmasqd11-iot-subnetconf">
-<code class="language-plaintext highlighter-rouge">/etc/dnsmasq.d/11-iot-subnet.conf</code><a href="#etcdnsmasqd11-iot-subnetconf" class="heading-anchor" aria-label="Link to this section">#</a>
-</h4>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rev-server=10.1.101.0/24,192.168.1.101
-</code></pre></div></div>
-
-<h2 id="a-note-on-subnet-selection">A Note on Subnet Selection<a href="#a-note-on-subnet-selection" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<p>This post uses <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code> throughout, but I actually started with <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>. Mid-configuration, I switched.</p>
-
-<p>The problem was readability. The IoT router’s WAN IP was <code class="language-plaintext highlighter-rouge">192.168.1.101</code>. The IoT router’s LAN IP was <code class="language-plaintext highlighter-rouge">192.168.101.1</code>. When debugging firewall rules and routing tables, my brain kept swapping them. Is this the router’s address on the home network, or its address on its own network? Which side of the NAT am I looking at?</p>
-
-<p>Switching to <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code> made everything clearer. The <code class="language-plaintext highlighter-rouge">192.168.x.x</code> addresses are home LAN. The <code class="language-plaintext highlighter-rouge">10.x.x.x</code> addresses are IoT. No ambiguity. If you’re setting up something similar, pick subnets that are visually distinct.</p>
-
-<p>The pivot itself was straightforward:</p>
-
-<ol>
-  <li>Change IoT router’s LAN IP from <code class="language-plaintext highlighter-rouge">192.168.101.1</code> to <code class="language-plaintext highlighter-rouge">10.1.101.1</code>
-</li>
-  <li>Update DHCP range to <code class="language-plaintext highlighter-rouge">10.1.101.100-149</code>
-</li>
-  <li>Update main router’s static route destination to <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code>
-</li>
-  <li>Update all iptables rules referencing the IoT subnet</li>
-  <li>Update PiHole’s conditional forwarding config</li>
-  <li>Reboot IoT router, renew DHCP leases on clients, and reboot the pihole server</li>
-</ol>
-
-<h2 id="fin">Fin<a href="#fin" class="heading-anchor" aria-label="Link to this section">#</a>
-</h2>
-
-<p>The petcare hub works. It’s directly connected to a router, which is all its defective firmware ever needed. And the IoT network is finally isolated, with full per-device visibility in PiHole.</p>
-
-<p>All because a petcare company couldn’t write firmware that can handle being connected to a network switch.</p>]]&gt;</content><author><name>Texarkanine</name></author><category term="blog"></category><category term="record"></category><category term="dd-wrt"></category><category term="dns"></category><category term="home-networking"></category><category term="iot"></category><category term="iptables"></category><category term="networking"></category><category term="pihole"></category><summary type="html"></summary></entry></feed>
+<p>Three gems down, 2MB lighter per page.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="jekyll" /><category term="mermaid" /><category term="ruby" /><category term="rubygem" /><summary type="html"><![CDATA[The mermaid.js chart library weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: jekyll-mermaid-prebuild.]]></summary></entry></feed>
