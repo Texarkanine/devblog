@@ -21,7 +21,7 @@ module HeadingAnchorLinks
 
   def process_document(document)
     output = document.output
-    return unless output && output.include?("</h")
+    return unless output && output.match?(/<\/h[1-6]>/) && document.output_ext == ".html"
 
     anchor_config = document.site.config["heading_anchor"] || {}
     exclude_index = anchor_config["exclude_index"]

@@ -159,7 +159,7 @@ That's one of the outcomes you'll get if you follow the `Unix Philosophy` when b
 	archive:https://web.archive.org/web/20251212040814/https://cscie2x.dce.harvard.edu/hw/ch01s06.html
 %}
 
-[Who wrote `ls`, anyway?](/garden/a-history-of-the-ls-command.html) Turns out a bunch of people were involved, but *none* of those people are known for sitting around shipping updates to `ls`, with the goal of trying to get new users, get them to make an account for it, get them to subscribe, etc. `ls` is probably available on almost every full computer system on earth. Anything derivative of UNIX? Yes. Any siblings of UNIX? Likely. Windows? In the WSL somewhere. Smartphones? Android is linux-based, so it'll be in there. iOS is *nix-ish, so it'll be there, too. It's probably literally ubiquitous.
+[Who wrote `ls`, anyway?]({% link _garden/a-history-of-the-ls-command.md %}) Turns out a bunch of people were involved, but *none* of those people are known for sitting around shipping updates to `ls`, with the goal of trying to get new users, get them to make an account for it, get them to subscribe, etc. `ls` is probably available on almost every full computer system on earth. Anything derivative of UNIX? Yes. Any siblings of UNIX? Likely. Windows? In the WSL somewhere. Smartphones? Android is linux-based, so it'll be in there. iOS is *nix-ish, so it'll be there, too. It's probably literally ubiquitous.
 
 And it just works. It "does its job and stays quiet otherwise." It would never have made it to that level of ubiquity if it was run like a product.
 
