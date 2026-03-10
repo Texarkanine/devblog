@@ -29,7 +29,7 @@ In early 2026, Cloudflare rebuilt the [Next.js](https://nextjs.org/) API surface
 
 Let that sink in: A commercially-viable (CloudFlare's got customers *using* it already) behavioral clone of a major, popular, open-source (Next.js was MIT-licensed) web framework, produced for less than a Silicon Valley engineer's monthly grocery bill.
 
-This isn't new; there's not only precedent, but *legal* precedent: The Supreme Court already established in [*Google v. Oracle*](https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.) that reimplementing an API surface isn't infringement - behavioral equivalence doesn't require copying expression. What's new is *cost*. Google's clean-room reimplementation of Java's APIs almost certainly took millions of dollars and years of engineering. Cloudflare did functionally the same thing with one person, one grand, and one week. The legal barrier didn't go away; the economic barrier evaporated.
+This isn't new; there's not only precedent, but *legal* precedent: The Supreme Court already established in [*Google v. Oracle*](https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.) that reimplementing an API surface isn't *de facto* infringement - behavioral equivalence doesn't require copying expression. What's new is *cost*. Google's "clean-room" reimplementation of Java's APIs almost certainly took millions of dollars and years of engineering. Cloudflare did functionally the same thing with one person, one grand, and one week. The legal barrier didn't go away; the economic barrier evaporated.
 
 ## Characteristic Specificity
 
@@ -166,3 +166,11 @@ Whether the AI-generated behavioral rewrites of software libraries are copyright
 If they are copyrightable, then software licensing is dead because anyone can relicense a clone however thew want without having to abide by the original license's terms.
 
 If they aren't copyrightable, then software licensing is dead because the clones are public domain and anyone can use them without having to abide by the original license's terms.
+
+The proxy is broken because of economics, not law. A drastic change in law would be needed to restore licensing's teeth, and I don't see what that could be.
+
+If you fold *behavior* into copyright, you preclude competition (which is what Patents - including Software Patents - are designed to do). Among `ls` from GNU Coreutils and `ls` from FreeBSD, which *one* is allowed to list files in a directory? Can both GMail and Yahoo offer a web-based e-mail client? This is one huge reason why *software* patents are so rare in the field.
+
+On the other hand, if you *don't* fold behavior into copyright, then the only way I can imagine an API surface being protected is in its exact expression. So, that would legally preclude things like `chardet` and `vinext`'s API-compatible drop-in replacements, but it does *not* preclude the "copy it but change a few words" kind of clone. And that clone still gives *most* people the "out" of the original license that they'd need.
+
+No matter how you slice it, software licensing is dead.
