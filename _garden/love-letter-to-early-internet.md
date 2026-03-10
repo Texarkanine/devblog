@@ -463,4 +463,4 @@ You kind-of had to stick to instrumental tracks for background music if you were
 
 There is a whole subculture of people living and breathing the turn-of-the-millenium web design aesthetic in newly-minted sites. These sites are others' living love letters to the era. In addition to archiving sites of that era, some folks have taken it a step further and built search engines that only index sites that are literally or vibrationally from that era.
 
-You can go [Browse the Vintage, Early Internet]({% link _garden/browse-the-early-internet.md %})'s to see them!
+You can go [Browse the Vintage, Early Internet]({% link _garden/browse-the-early-internet.md %}) to see them!
