@@ -75,13 +75,13 @@ Cursor was one of the first major harnesses to tackle this by automatically comp
 
 Niko operationalizes and *obviates* this by making "recording the important things to disk" part of the workflow from the start. Niko's [ephemeral memory-bank files](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#ephemeral-files) track the current task: a project brief, active context, progress, task lists, reflections, creative decisions. When Niko finishes a phase and it's time for the human to make a decision, you open a new context window and run the next `/niko-*` command. Niko reads the memory bank from disk and picks up where it left off - clean context, full awareness. If you abort mid-phase, Niko's record-keeping enables the agent to diff the code on-disk against the last memory bank entry to deduce what was lost and resume from the right place.
 
-What this buys you is context windows as [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/), and your "Agent" is the state saved to disk and source control - something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated risks of having it very full.
+What this buys you is context windows as [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/), and your "Agent" is the state saved to disk and source control - something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated [risks of having it very full](TODO).
 
 ### ✅ Validation Loops
 
 > Verify the work. The plan must be *good* before building starts; what is built must be *correct* before the task can be considered complete.
 
-Niko's preflight and QA phases are genuine validation gates. These are not yet natively absorbed. TDD forcing - making the agent write tests first and use them as back-pressure - is also still a value-add that Niko delivers, which is frankly surprising given [how impactful TDD is at producing good outcomes](https://martinfowler.com/fragments/2026-02-18.html) in agentic workflows.
+Niko's preflight and QA phases are genuine validation gates. TDD forcing - making the agent write tests first and use them as back-pressure - is a [key value-add](https://martinfowler.com/fragments/2026-02-18.html) that Niko delivers.
 
 Crucially, Niko's validation doesn't default to coming up for air if it fails - it loops back and repeats the attempt. Agent doesn't get code perfect on the first try? You know what, a lot of humans don't, either. Going back and reworking it is the name of the game!
 
@@ -89,7 +89,9 @@ Crucially, Niko's validation doesn't default to coming up for air if it fails - 
 
 > Remember what you learned, not just what you're doing. Long-term institutional memory that survives beyond the current task lets you improve over time.
 
-Niko archives summaries of past work into the memory bank - a layer of long-term institutional memory that doesn't come off-the-shelf in any of the major harnesses. But this is partly because archival is opinionated: maybe you'd "archive" in Jira tickets, or GitHub issues, or commits, or a changelog, or a wiki. Eventually there will be something native. Most web-based chat interfaces already read past conversations for context. [CodeRabbit has Learnings](https://docs.coderabbit.ai/knowledge-base/learnings) that persist facts across code reviews. This one's on the roadmap in a way that everything above was once on the roadmap.
+Niko archives summaries of past work into the memory bank - a layer of long-term institutional memory that doesn't come off-the-shelf in any of the major harnesses. But this is partly because archival is opinionated: maybe you'd "archive" in Jira tickets, or GitHub issues, or commits, or a changelog, or a wiki. Eventually there will be something native. Cursor started out using a single file - `.cursorrules` - as memory, but has since abandoned directly advocating any particular "memory" management pattern. Claude Code semi-advocates using various `CLAUDE.md` files as memory; Gemini CLI explicitly [calls `GEMINI.md` a "memory."](https://geminicli.com/docs/cli/tutorials/memory-management/#how-to-teach-the-agent-facts-memory) Most web-based chat interfaces already read past conversations for context. [CodeRabbit has server-side Learnings](https://docs.coderabbit.ai/knowledge-base/learnings) that persist facts across code reviews.
+
+Everyone agrees: this works and we need it.
 
 ### 🔀 Parallelization
 
@@ -132,14 +134,14 @@ In January 2025, yeah. But your information is outdated; take a look at this tim
 **March 2026** — [Claude Code v2.1.63](https://claudefa.st/blog/guide/changelog#v2163) ships 🔁 [`/loop`](https://claudefa.st/blog/guide/changelog#v2163). The Ralph Wiggum technique is now a built-in command.
 
 **Not yet absorbed** 
-- ✅ **Validation loops**. Preflight gates. TDD forcing. QA checkpoints. The last frontier.
+- ✅ **Validation loops**. Preflight gates. TDD forcing. QA checkpoints.
 - 🧠 **Archival memory**. Long-term institutional memory that survives beyond the current task lets you improve over time, stored somewhere durable and accessible.
 
 Thirteen months. From the first community workaround to nearly-complete native absorption of every technique that mattered.
 
 ### The Scorecard
 
-Niko does almost everything listed above, usually at least slightly better than the native version. But for anyone starting today, the built-in tools are past good enough. The delta is real but the delta is shrinking and the floor keeps rising. I would not tell a newcomer that they *had* to install Niko to get working code. I'd tell them to cleanly, clearly, and fully type their task into Claude Code and let it work.
+Niko does almost everything listed above, usually at least slightly better than the native version. But for anyone starting today, the built-in tools are past good enough. The delta is real but the delta is shrinking and the floor keeps rising. I would not tell a newcomer to learn Niko. I'd tell them to learn Cursor or Claude Code: cleanly, clearly, and fully type their task into the box and let the agent work.
 
 And that baseline would be good enough.
 
@@ -151,15 +153,15 @@ The reason all of these behaviors get absorbed so easily is that the underlying 
 
 These aren't arcane insights; they're things every human business and workflow has understood for decades to centuries, if not millennia. The entire Niko ruleset - the mermaid diagrams, the phase gates, the memory bank, the complexity tiers - is an elaborate encoding of wisdom that, stripped of implementation details, is just a handful of simple instructions.
 
-The only reason this wisdom wasn't already in the tools is no one had gathered them all together and put them in yet. Now they largely have. A single enginee can encode "plan before executing" into a system prompt or fine-tuning signal and it just works. Three words. When you omit them, you get what you asked for, which is execution without planning. Remembering to say them was the middle step - the era where a cottage industry of AI optimization tips emerged to teach people what amounts to **basic project management**. Embedding three words into a model's harness or system prompt is close to trivial for where the tool makers are now.
+The only reason this wisdom wasn't already in the tools is no one had gathered them all together and put them in yet. Now they largely have. A single engineer can encode "plan before executing" into a system prompt or fine-tuning signal and it just works. Three words. When you omit them, you get what you asked for, which is execution without planning. Remembering to say them was the middle step - the era where a cottage industry of AI optimization tips emerged to teach people what amounts to **basic project management**. Embedding three words into a model's harness or system prompt is close to trivial for where the tool makers are now.
 
 And with each generation of model, the napkin gets shorter.
 
-The subsumption timeline tracks the *harness* absorbing community techniques - tool makers encoding process wisdom into native features. But there's a deeper layer: the *models themselves* absorbing behaviors that neither the harness nor the prompts need to teach anymore. Twice, I've solved a "model won't follow instructions" problem not by writing better prompts or more elaborate process scaffolding, but by bumping the model. Once from Sonnet 3.7 to Sonnet 4.0, once from Sonnet 4.5 to Opus 4.6. In both cases, behaviors I'd spent real effort encoding into Niko - staying on task, following the plan without wandering, respecting phase gates - just *happened* on the new model without being asked. The elaborate scaffolding wasn't compensating for a process gap. It was compensating for a capability gap, and the capability gap closed.
+The subsumption timeline tracks the *harness* absorbing community techniques - tool makers encoding process wisdom into native features. But there's a deeper layer: the *models themselves* absorbing behaviors that neither the harness nor the prompts need to teach anymore. Twice, I've solved a "model won't follow instructions" problem not by writing better prompts or more elaborate process scaffolding, but by bumping the model. Once from Sonnet 3.7 to Sonnet 4.0, once from Sonnet 4.5 to Opus 4.6. In both cases, behaviors I'd spent real effort trying to wring out through prompts - staying on task, following the plan without wandering, respecting phase gates - just *happened* on the new model without being asked. The elaborate scaffolding wasn't compensating for a process gap. It was compensating for a capability gap, and the capability gap closed.
 
-Niko's `/niko-*` command structure - the directive to the operator to *only* use these commands to navigate the workflow, ensuring Niko is in play at each step - exists because earlier models would wander off if you didn't force them through gates. Niko's commands serve the double-duty of reinforcing the process *and* reinforcing the context persistence out to the memory-bank on disk. That's a bandaid over attention span and instruction adherence. Better models don't need the bandaid. Some of those napkin words stop being necessary at all - not because someone built them into the harness, but because the model internalized them during training.
+Niko's `/niko-*` command structure - and the directive to the operator to *only* use these commands to navigate the workflow, ensuring Niko is in play at each step - exists because earlier models would wander off if you didn't force them through checkpoints. Niko's commands serve the double-duty of reinforcing the process *and* reinforcing the context persistence out to the memory-bank on disk. That's a bandaid over attention span and instruction adherence. Better models don't need the bandaid. Some of those napkin words stop being necessary at all - not because someone built them into the harness, but because the model internalized them during training.
 
-The harness absorbs the wisdom you write down. The model absorbs the wisdom you didn't even realize you were compensating for. And with it, the [models are building their own harnesses now](https://x.com/bcherny/status/2030109840555790357). Force-multiplication. Positive feedback loops. Each generation of model is better at specifying the behavior that makes the *next* generation more effective. The napkin gets shorter. Some of the words disappear entirely.
+Some wisdom is visibly absorbed into the harness and some wisdom is invisibly absorbed into the model's base capabilities. And with those wisdoms, the models are [building their own harnesses](https://x.com/bcherny/status/2030109840555790357) and [training models on their own](https://x.com/karpathy/status/2031135152349524125). Force-multiplication. Positive feedback loops. Each generation of model is better at specifying the behavior that makes the *next* generation more effective. The napkin gets shorter. Some of the words disappear entirely.
 
 The *pièce de résistance* of subsumption is [Boris Cherny](https://x.com/bcherny), creator of Claude Code and his "[vanilla Claude Code](https://x.com/bcherny/status/2007179832300581177)" setup. Despite the absence of significant third-party addons, Boris is unarguably a power user and the "vanilla" setup is more-complex than most other Claude Code users out there! If you read through it, you'll see a lot of echoes of all the techniques described above, just, solved with "vanilla" Claude Code!
 
@@ -171,25 +173,25 @@ We chuckled when we named the Ralph Wiggum technique. We put agents in bash loop
 
 Now look at us.
 
-Poking and prodding at the agentic process. Fiddling with orchestration. Tuning prompts. Adding yet another rule to `AGENTS.md`. Ooh, maybe a Skill! Reading blog posts about the optimal number of subagents. Installing one more MCP server, just in case.
+Poking and prodding at the agentic process. Fiddling with orchestration. Tuning prompts. Adding yet another rule to `AGENTS.md`. Ooh, maybe a Skill this time! Reading blog posts about the optimal number of subagents (how big should your Gas Town be?). Installing one more MCP server, just in case.
 
 *"I'm helping!"*
 
-Bless our hearts. For all the cheek, Ralph actually shipped. The human in the loop is increasingly just adding latency.
+Bless our hearts. For all the cheek, Ralph actually shipped. The human in the workflow's loop is increasingly just adding latency, not value.
 
-The good news is that unlike Ralph, we can recognize the loop and step out of it. The practical takeaway is simple: off-the-shelf is more than good enough. Specify well - good requirements, good acceptance criteria - and that will will proc plan mode and subagents on their own. Pave your desire paths, hand over the keys, and get out of the way.
+The good news is that unlike Ralph, we can recognize the loop and step out of it. The practical takeaway is simple: off-the-shelf is more than good enough. Specify well - good requirements, good acceptance criteria - and let the subagents work on your plan. Pave your desire paths, hand over the keys, and get out of the way.
 
 ## The Keys
 
-What's actually left? Let's talk about those "keys" we're handing over.
+What's actually left for us to do, then? Let's talk about those "keys" we're handing over.
 
 Authentication and authorization.
 
 The one place where the human's role isn't "know something the agent doesn't" - that's a knowledge problem, and [knowledge problems dissolve once you can express the answer in natural language to a sufficiently capable model]({% link _garden/last-programming-language.md %}). 
 
-Auth is a trust problem. You `gh auth login` so the agent can push. You `aws sso login` so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. [MCP](https://modelcontextprotocol.io/) - it's MCP handles auth separation well when it applies, but the core act is still yours: being the human who says "yes, you may."
+Auth is a trust problem. You `gh auth login` so the agent can push. You `aws sso login` so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. [MCP](https://modelcontextprotocol.io/) handles auth separation well when it applies, but the core act is still yours: being the human who says "yes, you may."
 
-This too is eroding, which should be no surprise because it was never a hard boundary in the first place. Organizations already delegate trust to automated systems: CI/CD pipelines hold credentials, service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary around agents dissolving from the edges, as organizations get comfortable granting progressively broader trust to automated actors.
+This too is eroding, which should be no surprise because it was never a hard boundary in the first place. Organizations already delegate trust to automated systems: CI/CD pipelines hold credentials, service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary around agents dissolving from the edges as organizations get comfortable granting progressively broader trust to automated actors.
 
 In 1965, [Gordon Dickson wrote a short story](https://en.wikipedia.org/wiki/Computers_Don%27t_Argue) called *[Computers Don't Argue](https://archive.org/details/bestofcreativeco00ahld/page/132/mode/2up)* in which a man receives a book club shipment he didn't order. He tries to return it. Automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - along the way accumulating transcription errors such that Mr. Walter A. Child's return of the book ["Kidnapped" by Robert Louis Stevenson](https://en.wikipedia.org/wiki/Kidnapped_(novel)) becomes a record that `Walter "kidnapped" A. Child (Robert Louis Stevenson [deceased])`.
 
@@ -199,7 +201,7 @@ What was missing from Dickson's chain wasn't technology. It was a manager - some
 
 > "Delegate authority with oversight checkpoints."
 
-The solution was always available; nobody applied it. Six words on the napkin, same as all the others.
+The solution was always available; nobody applied it. Five more words on the napkin.
 
 Prompt engineering is dust. Context management skills are ashes. What remains, after everything else has been automated away, is the architecturally unglamorous, existentially critical work of ensuring that somewhere in every automated chain, a human can check whether the system is still working toward the outcome that was actually intended - and redirect it if it's not.
 
