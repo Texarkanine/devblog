@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "It's Model Context Protocol, Not Agent Context Protocol"
+description: "A framework for evaluating when MCP tools earn their context-window tokens and when the model's existing shell access & intuition makes them expensive dead weight."
 author: texarkanine
 tags:
   - ai

@@ -1,0 +1,3 @@
+PASS
+
+QA (semantic review): All 24 planned posts have description frontmatter matching the task list. No code added; content-only. No KISS/DRY/YAGNI/regression/integrity issues. Build output (Jekyll) succeeds.

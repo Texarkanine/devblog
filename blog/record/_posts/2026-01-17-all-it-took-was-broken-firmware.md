@@ -2,6 +2,7 @@
 layout: post
 title: "All It Took Was Broken Firmware"
 subtitle: "The IoT isolation project I'd been putting off"
+description: "A petcare hub that can't survive a network switch, DD-WRT VLAN isolation, iptables one-way firewall rules, and PiHole DNS with NAT exemption for building an isolated IoT subnet."
 author: texarkanine
 tags:
   - dd-wrt

@@ -2,6 +2,7 @@
 layout: post
 title: "I Finally Coded So Hard I Ralphed"
 subtitle: "How They Finally Got Me on a Cursor Ultra Subscription"
+description: "Automating CodeRabbit PR feedback with a Wiggum Loop: the slash command, the bash invocation, the semaphore exit condition, and the lessons from first contact."
 author: texarkanine
 tags:
   - ai

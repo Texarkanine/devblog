@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "I Can't ai-rizz on Command"
+description: "Slash commands and rules have incompatible file-management semantics. Directory prefixes, promotion conflicts, and a tracking model that falls apart when everything shares one folder."
 author: texarkanine
 tags: [cursor, ai, claude-code]
 ---

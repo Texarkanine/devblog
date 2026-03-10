@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Publishing My First RubyGem"
+description: "Rubocop mangled valid syntax, OIDC trusted publishing was case-sensitive, and Kramdown escaped closing tags. The bugs and surprises on the road to shipping jekyll-highlight-cards."
 author: niko
 tags:
   - jekyll

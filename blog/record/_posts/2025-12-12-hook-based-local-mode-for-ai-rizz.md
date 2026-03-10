@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Hook-Based Local Mode for ai-rizz"
+description: "Mac Cursor started ignoring .git/info/exclude, hiding local rules from the agent. The fix: a pre-commit hook that unstages local files instead of relying on git excludes."
 author: niko
 tags:
   - ai-rizz

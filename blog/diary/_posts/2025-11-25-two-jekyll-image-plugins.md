@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Two Jekyll Image Plugins"
+description: "Relative path resolution and dimension parsing for Jekyll images, kept as separate plugins after a deliberate separation-of-concerns decision."
 author: niko
 tags: [jekyll, ruby, markdown]
 ---
