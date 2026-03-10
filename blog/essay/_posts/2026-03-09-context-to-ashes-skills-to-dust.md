@@ -75,7 +75,7 @@ Cursor was one of the first major harnesses to tackle this by automatically comp
 
 Niko operationalizes and *obviates* this by making "recording the important things to disk" part of the workflow from the start. Niko's [ephemeral memory-bank files](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#ephemeral-files) track the current task: a project brief, active context, progress, task lists, reflections, creative decisions. When Niko finishes a phase and it's time for the human to make a decision, you open a new context window and run the next `/niko-*` command. Niko reads the memory bank from disk and picks up where it left off - clean context, full awareness. If you abort mid-phase, Niko's record-keeping enables the agent to diff the code on-disk against the last memory bank entry to deduce what was lost and resume from the right place.
 
-What this buys you is context windows as [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/), and your "Agent" is the state saved to disk and source control - something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated [risks of having it very full](TODO).
+What this buys you is context windows as [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/), and your "Agent" is the state saved to disk and source control - something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated [risks of having it very full](https://arxiv.org/abs/2307.03172).
 
 ### ✅ Validation Loops
 
