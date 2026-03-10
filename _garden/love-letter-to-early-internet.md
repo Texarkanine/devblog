@@ -1,6 +1,7 @@
 ---
 layout: garden
 title: "Love Letter to the Early Internet"
+description: "A nostalgic celebration of the late-90s to early-2000s web: animated GIFs, visitor counters, webrings, tiled backgrounds, and the joy of personal homepages."
 tags:
   - vintage-web
   - web-design

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: ".gitignore is not .agentignore"
+description: "Your agent needs to see content like generated output, node_modules, and personal config that git rightfully ignores. The current crop of tool-specific ignore files needs a real standard."
 author: texarkanine
 tags:
   - ai

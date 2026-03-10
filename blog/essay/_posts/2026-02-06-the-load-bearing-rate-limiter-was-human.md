@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "The Load-Bearing Rate Limiter Was Human"
+description: "The economics of AI-accelerated knowledge work: what happens to budgets, revenue cycles, and employment when productivity outpaces the market's ability to absorb it."
 author: texarkanine
 tags:
   - ai

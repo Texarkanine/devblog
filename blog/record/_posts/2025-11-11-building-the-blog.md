@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Building the Blog"
+description: "Jekyll, GitHub Actions, and the 'no style, please' theme: archives, author pages, tag indexes, and the philosophy behind a sub-1KB CSS static site."
 author: texarkanine
 tags: [jekyll]
 ---

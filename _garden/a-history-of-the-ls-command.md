@@ -1,6 +1,7 @@
 ---
 layout: garden
 title: "A History of the 'ls' command"
+description: "Who wrote ls? Tracing the directory listing command from MIT's Compatible Time-Sharing System through Unix to GNU coreutils."
 tags:
   - history
   - ls

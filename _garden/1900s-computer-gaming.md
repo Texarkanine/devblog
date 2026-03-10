@@ -1,6 +1,7 @@
 ---
 layout: garden
 title: "Play Classic Computer Games from the 1900s"
+description: "Play classic DOS and Flash games from the 1900s in your browser: abandonware archives, retro gaming portals, and playable emulators."
 tags: 
   - abandonware
   - archive

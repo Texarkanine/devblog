@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "The Usen't Case for AI Coding Agent Slash Commands"
+description: "Every slash command you'd write is better served by a Rule, Skill, or other Tool that the agent picks up passively. The few apparent exceptions don't survive scrutiny."
 author: texarkanine
 tags: [cursor, ai, claude-code]
 ---

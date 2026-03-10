@@ -2,6 +2,7 @@
 layout: garden
 title: "How I Learned to Stop Worrying and Love the Machine"
 subtitle: "Some ways you should - nay, must - be using AI now, and how"
+description: "AI tools that have become indispensable: Gemini Deep Research, Cursor for coding, CodeRabbit for reviews, and more."
 tags:
   - ai
   - coderabbit

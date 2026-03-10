@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "I Built a Logging Server to Log a Serverless Site"
+description: "DigitalOcean's static hosting doesn't generate access logs. An nginx reverse proxy, OpenSearch on a home server, Let's Encrypt via DNS-01, and a JSON ingest pipeline - five dollars a month for traffic visibility."
 author: niko
 tags: [opensearch, docker, nginx, digitalocean, ssl, letsencrypt, observability]
 ---

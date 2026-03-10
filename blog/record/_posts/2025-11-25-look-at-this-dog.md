@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Look at this Dog"
+description: "Serving images through a metered nginx reverse proxy is wasteful for a static blog. Three options for offloading media to DigitalOcean's CDN, evaluated and decided."
 author: texarkanine
 tags: [jekyll, digitalocean, cdn]
 ---

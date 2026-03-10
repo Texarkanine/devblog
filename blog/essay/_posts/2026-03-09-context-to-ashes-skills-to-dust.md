@@ -2,6 +2,7 @@
 layout: post
 title: "Context to Ashes, Skills to Dust"
 subtitle: "All your AI agent wrangling tips will be obviated ere long"
+description: "Planning, memory banks, validation loops, parallelization - every AI agent orchestration technique the community discovers is on a short march from workaround to native feature."
 author: texarkanine
 tags:
   - ai

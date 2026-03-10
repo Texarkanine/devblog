@@ -1,6 +1,7 @@
 ---
 layout: garden
 title: "Websites for Making .ico Files"
+description: "Free online tools for creating favicons and .ico files, from multi-platform generators to pixel-art icon editors."
 tags:
   - favicon
   - ico

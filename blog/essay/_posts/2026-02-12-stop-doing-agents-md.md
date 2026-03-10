@@ -2,6 +2,7 @@
 layout: post
 title: "Stop Doing AGENTS.md"
 subtitle: "Yes, this includes CLAUDE.md"
+description: "A taxonomy of what goes wrong in global agent prompts - self-evident tips, task-specific guidance, duplicated info, wasted LLM cycles - and what to do instead."
 author: texarkanine
 tags:
   - ai

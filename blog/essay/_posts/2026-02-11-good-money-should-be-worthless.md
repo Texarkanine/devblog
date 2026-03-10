@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Good Money Should Be Worthless"
+description: "An argument for sound money from first principles: the structural conflict between utility and scarcity that has killed every monetary metal in history, and the paradox it reveals."
 author: texarkanine
 tags:
   - bitcoin

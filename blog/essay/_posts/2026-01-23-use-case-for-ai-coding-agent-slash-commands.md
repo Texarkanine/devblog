@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "The Use Case for AI Coding Agent Slash Commands"
+description: "Bundling a big prompt as the entry point to a repeatable workflow is where slash commands earn their keep."
 author: texarkanine
 tags: [cursor, ai, claude-code]
 ---

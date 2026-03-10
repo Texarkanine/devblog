@@ -2,6 +2,7 @@
 layout: garden
 title: "Fomenting the Butlerian Jihad"
 subtitle: "The various ways AI can probably hurt you and what, if anything, you can do about it"
+description: "Real risks of transformer-based AI worth planning for: job displacement, cognitive dependency, psychogenic feedback loops, and alignment failure."
 tags:
   - ai
   - research

@@ -1,6 +1,7 @@
 ---
 layout: garden
 title: "Browse The Vintage, Early Internet"
+description: "A curated collection of links to browse the vintage web: GeoCities archives, Neocities, the Web Design Museum, and retro search engines."
 tags: 
   - archive
   - scrollable

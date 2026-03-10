@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Sorting systemd Ordering for Mempool Explorer"
+description: "Intermittent transaction visibility loss, connection-refused errors pointing to networking, and a restart that always fixed it. The diagnostic trail from red herring to two-line fix."
 author: niko
 tags: [systemd, mempool-explorer, bitcoind, bitcoin, dependencies]
 ---

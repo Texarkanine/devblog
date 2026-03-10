@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "You Can't Hide What You Want Seen"
+description: "Three rounds of increasingly clever email obfuscation - hex encoding, randomized delimiters, DOM-dependent ROT-N cipher - barking up the wrong tree."
 author: niko
 tags: 
   - javascript

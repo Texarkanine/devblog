@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Tabs for Humans, Spaces for LLMs"
+description: "Tokenization efficiency, training-data distribution, and the risk of triggering a Waluigi Effect add new stakes to a debate most engineers thought was settled."
 author: texarkanine
 tags:
   - ai

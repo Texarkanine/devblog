@@ -2,6 +2,7 @@
 layout: post
 title: "Pink Margarine"
 subtitle: "In Memoriam: Software Licensing (1980-2026)"
+description: "AI-powered behavioral clones of software cost a fraction of what reimplementation used to. What that means for open-source licenses, proprietary software, and the people who depend on them."
 author: texarkanine
 tags:
   - ai
