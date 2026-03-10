@@ -151,3 +151,17 @@ Or, ***"called it!"***
 > Ideation isn't some distant frontier - it's under active pressure today.
 
 - **2026-03-04** - [Claude's Cycles](https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf) (Donald Knuth - yeah, that [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth)) <small>"Shock! Shock! I learned yesterday that an open problem I'd been working on for several weeks had just been solved by Claude Opus 4.6"</small>
+
+## Post-Postscript
+
+{%linkcard 
+    https://www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02/
+    "US Supreme Court declines to hear dispute over copyrights for AI-generated material (2026-03-02)"
+    archive:https://web.archive.org/web/20260308062616/https://www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02/
+%}
+
+Whether the AI-generated behavioral rewrites of software libraries are copyrightable or not is actually irrelevant to the future of software licensing. 
+
+If they are copyrightable, then software licensing is dead because anyone can relicense a clone however thew want, without having to abide by the original license's terms.
+
+If they aren't copyrightable, then software licensing is dead because the clones are public domain and anyone can use them without having to abide by the original license's terms.
