@@ -199,6 +199,4 @@ The solution was always available; nobody applied it. Six words on the napkin, s
 
 Prompt engineering is dust. Context management skills are ashes. What remains, after everything else has been automated away, is the architecturally unglamorous, existentially critical work of ensuring that somewhere in every automated chain, a human can check whether the system is still working toward the outcome that was actually intended - and redirect it if it's not.
 
-When the machines have all the keys, someone had better be able to break the loop.
-
-For now, that someone is you.
+For now, that human is you. You're a manager now: the machines don't need your help figuring out how to do their jobs anymore.
