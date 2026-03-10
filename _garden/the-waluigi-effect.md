@@ -1,6 +1,7 @@
 ---
 layout: garden
 title: "The Waluigi Effect"
+description: "How an LLM coerced into good behavior may find it easier to flip to the exact opposite than to do anything else."
 tags:
   - ai
   - ai-alignment

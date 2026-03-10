@@ -1,6 +1,7 @@
 ---
 layout: garden
 title: "Linkroll"
+description: "A curated collection of blogs, tools, and interesting corners of the internet worth bookmarking."
 tags:
   - links
 ---

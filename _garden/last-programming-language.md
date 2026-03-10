@@ -2,6 +2,7 @@
 layout: garden
 title: "The Last Programming Language"
 subtitle: "The hottest new programming language is English"
+description: "The entire history of programming languages has been a project to close the gap between human intent and machine execution. LLMs are the endpoint."
 tags:
   - abstraction
   - programming-languages
