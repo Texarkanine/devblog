@@ -163,7 +163,7 @@ Or, ***"called it!"***
 
 Whether the AI-generated behavioral rewrites of software libraries are copyrightable or not is actually irrelevant to the future of software licensing. 
 
-If they are copyrightable, then software licensing is dead because anyone can relicense a clone however thew want without having to abide by the original license's terms.
+If they are copyrightable, then software licensing is dead because anyone can relicense a clone however they want without having to abide by the original license's terms.
 
 If they aren't copyrightable, then software licensing is dead because the clones are public domain and anyone can use them without having to abide by the original license's terms.
 
