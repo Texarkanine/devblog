@@ -85,7 +85,7 @@ So what does it take to operate at the top of this continuum? Three things. All 
 
 This sounds like a prompting tip. It isn't. The skill isn't in phrasing the prompt well - it's in *knowing what to ask*, which presupposes deep domain expertise. The principal engineer who stopped writing code still needs to think like one. The models are better than me at producing code. They are not (yet!) better than me at knowing what code should exist or what behavior it should exhibit.
 
-Consider the [Rust rewrite of SQLite](https://x.com/KatanaLarp/status/2029928471632224486) that benchmarked at roughly 1,800 to 20,000x slower on key lookups than the original C implementation. There's a well-known axiom in manufacturing and contracting, a variant of the "good, cheap, fast, pick two" constraint: "Anything unspecified will be done to the bare minimum quality required to fulfill the contract." The critics saw this and concluded that LLMs produce plausible code, not good code.
+Consider the [Rust rewrite of SQLite that benchmarked at roughly 1,800 to 20,000x slower](https://blog.katanaquant.com/p/your-llm-doesnt-write-correct-code) on key lookups than the original C implementation. There's a well-known axiom in manufacturing and contracting, a variant of the "good, cheap, fast, pick two" constraint: "Anything unspecified will be done to the bare minimum quality required to fulfill the contract." The critics saw this and concluded that LLMs produce plausible code, not good code.
 
 They're right but they're a step short of the load-bearing insight: you get to define what "plausible" is.
 
