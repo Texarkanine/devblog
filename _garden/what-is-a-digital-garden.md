@@ -22,7 +22,7 @@ And inspired to action by:
 	archive:https://preservetube.com/watch?v=6fj-OJ6RcNQ
 %}
 
-I have planted a [digital garden](/garden/).
+I have planted a [digital garden]({% link _pages/garden.md %}).
 
 A digital garden is a curated collection of original content and hyperlinks that are of interest to the gardener. They're organized *somehow*, in a way that is meaningful to the gardener. Digital gardens, like physical gardens, are for wandering through, exploring, getting lost, and discovering.
 

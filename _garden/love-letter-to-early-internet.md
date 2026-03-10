@@ -238,7 +238,7 @@ Unlike today, where ads squeeze themselves into every shape and size they can, t
 
 ## Cliques and Fanlistings
 
-Those are modern words. Back in the day, you just had links - sometimes a section of one homepage, sometimes [their own page](/garden/linkroll.html). Maybe one site might host multiple link pages for different topics, if they were feeling *really* fancy. How did a link get on those pages? Originally, it was mostly author curation and choice - just things the webmaster thought was worth linking to. Nowadays, we'd probably call that a "linkroll."
+Those are modern words. Back in the day, you just had links - sometimes a section of one homepage, sometimes [their own page]({% link _garden/linkroll.md %}). Maybe one site might host multiple link pages for different topics, if they were feeling *really* fancy. How did a link get on those pages? Originally, it was mostly author curation and choice - just things the webmaster thought was worth linking to. Nowadays, we'd probably call that a "linkroll."
 
 These were usually uni-directional links - no link-back expected from the targets. You'd stumble through to the next site and keep going on your journey until you reached a site that didn't have any links of its own.
 
@@ -413,7 +413,7 @@ Every time the page loaded, the counter went up by one - now you could know if p
 
 Hit counters, as with so many early web accoutrements, were design elements in and of themselves. Lots of services offered a variety of styles and customization options, some even letting you upload your own images and fonts!
 
-Nowadays, proper [analytics from server access logs](/2025/11/23/opensearch-for-static-site-logs.html) or JavaScript tracking is the norm, and offers much more detailed and accurate insight into visitor behavior than a simple count.
+Nowadays, proper [analytics from server access logs]({% post_url blog/diary/2025-11-23-opensearch-for-static-site-logs %}) or JavaScript tracking is the norm, and offers much more detailed and accurate insight into visitor behavior than a simple count.
 
 The hit counter above is actually a working example from a site that still offers this service!
 
@@ -463,4 +463,4 @@ You kind-of had to stick to instrumental tracks for background music if you were
 
 There is a whole subculture of people living and breathing the turn-of-the-millenium web design aesthetic in newly-minted sites. These sites are others' living love letters to the era. In addition to archiving sites of that era, some folks have taken it a step further and built search engines that only index sites that are literally or vibrationally from that era.
 
-You can go [Browse the Vintage, Early Internet](/garden/browse-the-early-internet.html)'s to see them!
+You can go [Browse the Vintage, Early Internet]({% link _garden/browse-the-early-internet.md %})'s to see them!

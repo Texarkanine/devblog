@@ -35,7 +35,7 @@ Here are some of the key techniques we've discovered:
 
 ### 🗺️ Planning
 
-> The agent should research and plan before building. The single highest-leverage intervention - the difference between an agent that wanders and one that ships.
+> The agent should research and plan before building. The single highest-leverage intervention - the difference between an agent that wanders and one that delivers.
 
 Niko's phased plan-then-execute workflow forced the agent through research, planning, and validation before a single line of code got written. This came from my original learning from agentic dev experience & readings that "you should make a plan before you start coding," which I then taught to my agents.
 
@@ -45,17 +45,15 @@ I used to coax the workflow by hand, before I found Niko's ancestors in the Curs
 
 > The agent should understand the project it's working in.
 
-Niko's memory bank initialization creates a structured set of files - product context, system patterns, tech context - a variation of the [Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md) set, refined through personal industry experience, giving the agent a persistent understanding of the project across sessions. The Cline Memory Bank itself was community-created on the Cline Discord around early 2025.
+Niko's memory bank initialization creates a [structured set of persistent files](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#persistent-files) - product context, system patterns, tech context - a variation of the [Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md) set, refined through personal industry experience, giving the agent a consistent and reliable understanding of the project across sessions. The Cline Memory Bank itself was community-created on the Cline Discord around early 2025.
 
 Claude Code's `/init` scaffolds a `CLAUDE.md` file by scanning the codebase, too, but only writes to the single file.
 
 Cursor's approach is actually more interesting and arguably *better* than the manual pattern: it [computes embeddings for every file in your codebase](https://cursor.com/docs/context/codebase-indexing) and provides those alongside a brief tree/text summary of the project structure. This is *indirect* context - you embed the code so the model kinda-sorta knows it, without burning context window on a monolithic description. It's the [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) thesis made manifest by tooling: instead of a giant global prompt telling the model about your code, the model just *implicitly knows* because the code is embedded. The brief structural summary gives just enough for the model to know where it might want to look - rather than the monolithic `AGENTS.md` antipattern.
 
-Multi-file repo context documents are being actively developed; I see murmurs of it in my "Stop Doing AGENTS.md" spaces. `/init` will probably produce something closer to Niko's multi-file structure before long. And how long before the tools add "after I realize I built a plan, go update the docs that `/init` touches?"
+Multi-file repo context documents are being actively developed; I see murmurs of it in my "Stop Doing AGENTS.md" spaces. `/init` will probably produce something closer to Niko's multi-file structure before long. And how long before the tools add "after I finish executing a plan, go update the docs that `/init` touches?"
 
 ### 🔁 The Ralph Wiggum Technique
-
-> Put the agent in a loop, let it try the same prompt over and over until it's good. Fresh context each iteration, accreted codebase underneath, tests as back-pressure. Deterministic correctness from a nondeterministically fallible machine.
 
 In July 2025, [Geoffrey Huntley documented](https://ghuntley.com/ralph/) the technique: put an AI coding agent in a bash `while` loop:
 
