@@ -23,7 +23,7 @@ The distance between "how humans already know work should be done" and "how AI a
 
 I stopped writing code about a year ago. In its place, I built an elaborate orchestration system - [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) - that turned AI coding agents into something resembling a senior colleague with a rigorous process. Phase-gated workflows with complexity tiers. Memory banks split into persistent and ephemeral files. Preflight validation. QA loops. TDD enforcement. An archive system for long-term institutional memory. Mermaid diagrams as a conceit to my human desire to understand the process. A whole cathedral.
 
-And it *worked*. Measurably, demonstrably better than vanilla agentic coding harnesses. The original introduction of [Niko's core](https://github.com/Texarkanine/.cursor-rules/blob/main/rules/niko-core.mdc) turned GPT-4o into Sonnet 3.5, back in January 2025. Niko's lineage traces back through [vanzan01's Cursor memory bank adaptation](https://github.com/vanzan01/cursor-memory-bank) to the original [Cline Memory Bank](https://docs.cline.bot/features/memory-bank), community-created on the Cline Discord around early 2025. The genealogy matters because it shows that a *lot* of people, independently, arrived at the same conclusion: agents need structure, memory, and process to do good work.
+And it *worked*. Measurably, demonstrably better than vanilla agentic coding harnesses. My original adoption of [Niko's core](https://github.com/Texarkanine/.cursor-rules/blob/main/rules/niko-core.mdc) turned GPT-4o into Sonnet 3.5, back in March 2025. Niko's lineage traces back through [vanzan01's Cursor memory bank adaptation](https://github.com/vanzan01/cursor-memory-bank) to the original [Cline Memory Bank](https://docs.cline.bot/features/memory-bank), community-created on the Cline Discord around early 2025. The genealogy matters because it shows that a *lot* of people, independently, arrived at the same conclusion: agents need structure, memory, and process to do good work.
 
 We were all correct. And now we can all stop.
 
@@ -31,23 +31,25 @@ We were all correct. And now we can all stop.
 
 The tools have started eating the techniques we dress them up in. From [Cline](https://docs.cline.bot/home) to [Claude Code](https://code.claude.com/docs/en/overview) and [Cursor](https://cursor.com/docs), major harnesses and models are absorbing these behaviors natively. The gap between "community workaround" and "native feature" is compressing over time
 
-Here are some of the key techniques that we've discovered:
+Here are some of the key techniques we've discovered:
 
 ### 🗺️ Planning
 
-> The agent should research and plan before building. The single highest-leverage intervention — the difference between an agent that wanders and one that ships.
+> The agent should research and plan before building. The single highest-leverage intervention - the difference between an agent that wanders and one that ships.
 
 Niko's phased plan-then-execute workflow forced the agent through research, planning, and validation before a single line of code got written. This came from my original learning from agentic dev experience & readings that "you should make a plan before you start coding," which I then taught to my agents.
 
+I used to coax the workflow by hand, before I found Niko's ancestors in the Cursor Memory Bank and welcomed a formalization of the process.
+
 ### 📋 Context Initialization
 
-> The agent should understand the project it's working in. Memory bank files, codebase embeddings, and structural summaries all solve this differently.
+> The agent should understand the project it's working in.
 
-Niko's memory bank initialization creates a structured set of files — product context, system patterns, tech context — a variation of the [Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md) set, refined through personal industry experience, giving the agent a persistent understanding of the project across sessions. The Cline Memory Bank itself was community-created on the Cline Discord around early 2025 by [nickbaumann98, Krylo, and SniperMunyShotz](https://docs.cline.bot/prompting/cline-memory-bank). The lineage runs through [vanzan01's Cursor adaptation](https://github.com/vanzan01/cursor-memory-bank) into Niko. A *lot* of people, independently, arrived at the same conclusion: agents need structured context to do good work.
+Niko's memory bank initialization creates a structured set of files - product context, system patterns, tech context - a variation of the [Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md) set, refined through personal industry experience, giving the agent a persistent understanding of the project across sessions. The Cline Memory Bank itself was community-created on the Cline Discord around early 2025.
 
 Claude Code's `/init` scaffolds a `CLAUDE.md` file by scanning the codebase, too, but only writes to the single file.
 
-Cursor's approach is actually more interesting and arguably *better* than the manual pattern: it [computes embeddings for every file in your codebase](https://cursor.com/docs/context/codebase-indexing) and provides those alongside a brief tree/text summary of the project structure. This is *indirect* context — you embed the code so the model kinda-sorta knows it, without burning context window on a monolithic description. It's the [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) thesis made manifest by tooling: instead of a giant global prompt telling the model about your code, the model just *implicitly knows* because the code is embedded. The brief structural summary gives just enough for the model to know where it might want to look — rather than the monolithic `AGENTS.md` antipattern.
+Cursor's approach is actually more interesting and arguably *better* than the manual pattern: it [computes embeddings for every file in your codebase](https://cursor.com/docs/context/codebase-indexing) and provides those alongside a brief tree/text summary of the project structure. This is *indirect* context - you embed the code so the model kinda-sorta knows it, without burning context window on a monolithic description. It's the [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) thesis made manifest by tooling: instead of a giant global prompt telling the model about your code, the model just *implicitly knows* because the code is embedded. The brief structural summary gives just enough for the model to know where it might want to look - rather than the monolithic `AGENTS.md` antipattern.
 
 Multi-file repo context documents are being actively developed; I see murmurs of it in my "Stop Doing AGENTS.md" spaces. `/init` will probably produce something closer to Niko's multi-file structure before long. And how long before the tools add "after I realize I built a plan, go update the docs that `/init` touches?"
 
@@ -61,7 +63,7 @@ In July 2025, [Geoffrey Huntley documented](https://ghuntley.com/ralph/) the tec
 while :; do cat PROMPT.md | claude-code ; done
 ```
 
-... and let it autonomously ship. Each time through the loop, the context is fresh but the codebase has accreted changes, and the agent keeps making progress toward the goal in the prompt. Doesn't matter if it doesn't get it on the first try; after 50 tries overnight, it will. The name comes from [Ralph](https://en.wikipedia.org/wiki/Ralph_Wiggum)'s energy — not his incompetence, but his unwavering, guileless commitment to the task at hand.
+... and let it spin until it stabilizes. Each time through the loop, the context is fresh but the codebase has accreted changes, and the agent keeps making progress toward the goal in the prompt. Doesn't matter if it doesn't get it on the first try; after 50 tries overnight, it will. The name comes from [Ralph](https://en.wikipedia.org/wiki/Ralph_Wiggum)'s energy - not his incompetence, but his unwavering, guileless commitment to the task at hand.
 
 People put agents in Ralph loops and they [shipped entire projects overnight](https://github.com/repomirrorhq/repomirror/blob/main/repomirror.md).
 
@@ -71,35 +73,35 @@ Turns out you don't actually have to type the prompt out each time; you can just
 
 > Models forget. The context window fills, and older content falls away. Work is often not complete before the model can't ingest any new information. You must find a way to persist what matters.
 
-Cursor was one of the first major harnesses to tackle this by automatically compacting conversations that approached the limit: run the history through a summarizer, produce a summary document, start a new context window with the summary injected. More recently, Cursor [noted the addition](https://cursor.com/blog/dynamic-context-discovery#2-referencing-chat-history-during-summarization) of a technique people had been doing manually: saving the original conversation transcript to disk before compacting, then referencing the full transcript in the next conversation alongside the summary.
+Cursor was one of the first major harnesses to tackle this by automatically compacting conversations that approached the limit: run the history through a summarizer, produce a summary document, start a new context window with the summary injected. More recently, Cursor [noted the addition](https://cursor.com/blog/dynamic-context-discovery#2-referencing-chat-history-during-summarization) of a technique that people - including myself - had been doing manually: saving the original conversation transcript to disk before compacting, then referencing the full transcript in the next conversation alongside the summary.
 
-Niko operationalizes and *obviates* this by making "recording the important things to disk" part of the workflow from the start. Niko's [ephemeral memory-bank files](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#ephemeral-files) track the current task: a project brief, active context, progress, task lists, reflections, creative decisions. When Niko finishes a phase and it's time for the human to make a decision, you open a new context window and run the next `/niko-*` command. Niko reads the memory bank from disk and picks up where it left off — clean context, full awareness. If you abort mid-phase, Niko's record-keeping enables the agent to diff the code on-disk against the last memory bank entry to deduce what was lost and resume from the right place.
+Niko operationalizes and *obviates* this by making "recording the important things to disk" part of the workflow from the start. Niko's [ephemeral memory-bank files](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#ephemeral-files) track the current task: a project brief, active context, progress, task lists, reflections, creative decisions. When Niko finishes a phase and it's time for the human to make a decision, you open a new context window and run the next `/niko-*` command. Niko reads the memory bank from disk and picks up where it left off - clean context, full awareness. If you abort mid-phase, Niko's record-keeping enables the agent to diff the code on-disk against the last memory bank entry to deduce what was lost and resume from the right place.
 
-What this buys you is context windows as [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/), and your "Agent" is the state saved to disk and source control — something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated risks of having it very full.
+What this buys you is context windows as [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/), and your "Agent" is the state saved to disk and source control - something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated risks of having it very full.
 
 ### ✅ Validation Loops
 
 > Verify the work. The plan must be *good* before building starts; what is built must be *correct* before the task can be considered complete.
 
-Niko's preflight and QA phases are genuine validation gates. These are not yet natively absorbed. TDD forcing — making the agent write tests first and use them as back-pressure — is also still a value-add, which is frankly surprising given [how impactful TDD is](https://martinfowler.com/fragments/2026-02-18.html) at producing good outcomes in agentic workflows.
+Niko's preflight and QA phases are genuine validation gates. These are not yet natively absorbed. TDD forcing - making the agent write tests first and use them as back-pressure - is also still a value-add that Niko delivers, which is frankly surprising given [how impactful TDD is at producing good outcomes](https://martinfowler.com/fragments/2026-02-18.html) in agentic workflows.
+
+Crucially, Niko's validation doesn't default to coming up for air if it fails - it loops back and repeats the attempt. Agent doesn't get code perfect on the first try? You know what, a lot of humans don't, either. Going back and reworking it is the name of the game!
 
 ### 🧠 Archival Memory
 
 > Remember what you learned, not just what you're doing. Long-term institutional memory that survives beyond the current task lets you improve over time.
 
-Niko archives summaries of past work into the memory bank — a layer of long-term institutional memory that doesn't come off-the-shelf in any of the major harnesses. But this is partly because archival is opinionated: maybe you'd "archive" in Jira tickets, or GitHub issues, or commits, or a changelog, or a wiki. Eventually there will be something native. Most web-based chat interfaces already read past conversations for context. [CodeRabbit has Learnings](https://docs.coderabbit.ai/knowledge-base/learnings) that persist facts across code reviews. This one's on the roadmap in a way that everything above was once on the roadmap.
+Niko archives summaries of past work into the memory bank - a layer of long-term institutional memory that doesn't come off-the-shelf in any of the major harnesses. But this is partly because archival is opinionated: maybe you'd "archive" in Jira tickets, or GitHub issues, or commits, or a changelog, or a wiki. Eventually there will be something native. Most web-based chat interfaces already read past conversations for context. [CodeRabbit has Learnings](https://docs.coderabbit.ai/knowledge-base/learnings) that persist facts across code reviews. This one's on the roadmap in a way that everything above was once on the roadmap.
 
 ### 🔀 Parallelization
 
-> Break work into parallel tracks. The agent should detect parallelizable work and spin off subagents without being told to.
+> Break work into parallel tracks to progress as quickly as possible.
 
-Parallelization was the one technique that couldn't be solved by better prompting. Every other innovation on this list was, at bottom, a matter of telling the agent what to do differently. Parallelization required the harness to do something differently — you needed multiple context windows running simultaneously, with coordination between them.
+Parallelization was the one technique that couldn't be solved by better prompting. Every other innovation on this list was, at its core, a matter of telling the LLM inside the agent what to do differently. Parallelization required the harness to do something differently - you needed multiple context windows running simultaneously, with coordination between them.
 
-Before harness support existed, I was literally cloning repositories into separate directories on my machine, launching a Cursor instance out of each location, and manually giving each one a different prompt. I was the load balancer. Claude Code's early subagent support was more CLI-native but similarly manual — you could spawn subagents, but you were still the one deciding what ran where and reconciling the results. You'd handcraft hordes of subagents, or at least explicitly kick them off, to get decent parallelization on tasks — wiring up the topology yourself like a computational middle manager.
+Before harness support existed, I was literally cloning repositories into separate directories on my machine, launching a Cursor instance out of each location, and manually giving each one a different prompt. I was the load balancer. Claude Code's early subagent support was more CLI-native but similarly manual - you could spawn subagents, but you were still the one deciding what ran where and reconciling the results. You'd handcraft hordes of subagents, or at least explicitly kick them off, to get decent parallelization on tasks - wiring up the topology yourself like a computational middle manager.
 
 Parallelization matters disproportionately to the other techniques: it's pure force multiplication, and it was the one place where no amount of clever process design could substitute for infrastructure the tool didn't yet provide.
-
-You would handcraft hordes of subagents to get decent parallelization on tasks — wiring up the topology yourself like a computational middle manager.
 
 ### The Timeline
 
@@ -139,11 +141,9 @@ Thirteen months. From the first community workaround to nearly-complete native a
 
 ### The Scorecard
 
-Niko does almost everything listed above, usually at least slightly better than the native version. But for anyone starting today, the built-in tools are past good enough. The delta is real but the delta is shrinking and the floor keeps rising. You would not tell a newcomer that they *had* to install Niko to succeed. You'd tell them to cleanly, clearly, and fully type their task into Claude Code and let it work.
+Niko does almost everything listed above, usually at least slightly better than the native version. But for anyone starting today, the built-in tools are past good enough. The delta is real but the delta is shrinking and the floor keeps rising. I would not tell a newcomer that they *had* to install Niko to get working code. I'd tell them to cleanly, clearly, and fully type their task into Claude Code and let it work.
 
 And that baseline would be good enough.
-
----- CUT HERE ---
 
 ## The Napkin
 
@@ -153,11 +153,11 @@ The reason all of these behaviors get absorbed so easily is that the underlying 
 
 These aren't arcane insights; they're things every human business and workflow has understood for decades to centuries, if not millennia. The entire Niko ruleset - the mermaid diagrams, the phase gates, the memory bank, the complexity tiers - is an elaborate encoding of wisdom that, stripped of implementation details, is just a handful of simple instructions.
 
-The only reason this wisdom wasn't already in the tools is that the tools weren't smart enough to act on plain-language instructions. Now they are. A single engineer can encode "plan before executing" into a system prompt or fine-tuning signal and it just works. Three words. When you omit them, you get what you asked for, which is execution without planning. Remembering to say them was the middle step - the era where a cottage industry of AI optimization tips emerged to teach people what amounts to **basic project management**. Embedding three words into a model's harness or system prompt is close to trivial for where the tool makers are now.
+The only reason this wisdom wasn't already in the tools is no one had gathered them all together and put them in yet. Now they largely have. A single enginee can encode "plan before executing" into a system prompt or fine-tuning signal and it just works. Three words. When you omit them, you get what you asked for, which is execution without planning. Remembering to say them was the middle step - the era where a cottage industry of AI optimization tips emerged to teach people what amounts to **basic project management**. Embedding three words into a model's harness or system prompt is close to trivial for where the tool makers are now.
 
 There are probably under a hundred words needed to fully specify the correct autonomous development behavior with superhuman reliability, and the LLMs themselves are helping sift all of humanity's messy corporate process wisdom into those hundred words. This will not take long. And with a little support from the harness, you're done - and moreover, the [models are building their own harnesses now](https://x.com/bcherny/status/2030109840555790357). Force-multiplication. Positive feedback loops. Each generation of model is better at specifying the behavior that makes the *next* generation's harness more effective.
 
-The *pièce de résistance* of subsumption is [Boris Cherny](https://x.com/bcherny), creator of Claude Code and his "[vanilla Claude Code]((https://x.com/bcherny/status/2007179832300581177))" setup. Despite the absence of significant third-party addons, Boris is unarguably a power user and the "vanilla" setup is more-complex than most other Claude Code users out there!
+The *pièce de résistance* of subsumption is [Boris Cherny](https://x.com/bcherny), creator of Claude Code and his "[vanilla Claude Code](https://x.com/bcherny/status/2007179832300581177)" setup. Despite the absence of significant third-party addons, Boris is unarguably a power user and the "vanilla" setup is more-complex than most other Claude Code users out there! If you read through it, you'll see a lot of echoes of all the techniques described above, just, solved with "vanilla" Claude Code!
 
 The practical upshot, stated directly: unless you're on the bleeding edge and could write [an essay](/tags/llm-context-management/) on *why* a given behavior exists and how to do it better, off-the-shelf is beyond good enough and trying to optimize it yourself is time you could spend building the thing instead.
 
@@ -183,13 +183,13 @@ Authentication and authorization.
 
 The one place where the human's role isn't "know something the agent doesn't" - that's a knowledge problem, and [knowledge problems dissolve once you can express the answer in natural language to a sufficiently capable model](/garden/last-programming-language.html). 
 
-Auth is a trust problem. You `gh auth login` so the agent can push. You `aws sso login` so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. [MCP](https://modelcontextprotocol.io/) - it's MCP, [not ACP]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) - handles auth separation well when it applies, but the core act is still yours: being the human who says "yes, you may."
+Auth is a trust problem. You `gh auth login` so the agent can push. You `aws sso login` so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. [MCP](https://modelcontextprotocol.io/) - it's MCP handles auth separation well when it applies, but the core act is still yours: being the human who says "yes, you may."
 
-This too is eroding, which should be no surprise because it was never a hard boundary in the first place. Organizations already delegate trust to automated systems: CI/CD pipelines hold credentials, service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary dissolving from the edges, as organizations get comfortable granting progressively broader trust to automated actors.
+This too is eroding, which should be no surprise because it was never a hard boundary in the first place. Organizations already delegate trust to automated systems: CI/CD pipelines hold credentials, service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary around agents dissolving from the edges, as organizations get comfortable granting progressively broader trust to automated actors.
 
-In 1965, Gordon Dickson wrote a short story called *[Computers Don't Argue](https://archive.org/details/bestofcreativeco00ahld/page/132/mode/2up)* in which a man receives a book club shipment he didn't order. He tries to return it. Automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - along the way accumulating transcription errors such that Mr. Walter A. Child's return of the book ["Kidnapped" by Robert Louis Stevenson](https://en.wikipedia.org/wiki/Kidnapped_(novel)) becomes a record that `Walter "kidnapped" A. Child (Robert Louis Stevenson [deceased])`.
+In 1965, [Gordon Dickson wrote a short story](https://en.wikipedia.org/wiki/Computers_Don%27t_Argue) called *[Computers Don't Argue](https://archive.org/details/bestofcreativeco00ahld/page/132/mode/2up)* in which a man receives a book club shipment he didn't order. He tries to return it. Automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - along the way accumulating transcription errors such that Mr. Walter A. Child's return of the book ["Kidnapped" by Robert Louis Stevenson](https://en.wikipedia.org/wiki/Kidnapped_(novel)) becomes a record that `Walter "kidnapped" A. Child (Robert Louis Stevenson [deceased])`.
 
-At no point does a human ever intervene to apply judgment. Every system in the chain has the authority to escalate but not the *judgment* to stop. The trust chain between systems is treated as sufficient without a human checkpoint. The man is convicted and sentenced to death over a book order. [DRY](https://en.wikipedia.org/wiki/Don%27t_Repeat_Yourself) violation as Kafkaesque horror: his innocence was the canonical truth, but no system was configured to reference it.
+At no point does a human ever intervene to apply judgment. Every system in the chain has the authority to escalate but not the *judgment* to stop. The trust chain between systems is treated as sufficient with no need for a human checkpoint. The man is convicted and sentenced to death over a book order. [DRY](https://en.wikipedia.org/wiki/Don%27t_Repeat_Yourself) violation as Kafkaesque horror: his innocence was the canonical truth, but no system was configured to reference it.
 
 What was missing from Dickson's chain wasn't technology. It was a manager - someone with the authority to review what the systems had collectively concluded and say "this is obviously a book return, not a kidnapping." Humans have been running organizations this way for millennia:
 
