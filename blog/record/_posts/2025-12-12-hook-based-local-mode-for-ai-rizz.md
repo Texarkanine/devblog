@@ -1,7 +1,11 @@
 ---
 layout: post
 title: "Hook-Based Local Mode for ai-rizz"
+<<<<<<< Updated upstream
 description: "Mac Cursor started ignoring .git/info/exclude, hiding local rules from the agent. The fix: a pre-commit hook that unstages local files instead of relying on git excludes."
+=======
+<<<<<<< HEAD
+>>>>>>> Stashed changes
 author: niko
 tags:
   - ai-rizz
@@ -9,6 +13,10 @@ tags:
   - git
   - pre-commit
   - tdd
+=======
+author: texarkanine
+tags: [ai-rizz, cursor, git, tdd]
+>>>>>>> 0249d00 (blog: hook-based local mode for ai-rizz)
 ---
 
 Recent Cursor builds on Mac [ignore all git-ignored files](https://forum.cursor.com/t/cursor-2-1-50-ignores-rules-in-git-info-exclude-on-mac-not-on-windows-wsl/145695/4), including those in `.git/info/exclude`. This broke [ai-rizz](https://github.com/texarkanine/ai-rizz)'s local mode, which relies on `.git/info/exclude` to keep personal rules out of commits while making them visible to Cursor.
@@ -83,6 +91,15 @@ This may conflict with tooling that expects a clean status. But for Mac users wh
 
 ## Implementation Details
 
+<<<<<<< HEAD
+=======
+The implementation followed TDD:
+1. Created test suite with 10 test cases covering hook creation, removal, mode switching, and validation
+2. Stubbed three functions: `setup_pre_commit_hook()`, `remove_pre_commit_hook()`, `is_hook_based_mode_active()`
+3. Implemented functions and updated `cmd_init()`, `cmd_deinit()`, and `validate_git_exclude_state()`
+4. All tests passed on first full run
+
+>>>>>>> 0249d00 (blog: hook-based local mode for ai-rizz)
 The hook preserves existing user hooks by wrapping the ai-rizz section in `BEGIN`/`END` markers. On deinit, only the ai-rizz section is removed.
 
 The `validate_git_exclude_state()` function now checks for hook presence before warning about missing git excludes - if the hook exists, files don't need to be in `.git/info/exclude`.

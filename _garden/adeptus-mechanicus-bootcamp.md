@@ -10,7 +10,7 @@ tags:
 
 I am a Principal Engineer. I have been in the tech industry for over a decade and I have been programming computers since the last millenium. I have a bachelor of Computer Science from Rice University, I have written virtual memory, a file system, malloc, and a shell from scratch. I have used Continuation Passing Style in production. "10x engineer" is the term. So when I tell you that it has been a year since I stopped writing my code and that the current frontier coding models make me look like an idiot child, I want you to understand my full meaning.
 
-Pi day 2025 - 2025-03-14 - was the day I stopped writing code. I still ship code - more than ever, in fact - but I don't write it anymore.
+March 14th, 2025 was the day I stopped writing code. I still ship code - more than ever, in fact - but I don't write it anymore.
 
 It's about two and a half months since I stopped *looking at* the code.
 
@@ -231,37 +231,192 @@ The Principal Engineer who hasn't written code in a year and hasn't read it in n
 
 The frontier models make me look like an idiot child at typing code. They always will. The value of that skill is gone and it's never coming back.
 
-But the models can't do what got me here, yet. The questioning - knowing what should exist and how to ask for it. The context wrangling - knowing what the machine needs to know that it doesn't know yet. The discernment - knowing when to build, when to stop, and when to never start.
+But the models can't do what got me here, yet. The questioning: knowing what should exist and how to ask for it. The context wrangling: knowing what the machine needs to know that it doesn't know yet. The discernment: knowing when to build, when to stop, and when to never start.
 
-Those are engineering judgment. Those are the skills that let me get as far as Principal Engineer in the first place.
+Those are engineering judgment. Those are the skills that let me get as far as Principal Engineer in the first place. And if you still can't get these tools to work for you, consider the view from the street: the Model Ts are *everywhere.* Ford has been cranking them out day after day, week after week. You can see the cars. You can see the factory. You walked in off the street, tried to use one of the machines, failed, and concluded that assembly lines don't work, while the streets fill with cars. The code is shipping. The principal engineer hasn't typed any in over a year. If you can't get the machines to work, that is definitively a you problem. *Skill issue.*
 
-Nothing can escape the event horizon - so you might as well learn the skills that let you thrive on this side of it.
+The skill is management. Programmers, historically, do not have strong management chops. The ones who do tend to go *into* management. The ones who've been writing code for a decade or two often explicitly opted out of that track. The field just showed up at their desks and told them their job is management now. No wonder they're struggling. But the fastest way to learn management is to not realize you're learning it.
+
+Nothing can escape the event horizon, so you might as well learn the skills that let you thrive on this side of it.
 
 Welcome to the Mechanicum, developer. Let's get to work.
 
-### Practical Application
+### Your Harness
 
-The specifics **do not matter*. Everything you read here will be obsolete in two years, probably in one. But *today*, here's how to speedrun your progression through Steve Yegge's stages, achieving a significant productivity boost with minimal skill atrophy along the way. Executed properly, that ought to give you a significant leg up on optionality as you navigate the next few years.
+Use [Cursor](https://cursor.com/). I'm recommending it explicitly, and specifically, for two reasons.
 
---- above: revised; below: raw ---
+First, it supports [Niko](https://github.com/Texarkanine/.cursor-rules) directly. That matters for what comes next.
 
-### Your Process
+Second, it lets you *watch.* The agent's work is visible in the editor. You see files open, code appear, tests run, errors get diagnosed. You ride along. This is critical: we are deliberately staying head-full, not headless. You are going to watch and learn before you trust and delegate.
 
-You write *excellent* JIRA tickets now. ac, etc. At a minimum.
+### The Problems
 
-You're headed towards writing really good technical briefs, and then you're going to step back and just write really good product briefs.
+If you've tried agentic coding and gotten burned, you've probably hit some combination of these:
 
-### Reasoning about Context
+- 🗺️ The agent dives straight into coding without understanding the problem.
+- 📋 The agent doesn't understand your project and makes bizarre architectural choices.
+- 📜 The context window fills up, the agent forgets what it was doing, and you lose work.
+- 🧠 Every new conversation starts from scratch; nothing is remembered.
+- ✅ The agent ships broken code confidently, or gold-plates something nobody asked for.
+- 🔁 One failed attempt and the whole thing derails; you have to start over.
 
-I've written about this at length, but these are by no means exhaustive, nor necessarily going to stay relevant!
+These are all solved problems. Let me introduce you to a solution.
 
-- [Stop Doing AGENTS.md](TODO-link) covered what *not* to put in context: task-specific guidance delivered globally wastes tokens and confuses agents.
-- [.gitignore is not .agentignore](TODO-link) covered what the agent needs to *see*: generated output, local rules, dependency source code - things that shouldn't be in source control but absolutely should be visible to your agent.
-- [Model Context Protocol, Not Agent Context Protocol](TODO-link) covered when tools earn their context cost - and when they don't.
-- [How I Learned to Stop Worrying and Love the Machine](TODO-link) covered the pre-token context management toolkit: rules, embeddings, docs, MCP, and knowing when each is appropriate.
-
-The skill is literally imaginging 
+But first, a disclaimer: The specific solution **does not matter**. Everything you read here will be obsolete in two years, [probably in one]({% post_url blog/essay/2026-03-09-context-to-ashes-skills-to-dust %}). But *today*, here's *a* solution that'll help you speedrun through Steve Yegge's stages and achieve a significant productivity boost with minimal skill atrophy along the way. Executed properly, that ought to give you a significant leg up on optionality as you navigate the next few years.
 
 ### Niko
 
-idk man
+[Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) is a structured agentic workflow system that lives in your repository as a set of Cursor rules. It transforms your AI coding agent into something resembling a senior colleague with a rigorous process. Install it with [ai-rizz](https://github.com/texarkanine/ai-rizz):
+
+```shell
+ai-rizz init https://github.com/texarkanine/.cursor-rules.git --commit
+ai-rizz add ruleset niko
+```
+
+Then, in Cursor's chat interface, in `Agent` mode, type `/niko` followed by what you want to build:
+
+TODO: image
+
+Here's what happens, and here's how it solves each of those problems.
+
+#### 🗺️ Planning
+
+Niko doesn't jump to code. It analyzes your request, determines the task's complexity (Level 1 through 4, from quick bugfix to multi-milestone system change), and plans before building. For Level 2 and above, Niko produces a concrete implementation plan: specific files, specific functions, specific test cases, sequenced in dependency order. For Level 3 and above, if the design is genuinely ambiguous, Niko enters a creative phase to explore options and make a reasoned decision before committing. Niko only comes up for air to ask *you* a question if the answer is not obvious. The plan is written to disk so it survives across sessions.
+
+#### 📋 Context initialization
+
+The first time you run `/niko` in a project, it scans your codebase and creates *persistent* files in a "memory bank": 
+
+- `productContext.md`: what this thing is and who it's for
+- `systemPatterns.md`: how the architecture works and what's non-obvious
+- `techContext.md`: the stack, the tools, the commands
+
+These persist across tasks. Every subsequent session starts with Niko reading these files and knowing where it is. This is your [AGENTS.md but better]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) - created explicitly in alignment with those best-practices.
+
+#### 📜 Context exhaustion
+
+When Niko begins a task, some additional *ephemeral* files are created in the "memory bank":
+
+- `projectbrief.md`: the user story and requirements
+- `activeContext.md`: the current task and phase - the key points of a context window
+- `tasks.md`: the checklist of work to do
+- `progress.md`: the history of completed work and phase transitions
+
+When Niko finishes a phase and it's time for your input, you **close the context window and open a new one** before running the next `/niko-*` command. Niko reads the memory bank from disk and picks up where it left off. Clean context, full awareness. This is what makes context windows [cattle, not pets](https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/): disposable and replaceable, because the state that matters lives on disk, not in the window.
+
+This also forces the system to prove, every time, that progress is actually being persisted externally. There's no tolerance for sloppiness, because failing to save state properly means that the workflow can't progress.
+
+#### 🧠 Memory and reconstruction
+
+State is saved to disk *and* to git history. The files on disk give the agent current state; the git history gives reconstruction of progress over time. `progress.md` is purely additive: every phase completion appends a new entry; this is the *why* of the history. An agent with an empty context window can read the files, diff the code against the last recorded state, and reconstruct where they are in the process. 
+
+This solves compaction: Key info is uncompressed on disk, available when needed.
+
+This solves capability degradation at fuller context windows: You can just throw a full window away at any time with minimal churn and no appreciable change in behavior - since it was always running this way.
+
+This solves the "agent went off the rails and all my work" problem: each phase transition is a git commit; rollback is just a `git revert` away.
+
+#### ✅ Validation
+
+Before building starts, Niko runs preflight checks on the plan, validating it against your actual codebase & user stories for convention conflicts, dependency impacts, completeness gaps. After building, Niko runs QA: a semantic review checking for KISS, DRY, YAGNI violations, incomplete implementations, debug artifacts, and regression against established patterns. Both phases gate forward progress. If QA fails, Niko loops back to build. If preflight fails, Niko loops back to plan.
+
+Niko only comes up for air to ask *you* a question if there's an issue that can't be automatically resolved.
+
+#### 🔁 Resilience
+
+The command structure itself is a disciplined loop. Close the window, open a new one, run the next command. If an attempt fails, the memory bank has the record of what was tried and what went wrong. [Niko's `/refresh` command](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/skills/refresh/SKILL.md) performs a systematic re-diagnosis of implementation struggles: discard previous assumptions, map the system, hypothesize broadly, investigate with evidence, then fix. You're never truly stuck because you're never more than one clean context window away from a fresh start with full history.
+
+#### 🧠 Archival
+
+After the build ships and QA passes, Niko reflects. Did the plan hold up? Were the creative decisions right? What surprised us?
+
+Then Niko archives: a self-contained document summarizing the task, inlining all ephemeral content, and clearing the working state so you're clean for the next task. This is permanently filed away in the memory bank in your repository for future reference, so that you can learn from past experiences and improve over time.
+
+### Try It!
+
+Got a task that needs some code written? Go try it now!
+
+1. [Add Niko to your repository](TODO)
+2. Open Cursor and select `Agent` mode in the chat pane.
+    * Choose Claude Opus (or similar heavyweight model; you do not need "MAX" mode)
+3. Run `/niko` to initialize your memory bank.
+4. **REVIEW THE NEW FILES** and make sure they look good.
+5. Commit - Niko's ready.
+6. 😺 In a new context window, run `/niko <describe what you want>`
+    * Choose Claude Opus (or similar heavyweight model)
+7. *watch*
+8. Read the Reflection document Niko writes at the end.
+9. Open a pull request
+10. `/niko-archive` (if applicable, see below)
+11. GOTO 6 😺
+
+#### Operational Notes
+
+Niko's [README](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) covers usage well, so I'll just mention some of "seasoning to taste" personal preferences that aren't in the docs.
+
+**Model Management**: To echo the name of a feature that Claude Code shipped ages ago: "Opus for Plan Mode!" *always* use the most-powerful model you can, when doing either:
+
+1. initial Memory Bank setup
+2. Starting a task that you don't already know is simple
+
+You want the heavyweight reasoning and thinking when forming *plans*. Garbage in, garbage out! For level 3 tasks where Niko stops after planning to give you a chance to review the plan, you may, at your discretion, judge that a lighter, cheaper, faster model will be sufficient and switch.
+
+Similarly, if you're manually entering `/niko-reflect` after a build with a simpler agent, bump back up to Opus for that, too.
+
+You can drop to Cursor's "Auto" model for `/niko-archive`, at the end.
+
+*However:* "Buy once, cry once." I have found it's usually just better to stay with Opus throughout, and never have to deal with shoddy work that has to be *reworked*. On the positive side, Niko's context-window management means you never need to pay extra for Cursor's "Max" mode.
+
+**Reflection as PR context.** I leave Niko's `memory-bank/active/reflection/` files in place when I open a pull request. The reviewer gets the agent's own retrospective alongside the code: what was planned, what changed, what was learned. It helps head off a lot of "why did you...?" questions.
+
+**Manual cleanup after Level 1.** Level 1 tasks (quick fixes) don't have a reflect or archive phase, so the `memory-bank/active/` directory doesn't get cleaned up automatically. Once you're satisfied with the work, delete it yourself. There's no slash-command for this because it would be wasteful to make you type `/niko-cleanup` to get an AI agent to run `rm -rf memory-bank/active` when you could just delete the folder yourself.
+
+**When things go sideways.** `/refresh` is for troubleshooting implementation. If Niko just can't figure out how to get something right... that's a `/refesh` situation. `/refresh` is special in that you usually want to use it IN the existing context, so that the full specifics of what *didn't* work are available to the troubleshooting process.
+
+`/niko-creative` is for exploring solution spaces. Usually this will happen automatically as part of the planning phase, but you might need it later if something unforseen crops up. You can also use it ad-hoc, outside a workflow, as a brainstorm buddy.
+
+Both are human touchpoints designed to help you keep things on track when the automated process struggles. Ideally, you'd never need to use them. I've used these to "un-stick" Niko workflows maybe four times in the last six months; Niko doesn't usually get stuck anymore because modern models are *really good*. 
+
+### The Progression
+
+So you've been using Niko for a while now. You've watched the agent plan, build, test, reflect, archive. You've run the commands, closed and reopened context windows, checked that the memory bank was persisted. You've seen the process work, firsthand, task after task.
+
+Good job! Find yourself on the progression below, and take the next step:
+
+1. **Stage one: you were the author.** At first, Niko was a tool and you were driving. You typed code, you made decisions, Niko kept you on process. This is where everyone starts.
+2. **Stage two: you became the commissioner.** At some point, and you may not have noticed exactly when, you started doing more sitting back and watching than sticking your hands in. You set intent. The agent executed. You validated the output and signed off. You were managing a single employee.
+3. **Stage three: two employees.** You opened a second Cursor window on a second repository. You tabbed between them, checking in on each. Context-switching between reports, prioritizing your attention. You were practicing actual management.
+4. **Stage four: trust the process.** At some point you realized you couldn't directly supervise each employee and still get anything done. We have a word for that: micromanaging. But you'd watched the process work firsthand, time and time again. You started trusting it. You stopped needing to check on every step, and went to work on *your* tasks while the agents worked on *theirs*.
+
+Once you're at stage four, it's time to ascend!
+
+**Stage five: headless and parallel.** Trust is the inflection point. Going headless and going massively parallel are two separate axes, and there's no required order. It depends on how you're developing and what you're comfortable with. But eventually you accept that more can be done than you can personally oversee, and you trust the delegation.
+
+Going headless usually happens locally first, either with [Cursor's CLI Agent](https://www.cursor.com/docs/agents/cli-agent) or, much more likely, with [Claude Code](TODO). Don't worry - you can run Niko through [a16n](https://npmjs.com/package/a16n) to bring it over to Claude Code. But web-based tools like [Cursor Cloud Agents]() and [Claude Code Web]() facilitate paralellism remotely. The specific solution **does not matter ;)**.
+
+I told you all this [several sections ago](#for-those-with-eyes-to-see-let-them-see). Your managers have been doing exactly this with *you* throughout your entire career. Setting intent, providing context, exercising discernment about what their reports should work on, and reviewing the output. The three skills, applied to humans.
+
+But now you've done it with machines. Not read about it, not nodded along, not agreed in principle. You have actually managed a direct report through a multi-phase workflow, watched the process work, developed trust in the delegation, and scaled (or are ready to scale). Niko is a software engineering management training course disguised as an agentic coding tool, and the fastest way to learn management is to not realize you're learning it.
+
+So you're a manager now. Congrats on the promotion!
+
+### Your Process
+
+You write *excellent* tickets now. Acceptance criteria, edge cases, the works. At a minimum.
+
+You're headed towards writing really good technical briefs and then stepping back to write really good product briefs. The progression up the [power continuum](#the-power-continuum) maps directly onto the progression through Yegge's stages: the further up you climb from the code towards the intent, the more employees you can manage and the better your briefs need to be.
+
+### Reasoning about Context
+
+I've written about this at length, but these are by no means exhaustive, nor necessarily going to stay relevant, so don't sweat about reading them all and certainly don't try to *do* them all:
+
+- [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) covered what *not* to put in context: task-specific guidance delivered globally wastes tokens and confuses agents.
+- [.gitignore is not .agentignore]({% post_url blog/essay/2026-02-22-gitignore-is-not-agentignore %}) covered what the agent needs to *see*: generated output, local rules, dependency source code - things that shouldn't be in source control but absolutely should be visible to your agent.
+- [Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) covered when tools earn their context cost - and when they don't.
+- [How I Learned to Stop Worrying and Love the Machine]({% post_url blog/essay/2026-03-05-how-i-learned-to-stop-worrying-and-love-the-machine %}) covered the pre-token context management toolkit: rules, embeddings, docs, MCP, and knowing when each is appropriate.
+
+The skill is literally imagining what the machine is going to see when it starts working on your problem. What does it know? What doesn't it know? What assumptions is it going to make that are wrong? That's context wrangling, and it's the same skill you use when you write a design doc for a new teammate: you're **modeling someone else's mental state and filling in the gaps.**
+
+There was a time where the models' shortcomings made it look like we had a tooling issue. Now that the models are *capable-enough*, it's plain to see:
+
+TODO: always has been (project managment)
