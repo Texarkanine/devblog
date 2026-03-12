@@ -1,18 +1,23 @@
 ---
-layout: page
-title: "The Adeptus Mechanicus Bootcamp"
+layout: post
+title: "The Adeptus Mechanicus Bootcamp: A Gentle Seduction"
 subtitle: "It's been over a year since I stopped writing my code, and I have such sights to show you."
 author: texarkanine
 tags:
+  - agentic-coding
   - ai
-  - cog-mechanicus
+  - cursor
+  - llm-context-management
+  - management
+  - niko
+  - productivity
 ---
 
 I am a Principal Engineer. I have been in the tech industry for over a decade and I have been programming computers since the last millenium. I have a bachelor of Computer Science from Rice University, I have written virtual memory, a file system, malloc, and a shell from scratch. I have used Continuation Passing Style in production. "10x engineer" is the term. So when I tell you that it has been a year since I stopped writing my code and that the current frontier coding models make me look like an idiot child, I want you to understand my full meaning.
 
 March 14th, 2025 was the day I stopped writing code. I still ship code - more than ever, in fact - but I don't write it anymore.
 
-It's about two and a half months since I stopped *looking at* the code.
+It's just about three months since I stopped *looking at* the code.
 
 This is a very different world than I could have possibly imagined, come to pass (and still going) faster than I could have guessed, and it's only been a *year!*
 
@@ -61,7 +66,7 @@ graph LR
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
 2. **🧪 Test-driven development:** You write the specification first (as tests), then write code to satisfy it. You've separated "what it should do" from "how to make it do that."
 3. **📋 Spec-driven development:** You write a technical specification. The agent writes the tests *and* the code. You've moved one more level up: you're specifying intent in structured prose, and the machine handles both the contract and the implementation.
-4. **💡 Intent-driven development:** You write a product brief. Plain prose. Soft skills. The agent handles design, specification, implementation, and verification. This is where I live now.
+4. **💡 Intent-driven development:** You write a product brief. Plain prose. Soft skills. The agent handles design, specification, implementation, and verification. I have tasted of this fruit and it has opened up my eyes.
 
 Each level requires *more* engineering judgment, not less. Each level moves you further from the code and closer to the intent. Having to drop down a level is a signal. Having to drop two levels is a strong signal. Needing to go back to experiential means the ritual failed - something about the specification, context, or tooling wasn't sufficient - and you need to diagnose *why* before you try again.
 
@@ -95,9 +100,7 @@ I wrote about this dynamic in [Pink Margarine]({% post_url blog/essay/2026-03-01
 
 #### The Artisan's Ambient Loop
 
-Why didn't we notice this "specification problem" before? Because, for most of human history, we didn't have one.
-
-In [Desire Makes Artists]({% post_url blog/essay/2026-01-01-desire-makes-artists-even-with-genai %}), I wrote about how pre-industrial artisans produced goods with art infused during the process, because that's what happens when humans make things by hand. The craftsperson's quality wasn't intentional specification - it was emergent from proximity. You're in there, hands on every surface, spending an hour doing minute scrollwork on the side of a flintlock rifle, say. If you notice that one of the plates is a little loose, you fix it - that'll take a minute or two and you're already locked in for an hour. And the whole project has been a days-long undertaking and you don't want your beautiful thing to be a piece of garbage - of *course* you'll fix it. Rinse and repeat. The ornamentation was a signature of the real value: hours of incidental contact during which the artisan was continuously, unconsciously matching intended behavior against actual behavior. The constant contact let the creators discover and fix problems that were never formally specified, and so the customers never had to overthink the specification.
+In [Desire Makes Artists]({% post_url blog/essay/2026-01-01-desire-makes-artists-even-with-genai %}), I wrote about how pre-industrial artisans produced goods with art infused during the process, because that's what happens when humans make things by hand. The craftsperson's quality wasn't exclusively fromintentional specification - it was also emergent from proximity. You're in there, hands on every surface, spending an hour doing minute scrollwork on the side of a flintlock rifle, say. If you notice that one of the plates is a little loose, you fix it - that'll take a minute or two and you're already locked in for an hour. And the whole project has been a days-long undertaking and you don't want your beautiful thing to be a piece of garbage - of *course* you'll fix it. Rinse and repeat. The ornamentation was a signature of the real value: hours of incidental contact during which the artisan was continuously, unconsciously matching intended behavior against actual behavior. The constant contact let the creators discover and fix problems that were never formally specified, and so the customers never had to overthink the specification.
 
 Industrialization didn't just remove the decoration; it removed that ambient inspection loop. Now you get exactly what you specified, and everything unspecified is up in the air. The factory worker doesn't have your context and isn't spending but a passing moment in contact with the widget - whose intended behavior they may not even know.
 
@@ -413,10 +416,10 @@ I've written about this at length, but these are by no means exhaustive, nor nec
 - [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) covered what *not* to put in context: task-specific guidance delivered globally wastes tokens and confuses agents.
 - [.gitignore is not .agentignore]({% post_url blog/essay/2026-02-22-gitignore-is-not-agentignore %}) covered what the agent needs to *see*: generated output, local rules, dependency source code - things that shouldn't be in source control but absolutely should be visible to your agent.
 - [Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) covered when tools earn their context cost - and when they don't.
-- [How I Learned to Stop Worrying and Love the Machine]({% post_url blog/essay/2026-03-05-how-i-learned-to-stop-worrying-and-love-the-machine %}) covered the pre-token context management toolkit: rules, embeddings, docs, MCP, and knowing when each is appropriate.
+- [How I Learned to Stop Worrying and Love the Machine]({% link _garden/how-i-learned-to-stop-worrying-and-love-the-machine.md %}) covered the pre-token context management toolkit: rules, embeddings, docs, MCP, and knowing when each is appropriate.
 
 The skill is literally imagining what the machine is going to see when it starts working on your problem. What does it know? What doesn't it know? What assumptions is it going to make that are wrong? That's context wrangling, and it's the same skill you use when you write a design doc for a new teammate: you're **modeling someone else's mental state and filling in the gaps.**
 
-There was a time where the models' shortcomings made it look like we had a tooling issue. Now that the models are *capable-enough*, it's plain to see:
+There was a time where the models' shortcomings made it look like we had a tooling issue. Now that the models are *capable-enough*, it's [plain to see]({% post_url blog/essay/2026-03-09-context-to-ashes-skills-to-dust %}):
 
 TODO: always has been (project managment)
