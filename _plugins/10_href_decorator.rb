@@ -1,22 +1,38 @@
 # frozen_string_literal: true
 
-require 'cgi'
+require 'nokogiri'
 
-# This plugin automatically decorates links matching configurable patterns
-# with configurable HTML attributes (e.g., target="_blank", rel="noopener", etc.).
+# This plugin decorates links inside <article> elements with configurable HTML
+# attributes (e.g., target="_blank", rel="noopener") based on rules that filter
+# by href pattern and/or document collection.
+#
+# Only links within <article> tags are processed; navigation, headers, footers,
+# and other structural elements are left untouched.
+#
+# Config: defaults (hash) + rules (array). Each rule has optional:
+#   - match: regex string (narrows to matching hrefs; omit = all hrefs)
+#   - collections: array of collection labels (narrows to those docs; omit = all collections)
+#   - attrs: hash of extra/override attributes (false removes a default)
+# Multiple rules can match; their attrs merge (later wins). If no rule matches, link is unchanged.
 #
 # Example:
-#   Config: href_decorator.properties = [{ target: '_blank' }]
-#           href_decorator.patterns = [{ "/assets/": { properties: [{ rel: 'noopener' }] } }]
-#   Markdown: [PDF](/assets/pdf/file.pdf)
-#   Result: <a href="/assets/pdf/file.pdf" target="_blank" rel="noopener">PDF</a>
+#   href_decorator:
+#     defaults:
+#       target: _blank
+#       rel: noopener
+#     rules:
+#       - match: '^https?://'
+#       - match: '/assets/'
+#       - match: '.+\.pdf$'
+#         attrs:
+#           download: true
+#       - collections: [posts]
 
 module HrefDecorator
   module_function
 
   ##
-  # Registers a Jekyll :documents post_render hook that processes links matching
-  # configured patterns and adds configured properties as HTML attributes.
+  # Registers a Jekyll :documents post_render hook that processes links per configured rules.
   def register_hooks
     Jekyll::Hooks.register :documents, :post_render do |document|
       HrefDecorator.process_document(document)
@@ -24,185 +40,135 @@ module HrefDecorator
   end
 
   ##
-  # Converts an array of property hashes to a single hash.
-  # @param [Array<Hash>] properties_array - Array of hashes like [{ target: '_blank' }, { rel: 'noopener' }].
-  # @return [Hash] Merged hash like { target: '_blank', rel: 'noopener' }.
-  def properties_array_to_hash(properties_array)
-    return {} unless properties_array && properties_array.is_a?(Array)
+  # Normalizes a hash so keys are strings (YAML may give symbols).
+  # @param [Hash, nil] h - Config hash.
+  # @return [Hash] Hash with string keys, or {} if nil/not Hash.
+  def normalize_hash(h)
+    return {} unless h.is_a?(Hash)
 
-    properties_array.each_with_object({}) do |prop_hash, result|
-      next unless prop_hash.is_a?(Hash)
-
-      prop_hash.each do |key, value|
-        result[key.to_s] = value
-      end
+    h.each_with_object({}) do |(k, v), out|
+      out[k.to_s] = v
     end
   end
 
   ##
-  # Merges pattern-specific properties with global properties, handling false values to disable inheritance.
-  # @param [Hash] global_properties - Global properties hash.
-  # @param [Hash] pattern_properties - Pattern-specific properties hash.
-  # @return [Hash] Merged properties hash with false values removed.
-  def merge_properties(global_properties, pattern_properties)
-    # Start with a copy of global properties
-    merged = global_properties.dup
+  # Merges rule attrs onto defaults; false values remove the key from the result.
+  # @param [Hash] defaults - Base attributes (string keys).
+  # @param [Hash] attrs - Rule-specific attributes (overrides; false = remove).
+  # @return [Hash] Merged hash with false values removed.
+  def merge_properties(defaults, attrs)
+    merged = defaults.dup
+    return merged if attrs.nil? || attrs.empty?
 
-    # Apply pattern properties (overrides global)
-    pattern_properties.each do |key, value|
+    attrs.each do |key, value|
+      k = key.to_s
       if value == false || value == 'false'
-        # Remove property if false (disables inheritance)
-        merged.delete(key.to_s)
+        merged.delete(k)
       else
-        # Set/override property
-        merged[key.to_s] = value
+        merged[k] = value
       end
+    end
+    merged
+  end
+
+  ##
+  # Returns whether a rule applies to the given href and collection.
+  # Rule applies when: (no match or href matches) AND (no collections or collection in list).
+  # @param [Hash] rule - Rule with optional 'match', 'collections' (string keys).
+  # @param [String] href - Link href.
+  # @param [String, nil] collection_label - Document's collection label (e.g. "posts", "pages").
+  # @return [Boolean]
+  def rule_applies?(rule, href, collection_label)
+    if rule['match']
+      begin
+        regex = Regexp.new(rule['match'].to_s)
+        return false unless regex.match?(href)
+      rescue RegexpError => e
+        if defined?(Jekyll) && Jekyll.respond_to?(:logger)
+          Jekyll.logger.warn("href_decorator: ", "Invalid regex '#{rule['match']}': #{e.message}. Skipping rule.")
+        end
+        return false
+      end
+    end
+
+    if rule['collections'] && rule['collections'].is_a?(Array) && !rule['collections'].empty?
+      labels = rule['collections'].map(&:to_s)
+      return false unless labels.include?(collection_label.to_s)
+    end
+
+    true
+  end
+
+  ##
+  # Finds all rules matching (href, collection) and returns merged attributes (defaults + each rule's attrs).
+  # @param [String] href - The link href.
+  # @param [Array] rules_config - Array of rule hashes.
+  # @param [Hash] defaults - Default attributes (string keys).
+  # @param [String, nil] collection_label - Document's collection label.
+  # @return [Hash, nil] Merged attributes if at least one rule matched, nil otherwise.
+  def find_matching_rules_properties(href, rules_config, defaults, collection_label)
+    return nil unless rules_config.is_a?(Array) && !rules_config.empty?
+
+    merged = nil
+    rules_config.each do |rule|
+      next unless rule.is_a?(Hash)
+      next unless rule_applies?(rule, href, collection_label)
+
+      rule_attrs = normalize_hash(rule['attrs'] || rule[:attrs])
+      merged = merge_properties(merged || defaults.dup, rule_attrs)
     end
 
     merged
   end
 
   ##
-  # Finds all matching patterns for an href and returns merged properties.
-  # Multiple patterns can match, and their properties are merged in order (later patterns override earlier ones).
-  # @param [String] href - The href to match against.
-  # @param [Array] patterns_config - Array of pattern configurations.
-  # @param [Hash] global_properties - Global properties to merge with pattern properties.
-  # @return [Hash, nil] Merged properties hash if at least one pattern matches, nil otherwise.
-  def find_matching_pattern_properties(href, patterns_config, global_properties)
-    return nil unless patterns_config && patterns_config.is_a?(Array)
+  # Applies resolved attributes to a Nokogiri <a> node, skipping those already present.
+  # Boolean true attrs become valueless HTML attributes; false/nil are skipped.
+  # @param [Nokogiri::XML::Node] anchor - The <a> element.
+  # @param [Hash] properties - Resolved attributes to apply.
+  def apply_attributes(anchor, properties)
+    properties.each do |attr_name, attr_value|
+      next if attr_value == false || attr_value == 'false'
+      next if attr_value.nil? || attr_value == 'nil'
+      next if anchor.has_attribute?(attr_name)
 
-    # Start with global properties
-    merged = global_properties.dup
-    matched = false
-
-    # Collect all matching patterns and merge their properties in order
-    patterns_config.each do |pattern_entry|
-      next unless pattern_entry.is_a?(Hash)
-
-      pattern_entry.each do |pattern_regex, pattern_config|
-        # Check if href matches this pattern
-        begin
-          regex = Regexp.new(pattern_regex.to_s)
-        rescue RegexpError => e
-          # Log error and skip invalid pattern
-          if defined?(Jekyll) && Jekyll.respond_to?(:logger)
-            Jekyll.logger.warn("href_decorator: ", "Invalid regex pattern '#{pattern_regex}': #{e.message}. Skipping this pattern.")
-          end
-          next
-        end
-
-        next unless regex.match?(href)
-
-        matched = true
-
-        # Extract pattern-specific properties
-        pattern_props_array = pattern_config.is_a?(Hash) ? pattern_config['properties'] : nil
-        pattern_properties = properties_array_to_hash(pattern_props_array)
-
-        # Merge pattern properties (later patterns override earlier ones)
-        merged = merge_properties(merged, pattern_properties)
+      if attr_value == true || attr_value == 'true'
+        anchor[attr_name] = attr_name
+      else
+        anchor[attr_name] = attr_value.to_s
       end
     end
-
-    matched ? merged : nil
   end
 
   ##
-  # Builds HTML attribute string from a properties hash.
-  # @param [Hash] properties - Hash of attribute names to values (e.g., { 'target' => '_blank', 'rel' => 'noopener', 'download' => true }).
-  # @return [String] Space-separated HTML attributes string (e.g., ' target="_blank" rel="noopener" download').
-  def build_attributes_string(properties)
-    return '' unless properties && properties.is_a?(Hash) && !properties.empty?
-
-    properties.map do |key, value|
-      # Skip false values (they disable inheritance)
-      next if value == false || value == 'false'
-      # Skip nil values
-      next if value.nil? || value == 'nil'
-
-      # Boolean attributes (true) get no value
-      if value == true || value == 'true'
-        " #{key}"
-      else
-        # Regular attributes get quoted values
-        " #{key}=\"#{CGI.escapeHTML(value.to_s)}\""
-      end
-    end.compact.join('')
-  end
-
-  ##
-  # Checks if an attribute is already present in the anchor tag.
-  # @param [String] match - The full anchor tag match.
-  # @param [String] attr_name - The attribute name to check for.
-  # @return [Boolean] `true` if the attribute exists, `false` otherwise.
-  def has_attribute?(match, attr_name)
-    match.match?(/\b#{Regexp.escape(attr_name)}\s*=/i)
-  end
-
-  ##
-  # Processes a document's HTML output to add configured properties to links
-  # matching configured patterns. Processes all links (both internal and external).
-  #
-  # Scans `document.output` for `<a>` tags and updates their attributes:
-  # - Checks if href matches any configured pattern
-  # - Adds configured properties as HTML attributes if pattern matches and attributes not already present
-  #
-  # The patterns are taken from `document.site.config['href_decorator']['patterns']` (array of pattern objects).
-  # The properties are taken from `document.site.config['href_decorator']['properties']` (array of property hashes).
-  # The function updates `document.output` in place.
-  # @param [Jekyll::Document] document - The document whose HTML output will be processed and modified.
+  # Processes a document's HTML: applies href_decorator rules to <a> tags inside <article> elements.
+  # Uses Nokogiri for proper DOM traversal; only content within <article> is touched.
+  # @param [Jekyll::Document] document - Document whose output will be modified.
   def process_document(document)
     output = document.output
     return unless output&.include?('<a')
 
-    # Get config
     config = document.site.config['href_decorator'] || {}
-    global_properties_array = config['properties'] || []
-    patterns_config = config['patterns'] || []
+    defaults = normalize_hash(config['defaults'] || config[:defaults])
+    rules = config['rules'] || config[:rules] || []
+    return if rules.empty?
 
-    return if patterns_config.empty?
+    collection_label = document.respond_to?(:collection) && document.collection ? document.collection.label : nil
 
-    # Convert global properties array to hash
-    global_properties = properties_array_to_hash(global_properties_array)
+    doc = Nokogiri::HTML(output)
+    modified = false
 
-    # Process all anchor tags
-    document.output = output.gsub(/<a\s+([^>]*?)href\s*=\s*(["'])(.*?)\2([^>]*)>/i) do |match|
-      before_href = Regexp.last_match(1)
-      quote = Regexp.last_match(2)
-      href = Regexp.last_match(3)
-      after_href = Regexp.last_match(4)
+    doc.css('article a[href]').each do |anchor|
+      href = anchor['href']
+      final_properties = find_matching_rules_properties(href, rules, defaults, collection_label)
+      next unless final_properties && !final_properties.empty?
 
-      # Find matching pattern and get merged properties
-      final_properties = find_matching_pattern_properties(href, patterns_config, global_properties)
-
-      if final_properties && !final_properties.empty?
-        # Check which properties are already present
-        missing_properties = {}
-        final_properties.each do |attr_name, attr_value|
-          # Skip false values (they disable inheritance)
-          next if attr_value == false || attr_value == 'false'
-          # Skip nil values
-          next if attr_value.nil? || attr_value == 'nil'
-          # Skip if attribute already present
-          next if has_attribute?(match, attr_name)
-
-          missing_properties[attr_name] = attr_value
-        end
-
-        if missing_properties.empty?
-          # All properties already present, leave as-is
-          match
-        else
-          # Add missing properties
-          new_attrs = build_attributes_string(missing_properties)
-          "<a #{before_href}href=#{quote}#{href}#{quote}#{after_href}#{new_attrs}>"
-        end
-      else
-        # Doesn't match any pattern, leave as-is
-        match
-      end
+      before = anchor.to_html
+      apply_attributes(anchor, final_properties)
+      modified = true if anchor.to_html != before
     end
+
+    document.output = doc.to_html if modified
   end
 end
 

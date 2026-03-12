@@ -124,17 +124,18 @@ heading_anchor:
   icon: "#"
   exclude_index: true
 
-# href-decorator (local)
+# href-decorator (local): rules-based; match/collections narrow from "all", attrs merge, false disables default
 href_decorator:
-  properties:
-    - target: _blank
-    - rel: noopener
-  patterns:
-    - '^https?://': {}
-    - '/assets/': {}
-    - '.+\.pdf$':
-        properties:
-          - download: true
+  defaults:
+    target: _blank
+    rel: noopener
+  rules:
+    - match: '^https?://'
+    - match: '/assets/'
+    - match: '.+\.pdf$'
+      attrs:
+        download: true
+    - collections: [posts]
 
 # jekyll-paginate-v2 (required for jekyll-auto-authors)
 pagination:
