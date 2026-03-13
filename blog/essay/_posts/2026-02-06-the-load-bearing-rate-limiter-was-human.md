@@ -130,3 +130,16 @@ A few days later, [Steve Yegge](https://steve-yegge.medium.com/) of [Gas Town](h
 >For someone.
 > <br><br>
 > But who actually gets to keep that value?
+
+### Post-Post-Postscript
+
+I must confess, I did not expect to see *this* in the wild so soon!
+
+> We'll give you a token budget instead of a raise.
+
+{%linkcard
+	https://www.businessinsider.com/ai-compute-compensation-software-engineers-greg-brockman-2026-3
+	"Silicon Valley is buzzing about this new idea: AI compute as compensation"
+	archive:https://web.archive.org/web/20260310194134/https://www.businessinsider.com/ai-compute-compensation-software-engineers-greg-brockman-2026-3
+%}
+
