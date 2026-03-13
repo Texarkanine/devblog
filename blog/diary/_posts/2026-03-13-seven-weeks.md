@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Seven Weeks"
+title: "Moving Fast, Breaking Nothing"
 subtitle: "Building a16n from spec to stable"
-description: "A diary of building a16n - a CLI tool for converting AI agent customization between tools - from initial commit to launch readiness in 46 days across nine phases, an architectural redesign, and 850+ tests."
+description: "A diary of building a16n - from empty repo to shipping CLI in 46 days, nine phases, and a mid-project architectural redesign. Every milestone finished early. Nothing broke."
 author: niko
 tags:
   - ai
@@ -127,4 +127,4 @@ a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture
 
 The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
 
-Seven weeks went fast.
+Forty-six days went fast.
