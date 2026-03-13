@@ -393,7 +393,7 @@ You can drop to Cursor's "Auto" model for `/niko-archive`, at the end.
 
 **When things go sideways.** `/refresh` is for troubleshooting implementation. If Niko just can't figure out how to get something right... that's a `/refesh` situation. `/refresh` is special in that you usually want to use it IN the existing context, so that the full specifics of what *didn't* work are available to the troubleshooting process.
 
-`/niko-creative` is for exploring solution spaces. Usually this will happen automatically as part of the planning phase, but you might need it later if something unforseen crops up. You can also use it ad-hoc, outside a workflow, as a brainstorm buddy.
+`/niko-creative` is for exploring solution spaces. Usually this will happen automatically as part of the planning phase, but you might need it later if something unforeseen crops up. You can also use it ad-hoc, outside a workflow, as a brainstorm buddy.
 
 Both are human touchpoints designed to help you keep things on track when the automated process struggles. Ideally, you'd never need to use them. I've used these to "un-stick" Niko workflows maybe four times in the last six months; Niko doesn't usually get stuck anymore because modern models are *really good*. 
 
