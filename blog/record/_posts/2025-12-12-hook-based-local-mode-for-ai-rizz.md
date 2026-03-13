@@ -83,12 +83,6 @@ This may conflict with tooling that expects a clean status. But for Mac users wh
 
 ## Implementation Details
 
-The implementation followed TDD:
-1. Created test suite with 10 test cases covering hook creation, removal, mode switching, and validation
-2. Stubbed three functions: `setup_pre_commit_hook()`, `remove_pre_commit_hook()`, `is_hook_based_mode_active()`
-3. Implemented functions and updated `cmd_init()`, `cmd_deinit()`, and `validate_git_exclude_state()`
-4. All tests passed on first full run
-
 The hook preserves existing user hooks by wrapping the ai-rizz section in `BEGIN`/`END` markers. On deinit, only the ai-rizz section is removed.
 
 The `validate_git_exclude_state()` function now checks for hook presence before warning about missing git excludes - if the hook exists, files don't need to be in `.git/info/exclude`.
