@@ -135,7 +135,8 @@ href_decorator:
     - match: '.+\.pdf$'
       attrs:
         download: true
-    - collections: [posts]
+    - match: '^(?!#)'
+      collections: [posts]
 
 # jekyll-paginate-v2 (required for jekyll-auto-authors)
 pagination:

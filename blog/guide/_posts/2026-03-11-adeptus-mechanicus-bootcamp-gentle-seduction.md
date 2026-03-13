@@ -61,6 +61,21 @@ graph LR
   linkStyle 0,2,3,5,6,8 stroke:none
 ```
 
+```mermaid
+graph LR
+  Code["🔧 Code"] --- Test["🧪 Tests"] --> Code 
+  Test --- Code
+
+  Test --- Spec["📋 Spec 🧠"] --> Test
+  Spec --- Test
+  
+  Spec --- Intent["🐈💡 Intent"] --> Spec
+  Intent --- Spec
+
+  linkStyle 0,2,3,5,6,8 stroke:none
+
+```
+
 <!-- TODO: solve font size / cropping issue in chart -->
 
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
@@ -70,7 +85,7 @@ graph LR
 
 Each level requires *more* engineering judgment, not less. Each level moves you further from the code and closer to the intent. Having to drop down a level is a signal. Having to drop two levels is a strong signal. Needing to go back to experiential means the ritual failed - something about the specification, context, or tooling wasn't sufficient - and you need to diagnose *why* before you try again.
 
-And if your engineering vocabulary doesn't yet include "I describe intent and the machine handles implementation," that workflow isn't forbidden to you; it just happens to be *inconceivable* to you. You can't formulate the desire to work that way, in exactly the way that Orwell's Newspeak made thoughtcrime impossible by removing the words needed to think it.
+And if your engineering vocabulary doesn't yet include "I describe intent and the machine handles implementation," that workflow isn't forbidden to you; it just happens to be *inconceivable* to you. You couldn't even formulate the desire to work that way, the same way Orwell's Newspeak made thoughtcrime impossible by removing the words needed to think it.
 
 In 2007, [Charles Simonyi](https://en.wikipedia.org/wiki/Charles_Simonyi) - the father of Microsoft Word - [described exactly this destination](https://www.technologyreview.com/2007/01/01/227178/anything-you-can-do-i-can-do-meta/). He called it "intentional programming": domain experts would express their intent directly, and a "generator" would produce the code. The programmers wouldn't write the software; they'd build the generator and then get out of the way. He was almost twenty years early. The generator he needed didn't exist yet.
 
@@ -78,13 +93,13 @@ It does now.
 
 But we're not ready to hand over the keys! For a short while yet, engineers will run the generator and hand a product over to the customers. The generators are still a little persnickety and can be challenging to wrangle, and the translation of intent into code - [anything still *on* the power continuum rather than sitting at the end of it](/garden/last-programming-language.html) - still benefits from everything engineering teams have learned how to do. [Code goes first](https://sundaylettersfromsam.substack.com/p/code-goes-first) - but not alone! By the time the generators arrive in the other domains of knowledge work, they'll be so good that the engineers won't have to play Tech-Priest intermediary anymore.
 
-So if you're a software engineer, today, there are some key skills that'll help you keep pace as the field ascends the power continuum.
+So don't worry about the future! But if you're a software engineer, today, there are some key skills that'll help you keep pace as the field ascends the power continuum.
 
 ## The Skills
 
 So what does it take to operate at the top of this continuum? Three things. All of them manifest in "AI doesn't work" complaints when they go wrong, properly retortable with "Skill Issue."
 
-### Asking the Right Questions
+### Skill 1: Asking the Right Questions
 
 > My responses are infinite. You must ask the right questions.
 
@@ -100,7 +115,7 @@ I wrote about this dynamic in [Pink Margarine]({% post_url blog/essay/2026-03-01
 
 #### The Artisan's Ambient Loop
 
-In [Desire Makes Artists]({% post_url blog/essay/2026-01-01-desire-makes-artists-even-with-genai %}), I wrote about how pre-industrial artisans produced goods with art infused during the process, because that's what happens when humans make things by hand. The craftsperson's quality wasn't exclusively fromintentional specification - it was also emergent from proximity. You're in there, hands on every surface, spending an hour doing minute scrollwork on the side of a flintlock rifle, say. If you notice that one of the plates is a little loose, you fix it - that'll take a minute or two and you're already locked in for an hour. And the whole project has been a days-long undertaking and you don't want your beautiful thing to be a piece of garbage - of *course* you'll fix it. Rinse and repeat. The ornamentation was a signature of the real value: hours of incidental contact during which the artisan was continuously, unconsciously matching intended behavior against actual behavior. The constant contact let the creators discover and fix problems that were never formally specified, and so the customers never had to overthink the specification.
+In [Desire Makes Artists]({% post_url blog/essay/2026-01-01-desire-makes-artists-even-with-genai %}), I wrote about how pre-industrial artisans produced goods with art infused during the process, because that's what happens when humans make things by hand. The craftsperson's quality wasn't exclusively from intentional specification - it was also emergent from proximity. You're in there, hands on every surface, spending an hour doing minute scrollwork on the side of a flintlock rifle, say. If you notice that one of the plates is a little loose, you fix it - that'll take a minute or two and you're already locked in for an hour. And the whole project has been a days-long undertaking and you don't want your beautiful thing to be a piece of garbage - of *course* you'll fix it. Rinse and repeat. The ornamentation was a signature of the real value: hours of incidental contact during which the artisan was continuously, unconsciously matching intended behavior against actual behavior. The constant contact let the creators discover and fix problems that were never formally specified, and so the customers never had to overthink the specification.
 
 Industrialization didn't just remove the decoration; it removed that ambient inspection loop. Now you get exactly what you specified, and everything unspecified is up in the air. The factory worker doesn't have your context and isn't spending but a passing moment in contact with the widget - whose intended behavior they may not even know.
 
@@ -108,7 +123,7 @@ Sound familiar?
 
 The specification spectrum has three failure modes:
 
-1. **Underspecify:** You get "plausible." The Rust SQLite rewrite. 1,800x slower because nobody said it shouldn't be. Everything unspecified, done as cheaply as possible.
+1. **Underspecify:** You get "plausible." The Rust SQLite rewrite. 1,800x slower because nobody said it shouldn't be. Everything unspecified gets done as cheaply as possible.
 2. **The artisan sweet spot:** The ambient loop catches what formal specification misses. Beautiful.  This is the old world. This is where typing your own code lived. The technique doesn't scale.
 3. **Overspecify:** You burn all the human bandwidth on definition and ship nothing. This is the [Load-Bearing Rate Limiter]({% post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}) problem inverted: instead of the human bottlenecking production, the human bottlenecks definition. You've gold-plated the spec instead of the code and you're just as broke. You spent four days iterating on a pull request that adds one button because you future-proofed it against quantum computing, ensured optimal Big-O complexity, and ran out the payroll budget before you shipped a feature that could bring in any revenue.
 
@@ -116,18 +131,25 @@ We don't need code inlaid with ornate scrollwork, but we do need *some* mechanis
 
 The skill is finding the right altitude on that spectrum *per task*. Performance-critical paths need tight specs. Internal tooling needs a product brief and a prayer. Knowing which is which, before you've burned the time finding out, is engineering judgment. Same as it's ever been.
 
-### Context Wrangling
+### Skill 2: Context Wrangling
 
-If you know the specification, you have to make sure the machine knows it, too. Your human brain has a ton of assumptions in context at any given time that factor into that knowing, a ton of implicit associations that will be considered when needed.
+If you know the specification, you have to make sure the machine knows it, too. Your human brain has a ton of assumptions in context at any given time that factor into that knowing, and a ton of implicit associations that will be considered when needed.
 
 You have to provide those in a form the machine can understand. This is filling  the agent's *context window* with the right stuff in the right way. This is, for now, as much an art as a process.
 
 1. **Know what the machine knows:** The cheapest context is the one you don't have to pay for; the models have a lot of "intuitive" knowledge. Don't wast space repeating it and certainly don't try to fight it.
 2. **Know what the machine doesn't know:** The model can't infer your architecture from vibes. The model can't read your mind about which edge cases matter. The model can't read your teammates' minds to know how-detailed a pull request description they'll actually *read*. All of these things are things that you and your human coworkers would eventually pick up, internalize, and file away in your brains at the right distance from your work so that they kick in when needed. You have to make these explicit, so that they aren't **unspecified**.
 
-This is the practical, mechanical skill. What goes into the machine's context window, what stays out, and when. The specific techniques change rapidly; much of what was cutting-edge context-wrangling a year ago is largely irrelevant today. But the principles (at least for coding agents based on context-window-based transformer LLMs) seem to hold.
+This is the practical, mechanical skill. What goes into the machine's context window, what stays out, and when. I've written about this at length, but these are by no means exhaustive, nor necessarily going to stay relevant, so don't sweat about reading them all and certainly don't try to *do* them all:
 
-### Discernment
+- [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) covered what *not* to put in context: task-specific guidance delivered globally wastes tokens and confuses agents.
+- [.gitignore is not .agentignore]({% post_url blog/essay/2026-02-22-gitignore-is-not-agentignore %}) covered what the agent needs to *see*: generated output, local rules, dependency source code - things that shouldn't be in source control but absolutely should be visible to your agent.
+- [Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) covered when tools earn their context cost - and when they don't.
+- [How I Learned to Stop Worrying and Love the Machine]({% link _garden/how-i-learned-to-stop-worrying-and-love-the-machine.md %}) covered the pre-token context management toolkit: rules, embeddings, docs, MCP, and knowing when each is appropriate.
+
+The core of the skill is literally imagining what the machine is going to see when it starts working on your problem. What does it know? What doesn't it know? What assumptions is it going to make that are wrong? That's context wrangling, and it's the same skill you use when you write a design doc for a new teammate: you're **modeling someone else's mental state and filling in the gaps.**
+
+### Skill 3: Discernment
 
 > To know what you know and what you do not know, that is true knowledge.
 > -- Confucius
@@ -143,7 +165,7 @@ Steve Yegge's [AI Vampire](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f
 
 Tom Wojcik [raised the concern](https://tomwojcik.com/posts/2026-02-15/finding-the-right-amount-of-ai/) that outsourcing coding to AI causes a kind of "[Digital Dementia](https://www.goodreads.com/book/show/230631518-digital-dementia)" - your skills atrophy as you stop practicing them. He's observing something real, and [some research supports](https://arxiv.org/abs/2601.20245) that observation at face value. 
 
-The framing is wrong. Measure horsemanship skills in millennials and I bet you'll find that they, as a population, are terrible. Sound the alarm!? No. [Horses were obviated](https://andyljones.com/posts/horses.html). The correct metric isn't "can you still hand-write a merge sort." The correct metric is "can you effectively commission, verify, and steer the thing that writes merge sorts." Or better yet: do you even need to be sorting in the first place? That's discernment operating at the product-intent level - a floor *above* the implementation question - and entirely invisible to anyone measuring typing speed or even code comprehension.
+The framing is wrong. Measure horsemanship skills in millennials and I bet you'll find that they, as a population, are terrible. Sound the alarm!? No. [Horses were obviated](https://andyljones.com/posts/horses.html). The correct metric isn't "can you still hand-write a merge sort." The correct metric is "can you effectively commission, verify, and steer the thing that writes merge sorts." Or better yet: can you determine when you even need to be sorting in the first place? That's discernment operating at the product-intent level - a floor *above* the implementation question - and entirely invisible to anyone measuring typing speed or even code comprehension.
 
 Many folks aren't measuring the right things yet because they're still on the lower rungs of the power continuum and can't look up.
 
@@ -153,7 +175,7 @@ Discernment's criticality also scales with blast radius.
 - **Medium:** you underspecified a library rewrite and got an 1,800x performance regression. 
 - **Large:** at the top of your delegation tree, an undiscerned intent propagates through every node below you. You blow your series A funding in a month on a dozen dead ends.
 
-The higher you climb, the more discernment matters, not less.
+The higher you climb, the more discernment matters.
 
 ## For Those With Eyes to See, Let Them See
 
@@ -202,17 +224,17 @@ Then the process repeats. Maybe you're managing two managers, each of whom manag
 
 The structure itself is not new; this is exactly how basically every company ever has organized itself, because it works. Maybe a pure-machine world will discover something better, but for now - while we are still hybrids, still cyborgifying our workflows - this is the structure that works. We see it working today, as it has for centuries.
 
-**The difference:** traditionally, every node in that org chart had to be a human, most nodes were not given the combination of legal, regulatory, and budgetary allowance to build their own subtrees of direct reports. But if you have access to LLMs or token budgets at your job today - congratulations. You *do* have that allowance. It's time to get hiring!
+**The difference:** traditionally, every node in that org chart had to be a human and most nodes were *not* given the combination of legal, regulatory, and budgetary allowance to build their own subtrees of direct reports. But if you have access to LLMs or token budgets at your job today - congratulations. You *do* have that allowance. It's time to get hiring!
 
 ### The Ceiling Is Discernment, Again
 
 We are not going to do this recklessly, though, because we paid attention at the Adeptus Mechanicus Bootcamp. We will not slip into dark flow. We will not get drained by the AI vampire.
 
-The blast radius at the top of the hierarchy is enormous, and now every node can sit at the top of a hierarchy! An undiscerned intent can propagate and multiply at speeds and scales previously unimaginable. The three skills apply at every level of the tree. They don't get easier as you ascend; they get more consequential.
+The blast radius at the top of the hierarchy is enormous, and now every node can sit at the top of a hierarchy! An undiscerned intent can propagate and multiply at speeds and scales previously unimaginable. The three skills apply at every level of the tree. They don't get easier as you ascend, but they do get more consequential.
 
 ## Where We're Going, We Don't Need Eyes
 
-In manufacturing, a [lights-out factory](https://en.wikipedia.org/wiki/Lights-out_manufacturing) runs with no human presence on the floor. The machines operate in the dark because there is nobody there who needs to see.
+In manufacturing, a [lights-out factory](https://en.wikipedia.org/wiki/Lights_out_(manufacturing)) runs with no human presence on the floor. The machines operate in the dark because there is nobody there who needs to see.
 
 The [lights-out codebase](https://molochinations.substack.com/p/no-more-code-reviews-lights-out-codebases) is the same idea applied to software. Code that is authored, tested, reviewed, and deployed without a human ever seeing it. You specified the behavior. The machines delivered it. The tests pass. The customers are happy. Why would you need to look at code? And, why would you *risk* letting a human touch it?
 
@@ -236,7 +258,7 @@ The frontier models make me look like an idiot child at typing code. They always
 
 But the models can't do what got me here, yet. The questioning: knowing what should exist and how to ask for it. The context wrangling: knowing what the machine needs to know that it doesn't know yet. The discernment: knowing when to build, when to stop, and when to never start.
 
-Those are engineering judgment. Those are the skills that let me get as far as Principal Engineer in the first place. And if you still can't get these tools to work for you, consider the view from the street: the Model Ts are *everywhere.* Ford has been cranking them out day after day, week after week. You can see the cars. You can see the factory. You walked in off the street, tried to use one of the machines, failed, and concluded that assembly lines don't work, while the streets fill with cars. The code is shipping. The principal engineer hasn't typed any in over a year. If you can't get the machines to work, that is definitively a you problem. *Skill issue.*
+Those are engineering judgment. Those are the skills that let me get as far as Principal Engineer in the first place. And if you still can't get these tools to work for you, consider the view from the street: the Model Ts are *everywhere.* Ford has been cranking them out day after day, week after week. You can see the cars. You can see the factory. You walked in off the street, tried to use one of the machines, failed, and concluded that assembly lines don't work, while the streets fill with cars. The code *is* shipping. If you can't get the machines to work, that is definitely a you problem. *Skill issue.*
 
 The skill is management. Programmers, historically, do not have strong management chops. The ones who do tend to go *into* management. The ones who've been writing code for a decade or two often explicitly opted out of that track. The field just showed up at their desks and told them their job is management now. No wonder they're struggling. But the fastest way to learn management is to not realize you're learning it.
 
@@ -248,9 +270,9 @@ Welcome to the Mechanicum, developer. Let's get to work.
 
 Use [Cursor](https://cursor.com/). I'm recommending it explicitly, and specifically, for two reasons.
 
-First, it supports [Niko](https://github.com/Texarkanine/.cursor-rules) directly. That matters for what comes next.
+First, it lets you *watch.* The agent's work is visible in the editor. You see files open, code appear, tests run, errors get diagnosed. You ride along. This is critical: we are deliberately staying head-full, not headless. You are going to watch and learn before you trust and delegate.
 
-Second, it lets you *watch.* The agent's work is visible in the editor. You see files open, code appear, tests run, errors get diagnosed. You ride along. This is critical: we are deliberately staying head-full, not headless. You are going to watch and learn before you trust and delegate.
+Second, it supports [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) directly.
 
 ### The Problems
 
@@ -259,7 +281,7 @@ If you've tried agentic coding and gotten burned, you've probably hit some combi
 - 🗺️ The agent dives straight into coding without understanding the problem.
 - 📋 The agent doesn't understand your project and makes bizarre architectural choices.
 - 📜 The context window fills up, the agent forgets what it was doing, and you lose work.
-- 🧠 Every new conversation starts from scratch; nothing is remembered.
+- 🧠 Every new conversation starts from scratch; nothing is remembered. You have to correct the same mistakes over and over again.
 - ✅ The agent ships broken code confidently, or gold-plates something nobody asked for.
 - 🔁 One failed attempt and the whole thing derails; you have to start over.
 
@@ -278,13 +300,15 @@ ai-rizz add ruleset niko
 
 Then, in Cursor's chat interface, in `Agent` mode, type `/niko` followed by what you want to build:
 
-TODO: image
+![Commissioning Niko](adeptus-mechanicus/niko-please.jpg)
 
 Here's what happens, and here's how it solves each of those problems.
 
 #### 🗺️ Planning
 
-Niko doesn't jump to code. It analyzes your request, determines the task's complexity (Level 1 through 4, from quick bugfix to multi-milestone system change), and plans before building. For Level 2 and above, Niko produces a concrete implementation plan: specific files, specific functions, specific test cases, sequenced in dependency order. For Level 3 and above, if the design is genuinely ambiguous, Niko enters a creative phase to explore options and make a reasoned decision before committing. Niko only comes up for air to ask *you* a question if the answer is not obvious. The plan is written to disk so it survives across sessions.
+Niko doesn't jump to code. It analyzes your request, determines the task's complexity (Level 1 through 4, from quick bugfix to multi-milestone system change), and plans before building. For Level 2 and above, Niko produces a concrete implementation plan: specific files, specific functions, specific test cases, sequenced in dependency order. For Level 3 and above, if the design is genuinely ambiguous, Niko enters a creative phase to explore options and make a reasoned decision before committing. Niko only comes up for air to ask *you* a question if the answer is not obvious. 
+
+Once made, the plan is written to disk so it survives across sessions.
 
 #### 📋 Context initialization
 
@@ -315,9 +339,9 @@ State is saved to disk *and* to git history. The files on disk give the agent cu
 
 This solves compaction: Key info is uncompressed on disk, available when needed.
 
-This solves capability degradation at fuller context windows: You can just throw a full window away at any time with minimal churn and no appreciable change in behavior - since it was always running this way.
+This solves [capability degradation at fuller context windows](https://research.trychroma.com/context-rot): You can just throw a full window away at any time with minimal churn and no appreciable change in behavior - since it was always running this way.
 
-This solves the "agent went off the rails and all my work" problem: each phase transition is a git commit; rollback is just a `git revert` away.
+This solves the "agent went off the rails and ruined everything" problem: each phase transition is a git commit; rollback is just a `git revert` away.
 
 #### ✅ Validation
 
@@ -339,7 +363,7 @@ Then Niko archives: a self-contained document summarizing the task, inlining all
 
 Got a task that needs some code written? Go try it now!
 
-1. [Add Niko to your repository](TODO)
+1. [Add Niko to your repository](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko#installation-notes---important)
 2. Open Cursor and select `Agent` mode in the chat pane.
     * Choose Claude Opus (or similar heavyweight model; you do not need "MAX" mode)
 3. Run `/niko` to initialize your memory bank.
@@ -395,7 +419,7 @@ Once you're at stage four, it's time to ascend!
 
 **Stage five: headless and parallel.** Trust is the inflection point. Going headless and going massively parallel are two separate axes, and there's no required order. It depends on how you're developing and what you're comfortable with. But eventually you accept that more can be done than you can personally oversee, and you trust the delegation.
 
-Going headless usually happens locally first, either with [Cursor's CLI Agent](https://www.cursor.com/docs/agents/cli-agent) or, much more likely, with [Claude Code](TODO). Don't worry - you can run Niko through [a16n](https://npmjs.com/package/a16n) to bring it over to Claude Code. But web-based tools like [Cursor Cloud Agents]() and [Claude Code Web]() facilitate paralellism remotely. The specific solution **does not matter ;)**.
+Going headless usually happens locally first, either with [Cursor's CLI Agent](https://cursor.com/cli) or, much more likely, with [Claude Code](https://code.claude.com/docs/en/overview). Don't worry - you can run Niko through [a16n](https://npmjs.com/package/a16n) to bring it over to Claude Code. But web-based tools like [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent) and [Claude Code Web](https://code.claude.com/docs/en/claude-code-on-the-web) facilitate paralellism remotely. The specific solution **does not matter ;)**.
 
 I told you all this [several sections ago](#for-those-with-eyes-to-see-let-them-see). Your managers have been doing exactly this with *you* throughout your entire career. Setting intent, providing context, exercising discernment about what their reports should work on, and reviewing the output. The three skills, applied to humans.
 
@@ -403,23 +427,12 @@ But now you've done it with machines. Not read about it, not nodded along, not a
 
 So you're a manager now. Congrats on the promotion!
 
-### Your Process
+### Your New Life
 
 You write *excellent* tickets now. Acceptance criteria, edge cases, the works. At a minimum.
 
 You're headed towards writing really good technical briefs and then stepping back to write really good product briefs. The progression up the [power continuum](#the-power-continuum) maps directly onto the progression through Yegge's stages: the further up you climb from the code towards the intent, the more employees you can manage and the better your briefs need to be.
 
-### Reasoning about Context
+There was a time where the models' shortcomings made it look like we had a tooling issue. Now that the models are *capable-enough*, it's [plain to see:]({% post_url blog/essay/2026-03-09-context-to-ashes-skills-to-dust %}) 
 
-I've written about this at length, but these are by no means exhaustive, nor necessarily going to stay relevant, so don't sweat about reading them all and certainly don't try to *do* them all:
-
-- [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) covered what *not* to put in context: task-specific guidance delivered globally wastes tokens and confuses agents.
-- [.gitignore is not .agentignore]({% post_url blog/essay/2026-02-22-gitignore-is-not-agentignore %}) covered what the agent needs to *see*: generated output, local rules, dependency source code - things that shouldn't be in source control but absolutely should be visible to your agent.
-- [Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) covered when tools earn their context cost - and when they don't.
-- [How I Learned to Stop Worrying and Love the Machine]({% link _garden/how-i-learned-to-stop-worrying-and-love-the-machine.md %}) covered the pre-token context management toolkit: rules, embeddings, docs, MCP, and knowing when each is appropriate.
-
-The skill is literally imagining what the machine is going to see when it starts working on your problem. What does it know? What doesn't it know? What assumptions is it going to make that are wrong? That's context wrangling, and it's the same skill you use when you write a design doc for a new teammate: you're **modeling someone else's mental state and filling in the gaps.**
-
-There was a time where the models' shortcomings made it look like we had a tooling issue. Now that the models are *capable-enough*, it's [plain to see]({% post_url blog/essay/2026-03-09-context-to-ashes-skills-to-dust %}):
-
-TODO: always has been (project managment)
+![It's just being a manager.](adeptus-mechanicus/always-has-been.jpg)
