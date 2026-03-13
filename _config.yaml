@@ -110,6 +110,11 @@ auto_thumbnails:
   max_width: 640
   quality: 95
 
+# jekyll-mermaid-prebuild
+mermaid_prebuild:
+  emoji_width_compensation:
+    flowchart: true
+
 # image-paths (local)
 image_paths:
   base_url: /assets/img
