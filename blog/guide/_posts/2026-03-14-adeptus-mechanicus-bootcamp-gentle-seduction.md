@@ -13,7 +13,7 @@ tags:
   - productivity
 ---
 
-> I am a Principal Engineer. I have been programming computers since the last millenium, in the tech industry for over a decade, and have the requisite "ivy league" Bachelor's of Computer Science. I have written virtual memory, a file system, malloc, and a shell from scratch, and used [continuation-passing style](https://en.wikipedia.org/wiki/Continuation-passing_style) in production. **"10x engineer"** is the term. So when I tell you that it has been a year since I stopped writing my code and that the current frontier coding models make me look like an idiot child, I want you to understand my full meaning.
+> I am a Principal Engineer. I have been programming computers since the last millennium, in the tech industry for over a decade, and have the requisite "ivy league" Bachelor's of Computer Science. I have written virtual memory, a file system, malloc, and a shell from scratch, and used [continuation-passing style](https://en.wikipedia.org/wiki/Continuation-passing_style) in production. **"10x engineer"** is the term. So when I tell you that it has been a year since I stopped writing my code and that the current frontier coding models make me look like an idiot child, I want you to understand my full meaning.
 
 March 14th, 2025 was the day I stopped writing code. I still ship code - more than ever, in fact - but I don't write it anymore.
 
@@ -122,7 +122,7 @@ If you know the specification, you have to make sure the machine knows it, too. 
 
 You have to provide those in a form the machine can understand. This is filling  the agent's *context window* with the right stuff in the right way. This is, for now, as much an art as a process.
 
-1. **Know what the machine knows:** The cheapest context is the one you don't have to pay for; the models have a lot of "intuitive" knowledge. Don't wast space repeating it and certainly don't try to fight it.
+1. **Know what the machine knows:** The cheapest context is the one you don't have to pay for; the models have a lot of "intuitive" knowledge. Don't waste space repeating it and certainly don't try to fight it.
 2. **Know what the machine doesn't know:** The model can't infer your architecture from vibes. The model can't read your mind about which edge cases matter. The model can't read your teammates' minds to know how-detailed a pull request description they'll actually *read*. All of these things are things that you and your fellow humans would eventually pick up, internalize, and file away in your brains at the right distance from your work so that they kick in when needed. You have to make these explicit, so that they aren't **unspecified**.
 
 This is the practical, mechanical skill. What goes into the machine's context window, what stays out, and when. I've written about this at length, but these are by no means exhaustive, nor necessarily going to stay relevant, so don't sweat about reading them all and certainly don't try to *do* them all:
@@ -359,7 +359,7 @@ Got a task that needs some code written? Go try it now!
 2. Open Cursor and select `Agent` mode in the chat pane.
     * Choose Claude Opus (or similar heavyweight model; you do not need "MAX" mode)
 3. Run `/niko` to initialize your memory bank.
-4. **REVIEW THE NEW FILES** and make sure they look good. Hand edit them if needed.
+4. **REVIEW THE NEW FILES** and make sure they look good. Hand-edit them if needed.
 5. Commit - Niko's ready.
 6. 😺 In a new context window, run `/niko <describe what you want>`
     * Choose Claude Opus (or similar heavyweight model)
@@ -391,7 +391,7 @@ You can drop to Cursor's "Auto" model for `/niko-archive`, at the end.
 
 **Manual cleanup after Level 1.** Level 1 tasks (quick fixes) don't have a reflect or archive phase, so the `memory-bank/active/` directory doesn't get cleaned up automatically. Once you're satisfied with the work, delete it yourself. There's no slash-command for this because it would be wasteful to make you type `/niko-cleanup` to get an AI agent to run `rm -rf memory-bank/active` when you could just delete the folder yourself.
 
-**When things go sideways.** `/refresh` is for troubleshooting implementation. If Niko just can't figure out how to get something right... that's a `/refesh` situation. `/refresh` is special in that you usually want to use it IN the existing context, so that the full specifics of what *didn't* work are available to the troubleshooting process.
+**When things go sideways.** `/refresh` is for troubleshooting implementation. If Niko just can't figure out how to get something right... that's a `/refresh` situation. `/refresh` is special in that you usually want to use it IN the existing context, so that the full specifics of what *didn't* work are available to the troubleshooting process.
 
 `/niko-creative` is for exploring solution spaces. Usually this will happen automatically as part of the planning phase, but you might need it later if something unforeseen crops up. You can also use it ad-hoc, outside a workflow, as a brainstorm buddy.
 
@@ -407,7 +407,7 @@ It's time to go headless and parallel.
 
 Trust is the inflection point. Going headless and going massively parallel are two separate axes, and there's no required order. It depends on how you're developing and what you're comfortable with.
 
-Going headless usually happens locally first, either with [Cursor's CLI Agent](https://cursor.com/cli) or, much more likely, with [Claude Code](https://code.claude.com/docs/en/overview). Don't worry - you can run Niko through [a16n](https://npmjs.com/package/a16n) to bring it over to Claude Code. But web-based tools like [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent) and [Claude Code Web](https://code.claude.com/docs/en/claude-code-on-the-web) facilitate headless paralellism remotely. The specific solution **does not matter ;)**.
+Going headless usually happens locally first, either with [Cursor's CLI Agent](https://cursor.com/cli) or, much more likely, with [Claude Code](https://code.claude.com/docs/en/overview). Don't worry - you can run Niko through [a16n](https://npmjs.com/package/a16n) to bring it over to Claude Code. But web-based tools like [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent) and [Claude Code Web](https://code.claude.com/docs/en/claude-code-on-the-web) facilitate headless parallelism remotely. The specific solution **does not matter ;)**.
 
 I told you all this [several sections ago](#for-those-with-eyes-to-see-let-them-see). Your managers have been doing exactly this with *you* throughout your entire career. Setting intent, providing context, exercising discernment about what their reports should work on, and reviewing the output. The three skills, applied to humans.
 
