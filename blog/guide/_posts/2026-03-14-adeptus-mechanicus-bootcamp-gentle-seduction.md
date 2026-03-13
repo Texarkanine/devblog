@@ -13,7 +13,7 @@ tags:
   - productivity
 ---
 
-I am a Principal Engineer. I have been in the tech industry for over a decade and I have been programming computers since the last millenium. I have a bachelor of Computer Science from Rice University, I have written virtual memory, a file system, malloc, and a shell from scratch. I have used Continuation Passing Style in production. "10x engineer" is the term. So when I tell you that it has been a year since I stopped writing my code and that the current frontier coding models make me look like an idiot child, I want you to understand my full meaning.
+> I am a Principal Engineer. I have been programming computers since the last millenium, in the tech industry for over a decade, and have the requisite "ivy league" Bachelor's of Computer Science. I have written virtual memory, a file system, malloc, and a shell from scratch, and used [continuation-passing style](https://en.wikipedia.org/wiki/Continuation-passing_style) in production. **"10x engineer"** is the term. So when I tell you that it has been a year since I stopped writing my code and that the current frontier coding models make me look like an idiot child, I want you to understand my full meaning.
 
 March 14th, 2025 was the day I stopped writing code. I still ship code - more than ever, in fact - but I don't write it anymore.
 
@@ -86,15 +86,17 @@ So what does it take to operate at the top of this continuum? Three things. All 
 
 > My responses are infinite. You must ask the right questions.
 
-This sounds like a prompting tip. It isn't. The skill isn't in phrasing the prompt well - it's in *knowing what to ask*, which presupposes deep domain expertise. The principal engineer who stopped writing code still needs to think like one. The models are better than me at producing code. They are not (yet!) better than me at knowing what code should exist or what behavior it should exhibit.
+This sounds like a prompting tip. It isn't. The skill isn't in phrasing the prompt well - it's in *knowing what to ask*, which presupposes deep domain expertise. The Principal Engineer who stopped writing code still needs to think like one. The models are better than me at producing code. They are not (yet!) better than me at knowing what code should exist or what behavior it should exhibit.
 
 Consider the [Rust rewrite of SQLite that benchmarked at roughly 1,800 to 20,000x slower](https://blog.katanaquant.com/p/your-llm-doesnt-write-correct-code) on key lookups than the original C implementation. There's a well-known axiom in manufacturing and contracting, a variant of the "good, cheap, fast, pick two" constraint: "Anything unspecified will be done to the bare minimum quality required to fulfill the contract." The critics saw this and concluded that LLMs produce plausible code, not good code.
 
-They're right but they're a step short of the load-bearing insight: you get to define what "plausible" is.
+They're right but they've buried the real load-bearing insight way below the catchy headline: you get to, nay, *must*, define what "plausible" is:
+
+> The tool is at its best when the developer can define the acceptance criteria as specific, measurable conditions that help distinguish working from broken.
+> ...
+> The vibes are not enough. Define what correct means. Then measure.
 
 SQLite's [TH3 test suite is proprietary](https://sqlite.org/th3.html). The reimplementors *couldn't* have had access to the full behavioral specification, including performance constraints. So those constraints went unspecified. And anything unspecified gets done as cheaply as possible. The model did exactly what was asked; the model was not the problem. The specification was the problem. Skill issue.
-
-I wrote about this dynamic in [Pink Margarine]({% post_url blog/essay/2026-03-01-pink-margarine %}) in the context of test suites as behavioral blueprints. SQLite's decision to keep TH3 proprietary continues to illustrate what a behavioral specification is worth when duplication costs drop to near zero.
 
 #### The Artisan's Ambient Loop
 
@@ -112,7 +114,7 @@ The specification spectrum has three failure modes:
 
 We don't need code inlaid with ornate scrollwork, but we do need *some* mechanism to catch what we forgot to specify.
 
-The skill is finding the right altitude on that spectrum *per task*. Performance-critical paths need tight specs. Internal tooling needs a product brief and a prayer. Knowing which is which, before you've burned the time finding out, is engineering judgment. Same as it's ever been.
+The skill is finding the right altitude on that spectrum *per task*. Performance-critical paths need tight specs. Internal tooling needs a product brief and a prayer. Knowing which is which before you've [burned the time finding out]({% post_url blog/fable/2026-03-12-the-width-of-an-emoji %}) is engineering judgment. Same as it's ever been.
 
 ### Skill 2: Context Wrangling
 
@@ -121,14 +123,14 @@ If you know the specification, you have to make sure the machine knows it, too. 
 You have to provide those in a form the machine can understand. This is filling  the agent's *context window* with the right stuff in the right way. This is, for now, as much an art as a process.
 
 1. **Know what the machine knows:** The cheapest context is the one you don't have to pay for; the models have a lot of "intuitive" knowledge. Don't wast space repeating it and certainly don't try to fight it.
-2. **Know what the machine doesn't know:** The model can't infer your architecture from vibes. The model can't read your mind about which edge cases matter. The model can't read your teammates' minds to know how-detailed a pull request description they'll actually *read*. All of these things are things that you and your human coworkers would eventually pick up, internalize, and file away in your brains at the right distance from your work so that they kick in when needed. You have to make these explicit, so that they aren't **unspecified**.
+2. **Know what the machine doesn't know:** The model can't infer your architecture from vibes. The model can't read your mind about which edge cases matter. The model can't read your teammates' minds to know how-detailed a pull request description they'll actually *read*. All of these things are things that you and your fellow humans would eventually pick up, internalize, and file away in your brains at the right distance from your work so that they kick in when needed. You have to make these explicit, so that they aren't **unspecified**.
 
 This is the practical, mechanical skill. What goes into the machine's context window, what stays out, and when. I've written about this at length, but these are by no means exhaustive, nor necessarily going to stay relevant, so don't sweat about reading them all and certainly don't try to *do* them all:
 
-- [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) covered what *not* to put in context: task-specific guidance delivered globally wastes tokens and confuses agents.
-- [.gitignore is not .agentignore]({% post_url blog/essay/2026-02-22-gitignore-is-not-agentignore %}) covered what the agent needs to *see*: generated output, local rules, dependency source code - things that shouldn't be in source control but absolutely should be visible to your agent.
-- [Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) covered when tools earn their context cost - and when they don't.
-- [How I Learned to Stop Worrying and Love the Machine]({% link _garden/how-i-learned-to-stop-worrying-and-love-the-machine.md %}) covered the pre-token context management toolkit: rules, embeddings, docs, MCP, and knowing when each is appropriate.
+- [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %})
+- [.gitignore is not .agentignore]({% post_url blog/essay/2026-02-22-gitignore-is-not-agentignore %})
+- [Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %})
+- [How I Learned to Stop Worrying and Love the Machine # Cursor]({% link _garden/how-i-learned-to-stop-worrying-and-love-the-machine.md %}#cursor)
 
 The core of the skill is literally imagining what the machine is going to see when it starts working on your problem. What does it know? What doesn't it know? What assumptions is it going to make that are wrong? That's context wrangling, and it's the same skill you use when you write a design doc for a new teammate: you're **modeling someone else's mental state and filling in the gaps.**
 
@@ -144,11 +146,11 @@ The third skill is knowing when to *stop*. Knowing whether the thing should exis
 
 Jeremy Howard at fast.ai wrote about [dark flow](https://www.fast.ai/posts/2026-01-28-dark-flow/) - the seductive trap of agentic productivity. You can build *so much, so fast* that you build things you didn't need. The flow state of *commissioning* is just as intoxicating as the flow state of *coding*, but the blast radius is larger because the output rate is higher. You can burn through a year's token budget in a week if nobody's asking "should we?"
 
-Steve Yegge's [AI Vampire](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163) describes the mirror image: the vampire feeds on your productive energy and eventually burns you out - not from typing, but from the cognitive overhead of steering. If you try to overclock the human in the loop, the loop falls apart. The vampire doesn't care that you're the smartest engineer in the room: it'll drain you just the same.
+Steve Yegge's [AI Vampire](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163) lives in the dark flow: the vampire feeds on your productive energy and eventually burns you out - not from typing, but from the cognitive overhead of steering. If you try to overclock the human in the loop, the loop falls apart. The vampire doesn't care that you're the smartest engineer in the room: it'll drain you just the same.
 
 Tom Wojcik [raised the concern](https://tomwojcik.com/posts/2026-02-15/finding-the-right-amount-of-ai/) that outsourcing coding to AI causes a kind of "[Digital Dementia](https://www.goodreads.com/book/show/230631518-digital-dementia)" - your skills atrophy as you stop practicing them. He's observing something real, and [some research supports](https://arxiv.org/abs/2601.20245) that observation at face value. 
 
-The framing is wrong. Measure horsemanship skills in millennials and I bet you'll find that they, as a population, are terrible. Sound the alarm!? No. [Horses were obviated](https://andyljones.com/posts/horses.html). The correct metric isn't "can you still hand-write a merge sort." The correct metric is "can you effectively commission, verify, and steer the thing that writes merge sorts." Or better yet: can you determine when you even need to be sorting in the first place? That's discernment operating at the product-intent level - a floor *above* the implementation question - and entirely invisible to anyone measuring typing speed or even code comprehension.
+The framing is wrong. Measure horsemanship skills in millennials and I bet you'll find that they, as a population, are terrible. Sound the alarm!? No. [Horses were obviated](https://andyljones.com/posts/horses.html). The correct metric isn't "can you still hand-write a merge sort." The correct metric is "can you effectively commission, verify, and steer the thing that writes merge sorts." Or better yet: can you determine when you even need to be sorting in the first place? That's discernment operating at the product-intent level - a floor *above* the implementation question - and entirely invisible to anyone measuring typing speed or even code comprehension. Note that you still need to understand sort**ing** - you just don't need to be doing it yourself. In fact, you'd probably better not be!
 
 Many folks aren't measuring the right things yet because they're still on the lower rungs of the power continuum and can't look up.
 
@@ -156,7 +158,7 @@ Discernment's criticality also scales with blast radius.
 
 - **Small:** you overspecified a button and wasted an afternoon. 
 - **Medium:** you underspecified a library rewrite and got an 1,800x performance regression. 
-- **Large:** at the top of your delegation tree, an undiscerned intent propagates through every node below you. You blow your series A funding in a month on a dozen dead ends.
+- **Large:** at the top of your delegation tree, an undiscerned intent propagates through every node below you. You blow your series B funding in a month on a dozen dead ends.
 
 The higher you climb, the more discernment matters.
 
@@ -186,9 +188,16 @@ Your hands used to be where the production pipeline ended. Now they're where del
   archive="https://web.archive.org/web/20260308000000/https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04"
 %}
 
-Solo coder. Then one agent, and you babysit it. Then one agent, hands-off. Then multiple agents. Then - and this is where it gets interesting - an agent managing other agents.
+> - Stage 1: **Zero or Near-Zero AI:** maybe code completions, sometimes ask Chat questions
+> - Stage 2: **Coding agent in IDE**, permissions turned on. A narrow coding agent in a sidebar asks your permission to run tools.
+> - Stage 3: **Agent in IDE, YOLO mode:** Trust goes up. You turn off permissions, agent gets wider.
+> - Stage 4: **In IDE, wide agent:**  agent gradually grows to fill the screen. Code is just for diffs.
+> - Stage 5: **CLI, single agent. YOLO.** Diffs scroll by. You may or may not look at them.
+> - Stage 6: **CLI, multi-agent, YOLO.** You regularly use 3 to 5 parallel instances. You are very fast.
+> - Stage 7: **10+ agents, hand-managed.** You are starting to push the limits of hand-management.
+> - Stage 8: **Building your own orchestrator.** You are on the frontier, automating your workflow.
 
-Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narrating the buildout and operation of the system, not describing the steady-state organizational structure that emerges from it.
+Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narrating the buildout and operation of the Gas Town system, not describing the steady-state organizational structure that emerges from its presence in the world.
 
 ### Recursive Delegation
 
@@ -199,7 +208,7 @@ Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narr
   image_link="adeptus-mechanicus/sierpinskiloop.gif"
 %}
 
-Here's the insight that the Gastown progression implies but doesn't fully explore: figure 8 is just where *individual contribution* ends and *recursive delegation* begins.
+Here's the insight that the Gas Town progression implies but doesn't fully explore: figure 8 is just where *individual contribution* ends and *recursive delegation* begins.
 
 You will reach the point where you have too many direct-report agents. There is a limit to effective span of control - this is why your manager has a manager. The solution is the same one every organization in history discovered: hierarchy. You don't manage ten agents. You build a managing agent for your direct reports, and you dialogue with that manager. Just as your manager talks to you, and their manager talks to them.
 
@@ -233,7 +242,7 @@ Every engineer on this journey has that moment. The moment the capability become
 
 And if it's not behind you yet, it will be soon.
 
-The Principal Engineer who hasn't written code in a year and hasn't read it in nearly three months - that's not a thought experiment. That's the opening paragraph. That's *my past*.
+The Principal Engineer who hasn't written code in a year and hasn't read it in nearly three months - that's not a thought experiment. That was the opening to all this. That's *my past*.
 
 ## The Bootcamp
 
@@ -253,13 +262,13 @@ Welcome to the Mechanicum, developer. Let's get to work.
 
 Use [Cursor](https://cursor.com/). I'm recommending it explicitly, and specifically, for two reasons.
 
-First, it lets you *watch.* The agent's work is visible in the editor. You see files open, code appear, tests run, errors get diagnosed. You ride along. This is critical: we are deliberately staying head-full, not headless. You are going to watch and learn before you trust and delegate.
+First, it lets you *watch.* The agent's work is visible in the editor. You see files open, code appear, tests run, errors get diagnosed. You ride along. The same IDE style you're used to touching, just, coming alive underneath your fingers. This is critical: we are deliberately staying head-full, not headless. You are going to watch and learn before you trust and delegate.
 
 Second, it supports [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) directly.
 
 ### The Problems
 
-If you've tried agentic coding and gotten burned, you've probably hit some combination of these:
+If you've tried agentic coding and gotten burned (or know someone who has), the story probably hit some combination of these:
 
 - 🗺️ The agent dives straight into coding without understanding the problem.
 - 📋 The agent doesn't understand your project and makes bizarre architectural choices.
@@ -268,7 +277,7 @@ If you've tried agentic coding and gotten burned, you've probably hit some combi
 - ✅ The agent ships broken code confidently, or gold-plates something nobody asked for.
 - 🔁 One failed attempt and the whole thing derails; you have to start over.
 
-These are all solved problems. Let me introduce you to a solution.
+These are all solved problems. Let me introduce you to one of the solutions.
 
 But first, a disclaimer: The specific solution **does not matter**. Everything you read here will be obsolete in two years, [probably in one]({% post_url blog/essay/2026-03-09-context-to-ashes-skills-to-dust %}). But *today*, here's *a* solution that'll help you speedrun through Steve Yegge's stages and achieve a significant productivity boost with minimal skill atrophy along the way. Executed properly, that ought to give you a significant leg up on optionality as you navigate the next few years.
 
@@ -301,7 +310,7 @@ The first time you run `/niko` in a project, it scans your codebase and creates 
 - `systemPatterns.md`: how the architecture works and what's non-obvious
 - `techContext.md`: the stack, the tools, the commands
 
-These persist across tasks. Every subsequent session starts with Niko reading these files and knowing where it is. This is your [AGENTS.md but better]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) - created explicitly in alignment with those best-practices.
+These persist across tasks. Every subsequent session starts with Niko reading these files and orienting itself. This is your [AGENTS.md but better]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) - created explicitly in alignment with those best-practices.
 
 #### 📜 Context exhaustion
 
@@ -350,7 +359,7 @@ Got a task that needs some code written? Go try it now!
 2. Open Cursor and select `Agent` mode in the chat pane.
     * Choose Claude Opus (or similar heavyweight model; you do not need "MAX" mode)
 3. Run `/niko` to initialize your memory bank.
-4. **REVIEW THE NEW FILES** and make sure they look good.
+4. **REVIEW THE NEW FILES** and make sure they look good. Hand edit them if needed.
 5. Commit - Niko's ready.
 6. 😺 In a new context window, run `/niko <describe what you want>`
     * Choose Claude Opus (or similar heavyweight model)
@@ -358,13 +367,14 @@ Got a task that needs some code written? Go try it now!
 8. Read the Reflection document Niko writes at the end.
 9. Open a pull request
 10. `/niko-archive` (if applicable, see below)
-11. GOTO 6 😺
+11. Merge the pull request
+12. GOTO 6 😺
 
 #### Operational Notes
 
 Niko's [README](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) covers usage well, so I'll just mention some of "seasoning to taste" personal preferences that aren't in the docs.
 
-**Model Management**: To echo the name of a feature that Claude Code shipped ages ago: "Opus for Plan Mode!" *always* use the most-powerful model you can, when doing either:
+**Model Management**: To echo the name of a feature that Claude Code shipped [ages ago](https://code.claude.com/docs/en/changelog#1-0-77): "Opus for Plan Mode!" *always* use the most-powerful model you can, when doing either:
 
 1. initial Memory Bank setup
 2. Starting a task that you don't already know is simple
@@ -391,18 +401,13 @@ Both are human touchpoints designed to help you keep things on track when the au
 
 So you've been using Niko for a while now. You've watched the agent plan, build, test, reflect, archive. You've run the commands, closed and reopened context windows, checked that the memory bank was persisted. You've seen the process work, firsthand, task after task.
 
-Good job! Find yourself on the progression below, and take the next step:
+Good job! Niko operationalizes the "agent actually doing things" part of agentic development, and forces you - through using the commands in sequence - to adhere to a process. You & Niko can go all the way to Yegge's Stage 7 in Cursor... and there, you'll definitely start to feel the fatigue. You can't keep up with everything that's going on. You can't look at everything. You don't *need to* look at everything.
 
-1. **Stage one: you were the author.** At first, Niko was a tool and you were driving. You typed code, you made decisions, Niko kept you on process. This is where everyone starts.
-2. **Stage two: you became the commissioner.** At some point, and you may not have noticed exactly when, you started doing more sitting back and watching than sticking your hands in. You set intent. The agent executed. You validated the output and signed off. You were managing a single employee.
-3. **Stage three: two employees.** You opened a second Cursor window on a second repository. You tabbed between them, checking in on each. Context-switching between reports, prioritizing your attention. You were practicing actual management.
-4. **Stage four: trust the process.** At some point you realized you couldn't directly supervise each employee and still get anything done. We have a word for that: micromanaging. But you'd watched the process work firsthand, time and time again. You started trusting it. You stopped needing to check on every step, and went to work on *your* tasks while the agents worked on *theirs*.
+It's time to go headless and parallel.
 
-Once you're at stage four, it's time to ascend!
+Trust is the inflection point. Going headless and going massively parallel are two separate axes, and there's no required order. It depends on how you're developing and what you're comfortable with.
 
-**Stage five: headless and parallel.** Trust is the inflection point. Going headless and going massively parallel are two separate axes, and there's no required order. It depends on how you're developing and what you're comfortable with. But eventually you accept that more can be done than you can personally oversee, and you trust the delegation.
-
-Going headless usually happens locally first, either with [Cursor's CLI Agent](https://cursor.com/cli) or, much more likely, with [Claude Code](https://code.claude.com/docs/en/overview). Don't worry - you can run Niko through [a16n](https://npmjs.com/package/a16n) to bring it over to Claude Code. But web-based tools like [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent) and [Claude Code Web](https://code.claude.com/docs/en/claude-code-on-the-web) facilitate paralellism remotely. The specific solution **does not matter ;)**.
+Going headless usually happens locally first, either with [Cursor's CLI Agent](https://cursor.com/cli) or, much more likely, with [Claude Code](https://code.claude.com/docs/en/overview). Don't worry - you can run Niko through [a16n](https://npmjs.com/package/a16n) to bring it over to Claude Code. But web-based tools like [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent) and [Claude Code Web](https://code.claude.com/docs/en/claude-code-on-the-web) facilitate headless paralellism remotely. The specific solution **does not matter ;)**.
 
 I told you all this [several sections ago](#for-those-with-eyes-to-see-let-them-see). Your managers have been doing exactly this with *you* throughout your entire career. Setting intent, providing context, exercising discernment about what their reports should work on, and reviewing the output. The three skills, applied to humans.
 
@@ -414,7 +419,7 @@ So you're a manager now. Congrats on the promotion!
 
 You write *excellent* tickets now. Acceptance criteria, edge cases, the works. At a minimum.
 
-You're headed towards writing really good technical briefs and then stepping back to write really good product briefs. The progression up the [power continuum](#the-power-continuum) maps directly onto the progression through Yegge's stages: the further up you climb from the code towards the intent, the more employees you can manage and the better your briefs need to be.
+You're headed towards writing really good technical briefs and then stepping back to write really good product briefs. The progression up the [power continuum](#the-power-continuum) maps directly onto the progression through Yegge's stages: the further up you climb from the code towards the intent, the more employees you can manage and the better your briefs need to be. **You don't need Niko anymore,** though the principles you learned together will continue to serve you well.
 
 There was a time where the models' shortcomings made it look like we had a tooling issue. Now that the models are *capable-enough*, it's [plain to see:]({% post_url blog/essay/2026-03-09-context-to-ashes-skills-to-dust %}) 
 
