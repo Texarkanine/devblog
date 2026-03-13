@@ -72,6 +72,21 @@ module HrefDecorator
   end
 
   ##
+  # Returns whether the given regex pattern matches href.
+  # Logs a warning and returns false if the pattern is an invalid regex.
+  # @param [String] pattern - Regex pattern string.
+  # @param [String] href - Link href to test.
+  # @return [Boolean]
+  def match_regex?(pattern, href)
+    Regexp.new(pattern.to_s).match?(href)
+  rescue RegexpError => e
+    if defined?(Jekyll) && Jekyll.respond_to?(:logger)
+      Jekyll.logger.warn("href_decorator: ", "Invalid regex '#{pattern}': #{e.message}. Skipping rule.")
+    end
+    false
+  end
+
+  ##
   # Returns whether a rule applies to the given href and collection.
   # Rule applies when: (no match or href matches) AND (no collections or collection in list).
   # @param [Hash] rule - Rule with optional 'match', 'collections' (string keys).
@@ -79,17 +94,7 @@ module HrefDecorator
   # @param [String, nil] collection_label - Document's collection label (e.g. "posts", "pages").
   # @return [Boolean]
   def rule_applies?(rule, href, collection_label)
-    if rule['match']
-      begin
-        regex = Regexp.new(rule['match'].to_s)
-        return false unless regex.match?(href)
-      rescue RegexpError => e
-        if defined?(Jekyll) && Jekyll.respond_to?(:logger)
-          Jekyll.logger.warn("href_decorator: ", "Invalid regex '#{rule['match']}': #{e.message}. Skipping rule.")
-        end
-        return false
-      end
-    end
+    return false if rule['match'] && !match_regex?(rule['match'], href)
 
     if rule['collections'] && rule['collections'].is_a?(Array) && !rule['collections'].empty?
       labels = rule['collections'].map(&:to_s)
@@ -126,7 +131,9 @@ module HrefDecorator
   # Boolean true attrs become valueless HTML attributes; false/nil are skipped.
   # @param [Nokogiri::XML::Node] anchor - The <a> element.
   # @param [Hash] properties - Resolved attributes to apply.
+  # @return [Boolean] true if any attribute was actually set, false otherwise.
   def apply_attributes(anchor, properties)
+    changed = false
     properties.each do |attr_name, attr_value|
       next if attr_value == false || attr_value == 'false'
       next if attr_value.nil? || attr_value == 'nil'
@@ -137,7 +144,9 @@ module HrefDecorator
       else
         anchor[attr_name] = attr_value.to_s
       end
+      changed = true
     end
+    changed
   end
 
   ##
@@ -163,9 +172,7 @@ module HrefDecorator
       final_properties = find_matching_rules_properties(href, rules, defaults, collection_label)
       next unless final_properties && !final_properties.empty?
 
-      before = anchor.to_html
-      apply_attributes(anchor, final_properties)
-      modified = true if anchor.to_html != before
+      modified = true if apply_attributes(anchor, final_properties)
     end
 
     document.output = doc.to_html if modified
