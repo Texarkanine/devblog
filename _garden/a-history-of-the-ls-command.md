@@ -390,4 +390,3 @@ So, **yes:** Don Widrig *is* the person who deserves credit for the short naming
 [^11]: "Research Unix." *Wikipedia*, <https://en.wikipedia.org/wiki/Research_Unix>. ([archive](https://web.archive.org/web/20251113073548/https://en.wikipedia.org/wiki/Research_Unix))
 
 [^12]: "Genesis: 1969–1971" *Origins and History of Unix, 1969-1995*, <http://www.catb.org/esr/writings/taoup/html/ch02s01.html>. ([archive](https://web.archive.org/web/20251012111631/http://www.catb.org/esr/writings/taoup/html/ch02s01.html))
-

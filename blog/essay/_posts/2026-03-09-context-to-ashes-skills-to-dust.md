@@ -112,27 +112,27 @@ In January 2025, yeah. But your information is outdated; take a look at this tim
 
 **February 2025** — The 📋 [Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md) emerges from the Cline Discord: structured markdown files giving agents persistent project 🧠 **memory** across sessions. Claude Code launches with `/init` for 📋 **context initialization**.
 
-**March 2025** — [Claude Code v0.2.47](https://claudefa.st/blog/guide/changelog#v0247) ships 📜 **auto-compaction**, automatically summarizing conversations when the context window fills. Before this, you managed the window yourself.
+**March 2025** — [Claude Code v0.2.47](https://code.claude.com/docs/en/changelog#0-2-47) ships 📜 **auto-compaction**, automatically summarizing conversations when the context window fills. Before this, you managed the window yourself.
 
 **May 2025** — [Cursor 0.50](https://cursor.com/changelog/0-50) ships Background Agents in preview: 🔀 **parallelization** without hand-wiring the topology.
 
 **June 2025** — [Cursor 1.0](https://cursor.com/changelog/1-0) ships 🧠 **Memories** — persistent facts across sessions. (These later evolved into Cursor Rules, themselves another subsumption: a community concept absorbed, renamed, and integrated.)
 
-**July 2025** — [Claude Code v1.0.60](https://claudefa.st/blog/guide/changelog#v1060) ships custom subagents for 🔀 **parallelization**. Geoffrey Huntley [documents](https://ghuntley.com/ralph/) the 🔁 **Ralph Wiggum technique**: agents in bash `while` loops, shipping overnight.
+**July 2025** — [Claude Code v1.0.60](https://code.claude.com/docs/en/changelog#1-0-60) ships custom subagents for 🔀 **parallelization**. Geoffrey Huntley [documents](https://ghuntley.com/ralph/) the 🔁 **Ralph Wiggum technique**: agents in bash `while` loops, shipping overnight.
 
-**August 2025** — [Claude Code v1.0.77](https://claudefa.st/blog/guide/changelog#v1077) ships 🗺️ **Opus Plan Mode**: use Opus for planning, a lighter model for execution.
+**August 2025** — [Claude Code v1.0.77](https://code.claude.com/docs/en/changelog#1-0-77) ships 🗺️ **Opus Plan Mode**: use Opus for planning, a lighter model for execution.
 
 **October 2025** — [Cursor 2.0](https://cursor.com/changelog/2-0) ships 🗺️ [**Plan Mode**](https://cursor.com/blog/plan-mode). The "make a plan before coding" convention becomes a toggle.
 
 **November 2025** — [Cursor 2.1](https://cursor.com/changelog/2-1) improves 🗺️ **Plan Mode**: the agent can now ask clarifying questions in the UI.
 
-**December 2025** — [Cursor 2.2](https://cursor.com/changelog/2-2) adds Mermaid diagrams to plans — echoing [vanzan01's](https://github.com/vanzan01/cursor-memory-bank) use of Mermaid for visual planning in the community memory banks — dispatches plan items to parallel agents, and ships multi-agent judging for 🔀 **parallelization**. [Claude Code v2.0.60](https://claudefa.st/blog/guide/changelog#v2060) ships background agents.
+**December 2025** — [Cursor 2.2](https://cursor.com/changelog/2-2) adds Mermaid diagrams to plans — echoing [vanzan01's](https://github.com/vanzan01/cursor-memory-bank) use of Mermaid for visual planning in the community memory banks — dispatches plan items to parallel agents, and ships multi-agent judging for 🔀 **parallelization**. [Claude Code v2.0.60](https://code.claude.com/docs/en/changelog#2-0-60) ships background agents.
 
-**January 2026** — [Claude Code v2.1.0](https://claudefa.st/blog/guide/changelog#v210) ships `/plan` as a first-class slash command. Both tools now detect when you're *trying* to plan and enter 🗺️ **plan mode** unprompted.
+**January 2026** — [Claude Code v2.1.0](https://code.claude.com/docs/en/changelog#2-1-0) ships `/plan` as a first-class slash command. Both tools now detect when you're *trying* to plan and enter 🗺️ **plan mode** unprompted.
 
-**February 2026** — [Claude Code v2.1.59](https://claudefa.st/blog/guide/changelog#v2159) ships 🧠 **auto-memories** and [v2.1.32](https://claudefa.st/blog/guide/changelog#v2132) ships 🔀 **Agent Teams**.
+**February 2026** — [Claude Code v2.1.32](https://code.claude.com/docs/en/changelog#2-1-32) ships 🔀 **Agent Teams** and [v2.1.59](https://code.claude.com/docs/en/changelog#2-1-59) ships 🧠 **auto-memories**.
 
-**March 2026** — [Claude Code v2.1.63](https://claudefa.st/blog/guide/changelog#v2163) ships 🔁 [`/loop`](https://claudefa.st/blog/guide/changelog#v2163). The Ralph Wiggum technique is now a built-in command.
+**March 2026** — [Claude Code v2.1.63](https://code.claude.com/docs/en/changelog#2-1-63) ships 🔁 `/loop`. The Ralph Wiggum technique is now a built-in command.
 
 **Not yet absorbed** 
 - ✅ **Validation loops**. Preflight gates. TDD forcing. QA checkpoints.
