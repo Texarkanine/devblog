@@ -14,6 +14,7 @@ tags:
 * [Tonsky](https://tonsky.me/) <small>"programming and UI design"</small>
 * [Sunday Letters from Sam](https://sundaylettersfromsam.substack.com/) <small>"how to think about how ai is reshaping the world (currently)"</small>
 * [Steve Yegge](https://steve-yegge.medium.com/) <small>"technical essays on software engineering, programming languages, and the future of technology"</small>
+* [Daz.is](https://daz.is/blog/) <small>Exploring similar concepts to the main blog here, on a similar timeframe.</small>
 
 ### Misc
 
