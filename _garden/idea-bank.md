@@ -37,3 +37,8 @@ tags:
 
 - [comments should be highlighted](https://tonsky.me/blog/syntax-highlighting/)
 - [Hermitclaw](https://github.com/brendanhogan/hermitclaw/)
+
+## Software
+
+- [Neon Genesis Evangelion](https://duckduckgo.com/?q=evangelion+computer+interface&iar=images) CSS / design kit (LCARS can't get all the love)
+- Devil's Advocate plugin for... Claude (web?) "agreeableness threshold passed; here's a human (from Twitter?) who thinks you're wrong, and why I (the AI) think they're right. Idiot."
