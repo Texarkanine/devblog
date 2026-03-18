@@ -14,6 +14,11 @@ tags:
   - [... good cognitive strategies are now explicit, first-class, sharable objects in a team or organization. Everyone can move at the speed of the smartest person in the room.](https://sundaylettersfromsam.substack.com/p/vibe-coding-considered-harmful-lego)
   - [Welcome to Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04)
 - I spend most of my tokens on planning, am I wrong?
+- "a detailed-enough spec is code"
+  - "just because you know how it works doesn't mean it's not magic."
+  - llms are the humanoid robots of knowledge work - they slot in to the world that's already been built and are intuitively understandable by - and able to supplant - the humans, once the humans themselves figure something out.
+  - humans can't execute code; they execute language. It's always less-precise. Things always get lost in translation. It's not a reason to not AI; it's a principle to guide AI.
+  - Oh is this just an update to last programming language?
 
 ## Garden
 
@@ -22,6 +27,8 @@ tags:
         - [js rpgmaker front desk](https://twelvemen.neocities.org/2/about)
         - [elevator](https://melonking.net/melon)
         - [voicemail](https://melonking.net/melon)
+- old scifi short stories
+  - "shrine" page with all? or webring with each story and a bit ABOUT each? I don't want to spoil, though.
 
 ## Quotes
 
