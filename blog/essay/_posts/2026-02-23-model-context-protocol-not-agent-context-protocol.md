@@ -5,6 +5,7 @@ description: "A framework for evaluating when MCP tools earn their context-windo
 author: texarkanine
 tags:
   - ai
+  - harness-engineering
   - mcp
   - llm-context-management
 ---

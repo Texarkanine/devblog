@@ -5,8 +5,10 @@ subtitle: "It's been over a year since I stopped writing my code, and I have suc
 author: texarkanine
 tags:
   - agentic-coding
+  - agentic-engineering
   - ai
   - cursor
+  - harness-engineering
   - llm-context-management
   - management
   - niko

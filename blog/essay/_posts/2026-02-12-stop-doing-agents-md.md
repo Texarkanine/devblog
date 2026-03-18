@@ -6,6 +6,7 @@ description: "A taxonomy of what goes wrong in global agent prompts - self-evide
 author: texarkanine
 tags:
   - ai
+  - harness-engineering
   - claude-code
   - llm-context-management
 ---
