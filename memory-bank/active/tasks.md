@@ -58,4 +58,4 @@ No new technology — validation not required. `markdownify` is a built-in Liqui
 - [x] Technology validation complete
 - [x] Preflight
 - [x] Build
-- [ ] QA
+- [x] QA
