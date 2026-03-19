@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "cgi"
+
 # Injects tag descriptions from _data/tags.yaml into page.data['description']
 # for tag archive pages, so jekyll-seo-tag picks them up for <meta> and JSON-LD.
 # The body-level blurb (| markdownify in layouts) is unaffected; this only sets
@@ -22,10 +24,12 @@ Jekyll::Hooks.register :pages, :pre_render do |page|
   raw_desc = tag_descs[tag_name]
   next if raw_desc.nil? || raw_desc.to_s.strip.empty?
 
-  plain = Kramdown::Document.new(raw_desc.to_s).to_html
-    .gsub(/<[^>]+>/, "")
-    .gsub(/\s+/, " ")
-    .strip
+  plain = CGI.unescapeHTML(
+    Kramdown::Document.new(raw_desc.to_s).to_html
+      .gsub(/<[^>]+>/, "")
+      .gsub(/\s+/, " ")
+      .strip
+  )
 
   page.data["description"] = plain unless plain.empty?
 end
