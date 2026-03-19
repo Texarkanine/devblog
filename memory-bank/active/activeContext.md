@@ -4,19 +4,11 @@
 Tag Descriptions on Archive Pages
 
 ## Phase
-BUILD — COMPLETE
+REFLECT — COMPLETE
 
 ## What Was Done
-- Created `_data/tags.yaml` with seed entry for `ai` tag
-- Modified `_layouts/tag-archive.html` — conditional `markdownify` block between heading and post list
-- Modified `_layouts/garden-tag-archive.html` — identical block between heading and notes list
-- All 5 behaviors verified via site build: description rendered, no-desc unchanged, Markdown rendered, HTML passthrough, empty entry ignored
-- No deviations from plan
-
-## Files Modified
-- `_data/tags.yaml` (new)
-- `_layouts/tag-archive.html`
-- `_layouts/garden-tag-archive.html`
+- Reflection completed. Clean execution, no surprises, no process insights.
+- Key technical insight: Liquid `!= blank` is the idiomatic nil/empty guard for Jekyll data lookups.
 
 ## Next Step
-QA phase.
+Operator runs `/niko-archive` to finalize.
