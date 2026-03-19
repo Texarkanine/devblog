@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h1 id="task-archive-tag-descriptions-on-archive-pages">TASK ARCHIVE: Tag Descriptions on Archive Pages<a href="#task-archive-tag-descriptions-on-archive-pages" class="heading-anchor" aria-label="Link to this section">#</a>
+</h1>
+
+<h2 id="summary">SUMMARY<a href="#summary" class="heading-anchor" aria-label="Link to this section">#</a>
+</h2>
+
+<p>Added optional per-tag descriptions seeded in <code class="language-plaintext highlighter-rouge">_data/tags.yaml</code>, rendered as body blurbs on tag archive pages (blog and garden) and injected as plain-text SEO metadata via a Jekyll <code class="language-plaintext highlighter-rouge">:pages, :pre_render</code> hook. Descriptions support Markdown and inline HTML in the body, with plain-text extraction for SEO meta tags.</p>
+
+<h2 id="requirements">REQUIREMENTS<a href="#requirements" class="heading-anchor" aria-label="Link to this section">#</a>
+</h2>
+
+<ol>
+  <li>
+<strong>Data file</strong>: <code class="language-plaintext highlighter-rouge">_data/tags.yaml</code> — flat mapping of tag slug to description string (YAML block scalar). Descriptions may contain HTML and/or Markdown.</li>
+  <li>
+<strong>Layout change</strong>: <code class="language-plaintext highlighter-rouge">_layouts/tag-archive.html</code> and <code class="language-plaintext highlighter-rouge">_layouts/garden-tag-archive.html</code> — if a description exists for the current tag, render it between the heading and the post/note list.</li>
+  <li>
+<strong>Conditional</strong>: Tags without an entry (or with an empty entry) should render unchanged — no visible change.</li>
+  <li>
+<strong>Rendering</strong>: Descriptions processed through Kramdown (<code class="language-plaintext highlighter-rouge">| markdownify</code>) so both Markdown and inline HTML are supported in the body.</li>
+  <li>
+<strong>SEO metadata</strong> (rework): Tag descriptions must also appear in <code class="language-plaintext highlighter-rouge">&lt;meta name="description"&gt;</code>, <code class="language-plaintext highlighter-rouge">og:description</code>, and JSON-LD <code class="language-plaintext highlighter-rouge">description</code> via <code class="language-plaintext highlighter-rouge">jekyll-seo-tag</code>.</li>
+</ol>
+
+<h2 id="implementation">IMPLEMENTATION<a href="#implementation" class="heading-anchor" aria-label="Link to this section">#</a>
+</h2>
+
+<p><strong>Files created/modified:</strong></p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">_data/tags.yaml</code> (new) — Single source of truth for tag descriptions. Keys must exactly match tag strings used in post/page front matter. Values are YAML block scalars (use <code class="language-plaintext highlighter-rouge">&gt;-</code> for single-paragraph, <code class="language-plaintext highlighter-rouge">|</code> for multi-paragraph).</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">_layouts/tag-archive.html</code> — Added conditional Liquid block after <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> that looks up <code class="language-plaintext highlighter-rouge">site.data.tags[page.title]</code> and renders through <code class="language-plaintext highlighter-rouge">| markdownify</code> if present.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">_layouts/garden-tag-archive.html</code> — Same conditional block as above. <code class="language-plaintext highlighter-rouge">_data/tags.yaml</code> is global — same description applies to blog tags, garden tags, and any future tag archive.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">_plugins/tag_descriptions_seo.rb</code> (new, rework) — <code class="language-plaintext highlighter-rouge">:pages, :pre_render</code> hook that:</p>
+    <ul>
+      <li>Checks if page layout is <code class="language-plaintext highlighter-rouge">tag-archive</code> or <code class="language-plaintext highlighter-rouge">garden-tag-archive</code>
+</li>
+      <li>Looks up tag description in <code class="language-plaintext highlighter-rouge">site.data['tags']</code> using <code class="language-plaintext highlighter-rouge">page.title</code> (method, not <code class="language-plaintext highlighter-rouge">page.data['title']</code>)</li>
+      <li>Renders description through Kramdown to HTML, strips HTML tags, unescapes HTML entities via <code class="language-plaintext highlighter-rouge">CGI.unescapeHTML</code>, normalizes whitespace</li>
+      <li>Sets <code class="language-plaintext highlighter-rouge">page.data['description']</code> so <code class="language-plaintext highlighter-rouge">jekyll-seo-tag</code> picks it up for meta tags</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Key implementation detail:</strong> <code class="language-plaintext highlighter-rouge">Jekyll::Archives::Archive</code> objects store the tag name via a <code class="language-plaintext highlighter-rouge">title</code> method, not in <code class="language-plaintext highlighter-rouge">page.data['title']</code>. The hook must use <code class="language-plaintext highlighter-rouge">page.title</code> for the lookup.</p>
+
+<h2 id="testing">TESTING<a href="#testing" class="heading-anchor" aria-label="Link to this section">#</a>
+</h2>
+
+<p><strong>Original build verification:</strong></p>
+<ul>
+  <li>Built site with <code class="language-plaintext highlighter-rouge">bundle exec jekyll build</code>
+</li>
+  <li>Verified 5 behaviors: description rendered in body, no description unchanged, Markdown rendered, HTML passthrough, empty entry ignored</li>
+  <li>Checked both blog and garden tag archive pages</li>
+</ul>
+
+<p><strong>Rework verification:</strong></p>
+<ul>
+  <li>Built site with SEO plugin</li>
+  <li>Verified 6 behaviors: SEO meta tags with description, SEO without description (site default), JSON-LD description, og:description, garden tag SEO, body blurb unchanged</li>
+  <li>Confirmed HTML entity unescaping works correctly (em-dash, ampersands, etc.)</li>
+</ul>
+
+<p><strong>QA:</strong> Both passes found no issues. Code follows KISS, DRY (acceptable duplication), YAGNI principles.</p>
+
+<h2 id="lessons-learned">LESSONS LEARNED<a href="#lessons-learned" class="heading-anchor" aria-label="Link to this section">#</a>
+</h2>
+
+<p><strong>Technical:</strong></p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">Jekyll::Archives::Archive</code> stores page metadata (title, tag, type) as instance methods, not in the <code class="language-plaintext highlighter-rouge">page.data</code> hash. When writing hooks that target archive pages, always use <code class="language-plaintext highlighter-rouge">page.title</code> / <code class="language-plaintext highlighter-rouge">page.type</code> rather than <code class="language-plaintext highlighter-rouge">page.data['title']</code>. This is a gotcha that arises specifically from the <code class="language-plaintext highlighter-rouge">jekyll-archives</code> gem’s class design and is not documented in the gem’s README.</li>
+  <li>Liquid’s <code class="language-plaintext highlighter-rouge">!= blank</code> idiom handles nil, empty string, and whitespace-only uniformly — preferable to chaining <code class="language-plaintext highlighter-rouge">and</code> conditions for Jekyll data file lookups where a key may be absent, empty, or whitespace.</li>
+  <li>Kramdown escapes reserved characters into HTML entities. When converting Markdown → HTML → plain text for SEO, must call <code class="language-plaintext highlighter-rouge">CGI.unescapeHTML</code> after tag-stripping to avoid double-encoding when <code class="language-plaintext highlighter-rouge">jekyll-seo-tag</code> applies its own <code class="language-plaintext highlighter-rouge">xml_escape</code> filter.</li>
+</ul>
+
+<p><strong>Process:</strong></p>
+<ul>
+  <li>When planning a hook that targets pages from a third-party generator, investigate the generated page class’s data model before writing the implementation plan. A quick <code class="language-plaintext highlighter-rouge">Jekyll.logger.debug</code> pass listing available attributes would have caught the <code class="language-plaintext highlighter-rouge">page.data['title']</code> issue at plan time rather than build time.</li>
+</ul>
+
+<h2 id="process-improvements">PROCESS IMPROVEMENTS<a href="#process-improvements" class="heading-anchor" aria-label="Link to this section">#</a>
+</h2>
+
+<p>None — clean execution with one debugging iteration during rework build to discover the Archive class data model difference.</p>
+
+<h2 id="technical-improvements">TECHNICAL IMPROVEMENTS<a href="#technical-improvements" class="heading-anchor" aria-label="Link to this section">#</a>
+</h2>
+
+<p>If tag descriptions had been a foundational assumption, the ideal design would be the same — <code class="language-plaintext highlighter-rouge">_data/tags.yaml</code> as the single source, with a pre-render hook injecting into <code class="language-plaintext highlighter-rouge">page.data['description']</code> for SEO and Liquid <code class="language-plaintext highlighter-rouge">markdownify</code> for the body. The only improvement would be to extract the tag lookup into a shared utility if more consumers emerge (e.g., a tags index page showing descriptions). For now, two independent access paths (Liquid and Ruby) is the right level of coupling.</p>
+
+<h2 id="next-steps">NEXT STEPS<a href="#next-steps" class="heading-anchor" aria-label="Link to this section">#</a>
+</h2>
+
+<p>None.</p>
+</body></html>
