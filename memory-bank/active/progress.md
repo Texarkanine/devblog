@@ -32,3 +32,9 @@
 ## Rework Initiated
 - **Feedback**: Tag descriptions should also flow into SEO metadata (meta description, JSON-LD) via `jekyll-seo-tag`. Currently, tag archive pages still show the generic site description in `<meta name="description">` and the JSON-LD `description` field.
 - **New requirement**: Inject `page.data['description']` from `_data/tags.yaml` before render so `jekyll-seo-tag` picks it up automatically.
+
+## Rework Build — Complete
+- Created `_plugins/tag_descriptions_seo.rb` with `:pages, :pre_render` hook
+- Key discovery: must use `page.title` (method) not `page.data['title']` (empty) for Archive pages
+- Description is rendered through Kramdown then stripped to plain text for SEO
+- All 6 behaviors verified

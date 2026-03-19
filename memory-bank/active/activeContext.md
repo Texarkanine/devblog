@@ -4,11 +4,16 @@
 Tag Descriptions on Archive Pages (Rework: SEO metadata)
 
 ## Phase
-PLAN — COMPLETE
+BUILD — COMPLETE
 
 ## What Was Done
-- Rework classified as Level 2 (single plugin file, self-contained)
-- Plan: add a `_plugins/tag_descriptions_seo.rb` hook that sets `page.data['description']` from `site.data['tags']` for tag archive layouts before render, so `jekyll-seo-tag` picks it up
+- Created `_plugins/tag_descriptions_seo.rb` — `:pages, :pre_render` hook
+- Key discovery: `Jekyll::Archives::Archive` stores tag name via `page.title` method, not in `page.data['title']`
+- Kramdown renders description to HTML, then HTML tags are stripped for clean plain-text SEO description
+- All 6 behaviors verified: SEO with/without desc, JSON-LD, og:description, garden tags, body blurb
+
+## Files Modified
+- `_plugins/tag_descriptions_seo.rb` (new)
 
 ## Next Step
-Preflight, then build.
+QA phase.

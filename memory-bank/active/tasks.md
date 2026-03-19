@@ -49,6 +49,6 @@ No new technology — uses built-in `Jekyll::Hooks.register` and `site.data` acc
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
 - [x] Technology validation complete
-- [ ] Preflight
-- [ ] Build
+- [x] Preflight
+- [x] Build
 - [ ] QA
