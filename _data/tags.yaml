@@ -3,18 +3,12 @@
 # Values are rendered through kramdown; inline HTML is also supported.
 # Use >- for single-paragraph descriptions, | for multi-paragraph.
 
-ai: >-
-  Artificial intelligence, large language models, and the evolving
-  relationship between humans and AI systems.
-
 harness-engineering: >-
-  Harness engineering, agentic programming, and the use of AI to build AI.
+  Designing the environments, processes, and feedback loops that enable
+  AI coding agents to do reliable autonomous work — repository structure,
+  context architecture, review workflows, and agent tooling.
 
 llm-context-management: >-
-  Large language model context management, prompt engineering, and the use of AI to build AI.
-
-cursor: >-
-  Cursor, a code editor for the web.
-
-claude-code: >-
-  Claude Code, a code editor for the web.
+  Controlling what information is made available to large language models
+  at invocation time — rules files, system prompts, repository knowledge,
+  and the architecture of what enters (and stays out of) the context window.
