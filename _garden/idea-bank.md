@@ -48,4 +48,6 @@ tags:
 ## Software
 
 - [Neon Genesis Evangelion](https://duckduckgo.com/?q=evangelion+computer+interface&iar=images) CSS / design kit (LCARS can't get all the love)
+  - [Why we don't have UIs like the ones in Neon Genesis](https://zemnmez.medium.com/why-we-dont-have-uis-like-the-ones-in-neon-genesis-9b6631dc3714)
+  - [The Beautiful Chaos: UI/UX Design Storytelling in Neon Genesis Evangelion](https://medium.com/@gennarolgr/the-beautiful-chaos-ui-ux-design-storytelling-in-neon-genesis-evangelion-26ae2d09613f)
 - Devil's Advocate plugin for... Claude (web?) "agreeableness threshold passed; here's a human (from Twitter?) who thinks you're wrong, and why I (the AI) think they're right. Idiot."

@@ -1,0 +1,14 @@
+# Tag descriptions for archive pages.
+# Keys must exactly match tag strings used in post/page front matter.
+# Values are rendered through kramdown; inline HTML is also supported.
+# Use >- for single-paragraph descriptions, | for multi-paragraph.
+
+harness-engineering: >-
+  Designing the environments, processes, and feedback loops that enable
+  AI coding agents to do reliable autonomous work — repository structure,
+  context architecture, review workflows, and agent tooling.
+
+llm-context-management: >-
+  Controlling what information is made available to large language models
+  at invocation time — rules files, system prompts, repository knowledge,
+  and the architecture of what enters (and stays out of) the context window.

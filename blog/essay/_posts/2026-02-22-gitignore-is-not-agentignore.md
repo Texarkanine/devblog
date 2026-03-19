@@ -6,6 +6,7 @@ author: texarkanine
 tags:
   - ai
   - cursor
+  - harness-engineering
   - llm-context-management
 ---
 
