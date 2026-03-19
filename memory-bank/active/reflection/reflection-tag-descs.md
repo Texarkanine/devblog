@@ -8,27 +8,29 @@ complexity_level: 2
 
 ## Summary
 
-Added optional per-tag descriptions via `_data/tags.yaml`, rendered conditionally on both blog and garden tag archive pages. Clean execution with no issues.
+Added optional per-tag descriptions via `_data/tags.yaml`, rendered as body blurbs on tag archive pages and injected as plain-text SEO metadata via a Jekyll plugin. Both original build and rework (SEO) succeeded.
 
 ## Requirements vs Outcome
 
-All original requirements delivered. One scope addition during planning: the operator expanded the feature to cover `garden-tag-archive.html` in addition to `tag-archive.html`, using `_data/tags.yaml` as a single global source. No requirements dropped.
+All original requirements plus the rework SEO requirement delivered. Scope expanded during initial build to cover garden tag archives (operator request). Rework added a new plugin for SEO injection.
 
 ## Plan Accuracy
 
-Plan was accurate. All 3 steps executed in order with no reordering or splitting needed. The two blocking questions (test infrastructure, garden scope) were correctly identified during planning and resolved before build. The anticipated challenges (YAML key matching, scalar style semantics) were real but caused no friction during implementation.
+Original plan was accurate. Rework plan was mostly accurate but missed a key detail: `Jekyll::Archives::Archive` objects store the tag name via a `title` method, not in `page.data['title']`. This required a debugging cycle during build. The plan should have investigated the Archive class's data model before coding.
 
 ## Build & QA Observations
 
-Build was clean on the first pass. Liquid's `blank` comparison handled all edge cases (nil, empty string) without needing multiple conditions. QA found no issues — the implementation is minimal enough that there was nothing to prune.
+- Original build was clean. Rework build required one debugging iteration to discover the `page.title` vs `page.data['title']` difference.
+- The Kramdown → strip-HTML pipeline for plain-text SEO descriptions worked cleanly.
+- QA found no issues in either pass.
 
 ## Insights
 
 ### Technical
-- Liquid's `!= blank` idiom handles nil, empty string, and whitespace-only uniformly. Preferable to chaining `and` conditions for Jekyll data file lookups where a key may be absent, empty, or whitespace.
+- `Jekyll::Archives::Archive` stores page metadata (title, tag, type) as instance methods, not in the `page.data` hash. When writing hooks that target archive pages, always use `page.title` / `page.type` rather than `page.data['title']`. This is a gotcha that arises specifically from the `jekyll-archives` gem's class design and is not documented in the gem's README.
 
 ### Process
-- Nothing notable.
+- When planning a hook that targets pages from a third-party generator, investigate the generated page class's data model before writing the implementation plan. A quick `Jekyll.logger.debug` pass listing available attributes would have caught the `page.data['title']` issue at plan time rather than build time.
 
 ### Million-Dollar Question
-The most elegant solution is essentially what we built. A data-file lookup with a conditional render is the natural Jekyll pattern for this — no redesign would improve it.
+If tag descriptions had been a foundational assumption, the ideal design would be the same — `_data/tags.yaml` as the single source, with a pre-render hook injecting into `page.data['description']` for SEO and Liquid `markdownify` for the body. The only improvement would be to extract the tag lookup into a shared utility if more consumers emerge (e.g., a tags index page showing descriptions). For now, two independent access paths (Liquid and Ruby) is the right level of coupling.

@@ -38,3 +38,8 @@
 - Key discovery: must use `page.title` (method) not `page.data['title']` (empty) for Archive pages
 - Description is rendered through Kramdown then stripped to plain text for SEO
 - All 6 behaviors verified
+
+## Rework QA — PASS
+
+## Rework Reflect — Complete
+- Key insight: `Jekyll::Archives::Archive` data model differs from `Jekyll::Page` — metadata via methods, not data hash.
