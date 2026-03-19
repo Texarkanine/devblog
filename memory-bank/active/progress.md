@@ -28,3 +28,7 @@
 ## Reflect Phase — Complete
 - Clean execution. All requirements met, plan was accurate, no QA issues.
 - Technical insight: Liquid `!= blank` for nil/empty guard in data lookups.
+
+## Rework Initiated
+- **Feedback**: Tag descriptions should also flow into SEO metadata (meta description, JSON-LD) via `jekyll-seo-tag`. Currently, tag archive pages still show the generic site description in `<meta name="description">` and the JSON-LD `description` field.
+- **New requirement**: Inject `page.data['description']` from `_data/tags.yaml` before render so `jekyll-seo-tag` picks it up automatically.

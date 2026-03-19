@@ -17,3 +17,14 @@ As a blog author, I want to seed optional summaries/descriptions for tags in `_d
 - Tag archive page for a tag **without** a description renders unchanged.
 - HTML in descriptions passes through correctly.
 - Markdown in descriptions is rendered to HTML.
+
+## Rework
+
+### New Requirement (Reviewer Feedback)
+
+5. **SEO metadata**: Tag descriptions must also appear in the page's SEO metadata (`<meta name="description">`, `og:description`, JSON-LD `description`). This should flow through `jekyll-seo-tag` by setting `page.description` before render.
+
+### Updated Acceptance Criteria
+
+- Tag archive page for a tag **with** a description has that description in the `<meta name="description">` tag, `og:description`, and JSON-LD.
+- Tag archive page for a tag **without** a description still uses the site-level description (current behavior, no regression).
