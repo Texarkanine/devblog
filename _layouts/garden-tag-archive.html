@@ -12,6 +12,11 @@ layout: default
 {% endcapture %}
 <h1>{{ page.collection | default: "garden" }} tag: {{ garden_page_title | strip }}</h1>
 
+{% assign tag_desc = site.data.tags[page.title] %}
+{% if tag_desc != blank %}
+{{ tag_desc | markdownify }}
+{% endif %}
+
 {% assign garden_notes = page.docs | default: page.posts %}
 
 {% if garden_notes and garden_notes.size > 0 %}

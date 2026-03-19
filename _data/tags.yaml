@@ -1,0 +1,8 @@
+# Tag descriptions for archive pages.
+# Keys must exactly match tag strings used in post/page front matter.
+# Values are rendered through kramdown; inline HTML is also supported.
+# Use >- for single-paragraph descriptions, | for multi-paragraph.
+
+ai: >-
+  Artificial intelligence, large language models, and the evolving
+  relationship between humans and AI systems.

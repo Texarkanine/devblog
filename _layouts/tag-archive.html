@@ -5,6 +5,11 @@ layout: default
 
 <h1>tag: {% if site.theme_config.lowercase_titles %}{{ page.title | downcase | escape }}{% else %}{{ page.title | escape }}{% endif %}</h1>
 
+{% assign tag_desc = site.data.tags[page.title] %}
+{% if tag_desc != blank %}
+{{ tag_desc | markdownify }}
+{% endif %}
+
 <ul>
   {% for post in page.posts %}
   <li>

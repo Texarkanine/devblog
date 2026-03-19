@@ -4,13 +4,19 @@
 Tag Descriptions on Archive Pages
 
 ## Phase
-PLAN — COMPLETE
+BUILD — COMPLETE
 
 ## What Was Done
-- Produced implementation plan with 3 implementation steps (+ verify)
-- Identified 5 behaviors to verify
-- Resolved: testing by building site and inspecting rendered HTML
-- Resolved: `_data/tags.yaml` is global — descriptions apply to blog tags, garden tags, and any future tag set
+- Created `_data/tags.yaml` with seed entry for `ai` tag
+- Modified `_layouts/tag-archive.html` — conditional `markdownify` block between heading and post list
+- Modified `_layouts/garden-tag-archive.html` — identical block between heading and notes list
+- All 5 behaviors verified via site build: description rendered, no-desc unchanged, Markdown rendered, HTML passthrough, empty entry ignored
+- No deviations from plan
+
+## Files Modified
+- `_data/tags.yaml` (new)
+- `_layouts/tag-archive.html`
+- `_layouts/garden-tag-archive.html`
 
 ## Next Step
-Proceed to preflight.
+QA phase.
