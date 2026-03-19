@@ -2,3 +2,9 @@
 
 ## Complexity Analysis — Complete
 - Level 2 determined. Task: add optional tag descriptions from `_data/tags.yaml` and render them conditionally in `_layouts/tag-archive.html`.
+
+## Plan Phase — Complete
+- 5 behaviors identified, 3 implementation steps planned (create data file, modify both tag archive layouts).
+- No new dependencies. Uses built-in `markdownify` filter.
+- Testing: build site, inspect rendered HTML.
+- Scope: `_data/tags.yaml` is global across all tag archive layouts.
