@@ -51,4 +51,4 @@ No new technology — uses built-in `Jekyll::Hooks.register` and `site.data` acc
 - [x] Technology validation complete
 - [x] Preflight
 - [x] Build
-- [ ] QA
+- [x] QA
