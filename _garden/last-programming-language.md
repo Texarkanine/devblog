@@ -6,6 +6,7 @@ description: "The entire history of programming languages has been a project to 
 tags:
   - abstraction
   - programming-languages
+  - specification
   - thoughts
 ---
 
@@ -47,6 +48,32 @@ There is no higher-level language needed, because we have achieved the "holy gra
 
 Software engineering used programming languages to mediate between human intent and machine behavior. Now, the mediator is being absorbed into the machine itself.
 
+## The Spec Was Always There
+
+There's a thread in objection to "programming in English" goes something like this: any specification detailed-enough for a machine to execute is just code by another name. You haven't escaped the precision burden; you've just moved where the typing happens.
+
+This is correct, and it is the point.
+
+The entire history laid out above is the history of *specifications converging with code*. Machine code was a specification of voltage sequences. Assembly was a specification of machine code. C was a specification of assembly. Each step up the power continuum made the specification more expressive and the resulting code more distant from the hardware - but at every level, the spec *was* the code. That's what a programming language *is*: a notation for specifying behavior precisely-enough that a machine can execute it. When someone observes that a sufficiently-detailed specification is indistinguishable from code, they haven't found a flaw in the paradigm. They've described it.
+
+Software development has always been spec-driven. There was always a specification upstream of the code, even when it lived only in an engineer's head or on a whiteboard that got erased after the meeting. The question was never *whether* a spec existed, but how many humans stood in the pipeline between the initial expression of intent and the running software, and which of those humans you happened to be.
+
+For decades, the picture looked like this: a product person described what should exist. An architect refined it. An engineer translated it into a programming language. A compiler translated *that* into machine instructions. Each stage was a refinement - a lossy compression of intent into something more precise - and each stage was executed by a different specialist. The software engineer's particular role was the last *human* stage: the point where intent crossed the boundary from natural language into formal language. Everything below that boundary - compilation, linking, optimization, execution - was already mechanized.
+
+What changed is that the boundary moved.
+
+Every step on the power continuum described above - assembly to C to Java to Python to Lisp - was a step taken *within* the category of [formal languages](https://en.wikipedia.org/wiki/Formal_language). These are languages with grammars, parsers, abstract syntax trees. Languages where you can mechanically determine whether a string is syntactically valid. Languages that are, by construction, unambiguous. We climbed a very tall ladder, but we never left the building.
+
+When we say that the hottest new programming language is English, we are not describing another rung on that ladder, rather, we are describing a departure from the building entirely. For the first time, the boundary between "what the human specifies" and "what the machine executes" does not require a formal language as the interface. The human's output can stay in natural language - ambiguous, contextual, connotative - and the machine handles the formalization internally.
+
+This is not just a convenience. It is a **category change**. Every prior programming language was a *notation*: a set of symbols with fixed semantics that the programmer had to learn in order to communicate with the machine. Natural language is not a notation. It has no fixed semantics. Its meaning is derived from context, convention, and shared understanding - properties that, until transformers, no machine could process both effectively and efficiently at scale.
+
+The engineer who objects "but you still need to be precise!" is correct in the same way that someone observing "but you still need to heat the food!" is correct when told about microwaves (having previously only ever used a stove). The precision doesn't go away. The *cost* of achieving it does, because the executor changed. The *requirement* to refine intent into specification into code is conserved. [The *time* and *expense* are not.]({% post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %})
+
+The spec was always the point. The code was always a spec. And now, for the first time, you can write the spec in the language you already think in and hand the rest of the pipeline to a machine.
+
 ---
+
+## Going Beyond
 
 The only conceivable step beyond natural language is machines that read intent before it becomes language in your head. Current brain-computer interfaces - [quadriplegics asking for beer via thought](https://www.sciencetimes.com/articles/36771/20220324/paralyzed-man-speaks-asks-beer-using-mind-through-microchip-brain.htm), [playing Civ VI all night via Neuralink](https://www.neowin.net/news/the-first-neuralink-brain-patient-says-he-used-it-to-play-civilization-vi-all-night/), even [communicating through lucid dreams](https://www.sciencetimes.com/articles/51450/20241013/two-individuals-achieve-first-ever-communication-through-lucid-dreams-while-sleeping-at-separate-locations.htm) - are revolutions in *input*, not *abstraction*. Ironically, they're low on their *own* power continuum - decoding raw motor signals and attempted speech, translating them into inputs. They're the assembly language of brain-computer interfaces. The step that would extend *this* continuum - machines acting on intent you would form into words, but haven't yet - remains science fiction... [*for now.*](https://www.youtube.com/watch?v=C_cB9sSswpo)
