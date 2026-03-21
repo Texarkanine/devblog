@@ -1,6 +1,7 @@
 ---
 layout: garden
 title: "A General-Purpose Industry-Refining Tool"
+description: "Refinement of industries - industrialization - has a rhyming shape every time it crops up."
 tags:
   - ai
   - economics
