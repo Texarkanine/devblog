@@ -1,7 +1,7 @@
 ---
 layout: garden
 title: "Short Stories"
-description: "A collection of short stories, mostly sci-fi, mostly short."
+description: "A collection of short stories, mostly sci-fi."
 tags:
   - short-stories
   - sci-fi
