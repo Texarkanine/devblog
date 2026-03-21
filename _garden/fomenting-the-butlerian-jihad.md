@@ -168,7 +168,7 @@ In turn, that might suggest new reasons to be concerned about things like
 
 ## Scared Yet?
 
-Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop worrying and love the machine](./how-i-learned-to-stop-worrying-and-love-the-machine.html)!
+Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop coding and love the Machine](./how-i-learned-to-stop-coding-and-love-the-machine.html)!
 
 Or, retain your humanity and learn
 

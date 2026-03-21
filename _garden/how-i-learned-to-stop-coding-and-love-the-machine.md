@@ -1,6 +1,6 @@
 ---
 layout: garden
-title: "How I Learned to Stop Worrying and Love the Machine"
+title: "How I Learned to Stop Coding and Love the Machine"
 subtitle: "Some ways you should - nay, must - be using AI now, and how"
 description: "AI tools that have become indispensable: Gemini Deep Research, Cursor for coding, CodeRabbit for reviews, and more."
 tags:
@@ -9,6 +9,8 @@ tags:
   - cursor
   - gemini
   - thoughts
+redirect_from:
+  - /garden/how-i-learned-to-stop-worrying-and-love-the-machine.html
 ---
 
 There is a lot of hype and [fear](fomenting-the-butlerian-jihad.html) around AI in the 2020s. Here are the AI tools & use-cases where I've found AI to be an indispensible value-add that you can pry from my cold, dead hands.

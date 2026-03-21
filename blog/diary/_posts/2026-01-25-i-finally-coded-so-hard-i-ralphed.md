@@ -17,7 +17,7 @@ One particular kind of workflow where you'll not only be re-using the same promp
 
 I had been looking for an application for a Wiggum Loop for a while, but I just didn't have enough *work* to feed an AI coding agent in a loop. I had an epiphany while prompting to address [CodeRabbit](https://www.coderabbit.ai/) PR feedback for the second, then third time...
 
-CodeRabbit [is awesome]({% link _garden/how-i-learned-to-stop-worrying-and-love-the-machine.md %}#coderabbit) but its reviews can take a good handful of minutes to come out (which I don't fault it for; they're fabulous)! On top of that the "free for open-source projects" tier has a rate limit that agentic coding often runs into.
+CodeRabbit [is awesome]({% link _garden/how-i-learned-to-stop-coding-and-love-the-machine.md %}#coderabbit) but its reviews can take a good handful of minutes to come out (which I don't fault it for; they're fabulous)! On top of that the "free for open-source projects" tier has a rate limit that agentic coding often runs into.
 
 So, my high-level workflow will be
 

@@ -132,7 +132,7 @@ This is the practical, mechanical skill. What goes into the machine's context wi
 - [Stop Doing AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %})
 - [.gitignore is not .agentignore]({% post_url blog/essay/2026-02-22-gitignore-is-not-agentignore %})
 - [Model Context Protocol, Not Agent Context Protocol]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %})
-- [How I Learned to Stop Worrying and Love the Machine # Cursor]({% link _garden/how-i-learned-to-stop-worrying-and-love-the-machine.md %}#cursor)
+- [How I Learned to Stop Coding and Love the Machine # Cursor]({% link _garden/how-i-learned-to-stop-coding-and-love-the-machine.md %}#cursor)
 
 The core of the skill is literally imagining what the machine is going to see when it starts working on your problem. What does it know? What doesn't it know? What assumptions is it going to make that are wrong? That's context wrangling, and it's the same skill you use when you write a design doc for a new teammate: you're **modeling someone else's mental state and filling in the gaps.**
 

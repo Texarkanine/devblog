@@ -52,6 +52,7 @@ plugins:
   - jekyll-highlight-cards
   - jekyll-loading-lazy
   - jekyll-paginate-v2
+  - jekyll-redirect-from
   - jekyll-remote-theme
   - jekyll-seo-tag
   - jekyll-sitemap
