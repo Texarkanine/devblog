@@ -113,8 +113,11 @@ auto_thumbnails:
 
 # jekyll-mermaid-prebuild
 mermaid_prebuild:
-  prefers_color_scheme:
+  prefers-color-scheme:
     mode: auto
+    background-color:
+      light: white
+      dark: black
   postprocessing:
     edge_label_padding: 6
     emoji_width_compensation:
