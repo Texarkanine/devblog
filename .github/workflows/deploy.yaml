@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -44,6 +45,9 @@ jobs:
 
       - name: Install mermaid-cli
         run: npm install -g @mermaid-js/mermaid-cli
+
+      - name: Allow Chromium sandbox (Ubuntu 24.04 AppArmor workaround)
+        run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 
       - name: Build site
         env:
