@@ -7,10 +7,9 @@ fix-ci-mermaid-puppeteer
 QA - PASS
 
 ## What Was Done
-- Complexity analysis: Level 1 (quick bug fix, single component)
-- Root cause: bundled Chromium needs system libraries not present on `ubuntu-latest`
-- Fix: added `apt-get install` step for Puppeteer dependencies in deploy workflow
-- QA caught Ubuntu 24.04 `t64` package rename issue; corrected package names
+- First attempt (apt-get) failed: libraries were already present
+- Correctly diagnosed: Ubuntu 24.04 AppArmor user namespace restriction prevents Chromium sandbox
+- Fix: `echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns`
 
 ## Next Step
-- Commit and done
+- Commit, push, verify CI
