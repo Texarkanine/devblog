@@ -4,12 +4,12 @@
 fix-ci-mermaid-puppeteer
 
 ## Phase
-QA - PASS
+REFLECT - COMPLETE
 
 ## What Was Done
-- First attempt (apt-get) failed: libraries were already present
-- Correctly diagnosed: Ubuntu 24.04 AppArmor user namespace restriction prevents Chromium sandbox
-- Fix: `echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns`
+- AppArmor sysctl fix in deploy.yaml (allows bundled Chromium to launch)
+- User upgraded gem to 0.4.0 + migrated config (overflow_protection, text_centering)
+- Both changes were necessary: AppArmor for launch, gem for rendering fidelity
 
 ## Next Step
-- Commit, push, verify CI
+- Archive
