@@ -115,6 +115,7 @@ auto_thumbnails:
 mermaid_prebuild:
   emoji_width_compensation:
     flowchart: true
+  block_edge_label_padding: 6
 
 # image-paths (local)
 image_paths:
