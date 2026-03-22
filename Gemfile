@@ -18,7 +18,7 @@ group :jekyll_plugins do
   gem "jekyll-feed"
   gem 'jekyll-highlight-cards', "~> 1.0"
   gem 'jekyll-loading-lazy'
-  gem 'jekyll-mermaid-prebuild', path: "../jekyll-mermaid-prebuild"
+  gem 'jekyll-mermaid-prebuild', "~> 0.5"
   gem "jekyll-redirect-from"
   gem "jekyll-remote-theme"
   gem "jekyll-seo-tag"
