@@ -113,9 +113,10 @@ auto_thumbnails:
 
 # jekyll-mermaid-prebuild
 mermaid_prebuild:
-  emoji_width_compensation:
-    flowchart: true
-  block_edge_label_padding: 6
+  postprocessing:
+    edge_label_padding: 6
+    emoji_width_compensation:
+      flowchart: true
 
 # image-paths (local)
 image_paths:
