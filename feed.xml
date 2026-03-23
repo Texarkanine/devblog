@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-22T21:23:38+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Load-Bearing Pipeline Was Human</title><link href="https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.html" rel="alternate" type="text/html" title="The Load-Bearing Pipeline Was Human" /><published>2026-03-21T00:00:00+00:00</published><updated>2026-03-21T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.html"><![CDATA[<blockquote class="link-card">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-23T00:01:37+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Load-Bearing Pipeline Was Human</title><link href="https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.html" rel="alternate" type="text/html" title="The Load-Bearing Pipeline Was Human" /><published>2026-03-21T00:00:00+00:00</published><updated>2026-03-21T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.html"><![CDATA[<blockquote class="link-card">
   
   <h1>Haskell for all: A sufficiently detailed spec is code</h1>
   
@@ -41,13 +41,31 @@
 <p>We’ve been doing <strong>this</strong> for decades:</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/79c91f7a.svg"><img src="/assets/svg/79c91f7a.svg" alt="Mermaid Diagram" /></a>
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/2ce09c92.svg"><img src="/assets/svg/2ce09c92.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/2ce09c92-dark.svg"><img src="/assets/svg/2ce09c92-dark.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <p>There <em>are</em> people who fit the description of those criticized in the article - people who claim you can do this:</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/1b2e1ed3.svg"><img src="/assets/svg/1b2e1ed3.svg" alt="Mermaid Diagram" /></a>
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/afbd9827.svg"><img src="/assets/svg/afbd9827.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/afbd9827-dark.svg"><img src="/assets/svg/afbd9827-dark.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <p>The article correctly objects to that claim, and validates it with the Haskell experiment.</p>
@@ -63,13 +81,31 @@
 <p>So, to do “spec-driven development” with AI agents, try this:</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/7c91d448.svg"><img src="/assets/svg/7c91d448.svg" alt="Mermaid Diagram" /></a>
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/fd404c89.svg"><img src="/assets/svg/fd404c89.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/fd404c89-dark.svg"><img src="/assets/svg/fd404c89-dark.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <p>Or even this:</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/9a688b17.svg"><img src="/assets/svg/9a688b17.svg" alt="Mermaid Diagram" /></a>
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/0c09088d.svg"><img src="/assets/svg/0c09088d.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/0c09088d-dark.svg"><img src="/assets/svg/0c09088d-dark.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <p>And I wager <a href="/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html">you may have a lot more success</a>!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="fable" /><category term="ai" /><category term="harness-engineering" /><category term="software-engineering" /><category term="llm-context-management" /><summary type="html"><![CDATA[A specification-to-code pipeline that worked for decades doesn't stop working because you swapped the executors; it stops working when you rip out the stages.]]></summary></entry><entry><title type="html">The Adeptus Mechanicus Bootcamp: A Gentle Seduction</title><link href="https://blog.cani.ne.jp/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html" rel="alternate" type="text/html" title="The Adeptus Mechanicus Bootcamp: A Gentle Seduction" /><published>2026-03-14T00:00:00+00:00</published><updated>2026-03-14T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html"><![CDATA[<blockquote>
@@ -113,7 +149,16 @@
 <p>Graham was talking about programming languages. Now that <a href="https://x.com/karpathy/status/1617979122625712128">the hottest new programming language is English</a>, the power continuum runs from “I type the code” through “I describe what code to type” up to “I describe the outcome and the code is a side effect.” Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/003ad74c.svg"><img src="/assets/svg/003ad74c.svg" alt="Mermaid Diagram" /></a>
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/4c820a9e.svg"><img src="/assets/svg/4c820a9e.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/4c820a9e-dark.svg"><img src="/assets/svg/4c820a9e-dark.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <ol>
@@ -1171,7 +1216,16 @@ npx a16n convert <span class="nt">--from</span> cursorrules <span class="nt">--t
 <p>Knowledge work is a continuum from ideation through labor to artifact:</p>
 
 <figure class="mermaid-diagram">
-<a href="/assets/svg/d66e4c99.svg"><img src="/assets/svg/d66e4c99.svg" alt="Mermaid Diagram" /></a>
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/7f858efe.svg"><img src="/assets/svg/7f858efe.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/7f858efe-dark.svg"><img src="/assets/svg/7f858efe-dark.svg" alt="Mermaid Diagram" /></a>
 </figure>
 
 <p>Copyright guards the rightmost output: the finished artifact, which we call “intellectual property.” AI already bangs those out faster and better every day. Vinext is an incredibly high-profile, commercial signal that AI can commoditize the middle step (labor) too.</p>
