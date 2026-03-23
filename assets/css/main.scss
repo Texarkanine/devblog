@@ -28,6 +28,10 @@
 	}
 }
 
+html {
+	background-color: var(--body-bg);
+}
+
 body {
 	background-color: var(--body-bg);
 	color: var(--body-color);
@@ -39,9 +43,7 @@ body {
  * Outer = full-width track (--body-bg); inner .reading-progress-fill scales with scroll.
  * Browsers that support animation-timeline: scroll() tie the scaleX keyframe to
  * document scroll. Browsers that don't (Safari ≤18, older engines) ignore that
- * property; the animation fires once in 1ms at scaleX(0) → invisible. No @supports
- * gate needed — and removing it fixes LibreWolf, which blocks @supports queries for
- * newer CSS features as a fingerprinting countermeasure.
+ * property; the animation fires once in 1ms at scaleX(0) → invisible.
  */
 @keyframes reading-progress-scale {
 	from { transform: scaleX(0); }
