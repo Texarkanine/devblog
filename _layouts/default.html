@@ -6,7 +6,7 @@ layout: compress
 <html lang="{{ page.lang | default: "en" }}">
   {%- include head.html -%}
   <body a="{{ site.theme_config.appearance | default: "auto" }}">
-    {%- if page.layout == 'post' -%}
+    {%- if page.reading_progress -%}
     <div class="reading-progress" aria-hidden="true"><span class="reading-progress-fill"></span></div>
     {%- endif -%}
     <main class="page-content" aria-label="Content">

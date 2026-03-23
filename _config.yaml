@@ -33,6 +33,18 @@ collections:
     output: true
     permalink: /garden/:path:output_ext
 
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      reading_progress: true
+  - scope:
+      path: ""
+      type: garden
+    values:
+      reading_progress: true
+
 # Build settings
 exclude:
   - Gemfile
