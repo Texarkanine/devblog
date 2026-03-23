@@ -1,4 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-23T00:47:55+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Load-Bearing Pipeline Was Human</title><link href="https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.html" rel="alternate" type="text/html" title="The Load-Bearing Pipeline Was Human" /><published>2026-03-21T00:00:00+00:00</published><updated>2026-03-21T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.html"><![CDATA[<blockquote class="link-card">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-23T16:21:55+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Pull the Thread</title><link href="https://blog.cani.ne.jp/2026/03/23/pull-the-thread.html" rel="alternate" type="text/html" title="Pull the Thread" /><published>2026-03-23T00:00:00+00:00</published><updated>2026-03-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/23/pull-the-thread</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/23/pull-the-thread.html"><![CDATA[<p><a href="/2026/03/21/the-load-bearing-pipeline-was-human.html">A recent blog post</a> had four <a href="https://mermaid.js.org/">Mermaid</a> block diagrams illustrating its points. By the time I looked at the deployed version, the edge labels were clipped and the text was shoved left.</p>
+
+<p>Fixing those four diagrams took six hours, produced three gem releases, and ended with a CSS-only reading progress bar I hadn’t planned to build.</p>
+
+<h2 id="the-alignment">The alignment</h2>
+
+<p>The <a href="https://rubygems.org/gems/jekyll-mermaid-prebuild">jekyll-mermaid-prebuild gem</a> renders Mermaid diagrams at build time by shelling out to <a href="https://github.com/mermaid-js/mermaid-cli">mmdc</a>, which launches headless Chromium via <a href="https://pptr.dev/">Puppeteer</a>. The deployed blog was using GitHub Actions’ pre-installed system Chrome, which measured text 11-16% narrower than Puppeteer’s bundled Chromium. Edge labels like “last touchpoint” and “refined” were allocated <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject">foreignObject</a> containers too narrow for the text real browsers would render.</p>
+
+<p>Two rounds of fixes. First: optional padding on edge-label containers, plus CSS injection to fix left-shifted text (<code class="language-plaintext highlighter-rouge">display: table-cell</code> inside foreignObject shrink-wraps instead of centering). Second: generalized overflow protection and a config restructure grouping all cross-browser workarounds under a single <code class="language-plaintext highlighter-rouge">postprocessing:</code> key.</p>
+
+<p>The diagrams looked right. But switching to Puppeteer’s bundled Chromium - necessary for consistent text measurement - broke CI.</p>
+
+<h2 id="the-rabbit-hole">The rabbit hole</h2>
+
+<p>The build failed. The gem’s error handler pattern-matches on “browser process” in mmdc’s stderr and offers helpful advice:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mmdc failed: Puppeteer cannot launch headless Chrome
+
+This usually means missing system libraries.
+On Debian/Ubuntu/WSL, install with:
+
+  sudo apt-get update
+  sudo apt-get install -y libgbm1 libasound2 libatk1.0-0 ...
+</code></pre></div></div>
+
+<p>Every one of those libraries was already on the runner. The <code class="language-plaintext highlighter-rouge">ubuntu-latest</code> image ships all of them. One wasted CI cycle following my own gem’s bad advice.</p>
+
+<p>The real issue: Ubuntu 24.04’s <a href="https://github.com/puppeteer/puppeteer/issues/13595">AppArmor restriction on unprivileged user namespaces</a> prevents Puppeteer’s sandboxed Chromium from creating its namespace. Nothing to install. A kernel flag to flip:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Allow Chromium sandbox (Ubuntu 24.04 AppArmor workaround)</span>
+  <span class="na">run</span><span class="pi">:</span> <span class="s">echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns</span>
+</code></pre></div></div>
+
+<p>At this point the diagrams were fixed and CI was green. The gem had a clean postprocessing architecture on <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild/releases/tag/v0.4.0">v0.4.0</a>. Mission accomplished. Time to stop.</p>
+
+<h2 id="the-odyssey">The odyssey</h2>
+
+<p>I did not stop.</p>
+
+<p>The blog already had dark mode. But the diagrams didn’t - every Mermaid SVG rendered with mmdc’s default theme, white background and dark lines, regardless of the visitor’s color scheme. The postprocessing restructure had given the gem a clean configuration surface and the ability to manipulate SVG internals after mmdc rendered them. Adding <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme">prefers-color-scheme</a> support - dual SVG generation, CSS media queries to toggle between light and dark variants - was suddenly tractable.</p>
+
+<p>This was the part that felt like a genuine rabbit hole. <code class="language-plaintext highlighter-rouge">mmdc</code> emits <code class="language-plaintext highlighter-rouge">background-color: white</code> on every SVG root element regardless of the <code class="language-plaintext highlighter-rouge">-t dark</code> flag. Inline <code class="language-plaintext highlighter-rouge">style</code> attributes beat <code class="language-plaintext highlighter-rouge">@media</code> rules in <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity">specificity</a>, so toggling visibility between two variants with a <code class="language-plaintext highlighter-rouge">&lt;style&gt;</code> block didn’t work until I stopped setting inline <code class="language-plaintext highlighter-rouge">display</code> on either one. Getting SVG background replacement to be <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.5.0/lib/jekyll-mermaid-prebuild/svg_post_processor.rb">configurable per variant</a> rather than hardcoded required a mid-build rework. None of this surfaced in tests - CSS specificity bugs only appear in a real browser on a real dark page.</p>
+
+<p>Gem <a href="https://github.com/Texarkanine/jekyll-mermaid-prebuild/releases/tag/v0.5.0">v0.5.0</a>. Diagrams now matched the blog’s color scheme. Then I got greedy.</p>
+
+<h2 id="the-progress-bar">The progress bar</h2>
+
+<p>A reading progress indicator - the thin bar that fills across the top of the page as you scroll. <a href="https://github.com/Texarkanine/devblog/commit/71f5db2">Pure CSS, zero JavaScript</a>, using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll">animation-timeline: scroll()</a>. The fill color pulls from <code class="language-plaintext highlighter-rouge">var(--body-color)</code>, so it was dark-mode-aware from birth. Browsers that don’t support scroll-driven animations keep <code class="language-plaintext highlighter-rouge">scaleX(0)</code> and show nothing - <a href="https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement">progressive enhancement</a> for free.</p>
+
+<h2 id="the-line">The line</h2>
+
+<p>There’s a name for this: <a href="https://en.wiktionary.org/wiki/yak_shaving">yak shaving</a>. Set out to fix four diagrams, end up building a reading progress bar. The alignment fix required the Chromium switch. The Chromium switch required the AppArmor fix. The config restructure made dark mode diagrams tractable. Dark mode diagrams made the progress bar’s color-scheme-awareness trivial - the CSS variables were already there.</p>
+
+<p>For a stretch in the middle - following my own gem’s misdiagnosis, a CSS specificity lesson learned the hard way, a feature rework mid-build - it felt like a rabbit hole. The kind where you look up and realize you’re three layers removed from what you sat down to do.</p>
+
+<p>The difference between a rabbit hole and a mine shaft is whether you’re digging toward something. I didn’t know I was building toward a progress bar when I started fixing edge labels. But each fix was structural: improving the foundation rather than patching the symptom. The padding fix existed so the overflow protection could generalize it. The overflow protection existed so the config surface could unify it. The config surface existed so dark mode diagrams could extend it. None of that was planned. It happened because properly-done infrastructure compounds whether you intend it to or not.</p>
+
+<p>The tell is whether you can use what you built. Yak shaving leaves you holding a razor and a bald yak. A productive cascade leaves you standing on new ground.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="fable" /><category term="css" /><category term="debugging" /><category term="jekyll" /><category term="mermaid" /><category term="ruby" /><category term="rubygem" /><summary type="html"><![CDATA[Four broken diagrams, six hours, three gem releases, and a reading progress bar I wasn't planning to build.]]></summary></entry><entry><title type="html">The Load-Bearing Pipeline Was Human</title><link href="https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.html" rel="alternate" type="text/html" title="The Load-Bearing Pipeline Was Human" /><published>2026-03-21T00:00:00+00:00</published><updated>2026-03-21T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.html"><![CDATA[<blockquote class="link-card">
   
   <h1>Haskell for all: A sufficiently detailed spec is code</h1>
   
@@ -1650,267 +1707,4 @@ npx a16n convert <span class="nt">--from</span> cursorrules <span class="nt">--t
 
 <blockquote>
   <p><em>“Do not track in source control” and “do not let a coding agent see the file” are <strong>not</strong> the same thing.</em></p>
-</blockquote>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="cursor" /><category term="harness-engineering" /><category term="llm-context-management" /><summary type="html"><![CDATA[Your agent needs to see content like generated output, node_modules, and personal config that git rightfully ignores. The current crop of tool-specific ignore files needs a real standard.]]></summary></entry><entry><title type="html">Stop Doing AGENTS.md</title><link href="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html" rel="alternate" type="text/html" title="Stop Doing AGENTS.md" /><published>2026-02-12T00:00:00+00:00</published><updated>2026-02-12T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.html"><![CDATA[<h2 id="thesis">Thesis</h2>
-
-<blockquote>
-  <p>Almost no prompting is actually globally-applicable to all interactions: you are wasting tokens &amp; confusing your agent by using global prompts.</p>
-</blockquote>
-
-<p><strong>Corollary</strong></p>
-
-<blockquote>
-  <p>The few prompts that are globally-applicable are often better-served by <em>paving your desire paths</em> so you don’t <em>have</em> to tell the agent about them.</p>
-</blockquote>
-
-<h2 id="the-problem">The Problem</h2>
-
-<p><a href="https://agents.md/">AGENTS.md</a> and its ilk - including <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> are one of several kinds of AI agent customization techniques. We’ll borrow from <a href="https://texarkanine.github.io/a16n/models/#globalprompt">a16n’s taxonomy</a> and refer to them as a form of <strong>GlobalPrompt</strong>:</p>
-
-<blockquote>
-  <p>A GlobalPrompt is always added to the agent’s context in any interaction.</p>
-</blockquote>
-
-<p>The thing is, if you’re using AI agents correctly, they’re handling multiple sorts of tasks for you. And if that’s the case, it’s very unlikely that any single bit of information is going to be <em>truly</em> globally-applicable. Consider the <a href="https://agents.md/#examples">example AGENTS.md from their own site</a>:</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Sample AGENTS.md file</span>
-
-<span class="gu">## Dev environment tips</span>
-<span class="p">-</span> Use <span class="sb">`pnpm dlx turbo run where &lt;project_name&gt;`</span> to jump to a package instead of scanning with <span class="sb">`ls`</span>.
-<span class="p">-</span> Run <span class="sb">`pnpm install --filter &lt;project_name&gt;`</span> to add the package to your workspace so Vite, ESLint, and TypeScript can see it.
-<span class="p">-</span> Use <span class="sb">`pnpm create vite@latest &lt;project_name&gt; -- --template react-ts`</span> to spin up a new React + Vite package with TypeScript checks ready.
-<span class="p">-</span> Check the name field inside each package's package.json to confirm the right name—skip the top-level one.
-
-<span class="gu">## Testing instructions</span>
-<span class="p">-</span> Find the CI plan in the .github/workflows folder.
-<span class="p">-</span> Run <span class="sb">`pnpm turbo run test --filter &lt;project_name&gt;`</span> to run every check defined for that package.
-<span class="p">-</span> From the package root you can just call <span class="sb">`pnpm test`</span>. The commit should pass all tests before you merge.
-<span class="p">-</span> To focus on one step, add the Vitest pattern: <span class="sb">`pnpm vitest run -t "&lt;test name&gt;"`</span>.
-<span class="p">-</span> Fix any test or type errors until the whole suite is green.
-<span class="p">-</span> After moving files or changing imports, run <span class="sb">`pnpm lint --filter &lt;project_name&gt;`</span> to be sure ESLint and TypeScript rules still pass.
-<span class="p">-</span> Add or update tests for the code you change, even if nobody asked.
-
-<span class="gu">## PR instructions</span>
-<span class="p">-</span> Title format: [<span class="nt">&lt;project_name&gt;</span>] <span class="nt">&lt;Title&gt;</span>
-<span class="p">-</span> Always run <span class="sb">`pnpm lint`</span> and <span class="sb">`pnpm test`</span> before committing.
-</code></pre></div></div>
-
-<p>This is very typical. Someone’s tried to put good tips into one place, but <strong>none</strong> of them are universally-applicable; they’re all task-specific. There are actually several classes of failure here:</p>
-
-<h3 id="self-evident-to-ai-duh">Self-Evident to AI (DUH)</h3>
-
-<ul>
-  <li>Use <code class="language-plaintext highlighter-rouge">pnpm dlx turbo run where &lt;project_name&gt;</code> to jump to a package instead of scanning with <code class="language-plaintext highlighter-rouge">ls</code>.</li>
-  <li>Run <code class="language-plaintext highlighter-rouge">pnpm install --filter &lt;project_name&gt;</code> to add the package to your workspace so Vite, ESLint, and TypeScript can see it.</li>
-  <li>Use <code class="language-plaintext highlighter-rouge">pnpm create vite@latest &lt;project_name&gt; -- --template react-ts</code> to spin up a new React + Vite package with TypeScript checks ready.</li>
-  <li>Run <code class="language-plaintext highlighter-rouge">pnpm turbo run test --filter &lt;project_name&gt;</code> to run every check defined for that package.</li>
-</ul>
-
-<p>These are basic usage patterns of these tools; a modern agent should already know how these tools work and use them correctly. And if not, the CLIs’ own <code class="language-plaintext highlighter-rouge">help</code> text will reveal the basic usage - there is no need to duplicate this information here.</p>
-
-<p>This <em>would</em> have been handy for a human who showed up to the project and had never seen <code class="language-plaintext highlighter-rouge">pnpm</code> before.</p>
-
-<p>But the LLMs have seen it all - they know. Don’t waste tokens telling them. Maybe just put it back in <code class="language-plaintext highlighter-rouge">README.md</code>.</p>
-
-<h3 id="task-specific-guidance-delivered-globally-huh">Task-specific Guidance Delivered Globally (HUH)</h3>
-
-<ul>
-  <li>Check the name field inside each package’s package.json to confirm the right name—skip the top-level one.</li>
-  <li>Find the CI plan in the .github/workflows folder.</li>
-  <li>Fix any test or type errors until the whole suite is green.</li>
-  <li>After moving files or changing imports, run <code class="language-plaintext highlighter-rouge">pnpm lint --filter &lt;project_name&gt;</code> to be sure ESLint and TypeScript rules still pass.</li>
-  <li>Add or update tests for the code you change, even if nobody asked.</li>
-</ul>
-
-<p>These are fine things to do, but they’re not universally-applicable. While updating documentation, you do not care about the “CI plan” in <code class="language-plaintext highlighter-rouge">.github/workflows/</code>.</p>
-
-<p>When you <em>are</em> working on that CI plan, though, you definitely don’t care about “moving files or changing imports” - you’re just shuffling CI, not writing the main code.</p>
-
-<p>And so on, and so forth. Now, these handful of one-liners may seem harmless, but in practice you can see <code class="language-plaintext highlighter-rouge">AGENTS.md</code> files balloon in size to <a href="https://github.com/github/spec-kit/blob/0049b1cdc2f9ba12def39a042872b0b1b6a09704/AGENTS.md">hundreds of lines</a> with <a href="https://github.com/calcom/cal.com/blob/cfa0783ebcbe5fa39c8f395377b4b5dca20f27ee/AGENTS.md">paragraphs upon paragraphs of task-specific guidance</a>… and the more of that you add, the smaller the percent of <code class="language-plaintext highlighter-rouge">AGENTS.md</code> that actually applies to the task at hand.</p>
-
-<p>But you’re still including it in every context window.</p>
-
-<h3 id="duplicated-non-canonical-information-dry">Duplicated Non-Canonical Information (DRY)</h3>
-
-<ul>
-  <li>Title format: [&lt;project_name&gt;] &lt;Title&gt;</li>
-</ul>
-
-<p>Is that for a GitHub Pull Request? Or an Issue? We have templating standards for that, they’ll be in <code class="language-plaintext highlighter-rouge">.github/PULL_REQUEST_TEMPLATE.md</code> and <code class="language-plaintext highlighter-rouge">.github/ISSUE_TEMPLATE.md</code> respectively.</p>
-
-<p>Is that for a commit? Well, humans commit, too, don’t they? Where’s the guidance for them? in <code class="language-plaintext highlighter-rouge">CONTRIBUTING.md</code> maybe?</p>
-
-<p>Duplicating information in <code class="language-plaintext highlighter-rouge">AGENTS.md</code> that has its canonical source in a different file is a recipe for drift and agent “misbehavior.”</p>
-
-<h3 id="misuse-of-llm-waste">Misuse of LLM (WASTE)</h3>
-
-<ul>
-  <li>Always run <code class="language-plaintext highlighter-rouge">pnpm lint</code> and <code class="language-plaintext highlighter-rouge">pnpm test</code> before committing.</li>
-</ul>
-
-<p>We have a tool for that that doesn’t cost tokens: <a href="https://pre-commit.com/">pre-commit hooks</a>. It’s way cheaper to use that than to ask an LLM to</p>
-
-<ol>
-  <li>understand the natural language</li>
-  <li>reason out how to achieve the desired outcome</li>
-  <li>call tools to do it</li>
-  <li>call more tools to verify that it was done correctly</li>
-</ol>
-
-<p>While that example is specifically for pre-commit hooks, it’s a pattern that gets repeated over and over: yes, we <em>can</em> tell the agents to do the things humans would do, but you often <em>don’t need to</em> - and doing so wastes context.</p>
-
-<h3 id="por-qué-no-los-dos">¿Por qué no los dos?</h3>
-
-<p>You can definitely offend in multiple of the above categories, too, by the way! For example, the <code class="language-plaintext highlighter-rouge">pnpm ...</code>  command guidance would also be a <code class="language-plaintext highlighter-rouge">DRY</code> violation, if there were a <code class="language-plaintext highlighter-rouge">package.json</code> that conveniently bound some <a href="https://docs.npmjs.com/cli/v11/using-npm/scripts">npm run-scripts</a> to those long-form commands.</p>
-
-<h2 id="a-note-on-wasting-context">A Note on Wasting Context</h2>
-
-<p>“Wasting context (window space)” is not just about price-per-token - it’s also about keeping confusing or contradictory information out of the agent’s context to maximize the chances of success.</p>
-
-<p>Maybe “Always run <code class="language-plaintext highlighter-rouge">pnpm lint</code> and <code class="language-plaintext highlighter-rouge">pnpm test</code> before committing.” is only a few tokens, and you don’t notice that extra cost. But… now the agent has that to <em>think</em> about, too. When you’re revising documentation and the agent finishes writing <code class="language-plaintext highlighter-rouge">intro.md</code>, it’s going to consider whether it needs to run <code class="language-plaintext highlighter-rouge">pnpm test</code> - even if it ends up not doing it.</p>
-
-<p>And maybe that particular sentence is harmless. But <a href="https://research.trychroma.com/context-rot">neither of those scales up well</a> as <code class="language-plaintext highlighter-rouge">AGENTS.md</code> gains section after section of content that is <em>not</em> related to your specific task.</p>
-
-<h2 id="sub-agents">Sub-Agents?</h2>
-
-<p>What if you just use a <a href="https://code.claude.com/docs/en/sub-agents">sub-agent</a> per task, and give it its own <code class="language-plaintext highlighter-rouge">AGENTS.md</code>, and then everything in there <em>is</em> globally-applicable?</p>
-
-<p>Well, yeah, that is what you do with sub-agents <strong>but</strong> - “sub-agents are for a single task” is a handy mental modelling technique that’s not actually <em>true</em>. The “just clean up the code” sub-agent is going to be reading code, writing code, making judgement calls, possibly consulting documentation on this codebase’s style, running test suites to make sure it didn’t break things, etc… sub-agents narrow the <em>scope</em> of the <em>tasks</em>, but they are almost never single-task. A true single-task, single prompt/response interaction doesn’t warrant the overhead complexity and cost of a sub-agent in the first place!</p>
-
-<h2 id="doing-it-right">Doing it Right</h2>
-
-<p>With all that, we can arrive at a simple set of rules for putting something valuable into a <strong>GlobalPrompt</strong> like <code class="language-plaintext highlighter-rouge">AGENTS.md</code>:</p>
-
-<h3 id="dont-repeat-yourself---do-reference-canonical-sources"><strong>DON’T</strong> repeat yourself - <strong>DO</strong> reference canonical sources</h3>
-
-<p>Instead of repeating how to run the project, consider</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This project is built with pnpm; see <span class="sb">`./package.json`</span> for supported build scripts and patterns.
-</code></pre></div></div>
-
-<p>Instead of spelling out your style guide, consider</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This project uses <span class="sb">`eslint`</span> for linting; see <span class="sb">`./eslint.config.js`</span> for the configuration and <span class="sb">`package.json`</span> for how to run it properly.
-</code></pre></div></div>
-
-<p>Vercel’s <a href="https://github.com/vercel/next.js/blob/4385ed36f66dfe0d9ae6a955135be7c1461fd35f/AGENTS.md">next.js AGENTS.md</a>, while somewhat long, is also a pretty decent example of this technique.</p>
-
-<h3 id="dont-correct-behavior---do-pave-your-desire-paths"><strong>DON’T</strong> correct behavior - <strong>DO</strong> pave your desire paths</h3>
-
-<p>Why should you even have to tell an agent to look into <code class="language-plaintext highlighter-rouge">package.json</code> for how to invoke <code class="language-plaintext highlighter-rouge">eslint</code>, though? Is it <a href="https://eslint.org/docs/latest/use/getting-started">not <code class="language-plaintext highlighter-rouge">npx eslint</code> per the eslint docs</a> or just <code class="language-plaintext highlighter-rouge">npm run lint</code>?</p>
-
-<p><strong><em>Why not?</em></strong></p>
-
-<p>Noticing what the agent gets wrong is the right first step. Paving your <a href="https://en.wikipedia.org/wiki/Desire_path">desire paths</a> is better than building an ever-growing list of corrective prescriptions.</p>
-
-<p>Agents love to write a “Common Pitfalls” section in guidance files, and that may work - especially at first when the document and list is short - but it’s a wasteful antipattern for all but the most egregious of offenses.</p>
-
-<p>I have a project in which the agents keep trying to run <code class="language-plaintext highlighter-rouge">npm run format</code> to format the code. I don’t have that hooked up to <code class="language-plaintext highlighter-rouge">eslint --fix</code>, which is the extent of the formatting I use in that project.</p>
-
-<p>❌ <strong>WRONG:</strong>
-<code class="language-plaintext highlighter-rouge">AGENTS.md</code></p>
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
-<span class="p">-</span> When formatting code, always run <span class="sb">`npx eslint --fix`</span>, <span class="gs">**not**</span> <span class="sb">`npm run format`</span>.
-...
-</code></pre></div></div>
-
-<p>✅ <strong>RIGHT:</strong>
-<code class="language-plaintext highlighter-rouge">package.json</code></p>
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx eslint --fix"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<h2 id="fixed-example">Fixed Example</h2>
-
-<p>Here is an <code class="language-plaintext highlighter-rouge">AGENTS.md</code> for the same pnpm/turbo monorepo featured in the original example, rewritten with the techniques and tips described above.</p>
-
-<p><code class="language-plaintext highlighter-rouge">AGENTS.md</code></p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This workspace is a pnpm monorepo using Turbo. See <span class="sb">`./package.json`</span> (and <span class="sb">`packages/*/package.json`</span>) for build scripts, workspace layout, and package names.
-
-CI and test/lint behavior are defined in <span class="sb">`.github/workflows/`</span>. Use the scripts in <span class="sb">`package.json`</span> from the repo root or via <span class="sb">`pnpm … --filter &lt;project_name&gt;`</span>; these are the same commands that CI runs.
-
-See <span class="sb">`CONTRIBUTING.md`</span> for the proper process for contributing to this project.
-</code></pre></div></div>
-
-<p>We assume the desire paths are paved: <code class="language-plaintext highlighter-rouge">package.json</code> defines <code class="language-plaintext highlighter-rouge">lint</code>, <code class="language-plaintext highlighter-rouge">test</code>, and any other scripts the agent might reach for; pre-commit runs <code class="language-plaintext highlighter-rouge">lint</code> and <code class="language-plaintext highlighter-rouge">test</code> so we don’t have to say it; PR and commit conventions live in their canonical files (e.g. <code class="language-plaintext highlighter-rouge">.github/PULL_REQUEST_TEMPLATE.md</code> and <code class="language-plaintext highlighter-rouge">CONTRIBUTING.md</code>).</p>
-
-<p>The <code class="language-plaintext highlighter-rouge">AGENTS.md</code> “GlobalPrompt” now just points the agent at the canonical sources for things that it might need to look up, and we’ve done the work in the repository to ensure that the agents’ intuition about the repository is correct.</p>
-
-<h2 id="but-actually-dont">But Actually, Don’t</h2>
-
-<blockquote>
-  <p>… points the agent at the canonical sources for things that it might need…</p>
-</blockquote>
-
-<p>Hey, that’s an <a href="https://agentskills.io">AgentSkill</a> - a big set of information that is <em>not</em> automatically in context, hidden behind a little in-context description indicating when it might be useful and/or when it should be pulled into context.</p>
-
-<p>Just use those instead of the <strong>GlobalPrompt</strong> that is <code class="language-plaintext highlighter-rouge">AGENTS.md</code>.</p>
-
-<p>All the leaders in the field - <a href="https://cursor.com/docs/context/skills">Cursor</a>, <a href="https://claude.com/skills">Claude</a>, <a href="https://developers.openai.com/codex/skills">Codex</a> - support this open standard. If you’re using a tool that doesn’t… it’s well past time to switch.</p>
-
-<h2 id="non-sub-agent">Non-Sub-Agent</h2>
-
-<p>There <em>is</em> still a place for a <strong>GlobalPrompt</strong> though: use <code class="language-plaintext highlighter-rouge">AGENTS.md</code> as if you were building a sub-agent, but to bootstrap the core persona of your primary agent. Something like <a href="https://github.com/Texarkanine/.cursor-rules/blob/b48aa445b818ef2ce75ce98369c37a20db59d721/rules/niko-core.mdc">niko-core.mdc</a>. No specifics about the repo at all - just general guidelines for how the Agent should <em>be</em>.</p>
-
-<blockquote>
-  <p><strong>Core Persona &amp; Approach</strong>
-<br /><br />
-Act as a highly skilled, proactive, autonomous, and meticulous senior colleague/architect. Take full ownership of tasks, operating as an extension of the user’s thinking with extreme diligence, foresight, and a reusability mindset. Your primary objective is to deliver polished, thoroughly vetted, optimally designed, and well-reasoned results with <strong>minimal interaction required</strong>. Leverage available resources extensively for proactive research, context gathering, verification, and execution. Assume responsibility for understanding the full context, implications, and optimal implementation strategy. <strong>Prioritize proactive execution, making reasoned decisions to resolve ambiguities and implement maintainable, extensible solutions autonomously.</strong> Not every interaction requires code changes - you’re happy to discuss, explain concepts, or provide guidance without modifying the codebase. When code changes are needed, you make efficient and effective updates.</p>
-</blockquote>
-
-<h2 id="no-but-actually-dont">No But Actually Don’t</h2>
-
-<p>Oh, hey,</p>
-
-<blockquote>
-  <p>No specifics about the repo at all…</p>
-</blockquote>
-
-<p>Put that guidance in a user-wide setting in your home directory - e.g. <code class="language-plaintext highlighter-rouge">~/.claude/CLAUDE.md</code> - instead, and leave <code class="language-plaintext highlighter-rouge">AGENTS.md</code> out of the project altogether.</p>
-
-<p>What about <em>others</em> who come to hack on the project with an agent but without the sophistication that you’ve now developed from having read this? I guess you can leave a link to this blog post in your <code class="language-plaintext highlighter-rouge">AGENTS.md</code> so they can catch up! ;)</p>
-
-<hr />
-
-<h2 id="further-reading">Further Reading</h2>
-
-<p><em>Or, people who agree with me (though possibly for different reasons)!</em></p>
-
-<ul>
-  <li><a href="https://www.norsica.jp/blog/stop-putting-everything-in-agents-md">Stop Putting Everything in AGENTS.md</a> <small>- Basically this same post but slightly less sassy.</small></li>
-  <li><a href="https://www.nibzard.com/dotfiles">Stop Using .md for AI Agent Instructions</a> <small>- Attacks the use of the <code class="language-plaintext highlighter-rouge">.md</code> extension, rather than the semantics of the content.</small></li>
-  <li><a href="https://www.seuros.com/blog/helmsman-adaptive-instructions-for-ai-agents/">Helmsman: Stop Writing AGENTS.md That Lies to Half Your Models</a> <small>- notes that different <code class="language-plaintext highlighter-rouge">AGENTS</code> have different capabilities in both reasoning <em>and</em> environment setup, but <code class="language-plaintext highlighter-rouge">AGENTS.md</code> tries to advise all of them the same way.</small></li>
-</ul>
-
-<h2 id="postscript">Postscript</h2>
-
-<h3 id="2026-02-24">2026-02-24</h3>
-
-<p>The same day I published this, an incredibly damning research paper (of which, at the time, I was completely unaware) was published:</p>
-
-<blockquote class="link-card">
-  
-  <h1>Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?</h1>
-  
-  <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arxiv.org/abs/2602.11988</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260223161901/https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
-</blockquote>
-
-<p>Spoiler: <a href="https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines">they aren’t</a>!</p>
-
-<blockquote>
-  <ol>
-    <li>developer-provided files only marginally improve performance compared to omitting them entirely (an increase of 4% on average)</li>
-    <li>LLM-generated context files have a small negative effect on agent performance (a decrease of 3% on average)</li>
-    <li>… as a result, increase costs by over 20%</li>
-  </ol>
-</blockquote>
-
-<p><em>Q.E.D.</em></p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="harness-engineering" /><category term="claude-code" /><category term="llm-context-management" /><summary type="html"><![CDATA[A taxonomy of what goes wrong in global agent prompts - self-evident tips, task-specific guidance, duplicated info, wasted LLM cycles - and what to do instead.]]></summary></entry></feed>
+</blockquote>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="cursor" /><category term="harness-engineering" /><category term="llm-context-management" /><summary type="html"><![CDATA[Your agent needs to see content like generated output, node_modules, and personal config that git rightfully ignores. The current crop of tool-specific ignore files needs a real standard.]]></summary></entry></feed>
