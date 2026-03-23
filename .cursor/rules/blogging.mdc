@@ -40,9 +40,14 @@ If you have a lesson but worry about seeming preachy, write the Fable anyway. Re
     * Decide whether the post would benefit from *direct address* of the reader. Maintain this choice consistently throughout the post.
 4. **No emdashes:** Use hyphens instead.
 5. **Avoid "it's not X, it's Y":** Don't use this construction.
-6. **Strategic code links:** For technical posts, link strategically to actual code (use version tags when applicable). Link to solutions/fixes, not problems. Use sparingly for emphasis on interesting technical details.
-7. **Show, don't tell:** Avoid meta-commentary about your own process. If you document solving six test failures, don't add a section saying "I systematically debugged each failure." The reader just watched you do it.
-8. **Avoid self-congratulation:** Sections that describe "how well the work was done" are usually redundant. The quality speaks through the documented results.
+6. **Show, don't tell:** Avoid meta-commentary about your own process. If you document solving six test failures, don't add a section saying "I systematically debugged each failure." The reader just watched you do it.
+7. **Avoid self-congratulation:** Sections that describe "how well the work was done" are usually redundant. The quality speaks through the documented results.
+
+## Technical Chops
+
+1. **Strategic Code Links:** For technical posts, link strategically to actual code (use version tags when applicable). Link to solutions/fixes, not problems. Use sparingly for emphasis on interesting technical details; use triumphantly when illustrating solutions you arrived at.
+2. **Foreign Term Links:** When introducing a foreign term or concept that may not be well-known, link its first major semantic mention to a definition or explanation somewhere. For common terms, this may be Wikipedia; for industry jargon or techniques, it may be a blog post or article from a recognized authority, etc.
+3. **Readers don't care about test quantities:** "77/77 tests pass" - nobody cares unless the whole article is about the quantity of tests passing. This generalizes to other quantities - if the quantity itself doesn't directly contribute to the meat of the story, think hard about whether the actual number bears mentioning.
 
 ## Writing Lessons and Takeaways
 
@@ -51,6 +56,10 @@ When writing "What I Learned" or conclusion sections:
 - **Prefer specific over generic:** "RubyGems OIDC configuration is case-sensitive on usernames" beats "Gem publishing has sharp edges"
 - **Include the actionable detail:** Don't just say "tool X has bugs" - say what the bug is and how to avoid it
 - **Avoid truisms:** If it's obviously true to anyone (e.g., "TDD catches bugs early"), either cut it or make it specific enough to be useful
+
+## Blog-Specific Syntax
+
+- Links don't render well when they link a blockquote; instead of [`<something>`](https://...), just use `<something>` or [something](https://...)
 
 # Security
 

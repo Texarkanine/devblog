@@ -1,0 +1,28 @@
+---
+alwaysApply: false
+---
+
+# Revision Patterns (Collecting)
+
+Generalizable patterns observed during editorial revision of blog posts. Not yet organized into actionable guidance - collecting until there's enough to form a section in `blogging.mdc` or a standalone doc.
+
+## Link Quality: Illustration vs. Footnote
+
+A link should *illustrate* its anchor text, not just prove the thing exists. If a reader clicks it, they should see something that enriches the sentence they just read.
+
+- **Illustrative:** linking an error message to the issue that explains why it happens; linking a CSS property to the MDN page that explains the behavior being discussed.
+- **Footnote:** linking "optional padding on edge-label containers" to a release changelog; linking "config restructure" to a single source file.
+
+Inline code/snippets when **illustrating** a point. Link out to full files when providing a reference the reader might optionally explore. The difference between a book illustration and a bibliography entry.
+
+## Provenance of Quoted Output
+
+Don't include log snippets, error messages, or terminal output that wasn't actually observed. If a representative example comes from an external source (e.g., a GitHub issue), either attribute it or don't use it. Fabricating plausible output undermines trust even when the technical point is correct.
+
+## Link Target Should Match Narrative Context
+
+When *introducing* a tool or product to the reader, link to its product/landing page (e.g., rubygems.org, project homepage). When discussing code changes or implementation details deeper in the post, link to the source repository or specific files. Match the link target to what the reader needs at that point in the narrative.
+
+## Shape Discipline on Tangents
+
+Details should serve the post's chosen shape. An interesting anecdote that isn't part of the fable's cascade, the essay's argument, or the record's factual account should probably cut - unless it has a high value of its own. If a detail just happened to happen concurrently but wasn't caused by or required for anything in the narrative's chain, it's a tangent.
