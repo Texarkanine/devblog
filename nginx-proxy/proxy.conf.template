@@ -34,7 +34,7 @@ server {
         error_page 404 /error/404.html;
 
         proxy_hide_header Content-Type;
-        add_header Content-Type "text/html; charset=iso-8859-1" always;
+        add_header Content-Type "text/html; charset=utf-8" always;
     }
 
     location / {
