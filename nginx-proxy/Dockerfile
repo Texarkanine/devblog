@@ -9,6 +9,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Copy template files (will be processed by entrypoint)
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
 COPY proxy.conf.template /etc/nginx/conf.d/proxy.conf.template
+COPY proxy-params.conf.template /etc/nginx/proxy-params.conf.template
 
 # Copy entrypoint script
 COPY docker-entrypoint.sh /docker-entrypoint.sh
@@ -24,7 +25,9 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 # Environment variables (defaults for documentation, override at runtime)
 ENV UPSTREAM_HOST="" \
     APP_NAME="" \
-    UPSTREAM_PATH=""
+    UPSTREAM_PATH="" \
+    UPSTREAM_DOMAIN_2="" \
+    UPSTREAM_PATH_2=""
 
 EXPOSE 8080
 
