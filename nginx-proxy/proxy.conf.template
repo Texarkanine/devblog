@@ -16,10 +16,6 @@ server {
         add_header Content-Type text/plain;
     }
 
-    location = / {
-        rewrite ^ /index.php last;
-    }
-
     # Static .php files: force text/html content type
     # (DO static sites serve .php as application/octet-stream)
     location ~* \.php$ {
