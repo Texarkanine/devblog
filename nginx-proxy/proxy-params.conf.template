@@ -1,4 +1,4 @@
-# Shared proxy parameters — included by location blocks in proxy.conf
+# Shared proxy parameters - included by location blocks in proxy.conf
 proxy_ssl_server_name on;
 proxy_ssl_name ${UPSTREAM_HOST};
 proxy_ssl_protocols TLSv1.2 TLSv1.3;
