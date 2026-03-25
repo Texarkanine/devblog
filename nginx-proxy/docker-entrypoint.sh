@@ -26,11 +26,13 @@ if [ -n "$UPSTREAM_PATH" ]; then
 fi
 export UPSTREAM_PATH
 
-# Normalize UPSTREAM_PATH_2 (optional, same rules as UPSTREAM_PATH)
+# Normalize UPSTREAM_PATH_2 (optional)
+# Unlike UPSTREAM_PATH, this must NOT end with / because it's combined with
+# $uri (which starts with /) in the regex .php location's proxy_pass directive.
 if [ -n "$UPSTREAM_PATH_2" ]; then
     UPSTREAM_PATH_2=$(echo "$UPSTREAM_PATH_2" | sed 's|^/*||; s|/*$||')
     if [ -n "$UPSTREAM_PATH_2" ]; then
-        UPSTREAM_PATH_2="/${UPSTREAM_PATH_2}/"
+        UPSTREAM_PATH_2="/${UPSTREAM_PATH_2}"
     else
         UPSTREAM_PATH_2=""
     fi

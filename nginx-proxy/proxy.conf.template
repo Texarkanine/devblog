@@ -27,8 +27,7 @@ server {
             return 400;
         }
 
-        rewrite ^/(.*)$ ${UPSTREAM_PATH_2}$1 break;
-        proxy_pass https://backend_static;
+        proxy_pass https://backend_static${UPSTREAM_PATH_2}$uri;
         include /etc/nginx/proxy-params.conf;
         proxy_intercept_errors on;
         error_page 404 /error/404.html;
@@ -42,7 +41,7 @@ server {
             return 400;
         }
 
-        proxy_pass https://backend_static${UPSTREAM_PATH_2};
+        proxy_pass https://backend_static${UPSTREAM_PATH_2}/;
         include /etc/nginx/proxy-params.conf;
         proxy_intercept_errors on;
         error_page 404 /error/404.html;
