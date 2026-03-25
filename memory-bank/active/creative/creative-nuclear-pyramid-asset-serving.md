@@ -1,5 +1,9 @@
 # Architecture Decision: Nuclear Pyramid Asset Serving
 
+> **Revision 2** — Revised after identifying that any DO path-route approach requires
+> build separation (assets-only document root), since the nuclear pyramid archive
+> co-locates pages and assets at the site root.
+
 ## Requirements & Constraints
 
 **The Problem**: All nuclear pyramid requests — HTML pages (128K) AND binary assets (13MB: a 13MB docx + ~400K of images) — flow through the metered $5/mo nginx proxy on DigitalOcean. 99% of the proxied bytes are static binary assets that gain nothing from the proxy.
@@ -18,6 +22,7 @@
 - DO App Platform supports path-based routing: different path prefixes can route to different components (nginx vs. static site) on the same domain.
 - The archive is a separate repo (`nuclear-pyramid-archive`) with its own Rake-based build pipeline.
 - No CI/CD workflows exist for the nuclear-pyramid-archive repo yet.
+- **Critical (rev 2):** Any DO path route that serves nuclear pyramid content MUST point to a document root that contains **only** binary assets. If the route serves the full site, `.php` pages and `index.html` become accessible at the alternate path — bypassing the nginx proxy's Content-Type fix and creating a crawlable duplicate of the site for search engines. The blog's `/assets` approach works because the `/assets` directory physically cannot contain pages. The nuclear pyramid's co-located structure has no such separation, so **build separation is a prerequisite** for any DO path-route approach.
 
 **Boundaries**:
 - In scope: how to serve nuclear pyramid binary assets without proxying them through nginx.
@@ -27,91 +32,95 @@
 
 ```
 Current Architecture:
-                                                                      
-  Browser                                                             
-    │                                                                 
-    ▼                                                                 
-  DO App Platform Gateway (nuclearpyramid.com)                        
-    │                                                                 
-    │  ALL requests                                                   
-    ▼                                                                 
-  nginx proxy ($5/mo compute)                                         
-    │  server_name = UPSTREAM_DOMAIN_2                                
-    │  .php → text/html Content-Type fix                              
-    │  proxy_pass to backend_static                                   
-    ▼                                                                 
-  DO Static Site (free)                                               
-    └── docs/site/                                                    
-        ├── index.php, proton.php, ... (128K pages)                   
-        ├── fig001.jpg ... fig028.jpg (~400K images)                  
-        ├── From Gravitons to Galaxies.docx (13MB)                    
-        └── greatpyramid/*.gif                                        
+
+  Browser
+    │
+    ▼
+  DO App Platform Gateway (nuclearpyramid.com)
+    │
+    │  ALL requests
+    ▼
+  nginx proxy ($5/mo compute)
+    │  server_name = UPSTREAM_DOMAIN_2
+    │  .php → text/html Content-Type fix
+    │  proxy_pass to backend_static
+    ▼
+  DO Static Site (free)
+    └── docs/site/
+        ├── index.php, proton.php, ... (128K pages)
+        ├── fig001.jpg ... fig028.jpg (~400K images)
+        ├── From Gravitons to Galaxies.docx (13MB)
+        └── greatpyramid/*.gif
 ```
 
-The blog already solved this for its own media using DO path routing:
-- `blog.cani.ne.jp/assets/*` → DO static site (direct CDN, no nginx)
+The blog solved this for its own media using DO path routing:
+- `blog.cani.ne.jp/assets/*` → DO static site whose document root is `/assets/` (ONLY media files; no pages can exist there)
 - `blog.cani.ne.jp/*` → nginx → DO static site (proxied, logged)
+
+The nuclear pyramid cannot use this pattern without first separating assets from pages in its build output.
 
 ## Options Evaluated
 
-- **Option A: HTML Rewrite + DO Path Route** — Rewrite asset references in HTML to use a `/media/` prefix; add DO path route so `/media/*` bypasses nginx.
-- **Option B: nginx 302 Redirect + DO Path Route** — nginx redirects binary-extension requests to a `/media/` path; DO routes that path directly to the static site.
+- **Option A: Build Separation + DO Path Route (Blog Pattern)** — Separate binary assets into a dedicated build output directory; serve them via a DO path route that bypasses nginx.
+- **Option B: Offload the Docx Only (Pragmatic Minimum)** — The 13MB docx is 97% of asset bytes. Host it externally and change one link. Images stay proxied.
 - **Option C: Cloudflare CDN** — Put Cloudflare in front of `nuclearpyramid.com` to cache assets at the edge.
-- **Option D: Rename .php → .html + Drop nginx** — Eliminate the proxy dependency entirely by changing file extensions in the build pipeline.
+- **Option D: Rename .php → .html + Drop nginx Entirely** — Eliminate the proxy dependency by changing file extensions in the build pipeline.
 
 ## Analysis
 
-### Option A: HTML Rewrite + DO Path Route (Blog Pattern)
+### Option A: Build Separation + DO Path Route (Blog Pattern)
 
 **How it works**:
-1. Modify `transform.rb` to rewrite `<img src="figNNN.jpg">` → `<img src="/media/figNNN.jpg">` (and similarly for the docx href and `greatpyramid/` GIFs).
-2. Add a DO App Platform route: `nuclearpyramid.com/media/*` → the existing static site component.
-3. DO's gateway intercepts `/media/*` and routes directly to the CDN-backed static site. nginx never sees these requests.
-4. nginx continues to handle page requests (`.php` → `text/html` fix intact).
+1. Modify `transform.rb` to output binary assets (images, docx) to a separate `docs/media/` directory in addition to (or instead of) their current location in `docs/site/`.
+2. Add a DO App Platform static site component whose source is this `docs/media/` directory, bound to `nuclearpyramid.com/media/*`.
+3. DO's gateway routes `/media/*` directly to this assets-only static site. nginx never sees these requests. The document root contains **only** binary files — no `.php` pages, no `index.html`.
+4. Either:
+   - **(A1) Rewrite HTML references** in `transform.rb`: `src="fig001.jpg"` → `src="/media/fig001.jpg"`. Browser loads assets directly from the `/media/` path. No nginx involvement for assets at all.
+   - **(A2) nginx 302 redirect**: Add a location block in Site 2 that redirects binary-extension requests to `/media/`. HTML stays untouched. Browser hits nginx for the image URL, gets a 302, follows redirect to `/media/` which DO serves from the CDN. One extra round-trip, but nginx only sends a ~200-byte redirect response instead of proxying 13MB.
 
 **Steelman**:
-- **Proven pattern**: This is exactly what the devblog already does for its own media. The architecture has been validated in production. The diary post and "Look at this Dog" post document the rationale and confirm it works.
+- **Proven pattern**: This is what the devblog already does for its own media. The architecture has been validated in production. The diary post and "Look at this Dog" post document the rationale and confirm it works.
+- **Assets-only document root eliminates the leakage problem**: The `/media/` static site literally cannot serve pages because it contains none. Someone browsing to `/media/proton.php` gets a 404. Search engines find nothing to index. This is the same guarantee the blog has with its `/assets/` route.
 - **Zero nginx overhead for assets**: After deployment, 99% of bytes (the docx, all images) never touch the nginx compute instance. Only the 128K of HTML pages flow through nginx.
-- **No cross-origin issues**: Same domain, same DO app. The browser sees `nuclearpyramid.com/media/fig001.jpg` — a first-party request. No CORS headers needed.
-- **No exposed internal URLs**: Unlike redirect-based approaches, the browser never sees the `*.ondigitalocean.app` upstream hostname.
-- **Future-proof**: If new pages or images are added to the archive, the transform automatically rewrites references. The pattern scales.
-- **Granular**: Only binary assets move to the new path. Pages stay on their existing URLs. No existing external links break.
+- **No cross-origin issues**: Same domain, same DO app. First-party requests throughout.
+- **No exposed internal URLs**: The browser sees `nuclearpyramid.com/media/fig001.jpg` — no `*.ondigitalocean.app` hostnames leak.
+- **Future-proof**: If new images are added to the archive, the build separation automatically routes them to the assets-only output.
+- **Sub-variant choice (A1 vs A2)** adds flexibility:
+  - A1 (HTML rewrite) eliminates any nginx involvement for assets and avoids redirect overhead.
+  - A2 (302 redirect) preserves original HTML and gains asset-request metrics in the nginx access log, at the cost of one redirect per asset per browser cache lifetime.
 
 **Weaknesses**:
-- Requires modifying `transform.rb` with HTML rewriting logic. The archived HTML is from 2017 and uses varied reference patterns (`src="fig001.jpg"`, `src="./greatpyramid/fig001.gif"`, `href='From Gravitons to Galaxies.docx'`). Regex rewriting of legacy HTML is fragile.
-- Changes the served URL structure of the archive (images move from `/fig001.jpg` to `/media/fig001.jpg`). This trades preservation fidelity for cost efficiency. If anyone has hotlinked images from `nuclearpyramid.com/fig001.jpg`, those links break (though nginx could handle those with its own redirect if needed).
-- Requires changes in two places: the nuclear-pyramid-archive repo (build pipeline) AND the DO App Platform configuration (new route).
-- Need to handle edge cases: what about `np_logo.gif` referenced in CSS or inline styles? What about the docx link text vs href?
+- Requires modifying the nuclear-pyramid-archive build pipeline (`transform.rb` and/or `Rakefile`) to produce a separate assets-only output directory. This is straightforward (copy binary files to `docs/media/` based on file extension) but adds a build step.
+- If using sub-variant A1 (HTML rewrite): the archived HTML is from 2017 and uses varied reference patterns (`src="fig001.jpg"`, `src="./greatpyramid/fig001.gif"`, `href='From Gravitons to Galaxies.docx'`). Regex-based rewriting of legacy HTML is fragile and must handle all edge cases (inline styles, mixed quoting, relative paths with `./` prefixes).
+- If using sub-variant A2 (302 redirect): adds an extra round-trip per asset. Negligible for ~35 assets, but not zero.
+- Requires changes in two repos/systems: the nuclear-pyramid-archive repo (build pipeline) AND the DO App Platform configuration (new static site component + route).
+- Adds a DO App Platform component to manage (though static sites are free and low-maintenance).
 
 ---
 
-### Option B: nginx 302 Redirect + DO Path Route
+### Option B: Offload the Docx Only (Pragmatic Minimum)
 
 **How it works**:
-1. Add a DO App Platform route: `nuclearpyramid.com/media/*` → the existing static site component (same as Option A).
-2. In the nginx Site 2 config, add a location block that matches binary file extensions and returns a 302 redirect:
-   ```nginx
-   location ~* \.(jpg|jpeg|gif|png|docx)$ {
-       return 302 /media$request_uri;
-   }
-   ```
-3. Browser requests `nuclearpyramid.com/fig001.jpg` → nginx returns `302 /media/fig001.jpg` → browser follows redirect → DO gateway routes `/media/*` to static site CDN directly.
-4. HTML stays untouched. All asset references remain relative.
+1. The 13MB `From Gravitons to Galaxies.docx` accounts for ~97% of all asset bytes. The ~35 images total ~400K.
+2. Host the docx externally — e.g., as a GitHub Release asset on the nuclear-pyramid-archive repo (free, CDN-backed via GitHub's global edge), or on DO Spaces, or any static file host.
+3. Modify the single `<a href='From Gravitons to Galaxies.docx'>` reference in `transform.rb` (or in the `src/index.php` overlay) to point to the external URL.
+4. Images (~400K total) continue to proxy through nginx. At ~400K, this is comparable to the HTML pages themselves and not worth optimizing.
 
 **Steelman**:
-- **Zero changes to the nuclear-pyramid-archive repo**. The build pipeline, HTML, and file layout are completely untouched. Preservation fidelity is maximal.
-- **Minimal nginx overhead**: A 302 response is just HTTP headers (~200 bytes). Compare this to proxying a 13MB docx. The compute and bandwidth savings are effectively identical to Option A.
-- **Still get metrics**: The 302 redirect IS logged by nginx. You get access log entries for which assets are requested, by whom, and when — you just don't proxy the bytes. This is arguably *better* than Option A, which gives zero visibility into asset requests.
-- **Single point of change**: Only the nginx proxy config and DO app config need updating. No cross-repo coordination.
-- **Easy to implement and revert**: A few lines of nginx config. If something goes wrong, remove the location block and assets resume proxying through nginx.
-- **Handles all current and future asset patterns**: Extension-based matching catches all images and documents regardless of where they sit in the URL hierarchy (`/fig001.jpg`, `/greatpyramid/fig001.gif`, `/From Gravitons to Galaxies.docx`).
-- **Original URLs still "work"**: A request to `/fig001.jpg` still returns the image — just via redirect. No broken hotlinks.
+- **Targets the actual problem**: The docx is 97% of the wasted bandwidth. Solving for it alone eliminates almost all of the cost concern. The remaining images are collectively smaller than many single web pages.
+- **Minimal changes**: One URL change in one file. No build pipeline restructuring, no new DO components, no nginx config changes.
+- **No new infrastructure**: GitHub Releases are free, globally CDN-backed, and already part of the GitHub ecosystem this project uses. No new service dependencies.
+- **Preservation fidelity for pages and images**: Only the docx download link changes. All image references, page URLs, and the site's structure remain exactly as-is.
+- **Easy to implement and revert**: Change one href. If the external host goes down, change it back.
+- **No leakage concern**: There's no alternate path to the site's pages. The images still flow through nginx with proper Content-Type handling.
+- **Proportional response**: The effort matches the scale of the problem. The nuclear pyramid is a ~5-page archive, not a media-heavy application.
 
 **Weaknesses**:
-- Extra round-trip per asset: browser gets 302, then makes a second request. This adds ~50-100ms latency per asset on first load. However, browsers cache 302 redirects (per `Cache-Control`), so repeat visits avoid this. And the archive has few assets — a single page load triggers at most ~30 asset requests, each redirect adding trivial latency vs. the current full-proxy approach.
-- Slightly messier from a network-tab/debugging perspective (redirect chains visible).
-- Requires the DO path route for `/media/` just like Option A — so the DO-side work is identical.
-- The redirect destination path (`/media/fig001.jpg`) needs to map correctly to the static site's file layout. Since the static site serves from `docs/site/` and the file is at `docs/site/fig001.jpg`, a route mapping `/media/` → the static site root would make `/media/fig001.jpg` resolve to `fig001.jpg` on the static site. This should work but needs verification.
+- **Cross-origin for the docx download**: The download link points to an external domain (e.g., `github.com` or `objects.githubusercontent.com`). Browsers handle cross-origin downloads fine, but it's visible to the user.
+- **Doesn't solve for images**: If image traffic ever became significant (unlikely for this archive), this approach doesn't help. It's a 97% solution, not 100%.
+- **External host dependency**: If GitHub Releases changes its URL structure or policies, the link breaks. Low risk for GitHub, but nonzero.
+- **Not the blog's proven pattern**: This is a one-off solution specific to nuclear pyramid's asset profile. It doesn't establish a reusable pattern.
+- **Docx URL in HTML becomes a hardcoded external URL**: Less clean than a relative path. If the docx moves, the HTML must be regenerated and redeployed.
 
 ---
 
@@ -124,17 +133,18 @@ The blog already solved this for its own media using DO path routing:
 4. After initial cache warming, assets are served from Cloudflare's edge — never hitting nginx.
 
 **Steelman**:
-- **Zero code changes anywhere**. No repo modifications, no nginx config changes, no DO app reconfiguration.
-- **Global edge caching**: Cloudflare has data centers worldwide. Assets load from the nearest edge, which is likely faster than DO's single-region static hosting.
+- **Zero code changes anywhere**. No repo modifications, no nginx config changes, no DO app reconfiguration, no build pipeline changes.
+- **Global edge caching**: Cloudflare has data centers worldwide. Assets load from the nearest edge, likely faster than DO's single-region hosting.
 - **Free tier is sufficient**: Cloudflare's free plan includes unlimited bandwidth, DDoS protection, and SSL. The archive is low-traffic; free tier easily covers it.
-- **Caches pages too**: Not just assets — Cloudflare can cache the HTML pages as well, reducing nginx hits to near-zero for warm cache. This goes beyond the stated goal.
+- **Caches pages AND assets**: Not just binary assets — Cloudflare can cache the HTML pages as well, reducing nginx hits to near-zero for warm cache. This goes beyond the stated goal.
 - **Analytics included**: Cloudflare's free tier includes traffic analytics, potentially replacing the nginx-based access log value proposition for this site.
-- **The archive never changes**: This is the ideal CDN use case. Content is static and permanent. Cache invalidation — the hard problem of CDNs — simply doesn't apply here. Set `Cache-Control: public, max-age=31536000` and forget about it.
+- **The archive never changes**: This is the ideal CDN use case. Content is static and permanent. Cache invalidation — the hard problem of CDNs — simply doesn't apply. Set `Cache-Control: public, max-age=31536000` and forget about it.
+- **No leakage concern**: No alternate paths to the site's pages. The same URLs serve the same content, just cached.
 
 **Weaknesses**:
 - **Adds an external service dependency**. The current stack is DO + nginx + GitHub. Cloudflare introduces a third-party dependency for DNS and edge proxying.
-- **Cache eviction on free tier**: Cloudflare may evict infrequently-accessed assets from edge cache. The 13MB docx, if rarely downloaded, could get evicted and cause a cache miss that hits nginx again. Low-traffic archives are the worst case for CDN cache hit ratios.
-- **DNS complexity**: Requires either full NS delegation to Cloudflare (changing nameservers from current provider) or a CNAME-based setup. If `nuclearpyramid.com` is managed via FreeDNS (as hinted by the blog post about acme.sh), this may require changing DNS providers or adding complexity.
+- **Cache eviction on free tier**: Cloudflare may evict infrequently-accessed assets from edge cache. The 13MB docx, if rarely downloaded, could get evicted and cause a cache miss that hits nginx. Low-traffic archives are the worst case for CDN cache hit ratios.
+- **DNS complexity**: Requires either full NS delegation to Cloudflare (changing nameservers from current provider) or a CNAME-based setup. If `nuclearpyramid.com` is managed via FreeDNS (as hinted by the blog post about acme.sh + FreeDNS), this may require changing DNS providers or adding complexity.
 - **Debugging becomes harder**: Request path becomes Browser → Cloudflare → DO → nginx → DO static site. More hops, more places for things to go wrong. Headers get modified by Cloudflare.
 - **Not solving the root cause**: The architecture still has nginx in the path for cache misses. This is mitigation, not a fix.
 - **Overkill for the scale**: The nuclear pyramid is a ~5-page archive with 30 small images and one document. A global CDN is a sledgehammer for a thumbtack.
@@ -147,91 +157,81 @@ The blog already solved this for its own media using DO path routing:
 1. Modify `transform.rb` to rename all `.php` output files to `.html` and update internal link references (`href="proton.php"` → `href="proton.html"`).
 2. Remove nuclear pyramid from the nginx proxy entirely (delete or disable the Site 2 server block).
 3. Serve `nuclearpyramid.com` directly from the DO static site component with a custom domain binding (no nginx in the path at all).
-4. Optionally add server-side redirects for old `.php` URLs (if DO App Platform supports redirect rules for static sites).
+4. Optionally add server-side redirects for old `.php` URLs (if DO App Platform supports redirect rules for static sites — it doesn't).
 
 **Steelman**:
 - **Eliminates the problem entirely**: No nginx for nuclear pyramid means zero metered compute/bandwidth for any nuclear pyramid request — not just assets, but pages too.
 - **Simplest final architecture**: One fewer nginx server block, one fewer proxy path. The nuclear pyramid is just a static site on a CDN. The nginx proxy only handles the blog.
-- **DO static hosting is free and fast**: CDN-backed, globally distributed, zero cost. This is the architecturally "correct" way to host a static archive.
-- **Reduces nginx blast radius**: The nginx proxy becomes responsible only for the blog, reducing its surface area and simplifying its configuration.
+- **DO static hosting is free and fast**: CDN-backed, globally distributed, zero cost.
+- **Reduces nginx blast radius**: The nginx proxy becomes responsible only for the blog.
 
 **Weaknesses**:
 - **The `.php` Content-Type problem is a hard blocker unless solved**. DO static sites serve `.php` files as `application/octet-stream`. The nginx proxy exists to fix this. Renaming to `.html` is the workaround, but it has cascading effects.
-- **Breaks all existing external links** to `.php` URLs. If anyone links to `nuclearpyramid.com/proton.php`, that URL stops working (or returns a download). DO static sites don't support server-side redirect rules.
+- **Breaks all existing external links** to `.php` URLs. If anyone links to `nuclearpyramid.com/proton.php`, that URL returns a download instead of a page. DO static sites don't support server-side redirect rules.
 - **Violates preservation goals**: The original site used `.php` extensions. The archive's purpose is to preserve the original site. Changing extensions alters the historical record.
-- **Need redirects from `.php` → `.html`**: Without nginx or another redirect mechanism, there's no way to handle old URLs. DO static sites have no redirect configuration. You'd need either: (a) Cloudflare page rules (back to Option C's dependency), (b) a client-side redirect page at each `.php` path, or (c) accepting broken old links.
-- **Requires changes to the nuclear-pyramid-archive build pipeline** (similar effort to Option A) PLUS DO app reconfiguration PLUS dealing with the redirect problem.
+- **The redirect problem has no clean solution on DO**: Without nginx or Cloudflare, there's no mechanism to redirect `.php` → `.html`. Client-side redirect pages at each `.php` path are hacky and still require the DO static site to serve `.php` as HTML (the original problem). This is circular.
+- **Requires the most work for the most fragile result**: Build changes + DO reconfig + unsolvable redirect problem.
 
 ---
 
 ### Comparison Table
 
-| Criterion | A: HTML Rewrite + Route | B: nginx 302 + Route | C: Cloudflare CDN | D: Rename .php, Drop nginx |
+| Criterion | A: Build Sep. + Route | B: Offload Docx Only | C: Cloudflare CDN | D: Rename .php |
 |---|---|---|---|---|
-| **Cost efficiency** | Excellent — assets bypass nginx entirely | Excellent — 302 is ~200 bytes vs 13MB | Good — cache hits bypass; misses still hit | Perfect — no nginx at all |
-| **Simplicity** | Moderate — build pipeline + DO route changes | Good — nginx config + DO route changes only | Good — DNS change only; but adds external dep | Poor — build changes + DO reconfig + redirect problem |
-| **Preservation fidelity** | Moderate — URL structure changes for assets | Excellent — URLs unchanged, just redirected | Excellent — nothing changes | Poor — file extensions change, old URLs break |
-| **Maintainability** | Good — proven pattern from devblog | Good — self-contained nginx change | Moderate — external service to manage | Poor — redirect problem has no clean solution |
-| **Reliability** | High — proven pattern, no cross-origin | High — 302 is universally supported | Moderate — dependent on cache behavior + 3rd party | Low — broken URLs, Content-Type risk |
-| **Implementation effort** | Medium — `transform.rb` changes + DO route | Low — nginx config + DO route | Low — DNS config | High — build changes + DO reconfig + redirect handling |
-| **Metrics on assets** | None (assets bypass nginx) | Yes! (302 is logged) | Via Cloudflare analytics | None (no proxy) |
+| **Cost efficiency** | Excellent — assets bypass nginx | Very good — 97% of bytes eliminated | Good — cache hits bypass; misses still hit | Perfect — no nginx at all |
+| **Simplicity** | Moderate — build separation + DO route | Excellent — one link change | Good as DNS change; adds external dep | Poor — build + DO + redirect problem |
+| **Preservation fidelity** | Moderate — asset URLs change | Good — only docx link changes | Excellent — nothing changes | Poor — file extensions change |
+| **Maintainability** | Good — proven pattern | Excellent — trivial to understand | Moderate — external service to manage | Poor — redirect problem unsolvable |
+| **Reliability** | High — no cross-origin, proven pattern | High — GitHub CDN is reliable | Moderate — 3rd party + cache eviction | Low — broken URLs, Content-Type risk |
+| **Implementation effort** | Medium — build changes + DO route | Very low — one href change | Low — DNS config | High — build + DO + redirects |
+| **Leakage risk** | None — assets-only doc root | None — no alternate paths | None — no alternate paths | N/A |
+| **Metrics on assets** | A2 sub-variant: yes (302 logged) | No (docx served externally) | Via Cloudflare analytics | None |
+| **% of problem solved** | 100% | ~97% | 100% (when cached) | 100% |
 
 Key insights:
-- **Options A and B both require the same DO-side work** (adding a path route for `/media/`). They differ only in whether the HTML references are rewritten (A) or nginx handles the routing (B).
-- **Option B is strictly better than A on preservation fidelity** and has the bonus of asset-request metrics, at the cost of one extra round-trip per asset per cold cache.
-- **Option C is the only zero-code-change option**, but it adds an external dependency for a problem that has simpler solutions within the existing stack.
-- **Option D is the architecturally "purest" solution** but the `.php` Content-Type problem makes it impractical without also solving the redirect problem — which reintroduces either nginx or Cloudflare.
-- **The extra round-trip in Option B is nearly free**: the 302 response is a few hundred bytes, the browser caches it, and the archive has <35 assets total. The latency impact is negligible in practice.
+- **Build separation is mandatory for any DO path-route approach.** The nuclear pyramid's co-located structure means pointing a DO route at the existing static site content leaks pages at an alternate path. This requirement was missed in Rev 1 and is the most important constraint.
+- **Old Options A and B from Rev 1 converge** once build separation is required for both. The difference between "rewrite HTML" (A1) vs "nginx 302 redirect" (A2) is now a sub-variant choice within Option A, not a separate option.
+- **Option B (Offload Docx Only) is new** and reflects the actual data: 97% of the bandwidth problem is one file. This is the highest-leverage, lowest-effort option.
+- **Cloudflare (Option C) is the only true zero-change option**, but it adds external dependency and doesn't reliably solve the problem for low-traffic sites (cache eviction).
+- **Option D remains impractical** — the redirect problem is unsolvable within DO's static site hosting.
 
 ## Decision
 
-**Selected**: Option B — nginx 302 Redirect + DO Path Route
+**Selected**: Option B — Offload the Docx Only (Pragmatic Minimum)
 
-**Rationale**: Option B delivers the same cost-efficiency benefit as Option A (assets bypass nginx) while requiring zero changes to the nuclear-pyramid-archive repository. It preserves the archive's URL structure exactly, maintains the simplicity of the build pipeline, and — uniquely among all options — retains access-log visibility into which assets are requested. The extra HTTP round-trip is a trivial cost for an archive with <35 static assets.
+**Rationale**: The 13MB docx is 97% of the problem. Hosting it on GitHub Releases and changing one link eliminates nearly all wasted nginx bandwidth with the lowest possible effort and risk. No build pipeline restructuring, no new DO components, no nginx config changes, no leakage concerns. The remaining ~400K of images proxying through nginx is negligible — comparable to the HTML pages themselves.
 
-The implementation touches only two things:
-1. The nginx proxy config (a few lines added to the Site 2 server block)
-2. The DO App Platform configuration (one new route for `nuclearpyramid.com/media/`)
+Option A (Build Separation + DO Path Route) remains the correct "full" solution if the ~400K of image traffic ever matters or if the archive grows. It's the right answer for the general case and can be pursued later as an upgrade. But for a ~5-page archive where one docx file dominates the bandwidth profile, the proportional response is to solve for that file.
 
-Both changes are easily reversible.
+**Tradeoff**: The docx download link becomes a cross-origin external URL (e.g., GitHub). This is visible to the user and introduces a dependency on an external host. For a `.docx` download (not an inline resource), this is standard and acceptable.
 
-**Tradeoff**: One extra round-trip per unique asset per browser cache lifetime. For an archive that changes never and has ~35 assets, this is a non-factor.
-
-**Runner-up**: Option A (HTML Rewrite) is the stronger choice if metrics on asset requests are not valued and the build pipeline is being modified anyway. It eliminates even the redirect overhead.
+**Runner-up**: Option A (Build Separation + DO Path Route) is the full solution and should be preferred if the archive's asset profile changes or if the team is already modifying the build pipeline for other reasons.
 
 ## Implementation Notes
 
-### nginx config change (Site 2 server block in `proxy.conf.template`)
+### Option B (selected): Offload the Docx
 
-Add a location block before the existing `location /` in the Site 2 server:
+1. Create a GitHub Release on the `nuclear-pyramid-archive` repo with `From Gravitons to Galaxies.docx` as a release asset.
+2. In `src/index.php` (the overlay file that replaces the archive's index page), change the docx link from `href='From Gravitons to Galaxies.docx'` to the GitHub Release download URL.
+   - If the link is in the original archive HTML rather than the overlay, add a rewrite to `transform.rb` for this specific href.
+3. Deploy. Done.
 
-```nginx
-# Redirect binary assets to /media/ path, served directly by DO CDN
-location ~* \.(jpg|jpeg|gif|png|docx|pdf|svg|ico|webp)$ {
-    return 302 /media$request_uri;
-}
-```
+### Option A (runner-up): Build Separation + DO Path Route
 
-### DO App Platform route
+If pursuing Option A later:
 
-Add a route for the nuclear pyramid domain: `nuclearpyramid.com/media/*` → the static site component that hosts the nuclear pyramid content. This route must have higher specificity than the catch-all route to the nginx container.
+1. **Build separation** (`transform.rb` or `Rakefile`): After the existing transform, copy all non-text files (files NOT matching `.php`, `.html`, `.htm`) from `docs/site/` into `docs/media/`, preserving subdirectory structure (e.g., `greatpyramid/`). This produces an assets-only tree.
 
-### Cache headers
+2. **DO App Platform**: Add a new static site component sourced from the `docs/media/` directory of the nuclear-pyramid-archive repo. Bind it to `nuclearpyramid.com/media/`. This component's document root contains only binary files.
 
-Add `Cache-Control` on the 302 response to allow browser caching of the redirect:
+3. **Choose sub-variant**:
+   - **A1 (HTML rewrite)**: In `transform.rb`, rewrite binary-asset references in HTML to use the `/media/` prefix. More thorough; eliminates nginx involvement for assets entirely.
+   - **A2 (nginx 302)**: In `proxy.conf.template` Site 2 block, add:
+     ```nginx
+     location ~* \.(jpg|jpeg|gif|png|docx|pdf|svg|ico|webp)$ {
+         return 302 /media$request_uri;
+     }
+     ```
+     Preserves original HTML; retains asset metrics in nginx logs.
 
-```nginx
-location ~* \.(jpg|jpeg|gif|png|docx|pdf|svg|ico|webp)$ {
-    add_header Cache-Control "public, max-age=31536000, immutable";
-    return 302 /media$request_uri;
-}
-```
-
-(Note: whether `add_header` works with `return` depends on nginx version and `always` flag — this should be tested.)
-
-### Verification plan
-
-1. After deploying, request an image URL directly — confirm 302 redirect and correct final response.
-2. Check nginx access logs — confirm the redirect appears but no large body is proxied.
-3. Check the docx download — confirm redirect works for the 13MB file.
-4. Load a full page in the browser — confirm all images render correctly via the redirect chain.
+4. **Verification**: Confirm `/media/proton.php` returns 404 (not the page). Confirm `/media/fig001.jpg` returns the image. Confirm pages at `/proton.php` still render as HTML through nginx.
