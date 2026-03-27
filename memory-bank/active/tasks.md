@@ -75,5 +75,5 @@ No new technology — validation not required. Minitest is already a declared de
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Preflight
-- [ ] Build
-- [ ] QA
+- [x] Build
+- [x] QA

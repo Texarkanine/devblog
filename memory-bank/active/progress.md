@@ -34,6 +34,26 @@ Offload the 13MB `From Gravitons to Galaxies.docx` from the nginx proxy path to 
     - All convention, dependency, conflict, and completeness checks pass
 * Findings
     - Info: `docs/site/index.php` transform output must be committed alongside code changes
+
+## 2025-03-27 - BUILD - COMPLETE
+
+* Work completed
+    - Added `DOCX_RELEASE_URL` constant and `rewrite_docx_link(html)` to `lib/transform.rb`
+    - Integrated into `transform_html` pipeline
+    - Ran `rake transform` — both docx hrefs in output now point to GitHub Release
+    - Updated README.md
+* Decisions made
+    - Tests skipped per operator direction
+    - Included pre-existing `about.php` overlay diff (from `src/about.php` wording change)
+
+## 2025-03-27 - QA - PASS
+
+* Work completed
+    - Semantic review against KISS, DRY, YAGNI, Completeness, Regression, Integrity, Documentation constraints
+    - All constraints pass
+    - Trivial fix: removed empty `test/` directory debris from cancelled test infrastructure
+* Findings
+    - No substantive issues
 * Decisions made
     - Rewrite will be added to `transform.rb` (not a `src/` overlay), targeting only the docx href
     - GitHub Release will host the docx file as a release asset
