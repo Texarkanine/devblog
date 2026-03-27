@@ -54,6 +54,15 @@ Offload the 13MB `From Gravitons to Galaxies.docx` from the nginx proxy path to 
     - Trivial fix: removed empty `test/` directory debris from cancelled test infrastructure
 * Findings
     - No substantive issues
+
+## 2025-03-27 - REFLECT - COMPLETE
+
+* Work completed
+    - Reviewed task execution: requirements vs outcome, plan accuracy, build/QA observations
+    - Created reflection document
+* Insights
+    - For trivial pipeline additions to a static archive, the transform output is the acceptance test
+    - GitHub Release filenames may substitute dots for spaces (not %20)
 * Decisions made
     - Rewrite will be added to `transform.rb` (not a `src/` overlay), targeting only the docx href
     - GitHub Release will host the docx file as a release asset
