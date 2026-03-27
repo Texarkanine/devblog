@@ -46,6 +46,7 @@ Offload the 13MB `From Gravitons to Galaxies.docx` from the nginx proxy path to 
 5. **Verify end-to-end**
    - Run `bundle exec rake transform` and confirm `docs/site/index.php` contains the GitHub Release URL (both occurrences at lines ~72 and ~100).
    - Run full test suite: `bundle exec rake test`.
+   - Note: `docs/site/` is git-tracked. The changed `docs/site/index.php` must be committed alongside the code change.
 
 6. **Documentation**
    - Files: `README.md`
@@ -73,6 +74,6 @@ No new technology — validation not required. Minitest is already a declared de
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
 - [x] Technology validation complete
-- [ ] Preflight
+- [x] Preflight
 - [ ] Build
 - [ ] QA
