@@ -7,7 +7,7 @@ tags:
   - ai-agents
   - harness-engineering
   - llm-context-management
-  - Sub-Agents
+  - sub-agents
 ---
 
 I came across [GitAgent](https://github.com/open-gitagent/gitagent) the other day: an "open standard" for defining AI agents as git repositories. I expected something novel about agent packaging. Instead I found a repo structure full of dot-folders and harness customization files - prompts, tools, workflows, memory, hooks - and my first reaction was "you're telling me the source code repo I already have is an agent?"
@@ -21,6 +21,8 @@ Many agentic coding harnesses offer a "Sub-Agent" primitive. The semantics vary 
 That's it. That's the whole thing.
 
 The harness opens a new context, loads the Sub-Agent's prompt (*maybe* with some scoped tool access), lets the LLM work, and returns the result to the parent. Whatever your harness calls it you're looking at `{prompt + fresh context window}` and not a whole lot more.
+
+Some practitioners use the *choice* of primitive as a cognitive shorthand - "if I put it in `agents/` it's heavy, if I put it in `skills/` it's light." That's a useful social convention, but it's a social convention, not a structural property. Nothing about the Sub-Agent primitive enforces resource budgets, guarantees isolation semantics, or defines return types. The "signal" is a folder name.
 
 ## Syntactic Sugar & Venn Diagram Overlap
 
@@ -44,9 +46,13 @@ Sure. Maybe you're building a "summarize everything I did this week for the spri
 
 But trace what you'd actually build. You'd probably write several skills (either explicitly, or implicitly in your prompt) as part of the workflow - one to pull git commits, one to scan PR reviews, one to check your calendar. Then you'd make a Sub-Agent that orchestrates those skills. Except... you could've just made a skill that kicked all three off. If it needs its own context window, just launch it from one... *or* just write that into the skill's prompt. The Sub-Agent primitive saved you a line of prompt at the cost of locking in an execution strategy.
 
-The sugar is bad for you. It tastes good but it isn't actually helping.
+There's a stronger version of the case for Sub-Agents: a Sub-Agent primitive *could* carry **execution** metadata that a bare skill can't. Because a Sub-Agent primitive **does** come with assumptions about how and where it will be executed, you could leverage that. Things like Model routing (send summarization to Haiku, complex reasoning to Opus), cost ceilings, caching strategies - real value if the harness could act on it. But no current implementation does this portably. You're writing `model: haiku` in a harness-specific config file either way, and you can't ship a Claude Code Sub-Agent with an Opus worker and Haiku orchestrator to Cursor or Gemini CLI because there's no open standard for Sub-Agents.
 
-It's okay every now and then as a treat, of course - saving a couple keystrokes on a workflow you know is always going to be its own context window. But if you're building something to distribute, share, or compose into larger workflows, the Sub-Agent primitive is probably the wrong choice - just like Commands are.
+If the [Agent Skills](https://agentskills.io) standard or a successor ever grows a metadata field for execution hints, this argument for Sub-Agents evaporates entirely - and the fix would be enriching skills, not preserving the Sub-Agent primitive.
+
+Sub-Agents are syntactic sugar.
+
+It's okay to have some sugar every now and then as a treat - saving a couple keystrokes on a workflow you know is always going to be its own context window. And for teams early in agentic adoption, the forced isolation of a Sub-Agent is a useful guardrail: it makes the system more predictable right up until the predictability becomes a constraint. But if you're building something to distribute, share, or compose into larger workflows, the Sub-Agent primitive is probably the wrong choice - just like Commands are.
 
 ## Bundling
 
@@ -54,11 +60,13 @@ Skills have a property that Sub-Agents don't: the [Agent Skills](https://agentsk
 
 Sub-Agents and Commands can't do this. They're "just" prompts. If you expanded the Sub-Agent primitive to support bundled resources, you'd end up re-implementing the Agent Skills standard with one extra assumption bolted on: that execution always happens in a fresh context window. That's a lot of work just to bolt a constraint that should be optional onto machinery that already exists!
 
+There's a piece missing from this argument that I'll address in a future post: the *execution model*. A bundle that carries prompts and static resources is good. A bundle that also carries deterministic code - scripts that handle the mechanical work so the LLM doesn't burn inference on for-loops - is better. That's the difference between a capability definition and a fully operational unit, and it's why bundling resources alongside prompts is load-bearing rather than nice-to-have.
+
 ## Agent is a Complex Type
 
 Which brings me back to GitAgent and why my first reaction was wrong.
 
-When I saw their repo structure - `agent.yaml` for configuration, directories for skills, workflows, tools, memory, hooks - I thought "this is just a regular repo instrumented for agentic development - it's got dot folders for all the harness customizations." But the file layout is not the point. "Agent" shouldn't be a harness primitive at all. It's a [complex type](https://en.wikipedia.org/wiki/Composite_data_type).
+When I saw their repo structure - `agent.yaml` for configuration, directories for skills, workflows, tools, memory, hooks - I thought "this is just a regular repo instrumented for agentic development - it's got dot folders for all the harness customizations." But the file layout is beside the point; the insight is that "Agent" shouldn't be a harness primitive at all. It's a [complex type](https://en.wikipedia.org/wiki/Composite_data_type).
 
 Think about a customer service agent - human or AI, doesn't matter. They have a job description specifying what they're supposed to accomplish. A script walks them through customer interactions. Information sources let them look things up. Tools let them make changes to data or cause side effects on behalf of the customer. And a tracking system for previous interactions keeps them oriented on what they've been up to.
 
@@ -70,7 +78,7 @@ That's an Agent with a capital A. A mini-application. And you can't build one fr
 
 ## Don't Write a Sub-Agent, Write a Skill
 
-Commands were syntactic sugar over Skills, with come capabilities blocked. Claude Code killed them and nobody mourned.
+Commands were syntactic sugar over Skills, with some capabilities blocked. Claude Code killed them and nobody mourned.
 
 Sub-Agents are syntactic sugar over Skills with some capabilities (choice of context window) blocked.
 
