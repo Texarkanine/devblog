@@ -39,6 +39,7 @@ body {
 
 /*
  * Scroll-driven reading progress bar (post pages only).
+ * Now: Only visible in dark mode! (Light mode = display: none)
  *
  * Outer = full-width track (--body-bg); inner .reading-progress-fill scales with scroll.
  * Browsers that support animation-timeline: scroll() tie the scaleX keyframe to
@@ -50,34 +51,44 @@ body {
 	to   { transform: scaleX(1); }
 }
 
-/* Full-width track (body bg) so page content never shows through the unfilled strip */
+/* default, or keyframe scroll unsupported: hidden */
 .reading-progress {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 3px;
-	z-index: 10000;
-	pointer-events: none;
-	background-color: var(--body-bg);
+	display: none;
 }
 
 .reading-progress-fill {
-	display: block;
-	height: 100%;
-	width: 100%;
-	transform-origin: left center;
-	/*
-	 * Default: hidden. Without a scroll timeline the animation never meaningfully runs,
-	 * so Safari / older engines keep scaleX(0) and only the track shows.
-	 */
-	transform: scaleX(0);
-	background-color: var(--body-color);
-	animation-name: reading-progress-scale;
-	animation-duration: 1ms;
-	animation-timing-function: linear;
-	animation-timeline: scroll(root block);
+	display: none;
 }
+
+/* Only show the progress bar in dark mode */
+@media (prefers-color-scheme: dark) {
+	.reading-progress {
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 3px;
+		z-index: 10000;
+		pointer-events: none;
+		background-color: var(--body-bg);
+	}
+	.reading-progress-fill {
+		display: block;
+		height: 100%;
+		width: 100%;
+		transform-origin: left center;
+		transform: scaleX(0);
+		background-color: var(--body-color);
+		animation-name: reading-progress-scale;
+		animation-duration: 1ms;
+		animation-timing-function: linear;
+		animation-timeline: scroll(root block);
+	}
+}
+
+
+
 
 /* Sponsor footer centering */
 body > footer {
