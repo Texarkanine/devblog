@@ -22,17 +22,17 @@ That's it. That's the whole thing.
 
 The harness opens a new context, loads the Sub-Agent's prompt (*maybe* with some scoped tool access), lets the LLM work, and returns the result to the parent. Whatever your harness calls it you're looking at `{prompt + fresh context window}` and not a whole lot more.
 
-Some practitioners use the *choice* of primitive as a cognitive shorthand - "if I put it in `agents/` it's heavy, if I put it in `skills/` it's light." That's a useful social convention, but it's a social convention, not a structural property. Nothing about the Sub-Agent primitive enforces resource budgets, guarantees isolation semantics, or defines return types. The "signal" is a folder name.
+Some practitioners use the *choice* of primitive as a cognitive shorthand - "if I put it in `agents/` it's heavy, if I put it in `skills/` it's light." Or maybe to [categorize a workstream](https://danielmiessler.com/blog/when-to-use-skills-vs-commands-vs-agents). Those could be useful social conventions, but they're social conventions, not structural properties. Nothing about the Sub-Agent primitive enforces resource budgets, guarantees isolation semantics, or defines return types, for example. The "signal" is a folder name.
 
 ## Syntactic Sugar & Venn Diagram Overlap
 
-I wrote previously about [the use case for slash commands](/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html) and, a couple months earlier, about [the use case against them](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html). The conclusion was that Commands are syntactic sugar over skills. A Command is a convenient way to invoke a prompt with some preconfigured behavior, but a skill can do everything a Command does while remaining composable, portable, and reusable. Claude Code [validated this by killing Commands altogether and making skills directly invocable](https://code.claude.com/docs/en/changelog#2-1-3) in early January 2026.
+I wrote previously about [the use case for slash commands](/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html) and, a couple months earlier, about [the use case against them](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html). The conclusion was that Commands are syntactic sugar over Skills. A Command is a convenient way to invoke a prompt with some preconfigured behavior, but a Skill can do everything a Command does while remaining composable, portable, and reusable. Claude Code [validated this by killing Commands altogether and making Skills directly invocable](https://code.claude.com/docs/en/changelog#2-1-3) in early January 2026.
 
-Sub-Agents are similarly reducible to skills.
+Sub-Agents are similarly reducible to Skills.
 
-Consider a skill that summarizes your calendar for today. If you invoke it as a Sub-Agent, the harness spawns a fresh context window, loads the prompt, the LLM walks through the workflow, and you get your summary. If you invoke it as a skill, the LLM walks through the same workflow in your current context. And if you invoke it as a skill but write in your prompt that that it should spawn a Sub-Agent to run the skill, you get the exact same outcome as the Sub-Agent primitive - except now *you* decided whether the work happens inline or in a separate context, rather than having that decision baked into the primitive.
+Consider a Skill that summarizes your calendar for today. If you invoke it as a Sub-Agent, the harness spawns a fresh context window, loads the prompt, the LLM walks through the workflow, and you get your summary. If you invoke it as a Skill, the LLM walks through the same workflow in your current context. And if prompt your current context window that it should spawn a Sub-Agent to run the Skill, you get the exact same outcome as the Sub-Agent primitive - except now *you* decided whether the work happens inline or in a separate context, rather than having that decision baked into the primitive.
 
-Skills strictly dominate. Same capability, more flexibility about where and how the work executes. The Sub-Agent primitive bakes in an execution strategy (new context window) that should be an invocation-time decision.
+Skills strictly dominate. Same capability, more flexibility about where and how the work executes. The Sub-Agent primitive bakes in an execution strategy - fresh new context window - that should be an invocation-time decision.
 
 All three are the same:
 
@@ -50,7 +50,7 @@ There's a stronger version of the case for Sub-Agents: a Sub-Agent primitive *co
 
 If the [Agent Skills](https://agentskills.io) standard or a successor ever grows a metadata field for execution hints, this argument for Sub-Agents evaporates entirely - and the fix would be enriching skills, not preserving the Sub-Agent primitive.
 
-Sub-Agents are syntactic sugar.
+Today, Sub-Agents are syntactic sugar.
 
 It's okay to have some sugar every now and then as a treat - saving a couple keystrokes on a workflow you know is always going to be its own context window. And for teams early in agentic adoption, the forced isolation of a Sub-Agent is a useful guardrail: it makes the system more predictable right up until the predictability becomes a constraint. But if you're building something to distribute, share, or compose into larger workflows, the Sub-Agent primitive is probably the wrong choice - just like Commands are.
 
@@ -60,7 +60,7 @@ Skills have a property that Sub-Agents don't: the [Agent Skills](https://agentsk
 
 Sub-Agents and Commands can't do this. They're "just" prompts. If you expanded the Sub-Agent primitive to support bundled resources, you'd end up re-implementing the Agent Skills standard with one extra assumption bolted on: that execution always happens in a fresh context window. That's a lot of work just to bolt a constraint that should be optional onto machinery that already exists!
 
-There's a piece missing from this argument that I'll address in a future post: the *execution model*. A bundle that carries prompts and static resources is good. A bundle that also carries deterministic code - scripts that handle the mechanical work so the LLM doesn't burn inference on for-loops - is better. That's the difference between a capability definition and a fully operational unit, and it's why bundling resources alongside prompts is load-bearing rather than nice-to-have.
+There's a piece missing from this argument that I'll address in a future post: the *execution model*. A bundle that carries prompts and static resources is good. A bundle that can directly integrate with the harness's own behaviors around opening new context windows is *better!* That's the difference between a capability definition and a fully operational unit, and it's why bundling resources alongside prompts is load-bearing rather than nice-to-have.
 
 ## Agent is a Complex Type
 
