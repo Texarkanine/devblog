@@ -33,6 +33,7 @@ tags:
 
 - [A blog post is a very long and complex search query to find fascinating people and make them route interesting stuff to your inbox](https://www.henrikkarlsson.xyz/p/search-query)
   - On the internet, Wonderland is recursive, with rabbit holes opening up to yet more rabbit holes; you never stop falling. And the further you fall, the less likely it is that anyone you’ve ever met is falling where you are. This will make you immensely sad.
+- [Maybe we finally have a compelling enough excuse to fix the 20 years of problems hidden by code review culture, and replace it with a real culture of quality.](https://apenwarr.ca/log/20260316)
 
 ## Actually Good Lifehacks
 
