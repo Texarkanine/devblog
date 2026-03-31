@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-30T22:17:57+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Sub-Agents aren’t Agents - They’re Skills but Worse</title><link href="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html" rel="alternate" type="text/html" title="Sub-Agents aren’t Agents - They’re Skills but Worse" /><published>2026-03-30T00:00:00+00:00</published><updated>2026-03-30T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html"><![CDATA[<p>I came across <a href="https://github.com/open-gitagent/gitagent">GitAgent</a> the other day: an “open standard” for defining AI agents as git repositories. I expected something novel about agent packaging. Instead I found a repo structure full of dot-folders and harness customization files - prompts, tools, workflows, memory, hooks - and my first reaction was “you’re telling me the source code repo I already have is an agent?”</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-03-31T03:03:21+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Sub-Agents aren’t Agents - They’re Skills but Worse</title><link href="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html" rel="alternate" type="text/html" title="Sub-Agents aren’t Agents - They’re Skills but Worse" /><published>2026-03-30T00:00:00+00:00</published><updated>2026-03-30T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html"><![CDATA[<p>I came across <a href="https://github.com/open-gitagent/gitagent">GitAgent</a> the other day: an “open standard” for defining AI agents as git repositories. I expected something novel about agent packaging. Instead I found a repo structure full of dot-folders and harness customization files - prompts, tools, workflows, memory, hooks - and my first reaction was “you’re telling me the source code repo I already have is an agent?”</p>
 
 <p>But that reaction was wrong, and the reason it was wrong sharpened something I’d been circling for months about how agentic coding harnesses model their primitives.</p>
 
@@ -76,7 +76,85 @@
 
 <p>So don’t write a Sub-Agent, write a Skill.</p>
 
-<p>And if you’re building a Full and Proper Agent - the complex type - find a <a href="https://code.claude.com/docs/en/plugins">harness</a> that <a href="https://geminicli.com/docs/extensions/">supports</a> bundling its primitives <a href="https://developers.openai.com/codex/plugins">together</a> into a <a href="https://opencode.ai/docs/plugins/">single installable unit</a> - that’s the sort of foundation you want to be building on.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai-agents" /><category term="harness-engineering" /><category term="llm-context-management" /><category term="sub-agents" /><summary type="html"><![CDATA[Sub-Agents are syntactic sugar over skills with one baked-in assumption about execution context that should be the caller's decision.]]></summary></entry><entry><title type="html">Pull the Thread</title><link href="https://blog.cani.ne.jp/2026/03/23/pull-the-thread.html" rel="alternate" type="text/html" title="Pull the Thread" /><published>2026-03-23T00:00:00+00:00</published><updated>2026-03-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/23/pull-the-thread</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/23/pull-the-thread.html"><![CDATA[<p><a href="/2026/03/21/the-load-bearing-pipeline-was-human.html">A recent blog post</a> had four <a href="https://mermaid.js.org/">Mermaid</a> block diagrams illustrating its points. By the time I looked at the deployed version, the edge labels were clipped and the text was shoved left.</p>
+<p>And if you’re building a Full and Proper Agent - the complex type - find a <a href="https://code.claude.com/docs/en/plugins">harness</a> that <a href="https://geminicli.com/docs/extensions/">supports</a> bundling its primitives <a href="https://developers.openai.com/codex/plugins">together</a> into a <a href="https://opencode.ai/docs/plugins/">single installable unit</a> - that’s the sort of foundation you want to be building on.</p>
+
+<h2 id="practically-visually">Practically, Visually</h2>
+
+<p>Given that you have a task that you need an LLM to do on-demand…</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/26b560e6.svg"><img src="/assets/svg/26b560e6.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/26b560e6-dark.svg"><img src="/assets/svg/26b560e6-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>You should find it quite hard to actually arrive at “Sub-Agent” in the process above!</p>
+
+<ol>
+  <li>If you know the task must <em>always</em> be run in a fresh context window - if it would be <em>wrong</em> to have any existing context…</li>
+  <li>And you’re going to need to rely on someone else to launch the task correctly…</li>
+  <li>And this task does not require any scripts or additional resources…</li>
+</ol>
+
+<p><em>Then</em> a Sub-Agent is the right primitive choice, over a Skill. However, that “always” is doing a <em>lot</em> of work, make sure you’re right about your answer there!</p>
+
+<h2 id="claude-code-subagents">Claude Code Subagents</h2>
+
+<p>Arguably the frontrunner and most-mature of the agentic coding harnesses that offer the Sub-Agent primitive, Claude Code <a href="https://code.claude.com/docs/en/sub-agents#supported-frontmatter-fields">does offer quite a few</a> Sub-Agent configuration options that affect the context window of the spawned process in a way that would otherwise be more difficult to achieve.</p>
+
+<p>Notably, you have <em>some</em> degree of control over the other primitives that the spawned context window will have access to, e.g.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">skills</code> - Skills to load into the subagent’s context at startup. The full skill content is injected, not just made available for invocation. Subagents don’t inherit skills from the parent conversation</p>
+</blockquote>
+
+<p>and</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">hooks</code> - Lifecycle hooks scoped to this subagent</p>
+</blockquote>
+
+<p>Most of the rest of the configuration options are trivially-achievable otherwise, and exist as forms of - again - syntactic sugar around either</p>
+
+<ul>
+  <li>The main agent invoking the <code class="language-plaintext highlighter-rouge">Agent(...)</code> tool with lots of parameters, or</li>
+  <li>Shelling out to the <code class="language-plaintext highlighter-rouge">claude ...</code> CLI with lots of parameters.</li>
+</ul>
+
+<p>so you can bake in the defaults you want, for the agent you’re building. That’s not <em>useless</em> but it’s not revolutionary. Indeed, it could be <em>useful</em> if you’re building for “other people” and you need all these launch parameters to be set correctly every time in order for your prompt to succeed.</p>
+
+<p>The real interesting things are the harness-level customizations that you couldn’t easily just set in a fresh <code class="language-plaintext highlighter-rouge">claude ...</code> session. If you launch Claude Code with a set of hooks, it’s not easy - except for the Sub-Agent frontmatter - to <em>spawn</em> a new context window with a <em>different</em> set of hooks. Similarly, the <code class="language-plaintext highlighter-rouge">skills</code> frontmatter option behaves <em>differently</em> in the Sub-Agent, loading the whole skill context into the spawned window, rather than following progressive disclosure.</p>
+
+<p>If anything, this should sound like a rhyme with the rest of this post.</p>
+
+<ul>
+  <li>If you’re seeding a spawned context window with the <em>entirety</em> of a Skill, that’s just another way of specifying <code class="language-plaintext highlighter-rouge">spawn a new context window and run the X Skill</code>.</li>
+  <li>If you’re seeding the context window with <em>multiple</em> Skills in full, that’s just another way of bundling multiple Skill primitives together.</li>
+</ul>
+
+<p>It’s just that <em>this</em> method involves the harness in the process, hopefully making it a more-deterministic affair.</p>
+
+<p><strong>That</strong> is a strong differentiator in favor of the Sub-Agent primitive in Claude Code, then: involving the harness instead of relying on the LLM. That’s a whole other blog post, though.</p>
+
+<p>In the meantime, the flowchart above - and the <code class="language-plaintext highlighter-rouge">GitAgent</code> insight - apply. I would suggest that, outside prototyping and personal use, you should either:</p>
+
+<ul>
+  <li><strong>Design Below Critical Complexity:</strong> Build atomic, composable units in Skills, and if you must orchestrate them, do it with another Skill.</li>
+  <li><strong>Step Up to Harness-Level Plugin  (build an Agent):</strong> If you require bundling multiple primitives together (such as 2 Skills + an orchestrator Skill), or if you need to spawn context windows with specific settings, use a <a href="https://geminicli.com/docs/extensions/">harness-level</a> extension <a href="https://opencode.ai/docs/plugins/">like</a> the <a href="https://developers.openai.com/codex/plugins/">ones</a> already <a href="https://code.claude.com/docs/en/plugins">mentioned</a>.
+    <ul>
+      <li>GitAgent (or a similar open standard for Agents) might offer a cross-harness alternative.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>If you <em>design for</em> the Sub-Agent primitive <em>and</em> try to ship it out to other people, I think you’ll find yourself getting the worst of both worlds.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai-agents" /><category term="harness-engineering" /><category term="llm-context-management" /><category term="sub-agents" /><summary type="html"><![CDATA[Sub-Agents are syntactic sugar over skills with one baked-in assumption about execution context that should be the caller's decision.]]></summary></entry><entry><title type="html">Pull the Thread</title><link href="https://blog.cani.ne.jp/2026/03/23/pull-the-thread.html" rel="alternate" type="text/html" title="Pull the Thread" /><published>2026-03-23T00:00:00+00:00</published><updated>2026-03-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/23/pull-the-thread</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/23/pull-the-thread.html"><![CDATA[<p><a href="/2026/03/21/the-load-bearing-pipeline-was-human.html">A recent blog post</a> had four <a href="https://mermaid.js.org/">Mermaid</a> block diagrams illustrating its points. By the time I looked at the deployed version, the edge labels were clipped and the text was shoved left.</p>
 
 <p>Fixing those four diagrams took six hours, produced three gem releases, and ended with a CSS-only reading progress bar I hadn’t planned to build.</p>
 
