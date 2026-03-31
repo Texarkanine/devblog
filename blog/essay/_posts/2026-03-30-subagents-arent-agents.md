@@ -87,3 +87,71 @@ If you're writing an instruction set to enable an AI to do something, Skills off
 So don't write a Sub-Agent, write a Skill.
 
 And if you're building a Full and Proper Agent - the complex type - find a [harness](https://code.claude.com/docs/en/plugins) that [supports](https://geminicli.com/docs/extensions/) bundling its primitives [together](https://developers.openai.com/codex/plugins) into a [single installable unit](https://opencode.ai/docs/plugins/) - that's the sort of foundation you want to be building on.
+
+## Practically, Visually
+
+Given that you have a task that you need an LLM to do on-demand...
+
+```mermaid
+flowchart LR
+	WindowChoice{"<b>ALWAYS</b> in a fresh<br>context window?"}
+	ForWhom{"For Whom?"}
+	Skill("Skill")
+
+	NeedsResources{"Needs Scripts or<br>Resources?"}
+	NeedsResources -->|"Yes"| Skill
+	NeedsResources -->|"No"| SubAgent
+
+	SubAgent("Sub-Agent")
+	ForWhom -->|"Me"| Skill
+	ForWhom -->|"Someone Else"| NeedsResources
+
+	WindowChoice -->|"Yes"| ForWhom
+	WindowChoice -->|"No"| Skill
+```
+
+You should find it quite hard to actually arrive at "Sub-Agent" in the process above!
+
+1. If you know the task must *always* be run in a fresh context window - if it would be *wrong* to have any existing context...
+2. And you're going to need to rely on someone else to launch the task correctly...
+3. And this task does not require any scripts or additional resources...
+
+*Then* a Sub-Agent is the right primitive choice, over a Skill. However, that "always" is doing a *lot* of work, make sure you're right about your answer there!
+
+## Claude Code Subagents
+
+Arguably the frontrunner and most-mature of the agentic coding harnesses that offer the Sub-Agent primitive, Claude Code [does offer quite a few](https://code.claude.com/docs/en/sub-agents#supported-frontmatter-fields) Sub-Agent configuration options that affect the context window of the spawned process in a way that would otherwise be more difficult to achieve.
+
+Notably, you have *some* degree of control over the other primitives that the spawned context window will have access to, e.g.
+
+> `skills` - Skills to load into the subagent’s context at startup. The full skill content is injected, not just made available for invocation. Subagents don’t inherit skills from the parent conversation
+
+and
+
+> `hooks` - Lifecycle hooks scoped to this subagent
+
+Most of the rest of the configuration options are trivially-achievable otherwise, and exist as forms of - again - syntactic sugar around either
+
+- The main agent invoking the `Agent(...)` tool with lots of parameters, or
+- Shelling out to the `claude ...` CLI with lots of parameters.
+
+so you can bake in the defaults you want, for the agent you're building. That's not *useless* but it's not revolutionary. Indeed, it could be *useful* if you're building for "other people" and you need all these launch parameters to be set correctly every time in order for your prompt to succeed.
+
+The real interesting things are the harness-level customizations that you couldn't easily just set in a fresh `claude ...` session. If you launch Claude Code with a set of hooks, it's not easy - except for the Sub-Agent frontmatter - to *spawn* a new context window with a *different* set of hooks. Similarly, the `skills` frontmatter option behaves *differently* in the Sub-Agent, loading the whole skill context into the spawned window, rather than following progressive disclosure.
+
+If anything, this should sound like a rhyme with the rest of this post. 
+
+- If you're seeding a spawned context window with the *entirety* of a Skill, that's just another way of specifying `spawn a new context window and run the X Skill`.
+- If you're seeding the context window with *multiple* Skills in full, that's just another way of bundling multiple Skill primitives together. 
+
+It's just that *this* method involves the harness in the process, hopefully making it a more-deterministic affair.
+
+**That** is a strong differentiator in favor of the Sub-Agent primitive in Claude Code, then: involving the harness instead of relying on the LLM. That's a whole other blog post, though.
+
+In the meantime, the flowchart above - and the `GitAgent` insight - apply. I would suggest that, outside prototyping and personal use, you should either:
+
+- **Design Below Critical Complexity:** Build atomic, composable units in Skills, and if you must orchestrate them, do it with another Skill.
+- **Step Up to Harness-Level Plugin  (build an Agent):** If you require bundling multiple primitives together (such as 2 Skills + an orchestrator Skill), or if you need to spawn context windows with specific settings, use a [harness-level](https://geminicli.com/docs/extensions/) extension [like](https://opencode.ai/docs/plugins/) the [ones](https://developers.openai.com/codex/plugins/) already [mentioned](https://code.claude.com/docs/en/plugins).
+	- GitAgent (or a similar open standard for Agents) might offer a cross-harness alternative.
+
+If you *design for* the Sub-Agent primitive *and* try to ship it out to other people, I think you'll find yourself getting the worst of both worlds.
