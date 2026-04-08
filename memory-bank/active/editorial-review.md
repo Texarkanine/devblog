@@ -81,13 +81,15 @@ Each note is numbered in document order. Categories:
 - **Category:** Craft
 - **Section:** The Distinction That Actually Matters
 - **Editor says:** Cringey. Maybe insufficiently humble. "Please try again."
-- **Status:** Pending
+- **Resolution:** Original "Here's the thing" removed. Initial replacement intro ("Most of the research assumes a monolithic prompt...") was cut during EN-13 pass because it created a repetitive sandwich with the pivot paragraph. The heading now flows directly into the thesis paragraph. Editor's note removed.
+- **Status:** ✅ COMPLETED
 
 ### EN-13: Single-generation claim verification (lines ~233-239)
 - **Category:** Research, Factual
 - **Section:** The Distinction That Actually Matters
 - **Editor says:** "Prove to me that the claim that EVERY paper is single-generation, is true... or refute it with a concrete counterexample from a paper's text." Hidden easter egg.
-- **Status:** Pending
+- **Resolution:** Refuted. Wen et al. (instruction drift) explicitly studies multi-turn divergence - it's a counterexample to "every." Softened "Every study" to "Nearly every study," which is accurate and doesn't require a digression about which paper is the exception. Editor's note removed. Resolved jointly with EN-12 to eliminate the three-paragraph repetition (intro/evidence/pivot said "not monolithic" twice).
+- **Status:** ✅ COMPLETED
 
 ### EN-14: Re-injection not universally true (lines ~250-254)
 - **Category:** Factual

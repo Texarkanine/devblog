@@ -84,23 +84,9 @@ For small N, the compounding fix dominates; unroll. For very large N, drift may 
 
 ## The Distinction That Actually Matters
 
-Here's the thing that most discussions of this topic miss, and the reason a blanket "always unroll" recommendation is incomplete.
+Nearly every study cited so far measures *single-generation* constraint satisfaction. ManyIFEval tests whether 10 formatting constraints are satisfied in one output.[^1] IFScale tests whether 500 keywords appear in one business report.[^2] Chen et al.'s multi-instance processing study tests whether 100 items are processed in one pass.[^9] The attention sink, lost-in-the-middle, and causal masking effects all operate within a single forward pass of the model.
 
-<!-- Editor's Note:
-
-I'm sorry, the art of single-sentence section intro is hard. Please try again; this one is... cringey. Maybe it's insufficiently humble? Or maybe that's just my opinion.
-
--->
-
-Every study cited so far measures *single-generation* constraint satisfaction. ManyIFEval tests whether 10 formatting constraints are satisfied in one output. IFScale tests whether 500 keywords appear in one business report. Chen et al.'s multi-instance processing study[^9] tests whether 100 items are processed in one pass. The attention sink, lost-in-the-middle, and causal masking effects all operate within a single forward pass of the model.
-
-<!-- Editor's Note:
-
-I'm pretty sure that's not true of every paper so far, but I have to poop and I can't remember so this is a hidden in the middle easter egg for you: prove to me that the claim that EVERY paper is single-generation, is true... or refute it with a concrete counterexample from a paper's text.
-
--->
-
-But most practitioners asking "should I unroll my loops?" aren't writing monolithic prompts. They're building [agentic workflows](https://en.wikipedia.org/wiki/Intelligent_agent) where the model makes tool calls - reads a file, queries a database, edits a document - and each tool call creates a new generation boundary. In a typical agentic loop:
+But most people asking "should I unroll my loops?" aren't writing monolithic prompts. They're building [agentic workflows](https://en.wikipedia.org/wiki/Intelligent_agent) where the model makes tool calls - reads a file, queries a database, edits a document - and each tool call creates a new generation boundary. In a typical agentic loop:
 
 1. Load guidance rule (tool call, new generation context)
 2. Read file (tool call, new generation context)
