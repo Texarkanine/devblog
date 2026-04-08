@@ -102,7 +102,8 @@ Each note is numbered in document order. Categories:
 - **Category:** Citation
 - **Section:** The Distinction That Actually Matters (Anthropic paragraph)
 - **Editor says:** "Anthropic's own documentation can probably be an anchor link."
-- **Status:** Pending
+- **Resolution:** Made "Anthropic's prompt engineering documentation" an anchor link via `[11]` reference link. Footnote `[^11]` retained on the quote and DRYed up to share the same `[11]` reference. Editor's note removed.
+- **Status:** ✅ COMPLETED
 
 ### EN-16: Decision framework + editor's own framework (lines ~297-322)
 - **Category:** Content (MAJOR)
