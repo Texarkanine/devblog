@@ -61,7 +61,7 @@ A landmark study by Liu et al. in [Transactions of the ACL](https://arxiv.org/ab
 
 <!-- Editor's Note:
 
-I have confirmed both linked papers are relevant. the footnote 4 goes to "found in the middle".
+I have confirmed both linked papers are relevant. the footnote 4 goes to "found in the middle". "Transactions of the ACL" is not the paper title; it's "Lost in the Middle: How Language Models Use Long Contexts".
 
 One or both may bear the "linkcard / direct quote" treatment.
 
