@@ -122,13 +122,13 @@ Each note is numbered in document order. Categories:
 - **Category:** Craft
 - **Section:** What This Means
 - **Editor says:** "Would like a different section header here, I think." (Note: blogging.mdc explicitly calls out "What This Means" as often a bad title.)
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-19: Coverage Principle anchor text (lines ~351-355)
 - **Category:** Citation, Factual
 - **Section:** What This Means (Coverage Principle paragraph)
 - **Editor says:** "'The Coverage Principle' shows up once in that paper, as a side reference. Anchor text may need fixing."
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-20: Global editorial passes (lines ~360-373)
 - **Category:** Factual, Citation (GLOBAL)

@@ -170,25 +170,13 @@ If you must keep many items in a single prompt, three mitigations improve compli
 2. use indexed structural tags for each item[^12],
 3. add a self-verification step asking the model to check whether it completed all items[^13]
 
-## What This Means
-
-<!-- Editor's Note
-
-Would like a different section header here, I think.
-
--->
+## Think in Generations
 
 The transformer's causal attention architecture mechanistically favors explicit, per-item instruction blocks over abstract loop constructs. This is not a prompting trick - it's a consequence of how softmax attention, causal masking, and positional encoding interact. The research evidence for this is strong, converging from multiple independent programs.
 
 But "always unroll" is an oversimplification that fails to account for how most people actually use language models today. In agentic workflows, tool-call boundaries act as natural generation resets that mitigate the very problems unrolling solves. The real skill is learning to think in terms of constraints-per-generation rather than constraints-per-prompt.
 
-The research also suggests this isn't something models will simply "grow out of." The [Coverage Principle](https://arxiv.org/abs/2505.20278) (2025) argues that for tasks requiring multi-hop reasoning - the logical equivalent of a loop - the training data requirement grows quadratically with token set size.[^14] The limitation is architectural, not parametric. Scaling model size doesn't linearly improve loop handling.
-
-<!-- Editor's note: 
-
-"The coverage principle" shows up once in that paper, as a side reference. Anchor text may need fixing.
-
--->
+The research also suggests this isn't something models will simply "grow out of." [Recent work on compositional generalization](https://arxiv.org/abs/2505.20278) (2025) argues that for tasks requiring multi-hop reasoning - the logical equivalent of a loop - the training data requirement grows quadratically with token set size.[^14] The limitation is architectural, not parametric. Scaling model size doesn't linearly improve loop handling.
 
 So: unrolling works, the reasons it works are well-understood, and the situations where it doesn't matter are equally well-defined. The question was never really "loop or unroll?" It was "how many things am I asking the model to hold in its head at once?" That question has a precise, architecturally grounded answer. It's just not always the same one.
 
@@ -197,7 +185,7 @@ So: unrolling works, the reasons it works are well-understood, and the situation
 
 DATE ACCURACY:
 
-Because things change so fast, we must note what "leading" or "frontier" models are at the time of paper authorship, and should probably also include the (authors et. al 20XX) for all papers when they are first introduced.
+Because things change so fast, we must note what "leading" or "frontier" models are at the time of paper authorship, and should probably also include the (authors et. al MONTH 20XX) for all papers when they are first introduced.
 
 OPEN vs CLOSED:
 
