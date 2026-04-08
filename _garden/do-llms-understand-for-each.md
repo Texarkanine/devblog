@@ -96,14 +96,18 @@ But most people asking "should I unroll my loops?" aren't writing monolithic pro
 
 Each tool call resets the generation context. The agent isn't trying to satisfy 15 constraints in one output - it's doing 5 things, getting a response, doing 5 more, getting a response. The exponential compounding from ManyIFEval doesn't apply because each generation carries only a handful of constraints. The positional bias effects are also mitigated, though how much depends on the harness - orchestration frameworks differ in whether and how they re-inject context between tool calls.
 
-The prompt repetition paper implicitly confirms this. Its effect is neutral for reasoning models because they already "re-read" internally via chain-of-thought.[^5] Agentic tool-call loops achieve the same re-reading mechanically - each iteration brings the instructions back into focus through the tool response cycle.
+The prompt repetition paper implicitly confirms this: its effect is neutral for reasoning models because they already "re-read" internally via chain-of-thought.[^5] Agentic tool-call loops achieve the same re-reading mechanically - each iteration brings the instructions back into focus through the tool response cycle.
 
 The [Multi-Task Inference][6] benchmark (Son et al., February 2024) points at the same boundary from the other direction. When 2-3 closely related subtasks shared a single generation instead of being split apart, GPT-4 improved by up to 12.4%. The authors' explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task." This is evidence about where to draw the generation boundary, not evidence for loops. Once you've partitioned work into per-item units, over-decomposing the steps *within* each item's group can hurt by denying related steps access to one another's context.
 
 This doesn't mean agentic workflows are immune to instruction-following failures. The [AGENTIF benchmark](https://arxiv.org/abs/2505.16944) (Qi et al., NeurIPS 2025) - the first benchmark specifically designed for instruction following in agentic scenarios - found that current models still struggle, even the best achieving only about 60% constraint satisfaction on agentic prompts averaging nearly 12 constraints each.[^10] Conditional constraints proved particularly fragile: over 30% of failures came from incorrect condition checking - the model failing to recognize whether a condition was triggered, not failing to follow the constraint itself. And meta-constraints - instructions that govern other instructions, like "prioritize X over Y" - were among the least reliable of all.[^10] The constraints-per-generation count still matters. It's just that tool boundaries keep the per-generation count lower than what a monolithic prompt would impose.
 
-[Anthropic's prompt engineering documentation][11] reflects this shift. Their guidance, which once recommended chaining as a general best practice for reducing errors, now positions it as a niche technique:
+There's a deeper prerequisite for successful agentic looping, too. LLMs have effectively zero latent working memory - [Huang et al.][15] (2025) showed that LLMs function as "reactive post-hoc solvers" that reconstruct task state from context at every generation. They don't hold a mental checklist; they re-derive one from the conversation history each turn. As that history grows, reconstruction degrades: open-weight models stop making measurable progress after about 6 steps,[^16] and roughly 23% of multi-agent system failures stem from premature termination, incomplete verification, or looping indefinitely.[^17] For iterative workflows, the fix is to externalize the iteration state - get the "what's done / what remains" tracking out of the model's head and into something it reads back explicitly.
 
+[Anthropic's prompt engineering documentation][11] reflects both of these takeaways. Their guidance explicitly advises externalizing the task list, and notes Claude's reasoning as the reason why you don't have to manually orchestrate multi-step processes anymore:
+
+> Use the first context window to set up a framework (write tests, create setup scripts), then use future context windows to iterate on a todo-list.
+> <br>...<br>
 > With adaptive thinking and subagent orchestration, Claude handles most multi-step reasoning internally. Explicit prompt chaining (breaking a task into sequential API calls) is still useful when you need to inspect intermediate outputs or enforce a specific pipeline structure.
 
 ## The Real Question
@@ -112,7 +116,7 @@ The most useful insight from integrating this research isn't about loops versus 
 
 The research unanimously shows that within a single generation, constraint compounding is exponential and positional bias is real. The practical question is always: *how many constraints am I asking the model to satisfy in this generation?*
 
-If the answer is "few, because tool calls partition the work," loops are fine. If the answer is "many, because this is a monolithic prompt," unroll.
+If the answer is "few, because tool calls partition the work," loops are fine. If the answer is "many, because this is a monolithic prompt," unroll. The real answer lurking under that decision is that while loops can sometimes work, unrolling - whether in the prompt, the harness, or within the model's reasoning - is basically always being used for handling iterative assignments.
 
 ## A Decision Framework
 
@@ -124,28 +128,25 @@ No tool calls, one shot. You're not writing code like this; this is maybe embedd
 
 | Situation | Approach | Why |
 | :--- | :--- | :--- |
-| 1-3 related items needing cross-reference | Loop with structural markers | Cross-item context sharing may help[^6] |
-| 4-6 independent items | Partial unrolling with per-item headers; repeat instructions at start and end | The prompt repetition sweet spot[^5] |
-| 7+ items | Fully unroll into separate API calls | Exponential compounding dominates[^1] |
-| Any count on smaller/older models | Default to unrolling | Exponential decay from the start[^2] |
+| 1-3 related items needing cross-reference | Loop with structural markers | Cross-item context sharing may help |
+| 4-6 independent items | Partial unrolling with per-item headers; repeat instructions at start and end | The prompt repetition sweet spot |
+| 7+ items | Fully unroll into separate API calls | Exponential compounding dominates |
+| Any count on smaller/older models | Default to unrolling | Exponential decay from the start |
 
 ### Agentic Workflows
 
-Generation boundaries handle the constraint-compounding problem, but there's a prerequisite the research rarely addresses: the model has to track what it's iterating over. [Huang et al.][15] (2025) demonstrated that LLMs have effectively zero latent working memory - they're "reactive post-hoc solvers" that reconstruct task state from context at every generation step. As conversations grow, that reconstruction degrades predictably. In [AgentBoard][16]'s evaluation (Ma et al., NeurIPS 2024), open-weight models generally stopped making progress after about 6 steps; even GPT-4's success rate dropped from 66% on easy tasks to 34% on hard ones requiring more subgoals. The [MAST taxonomy][17] of multi-agent system failures (Cemri et al., 2025) found that roughly 23% of all failures stem from task verification and termination - premature stopping, incomplete checking, or looping indefinitely - with step repetition accounting for another 16%.
-
-The practical fix is to **externalize the checklist**. If don't create a tracker outside the context window, the model will forget items - especially middle ones, exactly as lost-in-the-middle predicts.
+Generation boundaries handle the compounding problem. But as noted above, the model still has to track what it's iterating over - and it can't do that reliably from context alone. Externalize the checklist.
 
 | Situation | Approach | Why |
 | :--- | :--- | :--- |
 | Small set, few steps per item | Loop with tool calls | Generation resets handle compounding; short history keeps state reconstruction reliable |
-| Large set or many steps | Externalize the task list; reduce the loop to *pull task / do task / repeat* | Models can't reliably track "what's done" in context alone[^15][^16] |
-| Complex per-item steps (5+ with branching) | Add structural markers within each iteration | Per-generation constraint count still matters[^10] |
-| 20+ items in one conversation | Periodically re-inject core instructions | Guard against instruction drift[^7] |
-| Per-item steps don't require NLP | Write a script instead | Pull iteration out of inference entirely |
+| Large set or many steps | Externalize the task list; reduce the loop to *pull task / do task / repeat* | Models can't reliably track "what's done" in context alone |
+| Complex per-item steps (5+ with branching) | Add structural markers within each iteration | Per-generation constraint count still matters |
+| 20+ items in one conversation | Periodically re-inject core instructions | Guard against instruction drift |
 
-Many major harnesses expose a "TODO" or "Task List" kind of tool that the agent can use. There are third-party implementations like [beads](https://github.com/gastownhall/beads) but you can always just fall back to having the agent write a Markdown checklist to disk. You need to know how your model + harness combination reacts to loop constructs and make sure that it is correctly externalizing.
+Most agent harnesses provide some form of task-list tool for this; writing a checklist to disk can work just as well as [third-party software solutions](https://github.com/gastownhall/beads). The mechanism matters less than the principle: get the "what's done / what remains" state out of the model's head and into something it reads back explicitly.
 
-A personal rule of thumb: I cap any unbroken numbered instruction list at 4 items before a tool call, since the batch prompting research showed meaningful quality degradation beyond that threshold.[^8]
+A personal rule of thumb: I'll start capping any unbroken numbered instruction list at 4 items before a tool call, since the batch prompting research showed meaningful quality degradation beyond that threshold[^8]... *for now!* We might expect this number to creep up as models get better, though it may not be from the underlying Transformer technology but from more-creative and effective behaviors layered on top of it.
 
 ### In All Cases
 
