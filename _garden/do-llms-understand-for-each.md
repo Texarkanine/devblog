@@ -71,13 +71,7 @@ But there's a wrinkle. The prompt repetition effect was "neutral to slightly pos
 
 ## When Loops Work Fine - or Even Help
 
-The evidence so far paints a clear picture: unroll everything. But the picture has a blind spot that matters enormously in practice.
-
-<!-- Editor's note: 
-
-Make this lead-in sound human and not LinkedIn post.
-
--->
+The evidence so far paints a clear picture: unroll everything. But there are situations where keeping items together actually improves results.
 
 ### Small Batches of Related Tasks
 
