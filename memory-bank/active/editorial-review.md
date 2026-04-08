@@ -48,7 +48,7 @@ Each note is numbered in document order. Categories:
 - **Category:** Research, Content
 - **Section:** Why It Happens > Lost in the Middle
 - **Editor says:** Both papers confirmed relevant. Consider linkcard/direct-quote treatment. Critical question: is "found in the middle" (calibration mechanism) deployed in any current frontier models? Don't claim unrolling addresses this if a solution is already deployed. May be OK if we're introducing foundational problems with "is it solved?" deferred to end.
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-07: Prompt repetition citation & reasoning-model caveat (lines ~129-141)
 - **Category:** Citation, Content
