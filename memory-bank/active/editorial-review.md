@@ -3,6 +3,7 @@
 **File:** `_garden/do-llms-understand-for-each.md`
 **Branch:** `loop-unroll`
 **Supporting research:** `planning/loop-report-1.md`, `planning/loop-report-2.md`, `planning/loop-reports-1-and-2-synthesis.md`, `planning/loop-report-1-analysis.md`
+**Sometimes-relevant writing guidelines:** `.cursor/rules/blogging.mdc`
 
 ## Catalog of Editor Notes
 
@@ -23,7 +24,7 @@ Each note is numbered in document order. Categories:
 - **Category:** Research, Citation
 - **Section:** The Curse of Instructions
 - **Editor says:** Need to determine if 15%/44% are true baseline or improved by "their method." Paper may warrant "linkcard then direct quote" treatment as foundational to entire premise.
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-03: IFScale model/date qualification (lines ~52-60)
 - **Category:** Factual, Citation

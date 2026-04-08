@@ -31,33 +31,19 @@ The hook "more than the headline" needs reworking. Otherwise, intro is solid and
 
 ## The Curse of Instructions
 
-The strongest evidence for unrolling comes from the [ManyIFEval benchmark](https://openreview.net/forum?id=R6q67CDBCH) (Harada et al., ICLR 2025), which discovered a brutal mathematical relationship: the probability of a model following *all* instructions in a prompt is approximately the per-instruction success rate raised to the power of the instruction count. If a model follows any single instruction 95% of the time, then 10 simultaneous instructions yield roughly 60% all-correct compliance. In practice, it's worse. GPT-4o managed just 15% success with 10 simultaneous instructions. Claude 3.5 Sonnet did better at 44%, but neither is close to reliable.[^1]
+{% linkcard
+	https://openreview.net/forum?id=R6q67CDBCH
+	"Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once"
+	archive:none
+%}
 
-<!-- Editor's Note:
+> The success rate of all the instructions is precisely explained by the success rate of individual instructions to the power of the total number of instructions.
 
-Numbers come from paper's text:
+That's the "curse of instructions" (Harada et al., ICLR 2025): individually easy steps compound into near-certain failure at scale. If a model follows any single instruction 95% of the time, 10 simultaneous instructions yield roughly 60% all-correct compliance. In practice, it's worse. GPT-4o managed just 15% success with 10 simultaneous instructions. Claude 3.5 Sonnet did better at 44%, but neither is close to reliable.
 
-> Notably, our method has improved the success rate of following ten instructions by GPT-4o from 15% to 31% and Claude 3.5 Sonnet from 44% to 58%. 
+When a prompt says "for each of 10 items, follow these 5 steps," the model must satisfy 50 effective constraints in a single generation. The multiplicative decay means that individually easy steps compound into near-certain failure at scale. Unrolling into separate per-item calls keeps each call at 5 constraints, preserving the per-instruction success rate without cross-item compounding.
 
-Need to figure out what their "method" is and whether the low numbers - 15 and 44 - are true baseline for normies rocking up to the models, or if "their method" is something fairly standard. latter part of the paper talks about improvement techniques.
-
-This paper may bear the "linkcard then direct quote" treatment as it's foundational to the whole paper's premise.
-
--->
-
-The arithmetic is merciless. When a prompt says "for each of 10 items, follow these 5 steps," the model must satisfy 50 effective constraints in a single generation. The multiplicative decay means that individually easy steps compound into near-certain failure at scale. Unrolling into separate per-item calls keeps each call at 5 constraints, preserving the per-instruction success rate without cross-item compounding.
-
-The [IFScale benchmark](https://arxiv.org/abs/2507.11538) (Jaroslawicz et al., July 2025) pushed this further, testing up to 500 simultaneous keyword-inclusion instructions across 20 state-of-the-art models. Even the best frontier models achieved only about 68% accuracy at 500 instructions. More usefully, the study identified three distinct degradation patterns across model families:[^2]
-
-<!-- Editor's Note:
-
-"Best frontier models" needs an "as of DATESTAMP" qualification, with at least one big name given as an example, e.g. "best frontier models as of April 2026, such as Claude Opus 4.6..." - obviously pulled from whenever the paper was, and whichever models it studied.
-
-"20 models" quantity confirmed.
-
-In both cases, we have a paper introduce dwith anchor text and then again footnote'd. this is duplicative. A resolution pattern should probably be applied.
-
--->
+The [IFScale benchmark](https://arxiv.org/abs/2507.11538) (Jaroslawicz et al., July 2025) pushed this further, testing up to 500 simultaneous keyword-inclusion instructions across 20 state-of-the-art models. Even the best frontier models achieved only about 68% accuracy at 500 instructions. More usefully, the study identified three distinct degradation patterns across model families:
 
 - **Threshold decay** for reasoning models like o3 and Gemini-2.5-Pro: near-perfect performance until roughly 150 instructions, then collapse.
 - **Linear decay** for models like GPT-4.1 and Claude 3.7 Sonnet: steady, proportional decline.
