@@ -43,16 +43,7 @@ The [IFScale benchmark](https://arxiv.org/abs/2507.11538) (Jaroslawicz et al., J
 - **Linear decay** for models like GPT-4.1 and Claude 3.7 Sonnet: steady, proportional decline.
 - **Exponential decay** for smaller or older models like Claude 3.5 Haiku and Llama-4-Scout: steep drops from the start.
 
-This means the penalty for loop-style prompts depends partly on which model you're using. Reasoning models tolerate higher instruction density before degradation kicks in. Smaller models crumble immediately.
-
-<!-- Editor's Note
-
-It's the first figure in the paper that shows the 3 modes; confirmed by reading.
-"crumble immediately" needs rework; immediat eis too strong. They crumble *rapidly* with density, but you can get relatively sane human density - i.e. 5 - before they crumble. It's not "immediate."
-
-N.b. ifscale is on github: https://github.com/distylai/distylai.github.io
-
--->
+This means the penalty for loop-style prompts depends partly on which model you're using. Reasoning models tolerate higher instruction density before degradation kicks in. Smaller models degrade rapidly as instruction count grows.
 
 ## Why It Happens
 

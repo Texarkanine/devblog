@@ -36,7 +36,7 @@ Each note is numbered in document order. Categories:
 - **Category:** Craft
 - **Section:** The Curse of Instructions (model families paragraph)
 - **Editor says:** "immediate" is too strong. They crumble *rapidly* with density, but tolerable at human-scale density (~5). Also notes IFScale is on GitHub.
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-05: Attention sinks - paper ordering & solution mention (lines ~85-105)
 - **Category:** Research, Content
