@@ -42,7 +42,7 @@ Each note is numbered in document order. Categories:
 - **Category:** Research, Content
 - **Section:** Why It Happens > Attention Sinks
 - **Editor says:** Both papers confirmed germane. Consider mentioning StreamingLLM solution (not as "do this" but to deepen understanding). Which paper to lead with - 2025 follow-up is more recent and addresses "why," but 2024 is more introductory. Strong quote from 2025 paper about training inevitability.
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-06: Lost in the Middle / Found in the Middle (lines ~111-123)
 - **Category:** Research, Content
