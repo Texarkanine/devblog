@@ -116,7 +116,7 @@ Each note is numbered in document order. Categories:
 - **Category:** Content
 - **Section:** Everywhere (structural markers)
 - **Editor says:** Would like inline examples. Are markdown headings structural markers too? (Agrees strongly with structural markers from personal experience.)
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-18: "What This Means" section header (lines ~339-343)
 - **Category:** Craft

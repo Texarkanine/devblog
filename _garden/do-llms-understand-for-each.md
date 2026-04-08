@@ -164,7 +164,11 @@ Evaluate this contract for renewal risk.
 </task>
 ```
 
-If you must keep many items in a single prompt, three mitigations improve compliance: repeat the core instruction block after each item or at the end of the prompt,[^5] use indexed structural tags for each item,[^12] and add a self-verification step asking the model to check whether it completed all items. ManyIFEval found that self-refinement improved GPT-4o's 10-instruction compliance from 15% to 31%.[^1] Not great, but nearly double.
+If you must keep many items in a single prompt, three mitigations improve compliance: 
+
+1. repeat the core instruction block after each item or at the end of the prompt[^5],
+2. use indexed structural tags for each item[^12],
+3. add a self-verification step asking the model to check whether it completed all items[^13]
 
 ## What This Means
 
