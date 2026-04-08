@@ -109,7 +109,8 @@ Each note is numbered in document order. Categories:
 - **Category:** Content (MAJOR)
 - **Section:** A Decision Framework
 - **Editor says:** LARGE block. Unaddressed topics: set-tracking, exit conditions/break-if as meta-constraint, remembering which items processed. Editor proposes own "how I'd think of it" framework with 3 principles: (1) set-tracking must be externalized, (2) tool-call generation-reset makes small loops work, (3) have model ITSELF unroll into external task manager. Also: variant of writing a nonstochastic script. Rule of 4. Asks if we can find papers on set-tracking and exit conditions.
-- **Status:** Pending
+- **Resolution:** Commissioned dedicated set-tracking research (`planning/set-tracking.md`). Verified 3 citations against primary sources: Huang et al. (ICML 2025, "reactive post-hoc solvers" confirmed), AgentBoard (NeurIPS 2024, GPT-4 easy/hard numbers confirmed, "~6 steps" qualified as open-weight models only), MAST (2025, FC3 corrected to 23% from report's 21.3%, step repetition corrected to 16% from 17%). Agentic table replaced with: grounding paragraph (3 new citations), enhanced 5-row table (small/large set, complex steps, drift re-injection, script variant), reasoning-model self-organization note, and rule-of-4 heuristic. Editor's note removed.
+- **Status:** ✅ COMPLETED
 
 ### EN-17: Structural markers inline examples (lines ~329-333)
 - **Category:** Content

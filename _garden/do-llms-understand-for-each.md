@@ -118,7 +118,9 @@ If the answer is "few, because tool calls partition the work," loops are fine. I
 
 For what it's worth, here's how I'd think about it:
 
-**Single-generation prompts (no tool calls):**
+### Single-Generation Prompts
+
+No tool calls, one shot. You're not writing code like this; this is maybe embedded in a production system, part of a data pipeline, or otherwise bundled up and just expected to perform inference once and return a result. Classifiers, judges, etc. In this situation, you're often authoring the harness yourself, and so you get to choose what goes into a "generation" and how to glue results together for the prompt/context of subsequent generations.
 
 | Situation | Approach | Why |
 | :--- | :--- | :--- |
@@ -127,43 +129,25 @@ For what it's worth, here's how I'd think about it:
 | 7+ items | Fully unroll into separate API calls | Exponential compounding dominates[^1] |
 | Any count on smaller/older models | Default to unrolling | Exponential decay from the start[^2] |
 
-**Agentic workflows with tool calls:**
+### Agentic Workflows
+
+Generation boundaries handle the constraint-compounding problem, but there's a prerequisite the research rarely addresses: the model has to track what it's iterating over. [Huang et al.][15] (2025) demonstrated that LLMs have effectively zero latent working memory - they're "reactive post-hoc solvers" that reconstruct task state from context at every generation step. As conversations grow, that reconstruction degrades predictably. In [AgentBoard][16]'s evaluation (Ma et al., NeurIPS 2024), open-weight models generally stopped making progress after about 6 steps; even GPT-4's success rate dropped from 66% on easy tasks to 34% on hard ones requiring more subgoals. The [MAST taxonomy][17] of multi-agent system failures (Cemri et al., 2025) found that roughly 23% of all failures stem from task verification and termination - premature stopping, incomplete checking, or looping indefinitely - with step repetition accounting for another 16%.
+
+The practical fix is to **externalize the checklist**. If don't create a tracker outside the context window, the model will forget items - especially middle ones, exactly as lost-in-the-middle predicts.
 
 | Situation | Approach | Why |
 | :--- | :--- | :--- |
-| Each iteration involves tool calls | Loop is fine | Tool boundaries reset generation context |
-| Complex per-item steps (5+ substeps with branching) | Add structural markers within each iteration | Per-generation constraint count still matters[^10] |
-| 20+ items in the same conversation thread | Periodically re-inject the core instruction block | Guard against instruction drift[^7] |
+| Small set, few steps per item | Loop with tool calls | Generation resets handle compounding; short history keeps state reconstruction reliable |
+| Large set or many steps | Externalize the task list; reduce the loop to *pull task / do task / repeat* | Models can't reliably track "what's done" in context alone[^15][^16] |
+| Complex per-item steps (5+ with branching) | Add structural markers within each iteration | Per-generation constraint count still matters[^10] |
+| 20+ items in one conversation | Periodically re-inject core instructions | Guard against instruction drift[^7] |
+| Per-item steps don't require NLP | Write a script instead | Pull iteration out of inference entirely |
 
-<!-- Editor's Note:
+Many major harnesses expose a "TODO" or "Task List" kind of tool that the agent can use. There are third-party implementations like [beads](https://github.com/gastownhall/beads) but you can always just fall back to having the agent write a Markdown checklist to disk. You need to know how your model + harness combination reacts to loop constructs and make sure that it is correctly externalizing.
 
-Unaddressed as far as i can tell in any paper, is adherence to the SET of loops, and to exit conditions. We generally assume "for each" is a loop over a set, but if you try to do the programmer-think of "break if..." (that's a meta-constraint), I *feel like*, vibrationally, that works poorly. Can we find a paper on that?
+A personal rule of thumb: I cap any unbroken numbered instruction list at 4 items before a tool call, since the batch prompting research showed meaningful quality degradation beyond that threshold.[^8]
 
-Similarly, "for each <in set>..." assumes the model can "remember" the set, AND which items have been processed so far. Thinking models often use "task lists" to achive this - either with a harness-provided tool, or on disk somehow, but I have never seen good set-tracking behavior without that.
-
-Can we find a paper on that? Worth mentioning.
-
-I will add my own "how I'd think of it" , for consideration, given the information in here:
-
-1. the "set-tracking" problem is real, and must be addressed. If the harness or other instructions before iteration handle creating an "external" to the context window tracker, then OK. Otherwise, you MUST unroll because transformer LLMs are GOING (source: trust me bro) to forget some items in the set.
-2. the tool-call generation-reset is crucial. Assuming the model has a task list (so its actual instructions to remember are 1. check task tracker for next item; 2. do item; 3. repeat until task trackler has no more items - only 3), then, small loops, especially with tool calls, seem to work fine.
-3. I usually have the model ITESLF unroll into an outside-context-window unroll, so its steps are 1. identify the set; 2. identify the per-itme task list; 3. unroll that into a complete sequence in some external task manager; 4. work through task manager until it's done. That's a 4-loop (hahah). I have found that to be - if slower and more token-demanding (and thus expensive), consistently reliable.
-
-A variant of 3. is to have the model write a script that will perform the iteration nonstochastically. For agentic workflows, oftentimes the "steps" are not necessarily NLP tasks - most of the evals and papers we saw were focused on NLP steps. This is a variant of "pulling the task tracking out of the inference."
-
-So for *me*, how I'd think of it is,
-
-1. if your set is small, an your steps are small, such that the set and steps will stay in the context window, then you can command a loop.
-2. If your set is big, or your steps are many, you cannot fight "lost in the middle" plus the attention sink PLUS exponential decay and everything else. unroll the actionable task list OUTSIDE the context window, and have the LLM do a simple, small loop of "1. pull task; 2. do task; 3; repeat until no more task"
-3. if the steps do not require NLP, write a script instead of looping with inference turns.
-
-thinking/reasoning models will sometimes use task list tools (see: previous paper's note, one of them, about how reasoning models aren't great at choosing to use the tools they have) and do this unroll process on their own, but if you know which model and harness you'll have, you can boost or direct this.
-
-And I'd cut any of my written numbered lists of instructions at 4 items unbroken by a tool call if at all possible, since the batching paper showed significant degradation at 4. Previously, I had no fixed number.
-
--->
-
-**Everywhere:**
+### In All Cases
 
 Use structural markers. Whether looped or unrolled, [XML tags](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) and markdown headings improve adherence by providing the kind of hierarchical boundaries that models have internalized from their training data.[^12] OpenAI's [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) found that XML performed well for multi-document inputs while JSON performed particularly poorly.[^13]
 
@@ -245,3 +229,12 @@ See the citation rules in blogging.mdc and clean up citation style throughout.
 [^13]: OpenAI, "GPT-4.1 Prompting Guide," OpenAI Cookbook. <https://cookbook.openai.com/examples/gpt4-1_prompting_guide>
 
 [^14]: "The Coverage Principle: A Framework for Understanding Compositional Generalization," 2025. <https://arxiv.org/abs/2505.20278>
+
+[15]: https://arxiv.org/abs/2505.10571
+[^15]: Huang et al., "On the Failure of Latent State Persistence in Large Language Models," ICML 2025. [https://arxiv.org/abs/2505.10571][15]
+
+[16]: https://arxiv.org/abs/2401.13178
+[^16]: Ma et al., "AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents," NeurIPS 2024. [https://arxiv.org/abs/2401.13178][16]
+
+[17]: https://arxiv.org/abs/2503.13657
+[^17]: Cemri et al., "Why Do Multi-Agent LLM Systems Fail?" 2025. [https://arxiv.org/abs/2503.13657][17]
