@@ -51,29 +51,9 @@ The exponential compounding is a symptom. The disease is architectural.
 
 ### Attention Sinks
 
-Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., ICLR 2024). A 2025 follow-up confirmed this is an intrinsic architectural property, not a quirk of specific inputs.[^3] In a loop-style prompt, the instruction block at the top becomes the attention sink while items in the middle are starved. Unrolling creates fresh attention sinks at each item's instruction header.
+Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., ICLR 2024). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al.) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
 
-<!-- Editors' note
-
-I have confirmed that both papers are germane to the section. Softmax is related; the relation claim is made in the 2309 paper. 
-
-attention sinks anchor link:
-
-> In this paper, we first demonstrate that the emergence of attention sink is due to the strong attention scores towards initial tokens as a “sink” even if they are not semantically important. Based on the above analysis, we introduce StreamingLLM, an efficient framework that enables LLMs trained with a finite length attention window to generalize to infinite sequence length without any fine-tuning. We show that StreamingLLM can enable Llama-2, MPT, Falcon, and Pythia to perform stable and efficient language modeling with up to 4 million tokens and more. In addition, we discover that adding a placeholder token as a dedicated attention sink during pre-training can further improve streaming deployment. In streaming settings, StreamingLLM outperforms the sliding window recomputation baseline by up to 22.2× speedup. (attention sinnks)
-
-The fact that they have a solution may bear mention. Not as a "so you can do this," but in furthering the understanding of the problem space.
-
-citation 3: 
-
-> Yet, while many works have provided conditions in which they occur or not, a critical question remains shallowly answered: Why do LLMs learn such patterns and how are they being used? In this work, we argue theoretically and empirically that this mechanism provides a method for LLMs to avoid over-mixing, connecting this to existing lines of work that study mathematically how information propagates in Transformers
-
-I think this may be the one to lead with, as it's more-recent research into attention sinks and the "why" - though the older one is more introductory. How does each one contribute to introducing, explaining, and proving, the "early in context" attention sink?
-
-> This suggests that choices in pre-training have a direct impact on how the attention sinks are constructed by the model, but that their formation during training seems inevitable. 
-
-is a very strong statement from that paper!
-
--->
+In a loop-style prompt, the instruction block at the top becomes the attention sink while items in the middle are starved. Unrolling creates fresh attention sinks at each item's instruction header.
 
 ### Lost in the Middle
 
