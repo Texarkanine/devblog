@@ -74,7 +74,8 @@ Each note is numbered in document order. Categories:
 - **Category:** Content, Structural
 - **Section:** The Distinction That Actually Matters
 - **Editor says:** MTI paper (Son et al., 2402.11597) relocated from removed "Small Batches" subsection. Needs integration as evidence for the generation-boundary thesis. Key finding: 2-3 related steps per item benefit from staying in one generation. Consider Polaroid of Figure 1.
-- **Status:** Pending
+- **Resolution:** Moved from immediately after the thesis paragraph (where it disrupted the rhetorical flow) to after the prompt repetition paragraph, where the argument is already building evidence for generation boundaries. Reframed from "counterexample" to supporting evidence: MTI "points at the same boundary from the other direction." Restored the paper's own quote ("looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task"). Citation DRYed up with `[6]` reference link shared between anchor text and footnote per `blogging.mdc`. Polaroid deferred.
+- **Status:** ✅ COMPLETED
 
 ### EN-12: "Here's the thing" section intro (lines ~225-229)
 - **Category:** Craft
