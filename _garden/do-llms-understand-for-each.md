@@ -51,17 +51,17 @@ The exponential compounding is a symptom. The disease is architectural.
 
 ### Attention Sinks
 
-Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., September 2023). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al., April 2025[^3]) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
+Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., September 2023). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al., April 2025) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
 
 In a loop-style prompt, the instruction block at the top becomes the attention sink while items in the middle are starved. Unrolling creates fresh attention sinks at each item's instruction header.
 
 ### Lost in the Middle
 
-"[Lost in the Middle](https://arxiv.org/abs/2307.03172)" (Liu et al., July 2023) demonstrated a U-shaped performance curve: models access information at the beginning and end of their context with meaningfully higher accuracy than information in the middle. A follow-up "[Found in the Middle](https://arxiv.org/abs/2406.16008)" (Hsieh et al., June 2024[^4]) traced this to an intrinsic attention allocation bias that persists regardless of content relevance, and proposed a calibration mechanism to mitigate it. The bias persists in practice - IFScale found systematic favoritism toward earlier instructions across all models tested. In a loop-style prompt processing many items, the middle items land in the degraded zone. Unrolling gives every item its own beginning and end.
+"[Lost in the Middle](https://arxiv.org/abs/2307.03172)" (Liu et al., July 2023) demonstrated a U-shaped performance curve: models access information at the beginning and end of their context with meaningfully higher accuracy than information in the middle. A follow-up "[Found in the Middle](https://arxiv.org/abs/2406.16008)" (Hsieh et al., June 2024) traced this to an intrinsic attention allocation bias that persists regardless of content relevance, and proposed a calibration mechanism to mitigate it. The bias persists in practice - IFScale found systematic favoritism toward earlier instructions across all models tested. In a loop-style prompt processing many items, the middle items land in the degraded zone. Unrolling gives every item its own beginning and end.
 
 ### Causal Masking and Prompt Repetition
 
-The most elegant piece of evidence comes from Google Research. Leviathan, Kalman, and Matias published "[Prompt Repetition Improves Non-Reasoning LLMs](https://arxiv.org/abs/2512.14982)" in December 2025[^5]. The finding: simply duplicating the entire prompt improved accuracy on 47 of 70 tested tasks with zero losses. On one task, Gemini 2.0 Flash Lite jumped from 21.33% to 97.33% - a 76 percentage-point gain.
+The most elegant piece of evidence comes from Google Research. Leviathan, Kalman, and Matias published "[Prompt Repetition Improves Non-Reasoning LLMs](https://arxiv.org/abs/2512.14982)" in December 2025. The finding: simply duplicating the entire prompt improved accuracy on 47 of 70 tested tasks with zero losses. On one task, Gemini 2.0 Flash Lite jumped from 21.33% to 97.33% - a 76 percentage-point gain.
 
 The mechanism is revealing. In causal (left-to-right) attention, instruction tokens are processed before data tokens, meaning the instruction encoding lacks awareness of the data it must operate on. When instructions are repeated *after* the data - or, by extension, repeated per item - each instruction instance can attend to all preceding context, creating a richer signal. Critically, padding the prompt to equivalent length *without* repeating instructions produced no improvement, confirming the gain comes from information repetition, not length.
 
@@ -69,72 +69,18 @@ This has a direct implication for the loop question. Unrolling is not merely abo
 
 But there's a wrinkle. The prompt repetition effect was "neutral to slightly positive" for reasoning models (5 wins, 1 loss, 22 neutral out of 28 tasks). Models that reason via chain-of-thought already perform an internal form of "re-reading" that mimics the repetition effect. This aligns with IFScale's finding that reasoning models tolerate higher instruction density.[^2]
 
-## When Loops Work Fine - or Even Help
+## The Cost of Unrolling: Instruction Drift
 
-The evidence so far paints a clear picture: unroll everything. But there are situations where keeping items together actually improves results.
+So far, the case for unrolling looks strong. But unrolling has its own costs.
 
-### Small Batches of Related Tasks
+Repeating instructions N times increases total token count, and as context grows, the relative attention weight of the initial system prompt decreases. Research on [instruction drift](https://arxiv.org/abs/2510.07777) (Wen et al., October 2025) formalizes this as "turn-wise divergence from goal-consistent behavior over extended contexts." The drift doesn't accumulate without bound - it stabilizes at finite levels that can be shifted downward by lightweight interventions like goal reminders. But it means that aggressively unrolling a 50-item list into a single massive prompt could erode the very instruction adherence you're trying to preserve.
 
-The [Multi-Task Inference benchmark](https://arxiv.org/abs/2402.11597) (Son et al., February 2024) tested a different regime: 2-3 closely related subtasks sharing context, processed together versus separately. GPT-4 showed up to 12.4% *improved* performance with multi-task inference compared to single-task.[^6] The explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task."[^6] Seeing the structure of subtask 2 gives the model implicit guidance for subtask 1.
+This creates a tension:
 
-<!-- Editor's note:
+- Loops suffer from exponential constraint compounding.
+- Unrolling suffers from linear drift.
 
-Need an example of these subtask structure. Paper is highly relevant; confirmed. footnotes 6 just repeat the paper. May want to steal their Figure 1 into a Polaroid link to the paper.
-
--->
-
-This isn't a small effect, and it works precisely because the tasks are related and few. The same study found that naive batch prompting of *unrelated* tasks hurt performance - "mixing of tasks can confuse the model, as it needs to navigate through irrelevant information."[^6] So the counterargument to unrolling is narrow but real: for a small number of structurally similar items that benefit from seeing each other's context, a loop may actually produce better results.
-
-<!-- Editor's note: 
-
-Paper DIRECTLY supports the "unroll the loop" approach. Does the paper define what "small" is? If so, that threshold is important and we should mention it! This is addressed as an unknown in the very next section, which is good. But this paper might have one of the rare empirical answers!
-
--->
-
-### The Cost of Unrolling: Instruction Drift
-
-Unrolling has a cost that the pro-unrolling research tends not to mention. Repeating instructions N times increases total token count, and as context grows, the relative attention weight of the initial system prompt decreases. Research on [instruction drift](https://arxiv.org/abs/2510.07777) formalizes this as turn-wise divergence from goal-consistent behavior over extended contexts. The drift doesn't accumulate without bound - it stabilizes at finite levels that can be shifted downward by lightweight interventions like goal reminders.[^7] But it means that aggressively unrolling a 50-item list into a single massive prompt could erode the very instruction adherence you're trying to preserve.
-
-This creates a tension. Loops suffer from exponential constraint compounding. Unrolling suffers from linear drift. For small N, the compounding fix dominates. For very large N, drift may erode the gains. The crossover point is not precisely characterized in the literature, but the [batch prompting](https://arxiv.org/abs/2301.08721) research (Cheng et al., EMNLP 2023) found that batch size 4 was the practical sweet spot for balancing quality against efficiency.[^8]
-
-<!-- Editor's note:
-
-The "drift no more" paper has this to say:
-
-> Our experiments consistently reveal stable, noise-limited equilibria rather than runaway degradation, and demonstrate that simple reminder interventions reliably reduce divergence in line with theoretical predictions. Together, these results suggest that multi-turn drift can be understood as a controllable equilibrium phenomenon rather than as inevitable decay,
-
-which seems optimistic - though this may not be in frontier models yet. The problem surely is, though! Though they test open-weight.
-
-"batch prompting" research says, among other things:
-
-> First, to optimize its benefits, the length of
-> the input prompt tokens should be (significantly)
-> greater than that of the output tokens. Thus, it
-> might not be suitable for “heavy output" tasks like
-> story generation.
-
-which is interesting. So maybe it's bad for code review or big code authorship, but good for judgement/assessment? Need to dig in to see if we can find out why, and if this invalidates or guides our conclusion from it.
-
-But also, they introduce the paper with
-
-> Performing inference on large volumes of sam-
-> ples with large language models (LLMs) can
-> be computationally and financially costly in in-
-> dustry and real-world use. We propose batch
-> prompting, a simple yet effective prompting
-> approach that enables the LLM to run infer-
-> ence in batches, instead of one sample at a
-> time. Our method reduces both token and
-> time costs while retaining downstream per-
-> formance.
-
-So, it's really about cost conservation WITHOUT performance sacrifice, not about optimizing for instruction adherence. The existing text treats this honestly, but the lead-up about "understanding / adhering to" instructions may mis-cast what this paper was really going after. 4 is good, but it's good because it's the LIMIT without losing accuracy meaningfully, not because it's the sweet spot of MAXIMIZING accuracy. You can indirectly infer that perhaps you should therefore stop at 4, but the paper didn't really go LOOKING for max accuracy. Tables 1 and 2 show that the accuracy change was up and down a bit across the board; there wasn't actually a clear winner technique for improving instruction adherence. THAT's actually big - the takeaway is more of "you can batch a bit without losing much, usually, up until 4" - not "you SHOULD batch, up until 4."
-
-Worth noting that their "batch" example is "unrelated" tasks, not "related" tasks, which intersects with the "small batches of related tasks" section above. This paper's intersection with our writing on instruction adherence may merit further consideration.
-
-It's also not clear exactly how their "batching" maps to loops and unrolling. Is a batch the set of instructions of a loop? Is a batch the unrolled loop? In both cases it seems to suggest "don't go beyond 4," but maybe it's more suggesting that you shouldn't have more than 4 of ANYTHING in a row? The later discourse on tool calls resetting the generation matters; an 8-step loop with a tool call at position 4.5 would not run afoul of this "rule of 4."
-
--->
+For small N, the compounding fix dominates; unroll. For very large N, drift may erode the gains. The crossover point - the sweet spot where you'd make a different design decision - is not precisely characterized in the literature, but the [batch prompting](https://arxiv.org/abs/2301.08721) research (Cheng et al., January 2023) suggests a ceiling: batching up to about 4 unrelated items retained quality, with degraded accuracy beyond that.
 
 ## The Distinction That Actually Matters
 

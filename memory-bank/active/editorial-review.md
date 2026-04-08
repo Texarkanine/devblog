@@ -62,22 +62,18 @@ Each note is numbered in document order. Categories:
 - **Editor says:** "Make this lead-in sound human and not LinkedIn post."
 - **Status:** ✅ COMPLETED
 
-### EN-09: Multi-Task Inference subtask examples (lines ~164-167)
-- **Category:** Research, Content, Citation
-- **Section:** Small Batches of Related Tasks
-- **Editor says:** Need an example of the subtask structure from the paper. Paper highly relevant (confirmed). Footnotes just repeat the paper. Consider stealing Figure 1 as a Polaroid link.
-- **Status:** Pending
+### EN-09/10/11: Section restructure - MTI paper + batch prompting (combined)
+- **Category:** Research, Content, Factual, Structural
+- **Section:** Was "When Loops Work Fine"; now "The Cost of Unrolling: Instruction Drift"
+- **Resolution:** The MTI paper (Son et al., February 2024) was re-analyzed and found to support generation-boundary placement, not loop-style batching of items. It shows keeping 2-3 related steps per item in one generation beats decomposing them - this is evidence FOR the generation-boundary thesis, not for loops. "Small Batches of Related Tasks" subsection removed. MTI paper content to be integrated into "The Distinction That Actually Matters" section. Batch prompting recharacterized: "4" is a ceiling for quality retention, not a sweet spot for maximizing accuracy. Section promoted to H2, lead-in adjusted.
+- **Status:** ✅ COMPLETED (structure change applied; MTI paper re-integration pending as NEW-01)
+- **Removed text (MTI paper) for re-integration:**
+  > The Multi-Task Inference benchmark (Son et al., February 2024) tested 2-3 closely related subtasks sharing context, processed together versus separately. GPT-4 showed 12.4% improved performance with multi-task inference compared to single-task. The explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task." This finding is really about generation-boundary placement: keeping related steps in one generation so they can attend to each other. It supports unrolling across items while arguing against over-decomposing steps within a single item.
 
-### EN-10: Multi-Task Inference "small" threshold (lines ~171-175)
-- **Category:** Research
-- **Section:** Small Batches of Related Tasks (second paragraph)
-- **Editor says:** Paper DIRECTLY supports "unroll the loop" approach. Does it define what "small" is? That threshold is important and we should mention it. Addressed as unknown in next section, but this paper might have an empirical answer.
-- **Status:** Pending
-
-### EN-11: Batch prompting deep reinterpretation (lines ~183-220)
-- **Category:** Research, Factual
-- **Section:** The Cost of Unrolling: Instruction Drift
-- **Editor says:** MAJOR note. Batch prompting paper is about cost conservation without performance sacrifice, NOT about optimizing instruction adherence. "4" is the LIMIT without losing accuracy, not a sweet spot for MAXIMIZING accuracy. Existing text may mis-cast the paper's intent. Also: their "batch" is unrelated tasks (intersects with "small batches" section above). How does "batching" map to loops/unrolling? Later discourse on tool calls resetting generation matters - an 8-step loop with tool call at step 4.5 would not violate "rule of 4."
+### NEW-01: Integrate MTI paper into generation-boundary section
+- **Category:** Content, Structural
+- **Section:** The Distinction That Actually Matters
+- **Editor says:** MTI paper (Son et al., 2402.11597) relocated from removed "Small Batches" subsection. Needs integration as evidence for the generation-boundary thesis. Key finding: 2-3 related steps per item benefit from staying in one generation. Consider Polaroid of Figure 1.
 - **Status:** Pending
 
 ### EN-12: "Here's the thing" section intro (lines ~225-229)
