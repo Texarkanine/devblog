@@ -17,7 +17,7 @@ Each note is numbered in document order. Categories:
 - **Category:** Craft
 - **Section:** Opening
 - **Editor says:** "The hook 'more than the headline' needs reworking. Otherwise, intro is solid."
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-02: ManyIFEval baseline numbers (lines ~36-46)
 - **Category:** Research, Citation

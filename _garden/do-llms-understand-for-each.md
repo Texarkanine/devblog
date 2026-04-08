@@ -21,7 +21,7 @@ Or this:
 >
 > **Item 3:** Perform steps 1 through 5.
 
-The first is compact, elegant, and how a programmer would think about it. The second is verbose, redundant, and feels like it insults the model's intelligence. The research says the second one works better - but with caveats that matter more than the headline.
+The first is compact, elegant, and how a programmer would think about it. The second is verbose, redundant, and feels like it insults the model's intelligence. The research says the second one works better, and the reasons are architectural - rooted in how transformers allocate attention. But whether that architecture actually constrains you depends on how, exactly, you harness the models and what, exactly, you ask them to do.
 
 <!-- Editor's Note:
 
