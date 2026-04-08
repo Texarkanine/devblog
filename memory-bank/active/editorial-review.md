@@ -54,7 +54,7 @@ Each note is numbered in document order. Categories:
 - **Category:** Citation, Content
 - **Section:** Causal Masking and Prompt Repetition
 - **Editor says:** Footnote duplicates anchor text link. Important that effect is in non-reasoning models; readership relevance matters since free-tier users use non-thinking models. Don't overcompensate here since reasoning models are addressed later.
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-08: "paints a clear picture" lead-in tone (lines ~153-157)
 - **Category:** Craft
