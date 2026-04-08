@@ -30,7 +30,7 @@ Each note is numbered in document order. Categories:
 - **Category:** Factual, Citation
 - **Section:** The Curse of Instructions (IFScale paragraph)
 - **Editor says:** "Best frontier models" needs "as of DATESTAMP" with named model example. 20-model count confirmed. Anchor text + footnote duplication needs a resolution pattern applied throughout.
-- **Status:** Pending
+- **Status:** ✅ COMPLETED
 
 ### EN-04: "crumble immediately" word choice (lines ~68-75)
 - **Category:** Craft

@@ -23,12 +23,6 @@ Or this:
 
 The first is compact, elegant, and how a programmer would think about it. The second is verbose, redundant, and feels like it insults the model's intelligence. The research says the second one works better, and the reasons are architectural - rooted in how transformers allocate attention. But whether that architecture actually constrains you depends on how, exactly, you harness the models and what, exactly, you ask them to do.
 
-<!-- Editor's Note:
-
-The hook "more than the headline" needs reworking. Otherwise, intro is solid and illustrates the point.
-
--->
-
 ## The Curse of Instructions
 
 {% linkcard
@@ -43,7 +37,7 @@ That's the "curse of instructions" (Harada et al., ICLR 2025): individually easy
 
 When a prompt says "for each of 10 items, follow these 5 steps," the model must satisfy 50 effective constraints in a single generation. The multiplicative decay means that individually easy steps compound into near-certain failure at scale. Unrolling into separate per-item calls keeps each call at 5 constraints, preserving the per-instruction success rate without cross-item compounding.
 
-The [IFScale benchmark](https://arxiv.org/abs/2507.11538) (Jaroslawicz et al., July 2025) pushed this further, testing up to 500 simultaneous keyword-inclusion instructions across 20 state-of-the-art models. Even the best frontier models achieved only about 68% accuracy at 500 instructions. More usefully, the study identified three distinct degradation patterns across model families:
+The [IFScale benchmark](https://arxiv.org/abs/2507.11538) (Jaroslawicz et al., July 2025) pushed this further, testing up to 500 simultaneous keyword-inclusion instructions across 20 models from seven providers. Even the best performer - Gemini 2.5 Pro - managed only about 69% accuracy at 500 instructions. More usefully, the study identified three distinct degradation patterns across model families:
 
 - **Threshold decay** for reasoning models like o3 and Gemini-2.5-Pro: near-perfect performance until roughly 150 instructions, then collapse.
 - **Linear decay** for models like GPT-4.1 and Claude 3.7 Sonnet: steady, proportional decline.
