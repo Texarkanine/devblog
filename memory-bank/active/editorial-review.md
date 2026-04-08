@@ -95,7 +95,8 @@ Each note is numbered in document order. Categories:
 - **Category:** Factual
 - **Section:** The Distinction That Actually Matters
 - **Editor says:** "claim about re-injection not universally true; harnesses are very different."
-- **Status:** Pending
+- **Resolution:** Split the two claims. Constraint-count argument (universally true) kept as the strong leg. Lost-in-the-middle mitigation rewritten as harness-dependent: "The positional bias effects are also mitigated, though how much depends on the harness - orchestration frameworks differ in whether and how they re-inject context between tool calls." Editor's note removed.
+- **Status:** ✅ COMPLETED
 
 ### EN-15: Anthropic docs anchor link (lines ~263-266)
 - **Category:** Citation

@@ -94,13 +94,7 @@ But most people asking "should I unroll my loops?" aren't writing monolithic pro
 4. Maybe edit (tool call, new generation context)
 5. Back to step 1 for next item
 
-Each tool call resets the generation context. The agent isn't trying to satisfy 15 constraints in one output - it's doing 5 things, getting a response, doing 5 more, getting a response. The exponential compounding from ManyIFEval doesn't apply because each generation carries only a handful of constraints. The lost-in-the-middle effect resets at each tool boundary because the orchestration framework re-injects the system prompt and recent context.
-
-<!-- Editor's note: 
-
-claim about re-injection not universally true; harnesses are very different. 
-
--->
+Each tool call resets the generation context. The agent isn't trying to satisfy 15 constraints in one output - it's doing 5 things, getting a response, doing 5 more, getting a response. The exponential compounding from ManyIFEval doesn't apply because each generation carries only a handful of constraints. The positional bias effects are also mitigated, though how much depends on the harness - orchestration frameworks differ in whether and how they re-inject context between tool calls.
 
 The prompt repetition paper implicitly confirms this. Its effect is neutral for reasoning models because they already "re-read" internally via chain-of-thought.[^5] Agentic tool-call loops achieve the same re-reading mechanically - each iteration brings the instructions back into focus through the tool response cycle.
 
