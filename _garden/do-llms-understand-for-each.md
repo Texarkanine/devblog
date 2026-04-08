@@ -33,7 +33,7 @@ The first is compact, elegant, and how a programmer would think about it. The se
 
 > The success rate of all the instructions is precisely explained by the success rate of individual instructions to the power of the total number of instructions.
 
-That's the "curse of instructions" (Harada et al., ICLR 2025): individually easy steps compound into near-certain failure at scale. If a model follows any single instruction 95% of the time, 10 simultaneous instructions yield roughly 60% all-correct compliance. In practice, it's worse. GPT-4o managed just 15% success with 10 simultaneous instructions. Claude 3.5 Sonnet did better at 44%, but neither is close to reliable.
+That's the "curse of instructions" (Harada et al., October 2024): individually easy steps compound into near-certain failure at scale. If a model follows any single instruction 95% of the time, 10 simultaneous instructions yield roughly 60% all-correct compliance. In practice, it's worse. GPT-4o managed just 15% success with 10 simultaneous instructions. Claude 3.5 Sonnet did better at 44%, but neither is close to reliable.
 
 When a prompt says "for each of 10 items, follow these 5 steps," the model must satisfy 50 effective constraints in a single generation. The multiplicative decay means that individually easy steps compound into near-certain failure at scale. Unrolling into separate per-item calls keeps each call at 5 constraints, preserving the per-instruction success rate without cross-item compounding.
 
@@ -51,27 +51,13 @@ The exponential compounding is a symptom. The disease is architectural.
 
 ### Attention Sinks
 
-Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., ICLR 2024). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al.) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
+Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., September 2023). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al., April 2025) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
 
 In a loop-style prompt, the instruction block at the top becomes the attention sink while items in the middle are starved. Unrolling creates fresh attention sinks at each item's instruction header.
 
 ### Lost in the Middle
 
-A landmark study by Liu et al. in [Transactions of the ACL](https://arxiv.org/abs/2307.03172) (2024) demonstrated a U-shaped performance curve: models access information at the beginning and end of their context with meaningfully higher accuracy than information in the middle. A follow-up from Hsieh et al., "[Found in the Middle](https://arxiv.org/abs/2406.16008)" (ACL Findings 2024), traced this to an intrinsic attention allocation bias that persists regardless of content relevance.[^4] In a loop-style prompt processing many items, the middle items land in the degraded zone. Unrolling gives every item its own beginning and end.
-
-<!-- Editor's Note:
-
-I have confirmed both linked papers are relevant. the footnote 4 goes to "found in the middle". "Transactions of the ACL" is not the paper title; it's "Lost in the Middle: How Language Models Use Long Contexts".
-
-One or both may bear the "linkcard / direct quote" treatment.
-
-> Second, we mitigate this positional bias through a calibration mechanism, found-in-the-middle, that allows the model to attend to contexts faithfully according to their relevance, even though when they are in the middle. 
-
-very important - is found-in-the-middle in any of the current frontier models?
-
-We do not want to claim that loop unrolling addresses the "lost in the middle" problem if there's a "found in the middle" solution that's already deployed! But, maybe we're just introducing foundational problems and the "is it solved and if so how" comes at the end.
-
--->
+"[Lost in the Middle](https://arxiv.org/abs/2307.03172)" (Liu et al., July 2023) demonstrated a U-shaped performance curve: models access information at the beginning and end of their context with meaningfully higher accuracy than information in the middle. A follow-up "[Found in the Middle](https://arxiv.org/abs/2406.16008)" (Hsieh et al., June 2024) traced this to an intrinsic attention allocation bias that persists regardless of content relevance, and proposed a calibration mechanism to mitigate it.[^4] The bias persists in practice - IFScale found systematic favoritism toward earlier instructions across all models tested. In a loop-style prompt processing many items, the middle items land in the degraded zone. Unrolling gives every item its own beginning and end.
 
 ### Causal Masking and Prompt Repetition
 
@@ -325,6 +311,11 @@ See the citation rules in blogging.mdc and clean up citation style throughout.
 -->
 
 ---
+
+<!--
+n.b. footnotes do not work when they are not referenced in doc; couting is wrong. maybe a nplugin bump can fix this.
+
+-->
 
 [^1]: Harada et al., "Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once," ICLR 2025. <https://openreview.net/forum?id=R6q67CDBCH>
 
