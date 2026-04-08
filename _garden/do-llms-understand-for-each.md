@@ -140,11 +140,11 @@ Generation boundaries handle the compounding problem. But as noted above, the mo
 | Situation | Approach | Why |
 | :--- | :--- | :--- |
 | Small set, few steps per item | Loop with tool calls | Generation resets handle compounding; short history keeps state reconstruction reliable |
-| Large set or many steps | Externalize the task list; reduce the loop to *pull task / do task / repeat* | Models can't reliably track "what's done" in context alone |
+| Large set or many steps | Externalize the task list; reduce the loop to <ol><li>pull task</li> <li>do task</li> <li>repeat</li></ol> | Models can't reliably track "what's done" in context alone |
 | Complex per-item steps (5+ with branching) | Add structural markers within each iteration | Per-generation constraint count still matters |
 | 20+ items in one conversation | Periodically re-inject core instructions | Guard against instruction drift |
 
-Most agent harnesses provide some form of task-list tool for this; writing a checklist to disk can work just as well as [third-party software solutions](https://github.com/gastownhall/beads). The mechanism matters less than the principle: get the "what's done / what remains" state out of the model's head and into something it reads back explicitly.
+Most agent harnesses provide some form of task-list tool for this; writing a checklist to disk can work just as well as [third-party software solutions](https://github.com/gastownhall/beads). The mechanism matters less than the principle: get the "what's done / what remains" state out of the model's head and into something it reads back explicitly.[^Niko]
 
 A personal rule of thumb: I'll start capping any unbroken numbered instruction list at 4 items before a tool call, since the batch prompting research showed meaningful quality degradation beyond that threshold[^8]... *for now!* We might expect this number to creep up as models get better, though it may not be from the underlying Transformer technology but from more-creative and effective behaviors layered on top of it.
 
@@ -152,11 +152,17 @@ A personal rule of thumb: I'll start capping any unbroken numbered instruction l
 
 Use structural markers. Whether looped or unrolled, [XML tags](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) and markdown headings improve adherence by providing the kind of hierarchical boundaries that models have internalized from their training data.[^12] OpenAI's [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) found that XML performed well for multi-document inputs while JSON performed particularly poorly.[^13]
 
-<!-- Editor's note: 
+```xml
+<task index="1">
+## Acme Corp
+Evaluate this contract for renewal risk.
+</task>
 
-In my unscientific anedcata experience, I agree strongly with structural markers. Perhaps we could show some inline examples (are markdown headings structural markers, too?)
-
--->
+<task index="2">
+## Globex Inc
+Evaluate this contract for renewal risk.
+</task>
+```
 
 If you must keep many items in a single prompt, three mitigations improve compliance: repeat the core instruction block after each item or at the end of the prompt,[^5] use indexed structural tags for each item,[^12] and add a self-verification step asking the model to check whether it completed all items. ManyIFEval found that self-refinement improved GPT-4o's 10-instruction compliance from 15% to 31%.[^1] Not great, but nearly double.
 
@@ -239,3 +245,5 @@ See the citation rules in blogging.mdc and clean up citation style throughout.
 
 [17]: https://arxiv.org/abs/2503.13657
 [^17]: Cemri et al., "Why Do Multi-Agent LLM Systems Fail?" 2025. [https://arxiv.org/abs/2503.13657][17]
+
+[^Niko]: My own prompt ruleset, [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko), applies several of these principles: externalized task files for set-tracking, forced file re-reads for instruction re-injection at phase boundaries, and explicit STOP gates as generation boundaries.
