@@ -51,15 +51,43 @@ If you have a lesson but worry about seeming preachy, write the Fable anyway. Re
 
 ## Writing Lessons and Takeaways
 
-When writing "What I Learned" or conclusion sections:
+When writing conclusion sections:
 
 - **Prefer specific over generic:** "RubyGems OIDC configuration is case-sensitive on usernames" beats "Gem publishing has sharp edges"
 - **Include the actionable detail:** Don't just say "tool X has bugs" - say what the bug is and how to avoid it
 - **Avoid truisms:** If it's obviously true to anyone (e.g., "TDD catches bugs early"), either cut it or make it specific enough to be useful
+- **"What This Means" and "What I Learned" are often bad titles:** They undersells your content thus far (the meaning should have been obvious) and insults the reader's intelligence (they should have gotten the meaning by now). Conclusions should crystallize and tie together, not just rehash - their section titles should therefore be similarly interesting.
 
 ## Blog-Specific Syntax
 
 - Links don't render well when they link a blockquote; instead of [`<something>`](https://...), just use `<something>` or [something](https://...)
+
+## Source Citations
+
+If a source is introduced as a subject of discussion, it should be linked prominently the first time it is mentioned. This is normally with an anchor link, but `{% linkcard %}` may be used if the whole section is explicitly *about* the source. If the source has a really salient single graphic, the `{%polaroid %}` tag may be used to pull that graphic inline and link to the source.
+
+Subsequent *references* to claims that a source supports should be indicated with markdown footnotes. Within the same section/paragraph where a paper is introduced and anchor-linked, claims from that paper do not need their own footnotes; the source is implied. However, if a section introduces multiple papers with anchor text, subsequent claims from each of those papers *do* need a footnote to disambiguate *which* claim is backed up by *which* paper. Similarly, claims later on in the document (far removed from the immediate context of the source) should be footnoted to indicate the authority they come from.
+
+If a cited source ends up having both a prominent intro link and at least one footnote, use markdown reference links to DRY up the citation:
+
+~~~markdown
+Some [Paper Name][1] says claim... and other claim [^1].
+This is interesting because ...
+
+[1]: https://paper.com
+[^1]: Paper Name, Author et. al. YYYY. [https://paper.com][1]
+~~~
+
+If a source is merely *cited* as a supporting authority for a claim, it should be footnoted *only*, without anchor text:
+
+~~~markdown
+It's been found that Some Claim[^1] and thefore I draw Some Conclusion.
+About that Conclusion...
+
+[^1]: Paper Name, Author et. al. YYYY. <https://paper.com>
+~~~
+
+Obviously, use correct and proper citation format for each source; the above examples just illustrate the markdown link techniques to use.
 
 # Security
 
