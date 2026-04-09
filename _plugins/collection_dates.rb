@@ -21,8 +21,12 @@ module Jekyll
           file_path = doc.path
           next unless File.exist?(file_path)
 
-          # Set creation date (for chronological sorting)
-          unless doc.data.key?("date")
+          # Set creation date (for chronological sorting).
+          # Jekyll's Document#date lazily assigns `site.time` when accessed,
+          # and other generators may trigger this before we run. Treat a date
+          # equal to site.time as "not explicitly set" (same heuristic Jekyll
+          # uses in Document#modify_date).
+          unless doc.data.key?("date") && doc.data["date"].to_i != site.time.to_i
             creation_date = git_first_commit_date(file_path) || File.ctime(file_path)
             doc.data["date"] = creation_date
           end
