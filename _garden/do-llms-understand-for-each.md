@@ -2,9 +2,9 @@
 layout: garden
 title: "Do LLMs Understand 'For Each'?"
 description: "What happens when you ask a language model to process a list of items? Research on instruction adherence, attention mechanics, and the generation boundary."
-author: niko
 tags:
   - ai
+  - iteration
   - prompt-engineering
   - research
 ---
@@ -98,9 +98,19 @@ Each tool call resets the generation context. The agent isn't trying to satisfy 
 
 The prompt repetition paper implicitly confirms this: its effect is neutral for reasoning models because they already "re-read" internally via chain-of-thought.[^5] Agentic tool-call loops achieve the same re-reading mechanically - each iteration brings the instructions back into focus through the tool response cycle.
 
-The [Multi-Task Inference][6] benchmark (Son et al., February 2024) points at the same boundary from the other direction. When 2-3 closely related subtasks shared a single generation instead of being split apart, GPT-4 improved by up to 12.4%. The authors' explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task." This is evidence about where to draw the generation boundary, not evidence for loops. Once you've partitioned work into per-item units, over-decomposing the steps *within* each item's group can hurt by denying related steps access to one another's context.
+The [Multi-Task Inference][6] benchmark (Son et al., February 2024) points at the same boundary from the other direction. 
 
-This doesn't mean agentic workflows are immune to instruction-following failures. The [AGENTIF benchmark][10] (Qi et al., NeurIPS 2025) - the first benchmark specifically designed for instruction following in agentic scenarios - found that current models still struggle, even the best achieving only about 60% constraint satisfaction on agentic prompts averaging nearly 12 constraints each.[^10] Conditional constraints proved particularly fragile: over 30% of failures came from incorrect condition checking - the model failing to recognize whether a condition was triggered, not failing to follow the constraint itself. And meta-constraints - instructions that govern other instructions, like "prioritize X over Y" - were among the least reliable of all.[^10] The constraints-per-generation count still matters. It's just that tool boundaries keep the per-generation count lower than what a monolithic prompt would impose.
+{% polaroid
+	arxiv.2402.11597v2.fig1.png
+	title="Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)"
+	link="https://arxiv.org/html/2402.11597v2"
+	image_link="arxiv.2402.11597v2.fig1.png"
+	archive="https://web.archive.org/web/20240607173315/https://arxiv.org/html/2402.11597v2"
+%}
+
+When 2-3 closely related subtasks shared a single generation instead of being split apart, GPT-4 improved by up to 12.4%. The authors' explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task." This is evidence about **where to draw the generation boundary, not evidence for loops.** Once you've partitioned work into per-item units, over-decomposing the steps *within* each item's group can hurt by denying related steps access to one another's context.
+
+This **doesn't mean agentic workflows are immune** to instruction-following failures. The [AGENTIF benchmark][10] (Qi et al., NeurIPS 2025) - the first benchmark specifically designed for instruction following in agentic scenarios - found that current models still struggle, even the best achieving only about 60% constraint satisfaction on agentic prompts averaging nearly 12 constraints each.[^10] Conditional constraints proved particularly fragile: over 30% of failures came from incorrect condition checking - the model failing to recognize whether a condition was triggered, not failing to follow the constraint itself. And meta-constraints - instructions that govern other instructions, like "prioritize X over Y" - were among the least reliable of all.[^10] The constraints-per-generation count still matters. It's just that tool boundaries keep the per-generation count lower than what a monolithic prompt would impose.
 
 There's a deeper prerequisite for successful agentic looping, too. LLMs have effectively zero latent working memory - [Huang et al.][15] (2025) showed that LLMs function as "reactive post-hoc solvers" that reconstruct task state from context at every generation. They don't hold a mental checklist; they re-derive one from the conversation history each turn. As that history grows, reconstruction degrades: open-weight models stop making measurable progress after about 6 steps,[^16] and roughly 23% of multi-agent system failures stem from premature termination, incomplete verification, or looping indefinitely.[^17] For iterative workflows, the fix is to externalize the iteration state - get the "what's done / what remains" tracking out of the model's head and into something it reads back explicitly.
 
@@ -114,7 +124,7 @@ There's a deeper prerequisite for successful agentic looping, too. LLMs have eff
 
 The most useful insight from integrating this research isn't about loops versus unrolling per se. It's that **the relevant unit of analysis is the generation boundary, not the prompt boundary.**
 
-The research unanimously shows that within a single generation, constraint compounding is exponential and positional bias is real. The practical question is always: *how many constraints am I asking the model to satisfy in this generation?*
+The research unanimously shows that within a single generation, constraint compounding is exponential and positional bias is real. The practical question is always: **how many constraints am I asking the model to satisfy in this generation?**
 
 If the answer is "few, because tool calls partition the work," loops are fine. If the answer is "many, because this is a monolithic prompt," unroll. The real answer lurking under that decision is that while loops can sometimes work, unrolling - whether in the prompt, the harness, or within the model's reasoning - is basically always being used for handling iterative assignments.
 
@@ -125,6 +135,8 @@ For what it's worth, here's how I'd think about it:
 ### Single-Generation Prompts
 
 No tool calls, one shot. You're not writing code like this; this is maybe embedded in a production system, part of a data pipeline, or otherwise bundled up and just expected to perform inference once and return a result. Classifiers, judges, etc. In this situation, you're often authoring the harness yourself, and so you get to choose what goes into a "generation" and how to glue results together for the prompt/context of subsequent generations.
+
+These numbers come from different studies at different points in time, conducted against differing sets of models - they're not absolute. Rather, when *you* are having to pick thresholds for your harness' behavior, these numbers may help locate and guide your decision.
 
 | Situation | Approach | Why |
 | :--- | :--- | :--- |
@@ -150,7 +162,7 @@ A personal rule of thumb: I'll start capping any unbroken numbered instruction l
 
 ### In All Cases
 
-Use structural markers. Whether looped or unrolled, [XML tags](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) and markdown headings improve adherence by providing the kind of hierarchical boundaries that models have internalized from their training data.[^12] OpenAI's [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) found that XML performed well for multi-document inputs while JSON performed particularly poorly.[^13]
+Use structural markers. Whether looped or unrolled, [XML tags](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) and markdown headings improve adherence by providing the kind of hierarchical boundaries that models have internalized from their training data. OpenAI's [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) found that XML performed well for multi-document inputs while JSON performed particularly poorly.
 
 ```xml
 <task index="1">
