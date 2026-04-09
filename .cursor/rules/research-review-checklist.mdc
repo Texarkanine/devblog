@@ -1,11 +1,10 @@
 ---
-description: Comprehensive checklist for reviewing research-style blog posts and garden notes. Enforces argument clarity, factual accuracy, source quality, epistemic honesty, citation hygiene, and publication readiness.
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Research Paper / Garden Post Review Checklist
 
-**Use this before publishing any research-style content in `_garden/` or `blog/` collections.**
+**Use this before publishing any research-style content.**
 
 ## Goal
 
@@ -157,9 +156,3 @@ Cut anything that merely *sounds* rigorous.
 4. What would the strongest critic say?
 5. Have I made any claim more confident than my evidence supports?
 6. If a reader checks my sources, will they feel misled?
-
----
-
-**This rule is derived directly from `planning/research-paper-review-checklist.md`.** It has been adapted to integrate with the existing blogging citation rules and Niko quality standards. All future research/garden posts should be reviewed against this checklist (either by the author or by invoking the rule explicitly in prompts). 
-
-The original planning document can now be archived.

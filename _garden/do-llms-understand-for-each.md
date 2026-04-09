@@ -1,6 +1,6 @@
 ---
 layout: garden
-title: "Do LLMs Understand 'For Each'?"
+title: Do LLMs Understand "For Each"?
 description: "What happens when you ask a language model to process a list of items? Research on instruction adherence, attention mechanics, and the generation boundary."
 tags:
   - ai

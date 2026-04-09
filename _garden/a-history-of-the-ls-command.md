@@ -5,6 +5,7 @@ description: "Who wrote ls? Tracing the directory listing command from MIT's Com
 tags:
   - history
   - ls
+  - research
   - unix
 ---
 
