@@ -16,9 +16,14 @@ tags:
 * [Steve Yegge](https://steve-yegge.medium.com/) <small>"technical essays on software engineering, programming languages, and the future of technology"</small>
 * [Daz.is](https://daz.is/blog/) <small>Exploring similar concepts to the main blog here, on a similar timeframe.</small>
 
+#### Blog Posts
+
+* [Python package managers: uv vs pixi](https://jacobtomlinson.dev/posts/2025/python-package-managers-uv-vs-pixi/)
+
 ### Misc
 
 * [Websites that spark joy.](https://whimsical.club/)
+* [Underhanded .bashrc](https://github.com/ayust/underhanded/blob/master/.bashrc)
 
 ## Toys
 
@@ -35,10 +40,11 @@ tags:
 
 ### Tools
 
-* [FFXIV Chocobo Colour Calculator](https://ffxivchocobo.com/)
+* [**FFXIV** - Chocobo Colour Calculator](https://ffxivchocobo.com/)
 * [FromSoftware image macro creator](https://rezuaq.be/new-area/image-creator/)
-* [Pokémon Scarlet/Violet Sandwich Calculator](https://birbzone.com/sandwich/)
-* [Monster Hunter Now - Gear Builder](https://mhn.quest/)
+* [**Pokémon Scarlet/Violet** - Sandwich Calculator](https://birbzone.com/sandwich/)
+* [**Monster Hunter Now** - Gear Builder](https://mhn.quest/)
+* [**Animal Crossing: New Horizons** - Turnip Prophet](https://turnipprophet.io/)
 
 ### Lore
 
