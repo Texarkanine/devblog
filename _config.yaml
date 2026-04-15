@@ -47,13 +47,14 @@ defaults:
 
 # Build settings
 exclude:
-  - Gemfile
-  - Gemfile.lock
   - .git
   - .gitignore
-  - README.md
   - "*.skbd"
+  - Gemfile
+  - Gemfile.lock
+  - memory-bank
   - nginx-proxy
+  - README.md
 
 # Plugins
 plugins:
