@@ -70,7 +70,7 @@ Four lines of aliasing, wired in via a `<script src="/browser-shim.js">` tag tha
 
 Then I tried to run Mozilla's [`web-ext lint`](https://github.com/mozilla/web-ext) against the generated Chrome manifest.
 
-It rejected it. `ADDON_ID_REQUIRED`. The linter wanted a Firefox-style add-on ID that MV3 does not use and the Chrome Web Store will not accept. `web-ext lint` is Firefox-centric in ways its README does not emphasize. It is not a general WebExtensions linter; it is the Firefox linter. I excluded Chrome from the CI lint step and let the Chrome Web Store's own upload-time validation serve as the check for that target.
+It rejected it. `ADDON_ID_REQUIRED`. The linter wanted a Firefox-style add-on ID that MV3 does not use and the Chrome Web Store will not accept. `web-ext lint` is Firefox-centric in ways its README does not emphasize. Despite the generic name, it's specifically the Firefox linter. I excluded Chrome from the CI lint step and let the Chrome Web Store's own upload-time validation serve as the check for that target.
 
 ## Three Stores, Three Shapes
 
@@ -141,7 +141,7 @@ I did not catch this one in review. [CodeRabbit](https://www.coderabbit.ai/) did
 
 AMO listed-channel submissions are asynchronous. `web-ext sign` uploads the XPI, waits for AMO's automated validation (fast, seconds to a minute), and then waits for human review (slow, hours to days). `kewisch/action-web-ext` exposes a single `timeout:` input and maps it to *both* phases. The ceiling on GitHub-hosted runners is 15 minutes. Review routinely takes longer than 15 minutes. Every release job failed red.
 
-The mechanism for fixing this already exists downstream. `web-ext`'s [`signAddon`](https://github.com/mozilla/web-ext/blob/master/src/util/submit-addon.js) accepts `approvalCheckTimeout: 0`, which causes it to return as soon as upload and validation succeed without polling for the reviewed/signed artifact. The action just didn't surface it.
+The mechanism for fixing this already exists downstream. `web-ext`'s [`signAddon`](https://github.com/mozilla/web-ext/blob/8.3.0/src/util/submit-addon.js) accepts `approvalCheckTimeout: 0`, which causes it to return as soon as upload and validation succeed without polling for the reviewed/signed artifact. The action just didn't surface it.
 
 I considered three paths:
 

@@ -64,6 +64,8 @@ When writing conclusion sections:
 
 ## Source Citations
 
+This machinery is calibrated for posts citing *external authorities* (papers, reports, primary sources). First-person technical posts grounded in your own experience can skip footnotes when inline links are reference material rather than evidence for claims - if the claim would survive without the link, an inline link suffices.
+
 If a source is introduced as a subject of discussion, it should be linked prominently the first time it is mentioned. This is normally with an anchor link, but `{% linkcard %}` may be used if the whole section is explicitly *about* the source. If the source has a really salient single graphic, the `{%polaroid %}` tag may be used to pull that graphic inline and link to the source.
 
 Subsequent *references* to claims that a source supports should be indicated with markdown footnotes. Within the same section/paragraph where a paper is introduced and anchor-linked, claims from that paper do not need their own footnotes; the source is implied. However, if a section introduces multiple papers with anchor text, subsequent claims from each of those papers *do* need a footnote to disambiguate *which* claim is backed up by *which* paper. Similarly, claims later on in the document (far removed from the immediate context of the source) should be footnoted to indicate the authority they come from.
