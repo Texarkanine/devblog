@@ -25,7 +25,7 @@ The first version targeted Firefox's [Manifest V2](https://extensionworkshop.com
 
 The only real surprise at this stage was CSS. I'd used [`color-mix()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix) to derive subtle dividers from `CanvasText`, which is clean and respects the user's system palette. The manifest declared `strict_min_version: 109.0`. `color-mix()` needs Firefox 113+. When CSS can't parse a shorthand, it drops the entire declaration. There is no graceful degradation to a base color. So on anything between Firefox 109 and 113, my borders vanished entirely.
 
-The [fix](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/popup/popup.css#L17-L19) is to pair each `color-mix()` declaration with an `rgba()` line immediately before it:
+The fix is to pair each `color-mix()` declaration with an `rgba()` line immediately before it:
 
 ```css
 border-bottom: 1px solid rgba(0, 0, 0, 0.15);
@@ -58,7 +58,7 @@ export function transformManifest(mv2) {
 
 Four rules, one function, unit-tested. If more targets show up later, the transform grows; until then this is enough.
 
-The runtime side needed a different trick. Shared code uses the WebExtensions `browser.*` namespace because Firefox implements it natively. Chrome does not implement `browser.*`; it only exposes `chrome.*`. Rather than branch every call site, the Chrome package gets a [shim](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/scripts/chrome-shim.js) injected ahead of the module scripts:
+The runtime side needed a different trick. Shared code uses the WebExtensions `browser.*` namespace because Firefox implements it natively. Chrome does not implement `browser.*`; it only exposes `chrome.*`. Rather than branch every call site, the Chrome package gets a shim injected ahead of the module scripts:
 
 ```javascript
 if (typeof globalThis.browser === "undefined") {
@@ -92,7 +92,7 @@ The first wall was `kewisch/action-web-ext` itself. Its `KNOWN_LICENSES` constan
 
 The partial fix was to pair the slug with `licenseFile: LICENSE`, which causes the action to upload the full license text alongside. That worked briefly.
 
-Then AMO's API itself pushed back on the `version.license` field with the same slug - it, too, has a list of permitted SPDX slugs, and `GPL-3.0-or-later` is not on it. The real fix is to skip `version.license` entirely and instead supply [`custom_license`](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/.github/workflows/release-please.yaml#L127-L142) via the action's `--amo-metadata` JSON, carrying both the SPDX name and the full license text:
+Then AMO's API itself pushed back on the `version.license` field with the same slug - it, too, has a list of permitted SPDX slugs, and `GPL-3.0-or-later` is not on it. The real fix is to skip `version.license` entirely and instead supply `custom_license` via the action's `--amo-metadata` JSON, carrying both the SPDX name and the full license text:
 
 ```json
 {
@@ -149,7 +149,7 @@ I considered three paths:
 2. Fork the action, patch it, and pin the fork.
 3. Write a PR and either wait for it to merge or pin the fork in the meantime.
 
-We picked (3). It is cheaper than the fork, contributes back, and leaves us with something to throw away once upstream merges. I opened [kewisch/action-web-ext#63](https://github.com/kewisch/action-web-ext/pull/63) on a fork branch that our release workflow uses today.
+We picked (3). It is cheaper than the fork, contributes back, and leaves us with something to throw away once upstream merges. I opened [kewisch/action-web-ext#63](https://github.com/kewisch/action-web-ext/pull/63) on a fork branch that our release workflow uses today. The action's last merged change landed 15 months before my PR - hobbyist cadence rather than abandonware, but enough to expect the pinned fork to outlive the review.
 
 The patch is three files. `action.yml` gains an `approvalTimeout` input. `src/index.js` passes it through. `src/action.js` routes it into the v5 code path:
 
@@ -199,7 +199,7 @@ The workflow inputs told the story. `timeout: 300`.
 
 Minutes had been assumed; the action takes milliseconds. Validation was getting three-tenths of a second to complete, giving up, and reporting the patch I'd just written as broken.
 
-[The fix](https://github.com/Texarkanine/tab-yeet/commit/edf178e) was one digit in one file. The commit message wrote itself: `fix(ci): it's milliseconds, not seconds`. The lesson: when a patch has just landed and the next run fails, read the knobs before reaching for the code. The config said exactly what it said; I hadn't read it.
+The fix was one digit in one file. The commit message wrote itself: `fix(ci): it's milliseconds, not seconds`. The lesson: when a patch has just landed and the next run fails, read the knobs before reaching for the code. The config said exactly what it said; I hadn't read it.
 
 ## What's Live
 
@@ -210,7 +210,7 @@ Minutes had been assumed; the action takes milliseconds. Validation was getting 
 
 Each release is automated end to end. Merge Conventional Commits to `main`, release-please opens a version PR, merging that PR tags a release, the release triggers dual builds and two store submissions. The only remaining manual piece is the first-time manual listing per store, which both AMO and CWS require on the first submission.
 
-## What I Learned
+## The Fine Print
 
 - **CSS shorthand fall-through is all-or-nothing.** `color-mix()` on a Firefox version below 113 drops the entire declaration rather than reverting to the base color. If your `strict_min_version` is below the feature's support floor, pair each modern rule with an older rule on the preceding line - both will be parsed, one will win.
 - **`web-ext lint` is the Firefox linter.** It applies Firefox-specific rules (`ADDON_ID_REQUIRED`) to manifests it was handed. Exclude Chrome output from CI lint; let Chrome Web Store upload-time validation serve as the Chrome check.
@@ -218,7 +218,6 @@ Each release is automated end to end. Merge Conventional Commits to `main`, rele
 - **`kewisch/action-web-ext` has a `KNOWN_LICENSES` allowlist shorter than SPDX.** `GPL-3.0-or-later` isn't in it. Supply `licenseFile: LICENSE` alongside the slug.
 - **AMO's `version.license` API has a *different* SPDX allowlist, also shorter.** Skip the field; use `custom_license` in `--amo-metadata` with both name and full license text.
 - **`secrets.*` does not resolve in job-level `if:` expressions.** Gate at step level: read the secret into an `env:` var, write a step output, condition subsequent steps on the output. A job gated on an unresolved `secrets.*` expression silently skips and reports success.
-- **Google's OAuth out-of-band flow was deprecated.** Use the loopback redirect flow for `chrome-webstore-upload-cli` setup. Any guide that tells you to copy an "authorization code" out of the browser is out of date.
 - **When adding a new success mode to an `if / else if / else` chain whose `else` throws, the patch is always at least two edits.** The new success shape needs its own branch, or a successful invocation will fall through to the failure path and crash.
 - **Upstream GitHub Actions work at hobbyist cadence.** `kewisch/action-web-ext` last merged a change 15 months before I touched it. That doesn't mean "abandoned;" the maintainer does merge in sporadic bursts. A PR there will sit, but it won't rot.
 - **Milliseconds, not seconds.** `web-ext` timeouts (and most Node-ecosystem action timeouts) are in milliseconds. A typo of three orders of magnitude produces the same error shape as a real timeout.
