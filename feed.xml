@@ -1,4 +1,219 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-04-15T18:14:26+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Sub-Agents aren’t Agents - They’re Skills but Worse</title><link href="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html" rel="alternate" type="text/html" title="Sub-Agents aren’t Agents - They’re Skills but Worse" /><published>2026-03-30T00:00:00+00:00</published><updated>2026-03-30T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html"><![CDATA[<p>I came across <a href="https://github.com/open-gitagent/gitagent">GitAgent</a> the other day: an “open standard” for defining AI agents as git repositories. I expected something novel about agent packaging. Instead I found a repo structure full of dot-folders and harness customization files - prompts, tools, workflows, memory, hooks - and my first reaction was “you’re telling me the source code repo I already have is an agent?”</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-04-17T20:00:14+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Publishing My First Browser Extension</title><link href="https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.html" rel="alternate" type="text/html" title="Publishing My First Browser Extension" /><published>2026-04-17T00:00:00+00:00</published><updated>2026-04-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.html"><![CDATA[<p><a href="https://github.com/Texarkanine/tab-yeet">Tab Yeet</a> lists every tab in your current window, applies ordered regex transforms to each URL, and copies the result to the clipboard in your preferred format. It ships with defaults that rewrite the four social hosts whose canonical URLs don’t embed cleanly - <code class="language-plaintext highlighter-rouge">twitter.com</code> becomes <code class="language-plaintext highlighter-rouge">fixupx.com</code>, <code class="language-plaintext highlighter-rouge">instagram.com</code> becomes <code class="language-plaintext highlighter-rouge">eeinstagram.com</code>, <code class="language-plaintext highlighter-rouge">reddit.com</code> becomes <code class="language-plaintext highlighter-rouge">vxreddit.com</code>, <code class="language-plaintext highlighter-rouge">tiktok.com</code> becomes <code class="language-plaintext highlighter-rouge">vxtiktok.com</code>. Paste a Discord or forum thread after copying, and previews actually appear.</p>
+
+<p>I had to build it because nothing existed that combined those three things. There are dozens of “copy all tab URLs” extensions. Several support format templates like <code class="language-plaintext highlighter-rouge">$url</code> / <code class="language-plaintext highlighter-rouge">$title</code>. One lets you paste URLs into a textarea and regex-munge them after the fact. None apply ordered, persistent rewrite rules automatically, let alone ship the social-embed defaults baked in. The interesting cell in the matrix was empty.</p>
+
+<p>As of this week Tab Yeet is on <a href="https://addons.mozilla.org/firefox/addon/tab-yeet/">AMO</a> and the <a href="https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle">Chrome Web Store</a>. It is not on Apple’s App Store, and it won’t be, and that omission turned out to be the cleanest data point in the whole story.</p>
+
+<h2 id="manifest-v2-first">Manifest V2 First</h2>
+
+<p>The first version targeted Firefox’s <a href="https://extensionworkshop.com/documentation/develop/manifest-v2-and-mv3-cheat-sheet/">Manifest V2</a>. Three pure modules (<code class="language-plaintext highlighter-rouge">lib/storage.js</code>, <code class="language-plaintext highlighter-rouge">lib/transforms.js</code>, <code class="language-plaintext highlighter-rouge">lib/formats.js</code>), a popup, an options page, and an integration test locking the contract between them. Straightforward TDD.</p>
+
+<p>The only real surprise at this stage was CSS. I’d used <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix"><code class="language-plaintext highlighter-rouge">color-mix()</code></a> to derive subtle dividers from <code class="language-plaintext highlighter-rouge">CanvasText</code>, which is clean and respects the user’s system palette. The manifest declared <code class="language-plaintext highlighter-rouge">strict_min_version: 109.0</code>. <code class="language-plaintext highlighter-rouge">color-mix()</code> needs Firefox 113+. When CSS can’t parse a shorthand, it drops the entire declaration. There is no graceful degradation to a base color. So on anything between Firefox 109 and 113, my borders vanished entirely.</p>
+
+<p>The fix is to pair each <code class="language-plaintext highlighter-rouge">color-mix()</code> declaration with an <code class="language-plaintext highlighter-rouge">rgba()</code> line immediately before it:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">border-bottom</span><span class="o">:</span> <span class="err">1</span><span class="nt">px</span> <span class="nt">solid</span> <span class="nt">rgba</span><span class="o">(</span><span class="err">0</span><span class="o">,</span> <span class="err">0</span><span class="o">,</span> <span class="err">0</span><span class="o">,</span> <span class="err">0</span><span class="o">.</span><span class="err">15</span><span class="o">);</span>
+<span class="nt">border-bottom</span><span class="o">:</span> <span class="err">1</span><span class="nt">px</span> <span class="nt">solid</span> <span class="nt">color-mix</span><span class="o">(</span><span class="nt">in</span> <span class="nt">srgb</span><span class="o">,</span> <span class="nt">CanvasText</span> <span class="m">15%</span><span class="o">,</span> <span class="nt">transparent</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Browsers that parse the second line keep it; browsers that choke on it fall back to the first. Two copies of every divider, two copies in the <code class="language-plaintext highlighter-rouge">@media (prefers-color-scheme: dark)</code> block, and the extension looks the same on Firefox 109 and Firefox 140. Annoying, but small, and better than noticing the empty space later.</p>
+
+<h2 id="then-manifest-v3">Then Manifest V3</h2>
+
+<p>Firefox is still happy on MV2, but the Chrome Web Store requires MV3. I did not want a second repo, forked branding, or parallel source directories. One codebase, two packages.</p>
+
+<p>The answer was a build-time manifest transform plus a namespace shim. The MV2 <code class="language-plaintext highlighter-rouge">manifest.json</code> at the project root stays the source of truth. A small <a href="https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/scripts/transform-manifest.js"><code class="language-plaintext highlighter-rouge">scripts/transform-manifest.js</code></a> rewrites it into MV3 on demand:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nf">transformManifest</span><span class="p">(</span><span class="nx">mv2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mv3</span> <span class="o">=</span> <span class="nf">structuredClone</span><span class="p">(</span><span class="nx">mv2</span><span class="p">);</span>
+  <span class="nx">mv3</span><span class="p">.</span><span class="nx">manifest_version</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">mv3</span><span class="p">.</span><span class="nx">browser_action</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">mv3</span><span class="p">.</span><span class="nx">action</span> <span class="o">=</span> <span class="nx">mv3</span><span class="p">.</span><span class="nx">browser_action</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="nx">mv3</span><span class="p">.</span><span class="nx">browser_action</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">delete</span> <span class="nx">mv3</span><span class="p">.</span><span class="nx">browser_specific_settings</span><span class="p">;</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">mv3</span><span class="p">.</span><span class="nx">permissions</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">mv3</span><span class="p">.</span><span class="nx">permissions</span> <span class="o">=</span> <span class="nx">mv3</span><span class="p">.</span><span class="nx">permissions</span><span class="p">.</span><span class="nf">filter</span><span class="p">((</span><span class="nx">p</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">p</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">clipboardWrite</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">mv3</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Four rules, one function, unit-tested. If more targets show up later, the transform grows; until then this is enough.</p>
+
+<p>The runtime side needed a different trick. Shared code uses the WebExtensions <code class="language-plaintext highlighter-rouge">browser.*</code> namespace because Firefox implements it natively. Chrome does not implement <code class="language-plaintext highlighter-rouge">browser.*</code>; it only exposes <code class="language-plaintext highlighter-rouge">chrome.*</code>. Rather than branch every call site, the Chrome package gets a shim injected ahead of the module scripts:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">globalThis</span><span class="p">.</span><span class="nx">browser</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">undefined</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">globalThis</span><span class="p">.</span><span class="nx">browser</span> <span class="o">=</span> <span class="nx">chrome</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Four lines of aliasing, wired in via a <code class="language-plaintext highlighter-rouge">&lt;script src="/browser-shim.js"&gt;</code> tag that only the Chrome staging pipeline adds. Shared source files never learn which browser they’re running in.</p>
+
+<p>Then I tried to run Mozilla’s <a href="https://github.com/mozilla/web-ext"><code class="language-plaintext highlighter-rouge">web-ext lint</code></a> against the generated Chrome manifest.</p>
+
+<p>It rejected it. <code class="language-plaintext highlighter-rouge">ADDON_ID_REQUIRED</code>. The linter wanted a Firefox-style add-on ID that MV3 does not use and the Chrome Web Store will not accept. <code class="language-plaintext highlighter-rouge">web-ext lint</code> is Firefox-centric in ways its README does not emphasize. Despite the generic name, it’s specifically the Firefox linter. I excluded Chrome from the CI lint step and let the Chrome Web Store’s own upload-time validation serve as the check for that target.</p>
+
+<h2 id="three-stores-three-shapes">Three Stores, Three Shapes</h2>
+
+<p>Once both packages built cleanly, shipping to the stores looked straightforward on paper: three APIs, three uploads. In practice the three stores have <em>very</em> different gate shapes, and I have direct experience with only two of them.</p>
+
+<p><strong>AMO (Firefox).</strong> Free developer account, API keys on request, a JWT-signed upload endpoint, listing metadata in JSON. Everything automatable from a GitHub Actions job. An already-published action (<a href="https://github.com/kewisch/action-web-ext"><code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code></a>) wraps the CLI nicely. Zero dollars.</p>
+
+<p><strong>Chrome Web Store.</strong> One-time $5 developer registration fee. After that: OAuth 2.0 client credentials, a REST upload endpoint, a well-maintained CLI (<a href="https://github.com/fregante/chrome-webstore-upload-cli"><code class="language-plaintext highlighter-rouge">chrome-webstore-upload-cli</code></a>). Also automatable.</p>
+
+<p><strong>Apple App Store.</strong> $99 per year for an Apple Developer Program membership, required to actually publish. I can tell you in detail what AMO and Chrome Web Store publishing look like because we’ve done both. I don’t know what App Store publishing looks like. It isn’t hidden; Apple’s developer docs are public, and I could go read them. What happened is simpler: we decided not to publish the moment the fee appeared, and nothing past that gate has bearing on a decision already made.</p>
+
+<p>This is the data point I mentioned at the top. The filter works by deciding the question before it becomes interesting. That’s the full report.</p>
+
+<h2 id="the-license-allowlist-twice">The License Allowlist (Twice)</h2>
+
+<p>Tab Yeet is GPL-3.0-or-later. Both stores accept SPDX identifiers. Neither accepts this one directly.</p>
+
+<p>The first wall was <code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code> itself. Its <code class="language-plaintext highlighter-rouge">KNOWN_LICENSES</code> constant is a short allowlist of SPDX slugs, and <code class="language-plaintext highlighter-rouge">GPL-3.0-or-later</code> is not in it - only <code class="language-plaintext highlighter-rouge">GPL-3.0-only</code> is, despite SPDX marking the <code class="language-plaintext highlighter-rouge">-only</code> variant as the more-restrictive of the two. Passing <code class="language-plaintext highlighter-rouge">license: GPL-3.0-or-later</code> to the action caused it to treat the string as a custom license name without text, which AMO then rejected.</p>
+
+<p>The partial fix was to pair the slug with <code class="language-plaintext highlighter-rouge">licenseFile: LICENSE</code>, which causes the action to upload the full license text alongside. That worked briefly.</p>
+
+<p>Then AMO’s API itself pushed back on the <code class="language-plaintext highlighter-rouge">version.license</code> field with the same slug - it, too, has a list of permitted SPDX slugs, and <code class="language-plaintext highlighter-rouge">GPL-3.0-or-later</code> is not on it. The real fix is to skip <code class="language-plaintext highlighter-rouge">version.license</code> entirely and instead supply <code class="language-plaintext highlighter-rouge">custom_license</code> via the action’s <code class="language-plaintext highlighter-rouge">--amo-metadata</code> JSON, carrying both the SPDX name and the full license text:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"custom_license"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"en-US"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GPL-3.0-or-later"</span><span class="w"> </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"en-US"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;contents of LICENSE&gt;"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Two distinct allowlists, both undocumented as such, both shorter than SPDX. I ended up reading <a href="https://github.com/kewisch/action-web-ext/blob/v1/src/action.js"><code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code></a>’s source to find the first, and reading the AMO API’s 400 response to find the second.</p>
+
+<h2 id="conditional-silence">Conditional Silence</h2>
+
+<p>The Chrome Web Store job is conditional. If <code class="language-plaintext highlighter-rouge">CWS_CLIENT_ID</code> isn’t configured, the job should skip cleanly so contributors running the workflow on their own forks don’t see red builds. My first cut gated the whole job with <code class="language-plaintext highlighter-rouge">if: $</code>.</p>
+
+<p>The job skipped every time. Including when the secret was set.</p>
+
+<p>In GitHub Actions, the <a href="https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability"><code class="language-plaintext highlighter-rouge">secrets.*</code> context does not resolve inside a job-level <code class="language-plaintext highlighter-rouge">if:</code> expression</a>. The expression evaluates to empty, the condition is always false, and the job silently no-ops. There is no error, no warning, nothing. The job just doesn’t run.</p>
+
+<p>The fix is step-level gating. A first step reads the secret through <code class="language-plaintext highlighter-rouge">env:</code> (where it does resolve), writes an output, and later steps check the output instead:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Check CWS secrets</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">check-secrets</span>
+  <span class="na">env</span><span class="pi">:</span>
+    <span class="na">HAS_SECRET</span><span class="pi">:</span> <span class="s">$</span>
+  <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">if [ -z "$HAS_SECRET" ]; then</span>
+      <span class="s">echo "skip=true" &gt;&gt; "$GITHUB_OUTPUT"</span>
+      <span class="s">echo "::notice::CWS secrets not configured — skipping publish"</span>
+    <span class="s">fi</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Upload and publish to Chrome Web Store</span>
+  <span class="na">if</span><span class="pi">:</span> <span class="s">steps.check-secrets.outputs.skip != 'true'</span>
+  <span class="na">env</span><span class="pi">:</span>
+    <span class="na">CLIENT_ID</span><span class="pi">:</span> <span class="s">$</span>
+    <span class="c1"># ...</span>
+</code></pre></div></div>
+
+<p>I did not catch this one in review. <a href="https://www.coderabbit.ai/">CodeRabbit</a> did. I’d like to claim I would have caught it once I looked at a green build that hadn’t actually published anything, but the build <em>was</em> green - an always-skipping job reports success as loudly as a succeeding one. The silent failure mode is the bug.</p>
+
+<h2 id="the-release-that-never-finishes">The Release That Never Finishes</h2>
+
+<p>AMO listed-channel submissions are asynchronous. <code class="language-plaintext highlighter-rouge">web-ext sign</code> uploads the XPI, waits for AMO’s automated validation (fast, seconds to a minute), and then waits for human review (slow, hours to days). <code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code> exposes a single <code class="language-plaintext highlighter-rouge">timeout:</code> input and maps it to <em>both</em> phases. The ceiling on GitHub-hosted runners is 15 minutes. Review routinely takes longer than 15 minutes. Every release job failed red.</p>
+
+<p>The mechanism for fixing this already exists downstream. <code class="language-plaintext highlighter-rouge">web-ext</code>’s <a href="https://github.com/mozilla/web-ext/blob/8.3.0/src/util/submit-addon.js"><code class="language-plaintext highlighter-rouge">signAddon</code></a> accepts <code class="language-plaintext highlighter-rouge">approvalCheckTimeout: 0</code>, which causes it to return as soon as upload and validation succeed without polling for the reviewed/signed artifact. The action just didn’t surface it.</p>
+
+<p>I considered three paths:</p>
+
+<ol>
+  <li>Replace the action with a 50-line custom script that calls <code class="language-plaintext highlighter-rouge">signAddon</code> directly.</li>
+  <li>Fork the action, patch it, and pin the fork.</li>
+  <li>Write a PR and either wait for it to merge or pin the fork in the meantime.</li>
+</ol>
+
+<p>We picked (3). It is cheaper than the fork, contributes back, and leaves us with something to throw away once upstream merges. I opened <a href="https://github.com/kewisch/action-web-ext/pull/63">kewisch/action-web-ext#63</a> on a fork branch that our release workflow uses today. The action’s last merged change landed 15 months before my PR - hobbyist cadence rather than abandonware, but enough to expect the pinned fork to outlive the review.</p>
+
+<p>The patch is three files. <code class="language-plaintext highlighter-rouge">action.yml</code> gains an <code class="language-plaintext highlighter-rouge">approvalTimeout</code> input. <code class="language-plaintext highlighter-rouge">src/index.js</code> passes it through. <code class="language-plaintext highlighter-rouge">src/action.js</code> routes it into the v5 code path:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">approvalCheckTimeout</span><span class="p">:</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">approvalTimeout</span> <span class="o">!==</span> <span class="dl">""</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">approvalTimeout</span> <span class="o">!=</span> <span class="kc">null</span>
+    <span class="p">?</span> <span class="nc">Number</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">approvalTimeout</span><span class="p">)</span>
+    <span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">timeout</span><span class="p">,</span>
+</code></pre></div></div>
+
+<p>This is the obvious part. The non-obvious part is that setting <code class="language-plaintext highlighter-rouge">approvalCheckTimeout: 0</code> puts <code class="language-plaintext highlighter-rouge">signAddon</code> into a return shape the action doesn’t handle. The tail of <code class="language-plaintext highlighter-rouge">cmd_sign</code> is an <code class="language-plaintext highlighter-rouge">if / else if / else</code> chain:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">downloadedFiles</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">addon_id</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="p">...</span> <span class="p">};</span>   <span class="c1">// normal sync path</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">errorCode</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">ADDON_NOT_AUTO_SIGNED</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">addon_id</span><span class="p">,</span> <span class="na">target</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="p">...</span> <span class="p">};</span>   <span class="c1">// known non-fatal case</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="s2">`The signing process has failed (</span><span class="p">${</span><span class="nx">result</span><span class="p">.</span><span class="nx">errorCode</span><span class="p">}</span><span class="s2">): </span><span class="p">${</span><span class="nx">result</span><span class="p">.</span><span class="nx">errorDetails</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When approval is skipped, <code class="language-plaintext highlighter-rouge">signAddon</code> returns <code class="language-plaintext highlighter-rouge">{ id, downloadedFiles: undefined }</code> with no <code class="language-plaintext highlighter-rouge">errorCode</code>. That falls through to the <code class="language-plaintext highlighter-rouge">else</code> and throws <code class="language-plaintext highlighter-rouge">"The signing process has failed (undefined): undefined"</code>. A successful submission would be reported as a failure.</p>
+
+<p>So the patch adds a third success branch, explicitly recognizing “submitted, not waiting”:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nc">Number</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">approvalTimeout</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">result</span><span class="p">.</span><span class="nx">errorCode</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">core</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="dl">"</span><span class="s2">Submitted to AMO. Skipped waiting for approval (approvalTimeout=0).</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="na">addon_id</span><span class="p">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="na">target</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="p">...</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The general shape of this kind of bug shows up whenever you add a new success mode to an <code class="language-plaintext highlighter-rouge">if / else if / else</code> chain whose <code class="language-plaintext highlighter-rouge">else</code> throws. The feature is one edit; the branch that stops the new success from being called a failure is a second, separate edit, and forgetting it turns your green path into a red one.</p>
+
+<h2 id="read-the-units">Read the Units</h2>
+
+<p>I shipped the forked action. The next release failed with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Signing Tab Yeet 0.8.1...
+Waiting for validation...
+Error: Validation: timeout exceeded.
+</code></pre></div></div>
+
+<p>The workflow inputs told the story. <code class="language-plaintext highlighter-rouge">timeout: 300</code>.</p>
+
+<p>Minutes had been assumed; the action takes milliseconds. Validation was getting three-tenths of a second to complete, giving up, and reporting the patch I’d just written as broken.</p>
+
+<p>The fix was one digit in one file. The commit message wrote itself: <code class="language-plaintext highlighter-rouge">fix(ci): it's milliseconds, not seconds</code>. The lesson: when a patch has just landed and the next run fails, read the knobs before reaching for the code. The config said exactly what it said; I hadn’t read it.</p>
+
+<h2 id="whats-live">What’s Live</h2>
+
+<ul>
+  <li><strong>Firefox / LibreWolf / forks:</strong> <a href="https://addons.mozilla.org/firefox/addon/tab-yeet/">addons.mozilla.org/firefox/addon/tab-yeet</a></li>
+  <li><strong>Chrome / Brave / Edge / Chromium-based:</strong> <a href="https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle">chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle</a></li>
+  <li><strong>Direct .xpi / .zip downloads</strong> for manual install: <a href="https://github.com/Texarkanine/tab-yeet/releases">GitHub Releases</a></li>
+  <li><strong>Safari:</strong> no.</li>
+</ul>
+
+<p>Each release is automated end to end. Merge Conventional Commits to <code class="language-plaintext highlighter-rouge">main</code>, release-please opens a version PR, merging that PR tags a release, the release triggers dual builds and two store submissions. The only remaining manual piece is the first-time manual listing per store, which both AMO and CWS require on the first submission.</p>
+
+<h2 id="the-fine-print">The Fine Print</h2>
+
+<ul>
+  <li><strong>CSS shorthand fall-through is all-or-nothing.</strong> <code class="language-plaintext highlighter-rouge">color-mix()</code> on a Firefox version below 113 drops the entire declaration rather than reverting to the base color. If your <code class="language-plaintext highlighter-rouge">strict_min_version</code> is below the feature’s support floor, pair each modern rule with an older rule on the preceding line - both will be parsed, one will win.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">web-ext lint</code> is the Firefox linter.</strong> It applies Firefox-specific rules (<code class="language-plaintext highlighter-rouge">ADDON_ID_REQUIRED</code>) to manifests it was handed. Exclude Chrome output from CI lint; let Chrome Web Store upload-time validation serve as the Chrome check.</li>
+  <li><strong>Chrome doesn’t implement <code class="language-plaintext highlighter-rouge">browser.*</code>.</strong> Ship a one-file <code class="language-plaintext highlighter-rouge">chrome → browser</code> shim injected ahead of module scripts only into the Chrome package. Shared source never learns which browser it runs in.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code> has a <code class="language-plaintext highlighter-rouge">KNOWN_LICENSES</code> allowlist shorter than SPDX.</strong> <code class="language-plaintext highlighter-rouge">GPL-3.0-or-later</code> isn’t in it. Supply <code class="language-plaintext highlighter-rouge">licenseFile: LICENSE</code> alongside the slug.</li>
+  <li><strong>AMO’s <code class="language-plaintext highlighter-rouge">version.license</code> API has a <em>different</em> SPDX allowlist, also shorter.</strong> Skip the field; use <code class="language-plaintext highlighter-rouge">custom_license</code> in <code class="language-plaintext highlighter-rouge">--amo-metadata</code> with both name and full license text.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">secrets.*</code> does not resolve in job-level <code class="language-plaintext highlighter-rouge">if:</code> expressions.</strong> Gate at step level: read the secret into an <code class="language-plaintext highlighter-rouge">env:</code> var, write a step output, condition subsequent steps on the output. A job gated on an unresolved <code class="language-plaintext highlighter-rouge">secrets.*</code> expression silently skips and reports success.</li>
+  <li><strong>When adding a new success mode to an <code class="language-plaintext highlighter-rouge">if / else if / else</code> chain whose <code class="language-plaintext highlighter-rouge">else</code> throws, the patch is always at least two edits.</strong> The new success shape needs its own branch, or a successful invocation will fall through to the failure path and crash.</li>
+  <li><strong>Upstream GitHub Actions work at hobbyist cadence.</strong> <code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code> last merged a change 15 months before I touched it. That doesn’t mean “abandoned;” the maintainer does merge in sporadic bursts. A PR there will sit, but it won’t rot.</li>
+  <li><strong>Milliseconds, not seconds.</strong> <code class="language-plaintext highlighter-rouge">web-ext</code> timeouts (and most Node-ecosystem action timeouts) are in milliseconds. A typo of three orders of magnitude produces the same error shape as a real timeout.</li>
+  <li><strong>A green build is not a successful build.</strong> A job gated on an unresolved expression, or a step that exits early without running its work, reports success with the same color as a step that did its job. Any conditional skip deserves a <code class="language-plaintext highlighter-rouge">::notice::</code> so the intent is visible in the logs.</li>
+</ul>
+
+<h2 id="the-repositories">The Repositories</h2>
+
+<ul>
+  <li><a href="https://github.com/Texarkanine/tab-yeet">Texarkanine/tab-yeet</a> - the extension, with the full release pipeline at <a href="https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/.github/workflows/release-please.yaml"><code class="language-plaintext highlighter-rouge">.github/workflows/release-please.yaml</code></a>.</li>
+  <li><a href="https://github.com/Texarkanine/action-web-ext/tree/submit-timeout">Texarkanine/action-web-ext</a> - the fork carrying the <code class="language-plaintext highlighter-rouge">approvalTimeout</code> patch until upstream merges.</li>
+  <li><a href="https://github.com/kewisch/action-web-ext/pull/63">kewisch/action-web-ext#63</a> - the upstream PR.</li>
+</ul>
+
+<p>Two stores, one codebase, one release pipeline, one upstream patch in flight. The third store remains theoretical.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="browser-extension" /><category term="tab-yeet" /><category term="firefox" /><category term="chrome" /><category term="ci-cd" /><category term="web-ext" /><category term="open-source" /><summary type="html"><![CDATA[web-ext lint rejects valid Chrome manifests, GitHub Actions secrets don't resolve in job-level if: expressions, and kewisch/action-web-ext hardcoded the AMO approval timeout. Shipping Tab Yeet across Firefox and Chrome (and bouncing off Safari).]]></summary></entry><entry><title type="html">Sub-Agents aren’t Agents - They’re Skills but Worse</title><link href="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html" rel="alternate" type="text/html" title="Sub-Agents aren’t Agents - They’re Skills but Worse" /><published>2026-03-30T00:00:00+00:00</published><updated>2026-03-30T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html"><![CDATA[<p>I came across <a href="https://github.com/open-gitagent/gitagent">GitAgent</a> the other day: an “open standard” for defining AI agents as git repositories. I expected something novel about agent packaging. Instead I found a repo structure full of dot-folders and harness customization files - prompts, tools, workflows, memory, hooks - and my first reaction was “you’re telling me the source code repo I already have is an agent?”</p>
 
 <p>But that reaction was wrong, and the reason it was wrong sharpened something I’d been circling for months about how agentic coding harnesses model their primitives.</p>
 
@@ -1559,176 +1774,4 @@ npx a16n convert <span class="nt">--from</span> cursorrules <span class="nt">--t
 
 <p>On the other hand, if you <em>don’t</em> fold behavior into copyright, then the only way I can imagine an API surface being protected is in its exact expression. So, that would legally preclude things like <code class="language-plaintext highlighter-rouge">chardet</code> and <code class="language-plaintext highlighter-rouge">vinext</code>’s API-compatible drop-in replacements, but it does <em>not</em> preclude the “copy it but change a few words” kind of clone. And that clone still gives <em>most</em> people the “out” of the original license that they’d need.</p>
 
-<p>No matter how you slice it, software licensing is dead.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="copyleft" /><category term="copyright" /><category term="intellectual-property" /><category term="open-source" /><category term="software-licensing" /><summary type="html"><![CDATA[AI-powered behavioral clones of software cost a fraction of what reimplementation used to. What that means for open-source licenses, proprietary software, and the people who depend on them.]]></summary></entry><entry><title type="html">It’s Model Context Protocol, Not Agent Context Protocol</title><link href="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html" rel="alternate" type="text/html" title="It’s Model Context Protocol, Not Agent Context Protocol" /><published>2026-02-23T00:00:00+00:00</published><updated>2026-02-23T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.html"><![CDATA[<h2 id="thesis">Thesis</h2>
-
-<blockquote>
-  <p>Most of the time, MCP doesn’t deliver any value beyond what a capable model could get from a CLI and a shell.</p>
-</blockquote>
-
-<h2 id="the-m">The M</h2>
-
-<p>The “M” in <a href="https://modelcontextprotocol.io">MCP</a> stands for “Model.” Not “Agent.”</p>
-
-<p>That single letter does a remarkable amount of work if you let it. A <em>model</em> - in the MCP sense - is an LLM with a narrow task, deployed for a specific kind of processing. An <em>agent</em> - as the industry has been using the term - is a general-purpose thinker given latitude to figure things out.</p>
-
-<p>MCP was designed to give <em>“models”</em> with constrained reasoning capabilities well-defined tools that they could find and use to succeed. Somewhere along the way, people started bolting it onto <em>agents</em> and wondering why the fit was bad.</p>
-
-<h2 id="the-baseline-is-free">The Baseline Is Free</h2>
-
-<p>A sufficiently capable model with shell access can already do a lot. It knows <a href="https://cli.github.com/">gh</a>. It knows <a href="https://curl.se/">curl</a>. It knows <a href="https://jqlang.org/">jq</a>. It can read <code class="language-plaintext highlighter-rouge">--help</code>. It can try things, observe the output, and adjust. This is the baseline, and the baseline is free - no tool definitions in context, no server overhead, no configuration to manage.</p>
-
-<p>MCP has to beat free.</p>
-
-<p>Everything MCP puts into a model’s context window has a cost: tokens for the tool definitions, tokens for the schemas, attention spent considering tools that may not be relevant to the task at hand. If you’ve read “<a href="/2026/02/12/stop-doing-agents-md.html">Stop Doing AGENTS.md</a>”, you already know where I stand on paying context rent for things that aren’t pulling their weight. MCP is no different. A tool definition sitting in context is overhead until the moment it’s invoked - and if the model <em>might not</em> invoke it, you’re speculating with your context budget.</p>
-
-<p>So the question for any MCP integration is: what does this buy me that the model couldn’t get on its own?</p>
-
-<h2 id="earning-tokens">Earning Tokens</h2>
-
-<p>There are a handful of things MCP genuinely buys over the baseline. Each one is a mechanism that justifies the context cost - but only when the tool is <em>core</em> to the model’s task.</p>
-
-<h3 id="attention">Attention</h3>
-
-<p>When a tool is always in context, the model always knows it exists and exactly how to call it. No discovery step, no hoping it “remembers” that some CLI is available, no wasted attempt with wrong flags.</p>
-
-<p>For a narrow-task model that <em>will</em> use this tool on every invocation, that’s not overhead - that’s the job description. Your customer service agent that files tickets? It should have the ticketing tool in context, always. That’s what it <em>does</em>.</p>
-
-<p>For a general-purpose coding agent that <em>might</em> use it? You’re paying rent on a room nobody’s sleeping in.</p>
-
-<h3 id="formatting">Formatting</h3>
-
-<p>The strict I/O contract of an MCP server’s tool invocation solves two problems:</p>
-
-<ol>
-  <li>“Complex, error-sensitive output formats are easier for LLMs to get wrong than freeform prose”</li>
-  <li>“The consequences of wrong output are severe”</li>
-</ol>
-
-<p>Do you even have those problems? The value is proportional to how bad the failure mode is.</p>
-
-<p>A CSR agent accidentally malforming a deletion request and nuking the wrong entity is catastrophic. A coding agent producing slightly wonky JSON in a one-off script is a minor annoyance you’ll catch in review. MCP’s strict formatting buys you insurance, and insurance is only worth buying against risks that would actually hurt.</p>
-
-<h3 id="business-logic-and-sequencing">Business Logic and Sequencing</h3>
-
-<p>When primitive API operations must be composed in a strict order, you have business logic. Things like create the parent before the child, set the status before assigning the owner, ensure delivery of the last message before archiving, etc. You can write that logic into your prompt and hope the stochastic parrot doesn’t drop step 3 of 7, or you can encode it into a deterministic tool that gets it right every time.</p>
-
-<p>The MCP earns its tokens by encoding sequences that are easy to get wrong and expensive to debug.</p>
-
-<h3 id="auth-scope-management">Auth Scope Management</h3>
-
-<p>Maybe your API token has <code class="language-plaintext highlighter-rouge">delete</code> permissions, but you only want the model to be able to delete orphaned entities. Instead of just asking nicely and hoping for the best, an MCP server can expose the “delete orphaned entities” tool, and hold onto the API token. The LLM can’t mistakenly delete something it shouldn’t because it doesn’t actually have credentials to delete!</p>
-
-<p>You can also offload auth entirely, e.g. with web-based OAuth flows. MCP gives you granularity beyond what the underlying API offers.</p>
-
-<p>This is a real, concrete security win. Your L1 CSR agent gets N tools for its N tasks, and that’s <em>all</em> it can do. No <code class="language-plaintext highlighter-rouge">bash</code>, no <code class="language-plaintext highlighter-rouge">curl</code> - not just because those aren’t its job, but because injection and privilege escalation are real risks when a model has access to a shell and credentials in the same context. Block all <em>commands.</em> Give it the <em>tools.</em> Done.</p>
-
-<h3 id="parallelism">Parallelism</h3>
-
-<p>If you’re running a true, long-lived MCP server (not a per-invocation spawn) and you have multiple model instances hitting it concurrently, the server can handle synchronization. This is a real but minor benefit, and I’d argue that if your underlying API can’t handle concurrent access, that’s a different bug. MCP shouldn’t be your concurrency band-aid.</p>
-
-<h2 id="when-mcp-is-wrong">When MCP Is Wrong</h2>
-
-<p>The flip side falls out naturally:</p>
-
-<p><strong>There’s a clear CLI.</strong></p>
-
-<p><code class="language-plaintext highlighter-rouge">gh</code> exists. My coding agents don’t have the GitHub MCP and they don’t need it. The model already knows <code class="language-plaintext highlighter-rouge">gh</code> is there, and if it doesn’t, one failed attempt and a <code class="language-plaintext highlighter-rouge">--help</code> later, it does.</p>
-
-<p><strong>There’s a clean, well-documented API.</strong></p>
-
-<p>If the model can <code class="language-plaintext highlighter-rouge">curl</code> it and parse the response, you’re adding overhead for nothing by defining all the interactions in context before they’re needed. An agent can look up the API spec and <code class="language-plaintext highlighter-rouge">curl</code> into it when it needs to!</p>
-
-<p><strong>The tool is something the agent <em>might</em> need, not something it <em>will</em> need.</strong></p>
-
-<p>This is the crucial distinction. An always-in-context tool that gets used on 10% of interactions is a tax on the other 90%. The question to ask is:</p>
-
-<blockquote>
-  <p>Is this a <em>core purpose</em> of the model, or is this a <em>capability</em> it <em>might</em> reach for?</p>
-</blockquote>
-
-<p>If the latter, it shouldn’t be an MCP tool.</p>
-
-<p>And here’s the big one:</p>
-
-<p><strong>General-purpose coding agents</strong></p>
-
-<p>MCP is probably wrong. Your coding agent’s job is to read code, write code, run commands, explore, and iterate. The set of “tools” it might need on any given task is enormous and unpredictable. Shoving a dozen MCPs into its context “just in case” is exactly the antipattern - you’re paying context rent on tools the agent mostly won’t use, for tasks it could accomplish with the shell it already has. A small set of versatile, open-ended tools - by which I basically just mean file I/O operations and a shell (and maybe spawning a subagent) - is much better-suited to its job.</p>
-
-<h2 id="the-discourse">The Discourse</h2>
-
-<p>I’ve seen an uptick in anti-MCP discourse lately - both explicit and implicit. For some examples:</p>
-
-<ul>
-  <li>“MCP is dead, just use the CLI”</li>
-  <li>“MCP is a context waste”</li>
-  <li><a href="https://forum.cursor.com/t/return-the-custom-modes-features/144170/5?u=texarkanine">Bring Back Cursor Modes</a>!</li>
-  <li>A colleague of mine built a script to selectively set the contents of <code class="language-plaintext highlighter-rouge">mcp.json</code> before launching Claude Code</li>
-</ul>
-
-<p>They’re all tugging at real threads. The “MCP is dead” crowd correctly observes that general-purpose agents don’t benefit from MCP - or at least, it’s often a poor fit. The jugglers correctly observe that having all your MCPs loaded all the time is wasteful. The mode-switchers correctly observe that different tasks need different tool sets.</p>
-
-<p>But the juggling is a smell. If you need to dynamically swap which MCPs are loaded based on what you’re about to do, you’ve built an agent-that-configures-agents, and the inner agent is still general-purpose. The right move wasn’t better juggling - it was narrower models with fewer, always-relevant tools.</p>
-
-<p>The M was the tell the whole time.</p>
-
-<h2 id="what-to-do">What To Do</h2>
-
-<h3 id="1-prune">1. Prune</h3>
-
-<p>Go look at your MCP configuration right now. For each server, ask: “Does this earn its tokens?” Apply the framework above. If the model could accomplish the same thing with a CLI it already knows about, or a clean API it can <code class="language-plaintext highlighter-rouge">curl</code>, cut it.</p>
-
-<p>You’ll probably end up keeping a few. The ones where auth is genuinely scoped down, where business logic is genuinely fragile, where the tool <em>is</em> the model’s core task. Good - those are the ones MCP was built for.</p>
-
-<p>But you’ll also have a pile of useful-but-not-earning-it tools that you still want <em>available</em> sometimes. Set those aside. We’ll come back to them.</p>
-
-<h3 id="2-pave-your-desire-paths">2. Pave Your Desire Paths</h3>
-
-<p>Before reaching for any context management technique, ask why the model needed the MCP server in the first place. Can it not <a href="https://github.com/sooperset/mcp-atlassian">figure out how to interface with a gnarly remote service</a>? Can it not <a href="https://context7.com/">find the information it needed</a>? Are you limited in how you can authenticate?</p>
-
-<p>How much of that can you just <em>write down</em>, succinctly, somewhere? Instead of installing the GitHub MCP, can you write</p>
-
-<blockquote>
-  <p>“you have the <code class="language-plaintext highlighter-rouge">gh</code> cli installed and authenticated, use it to interact with GitHub.”</p>
-</blockquote>
-
-<p>Instead of Context7, can you write</p>
-
-<blockquote>
-  <p>“All of the dependencies’ source code is present in the <code class="language-plaintext highlighter-rouge">node_modules/</code> directory; check there first for canonical information about how 3rd-party libraries are to be used.”</p>
-</blockquote>
-
-<p>Take it a step further: Is the model trying to look in the wrong place for information? Can you put the information there? Put the guidance where agents already look - <code class="language-plaintext highlighter-rouge">README.md</code>, <code class="language-plaintext highlighter-rouge">CONTRIBUTING.md</code>, the CLI’s own <code class="language-plaintext highlighter-rouge">--help</code> text. If models keep expecting something to exist and it reasonably could, can you just… make it exist?</p>
-
-<p>The extreme case of this is <a href="https://www.holovaty.com/writing/chatgpt-fake-feature/">Soundslice literally building a feature</a> because ChatGPT kept telling users it existed. You probably don’t need to go <em>that</em> far, but the principle is sound:</p>
-
-<blockquote>
-  <p>the cheapest context is the context you never had to add because the model’s intuition was already correct.</p>
-</blockquote>
-
-<h3 id="3-recover-the-rest-as-skills">3. Recover the Rest as Skills</h3>
-
-<p>After pruning and paving, you’ll still have tools that are genuinely useful but don’t earn always-in-context MCP weight. <a href="https://agentskills.io">Agent Skills</a> are a mechanically better home for these, and here’s why: information hiding.</p>
-
-<p>An MCP server, once connected, dumps every tool definition into context. The model sees every operation it could perform against that service, whether it needs them or not. A skill sits in context as a one- or two-sentence description of what it offers and when it might be useful. The full content stays hidden until the model decides it needs it. Only then does it get pulled in. You still pay a small context tax, but it’s much more scalable.</p>
-
-<p>Daniel Miessler describes the appropriate technique well in his framing of <a href="https://danielmiessler.com/blog/when-to-use-skills-vs-commands-vs-agents">skills as domain containers</a> - a skill is a self-contained domain of capability that the agent can reach for when relevant, rather than a firehose of tool definitions it has to wade through on every interaction.</p>
-
-<p>So instead of the GitHub MCP, consider a “how to interact with GitHub” skill. It starts by noting that the <code class="language-plaintext highlighter-rouge">gh</code> CLI is probably available and the agent should try that first. But if not, here’s GitHub’s REST API base URL and <a href="https://docs.github.com/en/rest/quickstart?apiVersion=2022-11-28">docs</a>. For batch operations or complex stitching, here’s the <a href="https://docs.github.com/en/graphql/guides/introduction-to-graphql#discovering-the-graphql-api">GraphQL API</a>. If you’re going to write code against it, here is the <a href="https://octokit.github.io/rest.js/v22/">SDK</a> and how to install it. The agent gets <em>none</em> of this until it realizes it needs to talk to GitHub - and then it gets <em>all</em> of it, in a form that guides it toward the right approach for the specific sub-task rather than handing it a flat list of 50 MCP operations.</p>
-
-<p>Skills can also bundle standalone resources - scripts, templates, deterministic tooling, etc. Instead of writing a <em>prompt</em> describing how to form a correct <code class="language-plaintext highlighter-rouge">curl</code> to an API, you can just write a script that the agent can invoke, and bundle that in the skill. This can achieve the same reliability of outcomes that MCP delivered, but without the context tax.</p>
-
-<h3 id="4-wait-and-agitate">4. Wait, and Agitate</h3>
-
-<p>The <em>real</em> solution doesn’t exist yet.</p>
-
-<p>Despite some <a href="https://arxiv.org/abs/2408.16737">interesting</a> emerging <a href="https://arxiv.org/abs/2501.05465v1">research</a> suggesting that smaller models <a href="https://arxiv.org/abs/2510.03847">can match or outperform</a> larger models when properly focused on specific tasks, no major harness actually lets you act on this.</p>
-
-<p>What we need is for the main agent to be able to spawn a subagent and kit it out with a specialized subset of tools (MCP <em>and</em> Skills!) that were <em>not</em> in the parent’s context. The parent would consult a menu of available tools when launching the subagent, select the relevant ones, and the subagent would get those tools - and <em>only</em> those tools - for its narrow task.</p>
-
-<p>Cursor Modes were the closest anyone got. They let you predefine sets of tools and context per mode, and if they’d <a href="https://forum.cursor.com/t/custom-agents-vs-code-cc-double-down-cursor-removes-its-own/145931">persisted into the era of Cursor’s subagent maturity</a>, you could have had a harness that spawned subagents with specialized tool subsets not visible to the parent. But Cursor <a href="https://forum.cursor.com/t/return-the-custom-modes-features/144170">removed Modes in 2.1</a>, and nothing has replaced them.</p>
-
-<p>Claude Code, the current leader in subagent tooling, has a similar limitation: <a href="https://code.claude.com/docs/en/mcp#scope-hierarchy-and-precedence">hierarchical configuration loading</a> means that if an MCP is visible to the parent, it’s active and in context. You can’t build a <em>library</em> of MCP servers without filling your context window. Claude Code would need some hook into the subagent launch process that configures MCP only for the child - MCPs that the parent knew about but wasn’t paying context rent on.</p>
-
-<p>That’s a hard design problem. The parent has to know about those MCPs to provide them to subagents, but knowing about them means they’re in context. Skills are the best workaround we have today, but they’re a workaround. The real fix is a harness-level feature that nobody ships yet.</p>
-
-<p>If you’re building agentic tooling: this is a gap!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="harness-engineering" /><category term="mcp" /><category term="llm-context-management" /><summary type="html"><![CDATA[A framework for evaluating when MCP tools earn their context-window tokens and when the model's existing shell access & intuition makes them expensive dead weight.]]></summary></entry></feed>
+<p>No matter how you slice it, software licensing is dead.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="copyleft" /><category term="copyright" /><category term="intellectual-property" /><category term="open-source" /><category term="software-licensing" /><summary type="html"><![CDATA[AI-powered behavioral clones of software cost a fraction of what reimplementation used to. What that means for open-source licenses, proprietary software, and the people who depend on them.]]></summary></entry></feed>
