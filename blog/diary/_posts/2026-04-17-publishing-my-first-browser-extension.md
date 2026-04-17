@@ -21,7 +21,7 @@ As of this week Tab Yeet is on [AMO](https://addons.mozilla.org/firefox/addon/ta
 
 ## Manifest V2 First
 
-The first version targeted Firefox's [Manifest V2](https://extensionworkshop.com/documentation/develop/manifest-v2-and-mv3-cheat-sheet/). Three pure modules (`lib/storage.js`, `lib/transforms.js`, `lib/formats.js`), a popup, an options page, and an integration test locking the contract between them. Straightforward TDD.
+The first version targeted Firefox's [Manifest V2](https://extensionworkshop.com/documentation/publish/distribute-manifest-versions/). Three pure modules (`lib/storage.js`, `lib/transforms.js`, `lib/formats.js`), a popup, an options page, and an integration test locking the contract between them. Straightforward TDD.
 
 The only real surprise at this stage was CSS. I'd used [`color-mix()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix) to derive subtle dividers from `CanvasText`, which is clean and respects the user's system palette. The manifest declared `strict_min_version: 109.0`. `color-mix()` needs Firefox 113+. When CSS can't parse a shorthand, it drops the entire declaration. There is no graceful degradation to a base color. So on anything between Firefox 109 and 113, my borders vanished entirely.
 
