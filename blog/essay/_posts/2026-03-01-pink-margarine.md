@@ -90,7 +90,7 @@ I wrote about this at the macro level in [The Load-Bearing Rate Limiter Was Huma
 
 Every technological revolution has had its protectionists, and the protectionism that succeeded longest looks the most absurd in hindsight. Wisconsin [criminalized yellow margarine](https://daily.jstor.org/when-margarine-was-contraband/) for over seventy years because dairy farmers convinced legislators that [oleomargarine was "counterfeit butter"](https://history.house.gov/Historical-Highlights/1851-1900/1886_07_23_Oleomargarine/) - the language maps rather well to the current discourse around AI-generated images, videos, and code being "rip-offs," "stolen," or "fake" artifacts. States required margarine be dyed *pink*. A Pennsylvania bill - passed *unanimously*, by the way - once tried to require drivers to [disassemble their cars and hide the parts in shrubbery](https://en.wikipedia.org/wiki/Red_flag_traffic_laws#Apocryphal_Pennsylvania_legislation) when encountering a horse on the road. These weren't fringe positions at the time; they were serious legislative efforts to protect incumbents from technological displacement.
 
-At least one high-profile open-source project - `tldraw`, 45,600 stars on GitHub - has already begun [entertaining the idea of taking their unit tests private](https://github.com/tldraw/tldraw/issues/8082), presumably to make behavior-based duplication more difficult.
+At least one high-profile open-source project - `tldraw`, 45,600 stars on GitHub - has already begun [entertaining the idea of taking their unit tests private](https://github.com/tldraw/tldraw/issues/8082)[^tldraw], presumably to make behavior-based duplication more difficult.
 
 That's not the play.
 
@@ -175,3 +175,5 @@ If you fold *behavior* into copyright, you preclude competition (which is what P
 On the other hand, if you *don't* fold behavior into copyright, then the only way I can imagine an API surface being protected is in its exact expression. So, that would legally preclude things like `chardet` and `vinext`'s API-compatible drop-in replacements, but it does *not* preclude the "copy it but change a few words" kind of clone. And that clone still gives *most* people the "out" of the original license that they'd need.
 
 No matter how you slice it, software licensing is dead.
+
+[^tldraw]: The original case study - `tldraw` - has since revealed that taking the tests closed-source [was a joke](https://github.com/tldraw/tldraw/issues/8082#issuecomment-3964650501). In its stead, I offer you ["Cal.com is going closed source. Here's why."](https://cal.com/blog/cal-com-goes-closed-source-why) (41k stars vs tldraw's 46k)
