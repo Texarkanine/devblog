@@ -43,9 +43,9 @@ Fortunately, it would be basically impossible for *all* USB charging warts to be
 
 If we take the "safe" `1114` W and add that `960` peak (when it's warming up), we get `2074` Watts. That's... significantly above the room's circuit. But, it only draws *that* amount for a short period of time (the lights do flicker...) before dropping down to its "printing" consumption of 480W, putting the room at `1594` Watts. That's pushing it, but totally viable!
 
-Just don't run multipe computers at full tilt at once, *and then* try to print.
+Just don't run multiple computers at full tilt at once, *and then* try to print.
 
-## Running Muiltiple Computers At Full Tilt at Once
+## Running Multiple Computers At Full Tilt at Once
 
 Before I got the printer, I used to have all 3 personal computers mining [Monero](https://www.getmonero.org/) when idle - [xmrig](https://xmrig.com/) in the background at the lowest CPU priority. And, only using CPU mining, since GPU mining was not power-efficient per Watt.
 
