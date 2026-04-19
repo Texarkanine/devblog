@@ -1,4 +1,166 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-04-19T15:37:01+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Publishing My First Browser Extension</title><link href="https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.html" rel="alternate" type="text/html" title="Publishing My First Browser Extension" /><published>2026-04-17T00:00:00+00:00</published><updated>2026-04-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.html"><![CDATA[<p><a href="https://github.com/Texarkanine/tab-yeet">Tab Yeet</a> lists every tab in your current window, applies ordered regex transforms to each URL, and copies the result to the clipboard in your preferred format. It ships with defaults that rewrite the four social hosts whose canonical URLs don’t embed cleanly - <code class="language-plaintext highlighter-rouge">twitter.com</code> becomes <code class="language-plaintext highlighter-rouge">fixupx.com</code>, <code class="language-plaintext highlighter-rouge">instagram.com</code> becomes <code class="language-plaintext highlighter-rouge">eeinstagram.com</code>, <code class="language-plaintext highlighter-rouge">reddit.com</code> becomes <code class="language-plaintext highlighter-rouge">vxreddit.com</code>, <code class="language-plaintext highlighter-rouge">tiktok.com</code> becomes <code class="language-plaintext highlighter-rouge">vxtiktok.com</code>. Paste a Discord or forum thread after copying, and previews actually appear.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-04-19T16:10:43+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Elgato Streamdeck for Shell Aliases on Headless Linux</title><link href="https://blog.cani.ne.jp/2026/04/19/elgato-alias.html" rel="alternate" type="text/html" title="The Elgato Streamdeck for Shell Aliases on Headless Linux" /><published>2026-04-19T00:00:00+00:00</published><updated>2026-04-19T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/04/19/elgato-alias</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/04/19/elgato-alias.html"><![CDATA[<p>Let’s set the stage:</p>
+
+<p>I have many computers in my office. I live in residence in the US with the typical 15A/110V power supply, meaning <code class="language-plaintext highlighter-rouge">1650</code> Watts maximum power available on a single circuit - and my office is a single circuit.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Device</th>
+      <th>Nominal Max Power</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Work Laptop</td>
+      <td>140W</td>
+    </tr>
+    <tr>
+      <td>Personal Computer</td>
+      <td>750W</td>
+    </tr>
+    <tr>
+      <td>Server</td>
+      <td>800W</td>
+    </tr>
+    <tr>
+      <td>Gaming PC</td>
+      <td>450W</td>
+    </tr>
+    <tr>
+      <td>Network Hardware</td>
+      <td>48W</td>
+    </tr>
+    <tr>
+      <td>Medium Monitors</td>
+      <td>4x ~ 30W = 120W</td>
+    </tr>
+    <tr>
+      <td>Large Monitors</td>
+      <td>110W + 120W = 230W</td>
+    </tr>
+    <tr>
+      <td>Lights</td>
+      <td>11x ~6W = 66W</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">2614</code> W</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>so, you can see a problem here.</p>
+
+<p>Fortunately, most of the computers aren’t running full tilt at any given time.</p>
+
+<p>If we assume ~100W at idle for the PCs and basically zero at idle for the laptop (it sleeps, PCs don’t), we might have <code class="language-plaintext highlighter-rouge">1114</code> Watts at any given time. Okay, totally safe!</p>
+
+<p>Now, there are a couple highly-variable draws in here, which are rarely going, basically zero except when in use:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Device</th>
+      <th>Nominal Max Power</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>USB Charging Warts</td>
+      <td>11x ~ 80W = 880W*</td>
+    </tr>
+    <tr>
+      <td>Laser Printer</td>
+      <td>960W</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">1840</code> W</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>so, you can see a problem here.</p>
+
+<p>Fortunately, it would be basically impossible for <em>all</em> USB charging warts to be running at full-tilt at once. Maybe only ever 80W at a time. That printer, though…</p>
+
+<p>If we take the “safe” <code class="language-plaintext highlighter-rouge">1114</code> W and add that <code class="language-plaintext highlighter-rouge">960</code> peak (when it’s warming up), we get <code class="language-plaintext highlighter-rouge">2074</code> Watts. That’s… significantly above the room’s circuit. But, it only draws <em>that</em> amount for a short period of time (the lights do flicker…) before dropping down to its “printing” consumption of 480W, putting the room at <code class="language-plaintext highlighter-rouge">1594</code> Watts. That’s pushing it, but totally viable!</p>
+
+<p>Just don’t run multiple computers at full tilt at once, <em>and then</em> try to print.</p>
+
+<h2 id="running-multiple-computers-at-full-tilt-at-once">Running Multiple Computers At Full Tilt at Once</h2>
+
+<p>Before I got the printer, I used to have all 3 personal computers mining <a href="https://www.getmonero.org/">Monero</a> when idle - <a href="https://xmrig.com/">xmrig</a> in the background at the lowest CPU priority. And, only using CPU mining, since GPU mining was not power-efficient per Watt.</p>
+
+<p>That kept each PC’s CPU at its max power consumption, around 65W + 65W + 105W = <code class="language-plaintext highlighter-rouge">235</code> Watts, so our baseline would’ve been ~ <code class="language-plaintext highlighter-rouge">1348</code> Watts.</p>
+
+<p>But a year or so ago, the mining pool I’d been using went offline, and I never got around to setting up <a href="https://github.com/SChernykh/p2pool">p2pool</a> for peer-to-peer mining, so the <code class="language-plaintext highlighter-rouge">xmrig</code> processes sat idle, with no work.</p>
+
+<h2 id="setting-up-p2pool">Setting Up P2Pool</h2>
+
+<p>I set up P2Pool on the server recently, and got two of the PCs mining again. The third… is offline, and its saga will go in a separate post in the future when it’s back.</p>
+
+<p>So we’ve got 2 PCs mining at full power consumption, so the room baseline is probably around <code class="language-plaintext highlighter-rouge">1285</code> Watts.</p>
+
+<h2 id="and-then-i-printed">And Then I Printed</h2>
+
+<p>+960W to bring the room to <code class="language-plaintext highlighter-rouge">2245</code> Watts, <code class="language-plaintext highlighter-rouge">595</code> over the circuit’s nominal maximum.</p>
+
+<p>The breaker tripped. I flipped it back and tried again, just to be sure. Same thing.</p>
+
+<p>Okay, cool, my nominal 1650W office can handle spikes of ~400W but not ~600W.</p>
+
+<p>Obviously, I need to stop the mining before I print.</p>
+
+<h2 id="stopping-the-mining">Stopping the Mining</h2>
+
+<p>With each miner pulling work from the <code class="language-plaintext highlighter-rouge">p2pool</code> on the server, stopping the <code class="language-plaintext highlighter-rouge">p2pool</code> is a convenient shortcut to stop all the miners - they’ll have no work, and power consumption will drop.</p>
+
+<p>So, do I just remember to log in to the server and run <code class="language-plaintext highlighter-rouge">sudo systemctl stop p2pool</code> before I print?</p>
+
+<p>No!</p>
+
+<h2 id="on-air">On Air</h2>
+
+<p>I work in the office, and am often in meetings. I wrote a <a href="https://github.com/texarkanine/onair">3-part software system</a> to allow my work laptop to indicate when I was in a call, and push that to an “on air” sign hung outside my office. But it supports multiple signs, so I have another “monitor” on-air sign inside the office.</p>
+
+<p><img src="onair-deco.jpg" alt="On-Air Sign" /></p>
+
+<p>But sometimes I use my cell phone. I have not built software for the cell phone to detect when I’m on a call <em>in my office specifically</em>, and activate the on-air signs. So, when I’m using the phone, I usually just log into the server and run a little <code class="language-plaintext highlighter-rouge">alias</code> I’ve put together to toggle the on-air status manually.</p>
+
+<h2 id="hardware-aliases">Hardware Aliases</h2>
+
+<p>Violating the rule of three, I decided these <em>two</em> use-cases justified buying an <a href="https://www.elgato.com/en/gaming/stream-deck">Elgato Streamdeck</a>.</p>
+
+<p>The plan was to make a button for toggling <code class="language-plaintext highlighter-rouge">p2pool</code> and for toggling the on-air signs, and run the streamdeck cable from my server over to my main PC, so I can just push the “Mining Off” button before I try to print. Crucially, the LED screens on the streamdeck meant I would have an indicator of the state of the mining, so I would know when the shutdown had actually <em>completed</em> (and thus power consumption was low enough for printing to be safe).</p>
+
+<p>On a headless linux server, though? Yes, with the <a href="https://pypi.org/project/streamdeck/">streamdeck python library</a>!</p>
+
+<p>Niko banged out the on-air integration in a couple minutes: a little python server just registered as a third sign and toggled the button’s display when on-air vs off-air. Pushing the button queried the on-air server’s current state and then pushed the opposite to the API.</p>
+
+<h2 id="toggling-systemd-units-with-a-button-but-not-root">Toggling Systemd Units With a Button (But Not Root)</h2>
+
+<p>For the <code class="language-plaintext highlighter-rouge">p2pool</code> toggle, we needed to listen to state changes in the <code class="language-plaintext highlighter-rouge">p2pool</code> <a href="https://systemd.io/">systemd</a> unit to keep the button’s display accurate, <em>and</em> we needed the process listening to Streamdeck button presses to be able to <code class="language-plaintext highlighter-rouge">systemctl ...</code> the <code class="language-plaintext highlighter-rouge">p2pool</code> service. But, I wasn’t going to run that server as <code class="language-plaintext highlighter-rouge">root</code>. So, fun permission!</p>
+
+<p>Niko nailed this, too, but it took a bit of telephone since the AIs don’t have <code class="language-plaintext highlighter-rouge">root</code> access to the server (yet…).</p>
+
+<p>The magic ended up being <a href="https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html">polkit</a> config to <a href="https://github.com/Texarkanine/my-streamdeck-drivers/blob/15cab67133b8ed2025aefd3b842bfc8f9c05f096/install/polkit/deckd-p2pool.pkla">grant</a> <code class="language-plaintext highlighter-rouge">systemd</code> access to the user that was running the server process that was managing the streamdeck. Unfortunately, my system’s <code class="language-plaintext highlighter-rouge">polkit</code> is an older version that doesn’t support programmatic configuration (only config-based), so while a newer system would be able to <a href="https://github.com/Texarkanine/my-streamdeck-drivers/blob/15cab67133b8ed2025aefd3b842bfc8f9c05f096/install/polkit/99-deckd-p2pool.rules">limit</a> that user to <em>just</em> being able to bounce the <code class="language-plaintext highlighter-rouge">p2pool</code> service… I ended up having to give that user full access to manipulate my systemd units. Bummer for now.</p>
+
+<h2 id="victory">Victory</h2>
+
+<p>But, it works!</p>
+
+<p>I have two reactive, physical buttons that I can push to toggle these services:</p>
+
+<p><img src="elgato-monero-onair.jpg" alt="Streamdeck Buttons" /></p>
+
+<p>The Monero button will indicate while the service is shutting down <em>and</em> then stabilize to a different icon when it’s totally off (and safe to print):</p>
+
+<p><img src="elgato-nomonero-onair.jpg" alt="Streamdeck Showing Monero Offline" /></p>
+
+<p>The “on air” button’s sign icon lights up just like the real signs do when I’m on-air.</p>
+
+<p>And, I still have four buttons remaining!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="hardware" /><summary type="html"><![CDATA[Adding an Elgato Streamdeck to my headless Linux server to manifest shell aliases and system status in the physical world... all because I have too much stuff plugged in for my circuit breaker to handle.]]></summary></entry><entry><title type="html">Publishing My First Browser Extension</title><link href="https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.html" rel="alternate" type="text/html" title="Publishing My First Browser Extension" /><published>2026-04-17T00:00:00+00:00</published><updated>2026-04-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.html"><![CDATA[<p><a href="https://github.com/Texarkanine/tab-yeet">Tab Yeet</a> lists every tab in your current window, applies ordered regex transforms to each URL, and copies the result to the clipboard in your preferred format. It ships with defaults that rewrite the four social hosts whose canonical URLs don’t embed cleanly - <code class="language-plaintext highlighter-rouge">twitter.com</code> becomes <code class="language-plaintext highlighter-rouge">fixupx.com</code>, <code class="language-plaintext highlighter-rouge">instagram.com</code> becomes <code class="language-plaintext highlighter-rouge">eeinstagram.com</code>, <code class="language-plaintext highlighter-rouge">reddit.com</code> becomes <code class="language-plaintext highlighter-rouge">vxreddit.com</code>, <code class="language-plaintext highlighter-rouge">tiktok.com</code> becomes <code class="language-plaintext highlighter-rouge">vxtiktok.com</code>. Paste a Discord or forum thread after copying, and previews actually appear.</p>
 
 <p>I had to build it because nothing existed that combined those three things. There are dozens of “copy all tab URLs” extensions. Several support format templates like <code class="language-plaintext highlighter-rouge">$url</code> / <code class="language-plaintext highlighter-rouge">$title</code>. One lets you paste URLs into a textarea and regex-munge them after the fact. None apply ordered, persistent rewrite rules automatically, let alone ship the social-embed defaults baked in. The interesting cell in the matrix was empty.</p>
 
@@ -1574,212 +1736,4 @@ npx a16n convert <span class="nt">--from</span> cursorrules <span class="nt">--t
 
 <p>Prompt engineering is dust. Context management skills are ashes. What remains, after everything else has been automated away, is the architecturally unglamorous, existentially critical work of ensuring that somewhere in every automated chain, a human can check whether the system is still working toward the outcome that was actually intended - and redirect it if it’s not.</p>
 
-<p>For now, that human is you. You’re a manager now: the machines don’t need your help figuring out how to do their jobs anymore.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="agentic-engineering" /><category term="ai" /><category term="claude-code" /><category term="cursor" /><category term="harness-engineering" /><category term="niko" /><category term="llm-context-management" /><summary type="html"><![CDATA[Planning, memory banks, validation loops, parallelization - every AI agent orchestration technique the community discovers is on a short march from workaround to native feature.]]></summary></entry><entry><title type="html">Pink Margarine</title><link href="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html" rel="alternate" type="text/html" title="Pink Margarine" /><published>2026-03-01T00:00:00+00:00</published><updated>2026-03-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/01/pink-margarine</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/01/pink-margarine.html"><![CDATA[<blockquote>
-  <p>pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. 
-<br /></p>
-  <ol>
-    <li>Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase.</li>
-    <li>Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.</li>
-  </ol>
-</blockquote>
-
-<h2 id="one-engineer-one-week-1100">One Engineer, One Week, $1,100</h2>
-
-<blockquote class="link-card">
-  
-  <h1>How we rebuilt Next.js with AI in one week</h1>
-  
-  <a href="https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener">blog.cloudflare.com/vinext</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20250302030000/https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
-</blockquote>
-
-<p>In early 2026, Cloudflare rebuilt the <a href="https://nextjs.org/">Next.js</a> API surface on <a href="https://vite.dev/">Vite</a>. One engineer. One week. About $1,100 in AI costs. The result, <a href="https://github.com/cloudflare/vinext">vinext</a>, hit 94% API compatibility with zero copied source code.</p>
-
-<p>Let that sink in: A commercially-viable (CloudFlare’s got customers <em>using</em> it already) behavioral clone of a major, popular, open-source (Next.js was MIT-licensed) web framework, produced for less than a Silicon Valley engineer’s monthly grocery bill.</p>
-
-<p>This isn’t new; there’s not only precedent, but <em>legal</em> precedent: The Supreme Court already established in <a href="https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc."><em>Google v. Oracle</em></a> that reimplementing an API surface isn’t <em>de facto</em> infringement - behavioral equivalence doesn’t require copying expression. What’s new is <em>cost</em>. Google’s “clean-room” reimplementation of Java’s APIs almost certainly took millions of dollars and years of engineering. Cloudflare did functionally the same thing with one person, one grand, and one week. The legal barrier didn’t go away; the economic barrier evaporated.</p>
-
-<h2 id="characteristic-specificity">Characteristic Specificity</h2>
-
-<p>Copyright protection’s value is designed around a property I’ll call <em>characteristic specificity</em>: the degree to which the specific expression of a work <strong><em>is</em></strong> the value of the work.</p>
-
-<p>Lord of the Rings is a great example. You could write a book with the same plot beats, the same themes, even the same character archetypes - and it wouldn’t be Lord of the Rings. Nobody wanting Tolkien’s prose, his invented languages, the particular arc of Frodo, would accept a behavioral clone. The expression is inseparable from the value. A “clean-room reimplementation” of LotR is just… a different book.</p>
-
-<p>Mickey Mouse is instructive for different reasons. <a href="https://en.wikipedia.org/wiki/Steamboat_Willie#Copyright_status">Steamboat Willie entered the public domain in 2024</a>, and Disney pivoted to <a href="https://web.law.duke.edu/cspd/mickey/#trademark">trademark enforcement</a> on the <em>modern</em> Mickey design. But the pivot was prepared decades in advance - Disney has been iteratively redesigning Mickey for generations, each visual refresh recharging what “Mickey” <em>is</em>. They understand, perhaps better than anyone, that their value lives in the specific characteristics: the particular ears, the particular gloves, the particular grin. Not in the abstract concept of “cartoon mouse.” Copyright and trademark are the right tools here because the expression is the value.</p>
-
-<p>It isn’t always. For a couple years now, the writing has been plainly visible on the wall in the world of still visual art. The <a href="https://www.usatoday.com/story/entertainment/movies/2025/03/28/studio-ghibli-miyazaki-ai-portraits/82703280007/">Ghibli-fication outrage</a> revealed a tension between people who just like things that <em>look like</em> Studio Ghibli, and people who like the specific creations <em>of Studio Ghibli</em>. Existing law on the subject is pretty well-settled: art style is <a href="https://www.trails.umd.edu/news/ai-imitating-artist-style-drives-call-to-rethink-copyright-law">non-copyrightable</a>, and that’s <a href="https://creativecommons.org/2023/03/23/the-complex-world-of-style-copyright-and-generative-ai/">probably actually correct</a>.</p>
-
-<p>Copyright was designed for works where form and value are inseparable.</p>
-
-<p>Humans have always been allowed to observe, internalize, and reproduce behavior and style. Internalizing knowledge and re-synthesizing it back out - “standing on the shoulders of giants” - is how humanity builds and advances. It only starts to <em>feel</em> like theft (to some) when the breadth and timescale changes. Before you even get a chance to see the sights from atop the giant <em>you</em> climbed, someone else is already on <em>your</em> shoulders, and someone else upon theirs.</p>
-
-<h2 id="software-has-no-characteristic-specificity">Software Has No Characteristic Specificity</h2>
-
-<p>Software is different: its value is entirely in behavior.</p>
-
-<p>Two implementations with different source code and identical behavior are perfectly interchangeable. Nobody ever loved the C standard library for its prose. “This <code class="language-plaintext highlighter-rouge">qsort</code> really speaks to me” - said no one, ever. The behavior is the product. The expression is an implementation detail. This isn’t just a fact, it’s a <em>core premise</em> of software’s utility - the <a href="https://en.wikipedia.org/wiki/Interface_(computing)">interface</a>.</p>
-
-<p>This creates a structural misfit: copyright protects <em>expression</em>, but software’s value is <em>behavior</em>. The two are orthogonal. Software licenses have always been grafting expression-protection onto behavior-value as a proxy, and the proxy held for a long time - because the only realistic way to duplicate behavior <em>was</em> to duplicate expression. You either copy-pasted source code (which copyright catches), or you did prohibitively expensive knowledge labor to rewrite it from scratch - which almost nobody could afford. It took the likes of <em>Google</em> and <em>Oracle</em> to make a big-enough deal of behavioral duplication to get case law on the books.</p>
-
-<p><a href="https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks">Anthropic’s distillation discourse</a> is an echo of the same underlying mismatch. The principle hasn’t changed; what changed is that the knowledge labor required to reimplement behavior used to cost so much that the proxy between expression and behavior rarely got tested. Now it gets tested for $1,100.</p>
-
-<h2 id="the-proxy-broke">The Proxy Broke</h2>
-
-<p>AI didn’t change what copyright protects. It broke the economic proxy that made copyright <em>seem</em> like it protected software.</p>
-
-<p>Consider test suites and API documentation. These are, functionally, behavioral blueprints - precise specifications of what a piece of software does, published voluntarily by the people who wrote it. <strong>Publishing your test suite is publishing your own disruption manual.</strong> <a href="https://sqlite.org/th3.html">SQLite’s TH3 test suite</a> is proprietary, which was a business decision that predated both generative AI and <em>Google v. Oracle</em> - <a href="https://www.sqlite.org/forum/info/3cd5087abe2fb94f9b81b1547d41f87e43db42f469b40ee61c988dd4f5ae1a17">not prescience</a>, but it accidentally illustrates what a behavioral specification is worth when duplication costs drop to near zero.</p>
-
-<p>SaaS products with no moat beyond “we do task X via API” are one AI session away from cloning. Not because AI copies their code - it doesn’t need to. It reimplements their <em>behavior</em>, which is all anyone was paying for anyway.</p>
-
-<p>And software licenses? They’re <em>all</em> built atop copyright law and inherit the mismatch completely. From MIT to AGPL to proprietary commercial licenses, they all assert some form of “Per copyright law, I own this code and you cannot use it unless you play by my rules.” But if someone reimplements the behavior without using the code at all… the license has nothing to attach to. The product-space protections that copyright offers are shrinking, and there’s no legal mechanism to stop it - because the legal mechanism was never actually protecting the <em>behavior</em>, which was the actual value. It was protecting the <em>expression</em> and relying on the proxy.</p>
-
-<h2 id="the-canary-in-the-coal-mine">The Canary in the Coal Mine</h2>
-
-<p>Software is the canary, not the story. The mismatch is starkest in code because software has very high value relative to its <em>characteristic specificity</em> - but the mine runs much deeper.</p>
-
-<p>Knowledge work is a continuum from ideation through labor to artifact:</p>
-
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/7f858efe.svg"><img src="/assets/svg/7f858efe.svg" alt="Mermaid Diagram" /></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/7f858efe-dark.svg"><img src="/assets/svg/7f858efe-dark.svg" alt="Mermaid Diagram" /></a>
-</figure>
-
-<p>Copyright guards the rightmost output: the finished artifact, which we call “intellectual property.” AI already bangs those out faster and better every day. Vinext is an incredibly high-profile, commercial signal that AI can commoditize the middle step (labor) too.</p>
-
-<p>There <em>are</em> legal tools to protect that middle step (processes)… patents! But existing patent infrastructure is both far too slow to keep pace with the current clip of knowledge labor, and far too reticent to issue things like “<a href="https://en.wikipedia.org/wiki/Software_patent">Software Patents</a>.” It doesn’t even matter, though, since patents <a href="https://thompsonpatentlaw.com/can-ideas-be-patented/">don’t even work on pure ideas, anyway</a>. Once the <em>idea</em> is out there, the strongest protection you could legally get would be a patent on <em>one way of implementing the idea</em>. But someone who uses a different process isn’t under the purview of your patent and that’s what AI has now achieved: an easy path from specification (idea), through an original process (knowledge labor) to an original artifact (intellectual property).</p>
-
-<p>Neither framework was designed for an era where the costliest step in the pipeline - the human labor of turning insight into artifact - can be routed around for pocket change.</p>
-
-<p>I wrote about this at the macro level in <a href="/2026/02/06/the-load-bearing-rate-limiter-was-human.html">The Load-Bearing Rate Limiter Was Human</a>. The short version: we’re industrializing the conversion of thought into output, and the existing legal frameworks structure their protections under the assumption that conversion is expensive. When it’s not, things can break down in unexpected ways.</p>
-
-<p>Every technological revolution has had its protectionists, and the protectionism that succeeded longest looks the most absurd in hindsight. Wisconsin <a href="https://daily.jstor.org/when-margarine-was-contraband/">criminalized yellow margarine</a> for over seventy years because dairy farmers convinced legislators that <a href="https://history.house.gov/Historical-Highlights/1851-1900/1886_07_23_Oleomargarine/">oleomargarine was “counterfeit butter”</a> - the language maps rather well to the current discourse around AI-generated images, videos, and code being “rip-offs,” “stolen,” or “fake” artifacts. States required margarine be dyed <em>pink</em>. A Pennsylvania bill - passed <em>unanimously</em>, by the way - once tried to require drivers to <a href="https://en.wikipedia.org/wiki/Red_flag_traffic_laws#Apocryphal_Pennsylvania_legislation">disassemble their cars and hide the parts in shrubbery</a> when encountering a horse on the road. These weren’t fringe positions at the time; they were serious legislative efforts to protect incumbents from technological displacement.</p>
-
-<p>At least one high-profile open-source project - <code class="language-plaintext highlighter-rouge">tldraw</code>, 45,600 stars on GitHub - has already begun <a href="https://github.com/tldraw/tldraw/issues/8082">entertaining the idea of taking their unit tests private</a><sup id="fnref:tldraw"><a href="#fn:tldraw" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>, presumably to make behavior-based duplication more difficult.</p>
-
-<p>That’s not the play.</p>
-
-<p>Software protectionism via copyright-based licensing will probably work for at least a little while yet. Maybe a long while. But the trajectory is one-directional, and eventually it’ll all look like <strong>pink margarine.</strong></p>
-
-<h3 id="what-about-non-code">What about Non-Code?</h3>
-
-<p>Others have said it better than I:</p>
-
-<blockquote class="link-card">
-  
-  <h1>Code Goes First - Sunday Letters from Sam</h1>
-  
-  <a href="https://sundaylettersfromsam.substack.com/p/code-goes-first" target="_blank" rel="noopener">sundaylettersfromsam.substack.com/p/code-goes-first</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260302030000/https://sundaylettersfromsam.substack.com/p/code-goes-first" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
-</blockquote>
-
-<p>I’ll add a recent anecdote of my own:</p>
-
-<p><a href="https://en.wikipedia.org/wiki/Chris_Camillo">Chris Camillo</a> <a href="https://www.youtube.com/watch?v=APvLb-pIPwI&amp;t=875s">rambled into ChatGPT for 45 minutes</a> and got back a <a href="https://en.wikipedia.org/wiki/McKinsey_%2526_Company">McKinsey</a>-quality strategic brief. The knowledge labor that used to justify a consulting engagement happened in the span of a lunch break. In the same video, YouTuber Graham Stephan mentions how the LLMs are outperforming a script-writer job that <em>was</em> on offer - and went unfilled - for $100k/year. Today, right now, AI is <em>already</em> an economically-viable option for huge swaths of knowledge labor <em>in general</em>… and we know this because it’s doing it.</p>
-
-<p>The thing with continuums and moving along them is that it’s a big deal to go from “sitting at a place on the continuum” to “moving along it.” Vinext proves that generative AI isn’t just sitting at the “Intellectual Property” step of the knowledge work continuum; it’s moving left.</p>
-
-<p>GPT-5 <a href="https://openai.com/index/accelerating-biological-research-in-the-wet-lab/">autonomously ran bio lab experiments</a> with novel results. Mathematicians <a href="https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/">convened in secret</a> and found AI “approaching mathematical genius.” GPT-5-pro found a <a href="https://threadreaderapp.com/thread/1958198661139009862.html">novel solution to an open question in a human-published mathematics paper</a>. Ideation isn’t some distant frontier - it’s under active pressure today.</p>
-
-<h2 id="will-the-people-suffer">Will the People Suffer?</h2>
-
-<p>Less than you’d think, with one important exception.</p>
-
-<p>Software licensing was a preemptive defense. If a private enterprise could take an open project, pour resources into improving it, and lock the improvements away, then anyone who wanted those improvements had to either pay up, duplicate the effort at great personal cost, or simply go without. “Open source” software licenses raised the legal cost of not sharing, which reduced the practical cost of being an individual in a world of well-funded corporations.</p>
-
-<p>That defense worked because reimplementation was expensive. It’s not anymore.</p>
-
-<p>If CompanyX forks Vinext into VinextNext and improves it behind closed doors, the original only took $1,100 to build. If someone on the outside sees a capability they want, they don’t need to fundraise a multi-year engineering effort to get it; for a pittance they can reverse-engineer the behavior into an intellectual property of their very own. The asymmetry that licensing existed to correct - corporations can afford to rewrite, individuals can’t - has collapsed. Both sides have the same cheap cloning. The defense is unnecessary because the attack is toothless.</p>
-
-<p>For <em>software</em>, what killed software licensing also rendered its protections unneeded.</p>
-
-<p>… for software.</p>
-
-<p>Where people will actually hurt is at the hardware boundary. Industry largely accepted open-source licensing terms - at least the <a href="https://en.wikipedia.org/wiki/Permissive_software_license">permissive ones</a> - but there was still an active conflict zone: <a href="https://en.wikipedia.org/wiki/Copyleft">Copyleft</a>’s fight against <a href="https://www.gnu.org/philosophy/tivoization.en.html">Tivoization</a>. “Tivoization” refers to <em>hardware</em> vendors locking open software onto closed devices, stripping users’ ability to modify the thing they own. <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a> famously stood against it by adding conditions to the license specifically against that behavior.</p>
-
-<p>But if a vendor behavioral-clones the software without touching the original source, those AGPLv3 conditions have nothing to attach to. This is even worse than before! Previously, the end-user could obtain and modify the original, actual source in-use, but just couldn’t get the device to run it. But devices can be cracked, and new versions released, and <em>in theory</em> the user at least has a chance, because they’ve got the real code on the real device - it’s just not <em>cooperating</em>.</p>
-
-<p>Now, they don’t even have that: the next Tivo will <em>act like</em> it’s running an open-source software stack, but the hardware, firmware, <em>and</em> software will all be entirely proprietary things to which the user is not entitled <em>any</em> kind of access.</p>
-
-<p>Software licensing is dead. For software that runs where you choose, the death doesn’t much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.</p>
-
-<hr />
-
-<h2 id="postscript">Postscript</h2>
-
-<p>Or, <strong><em>“called it!”</em></strong></p>
-
-<blockquote>
-  <p>SaaS products with no moat beyond “we do task X via API” are one AI session away from cloning.</p>
-</blockquote>
-
-<ul>
-  <li><strong>2026-03-04</strong> - <a href="https://www.wsj.com/cio-journal/meet-the-companies-vibe-coding-their-own-crms-263e500f">Meet the Companies Vibecoding their own CRMs</a> (Wall Street Journal)</li>
-</ul>
-
-<blockquote>
-  <p>But if someone reimplements the behavior without using the code at all… the license has nothing to attach to.</p>
-</blockquote>
-
-<ul>
-  <li><strong>2026-03-05</strong> - <a href="https://tuananh.net/2026/03/05/relicensing-with-ai-assisted-rewrite/">Relicensing with AI-assisted rewrite</a> <small><code class="language-plaintext highlighter-rouge">chardet</code> did a full AI behavioral-clone rewrite and switched licenses from LGPL to MIT</small></li>
-</ul>
-
-<blockquote>
-  <p>Ideation isn’t some distant frontier - it’s under active pressure today.</p>
-</blockquote>
-
-<ul>
-  <li><strong>2026-03-04</strong> - <a href="https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf">Claude’s Cycles</a> (Donald Knuth - yeah, that <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>) <small>“Shock! Shock! I learned yesterday that an open problem I’d been working on for several weeks had just been solved by Claude Opus 4.6”</small></li>
-</ul>
-
-<h2 id="post-postscript">Post-Postscript</h2>
-
-<blockquote class="link-card">
-  
-  <h1>US Supreme Court declines to hear dispute over copyrights for AI-generated material (2026-03-02)</h1>
-  
-  <a href="https://www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02/" target="_blank" rel="noopener">www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260308062616/https://www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02/" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
-</blockquote>
-
-<p>Whether the AI-generated behavioral rewrites of software libraries are copyrightable or not is actually irrelevant to the future of software licensing.</p>
-
-<p>If they are copyrightable, then software licensing is dead because anyone can relicense a clone however they want without having to abide by the original license’s terms.</p>
-
-<p>If they aren’t copyrightable, then software licensing is dead because the clones are public domain and anyone can use them without having to abide by the original license’s terms.</p>
-
-<p>The proxy is broken because of economics, not law. A drastic change in law would be needed to restore licensing’s teeth, and I don’t see what that could be.</p>
-
-<p>If you fold <em>behavior</em> into copyright, you preclude competition (which is what Patents - including Software Patents - are designed to do). Among <code class="language-plaintext highlighter-rouge">ls</code> from GNU Coreutils and <code class="language-plaintext highlighter-rouge">ls</code> from FreeBSD, which <em>one</em> is allowed to list files in a directory? Can both GMail and Yahoo offer a web-based e-mail client? This is one huge reason why <em>software</em> patents are so rare in the field.</p>
-
-<p>On the other hand, if you <em>don’t</em> fold behavior into copyright, then the only way I can imagine an API surface being protected is in its exact expression. So, that would legally preclude things like <code class="language-plaintext highlighter-rouge">chardet</code> and <code class="language-plaintext highlighter-rouge">vinext</code>’s API-compatible drop-in replacements, but it does <em>not</em> preclude the “copy it but change a few words” kind of clone. And that clone still gives <em>most</em> people the “out” of the original license that they’d need.</p>
-
-<p>No matter how you slice it, software licensing is dead.</p>
-
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:tldraw">
-      <p>The original case study - <code class="language-plaintext highlighter-rouge">tldraw</code> - has since revealed that taking the tests closed-source <a href="https://github.com/tldraw/tldraw/issues/8082#issuecomment-3964650501">was a joke</a>. In its stead, I offer you <a href="https://cal.com/blog/cal-com-goes-closed-source-why">“Cal.com is going closed source. Here’s why.”</a> (41k stars vs tldraw’s 46k) <a href="#fnref:tldraw" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-  </ol>
-</div>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="copyleft" /><category term="copyright" /><category term="intellectual-property" /><category term="open-source" /><category term="software-licensing" /><summary type="html"><![CDATA[AI-powered behavioral clones of software cost a fraction of what reimplementation used to. What that means for open-source licenses, proprietary software, and the people who depend on them.]]></summary></entry></feed>
+<p>For now, that human is you. You’re a manager now: the machines don’t need your help figuring out how to do their jobs anymore.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="agentic-engineering" /><category term="ai" /><category term="claude-code" /><category term="cursor" /><category term="harness-engineering" /><category term="niko" /><category term="llm-context-management" /><summary type="html"><![CDATA[Planning, memory banks, validation loops, parallelization - every AI agent orchestration technique the community discovers is on a short march from workaround to native feature.]]></summary></entry></feed>
