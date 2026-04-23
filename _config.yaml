@@ -113,10 +113,14 @@ autopages:
       cased: false
 
 # jekyll-compress-html
+# Do not strip opening/closing html/head/body tags: that breaks valid pages when combined with
+# minification. Whitespace/comment/clipping still applies.
 compress_html:
   ignore:
     envs:
       - development
+  endings: []
+  startings: []
 
 # jekyll-auto-thumbnails
 auto_thumbnails:

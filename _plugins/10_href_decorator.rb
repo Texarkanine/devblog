@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'nokogiri'
+require "nokogiri"
+require "nokogiri/html5"
 
 # This plugin decorates links inside <article> elements with configurable HTML
 # attributes (e.g., target="_blank", rel="noopener") based on rules that filter
@@ -164,7 +165,7 @@ module HrefDecorator
 
     collection_label = document.respond_to?(:collection) && document.collection ? document.collection.label : nil
 
-    doc = Nokogiri::HTML(output)
+    doc = Nokogiri::HTML5.parse(output)
     modified = false
 
     doc.css('article a[href]').each do |anchor|

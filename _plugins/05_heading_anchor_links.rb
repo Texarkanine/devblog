@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "nokogiri"
+require "nokogiri/html5"
 
 # Injects a configurable anchor link into each heading (h1–h6) that has an id,
 # so readers can copy or open fragment URLs. Link is visible on hover via CSS.
@@ -31,8 +32,9 @@ module HeadingAnchorLinks
       return if document.url == base || document.url == "#{base}/" || document.url == "#{base}/index.html"
     end
 
-    doc = Nokogiri::HTML.fragment(output)
+    doc = Nokogiri::HTML5.parse(output)
     icon = anchor_config["icon"] || "#"
+    modified = false
 
     doc.css("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").each do |heading|
       id = heading["id"]
@@ -46,9 +48,10 @@ module HeadingAnchorLinks
       anchor.content = icon
 
       heading.add_child(anchor)
+      modified = true
     end
 
-    document.output = doc.to_html
+    document.output = doc.to_html if modified
   end
 end
 
