@@ -41,7 +41,7 @@ module HeadingAnchorLinks
       next if id.nil? || id.empty?
       next if heading.at_css(".heading-anchor") # idempotent: avoid double anchor when doc is processed as both document and page
 
-      anchor = Nokogiri::XML::Node.new("a", doc)
+      anchor = doc.create_element("a")
       anchor["href"] = "##{id}"
       anchor["class"] = "heading-anchor"
       anchor["aria-label"] = "Link to this section"
