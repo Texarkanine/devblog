@@ -1,7 +1,3 @@
----
-alwaysApply: false
----
-
 # Creative Phase: Authoring Template
 
 This document is a meta-template for ruleset authors creating new creative phase types. It is NOT loaded during task execution. If you're an agent working on a task, you should be in one of the specialized creative phases - not here.
@@ -78,11 +74,9 @@ After creating a new creative phase type, update the `niko-creative` skill's Ste
 
 ## Example: Skeleton
 
-~~~markdown
----
-alwaysApply: false
----
+New creative phase types are authored as plain Markdown resource files under `rulesets/niko/skills/niko/references/phases/creative/<name>.md` — no YAML frontmatter. The `niko-creative` skill loads them by path.
 
+~~~markdown
 # Creative Phase: [Domain Name]
 
 This document guides exploration of an open question about [domain description]. It is loaded by the `niko-creative` skill.

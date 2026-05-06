@@ -1,14 +1,10 @@
----
-alwaysApply: false
----
-
 # Task Complexity Determination
 
 Determine the appropriate complexity level (1-4) for a task, then write the determination to the memory bank and load the corresponding workflow.
 
 ## Step 1: Classification Target
 
-Determine what to classify. If `memory-bank/active/milestones.md` exists, read it — the classification target is the description of the first unchecked (`- [ ]`) milestone. Otherwise, the classification target is the user's task input.
+Determine what to classify. If `memory-bank/active/milestones.md` exists, read it - the classification target is the description of the first unchecked (`- [ ]`) milestone. Otherwise, the classification target is the user's task input.
 
 ## Step 2: Decision Tree
 
@@ -92,9 +88,11 @@ Create any **missing** ephemeral files as described below. Preserve files that a
 
 Create a stub file with the task name. Do **not** populate checklists yet - the level-specific planning rules prescribe the exact format and content.
 
-**`memory-bank/active/progress.md`** - If `milestones.md` exists: create a brand-new progress.md (old content is stale). Otherwise: create only if absent (preserves rework history).
+**`memory-bank/active/progress.md`** - If `milestones.md` exists: create a brand-new `progress.md` (old content is stale). Otherwise: create only if absent (preserves rework history).
 
-Include a brief summary of the work to be done as described in the project brief, followed by `**Complexity:** Level N`. This is the **system of record** for the task's complexity level — other files may display it, but `progress.md` is the canonical source.
+Load: `.cursor/rules/shared/niko/memory-bank/active/progress.mdc` and create the file by following the instructions in the rule.
+
+The initial summary should describe the work to be done as laid out in `projectbrief.md`, and the rule's `**Complexity:**` field must be populated. That field is the **system of record** for the task's complexity level - other files may display it, but `progress.md` is the canonical source.
 
 ## Step 5: Log Progress
 
@@ -109,7 +107,7 @@ Loading Level N workflow...
 
 Load the level-specific workflow and use its Phase Mappings to execute the next phase.
 
-- Level 1: `.cursor/rules/shared/niko/level1/level1-workflow.mdc`
-- Level 2: `.cursor/rules/shared/niko/level2/level2-workflow.mdc`
-- Level 3: `.cursor/rules/shared/niko/level3/level3-workflow.mdc`
-- Level 4: `.cursor/rules/shared/niko/level4/level4-workflow.mdc`
+- Level 1: `.cursor/skills/shared/niko/references/level1/level1-workflow.md`
+- Level 2: `.cursor/skills/shared/niko/references/level2/level2-workflow.md`
+- Level 3: `.cursor/skills/shared/niko/references/level3/level3-workflow.md`
+- Level 4: `.cursor/skills/shared/niko/references/level4/level4-workflow.md`
