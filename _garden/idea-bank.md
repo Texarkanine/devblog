@@ -6,7 +6,7 @@ tags:
   - ideas
 ---
 
-## Essays
+## Posts
 
 - To Foment or Not
   - [I have seen the compounding teams](https://sundaylettersfromsam.substack.com/p/i-have-seen-the-compounding-teams)
@@ -14,6 +14,8 @@ tags:
   - [... good cognitive strategies are now explicit, first-class, sharable objects in a team or organization. Everyone can move at the speed of the smartest person in the room.](https://sundaylettersfromsam.substack.com/p/vibe-coding-considered-harmful-lego)
   - [Welcome to Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04)
 - I spend most of my tokens on planning, am I wrong?
+- How cursor's doc indexing works
+- SLOBAC
 
 ## Garden
 
