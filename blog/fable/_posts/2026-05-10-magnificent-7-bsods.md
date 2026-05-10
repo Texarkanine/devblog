@@ -28,7 +28,7 @@ So I tried the obvious. Boot into Windows Recovery, run the rollback, get on wit
 
 A USB stick had [Hiren's BootCD](https://www.hirensbootcd.org/) on it - a portable, independent WinPE environment that touches none of the installed Windows. I booted from it, opened a command prompt, and the BSOD'd within seconds.
 
-![Hiren's WinPE BSOD with stop code PAGE_FAULT_IN_NONPAGED_AREA](mag7/09-bsod-page-fault-winpe.webp)
+![Hiren's WinPE BSOD with stop code PAGE_FAULT_IN_NONPAGED_AREA](mag7/09-bsod-page-fault-winpe.webp =640x)
 
 An independent boot environment shouldn't care about a Windows update.
 
@@ -40,7 +40,7 @@ Real life intervened. Six weeks passed. When I came back, the system had collect
 
 The most seductive was a popup that flagged `iqvw64e.sys` - an Intel network diagnostic driver on Microsoft's [vulnerable-driver blocklist](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/microsoft-recommended-driver-block-rules). The driver name connected directly to HYPERVISOR_ERROR. The screen looked exactly like a smoking gun.
 
-![Program Compatibility Assistant popup: "A driver cannot load on this device" — iqvw64e.sys](mag7/02-iqvw64e-driver-blocked.webp)
+![Program Compatibility Assistant popup: "A driver cannot load on this device" — iqvw64e.sys](mag7/02-iqvw64e-driver-blocked.webp =640x)
 
 I checked the registry. [HVCI](https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-hvci-enablement) wasn't enabled. I checked the drivers folder. The file wasn't even present. Windows was warning me about a ghost.
 
@@ -114,7 +114,7 @@ Three lines of Bash, negligible system load. Open a terminal, run the loop, leav
 
 Seven minutes. Exactly.
 
-![Ubuntu terminal timestamp loop ending after ~7 minutes — the Ryzen 5 3600 idle-test death](mag7/16-terminal-3600-7min-death.webp)
+![Ubuntu terminal timestamp loop ending after ~7 minutes — the Ryzen 5 3600 idle-test death](mag7/16-terminal-3600-7min-death.webp =640x)
 
 Load-independent and time-based. Idle traffic was enough. Something heated up, drifted out of spec, and the bus stopped working, maybe?
 
@@ -126,7 +126,7 @@ By improbable luck, the household contained a six-year-old Ryzen 7 1800X in the 
 
 Pulling the 3600 introduced me to a tradition. The dried thermal paste had welded the heatsink to the CPU's heat spreader so thoroughly that when I lifted the cooler, the CPU came with it. Straight out of the socket. Pins miraculously straight.
 
-![Ryzen 5 3600 yanked out of the AM4 socket while still bonded to the heatsink](mag7/18-cpu-stuck-to-heatsink.webp)
+![Ryzen 5 3600 yanked out of the AM4 socket while still bonded to the heatsink](mag7/18-cpu-stuck-to-heatsink.webp =640x)
 
 I cleaned both surfaces with isopropyl, applied fresh paste, dropped in the 1800X, and pressed N on the [fTPM](https://learn.microsoft.com/en-us/windows/security/hardware-security/tpm/tpm-fundamentals) reset prompt to preserve the old keys in case BitLocker was on. (It wasn't.) Booted Ubuntu, ran the timestamp loop.
 
@@ -134,7 +134,7 @@ PCIe was back at Gen3 by accident; the long power-off had reset BIOS defaults be
 
 Twenty-eight minutes idle, well past the seven-minute wall. Then Firefox refused to launch on whatever Ubuntu live state I had cobbled together, so I installed [Konqueror](https://apps.kde.org/konqueror/) and played cat videos through it for another five minutes.
 
-![Ubuntu terminal timestamp loop — 1800X test still alive past 28 minutes uptime](mag7/24-terminal-1800x-stable.webp)
+![Ubuntu terminal timestamp loop — 1800X test still alive past 28 minutes uptime](mag7/24-terminal-1800x-stable.webp =640x)
 
 Same board. Same slot. Same traces. Same RAM. Same PSU. Different CPU.
 
@@ -154,13 +154,13 @@ The replacement was a Ryzen 7 5700X. Same 65W TDP as the dead 3600, two more cor
 
 Buying one in 2026 turned out to be its own small ordeal. The first - Amazon Prime, next-day delivery - arrived with thermal paste residue smeared across the heat spreader, debris between the pins, and a stock cooler whose AMD branding had been masked under strips of black electrical tape. The order page had said "new." The OPN on the chip was `100-000000926`, which is AMD's OEM/tray SKU. Tray parts ship without retail packaging and without coolers. Someone had bundled a scavenged cooler in to dress it up as a complete product.
 
-![Pin side of the used 5700X showing debris between the pins](mag7/32-used-5700x-pin-debris.webp)
+![Pin side of the used 5700X showing debris between the pins](mag7/32-used-5700x-pin-debris.webp =640x)
 
 *To be fair, I had expected this to be too good to be true.* That's one of the benefits of Prime - free shipping & free returns.
 
 I returned it and ordered the retail boxed version (`100-100000926WOF`) from Newegg, which shipped from Hong Kong. It arrived two weeks later in a sealed blister pack with a tamper-evident sticker and a certificate of authenticity. Even *that* one had small cosmetic marks on the heat spreader - normal manufacturing artifacts from lapping and QC handling, buried under the paste anyway, but striking that neither chip looked factory fresh.
 
-![New retail Ryzen 7 5700X in a sealed blister pack with certificate of authenticity](mag7/34-new-5700x-sealed.webp)
+![New retail Ryzen 7 5700X in a sealed blister pack with certificate of authenticity](mag7/34-new-5700x-sealed.webp =640x)
 
 [AM5 launched in 2022](https://en.wikipedia.org/wiki/Socket_AM5). By the time my 3600 died in 2026, AM4 had been the legacy platform for four years. No factory was pressing fresh 5700X boxes. The supply was inventory aging on shelves, the OEM tray channel quietly being repackaged by resellers, and the small fraction of retail boxes that had survived four years untouched. "New" had been redefined under me without anyone telling me. Read the OPN before clicking buy.
 
