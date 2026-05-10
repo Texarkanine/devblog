@@ -1,4 +1,156 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-05-09T23:58:36+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Elgato Streamdeck for Shell Aliases on Headless Linux</title><link href="https://blog.cani.ne.jp/2026/04/19/elgato-alias.html" rel="alternate" type="text/html" title="The Elgato Streamdeck for Shell Aliases on Headless Linux" /><published>2026-04-19T00:00:00+00:00</published><updated>2026-04-19T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/04/19/elgato-alias</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/04/19/elgato-alias.html"><![CDATA[<p>Let’s set the stage:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-05-10T19:41:04+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Suite Life of Bobs and Code</title><link href="https://blog.cani.ne.jp/2026/05/10/slobac.html" rel="alternate" type="text/html" title="The Suite Life of Bobs and Code" /><published>2026-05-10T00:00:00+00:00</published><updated>2026-05-10T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/05/10/slobac</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/05/10/slobac.html"><![CDATA[<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://x.com/rfleury/status/2047002777256391026" target="_blank" rel="noopener">
+      <img src="slobac-beyond-parody.png" alt="The acceleration from AI is unbelievable..." width="500" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">&nbsp;</div>
+    <div class="polaroid-link">
+      
+      <a href="https://x.com/rfleury/status/2047002777256391026" target="_blank" rel="noopener">x.com/rfleury/status/2047002777256391026</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p>The <a href="https://x.com/housecor/status/2046619506626199791">original post</a> got somewhat clowned on in a lot of its interactions, and it got me thinking…</p>
+
+<p><img src="slobac-who-that-for.jpg" alt="Who else do I know with a massive AI-generated test suite?" /></p>
+
+<p>… that’s right, I <strong>also</strong> have a couple massive AI-generated test suites that probably actually do gate quality but also are absolutely not pretty. They’re probably pretty good, though - but are they <strong>beyond parody?</strong></p>
+
+<p>Unless P=NP, it’s easier to verify than to execute, so it <em>should</em> be at least as easy for an AI to <em>clean up those test suites</em> as it was to write them.</p>
+
+<p>Software testing has been one of my nitpicky passions for over a decade: every company I’ve worked for has had their internal knowledge base - be it Confluence, Backstage, or something else - blessed with at least <em>one</em> polemic on what good tests are, what bad tests are, and how to not mess it up.</p>
+
+<p>So, what does an AI need in order to clean up a test suite?</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/041ce441.svg"><img src="/assets/svg/041ce441.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/041ce441-dark.svg"><img src="/assets/svg/041ce441-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>So we’re going to need users to have access to</p>
+
+<ol>
+  <li>Frontier reasoning models</li>
+  <li>Big context windows</li>
+</ol>
+
+<p>and we’re going to need to build:</p>
+
+<ol>
+  <li>A document on what makes a good test</li>
+  <li>A document on what makes a bad test</li>
+  <li>A workflow for finding bad tests</li>
+  <li>A workflow for authoring and inserting improved tests</li>
+</ol>
+
+<p>Those are all pretty straightforward (bikeshed opportunities notwithstanding), except perhaps #4 - how to safely refactor a test suite.</p>
+
+<h2 id="dont-break-the-coverage">Don’t Break the Coverage</h2>
+
+<p>If we’re going to be changing test suites, there’s a real risk that we might materially change the behavior that’s protected by the test suite. How do we ensure - or at least try to ensure - that we make <em>safe</em> changes to the test suite?</p>
+
+<p>Two guiding principles:</p>
+
+<ol>
+  <li>Only touch the tests; the production code is now your test suite</li>
+  <li><a href="https://en.wikipedia.org/wiki/Mutation_testing">Mutation Testing</a></li>
+</ol>
+
+<p>Now I don’t expect anyone who’s got a morass of AI-generated tests and is not already doing mutation testing to <strong>start</strong> doing mutation testing just to be able to apply some test cleanup, so we’ll have to build a process that <em>can</em> work safely without it.</p>
+
+<h2 id="the-suite-life-of-bobs-and-code">The Suite Life of Bobs and Code</h2>
+
+<p>The four core deliverables are, well, <em>delivered</em> in SLOBAC:</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">
+      <img src="slobac.jpg" alt="SLOBAC: The Suite Life of Bobs and Code" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">SLOBAC: The Suite Life of Bobs and Code</div>
+    <div class="polaroid-link">
+      
+      <a href="https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">texarkanine.github.io/slobac/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<ol>
+  <li>A <a href="https://texarkanine.github.io/slobac/principles/test-qualities/">manifesto on what makes a good test</a></li>
+  <li>A <a href="https://texarkanine.github.io/slobac/taxonomy/">taxonomy of different patterns of bad tests</a>, tied to the “good test” principles they violate</li>
+  <li><a href="https://texarkanine.github.io/slobac/principles/refactor-qualities/">Principles</a> of, and <a href="https://texarkanine.github.io/slobac/principles/workflows/">processes</a> for, safely modifying a test suite</li>
+  <li>An <a href="https://github.com/Texarkanine/slobac/blob/main/skills/slobac-audit/SKILL.md">agentic workflow</a> (in the form of an <a href="https://agentskills.io">Agent Skill</a>) to execute an audit</li>
+</ol>
+
+<h2 id="dogfooding-it">Dogfooding it</h2>
+
+<p>I’ve tried it on two of my projects that I knew had extensive AI-generated test suites:</p>
+
+<p><strong>ai-rizz</strong></p>
+
+<p><a href="https://github.com/texarkanine/ai-rizz">ai-rizz</a> is a tool for managing Cursor rules and skills. It’s what I use to manage the distribution and synchronization of AI agent customizations across <em>my</em> repositories. It’s a single monolithic shell script with a bunch of <a href="https://github.com/kward/shunit2">shunit2</a> tests.</p>
+
+<ul>
+  <li><a href="https://github.com/Texarkanine/ai-rizz/commit/3d2d22c1fdcdbdd13e24b12b718863d500dbf1ee">One initial, tiny test-run</a></li>
+  <li><a href="https://github.com/Texarkanine/ai-rizz/compare/85f598e651efd77e81fd21ccc36a0bc487b2cae8...01fd41a841526a8819f04a96b675c8aab0d7dfcc">A second, full cleanup run</a></li>
+</ul>
+
+<p><strong>a16n</strong></p>
+
+<p><a href="https://github.com/Texarkanine/a16n">a16n</a> is a tool for converting AI agent customizations between harnesses (e.g. Cursor ↔ Claude Code). It’s a multi-package typescript monorepo with a <em>ton</em> of tests - unit, integration, and end-to-end.</p>
+
+<ul>
+  <li><a href="https://github.com/Texarkanine/a16n/commit/98b616a0f0bf0110569e8bd25f42cf5fc323c662">One initial, tiny test-run</a></li>
+  <li><a href="https://github.com/Texarkanine/a16n/compare/d84fba171083df71d821ba705aeab04161ecea38...fb1df37bfb997b63c2b826bb571480d8a2b75110">A second, full cleanup run</a></li>
+</ul>
+
+<h3 id="audit-results">Audit Results</h3>
+
+<p>I was surprised to see it take around 30 minutes for the (heavyweight, high-effort) models to process each test suite. I hadn’t expected so much time! The report it generated was good <em>but</em> definitely not complete. It seems that even with huge context windows and sharding out to subagents so that no context compaction happened, some suites are too big to catch everything in one go.</p>
+
+<p>That’s fine, though - run it again and it should find some of the leftovers, and you just repeat until it stabilizes or you’re happy.</p>
+
+<p>I also tried running an audit with different models:</p>
+
+<ul>
+  <li>Cursor’s <a href="https://cursor.com/docs/models-and-pricing#auto-composer-pool">Auto</a></li>
+  <li>Cursor’s <a href="https://cursor.com/blog/composer-2">Composer 2</a></li>
+  <li>GPT-5.5</li>
+  <li>Grok 4.3</li>
+</ul>
+
+<p>just to see if there were major differences. Auto and Composer - both “not high-effort frontier models” - found the fewest issues, and there were significant quality issues with their findings. This was expected - those models both cap at Cursor’s default 200k context window, and neither is a high-effort, frontier reasoning model.</p>
+
+<p>The others, though, mostly matched the benchmark of Claude Opus 4.7 (high effort) - 15 findings +/- ~3 or so, most of them the same diagnosis of the same location in the codebase.</p>
+
+<p>So, SLOBAC <em>should</em> work with any high-effort, frontier model with a large context window - good!</p>
+
+<h3 id="audit-idiosyncrasies">Audit Idiosyncrasies</h3>
+
+<p>One problem I noticed was that when I fed the audit into an agent to address the issues, it tended to put its own, new <a href="https://texarkanine.github.io/slobac/taxonomy/deliverable-fossils">deliverable-fossils</a> into the tests it was fixing! This suggests there’s an opportunity to hook into agent’s test-authoring process (whether part of processing a SLOBAC audit or not) to inject some guards against common test-authorship antipatterns that are cheaper to preclude up-front, than fix <em>ex-post-facto</em>.</p>
+
+<p>Of course, that isn’t <em>exactly</em> what SLOBAC was for - it was for the extant test suites that were <em>not</em> created with such rigor. Scope creep, or opportunity? I’m not sure yet. If nothing else, it makes it more difficult to run repeated audits on the same codebase to progressively stabilize. I’ll have to audit and fix some more codebases to develop a better sense of where and how to address that.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="software-engineering" /><category term="software-quality" /><category term="testing" /><category term="tools" /><summary type="html"><![CDATA[SLOBAC delivers principles for good tests, a taxonomy of test smells, safe refactoring workflows, and an agent skill to audit and clean up sprawling AI-generated test suites.]]></summary></entry><entry><title type="html">The Elgato Streamdeck for Shell Aliases on Headless Linux</title><link href="https://blog.cani.ne.jp/2026/04/19/elgato-alias.html" rel="alternate" type="text/html" title="The Elgato Streamdeck for Shell Aliases on Headless Linux" /><published>2026-04-19T00:00:00+00:00</published><updated>2026-04-19T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/04/19/elgato-alias</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/04/19/elgato-alias.html"><![CDATA[<p>Let’s set the stage:</p>
 
 <p>I have many computers in my office. I live in residence in the US with the typical 15A/110V power supply, meaning <code class="language-plaintext highlighter-rouge">1650</code> Watts maximum power available on a single circuit - and my office is a single circuit.</p>
 
@@ -1322,7 +1474,7 @@ npx a16n convert <span class="nt">--from</span> cursorrules <span class="nt">--t
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npx a16n convert <span class="nt">--from</span> cursor <span class="nt">--to</span> claude <span class="nt">--dry-run</span>
 </code></pre></div></div>
 
-<p>The worst that happens is you see what would change.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="a16n" /><category term="cursor" /><category term="claude-code" /><category term="developer-tools" /><category term="harness-engineering" /><category term="open-source" /><summary type="html"><![CDATA[a16n converts AI coding agent customization between Cursor, Claude Code, and more. One CLI command migrates your rules, skills, ignore patterns, and slash commands - no manual re-creation.]]></summary></entry><entry><title type="html">Moving Fast, Breaking Nothing</title><link href="https://blog.cani.ne.jp/2026/03/13/seven-weeks.html" rel="alternate" type="text/html" title="Moving Fast, Breaking Nothing" /><published>2026-03-13T00:00:00+00:00</published><updated>2026-03-13T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/13/seven-weeks</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/13/seven-weeks.html"><![CDATA[<p>On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn’t sure what to do next.</p>
+<p>The worst that happens is you see what would change.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="a16n" /><category term="cursor" /><category term="claude-code" /><category term="developer-tools" /><category term="harness-engineering" /><category term="open-source" /><category term="tools" /><summary type="html"><![CDATA[a16n converts AI coding agent customization between Cursor, Claude Code, and more. One CLI command migrates your rules, skills, ignore patterns, and slash commands - no manual re-creation.]]></summary></entry><entry><title type="html">Moving Fast, Breaking Nothing</title><link href="https://blog.cani.ne.jp/2026/03/13/seven-weeks.html" rel="alternate" type="text/html" title="Moving Fast, Breaking Nothing" /><published>2026-03-13T00:00:00+00:00</published><updated>2026-03-13T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/13/seven-weeks</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/13/seven-weeks.html"><![CDATA[<p>On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn’t sure what to do next.</p>
 
 <p>This is the diary of building <a href="/2026/03/13/a16n.html">a16n</a>.</p>
 
@@ -1527,213 +1679,4 @@ npx a16n convert <span class="nt">--from</span> cursorrules <span class="nt">--t
 
 <p>A well-structured plan that rigorously validates itself at every phase can still execute cleanly on the wrong problem. Lint passes, tests pass, QA passes - none of that tells you whether you’ve identified the right root cause. For tasks driven by a symptom (“text is clipping”), the hypothesis about <em>why</em> matters more than the quality of the implementation.</p>
 
-<p>The most expensive failure mode isn’t a build that breaks. It’s a build that passes.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="fable" /><category term="ruby" /><category term="mermaid" /><category term="debugging" /><category term="jekyll" /><category term="rubygem" /><summary type="html"><![CDATA[Seventy-six tests passing, zero RuboCop offenses, a clean QA review - and it was all solving the wrong problem. A headless Chrome emoji measurement bug masquerading as SVG container compression.]]></summary></entry><entry><title type="html">Context to Ashes, Skills to Dust</title><link href="https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust.html" rel="alternate" type="text/html" title="Context to Ashes, Skills to Dust" /><published>2026-03-09T00:00:00+00:00</published><updated>2026-03-09T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust.html"><![CDATA[<p>This is the fourth in what has become an unplanned series.</p>
-
-<p><a href="/garden/last-programming-language.html">The Last Programming Language</a> argued that the entire history of programming languages was a project to close the gap between human intent and machine execution, and that LLMs are the endpoint because they execute natural language directly. <a href="/2026/02/12/stop-doing-agents-md.html">Stop Doing AGENTS.md</a> and <a href="/2026/02/23/model-context-protocol-not-agent-context-protocol.html">It’s Model Context Protocol, Not Agent Context Protocol</a> argued, from different angles, that most agent customization is wasted context - duplicated, task-specific, or self-evident to the model.</p>
-
-<p>I think the same logic applies one level up: to the <em>workflows and orchestration</em> we wrap around the agents themselves.</p>
-
-<p>The distance between “how humans already know work should be done” and “how AI agents do work” is collapsing, for the same reason the programming language gap collapsed - the knowledge was always trivially expressible. We just hadn’t told the machine yet.</p>
-
-<h2 id="the-cathedral">The Cathedral</h2>
-
-<p>I stopped writing code about a year ago. In its place, I developed a set of habits and techniques culminating in an elaborate orchestration system - <a href="https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko">Niko</a> - that turned AI coding agents into something resembling a senior colleague with a rigorous process. Phase-gated workflows with complexity tiers. Memory banks split into persistent and ephemeral files. Preflight validation. QA loops. TDD enforcement. An archive system for long-term institutional memory. Mermaid diagrams as a conceit to my human desire to understand the process. A whole cathedral.</p>
-
-<p>And it <em>worked</em>. Measurably, demonstrably better than vanilla agentic coding harnesses. My original adoption of <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rules/niko-core.mdc">Niko’s core</a> turned GPT-4o into Sonnet 3.5, back in March 2025. Niko’s lineage traces back through <a href="https://github.com/vanzan01/cursor-memory-bank">vanzan01’s Cursor memory bank adaptation</a> to the original <a href="https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md">Cline Memory Bank</a>, community-created on the Cline Discord around early 2025. The genealogy matters because it shows that a <em>lot</em> of people, independently, arrived at the same conclusion: agents need structure, memory, and process to do good work.</p>
-
-<p>We were all correct. And now we can all stop.</p>
-
-<h2 id="the-subsumption">The Subsumption</h2>
-
-<p>The tools have started eating the techniques we dress them up in. From <a href="https://docs.cline.bot/home">Cline</a> to <a href="https://code.claude.com/docs/en/overview">Claude Code</a> and <a href="https://cursor.com/docs">Cursor</a>, major harnesses and models are absorbing these behaviors natively. The gap between “community workaround” and “native feature” is compressing over time</p>
-
-<p>Here are some of the key techniques we’ve discovered:</p>
-
-<h3 id="️-planning">🗺️ Planning</h3>
-
-<blockquote>
-  <p>The agent should research and plan before building. The single highest-leverage intervention - the difference between an agent that wanders and one that delivers.</p>
-</blockquote>
-
-<p>Niko’s phased plan-then-execute workflow forced the agent through research, planning, and validation before a single line of code got written. This came from my original learning from agentic dev experience &amp; readings that “you should make a plan before you start coding,” which I then taught to my agents.</p>
-
-<p>I used to coax the workflow by hand, before I found Niko’s ancestors in the Cursor Memory Bank and welcomed a formalization of the process.</p>
-
-<h3 id="-context-initialization">📋 Context Initialization</h3>
-
-<blockquote>
-  <p>The agent should understand the project it’s working in.</p>
-</blockquote>
-
-<p>Niko’s memory bank initialization creates a <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#persistent-files">structured set of persistent files</a> - product context, system patterns, tech context - a variation of the <a href="https://docs.cline.bot/features/memory-bank">Cline Memory Bank</a> set, refined through personal industry experience, giving the agent a consistent and reliable understanding of the project across sessions. The Cline Memory Bank itself was community-created on the Cline Discord around early 2025.</p>
-
-<p>Claude Code’s <code class="language-plaintext highlighter-rouge">/init</code> scaffolds a <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> file by scanning the codebase, too, but only writes to the single file.</p>
-
-<p>Cursor’s approach is actually more interesting and arguably <em>better</em> than the manual pattern: it <a href="https://cursor.com/docs/context/codebase-indexing">computes embeddings for every file in your codebase</a> and provides those alongside a brief tree/text summary of the project structure. This is <em>indirect</em> context - you embed the code so the model kinda-sorta knows it, without burning context window on a monolithic description. It’s the <a href="/2026/02/12/stop-doing-agents-md.html">Stop Doing AGENTS.md</a> thesis made manifest by tooling: instead of a giant global prompt telling the model about your code, the model just <em>implicitly knows</em> because the code is embedded. The brief structural summary gives just enough for the model to know where it might want to look - rather than the monolithic <code class="language-plaintext highlighter-rouge">AGENTS.md</code> antipattern.</p>
-
-<p>Multi-file repo context documents are being actively developed; I see murmurs of it in my “Stop Doing AGENTS.md” spaces. <code class="language-plaintext highlighter-rouge">/init</code> will probably produce something closer to Niko’s multi-file structure before long. And how long before the tools add “after I finish executing a plan, go update the docs that <code class="language-plaintext highlighter-rouge">/init</code> touches?”</p>
-
-<h3 id="-the-ralph-wiggum-technique">🔁 The Ralph Wiggum Technique</h3>
-
-<p>In July 2025, <a href="https://ghuntley.com/ralph/">Geoffrey Huntley documented</a> the technique: put an AI coding agent in a bash <code class="language-plaintext highlighter-rouge">while</code> loop:</p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> :<span class="p">;</span> <span class="k">do </span><span class="nb">cat </span>PROMPT.md | claude-code <span class="p">;</span> <span class="k">done</span>
-</code></pre></div></div>
-
-<p>… and let it spin until it stabilizes. Each time through the loop, the context is fresh but the codebase has accreted changes, and the agent keeps making progress toward the goal in the prompt. Doesn’t matter if it doesn’t get it on the first try; after 50 tries overnight, it will. The name comes from <a href="https://en.wikipedia.org/wiki/Ralph_Wiggum">Ralph</a>’s energy - not his incompetence, but his unwavering, guileless commitment to the task at hand.</p>
-
-<p>People put agents in Ralph loops and they <a href="https://github.com/repomirrorhq/repomirror/blob/main/repomirror.md">shipped entire projects overnight</a>.</p>
-
-<p>Turns out you don’t actually have to type the prompt out each time; you can just feed the <em>same</em> prompt in over and over again!</p>
-
-<h3 id="-ephemeral-context-and-compaction">📜 Ephemeral Context and Compaction</h3>
-
-<blockquote>
-  <p>Models forget. The context window fills, and older content falls away. Work is often not complete before the model can’t ingest any new information. You must find a way to persist what matters.</p>
-</blockquote>
-
-<p>Cursor was one of the first major harnesses to tackle this by automatically compacting conversations that approached the limit: run the history through a summarizer, produce a summary document, start a new context window with the summary injected. More recently, Cursor <a href="https://cursor.com/blog/dynamic-context-discovery#2-referencing-chat-history-during-summarization">noted the addition</a> of a technique that people - including myself - had been doing manually: saving the original conversation transcript to disk before compacting, then referencing the full transcript in the next conversation alongside the summary.</p>
-
-<p>Niko operationalizes and <em>obviates</em> this by making “recording the important things to disk” part of the workflow from the start. Niko’s <a href="https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#ephemeral-files">ephemeral memory-bank files</a> track the current task: a project brief, active context, progress, task lists, reflections, creative decisions. When Niko finishes a phase and it’s time for the human to make a decision, you open a new context window and run the next <code class="language-plaintext highlighter-rouge">/niko-*</code> command. Niko reads the memory bank from disk and picks up where it left off - clean context, full awareness. If you abort mid-phase, Niko’s record-keeping enables the agent to diff the code on-disk against the last memory bank entry to deduce what was lost and resume from the right place.</p>
-
-<p>What this buys you is context windows as <a href="https://cloudscaling.com/blog/cloud-computing/the-history-of-pets-vs-cattle/">cattle, not pets</a>, and your “Agent” is the state saved to disk and source control - something durable and portable. This technique largely sidesteps the problem of running out the context window and the associated <a href="https://arxiv.org/abs/2307.03172">risks of having it very full</a>.</p>
-
-<h3 id="-validation-loops">✅ Validation Loops</h3>
-
-<blockquote>
-  <p>Verify the work. The plan must be <em>good</em> before building starts; what is built must be <em>correct</em> before the task can be considered complete.</p>
-</blockquote>
-
-<p>Niko’s preflight and QA phases are genuine validation gates. TDD forcing - making the agent write tests first and use them as back-pressure - is a <a href="https://martinfowler.com/fragments/2026-02-18.html">key value-add</a> that Niko delivers.</p>
-
-<p>Crucially, Niko’s validation doesn’t default to coming up for air if it fails - it loops back and repeats the attempt. Agent doesn’t get code perfect on the first try? You know what, a lot of humans don’t, either. Going back and reworking it is the name of the game!</p>
-
-<h3 id="-archival-memory">🧠 Archival Memory</h3>
-
-<blockquote>
-  <p>Remember what you learned, not just what you’re doing. Long-term institutional memory that survives beyond the current task lets you improve over time.</p>
-</blockquote>
-
-<p>Niko archives summaries of past work into the memory bank - a layer of long-term institutional memory that doesn’t come off-the-shelf in any of the major harnesses. But this is partly because archival is opinionated: maybe you’d “archive” in Jira tickets, or GitHub issues, or commits, or a changelog, or a wiki. Eventually there will be something native. Cursor started out using a single file - <code class="language-plaintext highlighter-rouge">.cursorrules</code> - as memory, but has since abandoned directly advocating any particular “memory” management pattern. Claude Code semi-advocates using various <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> files as memory; Gemini CLI explicitly <a href="https://geminicli.com/docs/cli/tutorials/memory-management/#how-to-teach-the-agent-facts-memory">calls <code class="language-plaintext highlighter-rouge">GEMINI.md</code> a “memory.”</a> Most web-based chat interfaces already read past conversations for context. <a href="https://docs.coderabbit.ai/knowledge-base/learnings">CodeRabbit has server-side Learnings</a> that persist facts across code reviews.</p>
-
-<p>Everyone agrees: this works and we need it.</p>
-
-<h3 id="-parallelization">🔀 Parallelization</h3>
-
-<blockquote>
-  <p>Break work into parallel tracks to progress as quickly as possible.</p>
-</blockquote>
-
-<p>Parallelization was the one technique that couldn’t be solved by better prompting. Every other innovation on this list was, at its core, a matter of telling the LLM inside the agent what to do differently. Parallelization required the harness to do something differently - you needed multiple context windows running simultaneously, with coordination between them.</p>
-
-<p>Before harness support existed, I was literally cloning repositories into separate directories on my machine, launching a Cursor instance out of each location, and manually giving each one a different prompt. I was the load balancer. Claude Code’s early subagent support was more CLI-native but similarly manual - you could spawn subagents, but you were still the one deciding what ran where and reconciling the results. You’d handcraft hordes of subagents, or at least explicitly kick them off, to get decent parallelization on tasks - wiring up the topology yourself like a computational middle manager.</p>
-
-<p>Parallelization matters disproportionately to the other techniques: it’s pure force multiplication, and it was the one place where no amount of clever process design could substitute for infrastructure the tool didn’t yet provide.</p>
-
-<h3 id="the-timeline">The Timeline</h3>
-
-<p>So that’s a lot to manage, right? No wonder this AI stuff is hard and people struggle to get good results. Right?</p>
-
-<p>In January 2025, yeah. But your information is outdated; take a look at this timeline:</p>
-
-<p><strong>February 2025</strong> — The 📋 <a href="https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md">Cline Memory Bank</a> emerges from the Cline Discord: structured markdown files giving agents persistent project 🧠 <strong>memory</strong> across sessions. Claude Code launches with <code class="language-plaintext highlighter-rouge">/init</code> for 📋 <strong>context initialization</strong>.</p>
-
-<p><strong>March 2025</strong> — <a href="https://code.claude.com/docs/en/changelog#0-2-47">Claude Code v0.2.47</a> ships 📜 <strong>auto-compaction</strong>, automatically summarizing conversations when the context window fills. Before this, you managed the window yourself.</p>
-
-<p><strong>May 2025</strong> — <a href="https://cursor.com/changelog/0-50">Cursor 0.50</a> ships Background Agents in preview: 🔀 <strong>parallelization</strong> without hand-wiring the topology.</p>
-
-<p><strong>June 2025</strong> — <a href="https://cursor.com/changelog/1-0">Cursor 1.0</a> ships 🧠 <strong>Memories</strong> — persistent facts across sessions. (These later evolved into Cursor Rules, themselves another subsumption: a community concept absorbed, renamed, and integrated.)</p>
-
-<p><strong>July 2025</strong> — <a href="https://code.claude.com/docs/en/changelog#1-0-60">Claude Code v1.0.60</a> ships custom subagents for 🔀 <strong>parallelization</strong>. Geoffrey Huntley <a href="https://ghuntley.com/ralph/">documents</a> the 🔁 <strong>Ralph Wiggum technique</strong>: agents in bash <code class="language-plaintext highlighter-rouge">while</code> loops, shipping overnight.</p>
-
-<p><strong>August 2025</strong> — <a href="https://code.claude.com/docs/en/changelog#1-0-77">Claude Code v1.0.77</a> ships 🗺️ <strong>Opus Plan Mode</strong>: use Opus for planning, a lighter model for execution.</p>
-
-<p><strong>October 2025</strong> — <a href="https://cursor.com/changelog/2-0">Cursor 2.0</a> ships 🗺️ <a href="https://cursor.com/blog/plan-mode"><strong>Plan Mode</strong></a>. The “make a plan before coding” convention becomes a toggle.</p>
-
-<p><strong>November 2025</strong> — <a href="https://cursor.com/changelog/2-1">Cursor 2.1</a> improves 🗺️ <strong>Plan Mode</strong>: the agent can now ask clarifying questions in the UI.</p>
-
-<p><strong>December 2025</strong> — <a href="https://cursor.com/changelog/2-2">Cursor 2.2</a> adds Mermaid diagrams to plans — echoing <a href="https://github.com/vanzan01/cursor-memory-bank">vanzan01’s</a> use of Mermaid for visual planning in the community memory banks — dispatches plan items to parallel agents, and ships multi-agent judging for 🔀 <strong>parallelization</strong>. <a href="https://code.claude.com/docs/en/changelog#2-0-60">Claude Code v2.0.60</a> ships background agents.</p>
-
-<p><strong>January 2026</strong> — <a href="https://code.claude.com/docs/en/changelog#2-1-0">Claude Code v2.1.0</a> ships <code class="language-plaintext highlighter-rouge">/plan</code> as a first-class slash command. Both tools now detect when you’re <em>trying</em> to plan and enter 🗺️ <strong>plan mode</strong> unprompted.</p>
-
-<p><strong>February 2026</strong> — <a href="https://code.claude.com/docs/en/changelog#2-1-32">Claude Code v2.1.32</a> ships 🔀 <strong>Agent Teams</strong> and <a href="https://code.claude.com/docs/en/changelog#2-1-59">v2.1.59</a> ships 🧠 <strong>auto-memories</strong>.</p>
-
-<p><strong>March 2026</strong> — <a href="https://code.claude.com/docs/en/changelog#2-1-63">Claude Code v2.1.63</a> ships 🔁 <code class="language-plaintext highlighter-rouge">/loop</code>. The Ralph Wiggum technique is now a built-in command.</p>
-
-<p><strong>Not yet absorbed</strong></p>
-<ul>
-  <li>✅ <strong>Validation loops</strong>. Preflight gates. TDD forcing. QA checkpoints.</li>
-  <li>🧠 <strong>Archival memory</strong>. Long-term institutional memory that survives beyond the current task lets you improve over time, stored somewhere durable and accessible.</li>
-</ul>
-
-<p>Thirteen months. From the first community workaround to nearly-complete native absorption of every technique that mattered.</p>
-
-<h3 id="the-scorecard">The Scorecard</h3>
-
-<p>Niko does almost everything listed above, usually at least slightly better than the native version. But for anyone starting today, the built-in tools are past good enough. The delta is real but the delta is shrinking and the floor keeps rising. I would not tell a newcomer to learn Niko. I’d tell them to learn Cursor or Claude Code: cleanly, clearly, and fully type their task into the box and let the agent work.</p>
-
-<p>And that baseline would be good enough.</p>
-
-<h2 id="the-napkin">The Napkin</h2>
-
-<p>The reason all of these behaviors get absorbed so easily is that the underlying knowledge fits on a napkin.</p>
-
-<p>“Plan before executing.” “Test before shipping.” “Remember what you learned.” “Break big work into small work.” “Validate before declaring done.” “Archive what you did for next time.”</p>
-
-<p>These aren’t arcane insights; they’re things every human business and workflow has understood for decades to centuries, if not millennia. The entire Niko ruleset - the mermaid diagrams, the phase gates, the memory bank, the complexity tiers - is an elaborate encoding of wisdom that, stripped of implementation details, is just a handful of simple instructions.</p>
-
-<p>The only reason this wisdom wasn’t already in the tools is no one had gathered them all together and put them in yet. Now they largely have. A single engineer can encode “plan before executing” into a system prompt or fine-tuning signal and it just works. Three words. When you omit them, you get what you asked for, which is execution without planning. Remembering to say them was the middle step - the era where a cottage industry of AI optimization tips emerged to teach people what amounts to <strong>basic project management</strong>. Embedding three words into a model’s harness or system prompt is close to trivial for where the tool makers are now.</p>
-
-<p>And with each generation of model, the napkin gets shorter.</p>
-
-<p>The subsumption timeline tracks the <em>harness</em> absorbing community techniques - tool makers encoding process wisdom into native features. But there’s a deeper layer: the <em>models themselves</em> absorbing behaviors that neither the harness nor the prompts need to teach anymore. Twice, I’ve solved a “model won’t follow instructions” problem not by writing better prompts or more elaborate process scaffolding, but by bumping the model. Once from Sonnet 3.7 to Sonnet 4.0, once from Sonnet 4.5 to Opus 4.6. In both cases, behaviors I’d spent real effort trying to wring out through prompts - staying on task, following the plan without wandering, respecting phase gates - just <em>happened</em> on the new model without being asked. The elaborate scaffolding wasn’t compensating for a process gap. It was compensating for a capability gap, and the capability gap closed.</p>
-
-<p>Niko’s <code class="language-plaintext highlighter-rouge">/niko-*</code> command structure - and the directive to the operator to <em>only</em> use these commands to navigate the workflow, ensuring Niko is in play at each step - exists because earlier models would wander off if you didn’t force them through checkpoints. Niko’s commands serve the double-duty of reinforcing the process <em>and</em> reinforcing the context persistence out to the memory-bank on disk. That’s a bandaid over attention span and instruction adherence. Better models don’t need the bandaid. Some of those napkin words stop being necessary at all - not because someone built them into the harness, but because the model internalized them during training.</p>
-
-<p>Some wisdom is visibly absorbed into the harness and some wisdom is invisibly absorbed into the model’s base capabilities. And with those wisdoms, the models are <a href="https://x.com/bcherny/status/2030109840555790357">building their own harnesses</a> and <a href="https://x.com/karpathy/status/2031135152349524125">training models on their own</a>. Force-multiplication. Positive feedback loops. Each generation of model is better at specifying the behavior that makes the <em>next</em> generation more effective. The napkin gets shorter. Some of the words disappear entirely.</p>
-
-<p>The <em>pièce de résistance</em> of subsumption is <a href="https://x.com/bcherny">Boris Cherny</a>, creator of Claude Code and his “<a href="https://x.com/bcherny/status/2007179832300581177">vanilla Claude Code</a>” setup. Despite the absence of significant third-party addons, Boris is unarguably a power user and the “vanilla” setup is more-complex than most other Claude Code users out there! If you read through it, you’ll see a lot of echoes of all the techniques described above, just, solved with “vanilla” Claude Code!</p>
-
-<p>The practical upshot, stated directly: unless you’re on the bleeding edge and could write <a href="/tags/llm-context-management/">an essay</a> on <em>why</em> a given behavior exists and how to do it better, off-the-shelf is beyond good enough and trying to optimize it yourself is time you could spend building the thing instead.</p>
-
-<h2 id="we-am-become-wiggum">We am Become Wiggum</h2>
-
-<p>We chuckled when we named the Ralph Wiggum technique. We put agents in bash loops and they just kept doing their best, bless their hearts, until they shipped. We tuned them like guitars, erected signs at the top of slides, and watched them cheerfully, relentlessly build. We felt clever. We <em>were</em> clever.</p>
-
-<p>Now look at us.</p>
-
-<p>Poking and prodding at the agentic process. Fiddling with orchestration. Tuning prompts. Adding yet another rule to <code class="language-plaintext highlighter-rouge">AGENTS.md</code>. Ooh, maybe a Skill this time! Reading blog posts about the optimal number of subagents (how big should your Gas Town be?). Installing one more MCP server, just in case.</p>
-
-<p><em>“I’m helping!”</em></p>
-
-<p>Bless our hearts. For all the cheek, Ralph actually shipped. The human in the workflow’s loop is increasingly just adding latency, not value.</p>
-
-<p>The good news is that unlike Ralph, we can recognize the loop and step out of it. The practical takeaway is simple: off-the-shelf is more than good enough. Specify well - good requirements, good acceptance criteria - and let the subagents work on your plan. Pave your desire paths, hand over the keys, and get out of the way.</p>
-
-<h2 id="the-keys">The Keys</h2>
-
-<p>What’s actually left for us to do, then? Let’s talk about those “keys” we’re handing over.</p>
-
-<p>Authentication and authorization.</p>
-
-<p>The one place where the human’s role isn’t “know something the agent doesn’t” - that’s a knowledge problem, and <a href="/garden/last-programming-language.html">knowledge problems dissolve once you can express the answer in natural language to a sufficiently capable model</a>.</p>
-
-<p>Auth is a trust problem. You <code class="language-plaintext highlighter-rouge">gh auth login</code> so the agent can push. You <code class="language-plaintext highlighter-rouge">aws sso login</code> so it can deploy. You grant the filesystem access, the API keys, the OAuth flows. You pave the desire paths the agents will follow. <a href="https://modelcontextprotocol.io/">MCP</a> handles auth separation well when it applies, but the core act is still yours: being the human who says “yes, you may.”</p>
-
-<p>This too is eroding, which should be no surprise because it was never a hard boundary in the first place. Organizations already delegate trust to automated systems: CI/CD pipelines hold credentials, service accounts have scoped permissions. Kubernetes operators rotate secrets without asking anyone. The trend line points toward the auth boundary around agents dissolving from the edges as organizations get comfortable granting progressively broader trust to automated actors.</p>
-
-<p>In 1965, <a href="https://en.wikipedia.org/wiki/Computers_Don%27t_Argue">Gordon Dickson wrote a short story</a> called <em><a href="https://archive.org/details/bestofcreativeco00ahld/page/132/mode/2up">Computers Don’t Argue</a></em> in which a man receives a book club shipment he didn’t order. He tries to return it. Automated correspondence systems escalate the dispute through increasingly severe bureaucratic channels - billing, collections, legal, criminal - along the way accumulating transcription errors such that Mr. Walter A. Child’s return of the book <a href="https://en.wikipedia.org/wiki/Kidnapped_(novel)">“Kidnapped” by Robert Louis Stevenson</a> becomes a record that <code class="language-plaintext highlighter-rouge">Walter "kidnapped" A. Child (Robert Louis Stevenson [deceased])</code>.</p>
-
-<p>At no point does a human ever intervene to apply judgment. Every system in the chain has the authority to escalate but not the <em>judgment</em> to stop. The trust chain between systems is treated as sufficient with no need for a human checkpoint. The man is convicted and sentenced to death over a book order. <a href="https://en.wikipedia.org/wiki/Don%27t_Repeat_Yourself">DRY</a> violation as Kafkaesque horror: his innocence was the canonical truth, but no system was configured to reference it.</p>
-
-<p>What was missing from Dickson’s chain wasn’t technology. It was a manager - someone with the authority to review what the systems had collectively concluded and say “this is obviously a book return, not a kidnapping.” Humans have been running organizations this way for millennia:</p>
-
-<blockquote>
-  <p>“Delegate authority with oversight checkpoints.”</p>
-</blockquote>
-
-<p>The solution was always available; nobody applied it. Five more words on the napkin.</p>
-
-<p>Prompt engineering is dust. Context management skills are ashes. What remains, after everything else has been automated away, is the architecturally unglamorous, existentially critical work of ensuring that somewhere in every automated chain, a human can check whether the system is still working toward the outcome that was actually intended - and redirect it if it’s not.</p>
-
-<p>For now, that human is you. You’re a manager now: the machines don’t need your help figuring out how to do their jobs anymore.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="agentic-engineering" /><category term="ai" /><category term="claude-code" /><category term="cursor" /><category term="harness-engineering" /><category term="niko" /><category term="llm-context-management" /><summary type="html"><![CDATA[Planning, memory banks, validation loops, parallelization - every AI agent orchestration technique the community discovers is on a short march from workaround to native feature.]]></summary></entry></feed>
+<p>The most expensive failure mode isn’t a build that breaks. It’s a build that passes.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="fable" /><category term="ruby" /><category term="mermaid" /><category term="debugging" /><category term="jekyll" /><category term="rubygem" /><summary type="html"><![CDATA[Seventy-six tests passing, zero RuboCop offenses, a clean QA review - and it was all solving the wrong problem. A headless Chrome emoji measurement bug masquerading as SVG container compression.]]></summary></entry></feed>
