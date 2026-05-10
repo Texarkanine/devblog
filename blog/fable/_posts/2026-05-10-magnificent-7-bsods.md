@@ -62,7 +62,7 @@ PAGE_FAULT_IN_NONPAGED_AREA   (Hiren's WinPE)
 
 Seven different ways to die in six weeks. The variety was supposed to be a clue. I treated it as noise.
 
-The clue arrived as an aside, almost in passing. The system had only ever crashed *once Windows was booted*. BIOS was rock solid. [Memtes86+](https://www.memtest.org/) had run a full pass without a single error. Whatever was wrong, it appeared exclusively in environments that loaded the Windows kernel and its driver stack. WinRE counted. WinPE counted. The installed OS counted. BIOS didn't. Memtest didn't.
+The clue arrived as an aside, almost in passing. The system had only ever crashed *once Windows was booted*. BIOS was rock solid. [Memtest86+](https://www.memtest.org/) had run a full pass without a single error. Whatever was wrong, it appeared exclusively in environments that loaded the Windows kernel and its driver stack. WinRE counted. WinPE counted. The installed OS counted. BIOS didn't. Memtest didn't.
 
 The pattern was simpler than "Windows is broken." This hardware broke whenever a Windows kernel drove it, and nowhere else. Or so I thought...
 
@@ -118,7 +118,7 @@ Seven minutes. Exactly.
 
 Load-independent and time-based. Idle traffic was enough. Something heated up, drifted out of spec, and the bus stopped working, maybe?
 
-The pattern of graceful BSODs earlier had already ruled out the power supply. A dying PSU produces hard cuts and instant reboots, not categorized stop codes with sad faces. The CPU had been catching every fault, executing the bugcheck handler, writing a minidump, and rebooting cleanly. That much was working fine. What wasn't working was whatever the bugcheck handler had to report on.
+The pattern of graceful BSODs earlier had already ruled out the power supply. A dying PSU produces hard cuts and instant reboots, not categorized stop codes with sad faces. The CPU had been catching every fault, executing the bugcheck handler, writing a minidump, and rebooting cleanly. The reporting machinery worked perfectly, faithfully describing hardware that was sliding out from under it.
 
 ## The Loaner
 
@@ -130,7 +130,7 @@ Pulling the 3600 introduced me to a tradition. The dried thermal paste had welde
 
 I cleaned both surfaces with isopropyl, applied fresh paste, dropped in the 1800X, and pressed N on the [fTPM](https://learn.microsoft.com/en-us/windows/security/hardware-security/tpm/tpm-fundamentals) reset prompt to preserve the old keys in case BitLocker was on. (It wasn't.) Booted Ubuntu, ran the timestamp loop.
 
-PCIe was back at Gen3 by accident; the long power-off had reset BIOS defaults because the CMOS batter had died. I didn't realize this at the time, so the next test happened with Gen3 still selected.
+PCIe was back at Gen3 by accident; the long power-off had reset BIOS defaults because the CMOS battery had died. I didn't realize this at the time, so the next test happened with Gen3 still selected.
 
 Twenty-eight minutes idle, well past the seven-minute wall. Then Firefox refused to launch on whatever Ubuntu live state I had cobbled together, so I installed [Konqueror](https://apps.kde.org/konqueror/) and played cat videos through it for another five minutes.
 
@@ -144,9 +144,9 @@ The Ryzen 5 3600's PCIe controller was dead.
 
 ## Variety Was the Fingerprint
 
-Eleven stop codes were eleven angles on one problem - a marginal PCIe bus producing random data corruption, presented through whichever bit of kernel state happened to get corrupted at the moment of failure. `PAGE_FAULT_IN_NONPAGED_AREA` when the corruption hit a pointer. `CLOCK_WATCHDOG_TIMEOUT` when it stalled an inter-core interrupt. `HYPERVISOR_ERROR` when the hypervisor's own pages got mangled. The variety wasn't noise. It was the fingerprint of one component failing under a narrow access pattern, photographed from eleven different angles.
+Eleven stop codes were eleven angles on one problem - a marginal PCIe bus producing random data corruption, presented through whichever bit of kernel state happened to get corrupted at the moment of failure. `PAGE_FAULT_IN_NONPAGED_AREA` when the corruption hit a pointer. `CLOCK_WATCHDOG_TIMEOUT` when it stalled an inter-core interrupt. `HYPERVISOR_ERROR` when the hypervisor's own pages got mangled. What I'd taken for noise was the fingerprint of one component failing under a narrow access pattern, photographed from eleven different angles.
 
-"Stable in BIOS and Memtest" doesn't mean "the hardware is fine." It means the hardware is fine under the specific access patterns BIOS and Memtest exercise - patterns that, in my case, didn't include sustained PCIe Direct Memory Access from a Windows driver stack. If your crashes look like a dozen unrelated problems, look for the test environment they all share, and the one your *stable* environments don't.
+"Stable in BIOS and Memtest" is a narrower claim than it sounds: the hardware is fine under the specific access patterns BIOS and Memtest exercise - patterns that, in my case, didn't include sustained PCIe Direct Memory Access from a Windows driver stack. If your crashes look like a dozen unrelated problems, look for the test environment they all share, and the one your *stable* environments don't.
 
 ## Replacement!
 
@@ -162,8 +162,24 @@ I returned it and ordered the retail boxed version (`100-100000926WOF`) from New
 
 ![New retail Ryzen 7 5700X in a sealed blister pack with certificate of authenticity](mag7/34-new-5700x-sealed.webp)
 
-[AM5 launched in 2022](https://www.amd.com/en/products/processors/desktops/ryzen-chipsets/am5.html). By the time my 3600 died in 2026, AM4 had been the legacy platform for four years. No factory was pressing fresh 5700X boxes. The supply was inventory aging on shelves, the OEM tray channel quietly being repackaged by resellers, and the small fraction of retail boxes that had survived four years untouched. "New" had been redefined under me without anyone telling me. Read the OPN before clicking buy.
+[AM5 launched in 2022](https://en.wikipedia.org/wiki/Socket_AM5). By the time my 3600 died in 2026, AM4 had been the legacy platform for four years. No factory was pressing fresh 5700X boxes. The supply was inventory aging on shelves, the OEM tray channel quietly being repackaged by resellers, and the small fraction of retail boxes that had survived four years untouched. "New" had been redefined under me without anyone telling me. Read the OPN before clicking buy.
 
 ## Tail
 
 The 5700X dropped in, the system came up, and a few minutes of [DISM](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism/what-is-dism), SFC, and bcdedit theatrics cleaned up the servicing-stack damage the dying CPU had been smearing across the disk for months. xmrig benchmarks landed where they should have all along. The patch that "broke everything" had broken nothing. It had only been the first thing brave enough to notice.
+
+---
+
+## Starring, in Order of Appearance
+
+1. `HYPERVISOR_ERROR` - installed Windows
+2. `INTERNAL_POWER_ERROR` - on-disk WinRE, mid-DISM
+3. `DRIVER_IRQL_NOT_LESS_OR_EQUAL` - Hiren's WinPE
+4. `DPC_WATCHDOG_VIOLATION` - installed Windows, post-updates
+5. `CLOCK_WATCHDOG_TIMEOUT` - installed Windows
+6. `SYSTEM_THREAD_EXCEPTION_NOT_HANDLED` - installed Windows
+7. `PAGE_FAULT_IN_NONPAGED_AREA` - Hiren's WinPE
+8. `IRQL_NOT_LESS_OR_EQUAL` - Hiren's WinPE, NVMe SSD pulled
+9. `SYSTEM_SERVICE_EXCEPTION` - Hiren's WinPE, GTX 750 in for the RTX 3060
+10. `KMODE_EXCEPTION_NOT_HANDLED` - Hiren's WinPE, RAM slot 1 only
+11. `UNEXPECTED_KERNEL_MODE_TRAP` - Hiren's WinPE, RAM slot 2 only
