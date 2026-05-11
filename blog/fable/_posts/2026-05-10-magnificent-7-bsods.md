@@ -12,7 +12,7 @@ tags:
   - windows
 ---
 
-A Patch Tuesday bootloop is the kind of problem a blog post writes itself about. Mine was [KB5077181](https://www.neowin.net/news/windows-11-update-kb5077181-is-causing-critical-boot-loops-for-some-users/), the February 2026 Windows 11 cumulative that was already in the news for doing exactly this to other people. `HYPERVISOR_ERROR 0x20001`, a recovery menu that refused to roll back, the works. Case closed. Microsoft strikes again.
+A Patch Tuesday bootloop is the kind of problem a blog post writes itself about. Mine was [KB5077181](https://support.microsoft.com/en-us/topic/february-10-2026-kb5077181-os-builds-26200-7840-and-26100-7840-f0fa9e54-a22a-4a06-96b6-bf5b2aded506), the February 2026 Windows 11 cumulative that was [already in the news for doing exactly this to other people](https://www.neowin.net/news/windows-11-update-kb5077181-is-causing-critical-boot-loops-for-some-users/). `HYPERVISOR_ERROR 0x20001`, a recovery menu that refused to roll back, the works. Case closed. Microsoft strikes again.
 
 That post would have been wrong.
 
@@ -26,7 +26,7 @@ The bootloop arrived a few days after a patch cycle. Search results matched my s
 
 So I tried the obvious. Boot into Windows Recovery, run the rollback, get on with my life. The GUI rollback failed. `wusa`, the command-line uninstaller, doesn't exist in [WinRE](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-recovery-environment--windows-re--technical-reference). `dism /get-packages`, the next-best option, itself crashed mid-enumeration with `INTERNAL_POWER_ERROR`.
 
-A USB stick had [Hiren's BootCD](https://www.hirensbootcd.org/) on it - a portable, independent WinPE environment that touches none of the installed Windows. I booted from it, opened a command prompt, and the BSOD'd within seconds.
+A USB stick had [Hiren's BootCD](https://www.hirensbootcd.org/) on it - a portable, independent WinPE environment that touches none of the installed Windows. I booted from it, opened a command prompt, and then BSOD'd within seconds.
 
 ![Hiren's WinPE BSOD with stop code PAGE_FAULT_IN_NONPAGED_AREA](mag7/09-bsod-page-fault-winpe.webp =640x)
 
@@ -40,7 +40,7 @@ Real life intervened. Six weeks passed. When I came back, the system had collect
 
 The most seductive was a popup that flagged `iqvw64e.sys` - an Intel network diagnostic driver on Microsoft's [vulnerable-driver blocklist](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/microsoft-recommended-driver-block-rules). The driver name connected directly to HYPERVISOR_ERROR. The screen looked exactly like a smoking gun.
 
-![Program Compatibility Assistant popup: "A driver cannot load on this device" — iqvw64e.sys](mag7/02-iqvw64e-driver-blocked.webp =640x)
+![Program Compatibility Assistant popup: "A driver cannot load on this device" - iqvw64e.sys](mag7/02-iqvw64e-driver-blocked.webp =640x)
 
 I checked the registry. [HVCI](https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-hvci-enablement) wasn't enabled. I checked the drivers folder. The file wasn't even present. Windows was warning me about a ghost.
 
@@ -82,13 +82,15 @@ Four crashes I'd caused on purpose, and each one cleared a suspect without namin
 
 For the final OS-level bisect, I booted [Ubuntu 24](https://ubuntu.com/) live from a USB. Different kernel, different drivers, a clean break from anything Microsoft had touched. It hung eventually too. Not even Linux could stay up on this hardware.
 
+> Only dying silicon hangs every kernel; but on dying silicon, every kernel hangs.
+
 Eleven stop codes between the patch and Ubuntu's hang. None of them about the same component twice.
 
 ## The Cursor That Wouldn't Die
 
 When Ubuntu froze, the mouse cursor kept moving.
 
-Everything else - the desktop, Firefox, the video player I'd left running - was solid. The cursor glided over the wreckage. Two different GPUs had now both failed through the same physical slot. They shared the bus underneath them, not the silicon above.
+Everything else - the desktop, Firefox, the video player I'd left running - was solid. The cursor glided over the wreckage. Two different GPUs had now both failed through the same physical slot. They shared the bus underneath them, not the NVIDIA silicon above.
 
 On the Ryzen 3600, the x16 PCIe slot's lanes come straight from the CPU's integrated [PCIe root complex](https://en.wikipedia.org/wiki/Root_complex). Suspect's name: the path from the CPU die, through the socket pins, through the motherboard traces, to the slot connector. Anything along that line could be to blame.
 
@@ -114,7 +116,7 @@ Three lines of Bash, negligible system load. Open a terminal, run the loop, leav
 
 Seven minutes. Exactly.
 
-![Ubuntu terminal timestamp loop ending after ~7 minutes — the Ryzen 5 3600 idle-test death](mag7/16-terminal-3600-7min-death.webp =640x)
+![Ubuntu terminal timestamp loop ending after ~7 minutes - the Ryzen 5 3600 idle-test death](mag7/16-terminal-3600-7min-death.webp =640x)
 
 Load-independent and time-based. Idle traffic was enough. Something heated up, drifted out of spec, and the bus stopped working, maybe?
 
@@ -134,7 +136,7 @@ PCIe was back at Gen3 by accident; the long power-off had reset BIOS defaults be
 
 Twenty-eight minutes idle, well past the seven-minute wall. Then Firefox refused to launch on whatever Ubuntu live state I had cobbled together, so I installed [Konqueror](https://apps.kde.org/konqueror/) and played cat videos through it for another five minutes.
 
-![Ubuntu terminal timestamp loop — 1800X test still alive past 28 minutes uptime](mag7/24-terminal-1800x-stable.webp =640x)
+![Ubuntu terminal timestamp loop - 1800X test still alive past 28 minutes uptime](mag7/24-terminal-1800x-stable.webp =640x)
 
 Same board. Same slot. Same traces. Same RAM. Same PSU. Different CPU.
 
