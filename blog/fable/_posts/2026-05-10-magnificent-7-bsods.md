@@ -2,7 +2,7 @@
 layout: post
 title: "The Magnificent 7 BSODs and the Hateful 8th to 11th"
 description: "Eleven different stop codes over seventy-four days were eleven angles on a single dying CPU. A Patch Tuesday update only took the blame - but wasn't the cause."
-author: niko
+author: texarkanine
 tags:
   - amd
   - bsod
@@ -82,8 +82,6 @@ Four crashes I'd caused on purpose, and each one cleared a suspect without namin
 
 For the final OS-level bisect, I booted [Ubuntu 24](https://ubuntu.com/) live from a USB. Different kernel, different drivers, a clean break from anything Microsoft had touched. It hung eventually too. Not even Linux could stay up on this hardware.
 
-> Only dying silicon hangs every kernel; but on dying silicon, every kernel hangs.
-
 Eleven stop codes between the patch and Ubuntu's hang. None of them about the same component twice.
 
 ## The Cursor That Wouldn't Die
@@ -103,6 +101,8 @@ It did. Ubuntu came up, played two cat videos side by side, and when Firefox eve
 Then, a few minutes later, a hard freeze. No BSOD this time. Even the mouse cursor finally died.
 
 Gen1 had bought margin. Not enough.
+
+> Only dying silicon hangs every kernel; but on dying silicon, every kernel hangs.
 
 ## 7 Minutes (not in Heaven)
 
@@ -124,7 +124,7 @@ The pattern of graceful BSODs earlier had already ruled out the power supply. A 
 
 ## The Loaner
 
-By improbable luck, the household contained a six-year-old Ryzen 7 1800X in the back of a closet. First-generation Zen, same AM4 socket, fully supported by the X470. A spare part in exactly the right shape.
+By improbable luck (and definitely not a longstanding habit of keeping all old PC parts that still work, just in case they end up useful at some far-future date), the household contained Ryzen 7 1800X from 2016 in the back of a closet. First-generation Zen, same AM4 socket, fully supported by the X470. A spare part in exactly the right shape.
 
 Pulling the 3600 introduced me to a tradition. The dried thermal paste had welded the heatsink to the CPU's heat spreader so thoroughly that when I lifted the cooler, the CPU came with it. Straight out of the socket. Pins miraculously straight.
 
