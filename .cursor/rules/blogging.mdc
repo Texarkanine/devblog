@@ -42,6 +42,13 @@ If you have a lesson but worry about seeming preachy, write the Fable anyway. Re
 5. **Avoid "it's not X, it's Y":** Don't use this construction.
 6. **Show, don't tell:** Avoid meta-commentary about your own process. If you document solving six test failures, don't add a section saying "I systematically debugged each failure." The reader just watched you do it.
 7. **Avoid self-congratulation:** Sections that describe "how well the work was done" are usually redundant. The quality speaks through the documented results.
+8. **Earn the drama in a heading:** A little theater is welcome - "The Clock Broke" beats "Performance Improvements." But the drama has to be paid for by *this* post and no other. The tell was never drama, it's the template: a heading you could paste onto someone else's article unchanged ("The Hidden Cost of X", "Why Y Changes Everything", "Broader Implications") wastes readers' time. Test each heading by asking whether it could sit on a stranger's post without editing. If it could, it's decoration; make it name something only your section delivers. This applies to the post title (see tone, above) and to conclusion titles (see below) as much as to section headings.
+    * WRONG (template, any post fits): "The Hidden Cost of Code Review", "Broader Implications"
+    * RIGHT (drama the section pays for): "The Fix Is Embarrassingly Old" over a section that reveals the fix is just lint-and-autofix in a loop; "It Was Always This Bad" over a section proving the code was broken long before any reviewer flagged it.
+    * Keep clarifying parentheticals out of headings. If a heading needs a parenthetical to explain itself, the words haven't done their job; rewrite them, or trust the section to deliver the detail.
+9. **Lead with the point, not the run-up:** Openers like "It's worth noting that", "It's worth being honest about", "I want to be honest about", or "When it comes to" announce a point instead of landing it. If a clause only signals that something is coming, cut it and start on the something. Same muscle as "show, don't tell" above.
+    * WRONG: "It's worth being honest about what strict enforcement takes away."
+    * RIGHT: "Strict enforcement takes the human element away, and it lands unevenly."
 
 ## Technical Chops
 
@@ -51,12 +58,18 @@ If you have a lesson but worry about seeming preachy, write the Fable anyway. Re
 
 ## Grounding Claims
 
+Write like a researcher, not a copywriter: the difference is checkability. A copywriter writes sentences that sound good; a researcher writes sentences a reader could verify. Before a sentence ships, ask whether it could appear unchanged on any generic blog; if it could, anchor it to a number, a name, a date, a version, or a documented detail until it could only have come from you. The rules below are how you do that.
+
 1. **Claim, then proof:** State the assertion, then back it within a sentence or two with a detail the reader could check: a number, a version, a name, a date. End the claim on the concrete fact, not on a statement that the fact matters.
     * WRONG: "The new model was much faster and saved a lot of time."
     * RIGHT: "Opus finished the task in thirty minutes for about $30; Sonnet needed four hours of babysitting for $5."
 2. **Quantify through volume, not adjectives:** This is the inverse of "Readers don't care about test quantities" above. That rule cuts numbers that don't earn their place; this one says that when a claim leans on an adjective - "experienced", "much faster", "thorough" - you should replace the adjective with the number that justifies it.
     * WRONG: "Frontier models did a thorough job auditing the suite."
     * RIGHT: "The frontier models took about thirty minutes per suite and surfaced 15 findings, give or take three."
+3. **Make modifiers earn their keep:** An intensifier ("very", "significantly", "extremely") and a hedge ("may help", "can potentially", "helps ensure") are the same move from opposite directions: a feeling-word standing in for a fact you didn't supply. When you catch one, name the number or mechanism it's a placeholder for and write that. Item 2 covers the adjective case; this covers the words that prop adjectives up.
+    * WRONG: "The reviewer was significantly more thorough." / "This may help catch bugs."
+    * RIGHT: "The review that used to carry three nitpicks now carried eight." / "The loop fixes most of it for a few dollars and a few minutes."
+    * Two keepers: an intensifier doing real rhetorical work in your own voice ("perfectly useless to anyone who needs it") earns its place, and a hedge is honest when the uncertainty *is* the point and you name it ("it was probably always this bad"). Cut the reflexive ones; keep the load-bearing ones.
 
 ## Writing Lessons and Takeaways
 
@@ -65,7 +78,7 @@ When writing conclusion sections:
 - **Prefer specific over generic:** "RubyGems OIDC configuration is case-sensitive on usernames" beats "Gem publishing has sharp edges"
 - **Include the actionable detail:** Don't just say "tool X has bugs" - say what the bug is and how to avoid it
 - **Avoid truisms:** If it's obviously true to anyone (e.g., "TDD catches bugs early"), either cut it or make it specific enough to be useful
-- **"What This Means" and "What I Learned" are often bad titles:** They undersells your content thus far (the meaning should have been obvious) and insults the reader's intelligence (they should have gotten the meaning by now). Conclusions should crystallize and tie together, not just rehash - their section titles should therefore be similarly interesting.
+- **"What This Means" and "What I Learned" are often bad titles:** They undersell your content thus far (the meaning should have been obvious) and insults the reader's intelligence (they should have gotten the meaning by now). Conclusions should crystallize and tie together, not just rehash - their section titles should therefore be similarly interesting. The "earn the drama" test from Style applies here too: a conclusion title that could cap any post hasn't earned its spot.
 
 ## Blog-Specific Syntax
 
