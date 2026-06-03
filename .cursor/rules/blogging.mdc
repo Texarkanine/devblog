@@ -49,6 +49,15 @@ If you have a lesson but worry about seeming preachy, write the Fable anyway. Re
 2. **Foreign Term Links:** When introducing a foreign term or concept that may not be well-known, link its first major semantic mention to a definition or explanation somewhere. For common terms, this may be Wikipedia; for industry jargon or techniques, it may be a blog post or article from a recognized authority, etc.
 3. **Readers don't care about test quantities:** "77/77 tests pass" - nobody cares unless the whole article is about the quantity of tests passing. This generalizes to other quantities - if the quantity itself doesn't directly contribute to the meat of the story, think hard about whether the actual number bears mentioning.
 
+## Grounding Claims
+
+1. **Claim, then proof:** State the assertion, then back it within a sentence or two with a detail the reader could check: a number, a version, a name, a date. End the claim on the concrete fact, not on a statement that the fact matters.
+    * WRONG: "The new model was much faster and saved a lot of time."
+    * RIGHT: "Opus finished the task in thirty minutes for about $30; Sonnet needed four hours of babysitting for $5."
+2. **Quantify through volume, not adjectives:** This is the inverse of "Readers don't care about test quantities" above. That rule cuts numbers that don't earn their place; this one says that when a claim leans on an adjective - "experienced", "much faster", "thorough" - you should replace the adjective with the number that justifies it.
+    * WRONG: "Frontier models did a thorough job auditing the suite."
+    * RIGHT: "The frontier models took about thirty minutes per suite and surfaced 15 findings, give or take three."
+
 ## Writing Lessons and Takeaways
 
 When writing conclusion sections:
