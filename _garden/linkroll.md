@@ -45,6 +45,7 @@ tags:
 * [**Pokémon Scarlet/Violet** - Sandwich Calculator](https://birbzone.com/sandwich/)
 * [**Monster Hunter Now** - Gear Builder](https://mhn.quest/)
 * [**Animal Crossing: New Horizons** - Turnip Prophet](https://turnipprophet.io/)
+* [**No Man's Sky** - Service Bot](https://nomansapp.com/)
 
 ### Lore
 

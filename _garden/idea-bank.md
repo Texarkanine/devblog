@@ -15,7 +15,7 @@ tags:
   - [Welcome to Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04)
 - I spend most of my tokens on planning, am I wrong?
 - How cursor's doc indexing works
-- SLOBAC
+- A computer can never be ~~held accountable~~ punished for its mistakes.
 
 ## Garden
 
@@ -30,6 +30,8 @@ tags:
   - Slop ouroboros (AI writing specs AI executes) is real but narrow: dangerous only when the sloppy artifact is the durable, load-bearing artifact. Ephemeral scaffolding can be as messy as a Monday standup.
   - Symphony positions spec as primary artifact (slop = fatal). Niko positions spec as ephemeral working state (slop = fine). Architecture determines whether slop matters.
   - Demanding intermediate thinking be polished = demanding you do the work twice. That's theater, not rigor.
+- Asymmetrical Spaceships
+
 
 ## Quotes
 
