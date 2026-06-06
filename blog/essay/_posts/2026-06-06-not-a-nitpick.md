@@ -114,7 +114,7 @@ The prescription, if you want one, is
 
 Like all git-gud advice, it is perfectly useless to anyone who needs it. Anybody capable of taking it took it already. The slightly-more-useful version (given in full below) - write tighter pull requests, run the loop, make sure you *and* your agent learn from your mistakes - only works for someone already disposed to do it. The advice requires being the kind of person who'd follow the advice. That recursion isn't a flaw in the prescription. It's the diagnosis.
 
-So, maybe it's for you. Maybe this is your "a-ha" moment. Maybe you just needed a prescription, and you'll be right as rain in a jiffy. Hopefully, your peers in similar situations can be similarly cured.
+So, maybe it's for you. Maybe this is your "a-ha" moment, your wake-up call that you've got to step up your game. Maybe you just needed a prescription, and you'll be right as rain in a jiffy. Hopefully, your peers in similar situations can be similarly cured.
 
 ## The Actual Prescription
 
@@ -132,7 +132,9 @@ This iterative loop - whether literal or procedural - is the core of the entire 
 
 [Simon Willison puts the bar plainly](https://simonwillison.net/2025/Dec/18/code-proven-to-work/): your job is to deliver code you've *proven* to work, and shoving an unreviewed pile at someone else to vet just makes your cleanup their problem. The loop is how I do my proving before I spend a coworker's attention.
 
-Did you know [CodeRabbit has a vscode plugin](https://marketplace.visualstudio.com/items?itemName=CodeRabbit.coderabbit-vscode) so you can get the nastygram right in your IDE before you even push your code to the remote, let alone open a PR? I wager they're not the *only* code quality tool that you could, I dunno, *use* before asking for a code review!
+Did you know [CodeRabbit has a VSCode plugin](https://marketplace.visualstudio.com/items?itemName=CodeRabbit.coderabbit-vscode) so you can get the nastygram right in your IDE before you even push your code to the remote, let alone open a PR? I wager they're not the *only* code quality tool that you could, I dunno, *use* before asking for a code review!
+
+---
 
 [^1]: "The Pushback Effects of Race/Ethnicity, Gender, and Age in Code Review", Emerson Murphy-Hill et al., Communications of the ACM, 2022. <https://cacm.acm.org/research/the-pushback-effects-of-race-ethnicity-gender-and-age-in-code-review/>
 [^2]: "How Do Developers Review Code? An Eye-Tracking Study", <https://dl.acm.org/doi/10.1145/3643916.3644425> ([pdf](https://dl.acm.org/doi/epdf/10.1145/3643916.3644425))
