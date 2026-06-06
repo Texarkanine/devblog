@@ -11,7 +11,7 @@ tags:
   - software-quality
 ---
 
-If you engage even a little bit with AI-originated code reviews, you'll probably hear the word "nitpick." [CodeRabbit](https://www.coderabbit.ai/) not only has a setting that explicitly advertises the suppression of "nitpicks,"
+If you engage even a little bit with AI-originated code reviews, you'll probably hear the word "[nitpick](https://en.wikipedia.org/wiki/Nitpicking)." [CodeRabbit](https://www.coderabbit.ai/) not only has a setting that explicitly advertises the suppression of "nitpicks,"
 
 ![CodeRabbit's "Nitpicky" Setting and warning](coderabbit-nitpicky.png)
 
