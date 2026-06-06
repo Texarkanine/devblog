@@ -1,13 +1,14 @@
 ---
 layout: post
-title: "When AI Code Review Doesn't Nitpick"
-subtitle: "(When The Code Is Just That Bad)"
+title: It's Not a "Nitpick" if You're Wrong
+subtitle: "A Field Guide to Getting Told Off by a Robot"
 description: "The complaint that AI reviewers are nitpicky smuggles in a false premise. I went and checked the findings. They were real, the code was bad, and it was probably always bad, so why isn't that signal acted on?"
 author: texarkanine
 tags:
   - ai
   - code-review
   - coderabbit
+  - software-quality
 ---
 
 If you engage even a little bit with AI-originated code reviews, you'll probably hear the word "nitpick." [CodeRabbit](https://www.coderabbit.ai/) not only has a setting that explicitly advertises the suppression of "nitpicks,"
