@@ -26,3 +26,25 @@ When *introducing* a tool or product to the reader, link to its product/landing 
 ## Shape Discipline on Tangents
 
 Details should serve the post's chosen shape. An interesting anecdote that isn't part of the fable's cascade, the essay's argument, or the record's factual account should probably cut - unless it has a high value of its own. If a detail just happened to happen concurrently but wasn't caused by or required for anything in the narrative's chain, it's a tangent.
+
+## Name the Concrete Difference
+
+When the draft says one thing differs from another - newer, faster, exempt, unaffected, better - name the part, the version, the date, or the mechanism that makes the difference real. If you can't name what makes the difference, you can't claim the difference exists.
+
+- WRONG: "The system Chrome rendered the diagrams differently than Puppeteer's did."
+- RIGHT: "GitHub Actions' system Chrome measured text 11-16% narrower than Puppeteer's bundled Chromium, so edge labels landed in foreignObject containers too narrow for the text real browsers render."
+
+## Sentence Rhythm
+
+Read the draft aloud. When three sentences in a row land at nearly the same length, the prose has flattened toward the uniform mid-length cadence that long machine-written passages drift into. Break the run: cut one line to a fragment, or fold two into a single longer analytical sentence. Hand-written sections vary their rhythm without trying; agent-assisted drafts lose it over distance, so treat this as a revision check rather than a drafting concern.
+
+## Repeated Section Templates
+
+Shape Discipline above asks whether a detail belongs; this asks whether the layout has gone mechanical. Three consecutive sections built from the same template - same opening move, same paragraph count, same closing beat - read as generated even when every fact in them is true. Vary how sections open and how far they run.
+
+## Keep the Connectors in Your Speaking Register
+
+This is the one spot where a flat list beats a principle, because these phrases carry no meaning your plain words don't. On a revision pass, swap them on sight for the word you'd use talking to a colleague.
+
+- Transitions: prefer *also / but / however / still / and* over "Furthermore", "Moreover", "That being said", "At its core", "In essence", "It's worth noting that".
+- Diction: prefer *before / after / about / because* over "prior to", "subsequent to", "in terms of", "with respect to", "in light of"; rewrite "the fact that" out of the sentence; drop "a myriad of", "a plethora of", "paramount", "shed light on", "pave the way for".
