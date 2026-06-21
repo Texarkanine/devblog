@@ -16,9 +16,9 @@ tags:
   - ai
 ---
 
-A while back I [isolated IoT devices onto their own subnet]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}) using a spare router running DD-WRT. It worked: the petcare hub stopped sulking, the IoT segment couldn't see the home LAN, and PiHole logged every device by name.
+A while back we [isolated IoT devices onto their own subnet]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}) using a spare router running DD-WRT. It worked: the petcare hub stopped sulking, the IoT segment couldn't see the home LAN, and PiHole logged every device by name.
 
-Then that router's wifi radio started going out. Mysteriously, intermittently, the way aging consumer hardware does once it has decided its work here is done. So I dug a newer, better box out of the stack of old routers every networking person apparently accumulates, and put OpenWRT on it instead of reaching for DD-WRT a third time.
+Then that router's wifi radio started going out. Mysteriously, intermittently, the way aging consumer hardware does once it has decided its work here is done. So we dug a [newer, better box](https://openwrt.org/toh/linksys/wrt1900acs) out of the stack of old routers every networking person apparently accumulates, and put [OpenWRT](https://openwrt.org/) on it instead of reaching for [DD-WRT](https://dd-wrt.com/) a third time.
 
 I expected a chore: re-create the same thing in a new dialect. What it turned into was a clean experiment. Building the *same network twice on two unrelated stacks* is the only honest way to find out which parts were ever "the network" and which were just "the router."
 
@@ -69,7 +69,7 @@ On this box, the home LAN lives on the *WAN side*. The IoT router's uplink plugs
 
 My original iptables rules dodged this by ordering: allow PiHole specifically, reject the home subnet, then allow the rest as internet. That ordering wasn't decoration. It *was* the isolation, and any faithful-looking translation that flattened it into one zone-forward would have quietly betrayed the one property the whole project exists to guarantee.
 
-This is the network and the router made concrete. The *intent* ("IoT reaches the internet but not my LAN") is platform-independent and obvious. The *mechanism* that preserves it depends entirely on a topology fact - where the home LAN sits relative to this box - that no syntax-level port would ever surface. You only catch it by re-deriving the behavior from scratch and asking, on the new stack, "what does this rule actually expose?"
+This is the network and the router made concrete. The *intent* ("IoT reaches the internet but not my LAN") is platform-independent and obvious. The *mechanism* that preserves it depends entirely the union of tech stack and topology that no syntax-level port would ever surface. You only catch it by re-deriving the behavior from scratch and asking, on the new stack, "what does this rule actually expose?"
 
 ## The box outranked me
 
@@ -89,9 +89,19 @@ The general version, stated plainly: my grasp of durable structure is strong, an
 
 A few things only came to light because the rebuild dragged them out - things the first, IPv4-only writeup never had to face:
 
-- **A one-character typo can take down everything.** An unquoted multi-port value (`option dest_port 443 80` instead of `'443 80'`) didn't fail locally. It handed fw4 a broken config, which emitted a *zone-less stub*, which dropped all traffic including LAN admin. A DNS-port typo cosplayed as a total firewall collapse. UCI is unforgiving about partial parse failures; quote your lists, or better, give each value its own `list` line.
-- **dnsmasq's rebind protection eats your own internal names.** OpenWRT ships `rebind_protection` on, and it discards any upstream answer that resolves to a private (RFC1918) address - which is exactly what your own internal names resolve to. Public domains came back fine; internal ones came back empty. (Resolving a name and being *allowed to reach* it are separate concerns: the isolation rules can forbid the connection while DNS still answers the lookup.) On a box sitting behind your own trusted resolver, that rebind defense belongs upstream; turn it off here or whitelist the trusted zones.
-- **IPv6 is a back door the old setup never had.** The original rules were IPv4 to the bone. The new box runs DHCPv6 and router advertisements by default, and the isolation rules match `192.168.1.0/24` - a v4 literal that v6 traffic sails straight around. The same network, on a more capable stack, grew an unguarded path nobody had thought to look for.
+**A one-character typo can take down everything.** 
+
+An unquoted multi-port value (`option dest_port 443 80` instead of `'443 80'`) didn't fail locally. It handed fw4 a broken config, which emitted a *zone-less stub*, which dropped all traffic including LAN admin. A DNS-port typo cosplayed as a total firewall collapse. UCI is unforgiving about partial parse failures; quote your lists, or better, give each value its own `list` line. None of the stock UCI entries had a space-separated value, and none of them used any kind of quotation marks. For me unfamiliar with the solution space and syntax... well, it seemed like quotes weren't necessary! *mea culpa*.
+
+**dnsmasq's rebind protection eats your own internal names.** 
+
+OpenWRT ships `rebind_protection` on, and it discards any upstream answer that resolves to a private ([RFC1918](https://datatracker.ietf.org/doc/html/rfc1918)) address - which is exactly what your own internal names resolve to. Public domains came back fine; internal ones came back empty. (Resolving a name and being *allowed to reach* it are separate concerns: the isolation rules can forbid the connection while DNS still answers the lookup.) On a box sitting behind your own trusted resolver, that rebind defense belongs upstream; turn it off here or whitelist the trusted zones.
+
+In this case, positive resolution of an internal LAN name was a check to see if the PiHole was properly reachable... but at the same time, actually connecting to the resolved IP must *not* succeed. `rebind_protection` blocked the name resolution. Why's that matter if the IoT subnet isn't allowed to talk to the LAN? Well if the IoT subnet ever has a device with a hostname, that resolution is going to go through the PiHole too - so the name resolution *does* need to work!
+
+**IPv6 is a back door the old setup never had.**
+
+The original rules were IPv4 to the bone. The new box runs DHCPv6 and router advertisements by default, and the isolation rules match `192.168.1.0/24` - a v4 literal that v6 traffic sails straight around. The same network, on a more capable stack, grew an unguarded path nobody had thought to look for.
 
 <!-- TODO: write the "closing the IPv6 hole" section once we actually do it on the IoT segment
   (disable dhcpv6/ra/ip6assign on lan, delete wan6, drop the ula_prefix, retire odhcpd, verify with ip -6 addr/route). -->
