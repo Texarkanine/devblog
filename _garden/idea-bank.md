@@ -33,7 +33,6 @@ tags:
 - Asymmetrical Spaceships
 
 
-
 ## Quotes
 
 - [A blog post is a very long and complex search query to find fascinating people and make them route interesting stuff to your inbox](https://www.henrikkarlsson.xyz/p/search-query)
