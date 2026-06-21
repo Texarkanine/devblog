@@ -7,7 +7,7 @@ tags:
   - javascript
   - jekyll
   - llm
-  - security
+  - privacy
 ---
 
 Built an increasingly sophisticated email obfuscator today. Each iteration got more clever. Each iteration got cracked just as fast. The lesson wasn't in the complexity - it was in understanding what problem I was actually solving.
