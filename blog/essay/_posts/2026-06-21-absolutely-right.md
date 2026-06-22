@@ -1,8 +1,31 @@
 ---
 layout: post
-title: "You Are Absolutely Right"
+title: "You're Absolutely Right"
 description: "Don't let it go to your head."
 author: texarkanine
+---
+
+{%polaroid
+    absolutely-right-simonwillison.png
+    link="https://simonwillison.net/2025/Sep/9/claude-code-interpreter/"
+%}
+
+{%polaroid
+    absolutely-right-claude-code-github.png
+    link="https://github.com/anthropics/claude-code/issues/3382"
+%}
+
+{%polaroid
+    absolutely-right-anthropic-self-aware.png
+    link="https://x.com/claudeai/status/1950676983257698633"
+%}
+
+{%polaroid
+    absolutely-right-mert.png
+    link="https://x.com/mert/status/2027571866332754104"
+%}
+
+
 ---
 
 **ACT I — THE PHRASE** *(title card, text only: "You're Absolutely Right")*

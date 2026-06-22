@@ -1,3 +1,10 @@
+PATH
+  remote: ../jekyll-highlight-cards
+  specs:
+    jekyll-highlight-cards (2.0.0)
+      jekyll (>= 4.0, < 5.0)
+      liquid (>= 4.0, < 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -81,9 +88,6 @@ GEM
       nokogiri (~> 1.15)
     jekyll-feed (0.17.0)
       jekyll (>= 3.7, < 5.0)
-    jekyll-highlight-cards (1.1.2)
-      jekyll (>= 4.0, < 5.0)
-      liquid (>= 4.0, < 5.0)
     jekyll-loading-lazy (0.1.1)
       jekyll (>= 3.0, < 5.0)
       nokogiri (>= 1.10, < 2.0)
@@ -187,7 +191,7 @@ DEPENDENCIES
   jekyll-auto-authors
   jekyll-auto-thumbnails (~> 2.0)
   jekyll-feed
-  jekyll-highlight-cards (~> 1.0)
+  jekyll-highlight-cards!
   jekyll-loading-lazy
   jekyll-mermaid-prebuild (~> 0.5)
   jekyll-paginate-v2

@@ -161,6 +161,11 @@ body > footer {
 		background-color: unset;
 	}
 
+	.polaroid {
+		/* subtle depth in dark mode; keep it smaller/softer than light mode */
+		box-shadow: 0 0 8px var(--body-color);
+	}
+
 	table, th, td {
 		border-color: var(--link-color);
 	}
