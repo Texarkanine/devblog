@@ -17,6 +17,8 @@ I believe that the advent of [transformer](https://arxiv.org/abs/1706.03762)-bas
 
 These revolutions are so named because they bring upheaval, and with that, risk to some and/or all of us. There's a lot of hype around AI - here are some dangers that I think are actually "real" and worth planning for.
 
+## Out of Work
+
 {% linkcard
 	https://ghuntley.com/screwed/
 	"Dear Student: Yes, AI is here, you're screwed unless you take action..."
@@ -40,6 +42,8 @@ It's certainly bad for the students in college right now, watching the AI consum
 Long-term, it remains to be seen if "making software engineers hyper-efficient so that we only need a few of them" is actually *bad* writ large.
 
 **Action Item:** git gud *fast* (Article actually has action items at the end, too; go read 'em.)
+
+## Get Dumber
 
 {% linkcard
 	https://gradual-disempowerment.ai/
@@ -74,6 +78,8 @@ I think there's potential for it to be worse than that, actually! Slaves are kep
 As we don't have any previous experience with rendering human action irrelevant at scale (and it previously [went very poorly for rats](https://www.atlasobscura.com/articles/the-doomed-mouse-utopia-that-inspired-the-rats-of-nimh)), I think it bears consideration.
 
 **Action Item:**: [The Brainrot Apocalypse (a DIY survival guide)](https://www.youtube.com/watch?v=6fj-OJ6RcNQ) ([archive](https://preservetube.com/watch?v=6fj-OJ6RcNQ))
+
+## Turbo Confirmation Bias
 
 {% linkcard
 	https://arxiv.org/abs/2509.10970
