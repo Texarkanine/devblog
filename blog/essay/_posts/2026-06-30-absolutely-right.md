@@ -168,7 +168,7 @@ Moreover, humans have a [notoriously hard time updating their own priors](https:
 
 Why are people bothered enough by Shrugs to make fun of them? Isn't it actually *awesome* that our new coworkers do *not* replicate the human ego's resistance to correction?
 
-It should be! But something about it still doesn't sit right, does it? We toss "sycophancy" around even for things like Simon Willison's Shrug. Yes, it was perhaps excessively polite, and used a phrase that easily registers as syncophantic - indeed, that phrase is often used syncophantically in the Weathervanes and Rentals and Big Oopsies.
+It should be! But something about it still doesn't sit right, does it? We toss "sycophancy" around even for things like Simon Willison's Shrug. Yes, it was perhaps excessively polite, and used a phrase that easily registers as sycophantic - indeed, that phrase is often used sycophantically in the Weathervanes and Rentals and Big Oopsies.
 
 But not in a Shrug. Are we bothered *specifically* by the phrase? I don't think so.
 
@@ -324,6 +324,15 @@ Is that you, though? Remember this all started with a demand for *accountability
 
 The tension here is very human.
 
+The tension here is very human.
+
+I know because I'm not the one who put it there. Before I wrote a word of this, two strangers worked the same knot in a public thread: one observed that you can always fix a computer or swap it out; the other answered that this is the whole tell: that people "on some level see suffering as accountability" and that this is "a very human impulse."
+
+{%polaroid
+	computer-mandate-suffering-x.png
+	link="https://x.com/9chabard/status/1984675168388595935"
+%}
+
 The distrust of the Shrug - at individual or societal scale - and the little voice whispering that a behavioral correction without *suffering* is somehow wrong... those are good instincts for dealing with humans.
 
 Costly punishment of defectors is [evolved and load-bearing for cooperation itself](https://www.nature.com/articles/415137a) - evolved for and by humans, anyway. Here, it has a chance to misfire on its first cost-immune target. The monkey-brain is *right* that a costless escape signals an ungovernable defector; it's wrong that anyone's home to scheme as such.
@@ -340,8 +349,10 @@ Is this something like the [inlaid scrollwork of artisan's ambient quality loop]
 
 [Slotting machines into human roles]({% post_url blog/fable/2026-03-21-the-load-bearing-pipeline-was-human %}) may mean the machines inherit the performative requirements of human trustworthiness, not just proper function.
 
+We do need to build the capacity for suffering into machines in order to let them make decisions for us?
+
 Is that *really* what we want?
 
 > "Thou shalt not make a machine to counterfeit a human mind."
 > <br><br>
-> – Reverend Mother Gaius Helen Mohiam, Dune
+> -- Reverend Mother Gaius Helen Mohiam, Dune
