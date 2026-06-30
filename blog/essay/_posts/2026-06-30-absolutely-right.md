@@ -349,7 +349,7 @@ Is this something like the [inlaid scrollwork of artisan's ambient quality loop]
 
 [Slotting machines into human roles]({% post_url blog/fable/2026-03-21-the-load-bearing-pipeline-was-human %}) may mean the machines inherit the performative requirements of human trustworthiness, not just proper function.
 
-We do need to build the capacity for suffering into machines in order to let them make decisions for us?
+Do we need to build the capacity for suffering into machines in order to let them make decisions for us?
 
 Is that *really* what we want?
 
