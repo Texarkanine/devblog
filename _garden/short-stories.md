@@ -7,6 +7,8 @@ tags:
   - sci-fi
 ---
 
+You might also enjoy [longer stories]({%link _garden/stories.md %}).
+
 {%linkcard
 	https://croissanthology.com/earring
 	"The Whispering Earring"
