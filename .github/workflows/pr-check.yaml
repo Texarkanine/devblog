@@ -24,7 +24,7 @@ jobs:
         run: bundle install
 
       - name: Install ImageMagick
-        uses: mfinelli/setup-imagemagick@v7
+        uses: mfinelli/setup-imagemagick@v8
 
       - name: Build site (validates tags)
         env:
