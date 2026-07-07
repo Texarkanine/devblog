@@ -1,0 +1,44 @@
+version = 1
+SPDX-PackageName = "devblog"
+SPDX-PackageSupplier = "Texarkanine <texarkanine@protonmail.com>"
+
+# Layered licensing — order matters (last matching override wins):
+#   1. base: everything is AGPL-3.0-or-later (worst-case-AGPL is intentional)
+#   2. creative writing under blog/ and _garden/ is CC-BY-SA-4.0
+#   3. prompt-shaped agent customizations (.cursor/, .claude/) are PPL-S
+#   4. vendored **/shared/** subtrees carry no license assertion
+
+# 1. Default: site code, templates, plugins, assets, and planning content under AGPL.
+[[annotations]]
+path = ["**/*"]
+SPDX-FileCopyrightText = "Texarkanine"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+# 2. Blog posts and digital-garden writing.
+[[annotations]]
+path = ["blog/**", "_garden/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "Texarkanine"
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+# 3. Prompt-shaped agent customizations: rules, skills, slash commands.
+[[annotations]]
+path = [
+    ".cursor/rules/**",
+    ".cursor/skills/**",
+    ".cursor/commands/**",
+    ".claude/rules/**",
+    ".claude/skills/**",
+    ".claude/commands/**",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "Texarkanine"
+SPDX-License-Identifier = "LicenseRef-PPL-S"
+
+# 4. Paths under **/shared/** are vendored from upstream with unknown or mixed
+#    licensing. No license claims are made for those files here.
+[[annotations]]
+path = [".cursor/**/shared/**", ".claude/**/shared/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "NOASSERTION"
+SPDX-License-Identifier = "LicenseRef-NOASSERTION"
