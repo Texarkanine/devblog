@@ -3,7 +3,8 @@ layout: garden
 title: "Millennium Falcon"
 webring: asymmetric-spaceships
 tags:
-  - sci-fi
+  - spaceship
+  - star-wars
 ---
 
 {% include webring.html %}

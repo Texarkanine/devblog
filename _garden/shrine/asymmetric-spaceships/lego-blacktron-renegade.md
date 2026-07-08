@@ -3,7 +3,8 @@ layout: garden
 title: "LEGO Blacktron Renegade"
 webring: asymmetric-spaceships
 tags:
-  - sci-fi
+  - lego
+  - spaceship
 ---
 
 {% include webring.html %}

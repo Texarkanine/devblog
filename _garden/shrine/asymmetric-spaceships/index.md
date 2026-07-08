@@ -3,7 +3,10 @@ layout: garden
 title: "Asymmetric Spaceships"
 description: "A shrine to ships that violate symmetry on one - or better yet, multiple - axes."
 tags:
+  - sci-fi
+  - shrine
   - space
+  - spaceship
 ---
 
 Aircraft and watercraft are very often symmetrical. They operate within an a liquid that surrounds them, within a directional gravity well, and as a result have consistent and usually-symmetrical forces acting on them. And so, their designs *must* accomodate this (usually).
