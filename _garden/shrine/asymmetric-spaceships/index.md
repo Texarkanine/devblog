@@ -1,7 +1,7 @@
 ---
 layout: garden
 title: "Asymmetric Spaceships"
-description: "A shrine to ships that refuse to sit straight on the page."
+description: "A shrine to ships that violate symmetry on one - or better yet, multiple - axes."
 tags:
   - space
 ---

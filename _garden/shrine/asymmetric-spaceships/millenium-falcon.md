@@ -1,9 +1,7 @@
 ---
 layout: garden
 title: "Millennium Falcon"
-date: 2026-07-07
 webring: asymmetric-spaceships
-order: 1
 tags:
   - sci-fi
 ---

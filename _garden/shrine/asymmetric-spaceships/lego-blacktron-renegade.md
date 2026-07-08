@@ -1,9 +1,7 @@
 ---
 layout: garden
 title: "LEGO Blacktron Renegade"
-date: 2026-07-07
 webring: asymmetric-spaceships
-order: 2
 tags:
   - sci-fi
 ---
