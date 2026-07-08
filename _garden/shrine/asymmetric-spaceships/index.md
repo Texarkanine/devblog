@@ -9,7 +9,7 @@ tags:
   - spaceship
 ---
 
-Aircraft and watercraft are very often symmetrical. They operate within an a liquid that surrounds them, within a directional gravity well, and as a result have consistent and usually-symmetrical forces acting on them. And so, their designs *must* accomodate this (usually).
+Aircraft and watercraft are very often symmetrical. They operate within an a liquid that surrounds them, within a directional gravity well, and as a result have consistent and usually-symmetrical forces acting on them. And so, their designs *must* accommodate this (usually).
 
 Landcraft are more-forgiving because you can be truly at rest - a motorcycle with a sidecar comes to mind - but they still have to make allowances for the forces at play when they're in motion.
 
@@ -21,6 +21,6 @@ Half of that is the *reason* for asymmetry: you can just *do* it for alienness' 
 
 In space, you don't *need* any particular design one way or the other, which means designs where you buy into the reason feel more real.
 
-From the iconic, infamous [Millenium Falcon]({%link _garden/shrine/asymmetric-spaceships/millenium-falcon.md %}) to [unexpected standouts]({%link _garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.md %}), there're no laws (of aerodynamics) when you're in space.
+From the iconic, infamous [Millennium Falcon]({%link _garden/shrine/asymmetric-spaceships/millennium-falcon.md %}) to [unexpected standouts]({%link _garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.md %}), there're no laws (of aerodynamics) when you're in space.
 
 {% include directory_posts.html %}

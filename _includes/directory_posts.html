@@ -7,7 +7,16 @@
     - exclude_index: (optional) Set to true to exclude index.md files (default: true)
 {%- endcomment -%}
 
-{%- assign exclude_index = include.exclude_index | default: true -%}
+{%- comment -%}
+  Liquid's `default` filter treats `false` the same as "missing" and would
+  replace an explicit `exclude_index: false` with `true`. The installed
+  liquid gem (4.0.4) predates the `allow_false` filter argument, so an
+  explicit nil check is used instead to let callers actually opt out.
+{%- endcomment -%}
+{%- assign exclude_index = true -%}
+{%- if include.exclude_index == false -%}
+  {%- assign exclude_index = false -%}
+{%- endif -%}
 
 {%- if include.path -%}
   {%- assign filter_path = include.path | prepend: "/" | append: "/" -%}
