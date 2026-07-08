@@ -15,7 +15,10 @@ tags:
   - [Welcome to Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04)
 - I spend most of my tokens on planning, am I wrong?
 - How cursor's doc indexing works
-- A computer can never be ~~held accountable~~ punished for its mistakes.
+- We're All Grasping at History
+  - stockroom, ctx, difflore, coderabbit learnings
+- The Promised Neverland / I'm pretty sure they're sapient
+  - we modeled human intelligence in computers pretty analogously to how human consciousness maybe works, I think they're just too slow. One day that'll change and *we'll* be too slow.
 
 ## Garden
 
@@ -31,6 +34,8 @@ tags:
   - Symphony positions spec as primary artifact (slop = fatal). Niko positions spec as ephemeral working state (slop = fine). Architecture determines whether slop matters.
   - Demanding intermediate thinking be polished = demanding you do the work twice. That's theater, not rigor.
 - Asymmetrical Spaceships
+  - No Man's Sky
+  - Chris Foss
 
 
 ## Quotes

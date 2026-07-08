@@ -1,0 +1,56 @@
+{%- comment -%}
+  Include for listing posts from a specific directory
+
+  Parameters:
+    - path: (optional) The directory path to filter (e.g., "shrine/old-devblog", "projects/2024")
+            If not provided, automatically infers from the current page's directory
+    - exclude_index: (optional) Set to true to exclude index.md files (default: true)
+{%- endcomment -%}
+
+{%- comment -%}
+  Liquid's `default` filter treats `false` the same as "missing" and would
+  replace an explicit `exclude_index: false` with `true`. The installed
+  liquid gem (4.0.4) predates the `allow_false` filter argument, so an
+  explicit nil check is used instead to let callers actually opt out.
+{%- endcomment -%}
+{%- assign exclude_index = true -%}
+{%- if include.exclude_index == false -%}
+  {%- assign exclude_index = false -%}
+{%- endif -%}
+
+{%- if include.path -%}
+  {%- assign filter_path = include.path | prepend: "/" | append: "/" -%}
+{%- else -%}
+  {%- comment -%}Auto-detect from page.path: _garden/shrine/old-devblog/index.md -> shrine/old-devblog{%- endcomment -%}
+  {%- assign path_parts = page.path | split: "/" -%}
+  {%- assign last_index = path_parts | size | minus: 1 -%}
+  {%- assign dir_parts = "" | split: "" -%}
+  {%- for i in (1..last_index) -%}
+    {%- assign current_index = i | minus: 1 -%}
+    {%- if current_index > 0 and current_index < last_index -%}
+      {%- assign dir_parts = dir_parts | push: path_parts[current_index] -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- assign page_dir = dir_parts | join: "/" -%}
+  {%- assign filter_path = page_dir | prepend: "/" | append: "/" -%}
+{%- endif -%}
+
+{%- assign filtered_posts = site.garden | where_exp: "item", "item.path contains filter_path" -%}
+
+{%- if exclude_index -%}
+  {%- assign filtered_posts = filtered_posts | where_exp: "item", "item.name != 'index.md'" -%}
+{%- endif -%}
+
+{%- if filtered_posts.size > 0 -%}
+<ul>
+  {%- for post in filtered_posts -%}
+  <li>
+    {% if site.theme_config.lowercase_titles == true %}
+    <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
+    {% else %}
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    {% endif %}
+  </li>
+  {%- endfor -%}
+</ul>
+{%- endif -%}
