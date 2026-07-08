@@ -34,6 +34,8 @@ tags:
   - Symphony positions spec as primary artifact (slop = fatal). Niko positions spec as ephemeral working state (slop = fine). Architecture determines whether slop matters.
   - Demanding intermediate thinking be polished = demanding you do the work twice. That's theater, not rigor.
 - Asymmetrical Spaceships
+  - No Man's Sky
+  - Chris Foss
 
 
 ## Quotes
