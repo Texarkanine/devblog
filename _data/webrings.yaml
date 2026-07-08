@@ -1,4 +1,4 @@
-asymmetrical-spaceships:
-  name: "Asymmetrical Spaceships"
+asymmetric-spaceships:
+  name: "Asymmetric Spaceships"
   description: "A shrine to ships that violate symmetry on one - or better yet, multiple - axes."
-  index: /garden/shrine/asymmetrical-spaceships/
+  index: /garden/shrine/asymmetric-spaceships/
