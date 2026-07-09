@@ -11,7 +11,7 @@ tags:
 
 {%polaroid
 	chris-foss_alien-74.jpg
-	"Organic Starship Design - Chris Foss"
+	title="Organic Starship Design - Chris Foss"
 	link="https://www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1"
 %}
 

@@ -14,7 +14,7 @@ The 1970s and 1980s were a golden age of pulp sci-fi book covers, with vibrant, 
 
 ## Blas Gallego
 
-More of a [lusty sword-and-sorcery artist](), Gallego seems to have two-ish sci-fi book covers, and the one that's got asymmetric ships happens to be for a book I own!
+More of a [lusty sword-and-sorcery artist](https://scifinet.net/blas-gallego-2/nggallery/page/2), Gallego seems to have two-ish sci-fi book covers, and the one that's got asymmetric ships happens to be for a book I own!
 
 {%polaroid
 	book_the-last-deathship-off-antares.jpg
