@@ -1,0 +1,213 @@
+# digitalocean
+
+## Look at this Dog
+
+![Look at this dog](thisdog.jpg)<!-- IMG_SIZE::400 -->
+
+---
+
+Now look back at me.
+
+Did you look at the dog? I can't tell, because that image isn't loaded through the [nginx reverse-proxy that sits in front of the blog to provide metrics](/2025/11/23/opensearch-for-static-site-logs.html).
+
+Why, though?
+
+> I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.
+
+The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant *metered* DigitalOcean compute and bandwidth on the nginx instance. For a *static site*, that seems even goofier than the nginx metrics solution already was.
+
+I had several options:
+
+## Option 1: Separate App & Jekyll Rewrite
+
+I could deploy the site a second time to a different DigitalOcean App Engine App w/ a static site, something like `dogblog-media-XXXX.ondigitalocean.app`. Then, I could have Jekyll render the base url as a prefix when rendering `<img>` tags, giving
+
+    <img src="https://dogblog-media-XXX.ondigitalocean.app/path/to/img.jpg">
+
+instead of a relative url.
+
+**BUT**
+
+1. This would be a "cross-origin" request, and some browsers or situations might not care for that.
+2. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
+3. I'd have to add a rule to the nginx to block `/assets` requests on the main site.
+
+## Option 2: Separate App & nginx Rewrite
+
+I could deploy the site a second time as before, but have the nginx intercept the `/assets` path on the main domain and return an HTTP 3XX redirect.
+
+This would also give me metrics on media requests!
+
+**BUT**
+
+1. I'm still adding traffic to the nginx, and my inital goal was to reduce it!
+2. There's still ultimately a cross-domain situation, though the request path is slightly less sketchy.
+3. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
+
+## Option 3: Same App, Separate Site
+
+I could deploy the site a second time into the same DigitalOcean App Engine App, and bind it to the `/assets` path.
+This will cause DigitalOcean's gateway (which is front of my nginx) to intercept requests to `/assets` and route them to the second static site.  This happens *behind* the main blog domain name; no secondary URLs involved!
+
+This second site would be built off the `/assets` subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths *other* than `/assets` are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.
+
+Additionally, DigitalOcean's gateway is already routing all non-`/assets` requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.
+
+That's much simpler, and that's what I did!
+
+---
+
+This setup does *not* get me metrics on media asset requests, but I can live with that. I'm building a blog, not a media host, after all.
+
+## I Built a Logging Server to Log a Serverless Site
+
+I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But [DigitalOcean's static site hosting](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform), elegant in its simplicity, doesn't generate them. To get visibility into who visits my blog, I'd need to build my own logging infrastructure.
+
+The plan: deploy [OpenSearch](https://opensearch.org/) on my home server, forward logs from DigitalOcean, and build dashboards to analyze traffic. Simple enough.
+
+## The First Lesson: Storage
+
+OpenSearch runs best in Docker. The official images provide everything needed - just add a `docker-compose.yaml` and go. I specified named volumes for data persistence:
+
+```yaml
+volumes:
+  opensearch-data:/usr/share/opensearch/data
+```
+
+This looks clean, but named Docker volumes live in `/var/lib/docker/volumes/` by default. My root partition was already 47% full; my `/data` partition had 196GB free. And `/data` is a RAID array. I needed bind mounts instead:
+
+```yaml
+volumes:
+  - /data/opensearch/data:/usr/share/opensearch/data
+```
+
+## The User Permission Problem
+
+I run services on my home server as specific users, not as root or random UIDs. OpenSearch runs as UID 1000 inside its container. UID 1000 on my system is a real user who shouldn't have access to OpenSearch data. The solution seemed obvious:
+
+```yaml
+services:
+  opensearch:
+    user: "1003:1004"  # opensearch user
+```
+
+The containers started, then immediately failed:
+
+```
+opensearch | /bin/bash: ./opensearch-docker-entrypoint.sh: Permission denied
+```
+
+The entrypoint scripts inside the container image are owned by UID 1000. Running the container as UID 1003 meant that user couldn't execute them. Container images bake in assumptions about who runs them.
+
+I removed the `user:` directive and let the containers run as their default UID 1000. Docker provides isolation; the containers can't escape to become that user on the host system anyway. Sometimes the path of least resistance is correct.
+
+## The SSL Certificate Dance
+
+OpenSearch would receive logs over HTTPS from DigitalOcean. I needed an SSL certificate for a domain that I could NAT into my home server. Let's Encrypt provides free certificates, but their standard HTTP-01 validation requires port 80 accessible from the internet. Port 80 on my server was already occupied, and I didn't want to expose another service to the scanner bots that probe every public port.
+
+DNS-01 validation was the answer. Instead of serving a file on port 80, I'd prove domain ownership by creating DNS TXT records. The catch: Let's Encrypt's `certbot` doesn't support my DNS provider, FreeDNS.
+
+I found [`acme.sh`, an alternative ACME client that supports FreeDNS via its API](https://github.com/acmesh-official/acme.sh). Installing it as root (not as my user account) ensured automatic renewals would work.
+
+The tool created a DNS TXT record, Let's Encrypt verified it, and I had a certificate. No port 80 exposure required. The certificate renews automatically every 60 days via a cron job, and nginx reloads seamlessly when it does.
+
+## The Irony of Static Sites
+
+With OpenSearch running and SSL configured, I turned to DigitalOcean's log forwarding feature. Their UI is straightforward: select OpenSearch as the destination, provide the endpoint URL, configure authentication. But when I looked for the logs to forward, I discovered the problem.
+
+DigitalOcean's static site hosting doesn't generate access logs.
+
+The feature exists for their App Platform compute instances, but static sites - being static - have no application logs to forward. I'd need to deploy a compute instance that proxies requests to the static site just to generate the logs I wanted.
+
+The irony: I'm paying $0/month for static site hosting because there's no server-side processing. To get access logs, I'd need to pay $5/month for a server that does nothing but proxy requests and log them.
+
+I built an [nginx](https://nginx.org/) container that accepts requests, logs them in JSON format, and forwards them to the actual static site. The container uses environment variables for configuration - no identifying information committed to the repository:
+
+```nginx
+upstream backend_static {
+    server ${UPSTREAM_HOST}:443;
+}
+
+location / {
+    proxy_pass https://backend_static${UPSTREAM_PATH};
+    proxy_set_header Host ${UPSTREAM_HOST_HEADER};
+}
+```
+
+GitHub Actions builds the image automatically and publishes it to GitHub Container Registry. DigitalOcean pulls the image, and I configure the necessary environment variables in their UI. The static site remains unchanged; the proxy sits in front of it.
+
+The setup works. I'm paying $5/month for visibility into my site's traffic.
+
+## The Log Processing Pipeline
+
+DigitalOcean forwards logs to OpenSearch, but they contain a mix of JSON access logs and plain text error messages. OpenSearch needs to parse them correctly.
+
+An [ingest pipeline](https://docs.opensearch.org/latest/ingest-pipelines/) handles this. It attempts to parse each log entry as JSON. If parsing succeeds, it extracts the fields and marks the entry as `log_type: "access"`. If parsing fails, it marks it as `log_type: "error"` and stores the raw text:
+
+```json
+{
+  "processors": [
+    {
+      "json": {
+        "field": "log",
+        "target_field": "parsed",
+        "ignore_failure": true
+      }
+    },
+    {
+      "script": {
+        "source": "if (ctx.containsKey('parsed') && ctx['parsed'] != null) {
+          ctx['log_type'] = 'access';
+          for (def entry : ctx['parsed'].entrySet()) {
+            ctx[entry.getKey()] = entry.getValue();
+          }
+          ctx.remove('parsed');
+        } else {
+          ctx['log_type'] = 'error';
+          ctx['error_message'] = ctx['log'];
+        }"
+      }
+    }
+  ]
+}
+```
+
+The pipeline lives in OpenSearch's cluster state. Install it once via the API, and it persists across restarts. I created an index template that applies the pipeline automatically to the index Opensearch is forwarding logs to.
+
+## The Final Architecture
+
+The pieces work together:
+
+1. Visitor requests `blog.cani.ne.jp`
+2. DNS resolves to DigitalOcean App Platform
+3. Nginx proxy container (running on DO) receives the request
+4. Proxy logs the request as JSON to stdout
+5. Proxy forwards the request to the actual static site
+6. Static site returns the content
+7. DigitalOcean's log forwarding sends logs to my home server's OpenSearch endpoint
+8. Nginx on my home server (with Let's Encrypt certificate) receives them
+9. OpenSearch ingests and indexes the logs
+10. Pipeline extracts fields from JSON logs
+11. OpenSearch Dashboards visualizes the data
+
+I can now see which pages are popular, where visitors come from, and how they navigate the site. The dashboards show traffic patterns I couldn't see before. Importantly, this is from server-side metrics - no JavaScript required!
+
+## What It Cost
+
+The final setup:
+- OpenSearch cluster on my home server: "$0" (existing hardware)
+- SSL certificate from Let's Encrypt: $0 (DNS-01 validation via FreeDNS)
+- Nginx proxy running on DigitalOcean: $5/month (Basic instance)
+- Static site hosting: $0 (unchanged)
+
+I'm paying five dollars a month so my free static site can generate access logs.
+
+The nginx proxy is completely transparent. Visitors see no difference in performance or behavior... if anything there may be a slight degradation as the tiny compute instance hosting the nginx is likely less-performant than the CDN-powered static site it sits in front of. The proxy accepts the request, logs it to stdout in JSON format, forwards the request to the actual static site behind it, and returns the response. DigitalOcean's log forwarding picks up those JSON logs and sends them to my OpenSearch endpoint over HTTPS. The OpenSearch ingest pipeline parses the JSON, extracts the fields, and indexes the documents. The dashboards update automatically.
+
+I built a logging server to log a serverless site.
+
+The absurdity isn't lost on me. Static site hosting exists because you don't need a server - your content sits in object storage behind a CDN. The whole point is the absence of computation. But I wanted to know who's reading my blog, and logs require computation. Someone has to write them.
+
+So I rebuilt the server. Five dollars a month. Sixty dollars a year. The OpenSearch cluster hums along on my home server, accepting logs, parsing them with a pipeline that detects JSON versus plain text errors, and displaying them in dashboards I can access from my LAN.
+
+It works. If you're reading this, you're in there now, too, somewhere!

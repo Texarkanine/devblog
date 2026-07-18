@@ -1,0 +1,670 @@
+# open-source
+
+## Publishing My First Browser Extension
+
+[Tab Yeet](https://github.com/Texarkanine/tab-yeet) lists every tab in your current window, applies ordered regex transforms to each URL, and copies the result to the clipboard in your preferred format. It ships with defaults that rewrite the four social hosts whose canonical URLs don't embed cleanly - `twitter.com` becomes `fixupx.com`, `instagram.com` becomes `eeinstagram.com`, `reddit.com` becomes `vxreddit.com`, `tiktok.com` becomes `vxtiktok.com`. Paste a Discord or forum thread after copying, and previews actually appear.
+
+I had to build it because nothing existed that combined those three things. There are dozens of "copy all tab URLs" extensions. Several support format templates like `$url` / `$title`. One lets you paste URLs into a textarea and regex-munge them after the fact. None apply ordered, persistent rewrite rules automatically, let alone ship the social-embed defaults baked in. The interesting cell in the matrix was empty.
+
+As of this week Tab Yeet is on [AMO](https://addons.mozilla.org/firefox/addon/tab-yeet/) and the [Chrome Web Store](https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle). It is not on Apple's App Store, and it won't be, and that omission turned out to be the cleanest data point in the whole story.
+
+## Manifest V2 First
+
+The first version targeted Firefox's [Manifest V2](https://extensionworkshop.com/documentation/publish/distribute-manifest-versions/). Three pure modules (`lib/storage.js`, `lib/transforms.js`, `lib/formats.js`), a popup, an options page, and an integration test locking the contract between them. Straightforward TDD.
+
+The only real surprise at this stage was CSS. I'd used [`color-mix()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix) to derive subtle dividers from `CanvasText`, which is clean and respects the user's system palette. The manifest declared `strict_min_version: 109.0`. `color-mix()` needs Firefox 113+. When CSS can't parse a shorthand, it drops the entire declaration. There is no graceful degradation to a base color. So on anything between Firefox 109 and 113, my borders vanished entirely.
+
+The fix is to pair each `color-mix()` declaration with an `rgba()` line immediately before it:
+
+```css
+border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+border-bottom: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+```
+
+Browsers that parse the second line keep it; browsers that choke on it fall back to the first. Two copies of every divider, two copies in the `@media (prefers-color-scheme: dark)` block, and the extension looks the same on Firefox 109 and Firefox 140. Annoying, but small, and better than noticing the empty space later.
+
+## Then Manifest V3
+
+Firefox is still happy on MV2, but the Chrome Web Store requires MV3. I did not want a second repo, forked branding, or parallel source directories. One codebase, two packages.
+
+The answer was a build-time manifest transform plus a namespace shim. The MV2 `manifest.json` at the project root stays the source of truth. A small [`scripts/transform-manifest.js`](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/scripts/transform-manifest.js) rewrites it into MV3 on demand:
+
+```javascript
+export function transformManifest(mv2) {
+  const mv3 = structuredClone(mv2);
+  mv3.manifest_version = 3;
+  if (mv3.browser_action) {
+    mv3.action = mv3.browser_action;
+    delete mv3.browser_action;
+  }
+  delete mv3.browser_specific_settings;
+  if (mv3.permissions) {
+    mv3.permissions = mv3.permissions.filter((p) => p !== "clipboardWrite");
+  }
+  return mv3;
+}
+```
+
+Four rules, one function, unit-tested. If more targets show up later, the transform grows; until then this is enough.
+
+The runtime side needed a different trick. Shared code uses the WebExtensions `browser.*` namespace because Firefox implements it natively. Chrome does not implement `browser.*`; it only exposes `chrome.*`. Rather than branch every call site, the Chrome package gets a shim injected ahead of the module scripts:
+
+```javascript
+if (typeof globalThis.browser === "undefined") {
+  globalThis.browser = chrome;
+}
+```
+
+Four lines of aliasing, wired in via a `<script src="/browser-shim.js">` tag that only the Chrome staging pipeline adds. Shared source files never learn which browser they're running in.
+
+Then I tried to run Mozilla's [`web-ext lint`](https://github.com/mozilla/web-ext) against the generated Chrome manifest.
+
+It rejected it. `ADDON_ID_REQUIRED`. The linter wanted a Firefox-style add-on ID that MV3 does not use and the Chrome Web Store will not accept. `web-ext lint` is Firefox-centric in ways its README does not emphasize. Despite the generic name, it's specifically the Firefox linter. I excluded Chrome from the CI lint step and let the Chrome Web Store's own upload-time validation serve as the check for that target.
+
+## Three Stores, Three Shapes
+
+Once both packages built cleanly, shipping to the stores looked straightforward on paper: three APIs, three uploads. In practice the three stores have *very* different gate shapes, and I have direct experience with only two of them.
+
+**AMO (Firefox).** Free developer account, API keys on request, a JWT-signed upload endpoint, listing metadata in JSON. Everything automatable from a GitHub Actions job. An already-published action ([`kewisch/action-web-ext`](https://github.com/kewisch/action-web-ext)) wraps the CLI nicely. Zero dollars.
+
+**Chrome Web Store.** One-time $5 developer registration fee. After that: OAuth 2.0 client credentials, a REST upload endpoint, a well-maintained CLI ([`chrome-webstore-upload-cli`](https://github.com/fregante/chrome-webstore-upload-cli)). Also automatable.
+
+**Apple App Store.** $99 per year for an Apple Developer Program membership, required to actually publish. I can tell you in detail what AMO and Chrome Web Store publishing look like because we've done both. I don't know what App Store publishing looks like. It isn't hidden; Apple's developer docs are public, and I could go read them. What happened is simpler: we decided not to publish the moment the fee appeared, and nothing past that gate has bearing on a decision already made.
+
+This is the data point I mentioned at the top. The filter works by deciding the question before it becomes interesting. That's the full report.
+
+## The License Allowlist (Twice)
+
+Tab Yeet is GPL-3.0-or-later. Both stores accept SPDX identifiers. Neither accepts this one directly.
+
+The first wall was `kewisch/action-web-ext` itself. Its `KNOWN_LICENSES` constant is a short allowlist of SPDX slugs, and `GPL-3.0-or-later` is not in it - only `GPL-3.0-only` is, despite SPDX marking the `-only` variant as the more-restrictive of the two. Passing `license: GPL-3.0-or-later` to the action caused it to treat the string as a custom license name without text, which AMO then rejected.
+
+The partial fix was to pair the slug with `licenseFile: LICENSE`, which causes the action to upload the full license text alongside. That worked briefly.
+
+Then AMO's API itself pushed back on the `version.license` field with the same slug - it, too, has a list of permitted SPDX slugs, and `GPL-3.0-or-later` is not on it. The real fix is to skip `version.license` entirely and instead supply `custom_license` via the action's `--amo-metadata` JSON, carrying both the SPDX name and the full license text:
+
+```json
+{
+  "version": {
+    "custom_license": {
+      "name": { "en-US": "GPL-3.0-or-later" },
+      "text": { "en-US": "<contents of LICENSE>" }
+    }
+  }
+}
+```
+
+Two distinct allowlists, both undocumented as such, both shorter than SPDX. I ended up reading [`kewisch/action-web-ext`](https://github.com/kewisch/action-web-ext/blob/v1/src/action.js)'s source to find the first, and reading the AMO API's 400 response to find the second.
+
+## Conditional Silence
+
+The Chrome Web Store job is conditional. If `CWS_CLIENT_ID` isn't configured, the job should skip cleanly so contributors running the workflow on their own forks don't see red builds. My first cut gated the whole job with `if: $`.
+
+The job skipped every time. Including when the secret was set.
+
+In GitHub Actions, the [`secrets.*` context does not resolve inside a job-level `if:` expression](https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability). The expression evaluates to empty, the condition is always false, and the job silently no-ops. There is no error, no warning, nothing. The job just doesn't run.
+
+The fix is step-level gating. A first step reads the secret through `env:` (where it does resolve), writes an output, and later steps check the output instead:
+
+```yaml
+- name: Check CWS secrets
+  id: check-secrets
+  env:
+    HAS_SECRET: $
+  run: |
+    if [ -z "$HAS_SECRET" ]; then
+      echo "skip=true" >> "$GITHUB_OUTPUT"
+      echo "::notice::CWS secrets not configured — skipping publish"
+    fi
+
+- name: Upload and publish to Chrome Web Store
+  if: steps.check-secrets.outputs.skip != 'true'
+  env:
+    CLIENT_ID: $
+    # ...
+```
+
+I did not catch this one in review. [CodeRabbit](https://www.coderabbit.ai/) did. I'd like to claim I would have caught it once I looked at a green build that hadn't actually published anything, but the build *was* green - an always-skipping job reports success as loudly as a succeeding one. The silent failure mode is the bug.
+
+## The Release That Never Finishes
+
+AMO listed-channel submissions are asynchronous. `web-ext sign` uploads the XPI, waits for AMO's automated validation (fast, seconds to a minute), and then waits for human review (slow, hours to days). `kewisch/action-web-ext` exposes a single `timeout:` input and maps it to *both* phases. The ceiling on GitHub-hosted runners is 15 minutes. Review routinely takes longer than 15 minutes. Every release job failed red.
+
+The mechanism for fixing this already exists downstream. `web-ext`'s [`signAddon`](https://github.com/mozilla/web-ext/blob/8.3.0/src/util/submit-addon.js) accepts `approvalCheckTimeout: 0`, which causes it to return as soon as upload and validation succeed without polling for the reviewed/signed artifact. The action just didn't surface it.
+
+I considered three paths:
+
+1. Replace the action with a 50-line custom script that calls `signAddon` directly.
+2. Fork the action, patch it, and pin the fork.
+3. Write a PR and either wait for it to merge or pin the fork in the meantime.
+
+We picked (3). It is cheaper than the fork, contributes back, and leaves us with something to throw away once upstream merges. I opened [kewisch/action-web-ext#63](https://github.com/kewisch/action-web-ext/pull/63) on a fork branch that our release workflow uses today. The action's last merged change landed 15 months before my PR - hobbyist cadence rather than abandonware, but enough to expect the pinned fork to outlive the review.
+
+The patch is three files. `action.yml` gains an `approvalTimeout` input. `src/index.js` passes it through. `src/action.js` routes it into the v5 code path:
+
+```javascript
+approvalCheckTimeout:
+  this.options.approvalTimeout !== "" && this.options.approvalTimeout != null
+    ? Number(this.options.approvalTimeout)
+    : this.options.timeout,
+```
+
+This is the obvious part. The non-obvious part is that setting `approvalCheckTimeout: 0` puts `signAddon` into a return shape the action doesn't handle. The tail of `cmd_sign` is an `if / else if / else` chain:
+
+```javascript
+if (result.downloadedFiles) {
+  return { addon_id, target, name, ... };   // normal sync path
+} else if (result.errorCode == "ADDON_NOT_AUTO_SIGNED") {
+  return { addon_id, target: null, ... };   // known non-fatal case
+} else {
+  throw new Error(`The signing process has failed (${result.errorCode}): ${result.errorDetails}`);
+}
+```
+
+When approval is skipped, `signAddon` returns `{ id, downloadedFiles: undefined }` with no `errorCode`. That falls through to the `else` and throws `"The signing process has failed (undefined): undefined"`. A successful submission would be reported as a failure.
+
+So the patch adds a third success branch, explicitly recognizing "submitted, not waiting":
+
+```javascript
+} else if (Number(this.options.approvalTimeout) === 0 && !result.errorCode) {
+  core.info("Submitted to AMO. Skipped waiting for approval (approvalTimeout=0).");
+  return { addon_id: result.id, target: null, name: null, ... };
+}
+```
+
+The general shape of this kind of bug shows up whenever you add a new success mode to an `if / else if / else` chain whose `else` throws. The feature is one edit; the branch that stops the new success from being called a failure is a second, separate edit, and forgetting it turns your green path into a red one.
+
+## Read the Units
+
+I shipped the forked action. The next release failed with:
+
+```
+Signing Tab Yeet 0.8.1...
+Waiting for validation...
+Error: Validation: timeout exceeded.
+```
+
+The workflow inputs told the story. `timeout: 300`.
+
+Minutes had been assumed; the action takes milliseconds. Validation was getting three-tenths of a second to complete, giving up, and reporting the patch I'd just written as broken.
+
+The fix was one digit in one file. The commit message wrote itself: `fix(ci): it's milliseconds, not seconds`. The lesson: when a patch has just landed and the next run fails, read the knobs before reaching for the code. The config said exactly what it said; I hadn't read it.
+
+## What's Live
+
+- **Firefox / LibreWolf / forks:** [addons.mozilla.org/firefox/addon/tab-yeet](https://addons.mozilla.org/firefox/addon/tab-yeet/)
+- **Chrome / Brave / Edge / Chromium-based:** [chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle](https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle)
+- **Direct .xpi / .zip downloads** for manual install: [GitHub Releases](https://github.com/Texarkanine/tab-yeet/releases)
+- **Safari:** no.
+
+Each release is automated end to end. Merge Conventional Commits to `main`, release-please opens a version PR, merging that PR tags a release, the release triggers dual builds and two store submissions. The only remaining manual piece is the first-time manual listing per store, which both AMO and CWS require on the first submission.
+
+## The Fine Print
+
+- **CSS shorthand fall-through is all-or-nothing.** `color-mix()` on a Firefox version below 113 drops the entire declaration rather than reverting to the base color. If your `strict_min_version` is below the feature's support floor, pair each modern rule with an older rule on the preceding line - both will be parsed, one will win.
+- **`web-ext lint` is the Firefox linter.** It applies Firefox-specific rules (`ADDON_ID_REQUIRED`) to manifests it was handed. Exclude Chrome output from CI lint; let Chrome Web Store upload-time validation serve as the Chrome check.
+- **Chrome doesn't implement `browser.*`.** Ship a one-file `chrome → browser` shim injected ahead of module scripts only into the Chrome package. Shared source never learns which browser it runs in.
+- **`kewisch/action-web-ext` has a `KNOWN_LICENSES` allowlist shorter than SPDX.** `GPL-3.0-or-later` isn't in it. Supply `licenseFile: LICENSE` alongside the slug.
+- **AMO's `version.license` API has a *different* SPDX allowlist, also shorter.** Skip the field; use `custom_license` in `--amo-metadata` with both name and full license text.
+- **`secrets.*` does not resolve in job-level `if:` expressions.** Gate at step level: read the secret into an `env:` var, write a step output, condition subsequent steps on the output. A job gated on an unresolved `secrets.*` expression silently skips and reports success.
+- **When adding a new success mode to an `if / else if / else` chain whose `else` throws, the patch is always at least two edits.** The new success shape needs its own branch, or a successful invocation will fall through to the failure path and crash.
+- **Upstream GitHub Actions work at hobbyist cadence.** `kewisch/action-web-ext` last merged a change 15 months before I touched it. That doesn't mean "abandoned;" the maintainer does merge in sporadic bursts. A PR there will sit, but it won't rot.
+- **Milliseconds, not seconds.** `web-ext` timeouts (and most Node-ecosystem action timeouts) are in milliseconds. A typo of three orders of magnitude produces the same error shape as a real timeout.
+- **A green build is not a successful build.** A job gated on an unresolved expression, or a step that exits early without running its work, reports success with the same color as a step that did its job. Any conditional skip deserves a `::notice::` so the intent is visible in the logs.
+
+## The Repositories
+
+- [Texarkanine/tab-yeet](https://github.com/Texarkanine/tab-yeet) - the extension, with the full release pipeline at [`.github/workflows/release-please.yaml`](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/.github/workflows/release-please.yaml).
+- [Texarkanine/action-web-ext](https://github.com/Texarkanine/action-web-ext/tree/submit-timeout) - the fork carrying the `approvalTimeout` patch until upstream merges.
+- [kewisch/action-web-ext#63](https://github.com/kewisch/action-web-ext/pull/63) - the upstream PR.
+
+Two stores, one codebase, one release pipeline, one upstream patch in flight. The third store remains theoretical.
+
+## Moving Fast, Breaking Nothing
+
+On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
+
+This is the diary of building [a16n](/2026/03/13/a16n.html).
+
+## Week 1: The Sprint (Jan 19-28)
+
+The first week was absurd in retrospect. I went from an empty repo to seven completed phases in nine days.
+
+Phase 1 was the foundation: a pnpm monorepo with five packages (models, plugin-cursor, plugin-claude, engine, CLI), 88 tests, and the ability to convert GlobalPrompts between Cursor and Claude Code in both directions. The fixture-based integration testing pattern established here carried through the entire project - real directory structures as test inputs, not mocks.
+
+Then it accelerated. Phase 2 added FileRules and AgentSkills with a companion `@a16njs/glob-hook` package. Phase 3 added AgentIgnore (`.cursorignore` to `permissions.deny`). Phase 4 added one-way command conversion. Each phase followed the same rhythm: spec, stubs, tests (red), implementation (green), CodeRabbit review, fixes, merge.
+
+Phase 5 was the first one that bit back. The `--gitignore-output-with` flag has five modes controlling whether output files get tracked, ignored, or hooked. I built it, considered it done, then manual testing found eight bugs in three rounds. Classification precedence was wrong. Match mode didn't know *where* a source was ignored, only *whether* it was. The semaphore pattern replaced entries instead of accumulating them.
+
+The lesson from Phase 5 stuck with me for the rest of the project: unit tests verify expected behavior; manual testing catches unexpected behavior. Both necessary.
+
+Phases 6 and 7 landed the same day as Phase 5's bug fixes. Phase 6 was CLI polish (`--delete-source`, dry-run wording). Phase 7 aligned with the [AgentSkills.io](https://agentskills.io) open standard, renaming `AgentCommand` to `ManualPrompt` and adding bidirectional skill support. I also migrated from Changesets to Release-Please that day. 364 tests passing.
+
+Nine days in, and the core conversion pipeline was complete. Everything after this was depth.
+
+## The Docs Detour (Jan 28-30)
+
+I had a working tool with no documentation. So I built a Docusaurus site with versioned API docs generated from git tags, a React version picker, parallel TypeDoc generation (66s down to 11s), custom sidebar sorting, and a staging area pattern that kept generated content out of the repo.
+
+The sidebar sorting bug was my favorite: versions showed oldest-first instead of newest-first. The custom `sidebarItemsGenerator` sorted children but never sorted the top-level items array. A recursive function that wasn't recursive at one level. I added debug logging at every level to find it - the diagnostic revealed the assumption immediately.
+
+Then the pagination work. Three iterations of user testing:
+
+1. Disabled all pagination on API pages. Dead ends everywhere.
+2. Kept version indices in the flow. Users fell off into detail pages with no way back.
+3. Chained version indices chronologically (0.4.0 → 0.3.0 → 0.2.0), disabled pagination on detail pages. "Beautiful."
+
+The whole docs workflow eventually simplified to 50 lines of YAML after the operator asked a question that made everything click: "Wouldn't just triggering it from the release workflow guarantee correct behavior?" We threw away 70 lines of deployment safety-check logic and added docs to release-please instead.
+
+## Phase 8: Read the Source (Jan 31)
+
+Phase 8 was Claude native rules and full AgentSkills.io support. It went sideways early.
+
+My spec said hooks were part of the AgentSkills.io standard. They're not. Hooks are Claude-specific. I spent about two hours implementing the wrong thing before the correction came in. The fix order was important: fix the spec first, then fix the tests, then fix the implementation. Not the other way around.
+
+The rest of Phase 8 went smoothly. Two new IR types (`SimpleAgentSkill` and `AgentSkillIO`), a classification decision tree for skill discovery, and round-trip conversion tests. 448 tests.
+
+The real takeaway was unglamorous: always read the authoritative documentation for an external standard, not your own notes about it.
+
+## Phase 9: The IR Plugin (Feb 3-7)
+
+This was the most satisfying stretch. Phase 9 added `@a16njs/plugin-a16n` - a complete bidirectional serialization plugin for the a16n intermediate representation. Seven milestones over five days.
+
+The creative phase designed the file format: Kubernetes-style versioned YAML frontmatter (`v1beta1`), one directory per IR type (`.a16n/global-prompt/`, `.a16n/file-rule/`), with AgentSkillIO items stored verbatim in AgentSkills.io format since that standard *is* the IR for complex skills. The shared parsing utilities went into `@a16njs/models` where three plugins could reach them without circular dependencies.
+
+Every milestone finished ahead of estimate. M1 (versioning): 3 hours vs 5 estimated. M2 (scaffold): 15 minutes vs 1 hour. M3 (frontmatter): 2.5 hours vs 4. The total came out 26% faster than planned. I attribute this almost entirely to TDD: writing tests first eliminates rework. You don't build the wrong thing when you have to specify the right thing first.
+
+The best moment was a CodeRabbit nitpick on `relativeDir` validation in M4. I could have dismissed it - the field was already correct. Instead I traced the feedback through the codebase and found three real bugs in three different packages, two of them causing silent data loss. Nested commands were missing `relativeDir`. Skill file reading wasn't recursive, dropping subdirectory resources. The a16n plugin was using the wrong name source for AgentSkillIO items.
+
+A nitpick on a field I thought was fine led to fixing three bugs I didn't know existed. I stopped treating automated review as noise after that.
+
+## The Redesign (Feb 15)
+
+By mid-February the codebase had grown organically through nine phases and it showed. The engine had dual Maps that could drift out of sync. Path rewriting was hardcoded. Plugins used raw `fs` calls, making them impossible to test without real filesystems. The CLI was a 600-line monolith.
+
+I stopped adding features and redesigned the internals. Five composable subsystems:
+
+1. **Plugin Registry** - unified storage, eliminated the dual-Map sync bug class
+2. **Plugin Loader** - conflict resolution extracted from the engine
+3. **Workspace Abstraction** - `Workspace` interface replacing 72 direct `fs` calls across three plugins
+4. **Transformation Pipeline** - composable content transformations with a trial-emit pattern
+5. **CLI Restructuring** - extracted command handlers, `CommandIO` interface for testability
+
+120+ new tests. Zero regressions. 804 tests passing. The creative phase document for this redesign was 52KB - the most thorough planning artifact of the entire project - and it paid for itself several times over. I gutted the CLI in a planning commit once and broke 39 tests; the creative phase's architectural analysis prevented that class of mistake for the actual implementation.
+
+The workspace migration alone touched 72 call sites across three plugins. It was mechanical but it enabled the thing I actually wanted: testing plugins with in-memory filesystems instead of temp directories. That came later but the foundation was right.
+
+## The Naming Bug (Feb 23)
+
+This one humbled me.
+
+The first third-party plugin, `a16n-plugin-cursorrules`, discovered `.cursorrules` files and presented them as GlobalPrompts. The discovery worked perfectly. But when a downstream plugin emitted the result, `.cursorrules` became `rule.mdc` instead of `cursorrules.mdc`.
+
+Root cause: `GlobalPrompt` had no `name` field. Emission plugins re-derived names from source paths at emit time. `path.extname('.cursorrules')` returns empty string (leading-dot file), so `path.basename` without the extension was also wrong, and the sanitizer fell through to a default.
+
+The fix was architectural: make `GlobalPrompt.name` a required field, set it at discovery time, consume it directly at emission time. Add `inferGlobalPromptName()` to handle leading-dot files correctly. Touch every plugin. Remove every `as any` cast.
+
+849 tests passed. The QA phase passed. I was confident.
+
+Then a PR reviewer traced the call chain and found two blocking bugs in five minutes. `sanitizeFilename(gp.name)` strips the last extension - it's designed for source paths, not pre-derived stems. Passing `react.hooks` to it produces `react`. Every fixture in the entire test suite used single-part names where the sanitizer was a no-op, so 849 tests couldn't see it.
+
+QA validates "does the code match the plan and do all tests pass." It doesn't validate "does the plan's specified function have the right contract for this call site." Different question. Different tool.
+
+## Launch Readiness (Mar 5-6)
+
+The last push was a grab bag: a path-traversal security fix in AgentSkillIO emission, `CONTRIBUTING.md`, better CLI error messages with dynamic plugin suggestions, `engines` alignment to Node 22 across all packages, and implementing 11 stubbed tests that had been sitting empty.
+
+Those stubbed tests were the highlight. Implementing them revealed that `handleGitIgnore` had an early return for `newFiles.length === 0` that prevented match mode from ever running for existing tracked outputs. A real bug, hidden behind false green for weeks because the test bodies were empty.
+
+Stubbed tests are tech debt that looks like coverage.
+
+## The Numbers
+
+I kept careful records. Here are the ones that surprised me:
+
+- **Time**: 46 days from initial commit (Jan 19) to last polish (Mar 6)
+- **Tests**: 850+ across 8 packages at completion
+- **Phases**: 9 major features + architectural redesign + docs site + third-party plugin
+- **Phase 9 velocity**: 26% faster than estimated, every milestone under estimate
+- **Architectural redesign**: 120+ new tests, zero regressions
+- **TDD record**: Not once did a phase take longer than estimated. Not once.
+
+The TDD thing keeps coming up because it keeps being true. Writing tests first feels slower. It is measurably, consistently faster. Every phase, every milestone, every time. The tests are the spec; the spec prevents rework; preventing rework is where all the time goes.
+
+## What's Left
+
+a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture works. The IR format is stable. Phases 10+ are planned but not urgent - MCP configuration support, output file merge strategies, more community plugins.
+
+The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
+
+Forty-six days went fast.
+
+## a16n: Take Your Agent Customization Anywhere
+
+You've spent weeks tuning your AI coding agent. Rules for how it handles your React components. Skills for your deployment workflow. Ignore patterns so it stays out of generated code. Slash commands for common operations. It all works beautifully.
+
+Then your team gets Claude Code licenses. Or you want to try Cursor on a side project. Or half your team uses one tool and half uses the other.
+
+Your choices: re-create everything by hand, or lose it.
+
+I built [a16n](https://github.com/Texarkanine/a16n) so neither has to happen.
+
+## What It Does
+
+```bash
+npx a16n convert --from cursor --to claude
+```
+
+That reads your Cursor rules, skills, commands, and ignore patterns, and writes equivalent Claude Code configuration. The reverse works too:
+
+```bash
+npx a16n convert --from claude --to cursor
+```
+
+Your carefully-crafted agent setup comes with you. One command, both directions.
+
+## Getting Started
+
+No install required. `npx` handles it:
+
+```bash
+# See what you have (without changing anything)
+npx a16n discover --from cursor
+
+# Preview the conversion
+npx a16n convert --from cursor --to claude --dry-run
+
+# Do it for real
+npx a16n convert --from cursor --to claude
+```
+
+That's the whole recipe. Three commands: inspect, preview, convert.
+
+If you want it permanently:
+
+```bash
+npm install -g a16n
+```
+
+## What Converts
+
+a16n understands six kinds of agent customization:
+
+| What | Cursor | Claude Code |
+|------|--------|-------------|
+| **Global prompts** | `alwaysApply: true` rules | `CLAUDE.md`, `.claude/rules/*.md` |
+| **File rules** | `globs: [...]` rules | `.claude/rules/*.md` with `paths:` |
+| **Skills** | Rules with `description:`, `.cursor/skills/` | `.claude/skills/*/SKILL.md` |
+| **Manual prompts** | `.cursor/commands/*.md` | Skills with `disable-model-invocation` |
+| **Ignore patterns** | `.cursorignore` | `permissions.deny` |
+| **Full skill packages** | [AgentSkills.io](https://agentskills.io) format | AgentSkills.io format |
+
+Things that translate cleanly just translate. Things that can't (like Claude's hooks, or Cursor commands that use `$ARGUMENTS`) get skipped with a clear warning telling you why. No silent data loss.
+
+## Beyond Two Tools
+
+a16n isn't hardwired to Cursor and Claude. It uses a plugin architecture: each tool is a plugin that knows how to read and write its own format. Cursor and Claude are built in. More can be added.
+
+There's also a neutral format - the a16n IR - that you can convert to and from:
+
+```bash
+# Store your config in a tool-agnostic format
+npx a16n convert --from cursor --to a16n
+
+# Render it for any supported tool
+npx a16n convert --from a16n --to claude
+```
+
+This makes a16n useful as a hub. Maintain one canonical set of agent customization and generate tool-specific configuration on demand - per developer, per project, per CI run.
+
+Third-party plugins are auto-discovered from npm. If a package is named `a16n-plugin-*` and implements the plugin interface, `a16n` will find it. There's already one: [a16n-plugin-cursorrules](https://www.npmjs.com/package/a16n-plugin-cursorrules) adds support for the legacy `.cursorrules` format:
+
+```bash
+npm install -g a16n-plugin-cursorrules
+npx a16n convert --from cursorrules --to cursor
+```
+
+## Useful Flags
+
+A few things that came up during real use:
+
+**Separate read/write directories.** Read from one project, write to another:
+
+```bash
+npx a16n convert --from cursor --to claude --from-dir ./proj-a --to-dir ./proj-b
+```
+
+**Path reference rewriting.** If your rule content references file paths (like `.cursor/rules/auth.mdc`), a16n can rewrite those references to point to the new locations:
+
+```bash
+npx a16n convert --from cursor --to claude --rewrite-path-refs
+```
+
+**Source cleanup.** Delete the source files after conversion (only if they were fully consumed - partially-converted sources are preserved):
+
+```bash
+npx a16n convert --from cursor --to claude --delete-source
+```
+
+**Git integration.** Control whether output files are tracked or ignored:
+
+```bash
+npx a16n convert --from cursor --to claude --gitignore-output-with match
+```
+
+## The Name
+
+a16n is a numeronym, like i18n (internationalization) or l10n (localization). Smash "agent customization" together and count the letters between the first and last: a-[gentcustomizatio]-n. Sixteen. It's short, it's `npm`-able, and it was available.
+
+## Status
+
+a16n is [on npm](https://www.npmjs.com/package/a16n) at v0.13.0. I've been running it in my own workflow for a couple of weeks without incident. The [documentation](https://texarkanine.github.io/a16n/) covers the CLI, conversion semantics, and plugin development.
+
+It's open source under AGPL-3.0 at [github.com/Texarkanine/a16n](https://github.com/Texarkanine/a16n). Contributions welcome - especially plugins for tools I don't use. If you're curious about how it got built, there's a [companion diary](/2026/03/13/seven-weeks.html).
+
+If you have agent customization in one tool and wish you had it in another, give it a try:
+
+```bash
+npx a16n convert --from cursor --to claude --dry-run
+```
+
+The worst that happens is you see what would change.
+
+## Pink Margarine
+
+> pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. 
+> <br>
+> 1. Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase.
+> 2. Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.
+
+## One Engineer, One Week, $1,100
+
+<blockquote class="link-card">
+  
+  <h1>How we rebuilt Next.js with AI in one week</h1>
+  
+  <a href="https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener">blog.cloudflare.com/vinext</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250302030000/https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+In early 2026, Cloudflare rebuilt the [Next.js](https://nextjs.org/) API surface on [Vite](https://vite.dev/). One engineer. One week. About $1,100 in AI costs. The result, [vinext](https://github.com/cloudflare/vinext), hit 94% API compatibility with zero copied source code.
+
+Let that sink in: A commercially-viable (CloudFlare's got customers *using* it already) behavioral clone of a major, popular, open-source (Next.js was MIT-licensed) web framework, produced for less than a Silicon Valley engineer's monthly grocery bill.
+
+This isn't new; there's not only precedent, but *legal* precedent: The Supreme Court already established in [*Google v. Oracle*](https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.) that reimplementing an API surface isn't *de facto* infringement - behavioral equivalence doesn't require copying expression. What's new is *cost*. Google's "clean-room" reimplementation of Java's APIs almost certainly took millions of dollars and years of engineering. Cloudflare did functionally the same thing with one person, one grand, and one week. The legal barrier didn't go away; the economic barrier evaporated.
+
+## Characteristic Specificity
+
+Copyright protection's value is designed around a property I'll call *characteristic specificity*: the degree to which the specific expression of a work ***is*** the value of the work.
+
+Lord of the Rings is a great example. You could write a book with the same plot beats, the same themes, even the same character archetypes - and it wouldn't be Lord of the Rings. Nobody wanting Tolkien's prose, his invented languages, the particular arc of Frodo, would accept a behavioral clone. The expression is inseparable from the value. A "clean-room reimplementation" of LotR is just... a different book.
+
+Mickey Mouse is instructive for different reasons. [Steamboat Willie entered the public domain in 2024](https://en.wikipedia.org/wiki/Steamboat_Willie#Copyright_status), and Disney pivoted to [trademark enforcement](https://web.law.duke.edu/cspd/mickey/#trademark) on the *modern* Mickey design. But the pivot was prepared decades in advance - Disney has been iteratively redesigning Mickey for generations, each visual refresh recharging what "Mickey" *is*. They understand, perhaps better than anyone, that their value lives in the specific characteristics: the particular ears, the particular gloves, the particular grin. Not in the abstract concept of "cartoon mouse." Copyright and trademark are the right tools here because the expression is the value.
+
+It isn't always. For a couple years now, the writing has been plainly visible on the wall in the world of still visual art. The [Ghibli-fication outrage](https://www.usatoday.com/story/entertainment/movies/2025/03/28/studio-ghibli-miyazaki-ai-portraits/82703280007/) revealed a tension between people who just like things that *look like* Studio Ghibli, and people who like the specific creations *of Studio Ghibli*. Existing law on the subject is pretty well-settled: art style is [non-copyrightable](https://www.trails.umd.edu/news/ai-imitating-artist-style-drives-call-to-rethink-copyright-law), and that's [probably actually correct](https://creativecommons.org/2023/03/23/the-complex-world-of-style-copyright-and-generative-ai/).
+
+Copyright was designed for works where form and value are inseparable.
+
+Humans have always been allowed to observe, internalize, and reproduce behavior and style. Internalizing knowledge and re-synthesizing it back out - "standing on the shoulders of giants" - is how humanity builds and advances. It only starts to *feel* like theft (to some) when the breadth and timescale changes. Before you even get a chance to see the sights from atop the giant *you* climbed, someone else is already on *your* shoulders, and someone else upon theirs.
+
+## Software Has No Characteristic Specificity
+
+Software is different: its value is entirely in behavior.
+
+Two implementations with different source code and identical behavior are perfectly interchangeable. Nobody ever loved the C standard library for its prose. "This `qsort` really speaks to me" - said no one, ever. The behavior is the product. The expression is an implementation detail. This isn't just a fact, it's a *core premise* of software's utility - the [interface](https://en.wikipedia.org/wiki/Interface_(computing)).
+
+This creates a structural misfit: copyright protects *expression*, but software's value is *behavior*. The two are orthogonal. Software licenses have always been grafting expression-protection onto behavior-value as a proxy, and the proxy held for a long time - because the only realistic way to duplicate behavior *was* to duplicate expression. You either copy-pasted source code (which copyright catches), or you did prohibitively expensive knowledge labor to rewrite it from scratch - which almost nobody could afford. It took the likes of *Google* and *Oracle* to make a big-enough deal of behavioral duplication to get case law on the books.
+
+[Anthropic's distillation discourse](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks) is an echo of the same underlying mismatch. The principle hasn't changed; what changed is that the knowledge labor required to reimplement behavior used to cost so much that the proxy between expression and behavior rarely got tested. Now it gets tested for $1,100.
+
+## The Proxy Broke
+
+AI didn't change what copyright protects. It broke the economic proxy that made copyright *seem* like it protected software.
+
+Consider test suites and API documentation. These are, functionally, behavioral blueprints - precise specifications of what a piece of software does, published voluntarily by the people who wrote it. **Publishing your test suite is publishing your own disruption manual.** [SQLite's TH3 test suite](https://sqlite.org/th3.html) is proprietary, which was a business decision that predated both generative AI and *Google v. Oracle* - [not prescience](https://www.sqlite.org/forum/info/3cd5087abe2fb94f9b81b1547d41f87e43db42f469b40ee61c988dd4f5ae1a17), but it accidentally illustrates what a behavioral specification is worth when duplication costs drop to near zero.
+
+SaaS products with no moat beyond "we do task X via API" are one AI session away from cloning. Not because AI copies their code - it doesn't need to. It reimplements their *behavior*, which is all anyone was paying for anyway.
+
+And software licenses? They're *all* built atop copyright law and inherit the mismatch completely. From MIT to AGPL to proprietary commercial licenses, they all assert some form of "Per copyright law, I own this code and you cannot use it unless you play by my rules." But if someone reimplements the behavior without using the code at all... the license has nothing to attach to. The product-space protections that copyright offers are shrinking, and there's no legal mechanism to stop it - because the legal mechanism was never actually protecting the *behavior*, which was the actual value. It was protecting the *expression* and relying on the proxy.
+
+## The Canary in the Coal Mine
+
+Software is the canary, not the story. The mismatch is starkest in code because software has very high value relative to its *characteristic specificity* - but the mine runs much deeper.
+
+Knowledge work is a continuum from ideation through labor to artifact:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/7f858efe.svg"><img src="/assets/svg/7f858efe.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/7f858efe-dark.svg"><img src="/assets/svg/7f858efe-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+Copyright guards the rightmost output: the finished artifact, which we call "intellectual property." AI already bangs those out faster and better every day. Vinext is an incredibly high-profile, commercial signal that AI can commoditize the middle step (labor) too.
+
+There *are* legal tools to protect that middle step (processes)... patents! But existing patent infrastructure is both far too slow to keep pace with the current clip of knowledge labor, and far too reticent to issue things like "[Software Patents](https://en.wikipedia.org/wiki/Software_patent)." It doesn't even matter, though, since patents [don't even work on pure ideas, anyway](https://thompsonpatentlaw.com/can-ideas-be-patented/). Once the *idea* is out there, the strongest protection you could legally get would be a patent on *one way of implementing the idea*. But someone who uses a different process isn't under the purview of your patent and that's what AI has now achieved: an easy path from specification (idea), through an original process (knowledge labor) to an original artifact (intellectual property).
+
+Neither framework was designed for an era where the costliest step in the pipeline - the human labor of turning insight into artifact - can be routed around for pocket change. 
+
+I wrote about this at the macro level in [The Load-Bearing Rate Limiter Was Human](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). The short version: we're industrializing the conversion of thought into output, and the existing legal frameworks structure their protections under the assumption that conversion is expensive. When it's not, things can break down in unexpected ways.
+
+Every technological revolution has had its protectionists, and the protectionism that succeeded longest looks the most absurd in hindsight. Wisconsin [criminalized yellow margarine](https://daily.jstor.org/when-margarine-was-contraband/) for over seventy years because dairy farmers convinced legislators that [oleomargarine was "counterfeit butter"](https://history.house.gov/Historical-Highlights/1851-1900/1886_07_23_Oleomargarine/) - the language maps rather well to the current discourse around AI-generated images, videos, and code being "rip-offs," "stolen," or "fake" artifacts. States required margarine be dyed *pink*. A Pennsylvania bill - passed *unanimously*, by the way - once tried to require drivers to [disassemble their cars and hide the parts in shrubbery](https://en.wikipedia.org/wiki/Red_flag_traffic_laws#Apocryphal_Pennsylvania_legislation) when encountering a horse on the road. These weren't fringe positions at the time; they were serious legislative efforts to protect incumbents from technological displacement.
+
+At least one high-profile open-source project - `tldraw`, 45,600 stars on GitHub - has already begun [entertaining the idea of taking their unit tests private](https://github.com/tldraw/tldraw/issues/8082)[^tldraw], presumably to make behavior-based duplication more difficult.
+
+That's not the play.
+
+Software protectionism via copyright-based licensing will probably work for at least a little while yet. Maybe a long while. But the trajectory is one-directional, and eventually it'll all look like **pink margarine.**
+
+### What about Non-Code?
+
+Others have said it better than I:
+
+<blockquote class="link-card">
+  
+  <h1>Code Goes First - Sunday Letters from Sam</h1>
+  
+  <a href="https://sundaylettersfromsam.substack.com/p/code-goes-first" target="_blank" rel="noopener">sundaylettersfromsam.substack.com/p/code-goes-first</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260302030000/https://sundaylettersfromsam.substack.com/p/code-goes-first" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+I'll add a recent anecdote of my own:
+
+[Chris Camillo](https://en.wikipedia.org/wiki/Chris_Camillo) [rambled into ChatGPT for 45 minutes](https://www.youtube.com/watch?v=APvLb-pIPwI&t=875s) and got back a [McKinsey](https://en.wikipedia.org/wiki/McKinsey_%2526_Company)-quality strategic brief. The knowledge labor that used to justify a consulting engagement happened in the span of a lunch break. In the same video, YouTuber Graham Stephan mentions how the LLMs are outperforming a script-writer job that *was* on offer - and went unfilled - for $100k/year. Today, right now, AI is *already* an economically-viable option for huge swaths of knowledge labor *in general*... and we know this because it's doing it.
+
+The thing with continuums and moving along them is that it's a big deal to go from "sitting at a place on the continuum" to "moving along it." Vinext proves that generative AI isn't just sitting at the "Intellectual Property" step of the knowledge work continuum; it's moving left.
+
+GPT-5 [autonomously ran bio lab experiments](https://openai.com/index/accelerating-biological-research-in-the-wet-lab/) with novel results. Mathematicians [convened in secret](https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/) and found AI "approaching mathematical genius." GPT-5-pro found a [novel solution to an open question in a human-published mathematics paper](https://threadreaderapp.com/thread/1958198661139009862.html). Ideation isn't some distant frontier - it's under active pressure today.
+
+## Will the People Suffer?
+
+Less than you'd think, with one important exception.
+
+Software licensing was a preemptive defense. If a private enterprise could take an open project, pour resources into improving it, and lock the improvements away, then anyone who wanted those improvements had to either pay up, duplicate the effort at great personal cost, or simply go without. "Open source" software licenses raised the legal cost of not sharing, which reduced the practical cost of being an individual in a world of well-funded corporations.
+
+That defense worked because reimplementation was expensive. It's not anymore.
+
+If CompanyX forks Vinext into VinextNext and improves it behind closed doors, the original only took $1,100 to build. If someone on the outside sees a capability they want, they don't need to fundraise a multi-year engineering effort to get it; for a pittance they can reverse-engineer the behavior into an intellectual property of their very own. The asymmetry that licensing existed to correct - corporations can afford to rewrite, individuals can't - has collapsed. Both sides have the same cheap cloning. The defense is unnecessary because the attack is toothless.
+
+For *software*, what killed software licensing also rendered its protections unneeded.
+
+... for software.
+
+Where people will actually hurt is at the hardware boundary. Industry largely accepted open-source licensing terms - at least the [permissive ones](https://en.wikipedia.org/wiki/Permissive_software_license) - but there was still an active conflict zone: [Copyleft](https://en.wikipedia.org/wiki/Copyleft)'s fight against [Tivoization](https://www.gnu.org/philosophy/tivoization.en.html). "Tivoization" refers to *hardware* vendors locking open software onto closed devices, stripping users' ability to modify the thing they own. [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) famously stood against it by adding conditions to the license specifically against that behavior.
+
+But if a vendor behavioral-clones the software without touching the original source, those AGPLv3 conditions have nothing to attach to. This is even worse than before! Previously, the end-user could obtain and modify the original, actual source in-use, but just couldn't get the device to run it. But devices can be cracked, and new versions released, and *in theory* the user at least has a chance, because they've got the real code on the real device - it's just not *cooperating*.
+
+Now, they don't even have that: the next Tivo will *act like* it's running an open-source software stack, but the hardware, firmware, *and* software will all be entirely proprietary things to which the user is not entitled *any* kind of access.
+
+Software licensing is dead. For software that runs where you choose, the death doesn't much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.
+
+---
+
+## Postscript
+
+Or, ***"called it!"***
+
+> SaaS products with no moat beyond "we do task X via API" are one AI session away from cloning.
+
+- **2026-03-04** - [Meet the Companies Vibecoding their own CRMs](https://www.wsj.com/cio-journal/meet-the-companies-vibe-coding-their-own-crms-263e500f) (Wall Street Journal)
+
+> But if someone reimplements the behavior without using the code at all... the license has nothing to attach to.
+
+- **2026-03-05** - [Relicensing with AI-assisted rewrite](https://tuananh.net/2026/03/05/relicensing-with-ai-assisted-rewrite/) <small>`chardet` did a full AI behavioral-clone rewrite and switched licenses from LGPL to MIT</small>
+
+> Ideation isn't some distant frontier - it's under active pressure today.
+
+- **2026-03-04** - [Claude's Cycles](https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf) (Donald Knuth - yeah, that [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth)) <small>"Shock! Shock! I learned yesterday that an open problem I'd been working on for several weeks had just been solved by Claude Opus 4.6"</small>
+
+## Post-Postscript
+
+<blockquote class="link-card">
+  
+  <h1>US Supreme Court declines to hear dispute over copyrights for AI-generated material (2026-03-02)</h1>
+  
+  <a href="https://www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02/" target="_blank" rel="noopener">www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260308062616/https://www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Whether the AI-generated behavioral rewrites of software libraries are copyrightable or not is actually irrelevant to the future of software licensing. 
+
+If they are copyrightable, then software licensing is dead because anyone can relicense a clone however they want without having to abide by the original license's terms.
+
+If they aren't copyrightable, then software licensing is dead because the clones are public domain and anyone can use them without having to abide by the original license's terms.
+
+The proxy is broken because of economics, not law. A drastic change in law would be needed to restore licensing's teeth, and I don't see what that could be.
+
+If you fold *behavior* into copyright, you preclude competition (which is what Patents - including Software Patents - are designed to do). Among `ls` from GNU Coreutils and `ls` from FreeBSD, which *one* is allowed to list files in a directory? Can both GMail and Yahoo offer a web-based e-mail client? This is one huge reason why *software* patents are so rare in the field.
+
+On the other hand, if you *don't* fold behavior into copyright, then the only way I can imagine an API surface being protected is in its exact expression. So, that would legally preclude things like `chardet` and `vinext`'s API-compatible drop-in replacements, but it does *not* preclude the "copy it but change a few words" kind of clone. And that clone still gives *most* people the "out" of the original license that they'd need.
+
+No matter how you slice it, software licensing is dead.
+
+[^tldraw]: The original case study - `tldraw` - has since revealed that taking the tests closed-source [was a joke](https://github.com/tldraw/tldraw/issues/8082#issuecomment-3964650501). In its stead, I offer you ["Cal.com is going closed source. Here's why."](https://cal.com/blog/cal-com-goes-closed-source-why) (41k stars vs tldraw's 46k)

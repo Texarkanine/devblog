@@ -1,0 +1,178 @@
+# books
+
+## Pulp Sci-Fi Book Covers
+
+
+
+
+
+
+
+<blockquote class="webring-nav">
+	<p>This page is part of <a href="/garden/shrine/asymmetric-spaceships/" style="text-decoration: none;">Asymmetric Spaceships</a>: A shrine to ships that violate symmetry on one - or better yet, multiple - axes.</p>
+	<div class="webring-links" style="display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-style: normal; margin-top: 1em;">
+		<a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html" rel="prev" style="text-decoration: none;">&larr;</a>
+		<a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html" rel="next" style="text-decoration: none;">&rarr;</a>
+	</div>
+</blockquote>
+
+<hr>
+
+
+The 1970s and 1980s were a golden age of pulp sci-fi book covers, with vibrant, varied designs. I could dedicate a whole page to the genre, but for now let's just focus on some of the asymmetric ones.
+
+## Blas Gallego
+
+More of a [lusty sword-and-sorcery artist](https://scifinet.net/blas-gallego-2/nggallery/page/2), Gallego seems to have two-ish sci-fi book covers, and the one that's got asymmetric ships happens to be for a book I own!
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.goodreads.com/book/show/2216762.The_Last_Deathship_Off_Antares" target="_blank" rel="noopener">
+      <img src="book_the-last-deathship-off-antares.jpg" alt="The Last Deathship Off Antares (1988)" width="400" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">The Last Deathship Off Antares (1988)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.goodreads.com/book/show/2216762.The_Last_Deathship_Off_Antares" target="_blank" rel="noopener">www.goodreads.com/book/show/2216762.The_Last_Deathship_Off_Antares</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+I can't tell if the upper ship is asymmetric (though it looks like it), but the lower one most-definitely is!
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="blas-gallego_the-last-deathship-off-antares.jpg">
+      <img src="blas-gallego_the-last-deathship-off-antares.jpg" alt="Cover for The Last Deathship Off Antares (1988) - Blas Gallego" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Cover for The Last Deathship Off Antares (1988) - Blas Gallego</div>
+    <div class="polaroid-link">
+      
+      <a href="https://scifinet.net/blas-gallego-2/nggallery/page/2" target="_blank" rel="noopener">scifinet.net/blas-gallego-2/nggallery/page/2</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Bob Layzell
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.goodreads.com/book/show/938362.A_Sea_of_Space" target="_blank" rel="noopener">
+      <img src="book_a-sea-of-space.jpg" alt="A Sea of Space (1980)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">A Sea of Space (1980)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.goodreads.com/book/show/938362.A_Sea_of_Space" target="_blank" rel="noopener">www.goodreads.com/book/show/938362.A_Sea_of_Space</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="bob-layzell_a-sea-of-space.jpg">
+      <img src="bob-layzell_a-sea-of-space.jpg" alt="Cover for A Sea of Space (1980) - Bob Layzell" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Cover for A Sea of Space (1980) - Bob Layzell</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Chris Foss
+
+The king (IMO) of pulp sci-fi book cover illustration, though [not all his illustrations went on book covers and not all of them were sci-fi](https://scifinet.net/chris-foss-2/nggallery). The airbrush, the bright colors, the ship's shapes... Foss had a [style and genre all his own](https://www.liquidtwist.com/blog/chris-foss-architect-of-alien-worlds).
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.goodreads.com/book/show/6766871-the-ultimate-guide-to-science-fiction" target="_blank" rel="noopener">
+      <img src="book_the-ultimate-guide-to-science-fiction.jpg" alt="The Ultimate Guide to Science Fiction (1990)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">The Ultimate Guide to Science Fiction (1990)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.goodreads.com/book/show/6766871-the-ultimate-guide-to-science-fiction" target="_blank" rel="noopener">www.goodreads.com/book/show/6766871-the-ultimate-guide-to-science-fiction</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="chris-foss_futuristic-oil-tanker.jpg">
+      <img src="chris-foss_futuristic-oil-tanker.jpg" alt="Futuristic Oil Tanker - Chris Foss" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Futuristic Oil Tanker - Chris Foss</div>
+    <div class="polaroid-link">
+      
+      <a href="https://scifinet.net/chris-foss-2/nggallery/page/4" target="_blank" rel="noopener">scifinet.net/chris-foss-2/nggallery/page/4</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The background of this was near-duplicated by Glenn Brown in 1995:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="glenn-brown_exercise-one.webp">
+      <img src="glenn-brown_exercise-one.webp" alt="Exercise One (for Ian Curtis) after Chris Foss - Glenn Brown" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Exercise One (for Ian Curtis) after Chris Foss - Glenn Brown</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.sothebys.com/en/auctions/ecatalogue/2014/contemporary-art-day-auction-l14021/lot.328.html" target="_blank" rel="noopener">www.sothebys.com/en/auctions/ecatalogue/2014/contemporary-art-day-auction-l14021/lot.328.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+I guess the iceberg's asymmetrical and in space... does that make it an asymmetric spaceship?

@@ -1,0 +1,66 @@
+# alien
+
+## ALIEN Derelict
+
+
+
+
+
+
+
+<blockquote class="webring-nav">
+	<p>This page is part of <a href="/garden/shrine/asymmetric-spaceships/" style="text-decoration: none;">Asymmetric Spaceships</a>: A shrine to ships that violate symmetry on one - or better yet, multiple - axes.</p>
+	<div class="webring-links" style="display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-style: normal; margin-top: 1em;">
+		<a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html" rel="prev" style="text-decoration: none;">&larr;</a>
+		<a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html" rel="next" style="text-decoration: none;">&rarr;</a>
+	</div>
+</blockquote>
+
+<hr>
+
+
+First seen in 1979's [ALIEN](https://www.imdb.com/title/tt0078748/), the derelict/crashed ship rises out of a low-contrast, monochromatic landscape, almost blending in with the (themselves asymmetric) rocks, and is an example of asymmetry but... for a purpose we don't know.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="alien-derelict.jpg">
+      <img src="alien-derelict.jpg" alt="ALIEN Derelict" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">ALIEN Derelict</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Which is fine, good, in fact - it's suppposed to feel ALIEN! The asymmetry does some, and then the "to what possible purpose" does more.
+
+Later in the franchise - in [Prometheus](https://www.imdb.com/title/tt1446714/) - we get a piece of promotional concept art that really shows the ship at a good angle:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="prometheus-derelict_messing.jpg">
+      <img src="prometheus-derelict_messing.jpg" alt="Prometheus Concept Art of the ALIEN Derelict" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Prometheus Concept Art of the ALIEN Derelict</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+

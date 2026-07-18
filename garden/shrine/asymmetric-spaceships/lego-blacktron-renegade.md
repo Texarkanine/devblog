@@ -1,0 +1,38 @@
+
+
+
+
+
+
+<blockquote class="webring-nav">
+	<p>This page is part of <a href="/garden/shrine/asymmetric-spaceships/" style="text-decoration: none;">Asymmetric Spaceships</a>: A shrine to ships that violate symmetry on one - or better yet, multiple - axes.</p>
+	<div class="webring-links" style="display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-style: normal; margin-top: 1em;">
+		<a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html" rel="prev" style="text-decoration: none;">&larr;</a>
+		<a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html" rel="next" style="text-decoration: none;">&rarr;</a>
+	</div>
+</blockquote>
+
+<hr>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="LEGO-10355-Blacktron-Renegade-1987-Comparison.jpg">
+      <img src="LEGO-10355-Blacktron-Renegade-1987-Comparison.jpg" alt="LEGO Blacktron Renegade - 2025 vs. 1987" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">LEGO Blacktron Renegade - 2025 vs. 1987</div>
+    <div class="polaroid-link">
+      
+      <a href="https://jaysbrickblog.com/reviews/review-lego-10355-blacktron-renegade-2025/" target="_blank" rel="noopener">jaysbrickblog.com/reviews/review-lego-10355-blacktron-renegade-2025/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Originally set [6954](https://brickset.com/sets/6954-1/Blacktron-Renegade) in 1987, released bigger and badder in 2025 as [10355](https://brickset.com/sets/10355-1/Blacktron-Renegade), Blacktron's Renegade is one of the few LEGO ships that isn't laterally symmetric. Still maintaining a "fighter jet" vibe, it's an alluring in-between that hints at the freedom space offers...

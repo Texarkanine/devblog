@@ -1,0 +1,7 @@
+# short-stories
+
+> Garden tag: short-stories
+
+## Garden
+
+- [Short Stories](https://blog.cani.ne.jp/garden/short-stories.md): A collection of short stories, mostly sci-fi.

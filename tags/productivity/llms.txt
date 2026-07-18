@@ -1,0 +1,8 @@
+# productivity
+
+> Tag: productivity
+
+## Posts
+
+- [The Adeptus Mechanicus Bootcamp: A Gentle Seduction](https://blog.cani.ne.jp/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.md)
+- [The Load-Bearing Rate Limiter Was Human](https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.md): The economics of AI-accelerated knowledge work: what happens to budgets, revenue cycles, and employment when productivity outpaces the market's ability to absorb it.

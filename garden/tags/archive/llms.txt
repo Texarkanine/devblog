@@ -1,0 +1,9 @@
+# archive
+
+> Garden tag: archive
+
+## Garden
+
+- [Play Classic Computer Games from the 1900s](https://blog.cani.ne.jp/garden/1900s-computer-gaming.md): Play classic DOS and Flash games from the 1900s in your browser: abandonware archives, retro gaming portals, and playable emulators.
+- [Browse The Vintage, Early Internet](https://blog.cani.ne.jp/garden/browse-the-early-internet.md): A curated collection of links to browse the vintage web: GeoCities archives, Neocities, the Web Design Museum, and retro search engines.
+- [The Great Pyramid of Giza was a Plutonium Mill](https://blog.cani.ne.jp/garden/nuclear-pyramid.md): The internal geometry of the pyramid is given correspondence to the process steps of breeding plutonium, separating plutonium from other material, disposing of radioactive waste, using water and producing hydroelectric power.

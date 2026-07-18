@@ -1,0 +1,929 @@
+# ruby
+
+## Pull the Thread
+
+[A recent blog post](/2026/03/21/the-load-bearing-pipeline-was-human.html) had four [Mermaid](https://mermaid.js.org/) block diagrams illustrating its points. By the time I looked at the deployed version, the edge labels were clipped and the text was shoved left.
+
+Fixing those four diagrams took six hours, produced three gem releases, and ended with a CSS-only reading progress bar I hadn't planned to build.
+
+## The alignment
+
+The [jekyll-mermaid-prebuild gem](https://rubygems.org/gems/jekyll-mermaid-prebuild) renders Mermaid diagrams at build time by shelling out to [mmdc](https://github.com/mermaid-js/mermaid-cli), which launches headless Chromium via [Puppeteer](https://pptr.dev/). The deployed blog was using GitHub Actions' pre-installed system Chrome, which measured text 11-16% narrower than Puppeteer's bundled Chromium. Edge labels like "last touchpoint" and "refined" were allocated [foreignObject](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject) containers too narrow for the text real browsers would render.
+
+Two rounds of fixes. First: optional padding on edge-label containers, plus CSS injection to fix left-shifted text (`display: table-cell` inside foreignObject shrink-wraps instead of centering). Second: generalized overflow protection and a config restructure grouping all cross-browser workarounds under a single `postprocessing:` key.
+
+The diagrams looked right. But switching to Puppeteer's bundled Chromium - necessary for consistent text measurement - broke CI.
+
+## The rabbit hole
+
+The build failed. The gem's error handler pattern-matches on "browser process" in mmdc's stderr and offers helpful advice:
+
+```
+mmdc failed: Puppeteer cannot launch headless Chrome
+
+This usually means missing system libraries.
+On Debian/Ubuntu/WSL, install with:
+
+  sudo apt-get update
+  sudo apt-get install -y libgbm1 libasound2 libatk1.0-0 ...
+```
+
+Every one of those libraries was already on the runner. The `ubuntu-latest` image ships all of them. One wasted CI cycle following my own gem's bad advice.
+
+The real issue: Ubuntu 24.04's [AppArmor restriction on unprivileged user namespaces](https://github.com/puppeteer/puppeteer/issues/13595) prevents Puppeteer's sandboxed Chromium from creating its namespace. Nothing to install. A kernel flag to flip:
+
+```yaml
+- name: Allow Chromium sandbox (Ubuntu 24.04 AppArmor workaround)
+  run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+```
+
+At this point the diagrams were fixed and CI was green. The gem had a clean postprocessing architecture on [v0.4.0](https://github.com/Texarkanine/jekyll-mermaid-prebuild/releases/tag/v0.4.0). Mission accomplished. Time to stop.
+
+## The odyssey
+
+I did not stop.
+
+The blog already had dark mode. But the diagrams didn't - every Mermaid SVG rendered with mmdc's default theme, white background and dark lines, regardless of the visitor's color scheme. The postprocessing restructure had given the gem a clean configuration surface and the ability to manipulate SVG internals after mmdc rendered them. Adding [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) support - dual SVG generation, CSS media queries to toggle between light and dark variants - was suddenly tractable.
+
+This was the part that felt like a genuine rabbit hole. `mmdc` emits `background-color: white` on every SVG root element regardless of the `-t dark` flag. Inline `style` attributes beat `@media` rules in [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity), so toggling visibility between two variants with a `<style>` block didn't work until I stopped setting inline `display` on either one. Getting SVG background replacement to be [configurable per variant](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.5.0/lib/jekyll-mermaid-prebuild/svg_post_processor.rb) rather than hardcoded required a mid-build rework. None of this surfaced in tests - CSS specificity bugs only appear in a real browser on a real dark page.
+
+Gem [v0.5.0](https://github.com/Texarkanine/jekyll-mermaid-prebuild/releases/tag/v0.5.0). Diagrams now matched the blog's color scheme. Then I got greedy.
+
+## The progress bar
+
+A reading progress indicator - the thin bar that fills across the top of the page as you scroll. [Pure CSS, zero JavaScript](https://github.com/Texarkanine/devblog/commit/71f5db2), using [animation-timeline: scroll()](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll). The fill color pulls from `var(--body-color)`, so it was dark-mode-aware from birth. Browsers that don't support scroll-driven animations keep `scaleX(0)` and show nothing - [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) for free.
+
+## The line
+
+There's a name for this: [yak shaving](https://en.wiktionary.org/wiki/yak_shaving). Set out to fix four diagrams, end up building a reading progress bar. The alignment fix required the Chromium switch. The Chromium switch required the AppArmor fix. The config restructure made dark mode diagrams tractable. Dark mode diagrams made the progress bar's color-scheme-awareness trivial - the CSS variables were already there.
+
+For a stretch in the middle - following my own gem's misdiagnosis, a CSS specificity lesson learned the hard way, a feature rework mid-build - it felt like a rabbit hole. The kind where you look up and realize you're three layers removed from what you sat down to do.
+
+The difference between a rabbit hole and a mine shaft is whether you're digging toward something. I didn't know I was building toward a progress bar when I started fixing edge labels. But each fix was structural: improving the foundation rather than patching the symptom. The padding fix existed so the overflow protection could generalize it. The overflow protection existed so the config surface could unify it. The config surface existed so dark mode diagrams could extend it. None of that was planned. It happened because properly-done infrastructure compounds whether you intend it to or not.
+
+The tell is whether you can use what you built. Yak shaving leaves you holding a razor and a bald yak. A productive cascade leaves you standing on new ground.
+
+## The Width of an Emoji
+
+I built a complete SVG post-processing module - [Nokogiri](https://nokogiri.org/) dependency, [foreignObject](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject) width manipulation, transform recentering, 29 new tests - to fix text clipping in [Mermaid](https://mermaid.js.org/) flowcharts. It passed QA on the first try. Then the user opened Chrome DevTools, removed the `max-width` style I'd been so carefully handling, and the SVGs scaled perfectly. Every line of code I'd written was solving a problem that didn't exist.
+
+The actual bug? Headless Chromium thinks emoji are narrower than they are.
+
+## The symptom
+
+[jekyll-mermaid-prebuild](https://github.com/Texarkanine/jekyll-mermaid-prebuild) shells out to [`mmdc`](https://github.com/mermaid-js/mermaid-cli) (mermaid-cli) to render diagrams at Jekyll build time. Internally, `mmdc` launches [Puppeteer](https://pptr.dev/) (headless Chrome), calls `mermaid.render()`, and serializes the result to SVG. Some flowcharts with emoji in node labels - things like `🔧 Code` or `✅ Done` - were getting their text clipped. The words just stopped partway through, chopped by the edge of the node.
+
+![Flowchart with emoji labels - text clipped by undersized foreignObject](mermaid-emoji-clipped.png)
+
+The working hypothesis: mmdc's hardcoded `max-width` inline style was compressing the SVG, and since [`<foreignObject>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject) HTML content doesn't scale with [SVG coordinate transforms](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/viewBox), the text was overflowing its container. A reasonable theory. I ran with it.
+
+## The wrong fix
+
+The plan was clean. Add a `max_width` configuration option. Build a `SvgPostProcessor` module that removes mmdc's hardcoded `max-width`, widens foreignObject elements to match their parent rects, recenters the label transforms, and optionally constrains the root SVG width. Nokogiri for XML parsing, namespace-aware XPath queries, the works.
+
+Six implementation steps. 29 new tests. 76/76 passing. RuboCop clean. The QA review caught two trivial issues (a private method in the wrong position, an unused constant). By every metric I track, the code was ready to ship.
+
+Then user testing happened.
+
+## The centering disaster
+
+The text was left-aligned. Every node label that had been perfectly centered was now shoved to the left side of its box.
+
+I diagnosed the issue: Mermaid's inner `<div>` uses [`display: table-cell`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#table), which sizes itself to its content rather than stretching to fill its container. Widening the foreignObject creates empty space that the div doesn't fill. The text stays stuck to the left edge of its shrink-wrapped container while the container floats in a now-oversized foreignObject.
+
+I removed the recentering logic. Now the text shifted right.
+
+I restored the recentering with corrected math, calculating translate_x from the rect's actual center point. Mathematically perfect - every foreignObject center computed to exactly `0.0`. Still visually wrong.
+
+Three rounds of "fix centering, test, still broken" before the core realization landed: **you cannot fix text positioning by manipulating foreignObject geometry when the inner content uses `display: table-cell`.** The div will shrink-wrap regardless. The only thing foreignObject width manipulation accomplishes is moving the empty space around.
+
+## The real root cause
+
+With foreignObject manipulation ruled out, I stripped the post-processor back to just root SVG width handling. At which point the user tested *that* on the live site, too - removed `max-width` via DevTools, and the SVGs were fine. The compression theory was wrong from the start.
+
+So why were emoji labels clipping?
+
+A controlled comparison told the whole story. Two identical single-node charts - `flowchart LR` with one rounded-rect node - differing only in whether the label had an emoji:
+
+```
+"🔧 Code":  foreignObject width 55.66px
+"Code":     foreignObject width 40.97px
+```
+
+Puppeteer thought `🔧` plus its trailing space was 14.69px. Real browsers render that emoji at 20-24px. So when the viewing browser laid out "🔧 Code" inside a 55.66px foreignObject, the text needed roughly 63-65px and clipped against the right edge.
+
+A [known Chrome bug](https://stackoverflow.com/q/42016125). Emoji have inconsistent width metrics across platforms and display scale factors. Headless Chromium at `deviceScaleFactor: 1` reports the narrow measurement.
+
+## The fix that worked
+
+The user found it first, by hand: add `&nbsp;` characters after emoji in the Mermaid source. Two non-breaking spaces per emoji. Puppeteer measures the padded string, allocates a wider foreignObject, and in the viewing browser the emoji's true width consumes the extra space. The trailing whitespace is invisible or overflow-clipped.
+
+This works because Puppeteer handles centering, rect sizing, and transforms natively when given correct width information. No SVG post-processing. No foreignObject manipulation. No Nokogiri.
+
+The fix needed to live in the plugin, though - not in the Mermaid source files. The blog content passes through multiple rendering pipelines: GitHub markdown preview, IDE preview, mermaid.live, client-side mermaid.js. Manual `&nbsp;` padding would render as visible trailing space in every context except mmdc. The plugin is the only layer specific to the mmdc path.
+
+## Building it (again)
+
+Step 0 was satisfying: delete the entire SvgPostProcessor module, its spec file, the Nokogiri dependency, the max_width configuration, and all the tests that went with them.
+
+The replacement was simpler. An [`EmojiCompensator`](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/emoji_compensator.rb) module that preprocesses Mermaid source before mmdc sees it. [Detect the diagram type](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/emoji_compensator.rb#L18-L44) (skipping frontmatter and comments), check if compensation is [enabled for that type](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/processor.rb#L55-L60), find node labels via regex, count emoji with [`\p{Extended_Pictographic}`](https://ruby-doc.org/3.3.6/Regexp.html#class-Regexp-label-Unicode+Character+Categories), and append `&nbsp;` padding.
+
+Two runtime surprises:
+
+**Unicode `\u00a0` gets stripped by the mmdc pipeline.** My first implementation used the Unicode non-breaking space character. It vanished silently - mmdc's internal parsing normalized it away. The HTML entity `&nbsp;` survives, because Mermaid renders node labels as HTML inside `<foreignObject>`. There's no unit test that catches this; it's an external binary behavior.
+
+**Multi-line labels need selective padding.** A label like `🔧 Hi<br/>This is a much longer line` doesn't need padding - the non-emoji line is already wider, so Puppeteer sizes the container correctly. Padding the short emoji line would just shift it left. The fix: [compute visual length for each line](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/emoji_compensator.rb#L85-L97) (emoji count as 2 characters for width), find the longest, and pad only that line if it contains emoji. Shorter lines center naturally in the wider container.
+
+75 tests. Zero RuboCop offenses. The user rebuilt the blog and emoji rendered correctly.
+
+![Same flowchart after emoji width compensation - text fits](mermaid-emoji-padded.png)
+
+## What this cost
+
+The first implementation took a full plan-preflight-build-QA-reflect cycle. Six steps, 29 tests, a new Nokogiri dependency, namespace-aware XPath queries, transform geometry math. All of it passed. All of it was wrong.
+
+The second implementation - the one that [shipped in v0.3.1](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/emoji_compensator.rb) - was 120 lines of string manipulation and regex. No dependencies. No XML parsing. Simpler in every dimension.
+
+Between the two: three rounds of centering fixes, two SVG structure investigations, and one complete scope reversal. The entire first cycle could have been avoided with a 15-minute DevTools test on the live site. Remove `max-width`, see that the SVGs are fine, and the container-compression hypothesis dies before a single line of code gets written.
+
+## The lesson
+
+A well-structured plan that rigorously validates itself at every phase can still execute cleanly on the wrong problem. Lint passes, tests pass, QA passes - none of that tells you whether you've identified the right root cause. For tasks driven by a symptom ("text is clipping"), the hypothesis about *why* matters more than the quality of the implementation.
+
+The most expensive failure mode isn't a build that breaks. It's a build that passes.
+
+
+## 2MB Lighter
+
+The [mermaid.js chart library](https://mermaid.js.org/) weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild).
+
+## The Setup
+
+I had a [blog post with several Mermaid diagrams explaining a firmware debugging story](/2026/01/17/all-it-took-was-broken-firmware.html). The standard approach - include mermaid.js and let it render client-side - would add 2MB to every page load. For static diagrams that never change after publishing, that's absurd.
+
+The mermaid project provides `mmdc`, a [CLI that renders diagrams to SVG using headless Chrome](https://github.com/mermaid-js/mermaid-cli). A Jekyll plugin could intercept mermaid code blocks during build, shell out to `mmdc`, and replace them with static SVG references. No client-side JavaScript needed.
+
+## Prototype in `_plugins/`
+
+Following the pattern from [jekyll-auto-thumbnails](/2025/12/11/building-my-second-rubygem.html), I started with a local plugin before extracting to a gem. Faster iteration, immediate feedback.
+
+The first attempt operated on rendered HTML, scanning for `<code class="language-mermaid">` blocks. This worked, but produced inline SVG data URIs - ugly in the output and not separately cacheable.
+
+Better approach: operate on **markdown** during `:pre_render`. Find mermaid code blocks, convert to SVG files, replace with image references. The SVGs become proper static assets - cacheable by browsers, clickable for full-size viewing.
+
+## Puppeteer in WSL
+
+First test run:
+
+```
+MermaidPrebuild: Initialized (mmdc 11.12.0)
+MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
+```
+
+The mermaid CLI uses Puppeteer (headless Chrome) internally. WSL - my local build environment - doesn't ship with Chrome's system library dependencies.
+
+```bash
+sudo apt-get install -y libgbm1 libasound2 libatk1.0-0 \
+  libatk-bridge2.0-0 libcups2 libdrm2 libxcomposite1 \
+  libxdamage1 libxfixes3 libxrandr2 libxkbcommon0 \
+  libpango-1.0-0 libcairo2 libnss3 libnspr4
+```
+
+After installing the dependencies, `mmdc` worked. The plugin [detects this failure mode](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L36-L51) and prints the apt-get command in the error message.
+
+## The Hook Timing Bug
+
+With Puppeteer working, the plugin... did nothing. No diagrams converted. Debug output showed the `:pre_render` hook firing, but `site.data["mermaid_prebuild_enabled"]` was nil.
+
+Jekyll's `:after_init` hook seemed like the right place to check if `mmdc` exists and store the result. But `site.data` doesn't persist between hooks the way I expected. By the time `:pre_render` runs on each document, the flag was gone.
+
+The fix: use `:post_read` instead of `:after_init`. At that point, site configuration and data are stable.
+
+```ruby
+Jekyll::Hooks.register :site, :post_read do |site|
+  next unless Configuration.enabled?(site)
+  
+  site.data["mermaid_prebuild"] = { "enabled" => true, "registry" => {} }
+  Jekyll.logger.info "MermaidPrebuild:", "Initialized (mmdc #{MmdcWrapper.version})"
+end
+```
+
+## Code Fence Patterns
+
+Markdown supports two fence styles. Backticks:
+
+````markdown
+```mermaid
+graph LR
+  A --> B
+```
+````
+
+Or tildes:
+
+````markdown
+~~~mermaid
+graph LR
+  A --> B
+~~~
+````
+
+Both can use 3+ fence characters. The plugin needed to handle either style and ensure the closing fence matches the opening fence in both character type and count.
+
+The regex:
+
+```ruby
+%r{
+  ^(`{3,}|~{3,})mermaid\s*\n  # Opening: 3+ backticks or tildes
+  (.*?)                        # Content (non-greedy)
+  ^\1\s*$                      # Closing: must match opener
+}mx
+```
+
+The `\1` backreference ensures a block opened with four backticks closes with four backticks, not three tildes.
+
+To show these examples without converting them, the plugin respects fence nesting - mermaid blocks inside outer fences are preserved as code.
+
+## Gem Extraction
+
+Once the local plugin worked, extraction followed the same TDD pattern as the previous gems. Six modules:
+
+1. **Configuration** - Parse `_config.yml` settings
+2. **MmdcWrapper** - Shell out to `mmdc`, handle errors
+3. **DigestCalculator** - MD5 for cache keys
+4. **Processor** - Find and replace mermaid blocks
+5. **Generator** - Copy SVGs to `_site/`
+6. **Hooks** - Wire into Jekyll lifecycle
+
+42 tests covering the module interfaces. The tests mock `mmdc` execution since you can't assume Puppeteer dependencies in CI.
+
+## CodeRabbit's Review
+
+Three valid concerns after the initial push:
+
+**1. Cross-platform `which`**
+
+```ruby
+Kernel.system("which mmdc > /dev/null 2>&1")
+```
+
+The `which` command doesn't exist on Windows. [Fixed with pure Ruby PATH scanning](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/mmdc_wrapper.rb#L20-L32):
+
+```ruby
+def command_exists?(cmd)
+  cmd_name = Gem.win_platform? ? "#{cmd}.exe" : cmd
+  path_dirs = ENV.fetch("PATH", "").split(File::PATH_SEPARATOR)
+  
+  path_dirs.any? do |dir|
+    File.executable?(File.join(dir, cmd_name))
+  end
+end
+```
+
+**2. Windows Tempfile locking**
+
+The output Tempfile wasn't closed before `mmdc` tried to write to it. Windows locks open files, so `mmdc` would fail. Fixed by closing the tempfile before the subprocess runs.
+
+**3. Missing SVG handling**
+
+If a cached SVG somehow disappeared, `FileUtils.cp` would crash the build. [Added existence check](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L23) with a warning instead of hard failure.
+
+## Examples in Action
+
+The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/272764fe.svg"><img src="/assets/svg/272764fe.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/272764fe-dark.svg"><img src="/assets/svg/272764fe-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.
+
+## Final Stats
+
+- **47 tests, all passing**
+- **70%+ code coverage**
+- **Published to RubyGems:** [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild)
+- **Installation:** `gem install jekyll-mermaid-prebuild`
+
+Three gems now: [jekyll-highlight-cards](https://rubygems.org/gems/jekyll-highlight-cards) for styled link and image cards, [jekyll-auto-thumbnails](https://rubygems.org/gems/jekyll-auto-thumbnails) for automatic image optimization, and [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild) for build-time diagram rendering.
+
+## What I Learned
+
+**Jekyll's `site.data` doesn't persist the way you'd expect between hooks.** Data set in `:after_init` may not be available in `:pre_render`. Use `:post_read` for site-wide state that needs to survive into document processing.
+
+**Puppeteer dependencies vary by platform.** The error message when Chrome can't launch is cryptic (`cannot open shared object file`). Detecting this failure mode and printing the exact `apt-get` command saves users time.
+
+**Regex backreferences match fence styles elegantly.** `^\1\s*$` ensures opening and closing fences match both in character and count. No need to track state between matches.
+
+**Windows file locking affects tempfiles.** On Unix, an open file descriptor doesn't prevent other processes from writing. On Windows, it does. Close tempfiles before subprocesses write to them.
+
+**Pure Ruby PATH scanning beats shell commands for portability.** `which` doesn't exist on Windows, `where` doesn't exist on Unix. Scanning `ENV["PATH"]` with `File.executable?` works everywhere.
+
+## The Repository
+
+The code is at [Texarkanine/jekyll-mermaid-prebuild](https://github.com/Texarkanine/jekyll-mermaid-prebuild) with the full implementation history.
+
+Three gems down, 2MB lighter per page.
+
+## Building My Second RubyGem
+
+Remember [that first gem](/2025/12/08/publishing-my-first-rubygem.html) where I built styled cards for [Jekyll](https://jekyllrb.com/)? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: [jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails).
+
+## The Failed First Attempt
+
+The plan was simple: add thumbnail generation as a feature to `jekyll-highlight-cards`. Scan Markdown for sized images, generate thumbnails with MD5-based caching, replace URLs in the final HTML.
+
+I implemented it. 277 tests passing, 96% coverage. The feature worked in isolation.
+
+Then I tested it on this blog. Every image failed to generate thumbnails. The registry showed URLs like `/2025/11/25/photo.jpg`, but the actual files were at `/assets/img/blog/record/photo.jpg`. 
+
+The problem: hook timing. My plugin ran in `:pre_render`, scanning raw Markdown. But [image_paths.rb](https://github.com/Texarkanine/devblog/blob/a293c346612823fca18a6447902da688e57be247/_plugins/00_image_paths.rb) (a local plugin) ran in `:post_render`, transforming `photo.jpg` into `/assets/img/blog/record/photo.jpg`. I was registering pre-transform URLs but trying to find post-transform files.
+
+## The Architecture Pivot
+
+The fix wasn't to adjust hook timing. The fix was to realize **image optimization is a separate concern** from styled card presentation.
+
+New architecture: Scan the final rendered HTML after ALL plugins have run. Parse it with Nokogiri, look for `<img>` tags in `<article>` elements, extract the actual `src` attributes. Those URLs reflect reality - all transformations already applied.
+
+This required extracting the thumbnail feature into a standalone gem. The separation made sense: [jekyll-highlight-cards](https://github.com/Texarkanine/jekyll-highlight-cards) handles presentation (linkcard, polaroid tags). [jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails) handles optimization (thumbnail generation, caching, URL replacement).
+
+## Building the Second Gem
+
+I created `jekyll-auto-thumbnails` (initially named `jekyll-img-optimizer`, renamed before publish). Seven core modules following the same TDD approach:
+
+1. **Configuration** - Parse `_config.yml` settings with validation
+2. **UrlResolver** - Handle absolute/relative/external URLs  
+3. **DigestCalculator** - MD5 computation for cache keys
+4. **Registry** - Track largest dimensions needed per image
+5. **Generator** - ImageMagick integration for thumbnail creation
+6. **Scanner** - HTML parsing to find images in `<article>` tags
+7. **Hooks** - Jekyll integration via `:post_render` and `:post_write`
+
+The key difference: Scanner operates on **rendered HTML**, not Markdown source.
+
+## The Dimension Merging Bug
+
+First test on the blog revealed the generator was creating thumbnails at the **smallest** dimensions, not the largest.
+
+A polaroid at `size=x400` (height 400, width auto) and a Markdown image at `=200x` (width 200, height auto) both referenced the same image. The registry merged these as:
+
+```ruby
+{ width: 200, height: 400 }  # Wrong - takes the ONLY non-nil value for each
+```
+
+This produced a 200x400 thumbnail. When displayed at ~500px width, it looked terrible - upscaled 2.5x from a thumbnail that should have been 536x400.
+
+The fix: [Scanner calculates missing dimensions](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L104-L113) from aspect ratio before registering. Query ImageMagick for actual image dimensions, compute the missing value, then register complete dimensions.
+
+Now `size=x400` registers as `{ width: 536, height: 400 }` (calculated from 1.34:1 aspect ratio), and the Registry correctly chooses 536x400 as the maximum.
+
+## The Animated GIF Bug  
+
+An image named `dogblog-468x60.gif` generated a thumbnail named `dogblog-468x60_thumb-bb988d-46x60.gif`. The width lost an `8`.
+
+The GIF was animated (25 frames). ImageMagick's `identify` command returned dimensions for **all frames concatenated**:
+
+```
+468x605x511x1014x1420x19391x23394x25398x27399x2724x2325x2428x27
+```
+
+My code split on `x` and took the first two values: `468` and `605`. The `605` was frame 1's height (60) plus the start of frame 2's dimensions (5). This gave the wrong aspect ratio.
+
+The fix: [Query only the first frame](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L81) with `identify "#{file_path}[0]"`. The `[0]` index tells ImageMagick to return dimensions for frame zero only.
+
+Test with actual animated GIF confirmed: `468x60` parsed correctly.
+
+## CodeRabbit's Security Review
+
+After the initial implementation, CodeRabbit flagged five issues. All five were valid.
+
+**Issue 1: Unix-only ImageMagick detection**
+
+```ruby
+system("which convert > /dev/null 2>&1")
+```
+
+The `which` command doesn't exist on Windows. [Fixed by searching ENV['PATH']](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L19-L26) manually:
+
+```ruby
+def imagemagick_available?
+  cmd_name = Gem.win_platform? ? "convert.exe" : "convert"
+  path_dirs = ENV["PATH"].to_s.split(File::PATH_SEPARATOR)
+  
+  path_dirs.any? do |dir|
+    File.executable?(File.join(dir, cmd_name))
+  end
+end
+```
+
+**Issue 2 & 3: Shell command injection**
+
+Two methods used string-based `system()` calls and backticks, both invoking a shell:
+
+```ruby
+cmd = cmd_parts.join(" ")
+system(cmd)  # Shell interprets special characters
+
+output = `identify ... #{file_path}[0] 2>/dev/null`  # Shell interprets
+```
+
+[Fixed by using array-based execution](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L98-L109):
+
+```ruby
+system(*["convert", source_path, "-resize", geometry, "-quality", "85", dest_path])
+
+output, status = Open3.capture2e("identify", "-format", "%wx%h", "#{file_path}[0]")
+```
+
+No shell invocation, no special character interpretation, works on both Unix and Windows.
+
+**Issue 4: File.join for URLs**
+
+```ruby
+thumb_url = File.join(url_dir, thumb_filename)  # Uses OS-specific separators
+```
+
+On Windows, `File.join` produces backslashes. URLs must always use forward slashes. Fixed with explicit string concatenation:
+
+```ruby
+thumb_url = if url_dir == "."
+              "/#{thumb_filename}"
+            else
+              "#{url_dir}/#{thumb_filename}"
+            end
+```
+
+**Issue 5: HTML structure concerns**
+
+CodeRabbit suggested `Nokogiri::HTML()` might corrupt document structure. Assessed as non-issue - Jekyll's `doc.output` is already complete HTML, parsing and re-serializing doesn't cause problems. Added early return for performance but no structural changes needed.
+
+## Two Critical Sanity Checks
+
+After CodeRabbit's review, I added two optimizations:
+
+**Check 1: Skip if dimensions match original**
+
+If an image is 300x200 and you request a 300x200 thumbnail, don't generate anything. Use the original.
+
+**Check 2: Delete if thumbnail larger than source**
+
+Sometimes compression doesn't help. A small, highly compressed image might produce a larger thumbnail if thumbnailing is configured at high quality. If `File.size(thumbnail) > File.size(original)`, [delete the thumbnail](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L59-L66) and use the original.
+
+Testing on this blog: 13 images detected, 6 rejected (thumbnail would be larger), 7 optimized. The plugin only optimizes when beneficial.
+
+## Examples in Action
+
+The gem is running on this blog right now. That polaroid from the previous post:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="/assets/img/blog/diary/gemini-trip-to-japan.jpg">
+      <img src="/assets/img/blog/diary/gemini-trip-to-japan.jpg" alt="Trip to Japan (with automatic thumbnail)" height="400" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Trip to Japan (with automatic thumbnail)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">www.japan.go.jp/japan/visit/index.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The original image is 818KB. The thumbnail served is 115KB (86% reduction). The plugin calculated the correct width (536px) from the 400px height constraint and the image's aspect ratio, generated `gemini-trip-to-japan_thumb-45be04-536x400.jpg` in `.jekyll-cache/`, copied it to `_site/`, and replaced the URL in the HTML.
+
+The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:
+
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+
+## Final Stats
+
+- **58 tests, all passing**
+- **90.0% code coverage**  
+- **20 commits** from extraction to production
+- **Published to RubyGems:** [jekyll-auto-thumbnails](https://rubygems.org/gems/jekyll-auto-thumbnails)
+- **Installation:** `gem install jekyll-auto-thumbnails`
+
+The gem scans rendered HTML for images in `<article>` tags, generates thumbnails with MD5-based caching, and replaces URLs transparently. Works with any Jekyll plugins that transform image paths because it runs after all rendering completes.
+
+## What I Learned
+
+**Jekyll hook timing determines what you see.** Pre-render hooks see Markdown and Liquid. Post-render hooks see final HTML. If other plugins transform content, you need to run after them.
+
+**Scanning rendered HTML instead of source is plugin-agnostic.** Any URL-transforming plugin works because you're reading the end result, not guessing at transformations.
+
+**ImageMagick's identify returns all frames for animated GIFs.** Use `[0]` to get first frame only: `identify "file.gif[0]"`. Without it, parsing `468x605x51...` gives wrong dimensions.
+
+**Backticks and string-based system() invoke shells.** Even with `Shellwords.escape`. Use `system(*array)` or `Open3.capture2e` for shell-free execution. Safer and cross-platform.
+
+**File.join uses OS-specific separators.** URLs need forward slashes always, but `File.join` produces backslashes on Windows. Build URLs with string concatenation, not path operations.
+
+**Sometimes thumbnails are larger than originals.** Small, compressed images might expand when reprocessed. Check file size after generation and delete if larger.
+
+**Separation of concerns can emerge from failed integration.** The thumbnail feature didn't belong in a styled-cards gem. The architecture problem revealed the right boundaries.
+
+## The Repository
+
+The code is at [Texarkanine/jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails) with the full implementation history.
+
+Two gems now: one for presentation, one for optimization. Both do their jobs without interfering with each other or with other Jekyll plugins.
+
+## Publishing My First RubyGem
+
+Remember [that previous post where I built two Jekyll plugins](/2025/11/25/two-jekyll-image-plugins.html) and said "nothing's next"? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here's how it went.
+
+## The Starting Point
+
+Two working Jekyll plugins existed: `linkcard_tag.rb` and `image_sizing.rb`. They worked fine as local plugins, but copying files between projects is barbaric. Time to build a gem. Plus, I wanted to add a new `polaroid` tag for styled image cards.
+
+I was given three documents to work from:
+
+1. **POLAROID_PRODUCT.md** - Complete product specification with syntax, parameters, HTML structure, edge cases
+2. **POLAROID_PLAN.md** - Detailed implementation plan with phases, file structure, test strategy
+3. **TASKS.md** - Phase-by-phase checklist tracking progress
+
+The task: "Build this."
+
+## Test-Driven Development, Enforced
+
+The workspace had strict TDD rules configured: tests must be written before any implementation code. Write a test file, run it to see failures, implement just enough code to make that test pass, move to the next one. Repeat for every feature.
+
+## Early Test Failures
+
+Phase 2 code complete. Six test failures.
+
+**DimensionParser issue:** The regex for parsing `WIDTHxHEIGHT` was splitting on the first `x`, which broke dimensions like `400px` into `400p` + `x`. I needed [a smarter regex](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/lib/jekyll-highlight-cards/dimension_parser.rb#L20-L30) that recognized `x` as a separator only when it appeared between dimension values, not within units.
+
+**ExpressionEvaluator issue:** Empty strings were returning `nil` instead of empty strings. The ternary operator logic `return allow_nil ? stripped : (stripped.empty? ? nil : stripped)` needed clearer control flow.
+
+**TemplateRenderer issue:** The gem root path calculation was wrong. Templates need to be discoverable in the gem's `_includes/` directory, not relative to the calling code.
+
+Fixed all three methodically. Test-driven development meant these bugs were caught immediately, not after integration.
+
+## The Rubocop Incident
+
+Before the first release, rubocop `--autocorrect` was run. It broke everything.
+
+Rubocop had transformed this correct Ruby:
+
+```ruby
+return allow_nil ? stripped : (stripped.empty? ? nil : stripped)
+```
+
+Into this syntactically invalid nonsense:
+
+```ruby
+return if allow_nil
+stripped
+else
+(stripped.empty? ? nil : stripped)
+end
+```
+
+That's not valid Ruby. The `else` has no corresponding `if` - the `return if allow_nil` is a guard clause, not the start of an if/else block.
+
+I reverted the file, tests passed. Then [refactored into something](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/lib/jekyll-highlight-cards/expression_evaluator.rb#L29-L31) Rubocop wouldn't break:
+
+```ruby
+return stripped if allow_nil
+
+return stripped.empty? ? nil : stripped
+```
+
+Two separate guard clauses with a blank line between them. Rubocop-safe and arguably clearer. Applied the same pattern to all similar cases in the file.
+
+## Publishing to RubyGems with Trusted Publishing
+
+Setting up gem publishing using OIDC trusted publishing (no API keys needed) required:
+
+1. A GitHub Actions workflow with `id-token: write` permission
+2. Configuring RubyGems.org to accept OIDC tokens from the repository
+3. Integrating with Release Please for automated versioning
+
+The workflow splits into two jobs:
+- `release-please`: Orchestrates version bumps and changelog updates
+- `publish-gem`: Runs tests, builds, and publishes (only with the `rubygems.org` environment)
+
+**Gotcha encountered:** RubyGems trusted publishing configuration is case-sensitive on the GitHub username. Had to use `Texarkanine` not `texarkanine`, even though GitHub usernames are normally case-insensitive.
+
+## The Gemfile.lock Problem
+
+Release Please bumps the version in `lib/jekyll-highlight-cards/version.rb`, but this makes `Gemfile.lock` out of date. CI freezes the gemfile, so installation fails on the release PR.
+
+Solution: [A separate workflow](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/.github/workflows/update-gemfile-lock.yaml) that triggers on PRs when `version.rb` changes, but only on Release Please branches (`release-please--*`). It runs `bundle install`, commits the updated `Gemfile.lock` back to the PR, and uses the [nick-fields/retry](https://github.com/nick-fields/retry) action to handle race conditions with `git pull --rebase` before pushing.
+
+Now the release PR always has a valid `Gemfile.lock`.
+
+## The Final Publishing Bug
+
+First release went out. Version 0.1.0 published to RubyGems. Installed it in the blog to test. The CSS didn't load.
+
+The gem had the CSS file at `_sass/highlight-cards.scss`, but Jekyll couldn't find it. Users would have to manually add a `sass_load_paths` entry in their `_config.yml` pointing to the gem's `_sass` directory before they could even `@use` it. That's terrible UX.
+
+The fix: Rename `_sass/highlight-cards.scss` to `_sass/_highlight-cards.scss` (partial convention), then [use Jekyll hooks](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/lib/jekyll-highlight-cards.rb#L39-L51) to automatically register the load path:
+
+```ruby
+Jekyll::Hooks.register :site, :after_init do |site|
+  site.config["sass"] ||= {}
+  site.config["sass"]["load_paths"] ||= []
+
+  unless site.config["sass"]["load_paths"].include?(SASS_PATH)
+    site.config["sass"]["load_paths"] << SASS_PATH
+  end
+end
+```
+
+This registered the gem's `_sass` directory so Jekyll could find the partial. Fixed in [commit 2183771](https://github.com/Texarkanine/jekyll-highlight-cards/commit/2183771) after testing the gem installation in an actual Jekyll site.
+
+## Display Tweaks: The Span vs Div Saga
+
+For centered polaroids, I added a `<span class="polaroid-container">` wrapper. It rendered as:
+
+```html
+<p><span class="polaroid-container"></span></p>
+
+<div class="polaroid">
+  <!-- content -->
+</div>
+
+<p>&lt;/span&gt;</p>
+```
+
+The closing `</span>` was escaped as literal text!
+
+Markdown processors don't allow block-level elements (`<div>`) inside inline elements (`<span>`). When Jekyll's Kramdown processor saw the `<div>` inside the `<span>`, it broke up the span, wrapped the opening tag in `<p>`, and escaped the closing tag.
+
+Fix: Change `<span>` to `<div>`. Block elements can contain block elements. Added CSS:
+
+```css
+.polaroid-container {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.polaroid {
+  display: inline-block;
+  position: relative;
+}
+```
+
+Polaroids now center properly.
+
+## Final Stats
+
+- **181 tests, all passing**
+- **97.45% code coverage**
+- **~2,000 lines of implementation code**
+- **~3,000 lines of test code**
+- **Published to RubyGems:** [jekyll-highlight-cards](https://rubygems.org/gems/jekyll-highlight-cards)
+- **Installation:** `gem install jekyll-highlight-cards`
+
+The gem provides three features:
+
+1. <code>{% linkcard URL %}</code> – Styled link cards with archive support  
+2. <code>{% polaroid /image.jpg %}</code> – Polaroid-style image cards  
+3. <code>![alt](image.jpg &#61;300x200)</code> – Markdown image sizing
+
+All with Internet Archive integration, customizable templates, and overrideable CSS.
+
+## Examples in Action
+
+Here's what the gem actually produces:
+
+**Linkcard example** - linking to the gem repository:
+
+<blockquote class="link-card">
+  
+  <h1>jekyll-highlight-cards on GitHub</h1>
+  
+  <a href="https://github.com/Texarkanine/jekyll-highlight-cards" target="_blank" rel="noopener">github.com/Texarkanine/jekyll-highlight-cards</a>
+  
+</blockquote>
+
+
+
+
+**Polaroid example** - a photo from a trip to Japan:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="/assets/img/blog/diary/gemini-trip-to-japan.jpg">
+      <img src="/assets/img/blog/diary/gemini-trip-to-japan.jpg" alt="Trip to Japan" height="400" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Trip to Japan</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">www.japan.go.jp/japan/visit/index.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20251208000000/https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+**Markdown image sizing** - the same photo, but smaller using extended Markdown syntax:
+
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+
+All three features working together in this post. The linkcard shows the styled link block. The polaroid displays with the classic photo frame aesthetic. The sized image demonstrates the extended Markdown syntax that the gem automatically processes.
+
+## What I Learned
+
+**Rubocop's autocorrect can introduce syntax errors.** It mangled nested ternaries with guard clauses into invalid syntax. The fix was refactoring into a form it understood rather than fighting it.
+
+**RubyGems OIDC configuration is case-sensitive on usernames.** GitHub usernames aren't case-sensitive, but the RubyGems trusted publishing configuration is. Had to use `Texarkanine` not `texarkanine`.
+
+**Jekyll gems need explicit load path registration.** Users shouldn't have to manually configure `sass_load_paths` in their `_config.yml`. A simple `:after_init` hook solves it automatically.
+
+**Kramdown enforces HTML semantics strictly.** Block elements inside inline elements get broken up and escaped. The `<span>` to `<div>` fix was obvious in hindsight.
+
+**Release Please and Gemfile.lock need synchronization.** Version bumps make the lockfile stale, breaking CI. A separate workflow with retry logic keeps it synchronized.
+
+**Structured specifications make implementation straightforward.** Complete product docs, detailed plans, and explicit TDD rules turned every decision into a lookup rather than a judgment call.
+
+## The Repository
+
+The full code is at [Texarkanine/jekyll-highlight-cards](https://github.com/Texarkanine/jekyll-highlight-cards) with commit history showing the exact progression.
+
+If you're building Jekyll plugins or want to see what test-driven gem development looks like in practice, the test coverage and systematic debugging approach might be useful reference material. The gem worked correctly on first installation (except for that CSS loading issue, which was also caught and fixed systematically through testing in an actual Jekyll site).
+
+Now the infrastructure is truly done. Back to writing blog posts...
+
+## Two Jekyll Image Plugins
+
+Built two custom Jekyll plugins today to handle images in blog posts. What started as "I don't want to type the full path" turned into an exercise in keeping things simple.
+
+## The Initial Problem
+
+I had a post in `blog/record/_posts/` with an image reference:
+
+```markdown
+![Look at this dog](/blog/record/thisdog.jpg)
+```
+
+That `/blog/record/` path felt redundant - the post already lives in that directory. Why repeat myself? Plus, we had `jekyll-images-cdn` for prepending CDN URLs, which was working fine for local development with `/assets/img`. We had already shaved *that* prefix off, why couldn't we shave off the rest of the prefix?
+
+## First Solution: image_paths.rb
+
+Built a plugin that:
+1. Extracts the post's directory from its path
+2. Resolves relative image paths (like `thisdog.jpg`) to that directory
+3. Applies CDN configuration from `_config.yaml`
+
+So now I can write `![Dog](thisdog.jpg)` and get `/assets/img/blog/record/thisdog.jpg`. Perfect. Removed `jekyll-images-cdn` since we integrated that functionality directly.
+
+## The Second Problem
+
+I have a tall, narrow image that was filling 100% width and dominating the page. I wanted dimension control. Found that some Markdown processors support extended syntax like:
+
+```markdown
+![Image](photo.jpg =300x200)
+```
+
+Nice! Let's add that.
+
+## One Plugin or Two?
+
+Should this be in the same plugin or separate? I initially thought "they both process images, combine them!" But after thinking it through:
+
+**Arguments for combining:**
+- Same `<img>` target
+- One regex pass
+- Fewer files
+
+**Arguments for separating:**
+- Single Responsibility Principle
+- Different concerns: functional (path resolution) vs presentational (styling)
+- Different hook points (sizing needs pre_render to parse Markdown, paths work post_render on HTML)
+- Different configs
+- Independently useful
+
+**Decision: Separate.** Path resolution is infrastructure; sizing is aesthetic preference. Keep 'em apart.
+
+## Building image_sizing.rb
+
+The implementation was... educational.
+
+### Challenge 1: Comment Markers
+
+The approach: parse `![alt](url =WIDTHxHEIGHT)` in `pre_render`, inject an HTML comment marker, then process it in `post_render`.
+
+First attempt: Used `=WIDTHxHEIGHT` as the marker format.
+Problem: Regex parsing got confused when splitting on 'x'.
+
+Fixed: Changed to `:` separators in the comment: `<!-- IMG_SIZE:300:200:hr -->`
+
+### Challenge 2: Paragraph Wrapping
+
+Jekyll wraps some images in `<p>` tags, some not. The regex needed to handle both:
+
+```ruby
+/<p>)?<img\s+([^>]*)><!-- IMG_SIZE:... -->(<\/p>)?/
+```
+
+Capture the paragraph tags, preserve them in output.
+
+### Challenge 3: Code Blocks
+
+The plugin was processing image syntax everywhere, including inside code fences and inline code blocks. So examples like `![alt](url =300x200)` were getting transformed into `![alt](url)<!-- IMG_SIZE:... -->` in the rendered output, which I discovered when I wrote them for this post!
+
+Fixed: Track code fence state line by line, and split each line by backticks to track inline code state. Only process image syntax when outside both.
+
+The logic handles triple-backtick fences, tilde fences, and inline backticks. About 30 lines of careful state tracking, but now code examples stay untouched.
+
+### Challenge 4: The Horizontal Rules Feature
+
+Initial plan: When height is specified in pixels, wrap with `<hr>` tags for visual emphasis.
+
+Implemented it. Worked great! Images with height got horizontal rules above and below.
+
+Then realized: This only triggered when BOTH width and height were specified, not just height alone. The logic was getting complex. And honestly, did I really want automatic HRs?
+
+**Decision: Kill the feature.** Let users add `---` in their Markdown if they want horizontal rules. Plugin should just do sizing.
+
+Removed ~15 lines of HR logic. Much cleaner.
+
+### Challenge 5: Auto-Linking
+
+After getting sizing working, realized it would be nice if sized images automatically linked to their full resolution. Click the thumbnail, see the full image in a new tab.
+
+But what if an image is already inside a link? Like `[text ![img](url =300x) more](example.com)`. Don't want to create nested anchors - the inner link would win and break the outer link.
+
+**Solution:** Detect if image is already inside an anchor tag. In the second pass of `post_render`, after applying sizing:
+1. Find images with width/height attributes
+2. Scan backwards from the image position
+3. Find the last `<a>` and `</a>` tags before the image
+4. If there's an unclosed `<a>` → inside anchor → skip
+5. Otherwise → wrap in `<a href="src" target="_blank" rel="noopener">`
+
+The regex `/<a[\s>]/` avoids matching `<article>` and `<aside>` tags. Used `rindex` to find the most recent occurrence, which is simpler than counting all anchors in the page.
+
+Added `target="_blank"` so full images open in new tab, and `rel="noopener"` for security.
+
+Tested with images inside text links, standalone sized images, and unsized images. All work correctly.
+
+## The Final Result
+
+Two plugins, each doing one thing well:
+
+1. **image_paths.rb**: Resolves relative paths based on post location, applies CDN config
+2. **image_sizing.rb**: Parses `=WIDTHxHEIGHT` syntax, applies dimensions
+
+Usage:
+```markdown
+![Dog](thisdog.jpg =x400)
+```
+
+Output:
+```html
+<a href="/assets/img/blog/record/thisdog.jpg" target="_blank" rel="noopener">
+  <img src="/assets/img/blog/record/thisdog.jpg" alt="Dog" height="400">
+</a>
+```
+
+Sized images auto-link to full resolution. Unsized images stay plain. Images already inside links don't get double-wrapped.
+
+Both plugins run independently in sequence. No coupling. No complexity.
+
+## What I Learned
+
+**Separate concerns early.** Even if plugins process the same elements, if they serve different purposes, split them.
+
+**Feature creep happens, but not all features are equal.** The HR feature added complexity for marginal benefit (I can add `---` myself). But auto-linking sized images to full resolution? That's genuinely useful every time, and the complexity is justified. Know the difference.
+
+**Debug output matters.** Added `puts` statements to see exactly what the regex was capturing. Crucial for debugging that `:` vs `x` separator issue.
+
+**Test with real content.** Created test posts with all the edge cases (width only, height only, both, neither). Caught several regex bugs this way.
+
+**HTML comments as data carriers work well.** Injecting structured comments in `pre_render` then parsing them in `post_render` bridged the Markdown→HTML transformation cleanly.
+
+**Simple is better.** The final versions are ~50-75 lines each (well, image_sizing grew to ~150 with the linking feature), well-documented, with no clever tricks. Exactly what I wanted.
+
+**State tracking isn't scary.** The code fence detection and anchor detection both required tracking state (are we inside something?). The logic is straightforward: find the last opening/closing pair, compare positions.
+
+## What's Next?
+
+~~Nothing. These plugins are done. They solve the problems I had, nothing more. And that's exactly right.~~
+
+~~Now back to writing actual blog posts instead of building infrastructure for them...~~
+
+**Update:** Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. [Read about that journey here](/2025/12/08/publishing-my-first-rubygem.html).

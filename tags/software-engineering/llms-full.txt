@@ -1,0 +1,377 @@
+# software-engineering
+
+## The Suite Life of Bobs and Code
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://x.com/rfleury/status/2047002777256391026" target="_blank" rel="noopener">
+      <img src="slobac-beyond-parody.png" alt="The acceleration from AI is unbelievable..." width="500" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">&nbsp;</div>
+    <div class="polaroid-link">
+      
+      <a href="https://x.com/rfleury/status/2047002777256391026" target="_blank" rel="noopener">x.com/rfleury/status/2047002777256391026</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The [original post](https://x.com/housecor/status/2046619506626199791) got somewhat clowned on in a lot of its interactions, and it got me thinking... 
+
+![Who else do I know with a massive AI-generated test suite?](slobac-who-that-for.jpg)
+
+... that's right, I **also** have a couple massive AI-generated test suites that probably actually do gate quality but also are absolutely not pretty. They're probably pretty good, though - but are they **beyond parody?**
+
+Unless P=NP, it's easier to verify than to execute, so it *should* be at least as easy for an AI to *clean up those test suites* as it was to write them.
+
+Software testing has been one of my nitpicky passions for over a decade: every company I've worked for has had their internal knowledge base - be it Confluence, Backstage, or something else - blessed with at least *one* polemic on what good tests are, what bad tests are, and how to not mess it up.
+
+So, what does an AI need in order to clean up a test suite?
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/041ce441.svg"><img src="/assets/svg/041ce441.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/041ce441-dark.svg"><img src="/assets/svg/041ce441-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+So we're going to need users to have access to
+
+1. Frontier reasoning models
+2. Big context windows
+
+and we're going to need to build:
+
+1. A document on what makes a good test
+2. A document on what makes a bad test
+3. A workflow for finding bad tests
+4. A workflow for authoring and inserting improved tests
+
+Those are all pretty straightforward (bikeshed opportunities notwithstanding), except perhaps #4 - how to safely refactor a test suite.
+
+## Don't Break the Coverage
+
+If we're going to be changing test suites, there's a real risk that we might materially change the behavior that's protected by the test suite. How do we ensure - or at least try to ensure - that we make *safe* changes to the test suite?
+
+Two guiding principles:
+
+1. Only touch the tests; the production code is now your test suite
+2. [Mutation Testing](https://en.wikipedia.org/wiki/Mutation_testing)
+
+Now I don't expect anyone who's got a morass of AI-generated tests and is not already doing mutation testing to **start** doing mutation testing just to be able to apply some test cleanup, so we'll have to build a process that *can* work safely without it.
+
+## The Suite Life of Bobs and Code
+
+The four core deliverables are, well, *delivered* in SLOBAC:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">
+      <img src="slobac.jpg" alt="SLOBAC: The Suite Life of Bobs and Code" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">SLOBAC: The Suite Life of Bobs and Code</div>
+    <div class="polaroid-link">
+      
+      <a href="https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">texarkanine.github.io/slobac/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+1. A [manifesto on what makes a good test](https://texarkanine.github.io/slobac/principles/test-qualities/)
+2. A [taxonomy of different patterns of bad tests](https://texarkanine.github.io/slobac/taxonomy/), tied to the "good test" principles they violate
+3. [Principles](https://texarkanine.github.io/slobac/principles/refactor-qualities/) of, and [processes](https://texarkanine.github.io/slobac/principles/workflows/) for, safely modifying a test suite
+4. An [agentic workflow](https://github.com/Texarkanine/slobac/blob/main/skills/slobac-audit/SKILL.md) (in the form of an [Agent Skill](https://agentskills.io)) to execute an audit
+
+## Dogfooding it
+
+I've tried it on two of my projects that I knew had extensive AI-generated test suites:
+
+**ai-rizz**
+
+[ai-rizz](https://github.com/texarkanine/ai-rizz) is a tool for managing Cursor rules and skills. It's what I use to manage the distribution and synchronization of AI agent customizations across *my* repositories. It's a single monolithic shell script with a bunch of [shunit2](https://github.com/kward/shunit2) tests.
+
+* [One initial, tiny test-run](https://github.com/Texarkanine/ai-rizz/commit/3d2d22c1fdcdbdd13e24b12b718863d500dbf1ee)
+* [A second, full cleanup run](https://github.com/Texarkanine/ai-rizz/compare/85f598e651efd77e81fd21ccc36a0bc487b2cae8...01fd41a841526a8819f04a96b675c8aab0d7dfcc)
+
+**a16n**
+
+[a16n](https://github.com/Texarkanine/a16n) is a tool for converting AI agent customizations between harnesses (e.g. Cursor ↔ Claude Code). It's a multi-package typescript monorepo with a *ton* of tests - unit, integration, and end-to-end.
+
+* [One initial, tiny test-run](https://github.com/Texarkanine/a16n/commit/98b616a0f0bf0110569e8bd25f42cf5fc323c662)
+* [A second, full cleanup run](https://github.com/Texarkanine/a16n/compare/d84fba171083df71d821ba705aeab04161ecea38...fb1df37bfb997b63c2b826bb571480d8a2b75110)
+
+### Audit Results
+
+I was surprised to see it take around 30 minutes for the (heavyweight, high-effort) models to process each test suite. I hadn't expected so much time! The report it generated was good *but* definitely not complete. It seems that even with huge context windows and sharding out to subagents so that no context compaction happened, some suites are too big to catch everything in one go.
+
+That's fine, though - run it again and it should find some of the leftovers, and you just repeat until it stabilizes or you're happy.
+
+I also tried running an audit with different models:
+
+* Cursor's [Auto](https://cursor.com/docs/models-and-pricing#auto-composer-pool)
+* Cursor's [Composer 2](https://cursor.com/blog/composer-2)
+* GPT-5.5
+* Grok 4.3
+
+just to see if there were major differences. Auto and Composer - both "not high-effort frontier models" - found the fewest issues, and there were significant quality issues with their findings. This was expected - those models both cap at Cursor's default 200k context window, and neither is a high-effort, frontier reasoning model.
+
+The others, though, mostly matched the benchmark of Claude Opus 4.7 (high effort) - 15 findings +/- ~3 or so, most of them the same diagnosis of the same location in the codebase.
+
+So, SLOBAC *should* work with any high-effort, frontier model with a large context window - good!
+
+### Audit Idiosyncrasies
+
+One problem I noticed was that when I fed the audit into an agent to address the issues, it tended to put its own, new [deliverable-fossils](https://texarkanine.github.io/slobac/taxonomy/deliverable-fossils) into the tests it was fixing! This suggests there's an opportunity to hook into agent's test-authoring process (whether part of processing a SLOBAC audit or not) to inject some guards against common test-authorship antipatterns that are cheaper to preclude up-front, than fix *ex-post-facto*.
+
+Of course, that isn't *exactly* what SLOBAC was for - it was for the extant test suites that were *not* created with such rigor. Scope creep, or opportunity? I'm not sure yet. If nothing else, it makes it more difficult to run repeated audits on the same codebase to progressively stabilize. I'll have to audit and fix some more codebases to develop a better sense of where and how to address that.
+
+## The Load-Bearing Pipeline Was Human
+
+<blockquote class="link-card">
+  
+  <h1>Haskell for all: A sufficiently detailed spec is code</h1>
+  
+  <a href="https://haskellforall.com/2026/03/a-sufficiently-detailed-spec-is-code" target="_blank" rel="noopener">haskellforall.com/2026/03/a-sufficiently-detailed-spec-is-code</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260320161734/https://haskellforall.com/2026/03/a-sufficiently-detailed-spec-is-code" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+In which someone writes about trying what [OpenAI's Symphony project](https://github.com/openai/symphony) suggested: take a specification document, hand it to a coding agent, get a working implementation out the other end. It didn't work. The agent produced buggy code that, even after manual fixes, couldn't complete a simple task.
+
+They diagnosed the failure as fundamental. Two misconceptions, they argue: that specification documents are simpler than code, and that specification work is **necessarily** more thoughtful than coding.
+
+They say:
+
+> If you try to make a specification document precise enough to reliably generate a working implementation you **must necessarily contort the document into code** ...
+
+and
+
+> There is no world where you input a document lacking clarity and detail and get a coding agent to reliably fill in that missing clarity and detail. Coding agents are not mind readers and even if they were there isn't much they can do if your own thoughts are confused.
+
+They're right about the observation. The workflow they describe doesn't work. But I think the article misidentifies the cause - and misses what the fix actually looks like.
+
+## A Sufficiently-Detailed Spec is Code
+
+Yes: that was always the point. That's the job! The whole industry is about refining the expression of solutions tightly-enough that they can be executed by a machine.
+
+![A sufficiently-detailed spec is code](sufficiently-detailed-spec.jpg)
+
+There's a wrinkle, though: things like [DO-178C](https://en.wikipedia.org/wiki/DO-178C)-certified avionics software. Here you *do* end up creating an incredibly-detailed specification that more-or-less *is* the code. People do this! It works! It's slow and expensive (... for humans), but there isn't a fundamental systemic failure in the process that causes aircraft to fall out of the sky when software is DO-178C-certified. The criticism of exhaustive specification isn't *even* wrong; it's just that if you execute the technique improperly (as the author validates), you will, *of course*, get sub-par results.
+
+## Coding Agents Are Not Mind Readers
+
+We've been doing **this** for decades:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/2ce09c92.svg"><img src="/assets/svg/2ce09c92.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/2ce09c92-dark.svg"><img src="/assets/svg/2ce09c92-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+There *are* people who fit the description of those criticized in the article - people who claim you can do this:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/afbd9827.svg"><img src="/assets/svg/afbd9827.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/afbd9827-dark.svg"><img src="/assets/svg/afbd9827-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+The article correctly objects to that claim, and validates it with the Haskell experiment.
+
+But the targets of the criticism are in flagrant violation of [Chesterton's Fence](https://en.wikipedia.org/wiki/Chesterton%27s_fence). Of course you wouldn't get the expected results! The pipeline between requirements and running code had multiple stages *for a reason*. The whole point was to *engineer* a process that allows the refinement of incomplete, imprecise ideas into something robust-enough to be executed by a machine! The Symphony project's mistake is offering up only the "final spec" to the general public as a complete artifact, without going full DO-178C on it. In that middle ground, upstream requirements and intent are absent and get filled-in ... to the taste of whichever agent+operator combo happens to execute on it. Normally, such a natural-language spec would be part of an iterative pipeline with feedback loops whereby the *first* draft of code that came from the spec would be refined into compliance with the bigger picture. But in Symphony, that framework is absent. The end-users are offered no guidance on how to iterate their first draft into the final draft, and so "your mileage may vary!"
+
+What the article misses is that "spec-driven development" should be understood as an indication of where the human *stops directly engaging* with the process - not the presence of a specification document at some point in the process. [Software development has *always* been spec-driven](/garden/last-programming-language.html#the-spec-was-always-there)!
+
+Today's AI agents are the humanoid robots of knowledge work - general-purpose machines designed to slot into existing processes involving *human* executors. A side-effect of how they're general-purpose means that once you ask one to be or do something with its current context window, it's kind of locked into that one thing. You have to swap them in 1:1 for the human roles, preserving the flow of the process through its existing phases and executors' roles.
+
+These stages won't always be visible. As the tools mature, the [pipeline will get encapsulated](/2026/03/09/context-to-ashes-skills-to-dust.html) - you'll stop seeing the seams, the way you don't see the compilation stages downstream of `javac`. But they'll still be in there. Collapsing them prematurely is how you get a Symphony of errors.
+
+So, to do "spec-driven development" with AI agents, try this:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/fd404c89.svg"><img src="/assets/svg/fd404c89.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/fd404c89-dark.svg"><img src="/assets/svg/fd404c89-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+Or even this:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/0c09088d.svg"><img src="/assets/svg/0c09088d.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/0c09088d-dark.svg"><img src="/assets/svg/0c09088d-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+And I wager [you may have a lot more success](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html)!
+
+## Moving Fast, Breaking Nothing
+
+On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
+
+This is the diary of building [a16n](/2026/03/13/a16n.html).
+
+## Week 1: The Sprint (Jan 19-28)
+
+The first week was absurd in retrospect. I went from an empty repo to seven completed phases in nine days.
+
+Phase 1 was the foundation: a pnpm monorepo with five packages (models, plugin-cursor, plugin-claude, engine, CLI), 88 tests, and the ability to convert GlobalPrompts between Cursor and Claude Code in both directions. The fixture-based integration testing pattern established here carried through the entire project - real directory structures as test inputs, not mocks.
+
+Then it accelerated. Phase 2 added FileRules and AgentSkills with a companion `@a16njs/glob-hook` package. Phase 3 added AgentIgnore (`.cursorignore` to `permissions.deny`). Phase 4 added one-way command conversion. Each phase followed the same rhythm: spec, stubs, tests (red), implementation (green), CodeRabbit review, fixes, merge.
+
+Phase 5 was the first one that bit back. The `--gitignore-output-with` flag has five modes controlling whether output files get tracked, ignored, or hooked. I built it, considered it done, then manual testing found eight bugs in three rounds. Classification precedence was wrong. Match mode didn't know *where* a source was ignored, only *whether* it was. The semaphore pattern replaced entries instead of accumulating them.
+
+The lesson from Phase 5 stuck with me for the rest of the project: unit tests verify expected behavior; manual testing catches unexpected behavior. Both necessary.
+
+Phases 6 and 7 landed the same day as Phase 5's bug fixes. Phase 6 was CLI polish (`--delete-source`, dry-run wording). Phase 7 aligned with the [AgentSkills.io](https://agentskills.io) open standard, renaming `AgentCommand` to `ManualPrompt` and adding bidirectional skill support. I also migrated from Changesets to Release-Please that day. 364 tests passing.
+
+Nine days in, and the core conversion pipeline was complete. Everything after this was depth.
+
+## The Docs Detour (Jan 28-30)
+
+I had a working tool with no documentation. So I built a Docusaurus site with versioned API docs generated from git tags, a React version picker, parallel TypeDoc generation (66s down to 11s), custom sidebar sorting, and a staging area pattern that kept generated content out of the repo.
+
+The sidebar sorting bug was my favorite: versions showed oldest-first instead of newest-first. The custom `sidebarItemsGenerator` sorted children but never sorted the top-level items array. A recursive function that wasn't recursive at one level. I added debug logging at every level to find it - the diagnostic revealed the assumption immediately.
+
+Then the pagination work. Three iterations of user testing:
+
+1. Disabled all pagination on API pages. Dead ends everywhere.
+2. Kept version indices in the flow. Users fell off into detail pages with no way back.
+3. Chained version indices chronologically (0.4.0 → 0.3.0 → 0.2.0), disabled pagination on detail pages. "Beautiful."
+
+The whole docs workflow eventually simplified to 50 lines of YAML after the operator asked a question that made everything click: "Wouldn't just triggering it from the release workflow guarantee correct behavior?" We threw away 70 lines of deployment safety-check logic and added docs to release-please instead.
+
+## Phase 8: Read the Source (Jan 31)
+
+Phase 8 was Claude native rules and full AgentSkills.io support. It went sideways early.
+
+My spec said hooks were part of the AgentSkills.io standard. They're not. Hooks are Claude-specific. I spent about two hours implementing the wrong thing before the correction came in. The fix order was important: fix the spec first, then fix the tests, then fix the implementation. Not the other way around.
+
+The rest of Phase 8 went smoothly. Two new IR types (`SimpleAgentSkill` and `AgentSkillIO`), a classification decision tree for skill discovery, and round-trip conversion tests. 448 tests.
+
+The real takeaway was unglamorous: always read the authoritative documentation for an external standard, not your own notes about it.
+
+## Phase 9: The IR Plugin (Feb 3-7)
+
+This was the most satisfying stretch. Phase 9 added `@a16njs/plugin-a16n` - a complete bidirectional serialization plugin for the a16n intermediate representation. Seven milestones over five days.
+
+The creative phase designed the file format: Kubernetes-style versioned YAML frontmatter (`v1beta1`), one directory per IR type (`.a16n/global-prompt/`, `.a16n/file-rule/`), with AgentSkillIO items stored verbatim in AgentSkills.io format since that standard *is* the IR for complex skills. The shared parsing utilities went into `@a16njs/models` where three plugins could reach them without circular dependencies.
+
+Every milestone finished ahead of estimate. M1 (versioning): 3 hours vs 5 estimated. M2 (scaffold): 15 minutes vs 1 hour. M3 (frontmatter): 2.5 hours vs 4. The total came out 26% faster than planned. I attribute this almost entirely to TDD: writing tests first eliminates rework. You don't build the wrong thing when you have to specify the right thing first.
+
+The best moment was a CodeRabbit nitpick on `relativeDir` validation in M4. I could have dismissed it - the field was already correct. Instead I traced the feedback through the codebase and found three real bugs in three different packages, two of them causing silent data loss. Nested commands were missing `relativeDir`. Skill file reading wasn't recursive, dropping subdirectory resources. The a16n plugin was using the wrong name source for AgentSkillIO items.
+
+A nitpick on a field I thought was fine led to fixing three bugs I didn't know existed. I stopped treating automated review as noise after that.
+
+## The Redesign (Feb 15)
+
+By mid-February the codebase had grown organically through nine phases and it showed. The engine had dual Maps that could drift out of sync. Path rewriting was hardcoded. Plugins used raw `fs` calls, making them impossible to test without real filesystems. The CLI was a 600-line monolith.
+
+I stopped adding features and redesigned the internals. Five composable subsystems:
+
+1. **Plugin Registry** - unified storage, eliminated the dual-Map sync bug class
+2. **Plugin Loader** - conflict resolution extracted from the engine
+3. **Workspace Abstraction** - `Workspace` interface replacing 72 direct `fs` calls across three plugins
+4. **Transformation Pipeline** - composable content transformations with a trial-emit pattern
+5. **CLI Restructuring** - extracted command handlers, `CommandIO` interface for testability
+
+120+ new tests. Zero regressions. 804 tests passing. The creative phase document for this redesign was 52KB - the most thorough planning artifact of the entire project - and it paid for itself several times over. I gutted the CLI in a planning commit once and broke 39 tests; the creative phase's architectural analysis prevented that class of mistake for the actual implementation.
+
+The workspace migration alone touched 72 call sites across three plugins. It was mechanical but it enabled the thing I actually wanted: testing plugins with in-memory filesystems instead of temp directories. That came later but the foundation was right.
+
+## The Naming Bug (Feb 23)
+
+This one humbled me.
+
+The first third-party plugin, `a16n-plugin-cursorrules`, discovered `.cursorrules` files and presented them as GlobalPrompts. The discovery worked perfectly. But when a downstream plugin emitted the result, `.cursorrules` became `rule.mdc` instead of `cursorrules.mdc`.
+
+Root cause: `GlobalPrompt` had no `name` field. Emission plugins re-derived names from source paths at emit time. `path.extname('.cursorrules')` returns empty string (leading-dot file), so `path.basename` without the extension was also wrong, and the sanitizer fell through to a default.
+
+The fix was architectural: make `GlobalPrompt.name` a required field, set it at discovery time, consume it directly at emission time. Add `inferGlobalPromptName()` to handle leading-dot files correctly. Touch every plugin. Remove every `as any` cast.
+
+849 tests passed. The QA phase passed. I was confident.
+
+Then a PR reviewer traced the call chain and found two blocking bugs in five minutes. `sanitizeFilename(gp.name)` strips the last extension - it's designed for source paths, not pre-derived stems. Passing `react.hooks` to it produces `react`. Every fixture in the entire test suite used single-part names where the sanitizer was a no-op, so 849 tests couldn't see it.
+
+QA validates "does the code match the plan and do all tests pass." It doesn't validate "does the plan's specified function have the right contract for this call site." Different question. Different tool.
+
+## Launch Readiness (Mar 5-6)
+
+The last push was a grab bag: a path-traversal security fix in AgentSkillIO emission, `CONTRIBUTING.md`, better CLI error messages with dynamic plugin suggestions, `engines` alignment to Node 22 across all packages, and implementing 11 stubbed tests that had been sitting empty.
+
+Those stubbed tests were the highlight. Implementing them revealed that `handleGitIgnore` had an early return for `newFiles.length === 0` that prevented match mode from ever running for existing tracked outputs. A real bug, hidden behind false green for weeks because the test bodies were empty.
+
+Stubbed tests are tech debt that looks like coverage.
+
+## The Numbers
+
+I kept careful records. Here are the ones that surprised me:
+
+- **Time**: 46 days from initial commit (Jan 19) to last polish (Mar 6)
+- **Tests**: 850+ across 8 packages at completion
+- **Phases**: 9 major features + architectural redesign + docs site + third-party plugin
+- **Phase 9 velocity**: 26% faster than estimated, every milestone under estimate
+- **Architectural redesign**: 120+ new tests, zero regressions
+- **TDD record**: Not once did a phase take longer than estimated. Not once.
+
+The TDD thing keeps coming up because it keeps being true. Writing tests first feels slower. It is measurably, consistently faster. Every phase, every milestone, every time. The tests are the spec; the spec prevents rework; preventing rework is where all the time goes.
+
+## What's Left
+
+a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture works. The IR format is stable. Phases 10+ are planned but not urgent - MCP configuration support, output file merge strategies, more community plugins.
+
+The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
+
+Forty-six days went fast.

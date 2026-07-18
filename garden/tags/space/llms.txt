@@ -1,0 +1,7 @@
+# space
+
+> Garden tag: space
+
+## Garden
+
+- [Asymmetric Spaceships](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/index.md): A shrine to ships that violate symmetry on one - or better yet, multiple - axes.

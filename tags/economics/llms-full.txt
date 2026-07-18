@@ -1,0 +1,242 @@
+# economics
+
+## Good Money Should Be Worthless
+
+If you work for your money but somebody else can just print it, you're getting robbed. You don't need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.
+
+Let's call this person Mr. Money Printer. He has a nice setup. As long as he's the only one with a printer, he can always cut in line ahead of you. Need a house? He prints and outbids you. Want to invest? He prints and gets there first. A new car? He's printed the full sticker price and driven it off the lot before you even get a chance to talk to a salesperson. Your labor earns; his printer simply takes.
+
+Your first instinct is obvious: get your own printer. But Mr. Money Printer thought of that already. He enjoys a privileged position precisely because he's the only one printing, and he'll spend whatever it takes to keep it that way. In the United States, for example, the Secret Service was founded in 1865 - before they ever guarded a president - for the sole purpose of [making sure nobody else gets a printer](https://en.wikipedia.org/wiki/United_States_Secret_Service#Early_years). [Counterfeiting is a federal crime](https://www.secretservice.gov/investigations/counterfeit) because competing printers threaten the monopoly that makes the original printer valuable.
+
+So you can't print. What now?
+
+## Find Your Own Money
+
+If Mr. Money Printer's money is rigged, stop using it. Find something else to use as money - something he can't print. What you're looking for has two properties: it should be impossible (or at least very, very expensive) to create, and the only realistic way to get it should be to earn it from someone who already has it.
+
+Ideally, you want a truly fixed supply. No new units, ever. Failing that, you want the supply to grow as slowly as possible - slowly enough that Mr. Money Printer's advantage is negligible.
+
+Humanity spent thousands of years on this problem, and the best answer it found was gold.
+
+## Gold: Pretty Good
+
+You can [technically create gold](https://home.cern/news/news/physics/alice-detects-conversion-lead-gold-lhc) via [nuclear transmutation](https://www.scientificamerican.com/article/fact-or-fiction-lead-can-be-turned-into-gold/). It costs orders of magnitude more than the gold is worth. So for practical purposes, the only "printer" for gold is mining, and mining is slow. Annual mine production adds roughly [~2% to the existing above-ground stock](https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-q2-2025). The total supply doubles about every ~50 years. In monetary terms, gold's stock-to-flow ratio is around 50 - meaning it would take 50 years of mining at current rates to match what already exists.
+
+That's pretty good. It means gold miners are, functionally, operating a very slow money printer. Slow enough that for most of human history, gold held value remarkably well across generations. If you want the full treatment of why gold emerged as the dominant money across civilizations, [Saifedean Ammous's *The Bitcoin Standard*](https://saifedean.com/the-bitcoin-standard/) does excellent work.
+
+## The Problem With Useful Money
+
+Gold is useful. Electronics, aerospace, medical devices, AI chips - [industry and technology consumed about 326 tonnes of gold in 2024](https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2024/technology). That's a modest share of total gold demand, because gold is one of the rare cases where the monetary use still dominates the industrial use. The problem isn't the size of gold's industrial consumption today; the problem is the structural tension it creates.
+
+Industries that use gold as a raw material have every incentive to make gold cheaper and more abundant. Better extraction techniques, more efficient recycling, new deposits - all of these are just good business for a chip fabricator or a jeweler. But for everyone holding gold as money, every incremental improvement in gold production is functionally identical to money printing. The interests are irreconcilable: people holding gold-as-money want maximum scarcity, and people using gold-as-input want minimum scarcity.
+
+For gold, this tension is manageable because the "printing" has stayed both slow, and constant. The industrial tail doesn't wag the monetary dog... But look at what happens when the balance tips the other way:
+
+## Silver: What Losing Looks Like
+
+Silver was money for millennia. The word "dollar" [descends from "thaler,"](https://www.etymonline.com/word/dollar) a silver coin. Major economies ran on silver standards. And then industry ate it alive.
+
+In 2024, total silver demand reached [1.16 billion ounces against global mine production of just 819.7 million ounces](https://silverinstitute.org/silver-industrial-demand-reached-a-record-680-5-moz-in-2024/). Demand exceeds what miners can pull out of the ground by over 40%. The market ran a structural deficit for the fourth consecutive year, burning through 148.9 million ounces of existing stock. The cumulative deficit from 2021-2024 totals 678 million ounces - equivalent to ten months of global mine production.
+
+Industry didn't just nibble at silver's monetary function. It devoured it. Solar panels, electronics, electric vehicles - silver's physical properties make it genuinely irreplaceable in applications that have nothing to do with money. No major economy uses silver as a monetary standard anymore. The utility won.
+
+## Copper: The Endgame
+
+If silver is what losing looks like in progress, copper is what it looks like when it's over. Copper was among humanity's earliest monies - commodity currency in Mesopotamia five thousand years ago, cast into bronze coins across [China](https://en.wikipedia.org/wiki/Ancient_Chinese_coinage) and [Rome](https://www.worldhistory.org/Roman_Coinage/). For centuries, copper coinage was the everyday money of ordinary people across empires.
+
+The most spectacular failure was Sweden's copper standard, which ran [from 1624](https://www.riksbank.se/en-gb/about-the-riksbank/history/historical-timeline/1600-1699/copper-standard-is-introduced/) to 1776. Sweden had Europe's largest copper mines and not much silver, so they made copper their monetary standard. Since copper was far less valuable by weight than silver, high-denomination [coins had to be enormous](https://www.money.org/tales-from-the-vault-swedish-plate-money-too-heavy-to-steal/). The 10-daler piece weighed 44 pounds! Citizens [needed sleds to go shopping](https://ekonomiskamuseet.se/en/exhibitions/earlier-exhibitions/exhibition-plate-money/). When global copper prices shifted, the coins' monetary value kept collapsing to their commodity value. The government "printed" more. The central banker responsible was [eventually beheaded](https://safehaven.com/article/1450/why-swedens-central-banker-was-beheaded---1719ad) for his trouble.
+
+Today nobody even considers copper as money. It's too easy to produce, too industrially consumed, too abundant. The endgame of utility winning is total *demonetization.*
+
+These three metals form a gradient:
+
+1. **Copper:** utility won completely, demonetized centuries ago. 
+2. **Silver:** utility winning right now, functionally demonetized within living memory.
+3. **Gold:** utility nibbling at the edges, still mostly monetary but structurally vulnerable to the same force that killed the other two.
+
+The only difference is timescale.
+
+## Real Estate: The Contemporary Version
+
+You can watch this same dynamic play out right now, with something that was never intended to be money at all.
+
+As printable monies lose purchasing power (on account of, you know, the money printing), people flee into scarce assets. Real estate is a favorite: "they're not making any more land," the reasoning goes. Scarcity? Check. Can't be printed? Check. People are *monetizing* houses - buying them not to live in but to store value.
+
+The result is that housing becomes unaffordable for people who need it *as housing.* This is what happens when you use a useful thing as money: you create a zero-sum fight between people who need it for its purpose and people who need it as a store of value. The act of monetizing something useful degrades the utility for everyone else.
+
+## The Ideal
+
+So we arrive at an initially counterintuitive conclusion: the best money should be totally worthless... for everything except *being money.*
+
+If your money has real-world utility - if it's a good conductor, a pretty necklace, a place to sleep - then somebody, somewhere, has an economic incentive to figure out how to make more of it. They're not trying to undermine your savings; they're just trying to get their raw materials cheaper. But the effect on you is identical to money printing.
+
+You want your money to have no industrial applications, no decorative appeal, no physical utility whatsoever. You want something that nobody would ever bother producing except to use *as money.*
+
+## The Paradox
+
+This sounds impossible. Scarcity usually arises *because* something is useful:
+
+1. Things are useful because they have properties people want.
+2. People expend effort to acquire things with properties that people want.
+3. The low-hanging fruit is acquired, and now it takes more *effort* to acquire more of the things.
+4. Effort to acquire is what we call scarcity.
+
+Useless things, almost by definition, tend to be abundant. Nobody corners the market on sand in a desert.
+
+You need something that is scarce and useless, but scarcity without utility has precious little, if any, natural precedent. So you're looking for something that shouldn't exist.
+
+## Bitcoin
+
+In 2009, something that shouldn't exist was invented.
+
+[Bitcoin](https://bitcoin.org/en/how-it-works)'s supply is fixed at 21 million. Not approximately fixed, not fixed-unless-we-find-a-new-deposit, not fixed-but-growing-at-2%-per-year. Fixed by protocol. The issuance schedule is enforced by mathematics, not geology or policy. No amount of investment in "Bitcoin mining" can increase the supply beyond what the protocol dictates - miners compete for a **fixed** reward that halves on a known schedule until it reaches **zero.**
+
+And bitcoin is, by any traditional measure, completely useless. You can't build circuits with it. You can't wear it. You can't live in it. There is no industrial demand for bitcoin, no sector of the economy trying to figure out how to produce it more cheaply as a manufacturing input. Nobody has a balance sheet with "bitcoin costs" as a line item they're trying to drive down.
+
+"You can't *do* anything with it" is the feature. Every prior form of money has been locked in a structural conflict between its monetary users and its industrial users, and the industrial users have won every single time given enough time. Bitcoin has no industrial users. There is no conflict. There is nothing to win... so **you** don't have to lose.
+
+## The Load-Bearing Rate Limiter Was Human
+
+## Thesis
+
+> It is now possible to do knowledge work faster than customers can pay for it, and faster than knowledge work**ers** can get **paid** for it.
+
+The money-to-productivity pipeline no longer requires time as a fixed-rate intermediary, and neither companies nor individuals are ready for what that means.
+
+## The Transaction That Changed My Mind
+
+I had a task. With Claude Sonnet, I could babysit the model through understanding, designing, planning, checking, and committing over the course of about four hours. Cost: maybe $5 in Cursor usage and four hours of my undivided attention.
+
+With Opus, I wrote a spec, walked away, and came back to a finished product. Thirty minutes. About $30.
+
+The dollar cost was 6x higher. The *me* cost was roughly 8x lower. I wasn't writing code in either case - the difference was whether I had to stand there being the bottleneck/manager or whether I could go be a person for a while.
+
+Dollars are painful when they leave your wallet... But I spent my *day* on the cheap version. And I only get so many of those (days, that is).
+
+That $30/30min vs $5/4hr comparison is the transaction that reframed everything for me because it surfaced a question that sounds simple but has enormous consequences: 
+
+> who really came out ahead?
+
+## The 1X Bottleneck
+
+You might be tempted to normalize my comparative costs above to $60/hr vs $1.25/hr, but that's not quite right - it assumes that each hour is the same... and they're not, not anymore.
+
+Historically, the path from money to productivity in knowledge work has always been:
+
+**Money -> Time (1X) -> Productivity**
+
+A company pays a salary. That salary buys a commitment to a year of work hours. The company tries to hire the human who will convert those hours into the most output. Maybe they pay $50K and get a baseline, or $300K for someone who produces genuinely 10x the value - but even the mythical 10X engineer lives through time at 1X speed. You could buy a *better converter*, but you could never buy a *faster clock*. No matter the conversion rate, it was always going to run at 1X speed: you can't overclock a human.
+
+In my experience, as of late 2025, frontier AI models have broken that constraint. Nevermind the early-2026 drops of Opus 4.6 and GPT-5.3-Codex. The middle of the pipeline is no longer a human metabolizing time. It's tokens, and tokens scale in a way that humans don't.
+
+When crypto miners discovered GPUs could convert electricity into money faster than entertained gamers could, miners repriced the entire GPU market in the blink of an eye. AI is doing the same thing to knowledge labor: a more efficient converter has arrived, and it's about to reprice everything.
+
+## Productivity Hyperscaled. Revenue Hasn't.
+
+The immediate, observable consequence: productivity is going vertical while revenue takes the stairs.
+
+After my Opus revelation, I burned through the $200 of my Cursor Ultra budget in barely five days. The productivity was real - tasks that would have taken weeks were landing in hours. But I couldn't sustain it. I didn't have $1,000/month for this. So I fell back to the slow path, rationing tokens, babysitting models again. Fifteen days into austerity and counting and it feels like Slow Wifi.
+
+Before, though, projects that would have taken a year of spare evenings now cost $50 and a Saturday morning. And that was amazing! Refreshing! Exciting! But! These projects were never going to generate revenue. When they cost a year of spare time, that was fine - the time was "free" in the sense that I wasn't selling it to anyone. Now that they are costing me actual dollars, the lack of a revenue model becomes a real problem.
+
+Companies are going to hit this same wall at scale. They budget annually: a year of salary against a year of expected output against a year of expected revenue. When a skilled AI-wielding engineer burns through a year of planned work in two months, they also burn through a year of token budget. The work is done, the money is spent, and now everyone's standing around the finish line with ten months of operational costs and no new revenue. The constraint isn't distribution - you *can* ship a hundred improvements in a month. The constraint is absorption. Human customers adopt, integrate, and respond at human speed. Drop ten improvements on a product in a week and your conversion rate doesn't budge ten-fold that week. The demand side has its own metabolism, and it's still running at 1X.
+
+You don't have a productivity problem anymore. You have a *digestion* problem.
+
+## Constant Discernment!
+
+The intuitive response to unprecedented productivity is "do everything faster." The correct response is almost the opposite: be more discerning about what you unleash productivity on.
+
+If you can finish a project in a week, you could theoretically finish at least four, maybe a dozen, in a month. But you don't want to, because you'll burn all your cash before the market has a chance to respond to any of them. The capability is there. The absorption capacity isn't.
+
+This is a genuinely novel constraint for most knowledge workers and the companies that employ them. We've spent decades optimizing for "how do we get more done?" and now the answer is "easily, but that's no longer the right question." The right question is 
+
+> Which things, done now, will generate returns before the budget runs out?
+
+When the human was the rate limiter, spend and revenue were temporally coupled - a year of salary forced a year of output and that happened over a year of revenue collection. Remove the rate limiter from the supply side (output and spend) but not the demand side (customer adoption and revenue) and one side can compress to months while revenue still takes its year to arrive. The calendar was load-bearing too.
+
+## The Multi-Tenancy Engineer
+
+Follow the math to its conclusion.
+
+If you can convert a company's entire annual productivity budget into output in one-tenth the time, you're meaningfully working about 80 to 90 minutes of an eight-hour day (accounting for overhead & that I'm doing napkin math here). The company got every dollar's worth of productivity it paid for. You just delivered it fast.
+
+The logical outcome is one engineer, multiple employers. Nobody is worse off. Company A paid for X productivity and got X productivity. The fact that it took you 90 minutes instead of 8 hours is a property of the converter, not the contractual agreement to convert. You haven't cheated anyone; you've simply become a more efficient machine.
+
+This used to be frowned upon. It might still be, but the reasoning behind the taboo - that working for multiple employers means each one gets less than they paid for - breaks down when the bottleneck was never your effort but the clock you were living through. The multi-tenancy engineer isn't moonlighting. They're just... done.
+
+## Dark Corollaries
+
+The multi-tenancy engineer is perhaps an optimistic outcome. A pessimistic one is that companies see six hours of surplus capacity per day and reprice labor downward. "We'll give you a token budget instead of a raise." They can't ask for *more* productivity, because of the revenue scaling constraint - the marginal return on productivity has hit zero. But someone's going to look at a 10x engineer with six free hours and want to capture that spread.
+
+*Arbitrage* is the word for this entire landscape.
+
+Engineers arbitrage their own time across employers. Companies try to arbitrage compensation against token costs. Model providers arbitrage compute against everyone's exchange rates & cash flow. VCs arbitrage the information asymmetry of who understands the new exchange rates and who doesn't.
+
+Arbitrage, all the way down. Whoever recognizes the new rates first wins. Whoever clings to the old rates longest gets arbitraged themselves.
+
+A shadow looms among the optimistic outcome too, though: If the multi-tenancy engineer pans out and works for, say, 3 companies, delivering the 1x annual productivity that each can actually afford... that's potentially two other humans who don't get hired. The productivity gains introduce a booming appetite for employment but the *supply* of employment is gated by revenue to pay for it, which remains - for now at least - running at the 1X speed of human customers.
+
+Timing is everything here - if the multi-tenancy engineer becomes the new normal *slowly*, everything could have time to adapt. If market absorption gets a kick in the pants from AI and scales up to match the capacity to produce, the actual spread to arbitrage (and the disruption it invites) could be small. If, if, if...
+
+## What to Do
+
+I don't have a clean answer. Some fragments:
+
+Watch whether revenue scaling follows productivity scaling. If it doesn't, the gap between what you *can* build and what the market will pay for is your actual constraint. Not your engineering capacity. Not your headcount. The market's ability to digest what you ship.
+
+Be discerning. Strategic restraint in the face of unprecedented capability is counterintuitive, but burning cash faster than revenue arrives is how companies die. The ability to ship isn't the bottleneck anymore: market absorption is... and many people haven't noticed yet.
+
+If you're an individual knowledge worker, start thinking about what it means when you can fulfill everything a company can afford to pay you for in a fraction of the time it used to take. That surplus capacity is *yours*, even if the cultural norms haven't caught up yet.
+
+If you're an employer, consider thinking about token budgets not as a cost-center, nor as a line-item on a team's budget, but as a *payroll* expense. You pay your humans a salary to secure a conversion of that money into productivity, over time. LLMs are the new converters on the block, just running on a different clock. Budget against the new reality!
+
+And keep an eye on the arbitrage. It's coming from every direction and your position in the spread determines whether this transition is a windfall or a haircut. Right now, the spread is wide - which means the stakes are high and the window won't stay open forever.
+
+---
+
+### Postscript
+
+The literal morning after I wrote this, Anthropic [dropped Claude Opus 4.6 Fast](https://x.com/claudeai/status/2020207322124132504), 2.5x faster at 6x the cost - so the numbers in my "aha" would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:
+
+1. Spend a month of Saturdays on a hobby project, and finish it for $0 in token costs.
+2. Spend a whole weekend on it for $20 in token costs.
+3. Complete the whole project in under an hour for $900 and have the rest of the *month's* weekends free.
+
+This sudden 2.5x multiplication of the money-to-productivity ratio - that was already on its way to the moon - just makes the effects described above all the more poignant!
+
+Some of you might say that choice 1 is the obvious choice, because you *enjoy the hobby*. This is okay and absolutely allowed and if it's true for you then none of this applies to your hobby right now – [you're an artist](/2026/01/01/desire-makes-artists-even-with-genai.html#the-artists-among-them) in this moment. The knowledge-work industry, however, is not – and you *will* at the very least bear witness as it struggles to adapt to the new calculus.
+
+### Post-Postscript
+
+A few days later, [Steve Yegge](https://steve-yegge.medium.com/) of [Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04) fame has written about what I will claim is this same phenomenon, but from a different angle. [The AI Vampire](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163) explores some *additional* interesting implications of "the new calculus," and has some great lines that echo:
+
+> $/hr To The Rescue ... Someone else might control the numerator. But you control the denominator.
+
+> With a 10x boost, if you give an engineer Claude Code, then once they’re fluent, their work stream will produce nine additional engineers’ worth of value.
+><br><br>
+>For someone.
+> <br><br>
+> But who actually gets to keep that value?
+
+### Post-Post-Postscript
+
+I must confess, I did not expect to see *this* in the wild so soon!
+
+> We'll give you a token budget instead of a raise.
+
+<blockquote class="link-card">
+  
+  <h1>Silicon Valley is buzzing about this new idea: AI compute as compensation</h1>
+  
+  <a href="https://www.businessinsider.com/ai-compute-compensation-software-engineers-greg-brockman-2026-3" target="_blank" rel="noopener">www.businessinsider.com/ai-compute-compensation-software-engineers-greg-brockman-2026-3</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260310194134/https://www.businessinsider.com/ai-compute-compensation-software-engineers-greg-brockman-2026-3" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+

@@ -1,0 +1,9 @@
+# tools
+
+> Tag: tools
+
+## Posts
+
+- [The Suite Life of Bobs and Code](https://blog.cani.ne.jp/2026/05/10/slobac.md): SLOBAC delivers principles for good tests, a taxonomy of test smells, safe refactoring workflows, and an agent skill to audit and clean up sprawling AI-generated test suites.
+- [a16n: Take Your Agent Customization Anywhere](https://blog.cani.ne.jp/2026/03/13/a16n.md): a16n converts AI coding agent customization between Cursor, Claude Code, and more. One CLI command migrates your rules, skills, ignore patterns, and slash commands - no manual re-creation.
+- [Tools Suck When They're Products](https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.md): Tools are not products and building them *like* products results in bad tools. Nobody actually wants to use tools. They want the *result* of using the tool.

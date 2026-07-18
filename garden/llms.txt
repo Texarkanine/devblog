@@ -1,0 +1,30 @@
+# garden
+
+> Collection: garden
+
+## Garden
+
+- [Play Classic Computer Games from the 1900s](https://blog.cani.ne.jp/garden/1900s-computer-gaming.md): Play classic DOS and Flash games from the 1900s in your browser: abandonware archives, retro gaming portals, and playable emulators.
+- [A History of the 'ls' command](https://blog.cani.ne.jp/garden/a-history-of-the-ls-command.md): Who wrote ls? Tracing the directory listing command from MIT's Compatible Time-Sharing System through Unix to GNU coreutils.
+- [Browse The Vintage, Early Internet](https://blog.cani.ne.jp/garden/browse-the-early-internet.md): A curated collection of links to browse the vintage web: GeoCities archives, Neocities, the Web Design Museum, and retro search engines.
+- [Do LLMs Understand "For Each"?](https://blog.cani.ne.jp/garden/do-llms-understand-for-each.md): What happens when you ask a language model to process a list of items? Research on instruction adherence, attention mechanics, and the generation boundary.
+- [Websites for Making .ico Files](https://blog.cani.ne.jp/garden/favicon-websites.md): Free online tools for creating favicons and .ico files, from multi-platform generators to pixel-art icon editors.
+- [Fomenting the Butlerian Jihad](https://blog.cani.ne.jp/garden/fomenting-the-butlerian-jihad.md): Real risks of transformer-based AI worth planning for: job displacement, cognitive dependency, psychogenic feedback loops, and alignment failure.
+- [A General-Purpose Industry-Refining Tool](https://blog.cani.ne.jp/garden/general-purpose-industry-refining-tool.md): Refinement of industries - industrialization - has a rhyming shape every time it crops up.
+- [How I Learned to Stop Coding and Love the Machine](https://blog.cani.ne.jp/garden/how-i-learned-to-stop-coding-and-love-the-machine.md): AI tools that have become indispensable: Gemini Deep Research, Cursor for coding, CodeRabbit for reviews, and more.
+- [Idea Bank](https://blog.cani.ne.jp/garden/idea-bank.md): Seeds for future pages - a working list of ideas, references, and threads to pull on.
+- [The Last Programming Language](https://blog.cani.ne.jp/garden/last-programming-language.md): The entire history of programming languages has been a project to close the gap between human intent and machine execution. LLMs are the endpoint.
+- [Linkroll](https://blog.cani.ne.jp/garden/linkroll.md): A curated collection of blogs, tools, and interesting corners of the internet worth bookmarking.
+- [Love Letter to the Early Internet](https://blog.cani.ne.jp/garden/love-letter-to-early-internet.md): A nostalgic celebration of the late-90s to early-2000s web: animated GIFs, visitor counters, webrings, tiled backgrounds, and the joy of personal homepages.
+- [The Great Pyramid of Giza was a Plutonium Mill](https://blog.cani.ne.jp/garden/nuclear-pyramid.md): The internal geometry of the pyramid is given correspondence to the process steps of breeding plutonium, separating plutonium from other material, disposing of radioactive waste, using water and producing hydroelectric power.
+- [Short Stories](https://blog.cani.ne.jp/garden/short-stories.md): A collection of short stories, mostly sci-fi.
+- [ALIEN Derelict](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/alien-derelict.md)
+- [Asymmetric Spaceships](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/index.md): A shrine to ships that violate symmetry on one - or better yet, multiple - axes.
+- [LEGO Blacktron Renegade](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.md)
+- [Millennium Falcon](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/millennium-falcon.md)
+- [Pulp Sci-Fi Book Covers](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.md)
+- [Shrines](https://blog.cani.ne.jp/garden/shrine/index.md): Curated collections, each devoted to one thing worth revering.
+- [Stories](https://blog.cani.ne.jp/garden/stories.md): A collection of stories.
+- [The Waluigi Effect](https://blog.cani.ne.jp/garden/the-waluigi-effect.md): How an LLM coerced into good behavior may find it easier to flip to the exact opposite than to do anything else.
+- [Unexpected Chris Foss](https://blog.cani.ne.jp/garden/unexpected-chris-foss.md)
+- [What is a Digital Garden?](https://blog.cani.ne.jp/garden/what-is-a-digital-garden.md): And why I planted one. Curated collections of content and hyperlinks, organized for wandering and discovery.

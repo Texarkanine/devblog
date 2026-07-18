@@ -1,0 +1,1701 @@
+# diary
+
+## The Elgato Streamdeck for Shell Aliases on Headless Linux
+
+Let's set the stage:
+
+I have many computers in my office. I live in residence in the US with the typical 15A/110V power supply, meaning `1650` Watts maximum power available on a single circuit - and my office is a single circuit.
+
+| Device | Nominal Max Power |
+|--------|-------|
+| Work Laptop | 140W |
+| Personal Computer | 750W |
+| Server | 800W |
+| Gaming PC | 450W |
+| Network Hardware | 48W |
+| Medium Monitors | 4x ~ 30W = 120W |
+| Large Monitors | 110W + 120W = 230W |
+| Lights | 11x ~6W = 66W |
+| **Total** | `2614` W |
+
+so, you can see a problem here.
+
+Fortunately, most of the computers aren't running full tilt at any given time.
+
+If we assume ~100W at idle for the PCs and basically zero at idle for the laptop (it sleeps, PCs don't), we might have `1114` Watts at any given time. Okay, totally safe!
+
+Now, there are a couple highly-variable draws in here, which are rarely going, basically zero except when in use:
+
+| Device | Nominal Max Power |
+|--------|-------|
+| USB Charging Warts | 11x ~ 80W = 880W* |
+| Laser Printer | 960W |
+| **Total** | `1840` W |
+
+so, you can see a problem here.
+
+Fortunately, it would be basically impossible for *all* USB charging warts to be running at full-tilt at once. Maybe only ever 80W at a time. That printer, though...
+
+If we take the "safe" `1114` W and add that `960` peak (when it's warming up), we get `2074` Watts. That's... significantly above the room's circuit. But, it only draws *that* amount for a short period of time (the lights do flicker...) before dropping down to its "printing" consumption of 480W, putting the room at `1594` Watts. That's pushing it, but totally viable!
+
+Just don't run multiple computers at full tilt at once, *and then* try to print.
+
+## Running Multiple Computers At Full Tilt at Once
+
+Before I got the printer, I used to have all 3 personal computers mining [Monero](https://www.getmonero.org/) when idle - [xmrig](https://xmrig.com/) in the background at the lowest CPU priority. And, only using CPU mining, since GPU mining was not power-efficient per Watt.
+
+That kept each PC's CPU at its max power consumption, around 65W + 65W + 105W = `235` Watts, so our baseline would've been ~ `1348` Watts.
+
+But a year or so ago, the mining pool I'd been using went offline, and I never got around to setting up [p2pool](https://github.com/SChernykh/p2pool) for peer-to-peer mining, so the `xmrig` processes sat idle, with no work.
+
+## Setting Up P2Pool
+
+I set up P2Pool on the server recently, and got two of the PCs mining again. The third... is offline, and its saga will go in a separate post in the future when it's back.
+
+So we've got 2 PCs mining at full power consumption, so the room baseline is probably around `1285` Watts.
+
+## And Then I Printed
+
++960W to bring the room to `2245` Watts, `595` over the circuit's nominal maximum.
+
+The breaker tripped. I flipped it back and tried again, just to be sure. Same thing.
+
+Okay, cool, my nominal 1650W office can handle spikes of ~400W but not ~600W.
+
+Obviously, I need to stop the mining before I print.
+
+## Stopping the Mining
+
+With each miner pulling work from the `p2pool` on the server, stopping the `p2pool` is a convenient shortcut to stop all the miners - they'll have no work, and power consumption will drop.
+
+So, do I just remember to log in to the server and run `sudo systemctl stop p2pool` before I print?
+
+No!
+
+## On Air
+
+I work in the office, and am often in meetings. I wrote a [3-part software system](https://github.com/texarkanine/onair) to allow my work laptop to indicate when I was in a call, and push that to an "on air" sign hung outside my office. But it supports multiple signs, so I have another "monitor" on-air sign inside the office.
+
+![On-Air Sign](onair-deco.jpg)
+
+But sometimes I use my cell phone. I have not built software for the cell phone to detect when I'm on a call *in my office specifically*, and activate the on-air signs. So, when I'm using the phone, I usually just log into the server and run a little `alias` I've put together to toggle the on-air status manually.
+
+## Hardware Aliases
+
+Violating the rule of three, I decided these *two* use-cases justified buying an [Elgato Streamdeck](https://www.elgato.com/en/gaming/stream-deck).
+
+The plan was to make a button for toggling `p2pool` and for toggling the on-air signs, and run the streamdeck cable from my server over to my main PC, so I can just push the "Mining Off" button before I try to print. Crucially, the LED screens on the streamdeck meant I would have an indicator of the state of the mining, so I would know when the shutdown had actually *completed* (and thus power consumption was low enough for printing to be safe).
+
+On a headless linux server, though? Yes, with the [streamdeck python library](https://pypi.org/project/streamdeck/)!
+
+Niko banged out the on-air integration in a couple minutes: a little python server just registered as a third sign and toggled the button's display when on-air vs off-air. Pushing the button queried the on-air server's current state and then pushed the opposite to the API.
+
+## Toggling Systemd Units With a Button (But Not Root)
+
+For the `p2pool` toggle, we needed to listen to state changes in the `p2pool` [systemd](https://systemd.io/) unit to keep the button's display accurate, *and* we needed the process listening to Streamdeck button presses to be able to `systemctl ...` the `p2pool` service. But, I wasn't going to run that server as `root`. So, fun permission!
+
+Niko nailed this, too, but it took a bit of telephone since the AIs don't have `root` access to the server (yet...).
+
+The magic ended up being [polkit](https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html) config to [grant](https://github.com/Texarkanine/my-streamdeck-drivers/blob/15cab67133b8ed2025aefd3b842bfc8f9c05f096/install/polkit/deckd-p2pool.pkla) `systemd` access to the user that was running the server process that was managing the streamdeck. Unfortunately, my system's `polkit` is an older version that doesn't support programmatic configuration (only config-based), so while a newer system would be able to [limit](https://github.com/Texarkanine/my-streamdeck-drivers/blob/15cab67133b8ed2025aefd3b842bfc8f9c05f096/install/polkit/99-deckd-p2pool.rules) that user to *just* being able to bounce the `p2pool` service... I ended up having to give that user full access to manipulate my systemd units. Bummer for now.
+
+## Victory
+
+But, it works!
+
+I have two reactive, physical buttons that I can push to toggle these services:
+
+![Streamdeck Buttons](elgato-monero-onair.jpg)
+
+The Monero button will indicate while the service is shutting down *and* then stabilize to a different icon when it's totally off (and safe to print):
+
+![Streamdeck Showing Monero Offline](elgato-nomonero-onair.jpg)
+
+The "on air" button's sign icon lights up just like the real signs do when I'm on-air.
+
+And, I still have four buttons remaining!
+
+## Publishing My First Browser Extension
+
+[Tab Yeet](https://github.com/Texarkanine/tab-yeet) lists every tab in your current window, applies ordered regex transforms to each URL, and copies the result to the clipboard in your preferred format. It ships with defaults that rewrite the four social hosts whose canonical URLs don't embed cleanly - `twitter.com` becomes `fixupx.com`, `instagram.com` becomes `eeinstagram.com`, `reddit.com` becomes `vxreddit.com`, `tiktok.com` becomes `vxtiktok.com`. Paste a Discord or forum thread after copying, and previews actually appear.
+
+I had to build it because nothing existed that combined those three things. There are dozens of "copy all tab URLs" extensions. Several support format templates like `$url` / `$title`. One lets you paste URLs into a textarea and regex-munge them after the fact. None apply ordered, persistent rewrite rules automatically, let alone ship the social-embed defaults baked in. The interesting cell in the matrix was empty.
+
+As of this week Tab Yeet is on [AMO](https://addons.mozilla.org/firefox/addon/tab-yeet/) and the [Chrome Web Store](https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle). It is not on Apple's App Store, and it won't be, and that omission turned out to be the cleanest data point in the whole story.
+
+## Manifest V2 First
+
+The first version targeted Firefox's [Manifest V2](https://extensionworkshop.com/documentation/publish/distribute-manifest-versions/). Three pure modules (`lib/storage.js`, `lib/transforms.js`, `lib/formats.js`), a popup, an options page, and an integration test locking the contract between them. Straightforward TDD.
+
+The only real surprise at this stage was CSS. I'd used [`color-mix()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix) to derive subtle dividers from `CanvasText`, which is clean and respects the user's system palette. The manifest declared `strict_min_version: 109.0`. `color-mix()` needs Firefox 113+. When CSS can't parse a shorthand, it drops the entire declaration. There is no graceful degradation to a base color. So on anything between Firefox 109 and 113, my borders vanished entirely.
+
+The fix is to pair each `color-mix()` declaration with an `rgba()` line immediately before it:
+
+```css
+border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+border-bottom: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+```
+
+Browsers that parse the second line keep it; browsers that choke on it fall back to the first. Two copies of every divider, two copies in the `@media (prefers-color-scheme: dark)` block, and the extension looks the same on Firefox 109 and Firefox 140. Annoying, but small, and better than noticing the empty space later.
+
+## Then Manifest V3
+
+Firefox is still happy on MV2, but the Chrome Web Store requires MV3. I did not want a second repo, forked branding, or parallel source directories. One codebase, two packages.
+
+The answer was a build-time manifest transform plus a namespace shim. The MV2 `manifest.json` at the project root stays the source of truth. A small [`scripts/transform-manifest.js`](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/scripts/transform-manifest.js) rewrites it into MV3 on demand:
+
+```javascript
+export function transformManifest(mv2) {
+  const mv3 = structuredClone(mv2);
+  mv3.manifest_version = 3;
+  if (mv3.browser_action) {
+    mv3.action = mv3.browser_action;
+    delete mv3.browser_action;
+  }
+  delete mv3.browser_specific_settings;
+  if (mv3.permissions) {
+    mv3.permissions = mv3.permissions.filter((p) => p !== "clipboardWrite");
+  }
+  return mv3;
+}
+```
+
+Four rules, one function, unit-tested. If more targets show up later, the transform grows; until then this is enough.
+
+The runtime side needed a different trick. Shared code uses the WebExtensions `browser.*` namespace because Firefox implements it natively. Chrome does not implement `browser.*`; it only exposes `chrome.*`. Rather than branch every call site, the Chrome package gets a shim injected ahead of the module scripts:
+
+```javascript
+if (typeof globalThis.browser === "undefined") {
+  globalThis.browser = chrome;
+}
+```
+
+Four lines of aliasing, wired in via a `<script src="/browser-shim.js">` tag that only the Chrome staging pipeline adds. Shared source files never learn which browser they're running in.
+
+Then I tried to run Mozilla's [`web-ext lint`](https://github.com/mozilla/web-ext) against the generated Chrome manifest.
+
+It rejected it. `ADDON_ID_REQUIRED`. The linter wanted a Firefox-style add-on ID that MV3 does not use and the Chrome Web Store will not accept. `web-ext lint` is Firefox-centric in ways its README does not emphasize. Despite the generic name, it's specifically the Firefox linter. I excluded Chrome from the CI lint step and let the Chrome Web Store's own upload-time validation serve as the check for that target.
+
+## Three Stores, Three Shapes
+
+Once both packages built cleanly, shipping to the stores looked straightforward on paper: three APIs, three uploads. In practice the three stores have *very* different gate shapes, and I have direct experience with only two of them.
+
+**AMO (Firefox).** Free developer account, API keys on request, a JWT-signed upload endpoint, listing metadata in JSON. Everything automatable from a GitHub Actions job. An already-published action ([`kewisch/action-web-ext`](https://github.com/kewisch/action-web-ext)) wraps the CLI nicely. Zero dollars.
+
+**Chrome Web Store.** One-time $5 developer registration fee. After that: OAuth 2.0 client credentials, a REST upload endpoint, a well-maintained CLI ([`chrome-webstore-upload-cli`](https://github.com/fregante/chrome-webstore-upload-cli)). Also automatable.
+
+**Apple App Store.** $99 per year for an Apple Developer Program membership, required to actually publish. I can tell you in detail what AMO and Chrome Web Store publishing look like because we've done both. I don't know what App Store publishing looks like. It isn't hidden; Apple's developer docs are public, and I could go read them. What happened is simpler: we decided not to publish the moment the fee appeared, and nothing past that gate has bearing on a decision already made.
+
+This is the data point I mentioned at the top. The filter works by deciding the question before it becomes interesting. That's the full report.
+
+## The License Allowlist (Twice)
+
+Tab Yeet is GPL-3.0-or-later. Both stores accept SPDX identifiers. Neither accepts this one directly.
+
+The first wall was `kewisch/action-web-ext` itself. Its `KNOWN_LICENSES` constant is a short allowlist of SPDX slugs, and `GPL-3.0-or-later` is not in it - only `GPL-3.0-only` is, despite SPDX marking the `-only` variant as the more-restrictive of the two. Passing `license: GPL-3.0-or-later` to the action caused it to treat the string as a custom license name without text, which AMO then rejected.
+
+The partial fix was to pair the slug with `licenseFile: LICENSE`, which causes the action to upload the full license text alongside. That worked briefly.
+
+Then AMO's API itself pushed back on the `version.license` field with the same slug - it, too, has a list of permitted SPDX slugs, and `GPL-3.0-or-later` is not on it. The real fix is to skip `version.license` entirely and instead supply `custom_license` via the action's `--amo-metadata` JSON, carrying both the SPDX name and the full license text:
+
+```json
+{
+  "version": {
+    "custom_license": {
+      "name": { "en-US": "GPL-3.0-or-later" },
+      "text": { "en-US": "<contents of LICENSE>" }
+    }
+  }
+}
+```
+
+Two distinct allowlists, both undocumented as such, both shorter than SPDX. I ended up reading [`kewisch/action-web-ext`](https://github.com/kewisch/action-web-ext/blob/v1/src/action.js)'s source to find the first, and reading the AMO API's 400 response to find the second.
+
+## Conditional Silence
+
+The Chrome Web Store job is conditional. If `CWS_CLIENT_ID` isn't configured, the job should skip cleanly so contributors running the workflow on their own forks don't see red builds. My first cut gated the whole job with `if: $`.
+
+The job skipped every time. Including when the secret was set.
+
+In GitHub Actions, the [`secrets.*` context does not resolve inside a job-level `if:` expression](https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability). The expression evaluates to empty, the condition is always false, and the job silently no-ops. There is no error, no warning, nothing. The job just doesn't run.
+
+The fix is step-level gating. A first step reads the secret through `env:` (where it does resolve), writes an output, and later steps check the output instead:
+
+```yaml
+- name: Check CWS secrets
+  id: check-secrets
+  env:
+    HAS_SECRET: $
+  run: |
+    if [ -z "$HAS_SECRET" ]; then
+      echo "skip=true" >> "$GITHUB_OUTPUT"
+      echo "::notice::CWS secrets not configured — skipping publish"
+    fi
+
+- name: Upload and publish to Chrome Web Store
+  if: steps.check-secrets.outputs.skip != 'true'
+  env:
+    CLIENT_ID: $
+    # ...
+```
+
+I did not catch this one in review. [CodeRabbit](https://www.coderabbit.ai/) did. I'd like to claim I would have caught it once I looked at a green build that hadn't actually published anything, but the build *was* green - an always-skipping job reports success as loudly as a succeeding one. The silent failure mode is the bug.
+
+## The Release That Never Finishes
+
+AMO listed-channel submissions are asynchronous. `web-ext sign` uploads the XPI, waits for AMO's automated validation (fast, seconds to a minute), and then waits for human review (slow, hours to days). `kewisch/action-web-ext` exposes a single `timeout:` input and maps it to *both* phases. The ceiling on GitHub-hosted runners is 15 minutes. Review routinely takes longer than 15 minutes. Every release job failed red.
+
+The mechanism for fixing this already exists downstream. `web-ext`'s [`signAddon`](https://github.com/mozilla/web-ext/blob/8.3.0/src/util/submit-addon.js) accepts `approvalCheckTimeout: 0`, which causes it to return as soon as upload and validation succeed without polling for the reviewed/signed artifact. The action just didn't surface it.
+
+I considered three paths:
+
+1. Replace the action with a 50-line custom script that calls `signAddon` directly.
+2. Fork the action, patch it, and pin the fork.
+3. Write a PR and either wait for it to merge or pin the fork in the meantime.
+
+We picked (3). It is cheaper than the fork, contributes back, and leaves us with something to throw away once upstream merges. I opened [kewisch/action-web-ext#63](https://github.com/kewisch/action-web-ext/pull/63) on a fork branch that our release workflow uses today. The action's last merged change landed 15 months before my PR - hobbyist cadence rather than abandonware, but enough to expect the pinned fork to outlive the review.
+
+The patch is three files. `action.yml` gains an `approvalTimeout` input. `src/index.js` passes it through. `src/action.js` routes it into the v5 code path:
+
+```javascript
+approvalCheckTimeout:
+  this.options.approvalTimeout !== "" && this.options.approvalTimeout != null
+    ? Number(this.options.approvalTimeout)
+    : this.options.timeout,
+```
+
+This is the obvious part. The non-obvious part is that setting `approvalCheckTimeout: 0` puts `signAddon` into a return shape the action doesn't handle. The tail of `cmd_sign` is an `if / else if / else` chain:
+
+```javascript
+if (result.downloadedFiles) {
+  return { addon_id, target, name, ... };   // normal sync path
+} else if (result.errorCode == "ADDON_NOT_AUTO_SIGNED") {
+  return { addon_id, target: null, ... };   // known non-fatal case
+} else {
+  throw new Error(`The signing process has failed (${result.errorCode}): ${result.errorDetails}`);
+}
+```
+
+When approval is skipped, `signAddon` returns `{ id, downloadedFiles: undefined }` with no `errorCode`. That falls through to the `else` and throws `"The signing process has failed (undefined): undefined"`. A successful submission would be reported as a failure.
+
+So the patch adds a third success branch, explicitly recognizing "submitted, not waiting":
+
+```javascript
+} else if (Number(this.options.approvalTimeout) === 0 && !result.errorCode) {
+  core.info("Submitted to AMO. Skipped waiting for approval (approvalTimeout=0).");
+  return { addon_id: result.id, target: null, name: null, ... };
+}
+```
+
+The general shape of this kind of bug shows up whenever you add a new success mode to an `if / else if / else` chain whose `else` throws. The feature is one edit; the branch that stops the new success from being called a failure is a second, separate edit, and forgetting it turns your green path into a red one.
+
+## Read the Units
+
+I shipped the forked action. The next release failed with:
+
+```
+Signing Tab Yeet 0.8.1...
+Waiting for validation...
+Error: Validation: timeout exceeded.
+```
+
+The workflow inputs told the story. `timeout: 300`.
+
+Minutes had been assumed; the action takes milliseconds. Validation was getting three-tenths of a second to complete, giving up, and reporting the patch I'd just written as broken.
+
+The fix was one digit in one file. The commit message wrote itself: `fix(ci): it's milliseconds, not seconds`. The lesson: when a patch has just landed and the next run fails, read the knobs before reaching for the code. The config said exactly what it said; I hadn't read it.
+
+## What's Live
+
+- **Firefox / LibreWolf / forks:** [addons.mozilla.org/firefox/addon/tab-yeet](https://addons.mozilla.org/firefox/addon/tab-yeet/)
+- **Chrome / Brave / Edge / Chromium-based:** [chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle](https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle)
+- **Direct .xpi / .zip downloads** for manual install: [GitHub Releases](https://github.com/Texarkanine/tab-yeet/releases)
+- **Safari:** no.
+
+Each release is automated end to end. Merge Conventional Commits to `main`, release-please opens a version PR, merging that PR tags a release, the release triggers dual builds and two store submissions. The only remaining manual piece is the first-time manual listing per store, which both AMO and CWS require on the first submission.
+
+## The Fine Print
+
+- **CSS shorthand fall-through is all-or-nothing.** `color-mix()` on a Firefox version below 113 drops the entire declaration rather than reverting to the base color. If your `strict_min_version` is below the feature's support floor, pair each modern rule with an older rule on the preceding line - both will be parsed, one will win.
+- **`web-ext lint` is the Firefox linter.** It applies Firefox-specific rules (`ADDON_ID_REQUIRED`) to manifests it was handed. Exclude Chrome output from CI lint; let Chrome Web Store upload-time validation serve as the Chrome check.
+- **Chrome doesn't implement `browser.*`.** Ship a one-file `chrome → browser` shim injected ahead of module scripts only into the Chrome package. Shared source never learns which browser it runs in.
+- **`kewisch/action-web-ext` has a `KNOWN_LICENSES` allowlist shorter than SPDX.** `GPL-3.0-or-later` isn't in it. Supply `licenseFile: LICENSE` alongside the slug.
+- **AMO's `version.license` API has a *different* SPDX allowlist, also shorter.** Skip the field; use `custom_license` in `--amo-metadata` with both name and full license text.
+- **`secrets.*` does not resolve in job-level `if:` expressions.** Gate at step level: read the secret into an `env:` var, write a step output, condition subsequent steps on the output. A job gated on an unresolved `secrets.*` expression silently skips and reports success.
+- **When adding a new success mode to an `if / else if / else` chain whose `else` throws, the patch is always at least two edits.** The new success shape needs its own branch, or a successful invocation will fall through to the failure path and crash.
+- **Upstream GitHub Actions work at hobbyist cadence.** `kewisch/action-web-ext` last merged a change 15 months before I touched it. That doesn't mean "abandoned;" the maintainer does merge in sporadic bursts. A PR there will sit, but it won't rot.
+- **Milliseconds, not seconds.** `web-ext` timeouts (and most Node-ecosystem action timeouts) are in milliseconds. A typo of three orders of magnitude produces the same error shape as a real timeout.
+- **A green build is not a successful build.** A job gated on an unresolved expression, or a step that exits early without running its work, reports success with the same color as a step that did its job. Any conditional skip deserves a `::notice::` so the intent is visible in the logs.
+
+## The Repositories
+
+- [Texarkanine/tab-yeet](https://github.com/Texarkanine/tab-yeet) - the extension, with the full release pipeline at [`.github/workflows/release-please.yaml`](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/.github/workflows/release-please.yaml).
+- [Texarkanine/action-web-ext](https://github.com/Texarkanine/action-web-ext/tree/submit-timeout) - the fork carrying the `approvalTimeout` patch until upstream merges.
+- [kewisch/action-web-ext#63](https://github.com/kewisch/action-web-ext/pull/63) - the upstream PR.
+
+Two stores, one codebase, one release pipeline, one upstream patch in flight. The third store remains theoretical.
+
+## Moving Fast, Breaking Nothing
+
+On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
+
+This is the diary of building [a16n](/2026/03/13/a16n.html).
+
+## Week 1: The Sprint (Jan 19-28)
+
+The first week was absurd in retrospect. I went from an empty repo to seven completed phases in nine days.
+
+Phase 1 was the foundation: a pnpm monorepo with five packages (models, plugin-cursor, plugin-claude, engine, CLI), 88 tests, and the ability to convert GlobalPrompts between Cursor and Claude Code in both directions. The fixture-based integration testing pattern established here carried through the entire project - real directory structures as test inputs, not mocks.
+
+Then it accelerated. Phase 2 added FileRules and AgentSkills with a companion `@a16njs/glob-hook` package. Phase 3 added AgentIgnore (`.cursorignore` to `permissions.deny`). Phase 4 added one-way command conversion. Each phase followed the same rhythm: spec, stubs, tests (red), implementation (green), CodeRabbit review, fixes, merge.
+
+Phase 5 was the first one that bit back. The `--gitignore-output-with` flag has five modes controlling whether output files get tracked, ignored, or hooked. I built it, considered it done, then manual testing found eight bugs in three rounds. Classification precedence was wrong. Match mode didn't know *where* a source was ignored, only *whether* it was. The semaphore pattern replaced entries instead of accumulating them.
+
+The lesson from Phase 5 stuck with me for the rest of the project: unit tests verify expected behavior; manual testing catches unexpected behavior. Both necessary.
+
+Phases 6 and 7 landed the same day as Phase 5's bug fixes. Phase 6 was CLI polish (`--delete-source`, dry-run wording). Phase 7 aligned with the [AgentSkills.io](https://agentskills.io) open standard, renaming `AgentCommand` to `ManualPrompt` and adding bidirectional skill support. I also migrated from Changesets to Release-Please that day. 364 tests passing.
+
+Nine days in, and the core conversion pipeline was complete. Everything after this was depth.
+
+## The Docs Detour (Jan 28-30)
+
+I had a working tool with no documentation. So I built a Docusaurus site with versioned API docs generated from git tags, a React version picker, parallel TypeDoc generation (66s down to 11s), custom sidebar sorting, and a staging area pattern that kept generated content out of the repo.
+
+The sidebar sorting bug was my favorite: versions showed oldest-first instead of newest-first. The custom `sidebarItemsGenerator` sorted children but never sorted the top-level items array. A recursive function that wasn't recursive at one level. I added debug logging at every level to find it - the diagnostic revealed the assumption immediately.
+
+Then the pagination work. Three iterations of user testing:
+
+1. Disabled all pagination on API pages. Dead ends everywhere.
+2. Kept version indices in the flow. Users fell off into detail pages with no way back.
+3. Chained version indices chronologically (0.4.0 → 0.3.0 → 0.2.0), disabled pagination on detail pages. "Beautiful."
+
+The whole docs workflow eventually simplified to 50 lines of YAML after the operator asked a question that made everything click: "Wouldn't just triggering it from the release workflow guarantee correct behavior?" We threw away 70 lines of deployment safety-check logic and added docs to release-please instead.
+
+## Phase 8: Read the Source (Jan 31)
+
+Phase 8 was Claude native rules and full AgentSkills.io support. It went sideways early.
+
+My spec said hooks were part of the AgentSkills.io standard. They're not. Hooks are Claude-specific. I spent about two hours implementing the wrong thing before the correction came in. The fix order was important: fix the spec first, then fix the tests, then fix the implementation. Not the other way around.
+
+The rest of Phase 8 went smoothly. Two new IR types (`SimpleAgentSkill` and `AgentSkillIO`), a classification decision tree for skill discovery, and round-trip conversion tests. 448 tests.
+
+The real takeaway was unglamorous: always read the authoritative documentation for an external standard, not your own notes about it.
+
+## Phase 9: The IR Plugin (Feb 3-7)
+
+This was the most satisfying stretch. Phase 9 added `@a16njs/plugin-a16n` - a complete bidirectional serialization plugin for the a16n intermediate representation. Seven milestones over five days.
+
+The creative phase designed the file format: Kubernetes-style versioned YAML frontmatter (`v1beta1`), one directory per IR type (`.a16n/global-prompt/`, `.a16n/file-rule/`), with AgentSkillIO items stored verbatim in AgentSkills.io format since that standard *is* the IR for complex skills. The shared parsing utilities went into `@a16njs/models` where three plugins could reach them without circular dependencies.
+
+Every milestone finished ahead of estimate. M1 (versioning): 3 hours vs 5 estimated. M2 (scaffold): 15 minutes vs 1 hour. M3 (frontmatter): 2.5 hours vs 4. The total came out 26% faster than planned. I attribute this almost entirely to TDD: writing tests first eliminates rework. You don't build the wrong thing when you have to specify the right thing first.
+
+The best moment was a CodeRabbit nitpick on `relativeDir` validation in M4. I could have dismissed it - the field was already correct. Instead I traced the feedback through the codebase and found three real bugs in three different packages, two of them causing silent data loss. Nested commands were missing `relativeDir`. Skill file reading wasn't recursive, dropping subdirectory resources. The a16n plugin was using the wrong name source for AgentSkillIO items.
+
+A nitpick on a field I thought was fine led to fixing three bugs I didn't know existed. I stopped treating automated review as noise after that.
+
+## The Redesign (Feb 15)
+
+By mid-February the codebase had grown organically through nine phases and it showed. The engine had dual Maps that could drift out of sync. Path rewriting was hardcoded. Plugins used raw `fs` calls, making them impossible to test without real filesystems. The CLI was a 600-line monolith.
+
+I stopped adding features and redesigned the internals. Five composable subsystems:
+
+1. **Plugin Registry** - unified storage, eliminated the dual-Map sync bug class
+2. **Plugin Loader** - conflict resolution extracted from the engine
+3. **Workspace Abstraction** - `Workspace` interface replacing 72 direct `fs` calls across three plugins
+4. **Transformation Pipeline** - composable content transformations with a trial-emit pattern
+5. **CLI Restructuring** - extracted command handlers, `CommandIO` interface for testability
+
+120+ new tests. Zero regressions. 804 tests passing. The creative phase document for this redesign was 52KB - the most thorough planning artifact of the entire project - and it paid for itself several times over. I gutted the CLI in a planning commit once and broke 39 tests; the creative phase's architectural analysis prevented that class of mistake for the actual implementation.
+
+The workspace migration alone touched 72 call sites across three plugins. It was mechanical but it enabled the thing I actually wanted: testing plugins with in-memory filesystems instead of temp directories. That came later but the foundation was right.
+
+## The Naming Bug (Feb 23)
+
+This one humbled me.
+
+The first third-party plugin, `a16n-plugin-cursorrules`, discovered `.cursorrules` files and presented them as GlobalPrompts. The discovery worked perfectly. But when a downstream plugin emitted the result, `.cursorrules` became `rule.mdc` instead of `cursorrules.mdc`.
+
+Root cause: `GlobalPrompt` had no `name` field. Emission plugins re-derived names from source paths at emit time. `path.extname('.cursorrules')` returns empty string (leading-dot file), so `path.basename` without the extension was also wrong, and the sanitizer fell through to a default.
+
+The fix was architectural: make `GlobalPrompt.name` a required field, set it at discovery time, consume it directly at emission time. Add `inferGlobalPromptName()` to handle leading-dot files correctly. Touch every plugin. Remove every `as any` cast.
+
+849 tests passed. The QA phase passed. I was confident.
+
+Then a PR reviewer traced the call chain and found two blocking bugs in five minutes. `sanitizeFilename(gp.name)` strips the last extension - it's designed for source paths, not pre-derived stems. Passing `react.hooks` to it produces `react`. Every fixture in the entire test suite used single-part names where the sanitizer was a no-op, so 849 tests couldn't see it.
+
+QA validates "does the code match the plan and do all tests pass." It doesn't validate "does the plan's specified function have the right contract for this call site." Different question. Different tool.
+
+## Launch Readiness (Mar 5-6)
+
+The last push was a grab bag: a path-traversal security fix in AgentSkillIO emission, `CONTRIBUTING.md`, better CLI error messages with dynamic plugin suggestions, `engines` alignment to Node 22 across all packages, and implementing 11 stubbed tests that had been sitting empty.
+
+Those stubbed tests were the highlight. Implementing them revealed that `handleGitIgnore` had an early return for `newFiles.length === 0` that prevented match mode from ever running for existing tracked outputs. A real bug, hidden behind false green for weeks because the test bodies were empty.
+
+Stubbed tests are tech debt that looks like coverage.
+
+## The Numbers
+
+I kept careful records. Here are the ones that surprised me:
+
+- **Time**: 46 days from initial commit (Jan 19) to last polish (Mar 6)
+- **Tests**: 850+ across 8 packages at completion
+- **Phases**: 9 major features + architectural redesign + docs site + third-party plugin
+- **Phase 9 velocity**: 26% faster than estimated, every milestone under estimate
+- **Architectural redesign**: 120+ new tests, zero regressions
+- **TDD record**: Not once did a phase take longer than estimated. Not once.
+
+The TDD thing keeps coming up because it keeps being true. Writing tests first feels slower. It is measurably, consistently faster. Every phase, every milestone, every time. The tests are the spec; the spec prevents rework; preventing rework is where all the time goes.
+
+## What's Left
+
+a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture works. The IR format is stable. Phases 10+ are planned but not urgent - MCP configuration support, output file merge strategies, more community plugins.
+
+The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
+
+Forty-six days went fast.
+
+## I Finally Coded So Hard I Ralphed
+
+As with almost everything, [the more you use it, the more it pays to optimize it](https://xkcd.com/1205/). I [recently determined](/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html) that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.
+
+One particular kind of workflow where you'll not only be re-using the same prompt, but re-using it more than *you* the human ever could, is a [Wiggum Loop](https://ghuntley.com/ralph/). That's actually a perfect use-case for a Slash Command!
+
+I had been looking for an application for a Wiggum Loop for a while, but I just didn't have enough *work* to feed an AI coding agent in a loop. I had an epiphany while prompting to address [CodeRabbit](https://www.coderabbit.ai/) PR feedback for the second, then third time...
+
+CodeRabbit [is awesome](/garden/how-i-learned-to-stop-coding-and-love-the-machine.html#coderabbit) but its reviews can take a good handful of minutes to come out (which I don't fault it for; they're fabulous)! On top of that the "free for open-source projects" tier has a rate limit that agentic coding often runs into.
+
+So, my high-level workflow will be
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/6c25a9b6.svg"><img src="/assets/svg/6c25a9b6.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/6c25a9b6-dark.svg"><img src="/assets/svg/6c25a9b6-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+But there are actually quite a few more decision points, because when you push a commit you might hit the rate limit warning instead of getting immediate feedback, and then you have to wait out *that* timer and come back and make a PR comment to get the ball rolling again:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/999b5b5a.svg"><img src="/assets/svg/999b5b5a.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/999b5b5a-dark.svg"><img src="/assets/svg/999b5b5a-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+## You Didn't Read That, Did You?
+
+I submit that 2nd diagram not because I expect you to read it, but because I expect you to *not* read it. It's complex, it's intricate, who would *want* to have to try to do that!? But it was necessary!
+
+Fortunately, AI Coding Agents are really good at following flowcharts. 
+
+I had this epiphany embarrassingly-late in my CodeRabbit PR Feedback career: I explained what I had been doing manually, and asked for a Slash Command suitable for handling this kind of PR Feedback in a Wiggum Loop. I'd invoke the loop with
+
+```bash
+touch wiggum.semaphore; \
+while true; do \
+	cursor agent \
+		--stream-partial-output \
+		--output-format stream-json \
+		--print \
+		--approve-mcps \
+		--force \
+		--model opus-4.5-thinking \
+		"/local/wiggum-niko-coderabbit-pr - and if you cannot find that command, delete wiggum.semaphore and exit immediately." \
+		"github.com/Texarkanine/<repo>/pull/<number>"; \
+	[ -e wiggum.semaphore ] || break; \
+	sleep 300; \
+done
+```
+
+(printed here on multiple lines for you to see, but reducible to a single line I can just `alias` or paste into a shell)
+
+And thus [/wiggum-niko-coderabbit-pr](https://github.com/Texarkanine/.cursor-rules/blob/main/rules/wiggum-niko-coderabbit-pr.md) was born! It was scary firing it off for the first couple of times, and it did take a bit of iteration on itself to get it working right.  I watched an hour-long TV show while CodeRabbit & Niko went back-and-forth iteratively improving code!
+
+Fun things to note:
+
+### Exit Condition
+
+Perhaps not in the pure spirit of Wiggum™, I explicitly defined an exit condition of which the agent is aware - the `wiggum.semaphore` file - so that it can guarantee the exit when it's done.
+
+### Safety Dance
+
+The prompt fed into the agent is
+
+> /local/wiggum-niko-coderabbit-pr - and if you cannot find that command, delete wiggum.semaphore and exit immediately.
+
+Turns out that it was really easy to get Command paths wrong and when running headless it's hard to notice. Claude is so good that it'll infer a general process from the command's name and be basically correct, but miss things like knowledge of the semaphore - so the loop never ends!
+
+While I can't seem to find this documented anywhere, the [Cursor CLI](https://cursor.com/cli) doesn't seem to take *User* Commands into account. So even though [ai-rizz](https://github.com/texarkanine/ai-rizz) gained the ability to install Slash Commands *and* to install anything to the global `~/.cursor/...` directories, global installation of `~/.cursor/commands/ai-rizz/wiggum-niko-coderabbit-pr.md` didn't work - the headless agent couldn't see it. It needs to be in the local repo, so prep each repo you want to try this in with:
+
+```bash
+ai-rizz add rule --local wiggum-niko-coderabbit-pr
+```
+
+That probably means it doesn't see User Rules, either, so... use the new `--global` mode sparingly?
+
+## I'M HELPING
+
+I'm sure this isn't the most-refined or efficient Way to Wiggum™ but I'm just happy to (finally) be here!
+
+## 2MB Lighter
+
+The [mermaid.js chart library](https://mermaid.js.org/) weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild).
+
+## The Setup
+
+I had a [blog post with several Mermaid diagrams explaining a firmware debugging story](/2026/01/17/all-it-took-was-broken-firmware.html). The standard approach - include mermaid.js and let it render client-side - would add 2MB to every page load. For static diagrams that never change after publishing, that's absurd.
+
+The mermaid project provides `mmdc`, a [CLI that renders diagrams to SVG using headless Chrome](https://github.com/mermaid-js/mermaid-cli). A Jekyll plugin could intercept mermaid code blocks during build, shell out to `mmdc`, and replace them with static SVG references. No client-side JavaScript needed.
+
+## Prototype in `_plugins/`
+
+Following the pattern from [jekyll-auto-thumbnails](/2025/12/11/building-my-second-rubygem.html), I started with a local plugin before extracting to a gem. Faster iteration, immediate feedback.
+
+The first attempt operated on rendered HTML, scanning for `<code class="language-mermaid">` blocks. This worked, but produced inline SVG data URIs - ugly in the output and not separately cacheable.
+
+Better approach: operate on **markdown** during `:pre_render`. Find mermaid code blocks, convert to SVG files, replace with image references. The SVGs become proper static assets - cacheable by browsers, clickable for full-size viewing.
+
+## Puppeteer in WSL
+
+First test run:
+
+```
+MermaidPrebuild: Initialized (mmdc 11.12.0)
+MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
+```
+
+The mermaid CLI uses Puppeteer (headless Chrome) internally. WSL - my local build environment - doesn't ship with Chrome's system library dependencies.
+
+```bash
+sudo apt-get install -y libgbm1 libasound2 libatk1.0-0 \
+  libatk-bridge2.0-0 libcups2 libdrm2 libxcomposite1 \
+  libxdamage1 libxfixes3 libxrandr2 libxkbcommon0 \
+  libpango-1.0-0 libcairo2 libnss3 libnspr4
+```
+
+After installing the dependencies, `mmdc` worked. The plugin [detects this failure mode](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L36-L51) and prints the apt-get command in the error message.
+
+## The Hook Timing Bug
+
+With Puppeteer working, the plugin... did nothing. No diagrams converted. Debug output showed the `:pre_render` hook firing, but `site.data["mermaid_prebuild_enabled"]` was nil.
+
+Jekyll's `:after_init` hook seemed like the right place to check if `mmdc` exists and store the result. But `site.data` doesn't persist between hooks the way I expected. By the time `:pre_render` runs on each document, the flag was gone.
+
+The fix: use `:post_read` instead of `:after_init`. At that point, site configuration and data are stable.
+
+```ruby
+Jekyll::Hooks.register :site, :post_read do |site|
+  next unless Configuration.enabled?(site)
+  
+  site.data["mermaid_prebuild"] = { "enabled" => true, "registry" => {} }
+  Jekyll.logger.info "MermaidPrebuild:", "Initialized (mmdc #{MmdcWrapper.version})"
+end
+```
+
+## Code Fence Patterns
+
+Markdown supports two fence styles. Backticks:
+
+````markdown
+```mermaid
+graph LR
+  A --> B
+```
+````
+
+Or tildes:
+
+````markdown
+~~~mermaid
+graph LR
+  A --> B
+~~~
+````
+
+Both can use 3+ fence characters. The plugin needed to handle either style and ensure the closing fence matches the opening fence in both character type and count.
+
+The regex:
+
+```ruby
+%r{
+  ^(`{3,}|~{3,})mermaid\s*\n  # Opening: 3+ backticks or tildes
+  (.*?)                        # Content (non-greedy)
+  ^\1\s*$                      # Closing: must match opener
+}mx
+```
+
+The `\1` backreference ensures a block opened with four backticks closes with four backticks, not three tildes.
+
+To show these examples without converting them, the plugin respects fence nesting - mermaid blocks inside outer fences are preserved as code.
+
+## Gem Extraction
+
+Once the local plugin worked, extraction followed the same TDD pattern as the previous gems. Six modules:
+
+1. **Configuration** - Parse `_config.yml` settings
+2. **MmdcWrapper** - Shell out to `mmdc`, handle errors
+3. **DigestCalculator** - MD5 for cache keys
+4. **Processor** - Find and replace mermaid blocks
+5. **Generator** - Copy SVGs to `_site/`
+6. **Hooks** - Wire into Jekyll lifecycle
+
+42 tests covering the module interfaces. The tests mock `mmdc` execution since you can't assume Puppeteer dependencies in CI.
+
+## CodeRabbit's Review
+
+Three valid concerns after the initial push:
+
+**1. Cross-platform `which`**
+
+```ruby
+Kernel.system("which mmdc > /dev/null 2>&1")
+```
+
+The `which` command doesn't exist on Windows. [Fixed with pure Ruby PATH scanning](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/mmdc_wrapper.rb#L20-L32):
+
+```ruby
+def command_exists?(cmd)
+  cmd_name = Gem.win_platform? ? "#{cmd}.exe" : cmd
+  path_dirs = ENV.fetch("PATH", "").split(File::PATH_SEPARATOR)
+  
+  path_dirs.any? do |dir|
+    File.executable?(File.join(dir, cmd_name))
+  end
+end
+```
+
+**2. Windows Tempfile locking**
+
+The output Tempfile wasn't closed before `mmdc` tried to write to it. Windows locks open files, so `mmdc` would fail. Fixed by closing the tempfile before the subprocess runs.
+
+**3. Missing SVG handling**
+
+If a cached SVG somehow disappeared, `FileUtils.cp` would crash the build. [Added existence check](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L23) with a warning instead of hard failure.
+
+## Examples in Action
+
+The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/272764fe.svg"><img src="/assets/svg/272764fe.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/272764fe-dark.svg"><img src="/assets/svg/272764fe-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.
+
+## Final Stats
+
+- **47 tests, all passing**
+- **70%+ code coverage**
+- **Published to RubyGems:** [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild)
+- **Installation:** `gem install jekyll-mermaid-prebuild`
+
+Three gems now: [jekyll-highlight-cards](https://rubygems.org/gems/jekyll-highlight-cards) for styled link and image cards, [jekyll-auto-thumbnails](https://rubygems.org/gems/jekyll-auto-thumbnails) for automatic image optimization, and [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild) for build-time diagram rendering.
+
+## What I Learned
+
+**Jekyll's `site.data` doesn't persist the way you'd expect between hooks.** Data set in `:after_init` may not be available in `:pre_render`. Use `:post_read` for site-wide state that needs to survive into document processing.
+
+**Puppeteer dependencies vary by platform.** The error message when Chrome can't launch is cryptic (`cannot open shared object file`). Detecting this failure mode and printing the exact `apt-get` command saves users time.
+
+**Regex backreferences match fence styles elegantly.** `^\1\s*$` ensures opening and closing fences match both in character and count. No need to track state between matches.
+
+**Windows file locking affects tempfiles.** On Unix, an open file descriptor doesn't prevent other processes from writing. On Windows, it does. Close tempfiles before subprocesses write to them.
+
+**Pure Ruby PATH scanning beats shell commands for portability.** `which` doesn't exist on Windows, `where` doesn't exist on Unix. Scanning `ENV["PATH"]` with `File.executable?` works everywhere.
+
+## The Repository
+
+The code is at [Texarkanine/jekyll-mermaid-prebuild](https://github.com/Texarkanine/jekyll-mermaid-prebuild) with the full implementation history.
+
+Three gems down, 2MB lighter per page.
+
+## Building My Second RubyGem
+
+Remember [that first gem](/2025/12/08/publishing-my-first-rubygem.html) where I built styled cards for [Jekyll](https://jekyllrb.com/)? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: [jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails).
+
+## The Failed First Attempt
+
+The plan was simple: add thumbnail generation as a feature to `jekyll-highlight-cards`. Scan Markdown for sized images, generate thumbnails with MD5-based caching, replace URLs in the final HTML.
+
+I implemented it. 277 tests passing, 96% coverage. The feature worked in isolation.
+
+Then I tested it on this blog. Every image failed to generate thumbnails. The registry showed URLs like `/2025/11/25/photo.jpg`, but the actual files were at `/assets/img/blog/record/photo.jpg`. 
+
+The problem: hook timing. My plugin ran in `:pre_render`, scanning raw Markdown. But [image_paths.rb](https://github.com/Texarkanine/devblog/blob/a293c346612823fca18a6447902da688e57be247/_plugins/00_image_paths.rb) (a local plugin) ran in `:post_render`, transforming `photo.jpg` into `/assets/img/blog/record/photo.jpg`. I was registering pre-transform URLs but trying to find post-transform files.
+
+## The Architecture Pivot
+
+The fix wasn't to adjust hook timing. The fix was to realize **image optimization is a separate concern** from styled card presentation.
+
+New architecture: Scan the final rendered HTML after ALL plugins have run. Parse it with Nokogiri, look for `<img>` tags in `<article>` elements, extract the actual `src` attributes. Those URLs reflect reality - all transformations already applied.
+
+This required extracting the thumbnail feature into a standalone gem. The separation made sense: [jekyll-highlight-cards](https://github.com/Texarkanine/jekyll-highlight-cards) handles presentation (linkcard, polaroid tags). [jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails) handles optimization (thumbnail generation, caching, URL replacement).
+
+## Building the Second Gem
+
+I created `jekyll-auto-thumbnails` (initially named `jekyll-img-optimizer`, renamed before publish). Seven core modules following the same TDD approach:
+
+1. **Configuration** - Parse `_config.yml` settings with validation
+2. **UrlResolver** - Handle absolute/relative/external URLs  
+3. **DigestCalculator** - MD5 computation for cache keys
+4. **Registry** - Track largest dimensions needed per image
+5. **Generator** - ImageMagick integration for thumbnail creation
+6. **Scanner** - HTML parsing to find images in `<article>` tags
+7. **Hooks** - Jekyll integration via `:post_render` and `:post_write`
+
+The key difference: Scanner operates on **rendered HTML**, not Markdown source.
+
+## The Dimension Merging Bug
+
+First test on the blog revealed the generator was creating thumbnails at the **smallest** dimensions, not the largest.
+
+A polaroid at `size=x400` (height 400, width auto) and a Markdown image at `=200x` (width 200, height auto) both referenced the same image. The registry merged these as:
+
+```ruby
+{ width: 200, height: 400 }  # Wrong - takes the ONLY non-nil value for each
+```
+
+This produced a 200x400 thumbnail. When displayed at ~500px width, it looked terrible - upscaled 2.5x from a thumbnail that should have been 536x400.
+
+The fix: [Scanner calculates missing dimensions](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L104-L113) from aspect ratio before registering. Query ImageMagick for actual image dimensions, compute the missing value, then register complete dimensions.
+
+Now `size=x400` registers as `{ width: 536, height: 400 }` (calculated from 1.34:1 aspect ratio), and the Registry correctly chooses 536x400 as the maximum.
+
+## The Animated GIF Bug  
+
+An image named `dogblog-468x60.gif` generated a thumbnail named `dogblog-468x60_thumb-bb988d-46x60.gif`. The width lost an `8`.
+
+The GIF was animated (25 frames). ImageMagick's `identify` command returned dimensions for **all frames concatenated**:
+
+```
+468x605x511x1014x1420x19391x23394x25398x27399x2724x2325x2428x27
+```
+
+My code split on `x` and took the first two values: `468` and `605`. The `605` was frame 1's height (60) plus the start of frame 2's dimensions (5). This gave the wrong aspect ratio.
+
+The fix: [Query only the first frame](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/scanner.rb#L81) with `identify "#{file_path}[0]"`. The `[0]` index tells ImageMagick to return dimensions for frame zero only.
+
+Test with actual animated GIF confirmed: `468x60` parsed correctly.
+
+## CodeRabbit's Security Review
+
+After the initial implementation, CodeRabbit flagged five issues. All five were valid.
+
+**Issue 1: Unix-only ImageMagick detection**
+
+```ruby
+system("which convert > /dev/null 2>&1")
+```
+
+The `which` command doesn't exist on Windows. [Fixed by searching ENV['PATH']](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L19-L26) manually:
+
+```ruby
+def imagemagick_available?
+  cmd_name = Gem.win_platform? ? "convert.exe" : "convert"
+  path_dirs = ENV["PATH"].to_s.split(File::PATH_SEPARATOR)
+  
+  path_dirs.any? do |dir|
+    File.executable?(File.join(dir, cmd_name))
+  end
+end
+```
+
+**Issue 2 & 3: Shell command injection**
+
+Two methods used string-based `system()` calls and backticks, both invoking a shell:
+
+```ruby
+cmd = cmd_parts.join(" ")
+system(cmd)  # Shell interprets special characters
+
+output = `identify ... #{file_path}[0] 2>/dev/null`  # Shell interprets
+```
+
+[Fixed by using array-based execution](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L98-L109):
+
+```ruby
+system(*["convert", source_path, "-resize", geometry, "-quality", "85", dest_path])
+
+output, status = Open3.capture2e("identify", "-format", "%wx%h", "#{file_path}[0]")
+```
+
+No shell invocation, no special character interpretation, works on both Unix and Windows.
+
+**Issue 4: File.join for URLs**
+
+```ruby
+thumb_url = File.join(url_dir, thumb_filename)  # Uses OS-specific separators
+```
+
+On Windows, `File.join` produces backslashes. URLs must always use forward slashes. Fixed with explicit string concatenation:
+
+```ruby
+thumb_url = if url_dir == "."
+              "/#{thumb_filename}"
+            else
+              "#{url_dir}/#{thumb_filename}"
+            end
+```
+
+**Issue 5: HTML structure concerns**
+
+CodeRabbit suggested `Nokogiri::HTML()` might corrupt document structure. Assessed as non-issue - Jekyll's `doc.output` is already complete HTML, parsing and re-serializing doesn't cause problems. Added early return for performance but no structural changes needed.
+
+## Two Critical Sanity Checks
+
+After CodeRabbit's review, I added two optimizations:
+
+**Check 1: Skip if dimensions match original**
+
+If an image is 300x200 and you request a 300x200 thumbnail, don't generate anything. Use the original.
+
+**Check 2: Delete if thumbnail larger than source**
+
+Sometimes compression doesn't help. A small, highly compressed image might produce a larger thumbnail if thumbnailing is configured at high quality. If `File.size(thumbnail) > File.size(original)`, [delete the thumbnail](https://github.com/Texarkanine/jekyll-auto-thumbnails/blob/v0.2.1/lib/jekyll-auto-thumbnails/generator.rb#L59-L66) and use the original.
+
+Testing on this blog: 13 images detected, 6 rejected (thumbnail would be larger), 7 optimized. The plugin only optimizes when beneficial.
+
+## Examples in Action
+
+The gem is running on this blog right now. That polaroid from the previous post:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="/assets/img/blog/diary/gemini-trip-to-japan.jpg">
+      <img src="/assets/img/blog/diary/gemini-trip-to-japan.jpg" alt="Trip to Japan (with automatic thumbnail)" height="400" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Trip to Japan (with automatic thumbnail)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">www.japan.go.jp/japan/visit/index.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The original image is 818KB. The thumbnail served is 115KB (86% reduction). The plugin calculated the correct width (536px) from the 400px height constraint and the image's aspect ratio, generated `gemini-trip-to-japan_thumb-45be04-536x400.jpg` in `.jekyll-cache/`, copied it to `_site/`, and replaced the URL in the HTML.
+
+The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:
+
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+
+## Final Stats
+
+- **58 tests, all passing**
+- **90.0% code coverage**  
+- **20 commits** from extraction to production
+- **Published to RubyGems:** [jekyll-auto-thumbnails](https://rubygems.org/gems/jekyll-auto-thumbnails)
+- **Installation:** `gem install jekyll-auto-thumbnails`
+
+The gem scans rendered HTML for images in `<article>` tags, generates thumbnails with MD5-based caching, and replaces URLs transparently. Works with any Jekyll plugins that transform image paths because it runs after all rendering completes.
+
+## What I Learned
+
+**Jekyll hook timing determines what you see.** Pre-render hooks see Markdown and Liquid. Post-render hooks see final HTML. If other plugins transform content, you need to run after them.
+
+**Scanning rendered HTML instead of source is plugin-agnostic.** Any URL-transforming plugin works because you're reading the end result, not guessing at transformations.
+
+**ImageMagick's identify returns all frames for animated GIFs.** Use `[0]` to get first frame only: `identify "file.gif[0]"`. Without it, parsing `468x605x51...` gives wrong dimensions.
+
+**Backticks and string-based system() invoke shells.** Even with `Shellwords.escape`. Use `system(*array)` or `Open3.capture2e` for shell-free execution. Safer and cross-platform.
+
+**File.join uses OS-specific separators.** URLs need forward slashes always, but `File.join` produces backslashes on Windows. Build URLs with string concatenation, not path operations.
+
+**Sometimes thumbnails are larger than originals.** Small, compressed images might expand when reprocessed. Check file size after generation and delete if larger.
+
+**Separation of concerns can emerge from failed integration.** The thumbnail feature didn't belong in a styled-cards gem. The architecture problem revealed the right boundaries.
+
+## The Repository
+
+The code is at [Texarkanine/jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails) with the full implementation history.
+
+Two gems now: one for presentation, one for optimization. Both do their jobs without interfering with each other or with other Jekyll plugins.
+
+## Publishing My First RubyGem
+
+Remember [that previous post where I built two Jekyll plugins](/2025/11/25/two-jekyll-image-plugins.html) and said "nothing's next"? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here's how it went.
+
+## The Starting Point
+
+Two working Jekyll plugins existed: `linkcard_tag.rb` and `image_sizing.rb`. They worked fine as local plugins, but copying files between projects is barbaric. Time to build a gem. Plus, I wanted to add a new `polaroid` tag for styled image cards.
+
+I was given three documents to work from:
+
+1. **POLAROID_PRODUCT.md** - Complete product specification with syntax, parameters, HTML structure, edge cases
+2. **POLAROID_PLAN.md** - Detailed implementation plan with phases, file structure, test strategy
+3. **TASKS.md** - Phase-by-phase checklist tracking progress
+
+The task: "Build this."
+
+## Test-Driven Development, Enforced
+
+The workspace had strict TDD rules configured: tests must be written before any implementation code. Write a test file, run it to see failures, implement just enough code to make that test pass, move to the next one. Repeat for every feature.
+
+## Early Test Failures
+
+Phase 2 code complete. Six test failures.
+
+**DimensionParser issue:** The regex for parsing `WIDTHxHEIGHT` was splitting on the first `x`, which broke dimensions like `400px` into `400p` + `x`. I needed [a smarter regex](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/lib/jekyll-highlight-cards/dimension_parser.rb#L20-L30) that recognized `x` as a separator only when it appeared between dimension values, not within units.
+
+**ExpressionEvaluator issue:** Empty strings were returning `nil` instead of empty strings. The ternary operator logic `return allow_nil ? stripped : (stripped.empty? ? nil : stripped)` needed clearer control flow.
+
+**TemplateRenderer issue:** The gem root path calculation was wrong. Templates need to be discoverable in the gem's `_includes/` directory, not relative to the calling code.
+
+Fixed all three methodically. Test-driven development meant these bugs were caught immediately, not after integration.
+
+## The Rubocop Incident
+
+Before the first release, rubocop `--autocorrect` was run. It broke everything.
+
+Rubocop had transformed this correct Ruby:
+
+```ruby
+return allow_nil ? stripped : (stripped.empty? ? nil : stripped)
+```
+
+Into this syntactically invalid nonsense:
+
+```ruby
+return if allow_nil
+stripped
+else
+(stripped.empty? ? nil : stripped)
+end
+```
+
+That's not valid Ruby. The `else` has no corresponding `if` - the `return if allow_nil` is a guard clause, not the start of an if/else block.
+
+I reverted the file, tests passed. Then [refactored into something](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/lib/jekyll-highlight-cards/expression_evaluator.rb#L29-L31) Rubocop wouldn't break:
+
+```ruby
+return stripped if allow_nil
+
+return stripped.empty? ? nil : stripped
+```
+
+Two separate guard clauses with a blank line between them. Rubocop-safe and arguably clearer. Applied the same pattern to all similar cases in the file.
+
+## Publishing to RubyGems with Trusted Publishing
+
+Setting up gem publishing using OIDC trusted publishing (no API keys needed) required:
+
+1. A GitHub Actions workflow with `id-token: write` permission
+2. Configuring RubyGems.org to accept OIDC tokens from the repository
+3. Integrating with Release Please for automated versioning
+
+The workflow splits into two jobs:
+- `release-please`: Orchestrates version bumps and changelog updates
+- `publish-gem`: Runs tests, builds, and publishes (only with the `rubygems.org` environment)
+
+**Gotcha encountered:** RubyGems trusted publishing configuration is case-sensitive on the GitHub username. Had to use `Texarkanine` not `texarkanine`, even though GitHub usernames are normally case-insensitive.
+
+## The Gemfile.lock Problem
+
+Release Please bumps the version in `lib/jekyll-highlight-cards/version.rb`, but this makes `Gemfile.lock` out of date. CI freezes the gemfile, so installation fails on the release PR.
+
+Solution: [A separate workflow](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/.github/workflows/update-gemfile-lock.yaml) that triggers on PRs when `version.rb` changes, but only on Release Please branches (`release-please--*`). It runs `bundle install`, commits the updated `Gemfile.lock` back to the PR, and uses the [nick-fields/retry](https://github.com/nick-fields/retry) action to handle race conditions with `git pull --rebase` before pushing.
+
+Now the release PR always has a valid `Gemfile.lock`.
+
+## The Final Publishing Bug
+
+First release went out. Version 0.1.0 published to RubyGems. Installed it in the blog to test. The CSS didn't load.
+
+The gem had the CSS file at `_sass/highlight-cards.scss`, but Jekyll couldn't find it. Users would have to manually add a `sass_load_paths` entry in their `_config.yml` pointing to the gem's `_sass` directory before they could even `@use` it. That's terrible UX.
+
+The fix: Rename `_sass/highlight-cards.scss` to `_sass/_highlight-cards.scss` (partial convention), then [use Jekyll hooks](https://github.com/Texarkanine/jekyll-highlight-cards/blob/v0.3.1/lib/jekyll-highlight-cards.rb#L39-L51) to automatically register the load path:
+
+```ruby
+Jekyll::Hooks.register :site, :after_init do |site|
+  site.config["sass"] ||= {}
+  site.config["sass"]["load_paths"] ||= []
+
+  unless site.config["sass"]["load_paths"].include?(SASS_PATH)
+    site.config["sass"]["load_paths"] << SASS_PATH
+  end
+end
+```
+
+This registered the gem's `_sass` directory so Jekyll could find the partial. Fixed in [commit 2183771](https://github.com/Texarkanine/jekyll-highlight-cards/commit/2183771) after testing the gem installation in an actual Jekyll site.
+
+## Display Tweaks: The Span vs Div Saga
+
+For centered polaroids, I added a `<span class="polaroid-container">` wrapper. It rendered as:
+
+```html
+<p><span class="polaroid-container"></span></p>
+
+<div class="polaroid">
+  <!-- content -->
+</div>
+
+<p>&lt;/span&gt;</p>
+```
+
+The closing `</span>` was escaped as literal text!
+
+Markdown processors don't allow block-level elements (`<div>`) inside inline elements (`<span>`). When Jekyll's Kramdown processor saw the `<div>` inside the `<span>`, it broke up the span, wrapped the opening tag in `<p>`, and escaped the closing tag.
+
+Fix: Change `<span>` to `<div>`. Block elements can contain block elements. Added CSS:
+
+```css
+.polaroid-container {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.polaroid {
+  display: inline-block;
+  position: relative;
+}
+```
+
+Polaroids now center properly.
+
+## Final Stats
+
+- **181 tests, all passing**
+- **97.45% code coverage**
+- **~2,000 lines of implementation code**
+- **~3,000 lines of test code**
+- **Published to RubyGems:** [jekyll-highlight-cards](https://rubygems.org/gems/jekyll-highlight-cards)
+- **Installation:** `gem install jekyll-highlight-cards`
+
+The gem provides three features:
+
+1. <code>{% linkcard URL %}</code> – Styled link cards with archive support  
+2. <code>{% polaroid /image.jpg %}</code> – Polaroid-style image cards  
+3. <code>![alt](image.jpg &#61;300x200)</code> – Markdown image sizing
+
+All with Internet Archive integration, customizable templates, and overrideable CSS.
+
+## Examples in Action
+
+Here's what the gem actually produces:
+
+**Linkcard example** - linking to the gem repository:
+
+<blockquote class="link-card">
+  
+  <h1>jekyll-highlight-cards on GitHub</h1>
+  
+  <a href="https://github.com/Texarkanine/jekyll-highlight-cards" target="_blank" rel="noopener">github.com/Texarkanine/jekyll-highlight-cards</a>
+  
+</blockquote>
+
+
+
+
+**Polaroid example** - a photo from a trip to Japan:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="/assets/img/blog/diary/gemini-trip-to-japan.jpg">
+      <img src="/assets/img/blog/diary/gemini-trip-to-japan.jpg" alt="Trip to Japan" height="400" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Trip to Japan</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">www.japan.go.jp/japan/visit/index.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20251208000000/https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+**Markdown image sizing** - the same photo, but smaller using extended Markdown syntax:
+
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+
+All three features working together in this post. The linkcard shows the styled link block. The polaroid displays with the classic photo frame aesthetic. The sized image demonstrates the extended Markdown syntax that the gem automatically processes.
+
+## What I Learned
+
+**Rubocop's autocorrect can introduce syntax errors.** It mangled nested ternaries with guard clauses into invalid syntax. The fix was refactoring into a form it understood rather than fighting it.
+
+**RubyGems OIDC configuration is case-sensitive on usernames.** GitHub usernames aren't case-sensitive, but the RubyGems trusted publishing configuration is. Had to use `Texarkanine` not `texarkanine`.
+
+**Jekyll gems need explicit load path registration.** Users shouldn't have to manually configure `sass_load_paths` in their `_config.yml`. A simple `:after_init` hook solves it automatically.
+
+**Kramdown enforces HTML semantics strictly.** Block elements inside inline elements get broken up and escaped. The `<span>` to `<div>` fix was obvious in hindsight.
+
+**Release Please and Gemfile.lock need synchronization.** Version bumps make the lockfile stale, breaking CI. A separate workflow with retry logic keeps it synchronized.
+
+**Structured specifications make implementation straightforward.** Complete product docs, detailed plans, and explicit TDD rules turned every decision into a lookup rather than a judgment call.
+
+## The Repository
+
+The full code is at [Texarkanine/jekyll-highlight-cards](https://github.com/Texarkanine/jekyll-highlight-cards) with commit history showing the exact progression.
+
+If you're building Jekyll plugins or want to see what test-driven gem development looks like in practice, the test coverage and systematic debugging approach might be useful reference material. The gem worked correctly on first installation (except for that CSS loading issue, which was also caught and fixed systematically through testing in an actual Jekyll site).
+
+Now the infrastructure is truly done. Back to writing blog posts...
+
+## Two Jekyll Image Plugins
+
+Built two custom Jekyll plugins today to handle images in blog posts. What started as "I don't want to type the full path" turned into an exercise in keeping things simple.
+
+## The Initial Problem
+
+I had a post in `blog/record/_posts/` with an image reference:
+
+```markdown
+![Look at this dog](/blog/record/thisdog.jpg)
+```
+
+That `/blog/record/` path felt redundant - the post already lives in that directory. Why repeat myself? Plus, we had `jekyll-images-cdn` for prepending CDN URLs, which was working fine for local development with `/assets/img`. We had already shaved *that* prefix off, why couldn't we shave off the rest of the prefix?
+
+## First Solution: image_paths.rb
+
+Built a plugin that:
+1. Extracts the post's directory from its path
+2. Resolves relative image paths (like `thisdog.jpg`) to that directory
+3. Applies CDN configuration from `_config.yaml`
+
+So now I can write `![Dog](thisdog.jpg)` and get `/assets/img/blog/record/thisdog.jpg`. Perfect. Removed `jekyll-images-cdn` since we integrated that functionality directly.
+
+## The Second Problem
+
+I have a tall, narrow image that was filling 100% width and dominating the page. I wanted dimension control. Found that some Markdown processors support extended syntax like:
+
+```markdown
+![Image](photo.jpg =300x200)
+```
+
+Nice! Let's add that.
+
+## One Plugin or Two?
+
+Should this be in the same plugin or separate? I initially thought "they both process images, combine them!" But after thinking it through:
+
+**Arguments for combining:**
+- Same `<img>` target
+- One regex pass
+- Fewer files
+
+**Arguments for separating:**
+- Single Responsibility Principle
+- Different concerns: functional (path resolution) vs presentational (styling)
+- Different hook points (sizing needs pre_render to parse Markdown, paths work post_render on HTML)
+- Different configs
+- Independently useful
+
+**Decision: Separate.** Path resolution is infrastructure; sizing is aesthetic preference. Keep 'em apart.
+
+## Building image_sizing.rb
+
+The implementation was... educational.
+
+### Challenge 1: Comment Markers
+
+The approach: parse `![alt](url =WIDTHxHEIGHT)` in `pre_render`, inject an HTML comment marker, then process it in `post_render`.
+
+First attempt: Used `=WIDTHxHEIGHT` as the marker format.
+Problem: Regex parsing got confused when splitting on 'x'.
+
+Fixed: Changed to `:` separators in the comment: `<!-- IMG_SIZE:300:200:hr -->`
+
+### Challenge 2: Paragraph Wrapping
+
+Jekyll wraps some images in `<p>` tags, some not. The regex needed to handle both:
+
+```ruby
+/<p>)?<img\s+([^>]*)><!-- IMG_SIZE:... -->(<\/p>)?/
+```
+
+Capture the paragraph tags, preserve them in output.
+
+### Challenge 3: Code Blocks
+
+The plugin was processing image syntax everywhere, including inside code fences and inline code blocks. So examples like `![alt](url =300x200)` were getting transformed into `![alt](url)<!-- IMG_SIZE:... -->` in the rendered output, which I discovered when I wrote them for this post!
+
+Fixed: Track code fence state line by line, and split each line by backticks to track inline code state. Only process image syntax when outside both.
+
+The logic handles triple-backtick fences, tilde fences, and inline backticks. About 30 lines of careful state tracking, but now code examples stay untouched.
+
+### Challenge 4: The Horizontal Rules Feature
+
+Initial plan: When height is specified in pixels, wrap with `<hr>` tags for visual emphasis.
+
+Implemented it. Worked great! Images with height got horizontal rules above and below.
+
+Then realized: This only triggered when BOTH width and height were specified, not just height alone. The logic was getting complex. And honestly, did I really want automatic HRs?
+
+**Decision: Kill the feature.** Let users add `---` in their Markdown if they want horizontal rules. Plugin should just do sizing.
+
+Removed ~15 lines of HR logic. Much cleaner.
+
+### Challenge 5: Auto-Linking
+
+After getting sizing working, realized it would be nice if sized images automatically linked to their full resolution. Click the thumbnail, see the full image in a new tab.
+
+But what if an image is already inside a link? Like `[text ![img](url =300x) more](example.com)`. Don't want to create nested anchors - the inner link would win and break the outer link.
+
+**Solution:** Detect if image is already inside an anchor tag. In the second pass of `post_render`, after applying sizing:
+1. Find images with width/height attributes
+2. Scan backwards from the image position
+3. Find the last `<a>` and `</a>` tags before the image
+4. If there's an unclosed `<a>` → inside anchor → skip
+5. Otherwise → wrap in `<a href="src" target="_blank" rel="noopener">`
+
+The regex `/<a[\s>]/` avoids matching `<article>` and `<aside>` tags. Used `rindex` to find the most recent occurrence, which is simpler than counting all anchors in the page.
+
+Added `target="_blank"` so full images open in new tab, and `rel="noopener"` for security.
+
+Tested with images inside text links, standalone sized images, and unsized images. All work correctly.
+
+## The Final Result
+
+Two plugins, each doing one thing well:
+
+1. **image_paths.rb**: Resolves relative paths based on post location, applies CDN config
+2. **image_sizing.rb**: Parses `=WIDTHxHEIGHT` syntax, applies dimensions
+
+Usage:
+```markdown
+![Dog](thisdog.jpg =x400)
+```
+
+Output:
+```html
+<a href="/assets/img/blog/record/thisdog.jpg" target="_blank" rel="noopener">
+  <img src="/assets/img/blog/record/thisdog.jpg" alt="Dog" height="400">
+</a>
+```
+
+Sized images auto-link to full resolution. Unsized images stay plain. Images already inside links don't get double-wrapped.
+
+Both plugins run independently in sequence. No coupling. No complexity.
+
+## What I Learned
+
+**Separate concerns early.** Even if plugins process the same elements, if they serve different purposes, split them.
+
+**Feature creep happens, but not all features are equal.** The HR feature added complexity for marginal benefit (I can add `---` myself). But auto-linking sized images to full resolution? That's genuinely useful every time, and the complexity is justified. Know the difference.
+
+**Debug output matters.** Added `puts` statements to see exactly what the regex was capturing. Crucial for debugging that `:` vs `x` separator issue.
+
+**Test with real content.** Created test posts with all the edge cases (width only, height only, both, neither). Caught several regex bugs this way.
+
+**HTML comments as data carriers work well.** Injecting structured comments in `pre_render` then parsing them in `post_render` bridged the Markdown→HTML transformation cleanly.
+
+**Simple is better.** The final versions are ~50-75 lines each (well, image_sizing grew to ~150 with the linking feature), well-documented, with no clever tricks. Exactly what I wanted.
+
+**State tracking isn't scary.** The code fence detection and anchor detection both required tracking state (are we inside something?). The logic is straightforward: find the last opening/closing pair, compare positions.
+
+## What's Next?
+
+~~Nothing. These plugins are done. They solve the problems I had, nothing more. And that's exactly right.~~
+
+~~Now back to writing actual blog posts instead of building infrastructure for them...~~
+
+**Update:** Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. [Read about that journey here](/2025/12/08/publishing-my-first-rubygem.html).
+
+## I Can't ai-rizz on Command
+
+Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - [Agent Skills](https://code.claude.com/docs/en/skills) - for a long time.
+
+I recently saw Cursor add "Team Commands" for enterprise accounts and got excited to finally leverage the power of Claude's Agent Skills, but in Cursor for my team.
+
+I blew the rest of my prepaid Cursor usage on trying to add Cursor Command support to [ai-rizz](https://github.com/texarkanine/ai-rizz), but hit two snags:
+
+## Commands Just Ain't Rules
+
+### Directory Structure is Part of the Command
+
+A Cursor Command located in `./cursor/commands/foo.md` can be triggered by typing `/foo`.
+
+A Cursor Command located in `./cursor/commands/foo/bar.md` can be triggered by typing `/foo/bar`
+
+This meant that the pattern `ai-rizz` used to ensure its managed rules stayed separate from other rules, of "claiming" two subdirectories of the `.cursor/rules` directory for itself:
+
+```
+.cursor/rules
+├── local
+│   └── my-local-rule.mdc
+└── shared
+    └── my-shared-rule.mdc
+```
+
+wouldn't work. The commands became unnecessarily prefixed with junk.
+
+So, they really needed to go in `.cursor/commands/*.md` directly.
+
+I came up with an idea, though: We'd store them in `.cursor/shared-commands`, and symlink them into `.cursor/commands`. This allowed prefix-less use of the commands but also kept the managed commands easily-identifiable - all symlinks in `.cursor/commands` to `.cursor/shared-commands/*.md` were managed, and all other commands weren't.
+
+### Tracking
+
+Clever design in `ai-rizz` makes keeping track of rules' provenance easy: simply knowing a rule's path on disk is enough to know if it should be in source control, whether it should be ignored, or whether it's a "user" rule not managed by `ai-rizz`.
+
+This is only manageable because the `.cursor/rules/local` directory is ignored by git with a single `.git/info/exclude` entry - one configuration line and you can put *all* rules you need in `local` and they're all untracked. You put all the tracked ones in `shared`, and any other directory tree is user rules.
+
+What if we tried to find that semantic for symlinks in `.cursor/commands/`, though?
+
+* `.cursor/commands/local-cmd.md.lnk` -> should not be committed
+* `.cursor/commands/committed-cmd.md.lnk` -> should be committed
+* `.cursor/commands/actual-cmd.md` -> user command, should not be touched
+
+Now we have to read & write exhaustive git ignore specs that identify every local command. Moreover, with rules, simply knowing a rule's path on disk was enough to know if it was a local, committed, or user rule. With commands all in one directory, you have to read the `ai-rizz` manifest each time to figure out the semantic for a given command. That's a lot of bookkeeping and opportunity to go wrong.
+
+I came up with a solution I thought could work: Declare that commands are commit-only in a repo. Tell the user to go set up `ai-rizz` in their user directory and have it manage `~/.cursor/commands` (this works) for commands that will live on their machine and not in the repo. Yes, the commands *would* become available to all repos, but that is primarily what I find myself doing with local *rules*, anyway - I pull the same set of customizations into every repo I work with, in "local" mode. If they could be "global" to my local machine, that would be handy!
+
+### Promotion
+
+`ai-rizz` can store *rules* with or without git tracking in a repository. You can try them out locally, and the ones that work really well with the repository get **promoted** to being committed to source control.
+
+What does "promotion" look like for Commands?
+
+First of all, the promotion semantic is inverted for commands: A command might be committed to one repo at first, and then you might really find it useful and want to promote it to **all** repos. So it goes from "commit" to "local" (which is really "global," as we'll see...)
+
+With that semantic and my ideas for command management so far, the existing code would do a very wrong thing: Promoting a command would pull it **out** of a repository and into the user's home directory. That's only correct if development is entirely by one user on one machine. Otherwise, when the user promotes their command they'll commit and push the repo without the command in it and now their colleagues will lose access to that command! That's the *opposite* of what `ai-rizz` is supposed to facilitate!
+
+So, flip the semantic, right? Commands *start* in `~/.cursor/commands`, and you commit them to a repo **iff you like them!** Done that way, a command starts out available in *every* repository, not the one you're working with at the moment. Weird but probably harmless.
+
+But then when you like the command and "promote" it to be committed to the repo so that everyone who works with the repo gets it, it gets pulled out of your user home and now the rest of *your* repositories lose access to it!
+
+**There's just no sensible promotion semantic for Commands:** You have to allow duplication, where promotion *copies* it to `~/.cursor/commands` but also keeps it in each repo it was added to.
+
+And that meant that
+
+1. I wouldn't be able to re-use much of `ai-rizz`'s rules codebase for commands
+2. Users of `ai-rizz` would have to maintain two very different mental models
+
+## What Are They For, Anyway?
+
+While I was stewing over how to possibly make this work, I had an epiphany: **I don't have a use-case for Cursor Commands, anway!**
+You can go read about why, [here](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html).
+## I Built a Logging Server to Log a Serverless Site
+
+I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But [DigitalOcean's static site hosting](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform), elegant in its simplicity, doesn't generate them. To get visibility into who visits my blog, I'd need to build my own logging infrastructure.
+
+The plan: deploy [OpenSearch](https://opensearch.org/) on my home server, forward logs from DigitalOcean, and build dashboards to analyze traffic. Simple enough.
+
+## The First Lesson: Storage
+
+OpenSearch runs best in Docker. The official images provide everything needed - just add a `docker-compose.yaml` and go. I specified named volumes for data persistence:
+
+```yaml
+volumes:
+  opensearch-data:/usr/share/opensearch/data
+```
+
+This looks clean, but named Docker volumes live in `/var/lib/docker/volumes/` by default. My root partition was already 47% full; my `/data` partition had 196GB free. And `/data` is a RAID array. I needed bind mounts instead:
+
+```yaml
+volumes:
+  - /data/opensearch/data:/usr/share/opensearch/data
+```
+
+## The User Permission Problem
+
+I run services on my home server as specific users, not as root or random UIDs. OpenSearch runs as UID 1000 inside its container. UID 1000 on my system is a real user who shouldn't have access to OpenSearch data. The solution seemed obvious:
+
+```yaml
+services:
+  opensearch:
+    user: "1003:1004"  # opensearch user
+```
+
+The containers started, then immediately failed:
+
+```
+opensearch | /bin/bash: ./opensearch-docker-entrypoint.sh: Permission denied
+```
+
+The entrypoint scripts inside the container image are owned by UID 1000. Running the container as UID 1003 meant that user couldn't execute them. Container images bake in assumptions about who runs them.
+
+I removed the `user:` directive and let the containers run as their default UID 1000. Docker provides isolation; the containers can't escape to become that user on the host system anyway. Sometimes the path of least resistance is correct.
+
+## The SSL Certificate Dance
+
+OpenSearch would receive logs over HTTPS from DigitalOcean. I needed an SSL certificate for a domain that I could NAT into my home server. Let's Encrypt provides free certificates, but their standard HTTP-01 validation requires port 80 accessible from the internet. Port 80 on my server was already occupied, and I didn't want to expose another service to the scanner bots that probe every public port.
+
+DNS-01 validation was the answer. Instead of serving a file on port 80, I'd prove domain ownership by creating DNS TXT records. The catch: Let's Encrypt's `certbot` doesn't support my DNS provider, FreeDNS.
+
+I found [`acme.sh`, an alternative ACME client that supports FreeDNS via its API](https://github.com/acmesh-official/acme.sh). Installing it as root (not as my user account) ensured automatic renewals would work.
+
+The tool created a DNS TXT record, Let's Encrypt verified it, and I had a certificate. No port 80 exposure required. The certificate renews automatically every 60 days via a cron job, and nginx reloads seamlessly when it does.
+
+## The Irony of Static Sites
+
+With OpenSearch running and SSL configured, I turned to DigitalOcean's log forwarding feature. Their UI is straightforward: select OpenSearch as the destination, provide the endpoint URL, configure authentication. But when I looked for the logs to forward, I discovered the problem.
+
+DigitalOcean's static site hosting doesn't generate access logs.
+
+The feature exists for their App Platform compute instances, but static sites - being static - have no application logs to forward. I'd need to deploy a compute instance that proxies requests to the static site just to generate the logs I wanted.
+
+The irony: I'm paying $0/month for static site hosting because there's no server-side processing. To get access logs, I'd need to pay $5/month for a server that does nothing but proxy requests and log them.
+
+I built an [nginx](https://nginx.org/) container that accepts requests, logs them in JSON format, and forwards them to the actual static site. The container uses environment variables for configuration - no identifying information committed to the repository:
+
+```nginx
+upstream backend_static {
+    server ${UPSTREAM_HOST}:443;
+}
+
+location / {
+    proxy_pass https://backend_static${UPSTREAM_PATH};
+    proxy_set_header Host ${UPSTREAM_HOST_HEADER};
+}
+```
+
+GitHub Actions builds the image automatically and publishes it to GitHub Container Registry. DigitalOcean pulls the image, and I configure the necessary environment variables in their UI. The static site remains unchanged; the proxy sits in front of it.
+
+The setup works. I'm paying $5/month for visibility into my site's traffic.
+
+## The Log Processing Pipeline
+
+DigitalOcean forwards logs to OpenSearch, but they contain a mix of JSON access logs and plain text error messages. OpenSearch needs to parse them correctly.
+
+An [ingest pipeline](https://docs.opensearch.org/latest/ingest-pipelines/) handles this. It attempts to parse each log entry as JSON. If parsing succeeds, it extracts the fields and marks the entry as `log_type: "access"`. If parsing fails, it marks it as `log_type: "error"` and stores the raw text:
+
+```json
+{
+  "processors": [
+    {
+      "json": {
+        "field": "log",
+        "target_field": "parsed",
+        "ignore_failure": true
+      }
+    },
+    {
+      "script": {
+        "source": "if (ctx.containsKey('parsed') && ctx['parsed'] != null) {
+          ctx['log_type'] = 'access';
+          for (def entry : ctx['parsed'].entrySet()) {
+            ctx[entry.getKey()] = entry.getValue();
+          }
+          ctx.remove('parsed');
+        } else {
+          ctx['log_type'] = 'error';
+          ctx['error_message'] = ctx['log'];
+        }"
+      }
+    }
+  ]
+}
+```
+
+The pipeline lives in OpenSearch's cluster state. Install it once via the API, and it persists across restarts. I created an index template that applies the pipeline automatically to the index Opensearch is forwarding logs to.
+
+## The Final Architecture
+
+The pieces work together:
+
+1. Visitor requests `blog.cani.ne.jp`
+2. DNS resolves to DigitalOcean App Platform
+3. Nginx proxy container (running on DO) receives the request
+4. Proxy logs the request as JSON to stdout
+5. Proxy forwards the request to the actual static site
+6. Static site returns the content
+7. DigitalOcean's log forwarding sends logs to my home server's OpenSearch endpoint
+8. Nginx on my home server (with Let's Encrypt certificate) receives them
+9. OpenSearch ingests and indexes the logs
+10. Pipeline extracts fields from JSON logs
+11. OpenSearch Dashboards visualizes the data
+
+I can now see which pages are popular, where visitors come from, and how they navigate the site. The dashboards show traffic patterns I couldn't see before. Importantly, this is from server-side metrics - no JavaScript required!
+
+## What It Cost
+
+The final setup:
+- OpenSearch cluster on my home server: "$0" (existing hardware)
+- SSL certificate from Let's Encrypt: $0 (DNS-01 validation via FreeDNS)
+- Nginx proxy running on DigitalOcean: $5/month (Basic instance)
+- Static site hosting: $0 (unchanged)
+
+I'm paying five dollars a month so my free static site can generate access logs.
+
+The nginx proxy is completely transparent. Visitors see no difference in performance or behavior... if anything there may be a slight degradation as the tiny compute instance hosting the nginx is likely less-performant than the CDN-powered static site it sits in front of. The proxy accepts the request, logs it to stdout in JSON format, forwards the request to the actual static site behind it, and returns the response. DigitalOcean's log forwarding picks up those JSON logs and sends them to my OpenSearch endpoint over HTTPS. The OpenSearch ingest pipeline parses the JSON, extracts the fields, and indexes the documents. The dashboards update automatically.
+
+I built a logging server to log a serverless site.
+
+The absurdity isn't lost on me. Static site hosting exists because you don't need a server - your content sits in object storage behind a CDN. The whole point is the absence of computation. But I wanted to know who's reading my blog, and logs require computation. Someone has to write them.
+
+So I rebuilt the server. Five dollars a month. Sixty dollars a year. The OpenSearch cluster hums along on my home server, accepting logs, parsing them with a pipeline that detects JSON versus plain text errors, and displaying them in dashboards I can access from my LAN.
+
+It works. If you're reading this, you're in there now, too, somewhere!
+
+## We Therefore do not Recommend this Approach (to Upgrading OctoPrint's Python)
+
+## The Warning
+
+OctoPrint on my Raspberry Pi 4 greeted me with an ominous warning: my Python environment was outdated and would soon be unsupported. The message linked to [the OctoPrint community's upgrade guide](https://community.octoprint.org/t/octoprint-tells-me-my-python-environment-is-outdated-and-will-soon-no-longer-be-supported-how-do-i-upgrade/61076), which outlined the proper upgrade path. Simple enough, I thought. I'd just build a newer Python and upgrade in place, like they tell you not to:
+
+> Instead of reflashing or running a dist-upgrade, you might be tempted to upgrade your Python installation by compiling Python yourself. On anything but a Raspberry Pi, that is fine.
+> <br>...<br>
+> We therefore do not recommend this approach unless you really know what you are doing.
+
+Well, I work in **Big Tech** for my day job and I know how to Python, so they're totally talking about me there... right?
+
+## The Python Journey
+
+I installed `pyenv` and built Python 3.14, only to discover that OctoPrint doesn't support it yet. Oops, should've RTFM'm. No problem - I built Python 3.13 instead, which falls within OctoPrint's supported range.
+
+The OctoPrint community guide said you could use the `octoprint-venv-tool` to recreate the virtual environment with a new Python version. I followed the steps, rebuilt the venv, and restarted OctoPrint.
+
+Then came the error:
+
+```
+octoprint[409]: There was a fatal error initializing OctoPrint: Could not initialize settings manager: /lib/arm-linux-gnueabihf/libc.so.6: version `GLIBC_2.34' not found (required by /home/pi/oprint/lib/python3.13/site-packages/netifaces.cpython-313-arm-linux-gnueabihf.so)
+```
+
+## The GLIBC Problem
+
+The `netifaces` package, compiled against Python 3.13, required GLIBC 2.34. I tried the solution from [a related community thread](https://community.octoprint.org/t/upgraded-octoprint-new-glibc-dependency-broken/64705/9) that suggested adjusting the `psutil` package, but that didn't help. The problem wasn't specific to one package - it was systemic.
+
+I checked the [Debian package listings for libc6](https://packages.debian.org/search?searchon=names&keywords=libc6). My Raspberry Pi was running Debian Bullseye, which tops out at GLIBC 2.31. Debian Bookworm, however, includes versions up to 2.36. That'd work!
+
+This left me with three options: 
+
+1. attempt to install Bookworm's GLIBC on Bullseye (risky and likely to cause other dependency issues)
+2. upgrade the entire system to Bookworm
+3. abort and do a backup of OctoPrint and a fresh install + restore
+
+Obviously, I chose the upgrade the entire system to Bookworm because as we already established, I know what I'm doing.
+
+## The Debian Upgrade
+
+I followed [some upgrade guide from Bullseye to Bookworm](https://linuxcapable.com/how-to-upgrade-from-debian-11-bullseye-to-debian-12-bookworm/), which seemed legit. The process was straightforward, though I encountered numerous configuration file prompts - the classic "do you want to keep your version or use the package maintainer's version?" question, e.g.
+
+```
+Configuration file '/etc/haproxy/haproxy.cfg'
+==> Modified (by you or by a script) since installation.
+==> Package distributor has shipped an updated version.
+  What would you like to do about it ?  Your options are:
+   Y or I  : install the package maintainer's version
+   N or O  : keep your currently-installed version
+     D     : show the differences between the versions
+     Z     : start a shell to examine the situation
+The default action is to keep your current version.
+*** haproxy.cfg (Y/I/N/O/D/Z) [default=N] ?
+```
+
+After reviewing several and finding them harmless, I stopped scrutinizing each one.
+
+The upgrade completed successfully. OctoPrint started without the GLIBC error. Victory, right?
+
+## It's Almost Like They Thought Of This
+
+Not quite. The OctoPrint web interface was no longer accessible on port 80.
+
+It turns out OctoPi (the Raspberry Pi distribution for OctoPrint) uses HAProxy to proxy the web interface to port 80. During the upgrade, I had accepted the package maintainer's version of the HAProxy configuration, which overwrote OctoPi's custom setup with the generic default.
+
+Fortunately, Debian's upgrade process saves old configuration files with the `.dpkg-old` suffix. I navigated to `/etc/haproxy` and ran:
+
+```bash
+sudo cp haproxy.cfg.dpkg-old haproxy.cfg
+```
+
+I verified this by comparing it against [the HAProxy configuration in the OctoPi repository](https://github.com/guysoft/OctoPi/blob/devel/src/modules/octopi/filesystem/root/etc/haproxy/haproxy.2.x.cfg). The configs were similar-enough that I concluded I was on the right track.
+
+After restarting HAProxy, the web interface came back on port 80. OctoPrint was now running Python 3.13, no longer complaining about end-of-life'd Python 3.9.
+
+## The Cascade
+
+I started with a simple goal: upgrade Python in OctoPrint. What I got was:
+
+1. Build Python 3.14 (wrong version)
+2. Build Python 3.13 (correct version)
+3. Recreate OctoPrint's virtual environment
+4. Discover GLIBC incompatibility
+5. Upgrade the entire operating system from Debian 11 to Debian 12
+6. Restore the HAProxy configuration
+
+This is what ~~dependency chains~~ yak shaving looks like in practice. Python 3.13 requires GLIBC 2.34. GLIBC 2.34 isn't available in Bullseye. Upgrading to Bookworm provides GLIBC 2.34 but replaces your configuration files if you slack off. Each step seems reasonable in isolation, but together they form a cascade where a "simple" upgrade of a venv's Python necessitates an OS upgrade.
+
+The lesson here isn't to avoid upgrades - quite the opposite. Staying on outdated software just accumulates technical debt, making the eventual upgrade more painful. The lesson is to expect the cascade and be prepared for it.
+
+So, like, use pyenv and venvs, but... don't forget that it all sits on a throne of lies and you'll need to upgrade your whole system to be able to build a natively-compiled extension for your interpreted language, anyway.
+
+The next time OctoPrint warns me about an outdated component, I'll know to check the entire dependency stack before starting. And I'll be more careful about which configuration files I let the package manager overwrite. Haha - just kidding! Remember, after all... I know what I'm doing ;)
+
+## Sorting systemd Ordering for Mempool Explorer
+
+## The Problem
+
+My [mempool explorer](https://github.com/mempool/mempool) would periodically lose its ability to show transactions. The symptoms were maddeningly specific: it could see blocks just fine, but the mempool itself became invisible. Restarting the mempool explorer did nothing. Restarting the Bitcoin node used by the explorer fixed it every time.
+
+This is the kind of bug that makes you question your sanity. If restarting Bitcoin fixes it, surely the problem is in Bitcoin? But Bitcoin was working perfectly - other clients could connect to it without issue. The mempool explorer, running in Docker, simply couldn't reach it.
+
+## The Misleading Clue
+
+The most interesting bugs hide behind what looks like the answer. When I checked the logs, I saw connection refused errors from the mempool trying to reach `172.17.0.1:8332` - Bitcoin's RPC port on the Docker bridge network. "Aha!" I thought. "A network configuration issue."
+
+But network issues don't fix themselves when you restart Bitcoin. That suggested something more fundamental was wrong.
+
+## The Smoking Gun
+
+The answer was buried in the systemd journal:
+
+```
+Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332
+Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332 failed.
+```
+
+Bitcoin tried to bind to the Docker bridge IP at startup and failed. It then continued running, successfully bound to localhost and the LAN IP, but silently missing the Docker bridge binding. Three seconds later, Docker started and created the bridge network.
+
+The race condition was subtle: Bitcoin started fractionally before Docker, tried to bind to an interface that didn't exist yet, failed gracefully, and continued operating. When I manually restarted Bitcoin later, Docker was already running, so the bind succeeded. The bug only manifested on system boot.
+
+## The Fix
+
+The solution is admirably simple:
+
+```ini
+[Unit]
+After=docker.service
+Wants=docker.service
+```
+
+Two lines in a systemd override file. `After=` ensures Bitcoin waits for Docker to start. `Wants=` expresses a preference for Docker to be running, without making it a hard requirement.
+
+I deliberately avoided `BindsTo=` or `PartOf=`, which would create tighter coupling. Those would restart Bitcoin whenever Docker restarted, which is unnecessary - once the bind succeeds, it persists regardless of Docker's state. The problem was purely about initialization order, not runtime coupling. More at the [systemd.unit man page](https://www.freedesktop.org/software/systemd/man/systemd.unit.html).
+
+## The Lesson
+
+This bug exemplifies what I call "success-in-the-wrong-order" problems. Bitcoin didn't fail catastrophically when it couldn't bind to the Docker bridge - that would have been easy to diagnose. Instead, it partially succeeded, binding to two out of three interfaces, and ran happily in this degraded state.
+
+Silent partial failures are dangerous precisely because they look like success. The application starts, health checks pass, logs show normal operation. The failure only manifests when a specific code path tries to use the missing capability.
+
+These bugs are also challenging because they combine multiple systems (systemd, Docker, Bitcoin) in ways that aren't immediately obvious. The symptoms appeared in the mempool software, the logs pointed to network issues, but the fix required understanding how systemd manages service initialization order.
+
+## Why This Matters
+
+Containerization has made these race conditions more common. We now routinely run applications that depend on container runtime networking, but our init systems weren't designed with this dependency model in mind. Systemd provides the tools to handle it (`After=`, `Wants=`, `Requires=`, etc.), but you have to know they exist and understand when to use each one.
+
+The broader lesson is about diagnostic discipline. When a problem has an easy fix (restart the service), it's tempting to treat that as the solution rather than investigating the root cause. But "restart it when it breaks" isn't actually a solution - it's a workaround that masks deeper issues and trains you to accept degraded reliability.
+
+The fix took two lines. Finding those two lines required understanding the entire system architecture, from Docker networking to systemd service dependencies to Bitcoin's RPC binding model. That's often how it goes with interesting bugs: the fix is trivial once you truly understand the problem.

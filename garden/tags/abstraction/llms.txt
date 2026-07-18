@@ -1,0 +1,7 @@
+# abstraction
+
+> Garden tag: abstraction
+
+## Garden
+
+- [The Last Programming Language](https://blog.cani.ne.jp/garden/last-programming-language.md): The entire history of programming languages has been a project to close the gap between human intent and machine execution. LLMs are the endpoint.

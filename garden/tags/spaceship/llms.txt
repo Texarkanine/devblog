@@ -1,0 +1,12 @@
+# spaceship
+
+> Garden tag: spaceship
+
+## Garden
+
+- [ALIEN Derelict](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/alien-derelict.md)
+- [Asymmetric Spaceships](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/index.md): A shrine to ships that violate symmetry on one - or better yet, multiple - axes.
+- [LEGO Blacktron Renegade](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.md)
+- [Millennium Falcon](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/millennium-falcon.md)
+- [Pulp Sci-Fi Book Covers](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.md)
+- [Unexpected Chris Foss](https://blog.cani.ne.jp/garden/unexpected-chris-foss.md)

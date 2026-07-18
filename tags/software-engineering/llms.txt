@@ -1,0 +1,9 @@
+# software-engineering
+
+> Tag: software-engineering
+
+## Posts
+
+- [The Suite Life of Bobs and Code](https://blog.cani.ne.jp/2026/05/10/slobac.md): SLOBAC delivers principles for good tests, a taxonomy of test smells, safe refactoring workflows, and an agent skill to audit and clean up sprawling AI-generated test suites.
+- [The Load-Bearing Pipeline Was Human](https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.md): A specification-to-code pipeline that worked for decades doesn't stop working because you swapped the executors; it stops working when you rip out the stages.
+- [Moving Fast, Breaking Nothing](https://blog.cani.ne.jp/2026/03/13/seven-weeks.md): A diary of building a16n - from empty repo to shipping CLI in 46 days, nine phases, and a mid-project architectural redesign. Every milestone finished early. Nothing broke.

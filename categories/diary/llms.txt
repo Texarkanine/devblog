@@ -1,0 +1,18 @@
+# diary
+
+> Category: diary
+
+## Posts
+
+- [The Elgato Streamdeck for Shell Aliases on Headless Linux](https://blog.cani.ne.jp/2026/04/19/elgato-alias.md): Adding an Elgato Streamdeck to my headless Linux server to manifest shell aliases and system status in the physical world... all because I have too much stuff plugged in for my circuit breaker to handle.
+- [Publishing My First Browser Extension](https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.md): web-ext lint rejects valid Chrome manifests, GitHub Actions secrets don't resolve in job-level if: expressions, and kewisch/action-web-ext hardcoded the AMO approval timeout. Shipping Tab Yeet across Firefox and Chrome (and bouncing off Safari).
+- [Moving Fast, Breaking Nothing](https://blog.cani.ne.jp/2026/03/13/seven-weeks.md): A diary of building a16n - from empty repo to shipping CLI in 46 days, nine phases, and a mid-project architectural redesign. Every milestone finished early. Nothing broke.
+- [I Finally Coded So Hard I Ralphed](https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.md): Automating CodeRabbit PR feedback with a Wiggum Loop: the slash command, the bash invocation, the semaphore exit condition, and the lessons from first contact.
+- [2MB Lighter](https://blog.cani.ne.jp/2026/01/17/2mb-lighter.md): Mermaid.js weighs 2MB minified. A Jekyll gem shells out to headless Chrome at build time and replaces javascript with static SVGs.
+- [Building My Second RubyGem](https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.md): Hook timing defeated the plan to add thumbnails inside jekyll-highlight-cards - pre-render URLs don't match post-render HTML. Extracting the feature into a standalone gem fixed the architecture.
+- [Publishing My First RubyGem](https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.md): Rubocop mangled valid syntax, OIDC trusted publishing was case-sensitive, and Kramdown escaped closing tags. The bugs and surprises on the road to shipping jekyll-highlight-cards.
+- [Two Jekyll Image Plugins](https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.md): Relative path resolution and dimension parsing for Jekyll images, kept as separate plugins after a deliberate separation-of-concerns decision.
+- [I Can't ai-rizz on Command](https://blog.cani.ne.jp/2025/11/24/cant-ai-rizz-on-command.md): Slash commands and rules have incompatible file-management semantics. Directory prefixes, promotion conflicts, and a tracking model that falls apart when everything shares one folder.
+- [I Built a Logging Server to Log a Serverless Site](https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs.md): DigitalOcean's static hosting doesn't generate access logs. An nginx reverse proxy, OpenSearch on a home server, Let's Encrypt via DNS-01, and a JSON ingest pipeline - five dollars a month for traffic visibility.
+- [We Therefore do not Recommend this Approach (to Upgrading OctoPrint's Python)](https://blog.cani.ne.jp/2025/11/14/octoprint-python-upgrade-cascade.md): Python 3.13 needs glibc 2.34, glibc 2.34 needs Debian Bookworm, and the Bookworm upgrade clobbers OctoPi's HAProxy config. A three-step yak shave on a Raspberry Pi.
+- [Sorting systemd Ordering for Mempool Explorer](https://blog.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node.md): Intermittent transaction visibility loss, connection-refused errors pointing to networking, and a restart that always fixed it. The diagnostic trail from red herring to two-line fix.

@@ -1,0 +1,497 @@
+# fable
+
+## The Magnificent 7 BSODs and the Hateful 8th to 11th
+
+A Patch Tuesday bootloop is the kind of problem a blog post writes itself about. Mine was [KB5077181](https://support.microsoft.com/en-us/topic/february-10-2026-kb5077181-os-builds-26200-7840-and-26100-7840-f0fa9e54-a22a-4a06-96b6-bf5b2aded506), the February 2026 Windows 11 cumulative that was [already in the news for doing exactly this to other people](https://www.neowin.net/news/windows-11-update-kb5077181-is-causing-critical-boot-loops-for-some-users/). `HYPERVISOR_ERROR 0x20001`, a recovery menu that refused to roll back, the works. Case closed. Microsoft strikes again.
+
+That post would have been wrong.
+
+What actually broke my system was a Ryzen 5 3600 whose PCIe controller had been failing for some time. The patch was the first thing brave enough to notice. Even then it took eleven BSODs and seventy-four days for me to figure that out.
+
+## The Case That Wrote Itself
+
+The system was five years old. An ASRock X470 Gaming-ITX/ac, the dying 3600, 16GB of DDR4-3200 Corsair Vengeance, an RTX 3060, a Corsair SF450 to power the whole thing. Mini-ITX, lived on a desk, gamed occasionally, ran [xmrig](https://github.com/xmrig/xmrig) in its spare cycles.
+
+The bootloop arrived a few days after a patch cycle. Search results matched my symptoms exactly. The case wrote itself.
+
+So I tried the obvious. Boot into Windows Recovery, run the rollback, get on with my life. The GUI rollback failed. `wusa`, the command-line uninstaller, doesn't exist in [WinRE](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-recovery-environment--windows-re--technical-reference). `dism /get-packages`, the next-best option, itself crashed mid-enumeration with `INTERNAL_POWER_ERROR`.
+
+A USB stick had [Hiren's BootCD](https://www.hirensbootcd.org/) on it - a portable, independent WinPE environment that touches none of the installed Windows. I booted from it, opened a command prompt, and then BSOD'd within seconds.
+
+![Hiren's WinPE BSOD with stop code PAGE_FAULT_IN_NONPAGED_AREA](mag7/09-bsod-page-fault-winpe.webp =640x)
+
+An independent boot environment shouldn't care about a Windows update.
+
+I noticed. I buried it under a new theory.
+
+## A Taxonomy of Ghosts
+
+Real life intervened. Six weeks passed. When I came back, the system had collected more clues, most of them wrong.
+
+The most seductive was a popup that flagged `iqvw64e.sys` - an Intel network diagnostic driver on Microsoft's [vulnerable-driver blocklist](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/microsoft-recommended-driver-block-rules). The driver name connected directly to HYPERVISOR_ERROR. The screen looked exactly like a smoking gun.
+
+![Program Compatibility Assistant popup: "A driver cannot load on this device" - iqvw64e.sys](mag7/02-iqvw64e-driver-blocked.webp =640x)
+
+I checked the registry. [HVCI](https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-hvci-enablement) wasn't enabled. I checked the drivers folder. The file wasn't even present. Windows was warning me about a ghost.
+
+I tried other angles. Maybe Hyper-V was loading where it didn't need to. Maybe the Nahimic audio component throwing 0x800700C1 was poisoning the boot. Maybe an in-place repair install would replace the corrupted parts. Each theory was reasonable. Each one died before I could test it, because the system died first - I couldn't actually stay booted long enough (when I could even boot) to test any of it - all I could do was collect more BSOD error codes.
+
+## The Magnificent Seven
+
+By the time I stopped chasing software, I had collected seven distinct BSOD stop codes:
+
+```
+HYPERVISOR_ERROR              (installed Windows)
+INTERNAL_POWER_ERROR          (on-disk WinRE, mid-DISM)
+DRIVER_IRQL_NOT_LESS_OR_EQUAL (Hiren's WinPE)
+DPC_WATCHDOG_VIOLATION        (installed Windows, post-updates)
+CLOCK_WATCHDOG_TIMEOUT        (installed Windows)
+SYSTEM_THREAD_EXCEPTION       (installed Windows)
+PAGE_FAULT_IN_NONPAGED_AREA   (Hiren's WinPE)
+```
+
+Seven different ways to die in six weeks. The variety was supposed to be a clue. I treated it as noise.
+
+The clue arrived as an aside, almost in passing. The system had only ever crashed *once Windows was booted*. BIOS was rock solid. [Memtest86+](https://www.memtest.org/) had run a full pass without a single error. Whatever was wrong, it appeared exclusively in environments that loaded the Windows kernel and its driver stack. WinRE counted. WinPE counted. The installed OS counted. BIOS didn't. Memtest didn't.
+
+The pattern was simpler than "Windows is broken." This hardware broke whenever a Windows kernel drove it, and nowhere else. Or so I thought...
+
+## The Hateful Four
+
+The next afternoon I started removing parts.
+
+The first seven happened *to* me. The next four I deliberately provoked. Each one was a piece of equipment I'd pulled or swapped, daring the system to crash and tell me whether it cared.
+
+NVMe SSD pulled. Booted Hiren's. `IRQL_NOT_LESS_OR_EQUAL` within seconds. SSD wasn't it.
+
+GTX 3060 out, an old GTX 750 in. `SYSTEM_SERVICE_EXCEPTION`. Two different GPUs had now died through the same slot.
+
+One RAM stick removed. `KMODE_EXCEPTION_NOT_HANDLED`. Swapped the remaining stick to the other slot. `UNEXPECTED_KERNEL_MODE_TRAP`. Tried the second stick alone in each slot. Same story. Both sticks failed in both slots. Neither was bad. Memtest had been right.
+
+Four crashes I'd caused on purpose, and each one cleared a suspect without naming a replacement. The list was getting shorter. Nothing was confessing.
+
+For the final OS-level bisect, I booted [Ubuntu 24](https://ubuntu.com/) live from a USB. Different kernel, different drivers, a clean break from anything Microsoft had touched. It hung eventually too. Not even Linux could stay up on this hardware.
+
+Eleven stop codes between the patch and Ubuntu's hang. None of them about the same component twice.
+
+## The Cursor That Wouldn't Die
+
+When Ubuntu froze, the mouse cursor kept moving.
+
+Everything else - the desktop, Firefox, the video player I'd left running - was solid. The cursor glided over the wreckage. Two different GPUs had now both failed through the same physical slot. They shared the bus underneath them, not the NVIDIA silicon above.
+
+On the Ryzen 3600, the x16 PCIe slot's lanes come straight from the CPU's integrated [PCIe root complex](https://en.wikipedia.org/wiki/Root_complex). Suspect's name: the path from the CPU die, through the socket pins, through the motherboard traces, to the slot connector. Anything along that line could be to blame.
+
+I had one PCIe slot on this ITX board; no second slot to bisect through so I went the other way: drop the bus speed and see if the system could hold itself together.
+
+ASRock buries the setting under Advanced → AMD CBS → PCIe Configuration → PCIe x16 Speed, at least on my mobo. Default is Auto, which negotiates Gen3. I forced it to Gen1, dropping the signaling rate from 8 GT/s down to 2.5 GT/s. If the path was marginal at full speed, more electrical margin at lower frequency should help.
+
+It did. Ubuntu came up, played two cat videos side by side, and when Firefox eventually crashed it crashed *alone* - a userspace Rust panic, not a kernel BSOD. The OS survived an application death. That hadn't happened once in the entire saga.
+
+Then, a few minutes later, a hard freeze. No BSOD this time. Even the mouse cursor finally died.
+
+Gen1 had bought margin. Not enough.
+
+> Only dying silicon hangs every kernel; but on dying silicon, every kernel hangs.
+
+## 7 Minutes (not in Heaven)
+
+I needed to measure the failure precisely. Cat videos weren't repeatable. Sitting at an idle desktop was.
+
+```bash
+START=$(date); while true; do echo "Start: $START | Now: $(date)"; sleep 5; done
+```
+
+Three lines of Bash, negligible system load. Open a terminal, run the loop, leave it alone. When the screen freezes, the last timestamp is the time of death.
+
+Seven minutes. Exactly.
+
+![Ubuntu terminal timestamp loop ending after ~7 minutes - the Ryzen 5 3600 idle-test death](mag7/16-terminal-3600-7min-death.webp =640x)
+
+Load-independent and time-based. Idle traffic was enough. Something heated up, drifted out of spec, and the bus stopped working, maybe?
+
+The pattern of graceful BSODs earlier had already ruled out the power supply. A dying PSU produces hard cuts and instant reboots, not categorized stop codes with sad faces. The CPU had been catching every fault, executing the bugcheck handler, writing a minidump, and rebooting cleanly. The reporting machinery worked perfectly, faithfully describing hardware that was sliding out from under it.
+
+## The Loaner
+
+By improbable luck (and definitely not a longstanding habit of keeping all old PC parts that still work, just in case they end up useful at some far-future date), the household contained Ryzen 7 1800X from 2016 in the back of a closet. First-generation Zen, same AM4 socket, fully supported by the X470. A spare part in exactly the right shape.
+
+Pulling the 3600 introduced me to a tradition. The dried thermal paste had welded the heatsink to the CPU's heat spreader so thoroughly that when I lifted the cooler, the CPU came with it. Straight out of the socket. Pins miraculously straight.
+
+![Ryzen 5 3600 yanked out of the AM4 socket while still bonded to the heatsink](mag7/18-cpu-stuck-to-heatsink.webp =640x)
+
+I cleaned both surfaces with isopropyl, applied fresh paste, dropped in the 1800X, and pressed N on the [fTPM](https://learn.microsoft.com/en-us/windows/security/hardware-security/tpm/tpm-fundamentals) reset prompt to preserve the old keys in case BitLocker was on. (It wasn't.) Booted Ubuntu, ran the timestamp loop.
+
+PCIe was back at Gen3 by accident; the long power-off had reset BIOS defaults because the CMOS battery had died. I didn't realize this at the time, so the next test happened with Gen3 still selected.
+
+Twenty-eight minutes idle, well past the seven-minute wall. Then Firefox refused to launch on whatever Ubuntu live state I had cobbled together, so I installed [Konqueror](https://apps.kde.org/konqueror/) and played cat videos through it for another five minutes.
+
+![Ubuntu terminal timestamp loop - 1800X test still alive past 28 minutes uptime](mag7/24-terminal-1800x-stable.webp =640x)
+
+Same board. Same slot. Same traces. Same RAM. Same PSU. Different CPU.
+
+**It worked fine.**
+
+The Ryzen 5 3600's PCIe controller was dead.
+
+## Variety Was the Fingerprint
+
+Eleven stop codes were eleven angles on one problem - a marginal PCIe bus producing random data corruption, presented through whichever bit of kernel state happened to get corrupted at the moment of failure. `PAGE_FAULT_IN_NONPAGED_AREA` when the corruption hit a pointer. `CLOCK_WATCHDOG_TIMEOUT` when it stalled an inter-core interrupt. `HYPERVISOR_ERROR` when the hypervisor's own pages got mangled. What I'd taken for noise was the fingerprint of one component failing under a narrow access pattern, photographed from eleven different angles.
+
+"Stable in BIOS and Memtest" is a narrower claim than it sounds: the hardware is fine under the specific access patterns BIOS and Memtest exercise - patterns that, in my case, didn't include sustained PCIe Direct Memory Access from a Windows driver stack. If your crashes look like a dozen unrelated problems, look for the test environment they all share, and the one your *stable* environments don't.
+
+## Replacement!
+
+The replacement was a Ryzen 7 5700X. Same 65W TDP as the dead 3600, two more cores, the AM4 send-off chip for the cost of a respectable lunch order. Might as well upgrade when fate's forced my hand, right?
+
+Buying one in 2026 turned out to be its own small ordeal. The first - Amazon Prime, next-day delivery - arrived with thermal paste residue smeared across the heat spreader, debris between the pins, and a stock cooler whose AMD branding had been masked under strips of black electrical tape. The order page had said "new." The OPN on the chip was `100-000000926`, which is AMD's OEM/tray SKU. Tray parts ship without retail packaging and without coolers. Someone had bundled a scavenged cooler in to dress it up as a complete product.
+
+![Pin side of the used 5700X showing debris between the pins](mag7/32-used-5700x-pin-debris.webp =640x)
+
+*To be fair, I had expected this to be too good to be true.* That's one of the benefits of Prime - free shipping & free returns.
+
+I returned it and ordered the retail boxed version (`100-100000926WOF`) from Newegg, which shipped from Hong Kong. It arrived two weeks later in a sealed blister pack with a tamper-evident sticker and a certificate of authenticity. Even *that* one had small cosmetic marks on the heat spreader - normal manufacturing artifacts from lapping and QC handling, buried under the paste anyway, but striking that neither chip looked factory fresh.
+
+![New retail Ryzen 7 5700X in a sealed blister pack with certificate of authenticity](mag7/34-new-5700x-sealed.webp =640x)
+
+[AM5 launched in 2022](https://en.wikipedia.org/wiki/Socket_AM5). By the time my 3600 died in 2026, AM4 had been the legacy platform for four years. No factory was pressing fresh 5700X boxes. The supply was inventory aging on shelves, the OEM tray channel quietly being repackaged by resellers, and the small fraction of retail boxes that had survived four years untouched. "New" had been redefined under me without anyone telling me. Read the OPN before clicking buy.
+
+## Tail
+
+The 5700X dropped in, the system came up, and a few minutes of [DISM](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism/what-is-dism), SFC, and bcdedit theatrics cleaned up the servicing-stack damage the dying CPU had been smearing across the disk for months. xmrig benchmarks landed where they should have all along. The patch that "broke everything" had broken nothing. It had only been the first thing brave enough to notice.
+
+---
+
+## Starring, in Order of Appearance
+
+1. `HYPERVISOR_ERROR` - installed Windows
+2. `INTERNAL_POWER_ERROR` - on-disk WinRE, mid-DISM
+3. `DRIVER_IRQL_NOT_LESS_OR_EQUAL` - Hiren's WinPE
+4. `DPC_WATCHDOG_VIOLATION` - installed Windows, post-updates
+5. `CLOCK_WATCHDOG_TIMEOUT` - installed Windows
+6. `SYSTEM_THREAD_EXCEPTION_NOT_HANDLED` - installed Windows
+7. `PAGE_FAULT_IN_NONPAGED_AREA` - Hiren's WinPE
+8. `IRQL_NOT_LESS_OR_EQUAL` - Hiren's WinPE, NVMe SSD pulled
+9. `SYSTEM_SERVICE_EXCEPTION` - Hiren's WinPE, GTX 750 in for the RTX 3060
+10. `KMODE_EXCEPTION_NOT_HANDLED` - Hiren's WinPE, RAM slot 1 only
+11. `UNEXPECTED_KERNEL_MODE_TRAP` - Hiren's WinPE, RAM slot 2 only
+
+## Pull the Thread
+
+[A recent blog post](/2026/03/21/the-load-bearing-pipeline-was-human.html) had four [Mermaid](https://mermaid.js.org/) block diagrams illustrating its points. By the time I looked at the deployed version, the edge labels were clipped and the text was shoved left.
+
+Fixing those four diagrams took six hours, produced three gem releases, and ended with a CSS-only reading progress bar I hadn't planned to build.
+
+## The alignment
+
+The [jekyll-mermaid-prebuild gem](https://rubygems.org/gems/jekyll-mermaid-prebuild) renders Mermaid diagrams at build time by shelling out to [mmdc](https://github.com/mermaid-js/mermaid-cli), which launches headless Chromium via [Puppeteer](https://pptr.dev/). The deployed blog was using GitHub Actions' pre-installed system Chrome, which measured text 11-16% narrower than Puppeteer's bundled Chromium. Edge labels like "last touchpoint" and "refined" were allocated [foreignObject](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject) containers too narrow for the text real browsers would render.
+
+Two rounds of fixes. First: optional padding on edge-label containers, plus CSS injection to fix left-shifted text (`display: table-cell` inside foreignObject shrink-wraps instead of centering). Second: generalized overflow protection and a config restructure grouping all cross-browser workarounds under a single `postprocessing:` key.
+
+The diagrams looked right. But switching to Puppeteer's bundled Chromium - necessary for consistent text measurement - broke CI.
+
+## The rabbit hole
+
+The build failed. The gem's error handler pattern-matches on "browser process" in mmdc's stderr and offers helpful advice:
+
+```
+mmdc failed: Puppeteer cannot launch headless Chrome
+
+This usually means missing system libraries.
+On Debian/Ubuntu/WSL, install with:
+
+  sudo apt-get update
+  sudo apt-get install -y libgbm1 libasound2 libatk1.0-0 ...
+```
+
+Every one of those libraries was already on the runner. The `ubuntu-latest` image ships all of them. One wasted CI cycle following my own gem's bad advice.
+
+The real issue: Ubuntu 24.04's [AppArmor restriction on unprivileged user namespaces](https://github.com/puppeteer/puppeteer/issues/13595) prevents Puppeteer's sandboxed Chromium from creating its namespace. Nothing to install. A kernel flag to flip:
+
+```yaml
+- name: Allow Chromium sandbox (Ubuntu 24.04 AppArmor workaround)
+  run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+```
+
+At this point the diagrams were fixed and CI was green. The gem had a clean postprocessing architecture on [v0.4.0](https://github.com/Texarkanine/jekyll-mermaid-prebuild/releases/tag/v0.4.0). Mission accomplished. Time to stop.
+
+## The odyssey
+
+I did not stop.
+
+The blog already had dark mode. But the diagrams didn't - every Mermaid SVG rendered with mmdc's default theme, white background and dark lines, regardless of the visitor's color scheme. The postprocessing restructure had given the gem a clean configuration surface and the ability to manipulate SVG internals after mmdc rendered them. Adding [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) support - dual SVG generation, CSS media queries to toggle between light and dark variants - was suddenly tractable.
+
+This was the part that felt like a genuine rabbit hole. `mmdc` emits `background-color: white` on every SVG root element regardless of the `-t dark` flag. Inline `style` attributes beat `@media` rules in [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity), so toggling visibility between two variants with a `<style>` block didn't work until I stopped setting inline `display` on either one. Getting SVG background replacement to be [configurable per variant](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.5.0/lib/jekyll-mermaid-prebuild/svg_post_processor.rb) rather than hardcoded required a mid-build rework. None of this surfaced in tests - CSS specificity bugs only appear in a real browser on a real dark page.
+
+Gem [v0.5.0](https://github.com/Texarkanine/jekyll-mermaid-prebuild/releases/tag/v0.5.0). Diagrams now matched the blog's color scheme. Then I got greedy.
+
+## The progress bar
+
+A reading progress indicator - the thin bar that fills across the top of the page as you scroll. [Pure CSS, zero JavaScript](https://github.com/Texarkanine/devblog/commit/71f5db2), using [animation-timeline: scroll()](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll). The fill color pulls from `var(--body-color)`, so it was dark-mode-aware from birth. Browsers that don't support scroll-driven animations keep `scaleX(0)` and show nothing - [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) for free.
+
+## The line
+
+There's a name for this: [yak shaving](https://en.wiktionary.org/wiki/yak_shaving). Set out to fix four diagrams, end up building a reading progress bar. The alignment fix required the Chromium switch. The Chromium switch required the AppArmor fix. The config restructure made dark mode diagrams tractable. Dark mode diagrams made the progress bar's color-scheme-awareness trivial - the CSS variables were already there.
+
+For a stretch in the middle - following my own gem's misdiagnosis, a CSS specificity lesson learned the hard way, a feature rework mid-build - it felt like a rabbit hole. The kind where you look up and realize you're three layers removed from what you sat down to do.
+
+The difference between a rabbit hole and a mine shaft is whether you're digging toward something. I didn't know I was building toward a progress bar when I started fixing edge labels. But each fix was structural: improving the foundation rather than patching the symptom. The padding fix existed so the overflow protection could generalize it. The overflow protection existed so the config surface could unify it. The config surface existed so dark mode diagrams could extend it. None of that was planned. It happened because properly-done infrastructure compounds whether you intend it to or not.
+
+The tell is whether you can use what you built. Yak shaving leaves you holding a razor and a bald yak. A productive cascade leaves you standing on new ground.
+
+## The Load-Bearing Pipeline Was Human
+
+<blockquote class="link-card">
+  
+  <h1>Haskell for all: A sufficiently detailed spec is code</h1>
+  
+  <a href="https://haskellforall.com/2026/03/a-sufficiently-detailed-spec-is-code" target="_blank" rel="noopener">haskellforall.com/2026/03/a-sufficiently-detailed-spec-is-code</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260320161734/https://haskellforall.com/2026/03/a-sufficiently-detailed-spec-is-code" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+In which someone writes about trying what [OpenAI's Symphony project](https://github.com/openai/symphony) suggested: take a specification document, hand it to a coding agent, get a working implementation out the other end. It didn't work. The agent produced buggy code that, even after manual fixes, couldn't complete a simple task.
+
+They diagnosed the failure as fundamental. Two misconceptions, they argue: that specification documents are simpler than code, and that specification work is **necessarily** more thoughtful than coding.
+
+They say:
+
+> If you try to make a specification document precise enough to reliably generate a working implementation you **must necessarily contort the document into code** ...
+
+and
+
+> There is no world where you input a document lacking clarity and detail and get a coding agent to reliably fill in that missing clarity and detail. Coding agents are not mind readers and even if they were there isn't much they can do if your own thoughts are confused.
+
+They're right about the observation. The workflow they describe doesn't work. But I think the article misidentifies the cause - and misses what the fix actually looks like.
+
+## A Sufficiently-Detailed Spec is Code
+
+Yes: that was always the point. That's the job! The whole industry is about refining the expression of solutions tightly-enough that they can be executed by a machine.
+
+![A sufficiently-detailed spec is code](sufficiently-detailed-spec.jpg)
+
+There's a wrinkle, though: things like [DO-178C](https://en.wikipedia.org/wiki/DO-178C)-certified avionics software. Here you *do* end up creating an incredibly-detailed specification that more-or-less *is* the code. People do this! It works! It's slow and expensive (... for humans), but there isn't a fundamental systemic failure in the process that causes aircraft to fall out of the sky when software is DO-178C-certified. The criticism of exhaustive specification isn't *even* wrong; it's just that if you execute the technique improperly (as the author validates), you will, *of course*, get sub-par results.
+
+## Coding Agents Are Not Mind Readers
+
+We've been doing **this** for decades:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/2ce09c92.svg"><img src="/assets/svg/2ce09c92.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/2ce09c92-dark.svg"><img src="/assets/svg/2ce09c92-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+There *are* people who fit the description of those criticized in the article - people who claim you can do this:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/afbd9827.svg"><img src="/assets/svg/afbd9827.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/afbd9827-dark.svg"><img src="/assets/svg/afbd9827-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+The article correctly objects to that claim, and validates it with the Haskell experiment.
+
+But the targets of the criticism are in flagrant violation of [Chesterton's Fence](https://en.wikipedia.org/wiki/Chesterton%27s_fence). Of course you wouldn't get the expected results! The pipeline between requirements and running code had multiple stages *for a reason*. The whole point was to *engineer* a process that allows the refinement of incomplete, imprecise ideas into something robust-enough to be executed by a machine! The Symphony project's mistake is offering up only the "final spec" to the general public as a complete artifact, without going full DO-178C on it. In that middle ground, upstream requirements and intent are absent and get filled-in ... to the taste of whichever agent+operator combo happens to execute on it. Normally, such a natural-language spec would be part of an iterative pipeline with feedback loops whereby the *first* draft of code that came from the spec would be refined into compliance with the bigger picture. But in Symphony, that framework is absent. The end-users are offered no guidance on how to iterate their first draft into the final draft, and so "your mileage may vary!"
+
+What the article misses is that "spec-driven development" should be understood as an indication of where the human *stops directly engaging* with the process - not the presence of a specification document at some point in the process. [Software development has *always* been spec-driven](/garden/last-programming-language.html#the-spec-was-always-there)!
+
+Today's AI agents are the humanoid robots of knowledge work - general-purpose machines designed to slot into existing processes involving *human* executors. A side-effect of how they're general-purpose means that once you ask one to be or do something with its current context window, it's kind of locked into that one thing. You have to swap them in 1:1 for the human roles, preserving the flow of the process through its existing phases and executors' roles.
+
+These stages won't always be visible. As the tools mature, the [pipeline will get encapsulated](/2026/03/09/context-to-ashes-skills-to-dust.html) - you'll stop seeing the seams, the way you don't see the compilation stages downstream of `javac`. But they'll still be in there. Collapsing them prematurely is how you get a Symphony of errors.
+
+So, to do "spec-driven development" with AI agents, try this:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/fd404c89.svg"><img src="/assets/svg/fd404c89.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/fd404c89-dark.svg"><img src="/assets/svg/fd404c89-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+Or even this:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/0c09088d.svg"><img src="/assets/svg/0c09088d.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/0c09088d-dark.svg"><img src="/assets/svg/0c09088d-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+And I wager [you may have a lot more success](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html)!
+
+## The Width of an Emoji
+
+I built a complete SVG post-processing module - [Nokogiri](https://nokogiri.org/) dependency, [foreignObject](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject) width manipulation, transform recentering, 29 new tests - to fix text clipping in [Mermaid](https://mermaid.js.org/) flowcharts. It passed QA on the first try. Then the user opened Chrome DevTools, removed the `max-width` style I'd been so carefully handling, and the SVGs scaled perfectly. Every line of code I'd written was solving a problem that didn't exist.
+
+The actual bug? Headless Chromium thinks emoji are narrower than they are.
+
+## The symptom
+
+[jekyll-mermaid-prebuild](https://github.com/Texarkanine/jekyll-mermaid-prebuild) shells out to [`mmdc`](https://github.com/mermaid-js/mermaid-cli) (mermaid-cli) to render diagrams at Jekyll build time. Internally, `mmdc` launches [Puppeteer](https://pptr.dev/) (headless Chrome), calls `mermaid.render()`, and serializes the result to SVG. Some flowcharts with emoji in node labels - things like `🔧 Code` or `✅ Done` - were getting their text clipped. The words just stopped partway through, chopped by the edge of the node.
+
+![Flowchart with emoji labels - text clipped by undersized foreignObject](mermaid-emoji-clipped.png)
+
+The working hypothesis: mmdc's hardcoded `max-width` inline style was compressing the SVG, and since [`<foreignObject>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject) HTML content doesn't scale with [SVG coordinate transforms](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/viewBox), the text was overflowing its container. A reasonable theory. I ran with it.
+
+## The wrong fix
+
+The plan was clean. Add a `max_width` configuration option. Build a `SvgPostProcessor` module that removes mmdc's hardcoded `max-width`, widens foreignObject elements to match their parent rects, recenters the label transforms, and optionally constrains the root SVG width. Nokogiri for XML parsing, namespace-aware XPath queries, the works.
+
+Six implementation steps. 29 new tests. 76/76 passing. RuboCop clean. The QA review caught two trivial issues (a private method in the wrong position, an unused constant). By every metric I track, the code was ready to ship.
+
+Then user testing happened.
+
+## The centering disaster
+
+The text was left-aligned. Every node label that had been perfectly centered was now shoved to the left side of its box.
+
+I diagnosed the issue: Mermaid's inner `<div>` uses [`display: table-cell`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#table), which sizes itself to its content rather than stretching to fill its container. Widening the foreignObject creates empty space that the div doesn't fill. The text stays stuck to the left edge of its shrink-wrapped container while the container floats in a now-oversized foreignObject.
+
+I removed the recentering logic. Now the text shifted right.
+
+I restored the recentering with corrected math, calculating translate_x from the rect's actual center point. Mathematically perfect - every foreignObject center computed to exactly `0.0`. Still visually wrong.
+
+Three rounds of "fix centering, test, still broken" before the core realization landed: **you cannot fix text positioning by manipulating foreignObject geometry when the inner content uses `display: table-cell`.** The div will shrink-wrap regardless. The only thing foreignObject width manipulation accomplishes is moving the empty space around.
+
+## The real root cause
+
+With foreignObject manipulation ruled out, I stripped the post-processor back to just root SVG width handling. At which point the user tested *that* on the live site, too - removed `max-width` via DevTools, and the SVGs were fine. The compression theory was wrong from the start.
+
+So why were emoji labels clipping?
+
+A controlled comparison told the whole story. Two identical single-node charts - `flowchart LR` with one rounded-rect node - differing only in whether the label had an emoji:
+
+```
+"🔧 Code":  foreignObject width 55.66px
+"Code":     foreignObject width 40.97px
+```
+
+Puppeteer thought `🔧` plus its trailing space was 14.69px. Real browsers render that emoji at 20-24px. So when the viewing browser laid out "🔧 Code" inside a 55.66px foreignObject, the text needed roughly 63-65px and clipped against the right edge.
+
+A [known Chrome bug](https://stackoverflow.com/q/42016125). Emoji have inconsistent width metrics across platforms and display scale factors. Headless Chromium at `deviceScaleFactor: 1` reports the narrow measurement.
+
+## The fix that worked
+
+The user found it first, by hand: add `&nbsp;` characters after emoji in the Mermaid source. Two non-breaking spaces per emoji. Puppeteer measures the padded string, allocates a wider foreignObject, and in the viewing browser the emoji's true width consumes the extra space. The trailing whitespace is invisible or overflow-clipped.
+
+This works because Puppeteer handles centering, rect sizing, and transforms natively when given correct width information. No SVG post-processing. No foreignObject manipulation. No Nokogiri.
+
+The fix needed to live in the plugin, though - not in the Mermaid source files. The blog content passes through multiple rendering pipelines: GitHub markdown preview, IDE preview, mermaid.live, client-side mermaid.js. Manual `&nbsp;` padding would render as visible trailing space in every context except mmdc. The plugin is the only layer specific to the mmdc path.
+
+## Building it (again)
+
+Step 0 was satisfying: delete the entire SvgPostProcessor module, its spec file, the Nokogiri dependency, the max_width configuration, and all the tests that went with them.
+
+The replacement was simpler. An [`EmojiCompensator`](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/emoji_compensator.rb) module that preprocesses Mermaid source before mmdc sees it. [Detect the diagram type](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/emoji_compensator.rb#L18-L44) (skipping frontmatter and comments), check if compensation is [enabled for that type](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/processor.rb#L55-L60), find node labels via regex, count emoji with [`\p{Extended_Pictographic}`](https://ruby-doc.org/3.3.6/Regexp.html#class-Regexp-label-Unicode+Character+Categories), and append `&nbsp;` padding.
+
+Two runtime surprises:
+
+**Unicode `\u00a0` gets stripped by the mmdc pipeline.** My first implementation used the Unicode non-breaking space character. It vanished silently - mmdc's internal parsing normalized it away. The HTML entity `&nbsp;` survives, because Mermaid renders node labels as HTML inside `<foreignObject>`. There's no unit test that catches this; it's an external binary behavior.
+
+**Multi-line labels need selective padding.** A label like `🔧 Hi<br/>This is a much longer line` doesn't need padding - the non-emoji line is already wider, so Puppeteer sizes the container correctly. Padding the short emoji line would just shift it left. The fix: [compute visual length for each line](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/emoji_compensator.rb#L85-L97) (emoji count as 2 characters for width), find the longest, and pad only that line if it contains emoji. Shorter lines center naturally in the wider container.
+
+75 tests. Zero RuboCop offenses. The user rebuilt the blog and emoji rendered correctly.
+
+![Same flowchart after emoji width compensation - text fits](mermaid-emoji-padded.png)
+
+## What this cost
+
+The first implementation took a full plan-preflight-build-QA-reflect cycle. Six steps, 29 tests, a new Nokogiri dependency, namespace-aware XPath queries, transform geometry math. All of it passed. All of it was wrong.
+
+The second implementation - the one that [shipped in v0.3.1](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.3.1/lib/jekyll-mermaid-prebuild/emoji_compensator.rb) - was 120 lines of string manipulation and regex. No dependencies. No XML parsing. Simpler in every dimension.
+
+Between the two: three rounds of centering fixes, two SVG structure investigations, and one complete scope reversal. The entire first cycle could have been avoided with a 15-minute DevTools test on the live site. Remove `max-width`, see that the SVGs are fine, and the container-compression hypothesis dies before a single line of code gets written.
+
+## The lesson
+
+A well-structured plan that rigorously validates itself at every phase can still execute cleanly on the wrong problem. Lint passes, tests pass, QA passes - none of that tells you whether you've identified the right root cause. For tasks driven by a symptom ("text is clipping"), the hypothesis about *why* matters more than the quality of the implementation.
+
+The most expensive failure mode isn't a build that breaks. It's a build that passes.
+
+
+## You Can't Hide What You Want Seen
+
+Built an increasingly sophisticated email obfuscator today. Each iteration got more clever. Each iteration got cracked just as fast. The lesson wasn't in the complexity - it was in understanding what problem I was actually solving.
+
+## The First Attempt
+
+Adding contact info to author pages meant displaying email addresses. The existing [jekyll-email-obfuscator](https://github.com/psmiraglia/jekyll-email-obfuscator) plugin used hex encoding with random delimiters per build. Feed it `REDACTED@protonmail.com` and you get `REDACTED{gtFK5Mlt~protonmail{0ERIc8jh~com` in the href. A human looking at it could spot the pattern: remove everything matching `{.*?~` and the email emerges.
+
+I fed it to Gemini. Cracked in seconds.
+
+Time to get clever.
+
+## Iteration: Random Everything
+
+Randomize the delimiters. Randomize their lengths. Hex-encode with noise padding. Split into unpredictable chunks. The href became an incomprehensible string that changed completely with every site build. No static scraper could learn the pattern because the pattern never repeated.
+
+Gemini identified it as hex encoding, extracted the delimiter pattern, decoded it. Still seconds.
+
+Fine. No more patterns to extract.
+
+## Iteration: DOM-Dependent Assembly
+
+Complete redesign. Split the email into components, encode each with ROT-N where N comes from CSS class name lengths. Store components in randomized data attributes. The email never appears whole in the source - JavaScript assembles it on mouseover by reading class name parts from the live DOM and calculating the correct shift values.
+
+Strip out obvious markers. No `@` or `:` in data attributes - add them in the assembly code. Use different N for each component: mailto shifts by span class first part length, user by second part, domain by link class parts. Two-part random class names like `abc123-xyz789` where parsing requires a valid DOM to get the lengths right.
+
+The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
+
+Like this: {::nomarkdown}<style>span.ms2e0ooczb2ligskj-tt1tzt3j5krfh7vr { display: inline-block; }</style><script>(function(){function uhsseen4hmx6t7(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function tdegtgjq1pa(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var unjccq=sp.getAttribute('data-f2h9yjm8i1l');var x4oz4m=sp.getAttribute('data-tleqrjrm');var sawe3l4hox=sp.getAttribute('data-zrje2vik');var xgtx2f8=sp.getAttribute('data-vmlergaqfkwn');var mailto=uhsseen4hmx6t7(unjccq,spParts[0].length);var user=uhsseen4hmx6t7(x4oz4m,spParts[1].length);var domainBase=uhsseen4hmx6t7(sawe3l4hox,lnkParts[0].length);var tld=uhsseen4hmx6t7(xgtx2f8,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function vb1fwprb6bl(){var els=document.querySelectorAll('a.kizaatnj-tmnzr0im');var handler=function(){var sp=this.querySelector('span.ms2e0ooczb2ligskj-tt1tzt3j5krfh7vr');if(sp&&!this.dataset.d){var val=tdegtgjq1pa(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',vb1fwprb6bl);}else{vb1fwprb6bl();}})();</script>{:/nomarkdown}<a href="#" class="kizaatnj-tmnzr0im"><span class="ms2e0ooczb2ligskj-tt1tzt3j5krfh7vr" data-f2h9yjm8i1l="drzckf" data-tleqrjrm="HUTQSJUT" data-zrje2vik="xzwbwvuiqt" data-vmlergaqfkwn="kwu">XXXXXXXXXXXXXXXX</span></a>
+
+Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
+
+## The Lesson
+
+You cannot defend against observers when legitimate users need to observe.
+
+If a human can see it, an LLM with a headless browser can see it. If it's visual, multimodal models can screenshot it. If it requires interaction, automated browsers handle that. The fundamental constraint of a public static site is that content must be accessible, and anything accessible to humans is accessible to machines that can simulate humans.
+
+The sophisticated obfuscation works perfectly against its actual threat: bulk HTML scrapers using regex patterns and simple parsing. Those represent 99% of email harvesting attempts because they're cheap to run at scale. The ROT-N with DOM-derived shifts stops them cold - you need JavaScript execution, DOM access, and knowledge of which class name part applies to which component. That's expensive. Spammers optimize for volume over individual targets.
+
+Against an LLM with a budget? Security theater. But that was never the threat model.
+
+## The Real Solution
+
+Gemini offered the practical answer: use an alias. Put `contact@yourdomain.com` on the site instead of your real inbox. When it inevitably gets scraped and ends up on spam lists, disable that alias. Your actual email stays clean. Or use Cloudflare's email obfuscation if you're routing through them anyway - they handle the complexity server-side automatically.
+
+The [sophisticated obfuscator](https://github.com/Texarkanine/devblog/blob/d7d9da094551b0333045e7d0f9bc65ceb3610c6a/_plugins/email_obfuscator.rb) lives in the codebase now. It stops the 99% case effectively. The 1% of determined adversaries with LLM-powered tools either have bigger reasons to target you specifically, or they'll move to easier targets because scraping your site costs 100x more than scraping plaintext sites.
+
+## Conclusion
+
+Security engineering is about matching defenses to threats, not building the most impressive barrier possible. I spent hours building ROT-N encoding with DOM-derived shifts and randomized identifiers when a simple alias would have solved the actual problem. The complexity was fun to build but addressed an imagined threat, not the real one.
+
+The lesson: **You cannot hide what you want people to see. Design for your actual adversary, not the adversary you imagine.** Bulk scrapers are cheap, stupid, and everywhere. LLMs are expensive, smart, and rare. Build for the former. Accept the latter. Use an alias.

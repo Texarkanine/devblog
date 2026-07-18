@@ -1,0 +1,11 @@
+# ai
+
+> Garden tag: ai
+
+## Garden
+
+- [Do LLMs Understand "For Each"?](https://blog.cani.ne.jp/garden/do-llms-understand-for-each.md): What happens when you ask a language model to process a list of items? Research on instruction adherence, attention mechanics, and the generation boundary.
+- [Fomenting the Butlerian Jihad](https://blog.cani.ne.jp/garden/fomenting-the-butlerian-jihad.md): Real risks of transformer-based AI worth planning for: job displacement, cognitive dependency, psychogenic feedback loops, and alignment failure.
+- [A General-Purpose Industry-Refining Tool](https://blog.cani.ne.jp/garden/general-purpose-industry-refining-tool.md): Refinement of industries - industrialization - has a rhyming shape every time it crops up.
+- [How I Learned to Stop Coding and Love the Machine](https://blog.cani.ne.jp/garden/how-i-learned-to-stop-coding-and-love-the-machine.md): AI tools that have become indispensable: Gemini Deep Research, Cursor for coding, CodeRabbit for reviews, and more.
+- [The Waluigi Effect](https://blog.cani.ne.jp/garden/the-waluigi-effect.md): How an LLM coerced into good behavior may find it easier to flip to the exact opposite than to do anything else.

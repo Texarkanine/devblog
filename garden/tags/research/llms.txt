@@ -1,0 +1,10 @@
+# research
+
+> Garden tag: research
+
+## Garden
+
+- [A History of the 'ls' command](https://blog.cani.ne.jp/garden/a-history-of-the-ls-command.md): Who wrote ls? Tracing the directory listing command from MIT's Compatible Time-Sharing System through Unix to GNU coreutils.
+- [Do LLMs Understand "For Each"?](https://blog.cani.ne.jp/garden/do-llms-understand-for-each.md): What happens when you ask a language model to process a list of items? Research on instruction adherence, attention mechanics, and the generation boundary.
+- [Fomenting the Butlerian Jihad](https://blog.cani.ne.jp/garden/fomenting-the-butlerian-jihad.md): Real risks of transformer-based AI worth planning for: job displacement, cognitive dependency, psychogenic feedback loops, and alignment failure.
+- [The Waluigi Effect](https://blog.cani.ne.jp/garden/the-waluigi-effect.md): How an LLM coerced into good behavior may find it easier to flip to the exact opposite than to do anything else.

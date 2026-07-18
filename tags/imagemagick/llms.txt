@@ -1,0 +1,7 @@
+# imagemagick
+
+> Tag: imagemagick
+
+## Posts
+
+- [Building My Second RubyGem](https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.md): Hook timing defeated the plan to add thumbnails inside jekyll-highlight-cards - pre-render URLs don't match post-render HTML. Extracting the feature into a standalone gem fixed the architecture.

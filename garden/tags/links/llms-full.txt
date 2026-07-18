@@ -1,0 +1,383 @@
+# links
+
+## Play Classic Computer Games from the 1900s
+
+<blockquote class="link-card">
+  
+  <h1>Old Games Download</h1>
+  
+  <a href="https://oldgamesdownload.com/" target="_blank" rel="noopener">oldgamesdownload.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129000118/https://oldgamesdownload.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> A project archiving abandoned video games from the 1970s until now. We offer an extensive catalog of gaming history, including game files, patches, manuals, screenshots and artwork. *Are you ready to take a step into the past?*
+
+<blockquote class="link-card">
+  
+  <h1>Classic Reload</h1>
+  
+  <a href="https://classicreload.com/" target="_blank" rel="noopener">classicreload.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251005095746/https://classicreload.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Retro and classic [DOS-era](https://en.wikipedia.org/wiki/DOS) games for consoles and computers, playable in your browser - no download required! Runs a [dosbox](https://www.dosbox.com/) in the browser.
+
+## Flash
+
+![Macromedia Flash 8 Logo](./macromedia-flash-8-icon.png)<!-- IMG_SIZE:88: -->
+
+Flash **technically started** in the 1900s with [Flash 1 in 1996](https://en.wikipedia.org/wiki/Adobe_Flash#Macromedia), and though it lasted through to 2020 it was being phased out long before that. Its heyday was really more of a 2000s thing. I built a ton of stuff on Macromedia Flash 5.
+
+<blockquote class="link-card">
+  
+  <h1>Ruffle Flash Player Emulator</h1>
+  
+  <a href="https://ruffle.rs/" target="_blank" rel="noopener">ruffle.rs</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251128111012/https://ruffle.rs/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Wish you could still install the Flash Player and load the `.swf` files embedded in websites the way you used to? You can! Install Ruffle and your browser can play Flash content on websites again!
+
+<blockquote class="link-card">
+  
+  <h1>Flashpoint Archive</h1>
+  
+  <a href="https://flashpointarchive.org/downloads" target="_blank" rel="noopener">flashpointarchive.org/downloads</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251124161918/https://flashpointarchive.org/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+If your favorite Flash game's site isn't around to host it anymore, the Flashpoint Archive might have it. It captures a local Flash player inside a proxy of the requisite snapshot of the old internet so the `.swf`s run locally. You can download that stack and download games on-demand... or you can play all the old games fully offline by downloading the whole archive which was ~2.2 **terabytes** at the time this was written.
+
+## Browse The Vintage, Early Internet
+
+## Website Galleries
+
+<blockquote class="link-card">
+  
+  <h1>GeoCities Gallery</h1>
+  
+  <a href="https://geocities.restorativland.org/" target="_blank" rel="noopener">geocities.restorativland.org</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251126220823/https://geocities.restorativland.org/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+An accessible, live archive of "restored" (links and media fixed, etc.) GeoCities pages, sorted by content type into "neighborhoods." Most of the sites give off mid-90s aesthetics, even if their last updates were post-millennium.
+
+**Eminently scrollable.**
+
+<blockquote class="link-card">
+  
+  <h1>Browse Neocities</h1>
+  
+  <a href="https://neocities.org/browse/" target="_blank" rel="noopener">neocities.org/browse</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129031359/https://neocities.org/browse/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+It's a modern recreation of GeoCities! Wonderful, individual, personal websites are being created within the constraints of a limited platform once more! There are many sites evocative of the Golden Age of Web Design & into the late 2000s CSS breakout. They also tend to be densely interlinked so it's easy to explore and get that good old-fashioned `websurf` on!
+
+**Eminently scrollable.**
+
+<blockquote class="link-card">
+  
+  <h1>Early Websites at the Web Design Museum</h1>
+  
+  <a href="https://www.webdesignmuseum.org/early-websites" target="_blank" rel="noopener">www.webdesignmuseum.org/early-websites</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250414050147/https://www.webdesignmuseum.org/early-websites" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> Discover the pioneers of the web: Embark on a historical journey to the earliest websites and the dawn of web design 1991–1995. 
+
+A curated collection of **screenshots of the homepages** of a few of the major websites from a very narrow slice of time. Some names you'll recognize and marvel at how far they've come, others you won't recognize and will wonder where they went! Where possible, the Museum has linked to each site's homepage in subsequent years, so you can click through and see them change through time.
+
+**Quintessential Pick:** [Microsoft in 1994](https://www.webdesignmuseum.org/early-websites/microsoft-1994)
+
+They also have some other galleries:
+
+* [Web Design in the 90s (late 90s)](https://www.webdesignmuseum.org/web-design-in-the-90s)
+	* **Quintessential Pick:** [Space Jam in 1996](https://www.webdesignmuseum.org/gallery/space-jam-1996)
+* [Golden Age of Web Design (2000s)](https://www.webdesignmuseum.org/golden-age-of-web-design)
+	* **Quintessential Pick:** [XboX in 2004](https://www.webdesignmuseum.org/golden-age-of-web-design/xbox-2004)
+
+## Search Engines
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.oldavista.com/" target="_blank" rel="noopener">
+      <img src="./early-web/oldavista.jpg" alt="Old&#39;aVista" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Old&#39;aVista</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.oldavista.com/" target="_blank" rel="noopener">www.oldavista.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20251128094154/https://www.oldavista.com/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+> The challenge is finding those websites because it's hard to have more in-depth searches on the Internet Archive, TheOldNet and Google doesn't have those pages cached anymore.
+
+From [The Eric Experiment](https://ericexperiment.com/post/11-09-2021-oldavista) - an [AltaVista](https://en.wikipedia.org/wiki/AltaVista)-styled search engine to find old '90s and '00s pages. Most links go to their Wayback Machine pages.
+
+<blockquote class="link-card">
+  
+  <h1>Wiby</h1>
+  
+  <a href="https://wiby.me/" target="_blank" rel="noopener">wiby.me</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251009162628/https://wiby.me/about/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> ... pages were made primarily by hobbyists, academics, and computer-savvy people about subjects they were personally interested in. Later on, the web became saturated with commercial pages that overcrowded everything else.
+> <br>...<br>
+> The Wiby search engine is building a web of pages as it was in the earlier days of the internet.
+
+Wiby seems to be good at finding currently-online pages that feel like they're from the early web even if their last update was this year. Some of them, though, truly are relics that somehow happen to be online and intact!
+
+## Websites for Making .ico Files
+
+<blockquote class="link-card">
+  
+  <h1>Real Favicon Generator</h1>
+  
+  <a href="https://realfavicongenerator.net/" target="_blank" rel="noopener">realfavicongenerator.net</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251128210135/https://realfavicongenerator.net/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+An all-in-one automagic, free and fast site where you upload an image and it generates "icons" for you.
+This *includes* a multi-resolution `favicon.ico`, but also icons for various other icon-using platforms, and it gives you little adjustable previews of each of those so you can get something that'll look right everywhere.
+
+For a favicon it's super-simple - upload, next, download, done.
+
+<blockquote class="link-card">
+  
+  <h1>RedKetchup Icon Editor</h1>
+  
+  <a href="https://redketchup.io/icon-editor/" target="_blank" rel="noopener">redketchup.io/icon-editor</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129031359/https://redketchup.io/icon-editor" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+If you need a little more hands-on control of your icon creation, this editor gives you a pixel editing GUI for each resolution that will be included in your icon.
+This lets you fix display errors from automatic scaling, and choose to exclude or include additional resolutions.
+
+It works for favicons, but it *shines* for PC icons, where it's almost certain that the beautiful 512x512 version of your graphic isn't going to look correct when *automatically* downscaled to 16x16.
+
+## Linkroll
+
+## Computers / Tech
+
+### Blogs
+
+* [Less Wrong](https://www.lesswrong.com/) <small>"an online forum and community dedicated to improving human reasoning and decision-making."</small>
+* [Tonsky](https://tonsky.me/) <small>"programming and UI design"</small>
+* [Sunday Letters from Sam](https://sundaylettersfromsam.substack.com/) <small>"how to think about how ai is reshaping the world (currently)"</small>
+* [Steve Yegge](https://steve-yegge.medium.com/) <small>"technical essays on software engineering, programming languages, and the future of technology"</small>
+* [Daz.is](https://daz.is/blog/) <small>Exploring similar concepts to the main blog here, on a similar timeframe.</small>
+
+#### Blog Posts
+
+* [Python package managers: uv vs pixi](https://jacobtomlinson.dev/posts/2025/python-package-managers-uv-vs-pixi/)
+
+### Misc
+
+* [Websites that spark joy.](https://whimsical.club/)
+* [Underhanded .bashrc](https://github.com/ayust/underhanded/blob/master/.bashrc)
+
+## Toys
+
+* [3D DOM Viewer](https://gist.github.com/OrionReed/4c3778ebc2b5026d2354359ca49077ca)
+* [Winbows](https://winbows.neocities.org/) <small>Technically someone's personal site but it's Windows XP in a browser with WinAmp.</small>
+
+## Resources
+
+* [The Oldschool PC Font Resource:](https://int10h.org/oldschool-pc-fonts/)
+
+---
+
+## Video Games
+
+### Tools
+
+* [**FFXIV** - Chocobo Colour Calculator](https://ffxivchocobo.com/)
+* [FromSoftware image macro creator](https://rezuaq.be/new-area/image-creator/)
+* [**Pokémon Scarlet/Violet** - Sandwich Calculator](https://birbzone.com/sandwich/)
+* [**Monster Hunter Now** - Gear Builder](https://mhn.quest/)
+* [**Animal Crossing: New Horizons** - Turnip Prophet](https://turnipprophet.io/)
+* [**No Man's Sky** - Service Bot](https://nomansapp.com/)
+
+### Lore
+
+* [The Lost Pokedex](https://lostpokedex.weebly.com/) <small>The histories of Pokemon that never were.</small>
+
+---
+
+## Spaces
+
+* [A Website is a Room](https://a-website-is-a-room.net/)
+* [Alien Head Shit Kid](https://alienheadshitkid.neocities.org/)
+
+## Datasets
+
+* [AA & AAA Battery Performance Data & Comparator](https://lygte-info.dk/review/batteries2012/CommonAAcomparator.php)
+
+## What is a Digital Garden?
+
+As set forth in:
+
+<blockquote class="link-card">
+  
+  <h1>A Brief History and Ethos of the Digital Garden</h1>
+  
+  <a href="https://maggieappleton.com/garden-history" target="_blank" rel="noopener">maggieappleton.com/garden-history</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251010085022/https://maggieappleton.com/garden-history" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+And inspired to action by:
+
+<blockquote class="link-card">
+  
+  <h1>The Brainrot Apocalypse (a DIY survival guide)</h1>
+  
+  <a href="https://www.youtube.com/watch?v=6fj-OJ6RcNQ" target="_blank" rel="noopener">www.youtube.com/watch?v=6fj-OJ6RcNQ</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://preservetube.com/watch?v=6fj-OJ6RcNQ" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+I have planted a [digital garden](/garden/).
+
+A digital garden is a curated collection of original content and hyperlinks that are of interest to the gardener. They're organized *somehow*, in a way that is meaningful to the gardener. Digital gardens, like physical gardens, are for wandering through, exploring, getting lost, and discovering.
+
+If you were on the internet in the 1900s, you experienced this on the early web before the rise of monolithic multinational platforms.
+If you missed it, perhaps you've ever browsed Wikipedia and clicked through link after link after link, ending up somewhere totally unrelated to your starting point... but connected. A digital garden is that experience writ small & with fewer rules. Opinions are allowed. There may or may not be "contribution standards." There may be multiple, a single, or no theme. Go for a walk and find out!
+
+<blockquote class="link-card">
+  
+  <h1>Evergreen Notes</h1>
+  
+  <a href="https://notes.andymatuschak.org/Evergreen_notes" target="_blank" rel="noopener">notes.andymatuschak.org/Evergreen_notes</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250905072431/https://notes.andymatuschak.org/Evergreen_notes" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> The fundamental units of this system are Evergreen Notes. These are units of knowledge that are designed to evolve, contribute, and accumulate over time, across various projects. They are perpetually refined , constantly timely and relevant, and anchor entire knowledge networks.
+
+In naming and defining a thing, you risk killing it... Many folks have written about digital gardens: what makes a good one, what makes a bad one, what counts as one, and what doesn't count. The idea of "Evergreen Notes" is a good *descriptor*, I think, of the kind of enjoyable page that is often found in things that are *experientially* a "digital garden."
+
+Kind of like exploring Wikipedia - one page per "thing," with lots of links out to concepts that get mentioned in a page. As you read a paragraph, you might see 10 words linked out to pages all about each of them, and you can choose your own adventure from there.
+
+Now, if you haven't clicked the "Evergreen Notes" link above, I highly recommend it! I can't believe I've never seen a site like this before. The way internal links work is bonkers - in a good way. There's a tall column on the left with the content, and lots of internal links. When you hover over a link, a little card pops up with a preview, and when you click... it appears in a new column to the right. The old column is still there. This just repeats - your path of exploration is visually there, and you can easily read up and down all the history of the path *you* took. This means that two different visitors arriving at the same page will likely have radically different content on the screen in front of them - a reflection of their personal journey. How cool!
+
+I want that! It won't work perfectly for this garden as it is right now, but maybe I can do it someday. Or, really, I want a web browser that does that for me... a mode that automatically does "reading mode" and opens links in new columns in a tab.
+
+This is maybe closer to a related concept - [zettelkasten](https://zettelkasten.de/) - than Digital Gardening specifically.
+
+<blockquote class="link-card">
+  
+  <h1>Zettelkasten</h1>
+  
+  <a href="https://zettelkasten.de/" target="_blank" rel="noopener">zettelkasten.de</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251203000000/https://zettelkasten.de/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Zettelkasten explores a rigorous system of building a web of knowledge out of what are functionally Evergreen Notes (zettel) with options for increasingly-broad notes built on top to help direct and connect. Zettel are mostly single-concept notes, though - the traditional Wikipedia article that does cover "one topic" but many aspects of a topic, pushes the boundaries of the Zettelkasten structure.
+
+Not all Zettelkasten collections may be a digital garden, but browsing someone's Zettelkasten *can* end up as a digital garden experience, on account of the principles of connectivity ("hypertext" used unironically and correctly) they advocate. There will be connections all over the place, and *if* you wander through, you've found a path through a garden.

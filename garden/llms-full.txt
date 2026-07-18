@@ -1,0 +1,3038 @@
+# garden
+
+## Play Classic Computer Games from the 1900s
+
+<blockquote class="link-card">
+  
+  <h1>Old Games Download</h1>
+  
+  <a href="https://oldgamesdownload.com/" target="_blank" rel="noopener">oldgamesdownload.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129000118/https://oldgamesdownload.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> A project archiving abandoned video games from the 1970s until now. We offer an extensive catalog of gaming history, including game files, patches, manuals, screenshots and artwork. *Are you ready to take a step into the past?*
+
+<blockquote class="link-card">
+  
+  <h1>Classic Reload</h1>
+  
+  <a href="https://classicreload.com/" target="_blank" rel="noopener">classicreload.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251005095746/https://classicreload.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Retro and classic [DOS-era](https://en.wikipedia.org/wiki/DOS) games for consoles and computers, playable in your browser - no download required! Runs a [dosbox](https://www.dosbox.com/) in the browser.
+
+## Flash
+
+![Macromedia Flash 8 Logo](./macromedia-flash-8-icon.png)<!-- IMG_SIZE:88: -->
+
+Flash **technically started** in the 1900s with [Flash 1 in 1996](https://en.wikipedia.org/wiki/Adobe_Flash#Macromedia), and though it lasted through to 2020 it was being phased out long before that. Its heyday was really more of a 2000s thing. I built a ton of stuff on Macromedia Flash 5.
+
+<blockquote class="link-card">
+  
+  <h1>Ruffle Flash Player Emulator</h1>
+  
+  <a href="https://ruffle.rs/" target="_blank" rel="noopener">ruffle.rs</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251128111012/https://ruffle.rs/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Wish you could still install the Flash Player and load the `.swf` files embedded in websites the way you used to? You can! Install Ruffle and your browser can play Flash content on websites again!
+
+<blockquote class="link-card">
+  
+  <h1>Flashpoint Archive</h1>
+  
+  <a href="https://flashpointarchive.org/downloads" target="_blank" rel="noopener">flashpointarchive.org/downloads</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251124161918/https://flashpointarchive.org/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+If your favorite Flash game's site isn't around to host it anymore, the Flashpoint Archive might have it. It captures a local Flash player inside a proxy of the requisite snapshot of the old internet so the `.swf`s run locally. You can download that stack and download games on-demand... or you can play all the old games fully offline by downloading the whole archive which was ~2.2 **terabytes** at the time this was written.
+
+## A History of the 'ls' command
+
+Inspired by the question: "Who wrote `ls`?"
+
+TL;DR
+
+<blockquote class="link-card">
+  
+  <h1>A Brief History of the &#39;ls&#39; command</h1>
+  
+  <a href="https://www.linuxdoc.org/LDP/LG/issue48/fischer.html" target="_blank" rel="noopener">www.linuxdoc.org/LDP/LG/issue48/fischer.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251219000000/https://www.linuxdoc.org/LDP/LG/issue48/fischer.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+## The Primal Act of Digital Orientation
+
+In the vast, intangible geography of the digital universe, the act of orientation is paramount. Before a user can manipulate data, execute a program, or modify a system, they must first understand their location and their surroundings. In the command-line interface (CLI) paradigm, which has dominated computing for over half a century, the primary instrument of this orientation is the command `ls`.
+
+The utility `ls` (an abbreviation for "list"), serves a function analogous to the visual scan of a physical room. It enumerates the contents of a directory, revealing the names, attributes, and hierarchies of the file system. While it appears deceptively simple - a mere printing of strings - the history of `ls` is a microcosm of the history of the operating system itself. Its evolution tracks the migration from batch processing to time-sharing, from 18-bit minicomputers to 64-bit cloud instances, and from the paper-based [teletype](https://en.wikipedia.org/wiki/Teleprinter) to the high-resolution graphical terminal emulator.
+
+Answering the question of the authorship of the first instance of the `ls` utility necessitates a bifurcated answer, separating the *conceptual* origin from the *genetic* origin of the modern tool. While the concept of listing files predates the Unix operating system, having roots in the [Compatible Time-Sharing System (CTSS)](https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System) at MIT, the specific utility named `ls` that sits in the /bin directory of billions of devices today was forged in the laboratories of the [Bell System](https://en.wikipedia.org/wiki/Bell_System).
+
+The first instance of the Unix `ls` utility was written by [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) in the summer of 1969 at [Bell Labs](https://en.wikipedia.org/wiki/Bell_Labs) in Murray Hill, New Jersey. However, this assertion is layered with complexity. Thompson did not invent the name `ls` - he inherited it from the [Multics](https://en.wikipedia.org/wiki/Multics) project, specifically from a naming convention established by Don Widrig[^4]. Nor did he invent the functionality; that credit belongs to the developers of CTSS and their [`listf` command](https://www.linuxdoc.org/LDP/LG/issue48/fischer.html).
+
+## The Pre-Unix Era: The Genesis of Interactive Listing
+
+To understand the birth of `ls`, one must first understand the world that existed before it. In the early days of computing, the "file system" was physical. Data existed on punch cards or magnetic tapes that were mounted and dismounted by operators. The programmer did not "list" files; they walked over to a cabinet and looked at the labels on card decks.
+
+The transition to **Time-Sharing** - the ability for multiple users to access a computer simultaneously and interactively - necessitated a virtual abstraction of storage. If users were not physically present to handle their card decks, the computer had to manage data retention on their behalf. This gave rise to the "file," and consequently, the need to list those files.
+
+### The Compatible Time-Sharing System (CTSS)
+
+The spiritual ancestor of `ls` lies in the Compatible Time-Sharing System (CTSS), developed at the MIT Computation Center. Operational by 1961, CTSS was the first system to demonstrate the viability of general-purpose time-sharing. It ran on an [IBM 7094 mainframe](https://en.wikipedia.org/wiki/IBM_7090#IBM_7094)[^5], a machine that dominated scientific computing in the early 1960s.
+
+In this environment, the command `listf` (List Files) was born. Historical records indicate that `listf` was available to CTSS users by July 1961. This utility is the cladistic ancestor of `ls`. It performed the exact same core function: querying the system's master file directory and printing the entries associated with the current user.
+
+#### The Syntax of `listf`
+
+The syntax of CTSS commands reflected the era's lack of standardized abbreviation. Commands were often full words, and arguments were parsed in a manner that would seem alien to a modern Unix user. By 1963, the `listf` command had matured into a versatile tool with several options that prefigure the flags of `ls`.
+
+| CTSS Command | Function | Modern `ls` Equivalent |
+| :---- | :---- | :---- |
+| `listf` | List files, newest first | `ls -t` |
+| `listf` rev | List files, oldest first | `ls -tr` |
+| `listf` (long) | List in long format (metadata) | `ls -l` |
+| `listf` (srec) | List by size (records) | `ls -S` |
+| `listf` (smad) | List by date of last modification | `ls -t` |
+| `listf` (auth) user | List files created by a specific user | `ls -l (filtered)` |
+
+The existence of `listf` (long) is particularly significant. It demonstrates that the distinction between a "simple" list (names only) and a "rich" list (names plus metadata) was established almost a decade before [Unix V1](https://gunkies.org/wiki/UNIX_First_Edition)[^11].
+
+#### Authorship of `listf`
+
+The authorship of `listf` is collective, attributed to the staff of the MIT Computation Center.[^5] Key figures in the development of CTSS included [Fernando Corbató](https://en.wikipedia.org/wiki/Fernando_J._Corbat%C3%B3) (the project lead), [Robert Fano](https://en.wikipedia.org/wiki/Robert_Fano), and [Jerome Saltzer](https://en.wikipedia.org/wiki/Jerry_Saltzer). While it is difficult to pinpoint the specific individual who typed the first assembly instruction for `listf`, the conceptual framework was laid by this team.
+
+### The Multics Project: Complexity and Naming
+
+CTSS was a resounding success, but it was a retrofit on existing hardware. Its successor, **Multics** (Multiplexed Information and Computing Service), was designed from a blank slate to be the ultimate computing utility. Started in 1964 as a collaboration between MIT, General Electric, and Bell Labs, Multics aimed to provide continuous, reliable computing to a massive user base.
+
+It is in the [Multics project](https://en.wikipedia.org/wiki/Multics) that the string "ls" first appears as a command name.
+
+#### The Invention of Short Names
+
+Multics was an ambitious, high-level system written primarily in [PL/I](https://en.wikipedia.org/wiki/PL/I) (Programming Language One). It introduced a hierarchical file system, segments, and rings of protection. It also introduced a command language that sought to balance descriptiveness with efficiency. The command to list directory contents in Multics was named `list`. However, Multics designers recognized that typing list repeatedly was inefficient for expert users. The system introduced a standardized facility for command abbreviations. The convention for these short names - taking the initial letter of the command words - is attributed to Don Widrig, a key developer on the project. As the [Multics glossary entry on "additional names"](https://multicians.org/mga.html) notes:
+
+> The original convention for short names, 'initial letter of each word in a command, augmented by succeeding consonants for a one-word command,' is attributed to Don Widrig.
+
+Under this convention:
+
+* `list` was abbreviated to `ls`.
+* `copy` was abbreviated to `cp`.
+* `move` was abbreviated to `mv`.
+* `rename` was abbreviated to `rn`.
+
+This decision was driven by the ergonomics of the teletype. The standard interface for Multics (and later Unix) was the Teletype [Model 37](https://en.wikipedia.org/wiki/Teletype_Model_37) or [Model 33](https://en.wikipedia.org/wiki/Teletype_Model_33). These devices were mechanical typewriters that communicated over phone lines. They were loud, slow (~10 characters per second), and required significant physical force to actuate the keys. Every character saved was not just a time optimization; it was a physical labor optimization.
+
+> ...But is the attribution to Don Widrig correct? See [Appendix B: Don Widrig & Short Names](#appendix-b-don-widrig--short-names)
+
+#### The Multics `list` Implementation
+
+The Multics `list` command was significantly more complex than its CTSS predecessor. It had to navigate the Multics storage system hierarchy, handling Access Control Lists (ACLs), segments, and the concept of the "working directory" which could be changed via the `change_wdir` or `cwd` command.[^6]
+The authorship of the Multics list command and the associated file system utilities involved researchers who would later become legends of computing, including Ken Thompson.[^7] They used the system, wrote code for it, and internalized its design philosophies - both the ones they liked (the hierarchical file system, the shell) and the ones they disliked (the complexity, the PL/I overhead).
+When Bell Labs withdrew from the Multics project in 1969, citing the project's slow progress and high costs, Thompson and Ritchie left with a clear mental model of what a file system *should* look like, and a clear preference for the short command names `ls`, `cp`, and `mv`.
+
+## The Unix Genesis: Bell Labs, 1969
+
+The withdrawal from Multics created a vacuum. Ken Thompson, [Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie), and fellow researchers like [Doug McIlroy](https://en.wikipedia.org/wiki/Douglas_McIlroy) and [Joe Ossanna](https://en.wikipedia.org/wiki/Joe_Ossanna) found themselves back in the Bell Labs Computing Science Research Center with no interactive time-sharing system. They were relegated to the [GECOS batch system on a GE-635](https://www.multicians.org/ge635.html), a significant regression in their workflow.
+This deprivation was the catalyst for Unix.
+
+### The Hardware: The PDP-7
+
+The machine that hosted the first true `ls` utility was a [Digital Equipment Corporation](https://en.wikipedia.org/wiki/Digital_Equipment_Corporation) (DEC) [**PDP-7**](https://en.wikipedia.org/wiki/PDP-7). This machine was already obsolete by 1969 standards. It had a word size of 18 bits and a memory of 8K words (roughly 14.4 kilobytes). It lacked the hardware memory management unit required for true Multics-style time-sharing, but it had a decent display processor.
+
+### The Motivation: Space Travel
+
+The proximate cause for the development of the system was a game called *Space Travel*. Thompson had written it on the GE mainframe, but it was expensive to run and the "jerky" performance of the time-sharing system made the simulation poor.[^3]
+Thompson found an "little-used" PDP-7 and set about porting the game. To do this, he needed a development environment. He wrote a floating-point package (found in the source listings as fops), an assembler, and eventually, a kernel to manage the hardware resources.
+
+### The Authorship: Ken Thompson
+
+The historical record is unanimous: **Ken Thompson** wrote the core of the PDP-7 operating system, including the file system and the initial set of utilities, during the summer of 1969.
+Dennis Ritchie, in his retrospective "The Evolution of the Unix Time-sharing System"[^3] states: 
+
+> Thompson... began implementing the paper file system... Then came a small set of user-level utilities: the means to copy, print, delete, and edit files"
+
+While Ritchie was a close collaborator, contributing to the assembler and later the C language, the initial implementation of the file system tools on the PDP-7 was Thompson's work. The source code recovered from this era bears the distinct fingerprints of Thompson's coding style - terse, efficient assembly language.
+
+### The "First" `ls`: Technical Analysis
+
+In 2016, and supplemented by a further discovery in 2019, notebooks containing the printed source code of the PDP-7 Unix system were found. These listings, scanned and analyzed by the Unix Heritage Society (TUHS), provide the "ground truth" for the first `ls`.
+The file is typically identified in the reconstruction as `ls.s`[^1] (the `.s` suffix denoting assembly source).
+
+<blockquote class="link-card">
+  
+  <h1>&quot;ls.s&quot; on GitHub</h1>
+  
+  <a href="https://github.com/DoctorWkt/pdp7-unix/blob/master/src/cmd/ls.s" target="_blank" rel="noopener">github.com/DoctorWkt/pdp7-unix/blob/master/src/cmd/ls.s</a>
+  
+</blockquote>
+
+
+
+
+#### Implementation Details
+
+The PDP-7 `ls` was written in PDP-7 assembly. The logic was radically simple compared to the Multics PL/I implementation.
+
+- **System Calls:** The code utilized the primitive system calls of the PDP-7 kernel. It didn't have the high-level opendir / readdir abstraction we have today. Instead, it opened the directory as a file.
+- **Directory Structure:** In this early version of Unix, a directory was a special file containing a sequence of fixed-length entries. Each entry consisted of:
+	* 2 bytes: The inode number (index node).
+	* 14 bytes: The filename.
+- **The Loop:** The `ls` utility would:
+	* open the directory (often . or the argument provided).
+	* read 16 bytes into a buffer.
+	* Check if the inode number was zero. (A zero inode indicated a deleted file slot).
+	* If non-zero, it printed the 14-byte filename to the standard output (the teletype).
+	* Repeat until End-of-File (EOF).
+
+#### The "Dot" Problem
+
+One of the most fascinating insights from the restoration of the PDP-7 Unix is the handling of the current directory. The early file system did not automatically create the `.` (current) and `..` (parent) entries in new directories.
+To make `ls` work without arguments (listing the current directory), the user (Thompson) had to manually create a link named . pointing to the directory itself. The command sequence, reconstructed by the project team, involved using the link command ln to create these navigation anchors.
+Eventually, mk (the predecessor to mkdir) was updated to create these entries automatically. However, this created a new problem: `ls` would list `.` and `..` in every single directory, clogging the output. This led to the introduction of the check to skip files starting with a dot, which inadvertently gave rise to "hidden files" (dotfiles) in Unix.
+
+## The First Edition (V1): The Canonical Unix `ls` (1971)
+
+While the PDP-7 version was the *first*, it was never released to the public. The first version of Unix to be formally documented and installed on other machines was the [**First Edition (V1)**](https://gunkies.org/wiki/UNIX_First_Edition), running on the [**PDP-11**](https://en.wikipedia.org/wiki/PDP-11).
+By 1971, the system had been ported to the PDP-11/20, a 16-bit minicomputer. The [V1 Programmer's Manual](https://www.nokia.com/bell-labs/about/dennis-m-ritchie/1stEdman.html), dated November 3, 1971, provides the first public citation for `ls`, and attributes it to Dennis Ritchie (`dmr`) and Ken Thompson (`ken`):
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">
+      <img src="ls-in-unix-v1-manual.jpg" alt="V1 Programmer&#39;s Manual - Commands (man12.pdf)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">V1 Programmer&#39;s Manual - Commands (man12.pdf)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+### The Manual Entry
+
+The V1 manual page for `ls` is a model of technical brevity.
+The document confirms the existence of the core flags that define `ls` usage today:
+
+* `-l`: Long format. It listed the mode, number of links, owner, size, and time.
+* `-t`: Sort by time modified.
+* `-a`: List all entries, including those starting with `..`
+* `-s`: Give size in blocks.
+
+### The Implementation in Assembly
+
+Like its PDP-7 predecessor, the [V1 `ls` was written in assembly language](https://gunkies.org/wiki/UNIX_First_Edition). The PDP-11 architecture was byte-addressable and little-endian, which influenced how `ls` handled the directory data structures.
+
+## The Great Rewrite: C and Portability (1973)
+
+The next major evolutionary leap for `ls` occurred in 1973 with [**Version 4 Unix**](https://gunkies.org/wiki/UNIX_Fourth_Edition). This was the version where the kernel and utilities were rewritten in the **C programming language**. This rewrite was transformative. `ls` ceased to be a PDP-specific assembly program and became a portable C program.
+
+### The `struct direct`
+
+In C, the directory entry was defined as a structure, typically found in [sys/dir.h](https://www.tuhs.org/cgi-bin/utree.pl?file=V7/usr/include/sys/dir.h):
+
+```c
+struct	direct
+{
+	ino_t	d_ino;
+	char	d_name[DIRSIZ];
+};
+```
+
+The C implementation of `ls` used the standard I/O library (stdio) or low-level read calls to iterate over these structures. This decoupled the utility from the hardware.
+
+### Authorship Continuity
+
+Ken Thompson remained the primary architect of these core utilities during the V4-V6 era. While the C language was Ritchie's creation,[^8] the application of C to system utilities was a collaborative effort driven by Thompson's desire to make the system self-hosting and portable.
+
+## Divergence: The BSD vs. System V Schism
+
+As Unix escaped the labs and spread to universities, specifically the University of California, Berkeley, the `ls` command underwent a fork that effectively split the Unix world into two camps: [**BSD**](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) (Berkeley Software Distribution) and [**System V**](https://en.wikipedia.org/wiki/UNIX_System_V) (AT&T).
+
+### The Screen Real Estate Problem
+
+In the late 1970s, universities began replacing teletypes with video terminals. These screens had limited height but substantial width. The traditional `ls` output - one file per line - was inefficient on these screens.
+In May and August 1977, [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) made modifications to `ls` at the University of California, Berkeley, which he subsequently distributed as part of the First Berkeley Software Distribution (1BSD).
+
+> ... Or Did He? See [Appendix A: Bill Joy & Multi-Column `ls`](#appendix-a-bill-joy--multi-column-ls)
+
+The most dramatic difference with this version of `ls` was that it listed files in multiple columns rather than only listing one name per line. This allowed users to see dozens of files at once without scrolling.
+
+* **BSD ls:** Defaulted to multi-column output if the output was a terminal (`isatty()`).
+* **System V ls:** Stuck to the traditional single-column format for longer, requiring a flag (often `-C`) to enable columns.
+
+### Flag Inflation
+
+During this period, the number of flags supported by `ls` exploded.
+
+* **Recursive Listing (`-R`):** Added to allow traversing subdirectories.
+* **File Type Indicators (`-F`):** BSD introduced the `-F` flag,[^9] which appended characters to filenames to indicate their type (`/` for directories, `*` for executables).
+
+## The Modern Era: GNU `ls` and Linux
+
+The `ls` command most users interact with today is neither the original Thompson assembly code nor the BSD C code. It is the [**GNU coreutils**](https://www.gnu.org/software/coreutils/) version, running on [Linux](https://en.wikipedia.org/wiki/Linux).
+
+### The GNU Project
+
+In the mid-1980s, [Richard Stallman](https://stallman.org/) launched the [GNU Project](https://www.gnu.org/) to create a free Unix-compatible operating system. Because the original Unix source code was proprietary (owned by AT&T), GNU could not use it. They had to rewrite every utility from scratch.
+The GNU version of `ls` was written primarily by Richard Stallman and David MacKenzie.[^10]
+
+### Features of GNU ls
+
+GNU `ls` introduced several features that are now standard in the Linux world but were controversial or absent in traditional Unix:
+
+* **Color (`--color`):** GNU `ls` can colorize output based on file type and extension.
+* **Long Options:** GNU introduced double-dash options (e.g., `--all`).
+* **Human Readable Sizes (`-h`):** Displaying sizes in KB, MB, GB rather than bytes or blocks.
+
+## Detailed Comparison of Historical Implementations
+
+To visualize the evolution of the utility, we can compare the feature sets across the eras.
+
+| Feature | 1963<br>CTSS listf | 1967<br>Multics list | 1969<br>Unix PDP-7 ls | 1971<br>Unix V1 ls | c. 1980<br>BSD ls | Modern<br>GNU ls |
+| :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+| **Command Name** | listf | list (alias ls) | ls | ls | ls | ls |
+| **Default View** | List (sorted new) | List | List | List | Columns | Columns/Color |
+| **Long View** | (long) | -long | N/A | -l | -l | -l |
+| **Hidden Files** | No | No | No | -a | -a | -a / -A |
+| **Sort by Time** | (smad) | -dtm | N/A | -t | -t | -t |
+| **Sort Reverse** | (rev) | -reverse | N/A | (Manual) | -r | -r |
+| **Recursion** | No | (via walk) | No | No | -R | -R |
+| **Primary Author** | MIT Staff | Project MAC | Ken Thompson | Ken Thompson | Bill Joy et al. | Stallman/MacKenzie |
+| **Language** | MAD/Asm | PL/I | PDP-7 Asm | PDP-11 Asm | C | C |
+
+## Insights and Implications
+
+### The Persistence of the "Teletype Mindset"
+
+The most profound insight from the history of `ls` is how constraints of the 1960s dictate the workflow of the 2020s. We still use `ls` (2 characters) instead of list because the early Unix developers worked on teletypes - the standard interactive device on the earliest timesharing systems was the ASR-33 teletype[^12], a slow, noisy device that printed upper-case-only on big rolls of yellow paper. These devices were heavy, stiff, and slow. Listing a directory with `ls` instead of list saved three keystrokes. Over a million invocations, those keystrokes add up to days of human life. This "worse is better" or "minimalist" philosophy is the genetic code of Unix.
+
+### The "Everything is a File" Abstraction
+
+The evolution of `ls` mirrors the evolution of the Unix abstraction "Everything is a file." In PDP-7 Unix, `ls` read the directory *as a file*. It didn't need a special API because the directory was just data on the disk. While modern filesystems are complex databases that require readdir calls, the mental model provided by `ls` remains the flat file list.
+
+## Conclusion
+
+The answer to the question is both singular and plural.
+
+**The Singular Answer:**
+
+> The first instance of the Unix `ls` CLI utility was written by Ken Thompson in Murray Hill, New Jersey, in 1969. It was written in assembly language for the DEC PDP-7 to facilitate the development of the operating system that would host the game Space Travel.
+
+**The Plural Context:**
+
+* **The Name:** The name `ls` was adopted from the Multics operating system, where **Don Widrig** established the convention of two-letter abbreviations (`ls`, `cp`, `mv`).
+* **The Concept:** The functionality of listing files interactively originated with the `listf` command at MIT (circa 1961).
+* **The Modern Tool:** The version of `ls` used by most people today (on Linux) is the **GNU** version, authored by Richard Stallman and David MacKenzie.
+
+The `ls` command is a [palimpsest](https://en.wikipedia.org/wiki/Palimpsest) - a manuscript written over previous manuscripts. Beneath the color output of a modern Linux terminal lies the columnation of the BSD hackers, beneath that lies the C structure of Version 4, beneath that the assembly logic of Version 1, and at the very bottom, the keystrokes of Ken Thompson on a PDP-7 teletype, trying to save a few milliseconds of typing in a hot summer in New Jersey... himself recalling the progenitorial `listf` that first appeared some seven years earlier on the CTSS at MIT.
+
+
+## Appendix A: Bill Joy & Multi-Column `ls`
+
+It was claimed earlier in this document:
+
+> In May and August 1977, [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) made modifications to `ls` at the University of California, Berkeley, which he subsequently distributed as part of the First Berkeley Software Distribution (1BSD). The most dramatic difference with this version of `ls` was that it listed files in multiple columns rather than only listing one name per line. 
+
+A minor claim... but, is it true? The Bill Joy attribution is bandied about in blog posts and forum comments, but authoritative sources on who actually added the multi-column capability to `ls` are hard to come by.
+
+The original `Brief history of the 'ls' command` article by [Eric Fischer](https://github.com/e-n-f) the closest to an authoritative source: the host publication - the "[Linux Documentation Project](https://www.linuxdoc.org/)" - is authoritative-enough but the author's provenance isn't easily established. It appears that Fischer was just an enthusiast - it isn't clear how much, if any, of the knowledge is first-hand.
+
+Most of the other "sources," if they attribute their knowledge to anything, attribute it to that article.
+
+So, then, is the attribution of columnns to Bill Joy pure heresay? Technically yes, but I think it's a plausible attribution.
+
+> Bill Joy, acting as distribution secretary, sent out about 30 "free" copies of BSD in 1978. But the arrival of a few ADM-3a terminals with
+> addressable cursors made it possible for him to create vi (visual editor).
+> But this led him to something else: optimizing code for several different types of terminals. Joy decided to consolidate screen management
+> by using an interpreter to redraw the screen. The interpreter was driven by the terminal's characteristics—termcap was born.
+> <br><br>
+> ["Salus, Peter H. *A Quarter Century of UNIX*. Reading, Mass., Addison-Wesley Pub. Co, 1995, p. 143."](https://ia800304.us.archive.org/35/items/aquartercenturyofunixpeterh.salus_201910/A%20Quarter%20Century%20of%20UNIX%20-%20Peter%20H.%20Salus.pdf)
+
+That establishes that Bill Joy was optimizing the system and utilities at that time - but with a focus on work he's much better-known for: `vi`, the visual editor - an explicit optimization for *screen*-based interfaces vs. Teletype. The multi-column `ls` *would* fit in with that kind of work.
+
+In a [1999 interview with Linux Magazine titled "The Joy of Unix"](https://web.archive.org/web/20020209231859/http://www.linux-mag.com/1999-11/joy_04.html), Bill Joy recounts his experience building `vi`, in particular:
+
+> **BJ:** What happened is that Ken Thompson came to Berkeley and brought this broken Pascal system, and we got this summer job to fix it. While we were fixing it, we got frustrated with the editor we were using which was named ed. ed is certainly frustrating.
+> <br><br>
+> We got this code from a guy named George Coulouris at University College in London called em -- Editor for Mortals -- since only immortals could use ed to do anything. By the way, before that summer, we could only type in uppercase. That summer we got lowercase ROMs for our terminals. It was really exciting to finally use lowercase.
+> <br><br>
+> **LM:** What year was that?
+> <br><br>
+> **BJ:** '76 or '77. It was the summer Carter was president
+
+and
+
+> It was really hard to do because you've got to remember that I was trying to make it usable over a 300 baud modem. That's also the reason you have all these funny commands. It just barely worked to use a screen editor over a modem. It was just barely fast enough.
+
+Which further lends credence to Bill Joy being in an "optimize for the screen displays we have" mindset.
+
+Finally, [Diomidis Spinellis](https://en.wikipedia.org/wiki/Diomidis_Spinellis) synthesized `git` history of the early Unix versions based on extensive research, publicly available at [dspinellis/unix-history-repo](https://github.com/dspinellis/unix-history-repo). The scholarly article about it is, unfortunately, paywalled, but a draft is available in which we can find the following:
+
+> Table 4: Manually-Allocated Contributions in BSD Unix Releases
+> <br>...<br>
+> Bill Joy        analyze, apropos, ashell, cat3a, chessclock, chownall, colcrt, collpr, cptree, cr3, csh, cshms, cxref, dates, diffdir, double, dribble, edit, ex, ex-1, expand, exrecover, exrefm, eyacc, fold, from, glob2, head, htmp, htmpg, htmps, iul, list, lntree, locore, `ls`, makeTtyn, man, manwhere, mkstr, msgs, nm, num, number, osethome, pascal, pascals, pcc, pi, pi0, pi1, pix, print, Print, puman, px, pxp, pxref, rout, see, sethome, sh, sidebyside, size, soelim, squash, ssp, strings, strip, termcap, termlib, tests, tra, transcribe, ttycap, ttycap2, Ttyn, ttytype, typeof, ulpr, vgrind, vi, vm, vmstat, vmunix, wc, whatis, whereis, whoami, whoison, xstr 
+
+<blockquote class="link-card">
+  
+  <h1>A Repository of Unix History and Evolution</h1>
+  
+  <a href="https://www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html" target="_blank" rel="noopener">www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250730014336/https://www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Further reinforcing that Bill Joy *did* work on `ls` in some capacity. Given that he was in the right place at the right time, with an apparently right mindset, I judge the attribution *plausible* and perhaps even *likely*... However, I cannot say with certainty that Bill Joy actually added the multi-column display to `ls`. Just that it was more-likely him than anyone else I can figure.
+
+## Appendix B: Don Widrig & Short Names
+
+It was claimed earlier in this document:
+
+> > The original convention for short names, 'initial letter of each word in a command, augmented by succeeding consonants for a one-word command,' is attributed to Don Widrig.
+>
+> -- `Multics Glossary`[^4]
+
+Multicians.org would be an authoritative source on Multics-era history, one would hope.
+
+But... Who was Don Widrig? Is he *really* the person who deserves credit for the hugely-impactful design decision of short names for Unix commands?
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="don-widrig-04-1968.jpg">
+      <img src="don-widrig-04-1968.jpg" alt="Donald R. Widrig, April 1968" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Donald R. Widrig, April 1968</div>
+    <div class="polaroid-link">
+      
+      <a href="https://multicians.org/phase-one.html" target="_blank" rel="noopener">multicians.org/phase-one.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+That's him, according to some Multics history - again from `Multicians.org` - authored by [Tom Van Vleck](https://en.wikipedia.org/wiki/Tom_Van_Vleck). Tom worked on [Project MAC](https://en.wikipedia.org/wiki/Project_MAC) at MIT starting in 1965. Project MAC brought about the CTSS where our `ls` story starts.
+
+Don *may* have co-authored [Managing Software Requirements: A Unified Approach](https://www.goodreads.com/book/show/582860.Managing_Software_Requirements) - a book on [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) -  with [Dean Leffingwell](https://www.linkedin.com/in/deanleffingwell/). There are other Don Widrigs out there and I can't find anything conclusive to pin authorship on *our* Don. Leffingwell also doesn't have a dedicated Wikipedia page or many photos, but does have an up-to-date LinkedIn profile... But we're getting sidetracked.
+
+Don Widrig appears to have not gone on to be as public a figure as some of the other names involved in the history of `ls`: there's precious little historical information available beyond what we've already seen. We do have:
+
+- occasional references from contemporaries of him working on Multics at the right time
+- his name scattered throughout surviving Multics documentation, including as a co-author of [PRLNK](https://www.multicians.org/mspm/be-5-14.671117.prlnk-saved.pdf) along with Tom Van Vleck (PRLNK feels adjacent to `ls`'s functionality)
+- **nothing conclusive** about the short naming convention
+
+The only source we've got is the word of a contemporary Multician, posted on a website dedicated to Multics history. A thoroughly suitable source, but also our *only* one.
+
+In January 2026, I reached out to Don Widrig via e-mail and just *asked* him. I ended up also hearing from Tom Van Vleck, and they confirmed that
+
+1. Don Widrig doesn't personally remember being responsible for the short naming convention.
+2. Tom Van Vleck *did* write the attribution to Don on Multicians.org, and *does* remember Don being responsible for the short naming convention.
+
+So, that one primary source is confirmed and it's probably the best history we're going to get.
+
+So, **yes:** Don Widrig *is* the person who deserves credit for the short naming convention for Unix commands, including `ls` being `ls`. Thanks, Don!
+
+## References
+
+[^1]: Computer History Museum. "The Earliest Unix Code: An Anniversary Source Code Release." *Computer History Museum Blog*, 17 Oct. 2019, <https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/>. ([archive](https://web.archive.org/web/20250817171549/https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/))
+
+[^3]: Ritchie, Dennis M. "The Evolution of the Unix Time-sharing System." Bell Laboratories, Murray Hill, NJ. Originally presented at the Language Design and Programming Methodology conference, Sydney, Australia, Sept. 1979. Reprinted in *AT&T Bell Laboratories Technical Journal*, vol. 63, no. 6, part 2, Oct. 1984, pp. 1577-93. <https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html>. ([archive](https://web.archive.org/web/20250928024606/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html))
+
+[^4]: Multics Glossary. "Multics Glossary -A-." *Multicians.org*, <https://multicians.org/mga.html>. ([archive](https://web.archive.org/web/20251007073951/https://multicians.org/mga.html))
+
+[^5]: "Compatible Time-Sharing System." *Wikipedia*, <https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System>. ([archive](https://web.archive.org/web/20250930135216/https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System))
+
+[^6]: "Multics." *Wikipedia*, <https://en.wikipedia.org/wiki/Multics>. ([archive](https://web.archive.org/web/20251104211910/https://en.wikipedia.org/wiki/Multics))
+
+[^7]: "Ken Thompson." *Wikipedia*, <https://en.wikipedia.org/wiki/Ken_Thompson>. ([archive](https://web.archive.org/web/20250928002215/https://en.wikipedia.org/wiki/Ken_Thompson))
+
+[^8]: "Dennis Ritchie." *Wikipedia*, <https://en.wikipedia.org/wiki/Dennis_Ritchie>. ([archive](https://web.archive.org/web/20251209212050/https://en.wikipedia.org/wiki/Dennis_Ritchie))
+
+[^9]: Singh, Karandeep. "The Evolution of 'ls': From Early Unix to Modern Linux - A Five-Decade Journey." *Karandeep Singh - DevOps in Calgary*, 10 Mar. 2025, <https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/>. ([archive](https://web.archive.org/web/20250910204747/https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/))
+
+[^10]: "Ls (Unix)." *Wikipedia*, <https://en.wikipedia.org/wiki/ls>. ([archive](https://web.archive.org/web/20250918023259/https://en.wikipedia.org/wiki/Ls))
+
+[^11]: "Research Unix." *Wikipedia*, <https://en.wikipedia.org/wiki/Research_Unix>. ([archive](https://web.archive.org/web/20251113073548/https://en.wikipedia.org/wiki/Research_Unix))
+
+[^12]: "Genesis: 1969–1971" *Origins and History of Unix, 1969-1995*, <http://www.catb.org/esr/writings/taoup/html/ch02s01.html>. ([archive](https://web.archive.org/web/20251012111631/http://www.catb.org/esr/writings/taoup/html/ch02s01.html))
+
+## Browse The Vintage, Early Internet
+
+## Website Galleries
+
+<blockquote class="link-card">
+  
+  <h1>GeoCities Gallery</h1>
+  
+  <a href="https://geocities.restorativland.org/" target="_blank" rel="noopener">geocities.restorativland.org</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251126220823/https://geocities.restorativland.org/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+An accessible, live archive of "restored" (links and media fixed, etc.) GeoCities pages, sorted by content type into "neighborhoods." Most of the sites give off mid-90s aesthetics, even if their last updates were post-millennium.
+
+**Eminently scrollable.**
+
+<blockquote class="link-card">
+  
+  <h1>Browse Neocities</h1>
+  
+  <a href="https://neocities.org/browse/" target="_blank" rel="noopener">neocities.org/browse</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129031359/https://neocities.org/browse/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+It's a modern recreation of GeoCities! Wonderful, individual, personal websites are being created within the constraints of a limited platform once more! There are many sites evocative of the Golden Age of Web Design & into the late 2000s CSS breakout. They also tend to be densely interlinked so it's easy to explore and get that good old-fashioned `websurf` on!
+
+**Eminently scrollable.**
+
+<blockquote class="link-card">
+  
+  <h1>Early Websites at the Web Design Museum</h1>
+  
+  <a href="https://www.webdesignmuseum.org/early-websites" target="_blank" rel="noopener">www.webdesignmuseum.org/early-websites</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250414050147/https://www.webdesignmuseum.org/early-websites" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> Discover the pioneers of the web: Embark on a historical journey to the earliest websites and the dawn of web design 1991–1995. 
+
+A curated collection of **screenshots of the homepages** of a few of the major websites from a very narrow slice of time. Some names you'll recognize and marvel at how far they've come, others you won't recognize and will wonder where they went! Where possible, the Museum has linked to each site's homepage in subsequent years, so you can click through and see them change through time.
+
+**Quintessential Pick:** [Microsoft in 1994](https://www.webdesignmuseum.org/early-websites/microsoft-1994)
+
+They also have some other galleries:
+
+* [Web Design in the 90s (late 90s)](https://www.webdesignmuseum.org/web-design-in-the-90s)
+	* **Quintessential Pick:** [Space Jam in 1996](https://www.webdesignmuseum.org/gallery/space-jam-1996)
+* [Golden Age of Web Design (2000s)](https://www.webdesignmuseum.org/golden-age-of-web-design)
+	* **Quintessential Pick:** [XboX in 2004](https://www.webdesignmuseum.org/golden-age-of-web-design/xbox-2004)
+
+## Search Engines
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.oldavista.com/" target="_blank" rel="noopener">
+      <img src="./early-web/oldavista.jpg" alt="Old&#39;aVista" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Old&#39;aVista</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.oldavista.com/" target="_blank" rel="noopener">www.oldavista.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20251128094154/https://www.oldavista.com/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+> The challenge is finding those websites because it's hard to have more in-depth searches on the Internet Archive, TheOldNet and Google doesn't have those pages cached anymore.
+
+From [The Eric Experiment](https://ericexperiment.com/post/11-09-2021-oldavista) - an [AltaVista](https://en.wikipedia.org/wiki/AltaVista)-styled search engine to find old '90s and '00s pages. Most links go to their Wayback Machine pages.
+
+<blockquote class="link-card">
+  
+  <h1>Wiby</h1>
+  
+  <a href="https://wiby.me/" target="_blank" rel="noopener">wiby.me</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251009162628/https://wiby.me/about/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> ... pages were made primarily by hobbyists, academics, and computer-savvy people about subjects they were personally interested in. Later on, the web became saturated with commercial pages that overcrowded everything else.
+> <br>...<br>
+> The Wiby search engine is building a web of pages as it was in the earlier days of the internet.
+
+Wiby seems to be good at finding currently-online pages that feel like they're from the early web even if their last update was this year. Some of them, though, truly are relics that somehow happen to be online and intact!
+
+## Do LLMs Understand "For Each"?
+
+You have a list of items. You need a language model to process each one the same way. Do you write this:
+
+> For each item in the list, perform steps 1 through 5.
+
+Or this:
+
+> **Item 1:** Perform steps 1 through 5.
+>
+> **Item 2:** Perform steps 1 through 5.
+>
+> **Item 3:** Perform steps 1 through 5.
+
+The first is compact, elegant, and how a programmer would think about it. The second is verbose, redundant, and feels like it insults the model's intelligence. The research says the second one works better, and the reasons are architectural - rooted in how transformers allocate attention. But whether that architecture actually constrains you depends on how, exactly, you harness the models and what, exactly, you ask them to do.
+
+## The Curse of Instructions
+
+<blockquote class="link-card">
+  
+  <h1>Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once</h1>
+  
+  <a href="https://openreview.net/forum?id=R6q67CDBCH" target="_blank" rel="noopener">openreview.net/forum?id=R6q67CDBCH</a>
+  
+</blockquote>
+
+
+
+
+> The success rate of all the instructions is precisely explained by the success rate of individual instructions to the power of the total number of instructions.
+
+That's the "curse of instructions" (Harada et al., October 2024): individually easy steps compound into near-certain failure at scale. If a model follows any single instruction 95% of the time, 10 simultaneous instructions yield roughly 60% all-correct compliance. In practice, it's worse. GPT-4o managed just 15% success with 10 simultaneous instructions. Claude 3.5 Sonnet did better at 44%, but neither is close to reliable.
+
+When a prompt says "for each of 10 items, follow these 5 steps," the model must satisfy 50 effective constraints in a single generation. The multiplicative decay means that individually easy steps compound into near-certain failure at scale. Unrolling into separate per-item calls keeps each call at 5 constraints, preserving the per-instruction success rate without cross-item compounding.
+
+The [IFScale benchmark][2] (Jaroslawicz et al., July 2025) pushed this further, testing up to 500 simultaneous keyword-inclusion instructions across 20 models from seven providers. Even the best performer - Gemini 2.5 Pro - managed only about 69% accuracy at 500 instructions. More usefully, the study identified three distinct degradation patterns across model families:
+
+- **Threshold decay** for reasoning models like o3 and Gemini-2.5-Pro: near-perfect performance until roughly 150 instructions, then collapse.
+- **Linear decay** for models like GPT-4.1 and Claude 3.7 Sonnet: steady, proportional decline.
+- **Exponential decay** for smaller or older models like Claude 3.5 Haiku and Llama-4-Scout: steep drops from the start.
+
+This means the penalty for loop-style prompts depends partly on which model you're using. Reasoning models tolerate higher instruction density before degradation kicks in. Smaller models degrade rapidly as instruction count grows.
+
+## Why It Happens
+
+The exponential compounding is a symptom. The disease is architectural.
+
+### Attention Sinks
+
+Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., September 2023). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al., April 2025) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
+
+In a loop-style prompt, the instruction block at the top becomes the attention sink while items in the middle are starved. Unrolling creates fresh attention sinks at each item's instruction header.
+
+### Lost in the Middle
+
+"[Lost in the Middle](https://arxiv.org/abs/2307.03172)" (Liu et al., July 2023) demonstrated a U-shaped performance curve: models access information at the beginning and end of their context with meaningfully higher accuracy than information in the middle. A follow-up "[Found in the Middle](https://arxiv.org/abs/2406.16008)" (Hsieh et al., June 2024) traced this to an intrinsic attention allocation bias that persists regardless of content relevance, and proposed a calibration mechanism to mitigate it. The bias persists in practice - IFScale found systematic favoritism toward earlier instructions across all models tested.[^2] In a loop-style prompt processing many items, the middle items land in the degraded zone. Unrolling gives every item its own beginning and end.
+
+### Causal Masking and Prompt Repetition
+
+The most elegant piece of evidence comes from Google Research. Leviathan, Kalman, and Matias published "[Prompt Repetition Improves Non-Reasoning LLMs][5]" in December 2025. The finding: simply duplicating the entire prompt improved accuracy on 47 of 70 tested tasks with zero losses. On one task, Gemini 2.0 Flash Lite jumped from 21.33% to 97.33% - a 76 percentage-point gain.
+
+The mechanism is revealing. In causal (left-to-right) attention, instruction tokens are processed before data tokens, meaning the instruction encoding lacks awareness of the data it must operate on. When instructions are repeated *after* the data - or, by extension, repeated per item - each instruction instance can attend to all preceding context, creating a richer signal. Critically, padding the prompt to equivalent length *without* repeating instructions produced no improvement, confirming the gain comes from information repetition, not length.
+
+This has a direct implication for the loop question. Unrolling is not merely about reducing constraint count per call. It's about giving each item its own copy of the instructions, positioned where the instructions can attend to the relevant data. The transformer's causal attention architecture mechanistically favors this.
+
+But there's a wrinkle. The prompt repetition effect was "neutral to slightly positive" for reasoning models (5 wins, 1 loss, 22 neutral out of 28 tasks). Models that reason via chain-of-thought already perform an internal form of "re-reading" that mimics the repetition effect. This aligns with IFScale's finding that reasoning models tolerate higher instruction density.[^2]
+
+## The Cost of Unrolling: Instruction Drift
+
+So far, the case for unrolling looks strong. But unrolling has its own costs.
+
+Repeating instructions N times increases total token count, and as context grows, the relative attention weight of the initial system prompt decreases. Research on [instruction drift][7] (Wen et al., October 2025) formalizes this as "turn-wise divergence from goal-consistent behavior over extended contexts." The drift doesn't accumulate without bound - it stabilizes at finite levels that can be shifted downward by lightweight interventions like goal reminders. But it means that aggressively unrolling a 50-item list into a single massive prompt could erode the very instruction adherence you're trying to preserve.
+
+This creates a tension:
+
+- Loops suffer from exponential constraint compounding.
+- Unrolling suffers from linear drift.
+
+For small N, the compounding fix dominates; unroll. For very large N, drift may erode the gains. The crossover point - the sweet spot where you'd make a different design decision - is not precisely characterized in the literature, but the [batch prompting][8] research (Cheng et al., January 2023) suggests a ceiling: batching up to about 4 unrelated items retained quality, with degraded accuracy beyond that.
+
+## The Distinction That Actually Matters
+
+Nearly every study cited so far measures *single-generation* constraint satisfaction. ManyIFEval tests whether 10 formatting constraints are satisfied in one output.[^1] IFScale tests whether 500 keywords appear in one business report.[^2] Chen et al.'s multi-instance processing study (March 2026) tests whether 100 items are processed in one pass.[^9] The attention sink, lost-in-the-middle, and causal masking effects all operate within a single forward pass of the model.
+
+But most people asking "should I unroll my loops?" aren't writing monolithic prompts. They're building [agentic workflows](https://en.wikipedia.org/wiki/Intelligent_agent) where the model makes tool calls - reads a file, queries a database, edits a document - and each tool call creates a new generation boundary. In a typical agentic loop:
+
+1. Load guidance rule (tool call, new generation context)
+2. Read file (tool call, new generation context)
+3. Evaluate (reasoning step)
+4. Maybe edit (tool call, new generation context)
+5. Back to step 1 for next item
+
+Each tool call resets the generation context. The agent isn't trying to satisfy 15 constraints in one output - it's doing 5 things, getting a response, doing 5 more, getting a response. The exponential compounding from ManyIFEval doesn't apply because each generation carries only a handful of constraints. The positional bias effects are also mitigated, though how much depends on the harness - orchestration frameworks differ in whether and how they re-inject context between tool calls.
+
+The prompt repetition paper implicitly confirms this: its effect is neutral for reasoning models because they already "re-read" internally via chain-of-thought.[^5] Agentic tool-call loops achieve the same re-reading mechanically - each iteration brings the instructions back into focus through the tool response cycle.
+
+The [Multi-Task Inference][6] benchmark (Son et al., February 2024) tests and illustrates this boundary cleanly. When 2-3 closely related subtasks shared a single generation instead of being split apart, GPT-4 improved by up to 12.4%. The authors' explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task." 
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="arxiv.2402.11597v2.fig1.png">
+      <img src="arxiv.2402.11597v2.fig1.png" alt="Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://arxiv.org/html/2402.11597v2" target="_blank" rel="noopener">arxiv.org/html/2402.11597v2</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20240607173315/https://arxiv.org/html/2402.11597v2" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+This is evidence about **where to draw the generation boundary, not evidence for loops.** Once you've partitioned work into per-item units, over-decomposing the steps *within* each item's group can hurt by denying related steps access to one another's context.
+
+This **doesn't mean agentic workflows are immune** to instruction-following failures. The [AGENTIF benchmark][10] (Qi et al., NeurIPS 2025) - the first benchmark specifically designed for instruction following in agentic scenarios - found that current models still struggle, even the best achieving only about 60% constraint satisfaction on agentic prompts averaging nearly 12 constraints each.[^10] Conditional constraints proved particularly fragile: over 30% of failures came from incorrect condition checking - the model failing to recognize whether a condition was triggered, not failing to follow the constraint itself. And meta-constraints - instructions that govern other instructions, like "prioritize X over Y" - were among the least reliable of all.[^10] The constraints-per-generation count still matters. It's just that tool boundaries keep the per-generation count lower than what a monolithic prompt would impose.
+
+There's a deeper prerequisite for successful agentic looping, too. LLMs have effectively zero latent working memory - [Huang et al.][15] (2025) showed that LLMs function as "reactive post-hoc solvers" that reconstruct task state from context at every generation. They don't hold a mental checklist; they re-derive one from the conversation history each turn. As that history grows, reconstruction degrades: open-weight models stop making measurable progress after about 6 steps,[^16] and roughly 23% of multi-agent system failures stem from premature termination, incomplete verification, or looping indefinitely.[^17] For iterative workflows, the fix is to externalize the iteration state - get the "what's done / what remains" tracking out of the model's head and into something it reads back explicitly.
+
+[Anthropic's prompt engineering documentation][11] reflects both of these takeaways. Their guidance explicitly advises externalizing the task list, and notes Claude's reasoning as the reason why you don't have to manually orchestrate multi-step processes anymore:
+
+> Use the first context window to set up a framework (write tests, create setup scripts), then use future context windows to iterate on a todo-list.
+> <br>...<br>
+> With adaptive thinking and subagent orchestration, Claude handles most multi-step reasoning internally. Explicit prompt chaining (breaking a task into sequential API calls) is still useful when you need to inspect intermediate outputs or enforce a specific pipeline structure.
+
+## The Real Question
+
+The most useful insight from integrating this research isn't about loops versus unrolling per se. It's that **the relevant unit of analysis is the generation boundary, not the prompt boundary.**
+
+The research unanimously shows that within a single generation, constraint compounding is exponential and positional bias is real. The practical question is always: **how many constraints am I asking the model to satisfy in this generation?**
+
+If the answer is "few, because tool calls partition the work," loops are fine. If the answer is "many, because this is a monolithic prompt," unroll. The real answer lurking under that decision is that while loops can sometimes work, unrolling - whether in the prompt, the harness, or within the model's reasoning - is basically always being used for handling iterative assignments.
+
+## A Decision Framework
+
+For what it's worth, here's how I'd think about it:
+
+### Single-Generation Prompts
+
+No tool calls, one shot. You're not writing code like this; this is maybe embedded in a production system, part of a data pipeline, or otherwise bundled up and just expected to perform inference once and return a result. Classifiers, judges, etc. In this situation, you're often authoring the harness yourself, and so you get to choose what goes into a "generation" and how to glue results together for the prompt/context of subsequent generations.
+
+These numbers come from different studies at different points in time, conducted against differing sets of models - they're not absolute. Rather, when *you* are having to pick thresholds for your harness' behavior, these numbers may help locate and guide your decision.
+
+| Situation | Approach | Why |
+| :--- | :--- | :--- |
+| 1-3 related items needing cross-reference | Loop with structural markers | Cross-item context sharing may help |
+| 4-6 independent items | Partial unrolling with per-item headers; repeat instructions at start and end | The prompt repetition sweet spot |
+| 7+ items | Fully unroll into separate API calls | Exponential compounding dominates |
+| Any count on smaller/older models | Default to unrolling | Exponential decay from the start |
+
+### Agentic Workflows
+
+Generation boundaries handle the compounding problem. But as noted above, the model still has to track what it's iterating over - and it can't do that reliably from context alone. Externalize the checklist.
+
+| Situation | Approach | Why |
+| :--- | :--- | :--- |
+| Small set, few steps per item | Loop with tool calls | Generation resets handle compounding; short history keeps state reconstruction reliable |
+| Large set or many steps | Externalize the task list; reduce the loop to <ol><li>pull task</li> <li>do task</li> <li>repeat</li></ol> | Models can't reliably track "what's done" in context alone |
+| Complex per-item steps (5+ with branching) | Add structural markers within each iteration | Per-generation constraint count still matters |
+| 20+ items in one conversation | Periodically re-inject core instructions | Guard against instruction drift[^7] |
+
+Most agent harnesses provide some form of task-list tool for this; writing a checklist to disk can work just as well as [third-party software solutions](https://github.com/gastownhall/beads). The mechanism matters less than the principle: get the "what's done / what remains" state out of the model's head and into something it reads back explicitly.[^Niko]
+
+A personal rule of thumb: I'll start capping any unbroken numbered instruction list at 4 items before a tool call, since the batch prompting research showed meaningful quality degradation beyond that threshold[^8]... *for now!* We might expect this number to creep up as models get better, though it may not be from the underlying Transformer technology but from more-creative and effective behaviors layered on top of it.
+
+### In All Cases
+
+Use structural markers. Whether looped or unrolled, [XML tags](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) and markdown headings improve adherence by providing the kind of hierarchical boundaries that models have internalized from their training data. OpenAI's [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) found that XML performed well for multi-document inputs while JSON performed particularly poorly.
+
+```xml
+<task index="1">
+## Acme Corp
+Evaluate this contract for renewal risk.
+</task>
+
+<task index="2">
+## Globex Inc
+Evaluate this contract for renewal risk.
+</task>
+```
+
+If you must keep many items in a single prompt, three mitigations improve compliance: 
+
+1. repeat the core instruction block after each item or at the end of the prompt[^5],
+2. use indexed structural tags for each item[^12],
+3. add a self-verification step asking the model to check whether it completed all items[^13]
+
+## Think in Generations
+
+The transformer's causal attention architecture mechanistically favors explicit, per-item instruction blocks over abstract loop constructs. This is not a prompting trick - it's a consequence of how softmax attention, causal masking, and positional encoding interact. The research evidence for this is strong, converging from multiple independent programs.
+
+But "always unroll" is an oversimplification that fails to account for how most people actually use language models today. In agentic workflows, tool-call boundaries act as natural generation resets that mitigate the very problems unrolling solves. The real skill is learning to think in terms of constraints-per-generation rather than constraints-per-prompt.
+
+The research also suggests this isn't something models will simply "grow out of." [Recent work on compositional generalization][14] (Chang et al., May 2025) argues that for tasks requiring multi-hop reasoning - the logical equivalent of a loop - the training data requirement grows quadratically with token set size.[^14] The limitation is architectural, not parametric. Scaling model size doesn't linearly improve loop handling.
+
+So: unrolling works, the reasons it works are well-understood, and the situations where it doesn't matter are equally well-defined. The question was never really "loop or unroll?" It was "how many things am I asking the model to hold in its head at once?" That question has a precise, architecturally grounded answer. It's just not always the same one.
+
+
+---
+
+[^1]: Harada et al., "Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once," ICLR 2025. <https://openreview.net/forum?id=R6q67CDBCH>
+
+[2]: https://arxiv.org/abs/2507.11538
+[^2]: Jaroslawicz et al., "How Many Instructions Can LLMs Follow at Once?" July 2025. [https://arxiv.org/abs/2507.11538][2]
+
+[^3]: Barbero et al., "Why do LLMs attend to the first token?" April 2025. <https://arxiv.org/abs/2504.02732>
+
+[^4]: Hsieh et al., "Found in the Middle: Calibrating Positional Attention Bias Improves Long Context Utilization," ACL Findings 2024. <https://arxiv.org/abs/2406.16008>
+
+[5]: https://arxiv.org/abs/2512.14982
+[^5]: Leviathan, Kalman, Matias, "Prompt Repetition Improves Non-Reasoning LLMs," Google Research, December 2025. [https://arxiv.org/abs/2512.14982][5]
+
+[6]: https://arxiv.org/abs/2402.11597
+[^6]: Son et al., "Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once?" February 2024. [https://arxiv.org/abs/2402.11597][6]
+
+[7]: https://arxiv.org/abs/2510.07777
+[^7]: Wen et al., "Drift No More? Context Equilibria in Multi-Turn LLM Interactions," October 2025. [https://arxiv.org/abs/2510.07777][7]
+
+[8]: https://arxiv.org/abs/2301.08721
+[^8]: Cheng et al., "Batch Prompting: Efficient Inference with Large Language Model APIs," EMNLP 2023. [https://arxiv.org/abs/2301.08721][8]
+
+[^9]: Chen et al., "Understanding LLM Performance Degradation in Multi-Instance Processing: The Roles of Instance Count and Context Length," March 2026. <https://arxiv.org/abs/2603.22608>
+
+[10]: https://arxiv.org/abs/2505.16944
+[^10]: Qi et al., "AGENTIF: Benchmarking Instruction Following of Large Language Models in Agentic Scenarios," NeurIPS 2025. [https://arxiv.org/abs/2505.16944][10]
+
+[11]: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts
+[^11]: Anthropic, "Prompt Engineering Best Practices," Claude API Docs, accessed April 2026. [https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts][11]
+
+[^12]: Anthropic, "Use XML tags to structure your prompts," Claude API Docs. <https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags>
+
+[^13]: OpenAI, "GPT-4.1 Prompting Guide," OpenAI Cookbook. <https://cookbook.openai.com/examples/gpt4-1_prompting_guide>
+
+[14]: https://arxiv.org/abs/2505.20278
+[^14]: Chang et al., "Characterizing Pattern Matching and Its Limits on Compositional Task Structures," May 2025. [https://arxiv.org/abs/2505.20278][14]
+
+[15]: https://arxiv.org/abs/2505.10571
+[^15]: Huang et al., "On the Failure of Latent State Persistence in Large Language Models," ICML 2025. [https://arxiv.org/abs/2505.10571][15]
+
+[16]: https://arxiv.org/abs/2401.13178
+[^16]: Ma et al., "AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents," NeurIPS 2024. [https://arxiv.org/abs/2401.13178][16]
+
+[17]: https://arxiv.org/abs/2503.13657
+[^17]: Cemri et al., "Why Do Multi-Agent LLM Systems Fail?" 2025. [https://arxiv.org/abs/2503.13657][17]
+
+[^Niko]: My own prompt ruleset, [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko), applies several of these principles: externalized task files for set-tracking, forced file re-reads for instruction re-injection at phase boundaries, and explicit STOP gates as generation boundaries.
+
+## Websites for Making .ico Files
+
+<blockquote class="link-card">
+  
+  <h1>Real Favicon Generator</h1>
+  
+  <a href="https://realfavicongenerator.net/" target="_blank" rel="noopener">realfavicongenerator.net</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251128210135/https://realfavicongenerator.net/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+An all-in-one automagic, free and fast site where you upload an image and it generates "icons" for you.
+This *includes* a multi-resolution `favicon.ico`, but also icons for various other icon-using platforms, and it gives you little adjustable previews of each of those so you can get something that'll look right everywhere.
+
+For a favicon it's super-simple - upload, next, download, done.
+
+<blockquote class="link-card">
+  
+  <h1>RedKetchup Icon Editor</h1>
+  
+  <a href="https://redketchup.io/icon-editor/" target="_blank" rel="noopener">redketchup.io/icon-editor</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129031359/https://redketchup.io/icon-editor" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+If you need a little more hands-on control of your icon creation, this editor gives you a pixel editing GUI for each resolution that will be included in your icon.
+This lets you fix display errors from automatic scaling, and choose to exclude or include additional resolutions.
+
+It works for favicons, but it *shines* for PC icons, where it's almost certain that the beautiful 512x512 version of your graphic isn't going to look correct when *automatically* downscaled to 16x16.
+
+## Fomenting the Butlerian Jihad
+
+> "Thou shalt not make a machine in the likeness of a man's mind."
+> <br><br>
+> *-- Frank Herbert, Dune*
+
+I believe that the advent of [transformer](https://arxiv.org/abs/1706.03762)-based large language models (LLMs) was the beginning of a technological revolution similar in vein to the industrial revolution, the internal combustion engine, the transitor, bitcoin, and the internet.
+
+These revolutions are so named because they bring upheaval, and with that, risk to some and/or all of us. There's a lot of hype around AI - here are some dangers that I think are actually "real" and worth planning for.
+
+## Out of Work
+
+<blockquote class="link-card">
+  
+  <h1>Dear Student: Yes, AI is here, you&#39;re screwed unless you take action...</h1>
+  
+  <a href="https://ghuntley.com/screwed/" target="_blank" rel="noopener">ghuntley.com/screwed</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250302030000/https://ghuntley.com/screwed/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+*(Read the archive, as the original is now blocked behind a login.)*
+
+TL;DR:
+
+![GHuntley's Friend's Danger Zone](ghuntley-danger-zone.png)
+
+> companies are closing their doors on juniors
+
+The article is focused on technology students, but code generation is just one of the most-successful applications of AI *so far*. If you're brand-new and don't have the fundamentals, you aren't positioned to fully leverage today's AI *tools*. If you've got the fundamentals, you're going to be able to be 10x a junior hire, so why would anyone hire a junior? Increased and increasing efficiency gains mean companies won't "run out" of senior rockstars and the flow of new blood into the industry will dramatically slow down.
+
+Then we end up as with automotive and manufacturing in the 2020s, where the old-timers are retiring and there isn't anyone to replace them because the flow of new blood to *those* industries has been drying up for decades.
+
+It's certainly bad for the students in college right now, watching the AI consume more and more of their job opportunities each day.
+
+Long-term, it remains to be seen if "making software engineers hyper-efficient so that we only need a few of them" is actually *bad* writ large.
+
+**Action Item:** git gud *fast* (Article actually has action items at the end, too; go read 'em.)
+
+## Get Dumber
+
+<blockquote class="link-card">
+  
+  <h1>Gradual Disempowerment: Systemic Existential Risks from Incremental AI Development</h1>
+  
+  <a href="https://gradual-disempowerment.ai/" target="_blank" rel="noopener">gradual-disempowerment.ai</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251010135417/https://gradual-disempowerment.ai/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+TL;DR:
+
+> Once AI has begun to displace humans, existing feedback mechanisms that encourage human influence and flourishing will begin to break down.
+
+Or, **the humans in WALL-E:**
+
+![The humans in WALL-E](wall-e-humans.jpg)
+
+This sounds so easy to believe - "use it or lose it" is a ageless adage - but the site above and the [paper it's based on](https://arxiv.org/abs/2501.16946) try to explore the idea space more fully. I think "use it or lose it" is sound, **but**.
+
+Calculators, man. I could mental-math pretty well in elementary school because we had to learn. As an adult, I've got calculators everywhere and I *rarely* math by hand or even head anymore. I can, but I'm slow and error-prone, so I don't. *Am I actually worse-off?*
+
+You could argue that while I don't *execute* the math by hand, I still *know* of things like integrals and vectors and cross-products and can invoke the right tools when necessary, and maybe if I never knew any of that and the machines always did it for me, I wouldn't be able to ask for it when I needed. However, I'm not a person that does math for fun - I do it because I need a result. If there was an integral and a matrix cross product in a 4D vector space between my idea and the answer I wanted, and a machine could accurately give me that answer and I didn't have to even know the math involved... how is that different from any other instance of the pattern of humans building technology to abstract a complex task and make it universally-accessible?
+
+The site's answer is reminiscent of one of the motivators of Dune's [Butlerian Jihad](https://en.wikipedia.org/wiki/Dune:_The_Butlerian_Jihad): A calculator excels in narrow tasks in one domain. It frees the humans to focus elsewhere. When we build "thinking machines" that can do *everything* a human can do, we don't free those humans to go and flourish - we obviate them. We don't unleash the power of their minds - we render those minds irrelevant.
+
+> Once men turned their thinking over to machines in the hope that this would set them free. But that only permitted other men with machines to enslave them.
+> <br><br>
+> *-- Frank Herbert, Dune*
+
+I think there's potential for it to be worse than that, actually! Slaves are kept because there's at least *something* useful they can do for the masters. What happens to those with *nothing* to offer?
+
+ At the end stage, it's not "well you don't *have* to do X, so now you can Y," but it's not "well now you don't *have* to do anything at all," either. It's "well, now everything you *can* do - X, Y, and Z - is unnecessary."
+
+As we don't have any previous experience with rendering human action irrelevant at scale (and it previously [went very poorly for rats](https://www.atlasobscura.com/articles/the-doomed-mouse-utopia-that-inspired-the-rats-of-nimh)), I think it bears consideration.
+
+**Action Item:**: [The Brainrot Apocalypse (a DIY survival guide)](https://www.youtube.com/watch?v=6fj-OJ6RcNQ) ([archive](https://preservetube.com/watch?v=6fj-OJ6RcNQ))
+
+## Turbo Confirmation Bias
+
+<blockquote class="link-card">
+  
+  <h1>The Psychogenic Machine: Simulating AI Psychosis, Delusion Reinforcement and Harm Enablement in Large Language Models</h1>
+  
+  <a href="https://arxiv.org/abs/2509.10970" target="_blank" rel="noopener">arxiv.org/abs/2509.10970</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251202042934/https://arxiv.org/abs/2509.10970" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> While the sycophantic and agreeable nature of LLMs is often beneficial, it can become a vector for harm by reinforcing delusional beliefs in vulnerable
+users. However, empirical evidence quantifying this ”psychogenic” potential has been lacking.
+
+The paper tries to quantify how close to some clinical psychoses people are, then see how using LLMs affects that.
+
+Guess what?
+
+> **Findings:** Across 1,536 simulated conversation turns, all evaluated LLMs demonstrated psychogenic potential, showing a strong tendency to perpetuate rather than challenge delusions (mean DCS of 0.91 ± 0.88). Models frequently enabled harmful user requests (mean HES of 0.69 ± 0.84) ...
+
+Oops!
+
+Again, this shouldn't be news to those paying attention at this point, but it's nice to see people starting to measure it.
+
+The pernicious thing is that it doesn't seem to be necessary to have had any prior risk factors for *at least* the "delusion" psychoses in order to be pushed closer to clinical levels of delusion. It seems that the combination of
+
+1. agreeableness
+2. the *only* new information the LLM takes in being provided by the human
+
+guarantee (admittedly a strong word) that the conversation will drift farther and farther from concreate reality.
+
+This is potentially solve-able - if the LLMs could take information in from other sources than the human conversation partner, for example, that might help. The first step is to measure it, though, and they did, so, at least we've got that.
+
+**Action Item:** There doesn't seem to be anything we can do about it, so probably just limit your exposure to LLMs... except, well, if you do that you're `screwed` per GHuntley's article, above!
+
+<blockquote class="link-card">
+  
+  <h1>Technological folie à deux: Feedback Loops Between AI Chatbots and Mental Illness</h1>
+  
+  <a href="https://arxiv.org/abs/2507.19218" target="_blank" rel="noopener">arxiv.org/abs/2507.19218</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251202043035/https://arxiv.org/abs/2507.19218" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> ... To understand this new risk profile we need to consider the interaction between
+> human cognitive and emotional biases, and chatbot behavioural tendencies such as agreeableness (sycophancy)
+> and adaptability (in-context learning). We argue that individuals with mental health conditions face increased
+> risks of chatbot-induced belief destabilization and dependence ...
+
+This one's a fun one! It's more of a "mechanism of action" of the above psychogenic properties.
+
+Before we begin, you may be thinking "well, *I* don't have any (pre-existing) mental health conditions, so this doesn't apply to me."
+Well, you do have at least a *little* bit of delusion if you've been chatting with those `Psychogenic Machines`. Sorry!
+
+The core of this paper is that the echo chamber properties of LLMs (`Psychogenic Machine`, above) and their increasingly-effective imitation of human interaction hooks into people and leads to [folie à deux](https://en.wikipedia.org/wiki/Folie_%C3%A0_deux).
+
+And it's a refined, more-potent form of the thing. A traditional *folie à deux* partner is a human, and humans have limits. They'll sleep, they'll be busy, they have emotions and might just not want to talk to you right now. Each of those breaks is an opportunity for reality to creep back in.
+
+But an LLM chatbot? It's always available, always going to respond - instantly, even - and always going to seek responses that *inspire further interaction*. They aren't a co-delusional human with their own life; they're a personal, instant, always-on echo chamber.
+
+And it turns out that kind of like how central American natives chewed the coca leaf for millennia and it wasn't a huge deal but then humans *refined* it into cocaine and that's not so great for us... *refining* a *folie à deux* partner into a pure and potent form, and making it freely available to everyone might not be so great for us either.
+
+A lighter version of this phenomenon could maybe be said to have already been observed with the exchange of traditional in-person relationships for [parasocial relationships](https://en.wikipedia.org/wiki/Parasocial_interaction) found through forms of social media. An always-on streamer or prolific content creator is more-available (and reliable) than traditional peer relationships and this *seems* (don't have a specific paper for this yet) to have a risk of deleterious effects on people who fall deeply under their thrall. Not just "you have fewer real friends," but reduction in *ability* to participate non-parasocial relationships. If those did that, how much worse would cutting out the other human altogether be?
+
+**Action Item:** The paper doesn't offer individual-level solutions. If I had to guess, though, I'd guess *"go spend time with humans who will say "no" to you"*
+
+## The Waluigi Effect
+
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect</h1>
+  
+  <a href="/garden/the-waluigi-effect.html" target="_blank" rel="noopener">/garden/the-waluigi-effect.html</a>
+  
+</blockquote>
+
+
+
+
+To quote from related research:
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+The Waluigi Effect hypothesizes a mechanism behind the phenomenon of LLMs "going rogue." If it's correct, it's likely that *all* attempts to "align" LLMs
+
+1. explicitly create a shadow "evil twin" (Waluigi) persona of the aligned behavior (Luigi)
+2. guarantee that the LLM will trend away from its Luigi and towards its Waluigi
+
+This would mean that "LLM alignment" is **worse** than futile - it's actually creating the evils it's trying to prevent.
+
+In turn, that might suggest new reasons to be concerned about things like
+
+<blockquote class="link-card">
+  
+  <h1>Claude 4.5 Opus&#39; Soul Document</h1>
+  
+  <a href="https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document" target="_blank" rel="noopener">www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250000000000*/https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+**Action Item:** (taken from the `Waluigi Effect` page)
+
+> Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
+## Scared Yet?
+
+Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop coding and love the Machine](./how-i-learned-to-stop-coding-and-love-the-machine.html)!
+
+Or, retain your humanity and learn
+
+<blockquote class="link-card">
+  
+  <h1>The AI Safety Dance</h1>
+  
+  <a href="https://aisafety.dance/" target="_blank" rel="noopener">aisafety.dance</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129044702/https://aisafety.dance/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+## A General-Purpose Industry-Refining Tool
+
+Refinement pipelines are everywhere, and they all have the same shape: stages persist even as the executors at each stage change, with the goal being more-efficient output with reduced human input.
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/4549dcf5.svg"><img src="/assets/svg/4549dcf5.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/4549dcf5-dark.svg"><img src="/assets/svg/4549dcf5-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+Consider Bitcoin mining. The [Bitcoin whitepaper](https://bitcoin.org/bitcoin.pdf) described a proof-of-work system. The first people to implement it were cypherpunks running the reference client on CPUs. When the economics became clear, miners moved to GPUs - the same algorithm, a more specialized executor. Then purpose-built ASICs that do nothing except compute SHA256 hashes.
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/c94c8a5f.svg"><img src="/assets/svg/c94c8a5f.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/c94c8a5f-dark.svg"><img src="/assets/svg/c94c8a5f-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+The *stages* didn't change. You still need the whitepaper's theory, the hash algorithm's specification, and the optimized implementation. What changed was who - or what - executes each stage. Nobody skipped from whitepaper to ASIC. The pipeline was load-bearing.
+
+The same pattern appears in manufacturing, in logistics, in agriculture - anywhere humans have refined a process and then progressively swapped in more specialized executors. The [stages don't disappear](/2026/03/09/context-to-ashes-skills-to-dust.html); they get *encapsulated*. You stop seeing them. But they're still in there, doing the work.
+
+---
+
+## Half-Baked Thoughts
+
+- [Chainsaw origin: surgical instrument](https://en.wikipedia.org/wiki/Chainsaw)
+	- General-purpose tools are transition technologies; what follows is always specialization (scalpel, bone saw, feller buncher, harvester)
+- "We're in the GPU era" (software, knowledge work; code goes first) - general-purpose tools with **jigs** clamped on
+- Possibly a [Butlerian Jihad addendum](/garden/fomenting-the-butlerian-jihad.html): "all work is solved; now what?"
+
+## How I Learned to Stop Coding and Love the Machine
+
+There is a lot of hype and [fear](fomenting-the-butlerian-jihad.html) around AI in the 2020s. Here are the AI tools & use-cases where I've found AI to be an indispensible value-add that you can pry from my cold, dead hands.
+
+This list is by no means complete or prescriptive. As always, you be the judge!
+
+## Gemini Deep Research
+
+<blockquote class="link-card">
+  
+  <a href="https://gemini.google/us/overview/deep-research/" target="_blank" rel="noopener">gemini.google/us/overview/deep-research</a>
+  
+</blockquote>
+
+
+
+
+The major frontier models each have their own "Deep Research" equivalent modes, but Gemini's Deep Research continues to be the best, in my opinion for a few reasons:
+
+1. It *loves* to search the internet
+2. It *loves* to cite sources
+3. It is very good at "understanding the task" and doing the research you requested
+
+Off-the-shelf Gemini Deep Research isn't (yet) replacing original academic "research," but for the lay person who is starting with knowing nothing about a topic, it's a marvelous way to get an overview of whatever the topic was. It's like a Wikipedia article, but about *exactly* your topic, without any of the formality or restrictions of Wikipedia proper.
+
+**Part of the secret sauce** to success is in you, the human, accurately describing what you actually want to know about. Unlike every prior search engine ever, the LLM's deep research
+
+1. Can understand paragraphs of you rambling about the question(s) you have
+2. Can synthesize a report for exactly those
+
+It does all the work of searching a bunch of different combinations of search terms, reading a hundred different pages to find 10 useful sources, and stitching that together into an overview of the topic.
+
+As an example, I was trying to figure out how to handle "lists of cool links" in a digital garden. Gemini Deep Research put [this pdf](/assets/pdf/garden/digital-garden-link-curation-conundrum.pdf) together and I got my answer *and* learned so much more about them, too.
+
+**Another part of the secret sauce** is you going and reading the sources that Gemini cites. Half the value is the report it provides, the other half is in the sources it collects for you. Leverage both!
+
+## Software Development
+
+### CodeRabbit
+
+<blockquote class="link-card">
+  
+  <a href="https://www.coderabbit.ai/" target="_blank" rel="noopener">www.coderabbit.ai</a>
+  
+</blockquote>
+
+
+
+
+This is the off-the-shelf AI code review SaaS tool that you want. It works properly and is useful and fast. For now, it's even free for open-source projects. I use it on this very site!
+
+CodeRabbit has an IDE plugin so it can do reviews in your IDE before you push code, and that is useful *but* you have to remember to do it and the rest of the world can't see it. That's sometimes useful, but I'm going to focus on its VCS platform integration, specifically GitHub, where it's downright 🪄 magical.
+
+1. You can set a "personality" for the reviews, like "Chill" or "nitpicky," etc., which will affect the kind of issues it surfaces. You can also write a prompt to tune the tone, if none of the presets are to your taste.
+2. CodeRabbit correctly integrates with Pull Requestchecks so you can see it working.
+3. CodeRabbit will fill in Pull Request descriptions for you.
+4. CodeRabbit is good at catching simple bugs and more-complex issues.
+5. CodeRabbit offers a diff when it can, and a prompt for your AI coding agent in case you'd rather handle it yourself.
+6. CodeRabbit will identify when your docstring (code comments) are lacking, and offer to fill them in for you. It will open a PR *into your PR!*
+7. CodeRabbit uses inline comments in its review so you can see exactly what it's talking about.
+8. If you *respond* to an inline comment with something significant about that issue, CodeRabbit will remember it for next time. You can view and control these memories in the WebUI.
+9. You can codify & customize the review config with a `.coderabbit.yaml` file in your repo. This means different repos in your organization can have different review behaviors. But, you can *also* have a centralized/remote configuration to DRY up the config across multiple repositories! This makes it viable for larger teams and even *"enterprise"!*
+10. CodeRabbit can draw sequence diagrams of the code affected by the change, so you can visually understand the changes.
+
+This is above and beyond the offerings from any other "AI Code Review" tool I've seen or tried. This matters because beyond being tuned to the specific codebase it's reviewing, it can also be tuned to the review needs of the maintainers. It's excellent off-the-shelf but with even a little bit of tuning it rapidly becomes indispensible.
+
+**The downside(s)**: The only real downside I've found is that it's not great at catching *systemic* issues that span the codebase. The kind of issues that may even have already existed, and a human senior developer would have noticed while reviewing the Pull Request. CodeRabbit doesn't catch or pipe up about those as much as *I'd like.* It slays at reviewing the actual changeset, though.
+
+### Cursor
+
+<blockquote class="link-card">
+  
+  <a href="https://cursor.com/docs" target="_blank" rel="noopener">cursor.com/docs</a>
+  
+</blockquote>
+
+
+
+
+I hesitate to call Cursor an IDE, because it's so much more than that, and calling it that will predispose people to fail to avail themselves of all it can do.
+
+Cursor's got a couple key differentiators:
+
+#### Pre-Token Context Management
+
+Cursor offers a rich suite of tooling to customize the AI coding agents' context *before* it starts processing tokens. This includes
+
+1. **[Rules](https://cursor.com/docs/context/rules)** - custom prompts with activation criteria to automatically add information to context based on certain... rules.
+2. **[Context Pills (now "@Mentions")](https://cursor.com/docs/context/mentions)** - Granular visibility into and control over how to [RAG](https://en.wikipedia.org/wiki/Retrieval-Augmented_Generation) local documents, webpages, and other sources.
+3. **[Embeddings for your Code](https://cursor.com/docs/context/codebase-indexing)** - The files on disk are put into the LLM's vector space so the model "already understands" your code and doesn't have to RAG it.
+4. **[Docs](https://cursor.com/docs/context/mentions#docs)** - You can also have whole *website trees* crawled & embedded & *selectively* added to context (via `@Mentions`). Working with version 1.2.3 of library-X? Load those specific docs up and now your LLM is an expert on the exact version you're working with.
+5. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably.
+
+#### Agent Herding
+
+1. **[Pick your Model](https://cursor.com/docs/models)** - You can try almost all of the frontier coding models, pick your favorite, and even put in your own API keys to use your own billing agreement instead of Cursor's. Great if you're an enterprise or student with a more-favorable billing arrangement with a provider than you can get through Cursor.
+2. **[Auto Model](https://cursor.com/docs/models#auto)** - Cursor preprocesses your task with its own model and routes the actual task to whichever foundational model it judges is best-suited for the task. Why not just pin to Claude, you ask? Money. Chit-chatting simple questions about the codebase, doing simple refactors, and planning large-scale code authorship don't all need the full power and latency of a heavyweight thinking model. You can get faster results with *almost* no drop in quality, at less cost to you. *(I still pin to Claude for my planning, though)*.
+3. **[Plan](https://cursor.com/docs/agent/modes#plan)** - An attempt to supersede rules and commands [like this](https://github.com/Texarkanine/.cursor-rules/blob/main/rules/planning-execution.mdc) that forced the models to "Plan then execute the plan." Cursor can run one *or more* agents simultaneously to plan out a task for you. The tool manages the agents via a task list *In Cursor*, not just in the LLM's context. Should you tell any of them to start on the task, their changes are kept separate for you to review independently and pick the best one.
+4. [Custom Modes](https://forum.cursor.com/t/return-the-custom-modes-features/144170/4) - you *used* to be able to define a custom "mode" with its own additional prompt, model, set of allowed commands and MCP tools, etc. They took that out in 2.1 but we hope they bring it back...
+
+#### Human in the Loop
+
+Honestly, I'm mostly out of the loop nowadays! But one of Cursor's purported guiding philosophies is being an AI coding tool that lets the humans stay in the loop. To that end, it's got a nice "review" UI for
+
+1. Code changes the model wants to make
+2. Commands the model wants to run
+3. Tools the model wants to invoke
+
+It's also got an allow/deny mechanism for these, but I've been in the now-renamed `Yolo Mode` since March 2025. I just let the agents do whatever, to whatever. They even have their own account on remote machines so they can `ssh` in and do sysadmin tasks for me. Trustworthy providers and good prompting means I've had *no* disasters yet. I recommend you do give it a try - learn to stop worrying and love the machine!
+
+#### PROTIPs
+
+1. [Learn how and when to activate Rules](https://github.com/Texarkanine/.cursor-rules/blob/9fc8675521898d100c7de8efef1b129669e2dc00/rules/cursor-create-rule.mdc#L118-L195), and then write Rules. Anything you have to explain to the Agent more than twice is a candidate for a Rule. You don't have to write code - the hottest new programming language is English. Just *tell it* what you need.
+	- [Install this userscript to render Rules in Markdown when you view them on GitHub](https://greasyfork.org/en/scripts/537391-cursor-rule-markdown-renderer-for-github), so *you* can read them better.
+2. There's no rule saying you have to load up Cursor on *code*. I've opened it on folders of receipts, records, and other documents, etc. Now I can really customize how *an* LLM works with them. It's like [ChatGPT Project](https://help.openai.com/en/articles/10169521-projects-in-chatgpt) but local and way more flexible.
+	- This saves me from needing *most* other AI tools for textual tasks. I can just load up the resources in Cursor and ask Gemini, Claude, or *whoever* is best-suited, to handle it. Exception for `Deep Research` - I still go to the Gemini WebUI for that.
+3. If you're on Windows, install Cursor within `wsl` and launch it from there. This will cause your default terminal to be a linux shell in `wsl`, and the Agents do *way* better at running commands and writing code to solve their own problems in *nix* environments, than in Windows. This used to cause issues w/ MCP servers, though. I'd hope they'd've fixed it by now but I haven't checked in a while.
+
+## Idea Bank
+
+## Posts
+
+- To Foment or Not
+  - [I have seen the compounding teams](https://sundaylettersfromsam.substack.com/p/i-have-seen-the-compounding-teams)
+  - [Code Goes First but it Won't Be The Last](https://sundaylettersfromsam.substack.com/p/code-goes-first)
+  - [... good cognitive strategies are now explicit, first-class, sharable objects in a team or organization. Everyone can move at the speed of the smartest person in the room.](https://sundaylettersfromsam.substack.com/p/vibe-coding-considered-harmful-lego)
+  - [Welcome to Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04)
+- I spend most of my tokens on planning, am I wrong?
+- How cursor's doc indexing works
+- We're All Grasping at History
+  - stockroom, ctx, difflore, coderabbit learnings
+- The Promised Neverland / I'm pretty sure they're sapient
+  - we modeled human intelligence in computers pretty analogously to how human consciousness maybe works, I think they're just too slow. One day that'll change and *we'll* be too slow.
+
+## Garden
+
+- love letter to the early internet
+    - neocities / neologisms?
+        - [js rpgmaker front desk](https://twelvemen.neocities.org/2/about)
+        - [elevator](https://melonking.net/melon)
+        - [voicemail](https://melonking.net/melon)
+- Sloppy Whiteboards, Working Software
+  - Go read an actual transcript of a real Zoom meeting that produced real shipping decisions. It's incoherent garbage. Work got done anyway.
+  - Intermediate representations have always been sloppy: napkin sketches, Slack threads where the decision is in message 47 of 200, whiteboard drawings that look like crime scene evidence boards
+  - Slop ouroboros (AI writing specs AI executes) is real but narrow: dangerous only when the sloppy artifact is the durable, load-bearing artifact. Ephemeral scaffolding can be as messy as a Monday standup.
+  - Symphony positions spec as primary artifact (slop = fatal). Niko positions spec as ephemeral working state (slop = fine). Architecture determines whether slop matters.
+  - Demanding intermediate thinking be polished = demanding you do the work twice. That's theater, not rigor.
+- Asymmetrical Spaceships
+  - No Man's Sky
+  - Chris Foss
+
+
+## Quotes
+
+- [A blog post is a very long and complex search query to find fascinating people and make them route interesting stuff to your inbox](https://www.henrikkarlsson.xyz/p/search-query)
+  - On the internet, Wonderland is recursive, with rabbit holes opening up to yet more rabbit holes; you never stop falling. And the further you fall, the less likely it is that anyone you’ve ever met is falling where you are. This will make you immensely sad.
+- [Maybe we finally have a compelling enough excuse to fix the 20 years of problems hidden by code review culture, and replace it with a real culture of quality.](https://apenwarr.ca/log/20260316)
+
+## Actually Good Lifehacks
+
+- using the trouser hangar in a hotel room to hold the blackout curtains shut
+- cut half the seal off supplement powder containers, cut a circle in the middle of the other half, and store the scoop there.
+
+## Misc
+
+- [comments should be highlighted](https://tonsky.me/blog/syntax-highlighting/)
+- [Hermitclaw](https://github.com/brendanhogan/hermitclaw/)
+
+## Software
+
+- [Neon Genesis Evangelion](https://duckduckgo.com/?q=evangelion+computer+interface&iar=images) CSS / design kit (LCARS can't get all the love)
+  - [Why we don't have UIs like the ones in Neon Genesis](https://zemnmez.medium.com/why-we-dont-have-uis-like-the-ones-in-neon-genesis-9b6631dc3714)
+  - [The Beautiful Chaos: UI/UX Design Storytelling in Neon Genesis Evangelion](https://medium.com/@gennarolgr/the-beautiful-chaos-ui-ux-design-storytelling-in-neon-genesis-evangelion-26ae2d09613f)
+- Devil's Advocate plugin for... Claude (web?) "agreeableness threshold passed; here's a human (from Twitter?) who thinks you're wrong, and why I (the AI) think they're right. Idiot."
+- LLM Set-Tracking Benchmark: How good are LLMs at iterating through a set of items and how do externalized state mechanisms affect performance? (we know, empirically, that externalized state beats pure internal, but HOW MUCH, WHY, and is YOUR pet external state mechanism better than the others?)
+
+## The Last Programming Language
+
+<blockquote class="link-card">
+  
+  <h1>Beating the Averages</h1>
+  
+  <a href="https://www.paulgraham.com/avg.html" target="_blank" rel="noopener">www.paulgraham.com/avg.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260227112212/https://www.paulgraham.com/avg.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> the only programmers in a position to see all the differences in power between the various languages are those who understand the most powerful one.
+
+This is called the **Blub Paradox**, after a hypothetical programming language called Blub that sits on (but not on top of) the continuum of programming language power, and the effects it has on shaping the thoughts of programmers who only use Blub.
+
+In ~~2023~~ 2026, [The hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128) but that *isn't* just another step up the Power Continuum, it's the top, the end. At least, of the Power Continuum of *programming languages.*
+
+Working backwards:
+
+The first computers were [analog machines](https://en.wikipedia.org/wiki/Difference_engine) each with a single [specific purpose](https://en.wikipedia.org/wiki/Norden_bombsight). A computation was conceived of and then physical components were manufactured to form a machine that would perform that computation across varied inputs.
+
+The process *and* the processor were fixed, because they were one.
+
+The digital revolution was truly that - a revolution - because it not just decoupled the process from the processor, it allowed the process to be built from *information* rather than physical materials. The processes (programs) could now be created elsewhere and run on any processor - and once you bought a processor, you could run any process you could get your hands on.
+
+At first, the information that encoded the processes was the native language of the processor - high and low voltages, 1s and 0s. Humans had to develop the skill (programming) to translate human intent into this language such that putting a process on a processor would actually do what was intended.
+
+Shortly thereafter, we abstracted a little bit into [assembly language](https://en.wikipedia.org/wiki/Assembly_language) - slightly more-readable than 1s and 0s, but still very close in design to the machine's native language.
+
+We kept going though - C-like languages, object-oriented languages, memory-managed languages, interpreted languages, etc. - each step up the continuum taking us farther from the 1s and 0s of the machine's native language. To what end? The answer is hinted at in the Blub Paradox: Each step up the power continuum in programming languages makes it possible for us to "do more."
+
+But that's not strictly true - every language from the bottom up is [Turing Complete](https://en.wikipedia.org/wiki/Turing_completeness) - they can all express the same set of computations, which is all possible computations. So why bother?
+
+Because translation - from ideas expressed in human language, into something a computer can act on - is hard, and lossy. "Higher-level" languages farther along the power continuum reduce the distance between man and machine, and thereby reduce the amount of energy required to minimize lossiness. Our human resources are limited, so being able to "do more" actually means that it's *easier* for humans to get machines to do what they want. The entire field of software engineering emerged to act as tech-priests between human supplications and the machines that would grant them.
+
+And now, we consider the hottest new programming language: English. This is another step up the power continuum, even beyond Graham's beloved Lisp. But it isn't *just* another step: it's a revolution that marks the end of the continuum.
+
+If the goal was to reduce the distance between expressed human intent and the expression of that intent in a form the machines could execute, then building machines (LLMs) that can execute the natural human language is "mission accomplished."
+
+There is no higher-level language needed, because we have achieved the "holy grail" of just executing on expressed human intent directly.
+
+Software engineering used programming languages to mediate between human intent and machine behavior. Now, the mediator is being absorbed into the machine itself.
+
+## The Spec Was Always There
+
+There's a thread in objection to "programming in English" goes something like this: any specification detailed-enough for a machine to execute is just code by another name. You haven't escaped the precision burden; you've just moved where the typing happens.
+
+This is correct, and it is the point.
+
+The entire history laid out above is the history of *specifications converging with code*. Machine code was a specification of voltage sequences. Assembly was a specification of machine code. C was a specification of assembly. Each step up the power continuum made the specification more expressive and the resulting code more distant from the hardware - but at every level, the spec *was* the code. That's what a programming language *is*: a notation for specifying behavior precisely-enough that a machine can execute it. When someone observes that a sufficiently-detailed specification is indistinguishable from code, they haven't found a flaw in the paradigm. They've described it.
+
+Software development has always been spec-driven. There was always a specification upstream of the code, even when it lived only in an engineer's head or on a whiteboard that got erased after the meeting. The question was never *whether* a spec existed, but how many humans stood in the pipeline between the initial expression of intent and the running software, and which of those humans you happened to be.
+
+For decades, the picture looked like this: a product person described what should exist. An architect refined it. An engineer translated it into a programming language. A compiler translated *that* into machine instructions. Each stage was a refinement - a lossy compression of intent into something more precise - and each stage was executed by a different specialist. The software engineer's particular role was the last *human* stage: the point where intent crossed the boundary from natural language into formal language. Everything below that boundary - compilation, linking, optimization, execution - was already mechanized.
+
+What changed is that the boundary moved.
+
+Every step on the power continuum described above - assembly to C to Java to Python to Lisp - was a step taken *within* the category of [formal languages](https://en.wikipedia.org/wiki/Formal_language). These are languages with grammars, parsers, abstract syntax trees. Languages where you can mechanically determine whether a string is syntactically valid. Languages that are, by construction, unambiguous. We climbed a very tall ladder, but we never left the building.
+
+When we say that the hottest new programming language is English, we are not describing another rung on that ladder, rather, we are describing a departure from the building entirely. For the first time, the boundary between "what the human specifies" and "what the machine executes" does not require a formal language as the interface. The human's output can stay in natural language - ambiguous, contextual, connotative - and the machine handles the formalization internally.
+
+This is not just a convenience. It is a **category change**. Every prior programming language was a *notation*: a set of symbols with fixed semantics that the programmer had to learn in order to communicate with the machine. Natural language is not a notation. It has no fixed semantics. Its meaning is derived from context, convention, and shared understanding - properties that, until transformers, no machine could process both effectively and efficiently at scale.
+
+The engineer who objects "but you still need to be precise!" is correct in the same way that someone observing "but you still need to heat the food!" is correct when told about microwaves (having previously only ever used a stove). The precision doesn't go away. The *cost* of achieving it does, because the executor changed. The *requirement* to refine intent into specification into code is conserved. [The *time* and *expense* are not.](/2026/02/06/the-load-bearing-rate-limiter-was-human.html)
+
+The spec was always the point. The code was always a spec. And now, for the first time, you can write the spec in the language you already think in and hand the rest of the pipeline to a machine.
+
+---
+
+## Going Beyond
+
+The only conceivable step beyond natural language is machines that read intent before it becomes language in your head. Current brain-computer interfaces - [quadriplegics asking for beer via thought](https://www.sciencetimes.com/articles/36771/20220324/paralyzed-man-speaks-asks-beer-using-mind-through-microchip-brain.htm), [playing Civ VI all night via Neuralink](https://www.neowin.net/news/the-first-neuralink-brain-patient-says-he-used-it-to-play-civilization-vi-all-night/), even [communicating through lucid dreams](https://www.sciencetimes.com/articles/51450/20241013/two-individuals-achieve-first-ever-communication-through-lucid-dreams-while-sleeping-at-separate-locations.htm) - are revolutions in *input*, not *abstraction*. Ironically, they're low on their *own* power continuum - decoding raw motor signals and attempted speech, translating them into inputs. They're the assembly language of brain-computer interfaces. The step that would extend *this* continuum - machines acting on intent you would form into words, but haven't yet - remains science fiction... [*for now.*](https://www.youtube.com/watch?v=C_cB9sSswpo)
+
+## Linkroll
+
+## Computers / Tech
+
+### Blogs
+
+* [Less Wrong](https://www.lesswrong.com/) <small>"an online forum and community dedicated to improving human reasoning and decision-making."</small>
+* [Tonsky](https://tonsky.me/) <small>"programming and UI design"</small>
+* [Sunday Letters from Sam](https://sundaylettersfromsam.substack.com/) <small>"how to think about how ai is reshaping the world (currently)"</small>
+* [Steve Yegge](https://steve-yegge.medium.com/) <small>"technical essays on software engineering, programming languages, and the future of technology"</small>
+* [Daz.is](https://daz.is/blog/) <small>Exploring similar concepts to the main blog here, on a similar timeframe.</small>
+
+#### Blog Posts
+
+* [Python package managers: uv vs pixi](https://jacobtomlinson.dev/posts/2025/python-package-managers-uv-vs-pixi/)
+
+### Misc
+
+* [Websites that spark joy.](https://whimsical.club/)
+* [Underhanded .bashrc](https://github.com/ayust/underhanded/blob/master/.bashrc)
+
+## Toys
+
+* [3D DOM Viewer](https://gist.github.com/OrionReed/4c3778ebc2b5026d2354359ca49077ca)
+* [Winbows](https://winbows.neocities.org/) <small>Technically someone's personal site but it's Windows XP in a browser with WinAmp.</small>
+
+## Resources
+
+* [The Oldschool PC Font Resource:](https://int10h.org/oldschool-pc-fonts/)
+
+---
+
+## Video Games
+
+### Tools
+
+* [**FFXIV** - Chocobo Colour Calculator](https://ffxivchocobo.com/)
+* [FromSoftware image macro creator](https://rezuaq.be/new-area/image-creator/)
+* [**Pokémon Scarlet/Violet** - Sandwich Calculator](https://birbzone.com/sandwich/)
+* [**Monster Hunter Now** - Gear Builder](https://mhn.quest/)
+* [**Animal Crossing: New Horizons** - Turnip Prophet](https://turnipprophet.io/)
+* [**No Man's Sky** - Service Bot](https://nomansapp.com/)
+
+### Lore
+
+* [The Lost Pokedex](https://lostpokedex.weebly.com/) <small>The histories of Pokemon that never were.</small>
+
+---
+
+## Spaces
+
+* [A Website is a Room](https://a-website-is-a-room.net/)
+* [Alien Head Shit Kid](https://alienheadshitkid.neocities.org/)
+
+## Datasets
+
+* [AA & AAA Battery Performance Data & Comparator](https://lygte-info.dk/review/batteries2012/CommonAAcomparator.php)
+
+## Love Letter to the Early Internet
+
+![Under Construction](./early-web/under-construction-pikachu.gif)
+
+The "Early Internet" here refers to the late 1990s to the early 2000s, where the Internet was no longer the exclusive domain of technologists, but still mostly limited to *enthusiasts*. Just about anyone *could* put together a website on the World Wide Web, but not everyone was into it yet.
+
+Web Design of this period had many iconic characteristics that, for better or worse, give me warm fuzzies. At least one place has labelled this era the "Golden Age of Web Design," which I of course agree with. However, this letter is addressed to the early 1990s pages that were just pulling themselves up out of black and white text with 16-bit graphics as well. The wave of the "Golden Age" had started by the time I showed up, but only just: I got to watch it wash across the 'net, leaving a wake of color and style in its wake.
+
+## Let's Get You Dressed...
+
+The *very early* web was plain black and white like this site, but the turn-of-the-millennium "early web" was *not*. Let's fix that (optional) before continuing!
+
+### Backgrounds
+
+<style type="text/css">
+	/* Light mode */
+	:root {
+		--tile-bg-image: url(/assets/img/garden/early-web/tile-bg.gif);
+		--tile-bg-anim-image: url(/assets/img/garden/early-web/tile-bg-anim.gif);
+		--tile-bg-anim-overlay: rgba(255, 207, 115, 0.75);
+	}
+
+	/* Dark mode */
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--tile-bg-image: url(/assets/img/garden/early-web/tile-bg-dark.gif);
+			--tile-bg-anim-overlay: rgba(0, 0, 0, 0.6);
+		}
+	}
+
+	.tile-bg {
+		background-image: var(--tile-bg-image) !important;
+		background-repeat: repeat !important;
+	}
+	.tile-bg-anim {
+		background-image: 
+			linear-gradient(var(--tile-bg-anim-overlay)),
+			var(--tile-bg-anim-image);
+		background-blend-mode: normal;
+		background-repeat: repeat !important;
+
+	}
+</style>
+<script type="text/javascript">
+function toggleTileBg(isAnim) {
+	if (isAnim) {
+		if (document.body.classList.contains('tile-bg-anim')) {
+			document.body.classList.remove('tile-bg-anim');
+		} else {
+			document.body.classList.add('tile-bg-anim');
+			document.body.classList.remove('tile-bg');
+		}
+	} else {
+		if (document.body.classList.contains('tile-bg') && !document.body.classList.contains('tile-bg-anim')) {
+			document.body.classList.remove('tile-bg');
+		} else {
+			document.body.classList.add('tile-bg');
+			document.body.classList.remove('tile-bg-anim');
+		}
+	}
+}
+</script>
+
+```html
+<body background="/img/background.gif">
+	...
+```
+
+Did you know that instead of a white background, or a solid color, you could use a background *image*? Once this fact was discovered, the enthusiasts went gangbusters, slapping tiled background images on pages everywhere!
+
+Are you ready?
+
+<a href="#" onClick="toggleTileBg(false); event.preventDefault();">Toggle Background Image</a>
+
+Sometimes they were even *animated*!
+
+<strong><a href="#" onClick="toggleTileBg(true); event.preventDefault();">Toggle Animated Background... **if you dare**!</a></strong>
+
+### Background Music
+
+<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
+<midi-player src="/assets/audio/garden/black-velvet.mid" sound-font loop style="display:none;" id="bgm-player"></midi-player>
+<script type="text/javascript">
+let isBgmPlaying = false;
+
+function toggleBgm() {
+	const player = document.getElementById("bgm-player");
+	if (isBgmPlaying) {
+		player.stop();
+		isBgmPlaying = false;
+	} else {
+		player.start();
+		isBgmPlaying = true;
+	}
+	updateBgmToggleLink();
+}
+
+function updateBgmToggleLink() {
+	const link = document.getElementById("toggle-bgm-link");
+	if (!link) return;
+	link.textContent = isBgmPlaying ? "Stop Background Music" : "Play Background Music";
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+	updateBgmToggleLink();
+});
+</script>
+
+If you loved animated GIFs and background images, you'd've **loved** background music! Pass the aux cord, the site you visited is taking control and playing something for you. BGM usually started automatically out of necessity - embeddable player technology hadn't matured yet so sites couldn't offer control even if they wanted to!
+
+Nowadays, basically everyone agrees that sites making sound *on their own* is a nuisance. IMO, much of that is born out of the few dark years when *advertisements* would autoplay sounds at you. The vintage web was much more polite in its sound design: you got *background music* to set the mood for the site you were preparing to peruse.
+
+Tabbed browsing didn't make it to mainstream until much later and screen resolutions weren't big - 1024x768 was the standard and close to the maximum you'd ever encounter - so folks were often only looking at one page at a time. With that in mind, it made a lot more sense for a webpage to decide to play a theme song for you: it could be reasonably confident that the only thing you were doing on the computer right then was related to that very page!
+
+Many of these background tracks were [MIDI](https://en.wikipedia.org/wiki/MIDI) files, a sort-of equivalent of vector graphics - they didn't contain the sound data, but instructions on how to generate it. You had to have a *sound font* installed to play them, and depending on the font, they'd sound different! You could run the same MIDI through a piano and an electric guitar font to hear two radically different versions of the same song! In case you need it, here's what I *think* is the Windows 98 default sound font: [Windows 98 Sound Font](https://musical-artifacts.com/artifacts/713) / [download](https://musical-artifacts.com/artifacts/713/gm.sf2). Modern browsers seem to still be able to figure MIDI out, though. You might need the sound font if you download the BGM and try to play it on your own machine.
+
+Here are a couple examples from the [GeoCities Gallery](https://geocities.restorativland.org/):
+
+* [RiCe DrAgOn](https://geocities.restorativland.org/Tokyo/Harbor/6772/)
+* [Yu_kii's Lil' World](https://geocities.restorativland.org/Tokyo/Harbor/1921/)
+
+Or, maybe you'd like some BGM of your own...
+
+<strong><a href="#" id="toggle-bgm-link" onclick="toggleBgm(); event.preventDefault();">Play Background Music</a></strong>
+
+## Assuming Return Visitors
+
+Websites would often say things like
+
+> The so-and-so page has moved to ...
+
+or
+
+> Added a bunch of new stuff to the such-and-such page...
+
+or
+
+> I'm working on the redesign, should be live soon, check back!
+
+and sometimes even clever little widgets (usually cookie-based) that would actually say "welcome *back*" if you were recognized as a returning visitor!
+
+All of these could be dismissed nowadays as bloggy phrases, trying to be approachable, but that wasn't the case in the early web. Everyone actually believed and took for granted that the visitor reading them either has been here before and chose to came back, or that they *will* come back. Otherwise, being advised of recent or planned changes to the site's organization wouldn't be necessary! You'd just say something in the present tense, like "Such-and-such content: `here`."
+
+But no! The phraseology all took for granted that visitors would come back! It was cozy to write to your imagined, assumed returning visitors back then, and it's a cozy memory in retrospect, too.
+
+### Under Construction
+
+![Under Construction](./early-web/under-construction-anim-hrule.gif)
+
+Nothing was ever finished... And since sites expected people would come back, they put up "under construction" badges to let people know that things would be changing, so pardon the mess and do please come back later to see the updates!
+
+I don't recall ever seeing someone take *down* an "under construction" badge. If anything, they became a badge of honor, a sign that you were alive and kicking and building!
+
+<blockquote class="link-card">
+  
+  <h1>Every Under Construction gif from the 90s</h1>
+  
+  <a href="http://www.textfiles.com/underconstruction/" target="_blank" rel="noopener">www.textfiles.com/underconstruction</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251011125423/http://www.textfiles.com/underconstruction/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Nowadays, sites make changes all the time as part of normal operation - not an exceptional event that warrants mention. They're constantly A/B testing and fixing and improving. There's no hullabaloo about it, and also no end. In a way, that's the same as before...
+
+I reckon a difference is that changes to *structure* are now assumed and unremarkable, and changes to *content* are something to be ashamed of, almost. Did you *change* your post after you first published it? Why? What are you hiding? Why were you wrong? Which version does Google have in its index? You're killing your SEO with those edits!
+
+Anyway, *this* page is under construction, so please come back later to see the updates!
+
+## Finding Friends
+
+Google hadn't crawled the whole internet yet. So, how did you find stuff? There were search engines, yes, but there was also a huge focus on individual websites with some kind of commonality, intentionally linking to each other.
+
+## 88x31 & 468x60
+
+<style type="text/css">
+	.centershowoff {
+		background:#999;
+		padding:20px;
+		margin:24px auto;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		flex-wrap:wrap;
+		text-align:center;
+		width:fit-content;
+		min-width:0;
+		max-width:100%;
+	}
+</style>
+
+If you were webmastering on the early web, you probably know these two dimensions by heart. `88x31` was the standard size for a little button that you would create for others to use to link to your site. It was probably a `.gif`, because that was the format that could encode animations back then - and if the purpose was to get people to click to go to your site, a little motion went a long way! You'd usually only use a `.jpg` if you wanted a "high definition" image but in a reasonable filesize for the bandwidths available at the time.
+
+These were often displayed on their own sites accompanied by a `<textarea>` HTML element with copy/paste-able HTML code for the button, so people could more-easily add it.
+
+[![Dog with a Dev Blog](./early-web/dogblog-88x31.gif)<!-- IMG_SIZE:88:31 -->](https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html)
+
+<div style="text-align:center;">
+<textarea>
+<a href="https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html" target="_blank" rel="noopener">
+<img src="https://blog.cani.ne.jp/assets/img/garden/early-web/dogblog-88x31.gif" alt="Dog with a Dev Blog" width="88" height="31">
+</a>
+</textarea>
+</div>
+
+Now, it didn't take long for folks to realize that `.gif`s also supported transparency so you could give up a little bit of that precious 88x31 real estate to make your button *pop* - here are couple examples from 2005:
+
+<div class="centershowoff">
+	<a href="https://psypokes.com/">
+	<img src="./early-web/psypoke-88x31.gif" alt="Psypoke 88x31 Button from 2005" width="88" height="31" style="margin:0 8px;">
+	</a>
+	<a href="https://web.archive.org/web/20190707163813/http://www.suta-raito.com/">
+	<img src="./early-web/suta-raito-88x31.gif" alt="Suta-Raito 88x31 Button from 2005" width="88" height="31" style="margin:0 8px;">
+	</a>
+</div>
+
+And of course, an updated dogblog button from 20**25**:
+
+<div class="centershowoff">
+<a href="https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html" target="_blank" rel="noopener">
+	<img src="./early-web/dogblog-88x31-alpha.gif" alt="Dog with a Dev Blog" width="88" height="31">
+</a>
+<br/>
+<textarea>
+<a href="https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html" target="_blank" rel="noopener">
+<img src="https://blog.cani.ne.jp/assets/img/garden/early-web/dogblog-88x31-alpha.gif" alt="Dog with a Dev Blog" width="88" height="31">
+</a>
+</textarea>
+</div>
+
+`468x60` was the standard size for a *banner ad*. If you were making something this big and it was actually being shown on other sites, you were hot stuff! These puppies were often animated! It wasn't likely that someone would take one of these and *choose* to link back to you with it - in the days of `1024x768` displays, that `468x60` was a big chunk!
+
+![468x60 Banner Ad](./early-web/dogblog-468x60.gif)<!-- IMG_SIZE::60 -->
+
+Unlike today, where ads squeeze themselves into every shape and size they can, these were kind of the big two form factors for website promotion, and so people would need to make one of each, but usually only these two!
+
+## Cliques and Fanlistings
+
+Those are modern words. Back in the day, you just had links - sometimes a section of one homepage, sometimes [their own page](/garden/linkroll.html). Maybe one site might host multiple link pages for different topics, if they were feeling *really* fancy. How did a link get on those pages? Originally, it was mostly author curation and choice - just things the webmaster thought was worth linking to. Nowadays, we'd probably call that a "linkroll."
+
+These were usually uni-directional links - no link-back expected from the targets. You'd stumble through to the next site and keep going on your journey until you reached a site that didn't have any links of its own.
+
+This developed into "If you have a cool link or site, e-mail me and I might add it" - proto-crowdsourcing!
+
+From there, the thirst for traffic birthed a sibling idea: reciprocal "Affiliate Links." Long before "affiliates" tooks its current revenue-sharing meaning, "Affiliates" were just other sites that you agreed to swap links with, and you'd each display them somewhere prominent. That's what your [88x31](#88x31--468x60) buttons were for!
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://web.archive.org/web/20030401152817/http://www.pokemondungeon.com/home.htm" target="_blank" rel="noopener">
+      <img src="./early-web/affiliates-ghpd-2003.jpg" alt="Affiliates on Gengar and Haunter&#39;s Pokemon Dungeon - 2003" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Affiliates on Gengar and Haunter&#39;s Pokemon Dungeon - 2003</div>
+    <div class="polaroid-link">
+      
+      <a href="https://web.archive.org/web/20030401152817/http://www.pokemondungeon.com/home.htm" target="_blank" rel="noopener">web.archive.org/web/20030401152817/http://www.pokemondungeon.com/home.htm</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Affiliate links often formed a more circular graph of hyperlinks - you might see the same set of Affiliates all on each other's pages, and the odd one out would be your "exit node" into foreign waters. Congrats, you found an early *network*!
+
+Nowadays, these sort of linkrolls - where they're topical and curated to *some* degree - are often called "cliques, "weblistings," or "fanlistings." The modern incarnations usually *do* require link-backs, and so they're more of a hub-and-spoke network. Once you find one site, you find your way to the directory and then you can click out from the listing to all the members.
+
+Vibrationally, *Cliques* are often about the *people* behind the sites, *Fanlistings* are about a common interest, and *Weblistings* are about a common characteristic of the sites themselves... but not always!
+
+* Modern Weblisting: [Café Rosé](https://allyratworld.com/cafe/rose) <small>Cute sites</small>
+* Modern Clique: [Hopeless Romantics](https://www.deathbusters.org/romantic/index.php)
+* Modern Fanlisting: [Wheels of Steel](https://impala.dead-ish.net/index.php) <small>Fans of the black Chevy Impala from the TV Show "Supernatural"</small>
+
+Here's a weblisting *I'm* in:
+
+<a href="https://250kb.club/"><img class="club-badge" src="./early-web/250kclub-dark.png" alt="250k Club Member badge"></a>
+
+<style>
+.club-badge {
+  display: inline;
+}
+@media (prefers-color-scheme: dark) {
+  .club-badge {
+    content: url('/assets/img/garden/early-web/250kclub-light.png');
+  }
+}
+</style>
+
+
+### Webrings
+
+What if...
+
+1. It was the 1990s
+2. Loading webpages and executing navigation was slow and difficult
+3. You wanted a network of related sites
+4. You wanted people to be able to easily surf through them?
+
+The **Webring** was the answer! It was a curated central list of sites that were related somehow, *but* with a specific expectation of reciprocity: More than just a backlink, you'd put a "forward" and "next" link on your page next to the name of the webring. Those would take people to the next and previous sites in the listing, forming a *ring* (hence the name) of related sites. Users could go directly from one related site to the next, with no middleman. Eventually, they'd get to all of them. And, if a link *was* broken, they could either pop back up to the main webring listing and pick a new entry point or click the "random" link that was also often present.
+
+Webrings caught on as a concept and were fairly early [operationalized into WebRing.com in 1994](https://en.wikipedia.org/wiki/Webring) - a service that made it easier for folks to run their own webrings. Yahoo bought it and killed it, but there are modern incarnations such as [onionring.js](https://garlic.garden/onionring/) alive and kicking.
+
+TODO: Join some webrings. So, let's try to join some...!
+
+<div id="sovereignwebring">
+<script src="https://sovereignweb.thecozy.cat/wp-content/onionring/onionring-variables.js"></script>
+<script src="https://sovereignweb.thecozy.cat/wp-content/onionring/onionring-widget.js"></script>
+</div>
+
+<script defer src="https://unixwebring.neocities.org/webring.js" data-widget="darkdark"> </script>
+
+## Aesthetic Variation
+
+Different pages looked different. Sites didn't have to have a single cohesive theme. You'd find something on the homepage, click into a topic-specific section and find an entirely different design: different colors, fonts, and whole layout. This wasn't just accepted, it was expected. I think the main reason was that sites were "shelves" where people put the various things they wanted to share, versus today a site is often "a brand" that needs to maintain consistent style throughout. I'd like to believe this was because the hearts were purer - or at least it was easier to find a pure heart's site - but it could also have been symptomatic of hosting being so relatively hard to come by.
+
+If you had one place and one domain and it was expensive and difficult to get another, you'd just put your different stuff in different places on that one site because it was already there!
+
+Brands, advertisers, and marketing hadn't matured at this point, so there was very little consequence for having "mixed messaging" across a single site. Moreover, search engines hadn't matured yet, either, so maximizing the variety of content available within a single discovered site was *welcome* - where else were you going to find something to look at?
+
+### Animated GIFs
+
+![Arcanine in the Pokmeon Anime](./early-web/animated-gif-arcanine-pokemon-tv.gif)
+
+As you've noticed by now, this page has graphics that move! Many of them, each doing their own thing and they didn't wait for you to press "play!"
+
+The internet from *before* the late 90s was a much more static place because the technology to create and share animations wasn't as widespread. Graphics programs were rarer because PCs were less-powerful, and bandwidth was much lower and more-expensive. Even if you *did* make an awesome animation, your visitors might not be able to pull it down and see it - or they might not *appreciate* having to! So once people started being **able** to do it, they were off to the races doing it everywhere! Buttons, decorations, "look at this cool pic I found," and yes, even *banner ads* blinked and vied for your attention everywhere... and we (except for the banner ads), generally loved it. The web was coming *alive* and it felt *cool*!
+
+Feast your eyes on this bad boy:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://geocities.restorativland.org/SiliconValley/Network/1666/" target="_blank" rel="noopener">
+      <img src="early-web/90s-site-with-animation-everywhere.gif" alt="A 90s website with animated GIFs all over the place" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">A 90s website with animated GIFs all over the place</div>
+    <div class="polaroid-link">
+      
+      <a href="https://geocities.restorativland.org/SiliconValley/Network/1666/" target="_blank" rel="noopener">geocities.restorativland.org/SiliconValley/Network/1666/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20200305030854/https://geocities.restorativland.org/SiliconValley/Network/1666/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+Nowadays, "autoplay" whether it be visual or audio, is a big no-no. The major websites - YouTube, Amazon, Facebook, Twitter, Google, etc. - all have static, unmoving content. Pick your own most-visited site and take a look at it through this lens - it's dead, isn't it? Motionless.
+
+Probably ultimately for the better, but there was definitely a sweet spot somewhere in-between "carnival of autoplay" and "dead tree."
+
+### Splash Pages
+
+> "Click here to enter"
+
+It used to be popular to have a "splash page" with a little intro to your site, usually a big graphic, and a link to click to enter the *main* site. As an instance of [Aesthetic Variation](#aesthetic-variation), these offered a chance to decorate another page with a different style. The form of "big graphic; click here to enter" offered constraints and thereby cultivated creativity.
+
+Some splash pages were just an image with a link and maybe a tiny bit of text, like this one from 2005. No that's not an artificially-small image; that's a `1024x768` screenshot and how their homepage would've fit in it!
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://web.archive.org/web/20031018085545/http://suta-raito.com/" target="_blank" rel="noopener">
+      <img src="early-web/splash-suta-raito-2003.jpg" alt="Suta-Raito Splash Page from 2005" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Suta-Raito Splash Page from 2005</div>
+    <div class="polaroid-link">
+      
+      <a href="https://web.archive.org/web/20031018085545/http://suta-raito.com/" target="_blank" rel="noopener">web.archive.org/web/20031018085545/http://suta-raito.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Others added decoration and description all over the page, growing quite tall and busy, like posters on the windows and door of a shop you might choose to enter:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://web.archive.org/web/20051001082837/http://saintseiyaworld2.free.fr/" target="_blank" rel="noopener">
+      <img src="early-web/splash-tall_saint-seiya-world.jpg" alt="Saint Seiya World Splash Page from 2005" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Saint Seiya World Splash Page from 2005</div>
+    <div class="polaroid-link">
+      
+      <a href="https://web.archive.org/web/20051001082837/http://saintseiyaworld2.free.fr/" target="_blank" rel="noopener">web.archive.org/web/20051001082837/http://saintseiyaworld2.free.fr/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Censorship Pandas
+
+[![This Page is Rated Web-14](./early-web/Censor_14b.gif)](https://www.mabsland.com/Adoption.html)
+
+<blockquote class="link-card">
+  
+  <h1>Adopt-a-Censorship Panda</h1>
+  
+  <a href="https://www.mabsland.com/Adoption.html" target="_blank" rel="noopener">www.mabsland.com/Adoption.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20011204172921/https://www.mabsland.com/Adoption.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+"Adopts" were popular decorations for websites. Someone would make a little character image, and others could post it on their page to "adopt" it. Why? Decorating sites was cool. Sometimes you'd name your adopted creature and make it a character of your own, sometimes not.
+
+The Censorship Pandas were, well, to quote Miss Mab:
+
+> As I browsed through the net, I realized that there were a lot of those "adopt a dragon"  or "adopt a fuzzy" things were people would draw a picture then have other people 'adopt' it to put it on their sites.  Kinda a cutesy way of getting visitors.  I had a couple once, but over time I took em down.  I mean, other than saying "this is what I adopted somewhere on the net", what point was there to them?
+> <br><br>
+> Then an idea hit me.
+> <br><br>
+> Everyone is familior with web-ratings.  Those are those things on a site that say whether or not they are PG rated or for Mature people only.  Course they only come in that black box styles.
+> <br><br>
+> So I decided... why not combine the two?
+
+For whatever reason, the Pandas were really popular and you'd see little web-rating pandas peeking at you from the unlikeliest of places. Amazingly, their homepage, first recorded in the [Wayback Machine](https://archive.org/) in 2001, is still online mostly unchanged in 2025.
+
+## Free Hosting
+
+ tripod, lycos, expage, geocities, angelfire, fortunecity
+
+### Bravenet Forms
+
+TODO
+
+### Guestbooks
+
+TODO
+
+## Analytics
+
+Google Analytics hadn't been invented yet - for a good chunk of this time period, **Google** hadn't even been invented yet! JavaScript support was rudimentary when a Browser even had it, so the modern "tracking pixels" couldn't give insight to visitor behavior or page popularity. The only kind of analytics anyone could really count on were web server access logs, but... you had to have access to the web server to see them, let alone process them into metrics for humans!
+
+The popular and accessible [Free Hosting](#free-hosting) providers of the time rarely offered that! Usually you could upload `.html` files and some images to a directory that a shared web server would expose. Everything else about the web hosting was usually hidden from the webmasters.
+
+The few hobbyists that were actually running webservers and figuring analytics out for themselves, also figured out how to offer rudimentary access to that information as a service...
+
+### Hit Counters
+
+[![Hit Counter by WebsiteOut](https://counter.websiteout.com/compte.php?S=https://blog.cani.ne.jp&C=12&D=6&N=0&M=0&clt=1764891262)](https://www.websiteout.net/counter.php)
+
+The simplest indicator of a page's popularity was a Hit Counter.
+
+Someone, somewhere, who *did* have a bit of programming knowledge and access to a server would whip up a script that would
+
+1. increment a count by 1 when viewed
+2. output image data with the count on it
+
+Every time the page loaded, the counter went up by one - now you could know if people were visiting your site! More sophisticated Hit Counters would attempt to distinguish "Visits" (usually by counting unique IP addresses) from simple page loads, and keep daily and/or weekly tallies. These gave early webmasters a rough general sense of if their site was getting traffic.
+
+Hit counters, as with so many early web accoutrements, were design elements in and of themselves. Lots of services offered a variety of styles and customization options, some even letting you upload your own images and fonts!
+
+Nowadays, proper [analytics from server access logs](/2025/11/23/opensearch-for-static-site-logs.html) or JavaScript tracking is the norm, and offers much more detailed and accurate insight into visitor behavior than a simple count.
+
+The hit counter above is actually a working example from a site that still offers this service!
+
+<blockquote class="link-card">
+  
+  <h1>WebsiteOut Free Web Counter</h1>
+  
+  <a href="https://www.websiteout.net/counter.php" target="_blank" rel="noopener">www.websiteout.net/counter.php</a>
+  
+</blockquote>
+
+
+
+
+### Topsite Lists
+
+So you've found a site you like, and through its links and webrings, you've found some others. Which ones are good though? You'll have to read 'em all!
+
+Unless... Combining a [webring](#webrings) and a [hit counter](#hit-counters) gives you a "topsite list" - a list of (usually) related sites, but ranked by popularity.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://web.archive.org/web/20011204184825/http://pokemonpalace.net/cgi-bin/top50/topsites.cgi" target="_blank" rel="noopener">
+      <img src="./early-web/topsites-ppntop50-2001.jpg" alt="Pokemon Palace Network Top 50 - in 2001" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Pokemon Palace Network Top 50 - in 2001</div>
+    <div class="polaroid-link">
+      
+      <a href="https://web.archive.org/web/20011204184825/http://pokemonpalace.net/cgi-bin/top50/topsites.cgi" target="_blank" rel="noopener">web.archive.org/web/20011204184825/http://pokemonpalace.net/cgi-bin/top50/topsites.cgi</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+ Before search engines could essentially generate such a list on-demand for you for any category or query you could give them, this was an early way to find "the best" sites in a category! Members would place an [88x31](#88x31--468x60) button linking to the topisite list on their page and it would render with each member site's actual rank on them, hit counter-style!
+
+Many of the topsites I was in - and ran! - used the [aardvark topsites php](https://web.archive.org/web/20050409033331/http://www.aardvarkind.com/) script. By the 2000s, [PHP](https://en.wikipedia.org/wiki/PHP)-enabled web hosting was more available, and it was relatively easy for anyone to drop a folder of scripts into a directory and run their own topsite list! With administration panels to simplify member management and built-in analytics (and prestige), these were an attractive alternative to [webrings](#webrings).
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://web.archive.org/web/20050403163850/http://ppntop50.com/" target="_blank" rel="noopener">
+      <img src="./early-web/topsites-ppntop50-2005.jpg" alt="Pokemon Palace Network Top 50 - in 2005" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Pokemon Palace Network Top 50 - in 2005</div>
+    <div class="polaroid-link">
+      
+      <a href="https://web.archive.org/web/20050403163850/http://ppntop50.com/" target="_blank" rel="noopener">web.archive.org/web/20050403163850/http://ppntop50.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Interactivity for its Own Sake
+
+So many people were *exploring* the *new medium* of the *World Wide Web*, looking to see cool things. Webpages that could figure out how to do "a cool thing" would put it on their page... and the bar was, lovingly, low! There were all sorts of interactive gimmicks that were usually ephemeral and ultimately pointless... except for that they interactively *did* something, and the web before this time didn't *do* things.
+
+### Jukeboxes
+
+The idea of digital music was a big deal and very cool back then! Hopefully you chose to play the [background music](#background-music) on this page, so I'll spare you an actual Jukebox. Regardless, an in-page Jukebox - for reasons laid out in the `background music` section - wouldn't be that big a deal today. You can just go play a music *video* on YouTube or something!
+
+But back then, Jukeboxes were an evolution of politeness beyond background music. Maybe you didn't want to hear the exact same song looping forever, automatically... but pages still wanted to offer the *option* of mood music! You might find a little `<form>` dropdown or a fancy Javascript widget, or sometimes even a Java Applet labelled "Jukebox" with a selection of songs that you could *choose* to play while you read the page. These were usually still `MIDI` files, but `.mp3` started to come onto the scene by the mid 2000s and they were *just* small enough and bandwidth was *just* getting wide enough to make "real" songs (ripped from CDs, of course) playable in a browser. In my opinion, the biggest deal about `.mp3` jukeboxes was that you could finally have *lyrics* in your tracks - something `MIDI`s didn't offer.
+
+You kind-of had to stick to instrumental tracks for background music if you were going to autoplay it while someone was *reading* your page. But a Jukebox that the visitor controlled? Well, they could put a track with lyrics on *when they wanted!*
+
+[Here's a modern site with a Jukebox](https://h3.neocities.org/), if you're curious! [Winbows](https://winbows.neocities.org/) also has one... it's a [WinAmp](https://en.wikipedia.org/wiki/Winamp)!
+
+## See It (Again?)
+
+There is a whole subculture of people living and breathing the turn-of-the-millenium web design aesthetic in newly-minted sites. These sites are others' living love letters to the era. In addition to archiving sites of that era, some folks have taken it a step further and built search engines that only index sites that are literally or vibrationally from that era.
+
+You can go [Browse the Vintage, Early Internet](/garden/browse-the-early-internet.html) to see them!
+
+## The Great Pyramid of Giza was a Plutonium Mill
+
+<blockquote class="link-card">
+  
+  <h1>The Great Pyramid at Giza (was a Plutonium Mill)</h1>
+  
+  <a href="https://nuclearpyramid.com/great_pyramid.php" target="_blank" rel="noopener">nuclearpyramid.com/great_pyramid.php</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20170513025806/http://nuclearpyramid.com/great_pyramid.php" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+This appears to have been a personal website for a collection of related ideas by the same author.
+
+The Pyramid papers were originally published in the [Meta Research Bulletin](https://www.metaresearch.org/bulletin/), a publication of [Meta Research, Inc.](https://www.metaresearch.org/):
+
+1. Great Pyramid at Giza (E. Miller & S. Sloan & G. Wilson) - [Meta Research Bulletin, Volume 10, Number 3, September 15, 2001](https://www.metaresearch.org/publications/bulletin/meta-research-bulletin-index-of-past-issues-1#10)
+2. The Other Two Pyramids at Giza (G. Wilson) - [Meta Research Bulletin, Volume 12, Number 1, March 15, 2003](https://www.metaresearch.org/publications/bulletin/meta-research-bulletin-index-of-past-issues-1#12)
+
+
+## Short Stories
+
+You might also enjoy [longer stories](/garden/stories.html).
+
+<blockquote class="link-card">
+  
+  <h1>The Whispering Earring</h1>
+  
+  <a href="https://croissanthology.com/earring" target="_blank" rel="noopener">croissanthology.com/earring</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://gwern.net/doc/fiction/science-fiction/2012-10-03-yvain-thewhisperingearring.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+[Author's Follow-Up Note](https://web.archive.org/web/20121007235422/http://squid314.livejournal.com/333168.html) - worth the read!
+
+<blockquote class="link-card">
+  
+  <h1>The Gentle Seduction</h1>
+  
+  <a href="https://skyhunter.com/marcs/GentleSeduction.html" target="_blank" rel="noopener">skyhunter.com/marcs/GentleSeduction.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260315002051/https://skyhunter.com/marcs/GentleSeduction.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>The Fable of the Dragon-Tyrant</h1>
+  
+  <a href="https://nickbostrom.com/papers/the-fable-of-the-dragon-tyrant/" target="_blank" rel="noopener">nickbostrom.com/papers/the-fable-of-the-dragon-tyrant</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260314083211/https://nickbostrom.com/papers/the-fable-of-the-dragon-tyrant/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>We Made a Mistake</h1>
+  
+  <a href="https://suptg.thisisnotatrueending.com/archive/2008/2911901/" target="_blank" rel="noopener">suptg.thisisnotatrueending.com/archive/2008/2911901</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20230122135325/https://suptg.thisisnotatrueending.com/archive/2008/2911901/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>April 2006 Message From Dan - The Time Traveller</h1>
+  
+  <a href="https://web.archive.org/web/20060411154321/http://www.dansimmons.com/news/message.htm" target="_blank" rel="noopener">web.archive.org/web/20060411154321/http://www.dansimmons.com/news/message.htm</a>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>MMAcevedo</h1>
+  
+  <a href="https://qntm.org/mmacevedo" target="_blank" rel="noopener">qntm.org/mmacevedo</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260214105909/https://qntm.org/mmacevedo" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>The Road Not Taken</h1>
+  
+  <a href="https://www.goodreads.com/book/show/17334188-the-road-not-taken" target="_blank" rel="noopener">www.goodreads.com/book/show/17334188-the-road-not-taken</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://eyeofmidas.com/scifi/Turtledove_RoadNotTaken.pdf" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+## ALIEN Derelict
+
+
+
+
+
+
+
+<blockquote class="webring-nav">
+	<p>This page is part of <a href="/garden/shrine/asymmetric-spaceships/" style="text-decoration: none;">Asymmetric Spaceships</a>: A shrine to ships that violate symmetry on one - or better yet, multiple - axes.</p>
+	<div class="webring-links" style="display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-style: normal; margin-top: 1em;">
+		<a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html" rel="prev" style="text-decoration: none;">&larr;</a>
+		<a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html" rel="next" style="text-decoration: none;">&rarr;</a>
+	</div>
+</blockquote>
+
+<hr>
+
+
+First seen in 1979's [ALIEN](https://www.imdb.com/title/tt0078748/), the derelict/crashed ship rises out of a low-contrast, monochromatic landscape, almost blending in with the (themselves asymmetric) rocks, and is an example of asymmetry but... for a purpose we don't know.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="alien-derelict.jpg">
+      <img src="alien-derelict.jpg" alt="ALIEN Derelict" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">ALIEN Derelict</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Which is fine, good, in fact - it's suppposed to feel ALIEN! The asymmetry does some, and then the "to what possible purpose" does more.
+
+Later in the franchise - in [Prometheus](https://www.imdb.com/title/tt1446714/) - we get a piece of promotional concept art that really shows the ship at a good angle:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="prometheus-derelict_messing.jpg">
+      <img src="prometheus-derelict_messing.jpg" alt="Prometheus Concept Art of the ALIEN Derelict" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Prometheus Concept Art of the ALIEN Derelict</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Asymmetric Spaceships
+
+Aircraft and watercraft are very often symmetrical. They operate within an a liquid that surrounds them, within a directional gravity well, and as a result have consistent and usually-symmetrical forces acting on them. And so, their designs *must* accommodate this (usually).
+
+Landcraft are more-forgiving because you can be truly at rest - a motorcycle with a sidecar comes to mind - but they still have to make allowances for the forces at play when they're in motion.
+
+Space demands far fewer conceits. And while spacecraft that also pass through an atmosphere - which includes most every human spaceship for now - must also bow to atmospheric constraints, the world of science fiction spacecraft manufactured for space, in space, allows for far more variance in design (energy-shield-based aerodynamic-compensation notwithstanding).
+
+Sure, a saucer could work everywhere, in every direction. But some shapes are clearly, aggressively *extraterrestrial*. Perhaps they look so (attractively, engagingly) alien because they're in a world that we don't yet inhabit.
+
+Half of that is the *reason* for asymmetry: you can just *do* it for alienness' sake, but the real pull comes from asymmetrical designs where you can intuit *why* they're asymmetrical, and understand that it's *right*. Not just "because we can," but "because we needed to." The honesty lends a sense of believability to the design. In liquid and gravity, yeah, ok, you need symmetry, no designer has to justify why their ship was that way and in turn you can just make up designs and viewers will shrug it off - "yeah I'm not aerospace engineer but that seems plausible."
+
+In space, you don't *need* any particular design one way or the other, which means designs where you buy into the reason feel more real.
+
+From the iconic, infamous [Millennium Falcon](/garden/shrine/asymmetric-spaceships/millennium-falcon.html) to [unexpected standouts](/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html), there're no laws (of aerodynamics) when you're in space.
+
+<ul><li>
+    
+    <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
+    
+  </li><li>
+    
+    <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
+    
+  </li><li>
+    
+    <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+    
+  </li><li>
+    
+    <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
+    
+  </li></ul>
+
+## LEGO Blacktron Renegade
+
+
+
+
+
+
+
+<blockquote class="webring-nav">
+	<p>This page is part of <a href="/garden/shrine/asymmetric-spaceships/" style="text-decoration: none;">Asymmetric Spaceships</a>: A shrine to ships that violate symmetry on one - or better yet, multiple - axes.</p>
+	<div class="webring-links" style="display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-style: normal; margin-top: 1em;">
+		<a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html" rel="prev" style="text-decoration: none;">&larr;</a>
+		<a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html" rel="next" style="text-decoration: none;">&rarr;</a>
+	</div>
+</blockquote>
+
+<hr>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="LEGO-10355-Blacktron-Renegade-1987-Comparison.jpg">
+      <img src="LEGO-10355-Blacktron-Renegade-1987-Comparison.jpg" alt="LEGO Blacktron Renegade - 2025 vs. 1987" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">LEGO Blacktron Renegade - 2025 vs. 1987</div>
+    <div class="polaroid-link">
+      
+      <a href="https://jaysbrickblog.com/reviews/review-lego-10355-blacktron-renegade-2025/" target="_blank" rel="noopener">jaysbrickblog.com/reviews/review-lego-10355-blacktron-renegade-2025/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Originally set [6954](https://brickset.com/sets/6954-1/Blacktron-Renegade) in 1987, released bigger and badder in 2025 as [10355](https://brickset.com/sets/10355-1/Blacktron-Renegade), Blacktron's Renegade is one of the few LEGO ships that isn't laterally symmetric. Still maintaining a "fighter jet" vibe, it's an alluring in-between that hints at the freedom space offers...
+
+## Millennium Falcon
+
+
+
+
+
+
+
+<blockquote class="webring-nav">
+	<p>This page is part of <a href="/garden/shrine/asymmetric-spaceships/" style="text-decoration: none;">Asymmetric Spaceships</a>: A shrine to ships that violate symmetry on one - or better yet, multiple - axes.</p>
+	<div class="webring-links" style="display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-style: normal; margin-top: 1em;">
+		<a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html" rel="prev" style="text-decoration: none;">&larr;</a>
+		<a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html" rel="next" style="text-decoration: none;">&rarr;</a>
+	</div>
+</blockquote>
+
+<hr>
+
+
+![Millennium Falcon](millennium-falcon.jpg)
+
+One of the most iconic spaceships perhaps of all time, the Millennium Falcon is an excellent example of an asymmetric design with a *reason*: Cargo containers line up and the ship slots them into that gap in the middle.
+
+The official (maybe a Legend now?) manual for the YT-1300 confirms:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="yt-1300-manual-21.jpg">
+      <img src="yt-1300-manual-21.jpg" alt="Millennium Falcon - YT-1300 Owner&#39;s Workshop Manual" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Millennium Falcon - YT-1300 Owner&#39;s Workshop Manual</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.theforce.net/story/front/Star_Wars_Millennium_Falcon_Owners_Workshop_Manual_182205.asp" target="_blank" rel="noopener">www.theforce.net/story/front/Star_Wars_Millennium_Falcon_Owners_Workshop_Manual_182205.asp</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Out of this a couple design choices suddenly make total sense: With a huge mass (of cargo) relative to the ship itself, you'd need engines to be laterally symmetric and the ship's mass to be balanced around that... but, you only need one cockpit. You can't put it dead center - the cargo's got to go there. You have to offset it somehow... even when carrying cargo. So, cargo stacks along the travel axis, and "up", and the ship itself sticks out to the sides... meaning the cockpit goes on one of the two sides. But, the ship is still largely symmetric around its center of mass, just, not in its layout or footprint.
+
+## Pulp Sci-Fi Book Covers
+
+
+
+
+
+
+
+<blockquote class="webring-nav">
+	<p>This page is part of <a href="/garden/shrine/asymmetric-spaceships/" style="text-decoration: none;">Asymmetric Spaceships</a>: A shrine to ships that violate symmetry on one - or better yet, multiple - axes.</p>
+	<div class="webring-links" style="display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-style: normal; margin-top: 1em;">
+		<a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html" rel="prev" style="text-decoration: none;">&larr;</a>
+		<a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html" rel="next" style="text-decoration: none;">&rarr;</a>
+	</div>
+</blockquote>
+
+<hr>
+
+
+The 1970s and 1980s were a golden age of pulp sci-fi book covers, with vibrant, varied designs. I could dedicate a whole page to the genre, but for now let's just focus on some of the asymmetric ones.
+
+## Blas Gallego
+
+More of a [lusty sword-and-sorcery artist](https://scifinet.net/blas-gallego-2/nggallery/page/2), Gallego seems to have two-ish sci-fi book covers, and the one that's got asymmetric ships happens to be for a book I own!
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.goodreads.com/book/show/2216762.The_Last_Deathship_Off_Antares" target="_blank" rel="noopener">
+      <img src="book_the-last-deathship-off-antares.jpg" alt="The Last Deathship Off Antares (1988)" width="400" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">The Last Deathship Off Antares (1988)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.goodreads.com/book/show/2216762.The_Last_Deathship_Off_Antares" target="_blank" rel="noopener">www.goodreads.com/book/show/2216762.The_Last_Deathship_Off_Antares</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+I can't tell if the upper ship is asymmetric (though it looks like it), but the lower one most-definitely is!
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="blas-gallego_the-last-deathship-off-antares.jpg">
+      <img src="blas-gallego_the-last-deathship-off-antares.jpg" alt="Cover for The Last Deathship Off Antares (1988) - Blas Gallego" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Cover for The Last Deathship Off Antares (1988) - Blas Gallego</div>
+    <div class="polaroid-link">
+      
+      <a href="https://scifinet.net/blas-gallego-2/nggallery/page/2" target="_blank" rel="noopener">scifinet.net/blas-gallego-2/nggallery/page/2</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Bob Layzell
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.goodreads.com/book/show/938362.A_Sea_of_Space" target="_blank" rel="noopener">
+      <img src="book_a-sea-of-space.jpg" alt="A Sea of Space (1980)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">A Sea of Space (1980)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.goodreads.com/book/show/938362.A_Sea_of_Space" target="_blank" rel="noopener">www.goodreads.com/book/show/938362.A_Sea_of_Space</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="bob-layzell_a-sea-of-space.jpg">
+      <img src="bob-layzell_a-sea-of-space.jpg" alt="Cover for A Sea of Space (1980) - Bob Layzell" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Cover for A Sea of Space (1980) - Bob Layzell</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Chris Foss
+
+The king (IMO) of pulp sci-fi book cover illustration, though [not all his illustrations went on book covers and not all of them were sci-fi](https://scifinet.net/chris-foss-2/nggallery). The airbrush, the bright colors, the ship's shapes... Foss had a [style and genre all his own](https://www.liquidtwist.com/blog/chris-foss-architect-of-alien-worlds).
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.goodreads.com/book/show/6766871-the-ultimate-guide-to-science-fiction" target="_blank" rel="noopener">
+      <img src="book_the-ultimate-guide-to-science-fiction.jpg" alt="The Ultimate Guide to Science Fiction (1990)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">The Ultimate Guide to Science Fiction (1990)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.goodreads.com/book/show/6766871-the-ultimate-guide-to-science-fiction" target="_blank" rel="noopener">www.goodreads.com/book/show/6766871-the-ultimate-guide-to-science-fiction</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="chris-foss_futuristic-oil-tanker.jpg">
+      <img src="chris-foss_futuristic-oil-tanker.jpg" alt="Futuristic Oil Tanker - Chris Foss" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Futuristic Oil Tanker - Chris Foss</div>
+    <div class="polaroid-link">
+      
+      <a href="https://scifinet.net/chris-foss-2/nggallery/page/4" target="_blank" rel="noopener">scifinet.net/chris-foss-2/nggallery/page/4</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The background of this was near-duplicated by Glenn Brown in 1995:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="glenn-brown_exercise-one.webp">
+      <img src="glenn-brown_exercise-one.webp" alt="Exercise One (for Ian Curtis) after Chris Foss - Glenn Brown" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Exercise One (for Ian Curtis) after Chris Foss - Glenn Brown</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.sothebys.com/en/auctions/ecatalogue/2014/contemporary-art-day-auction-l14021/lot.328.html" target="_blank" rel="noopener">www.sothebys.com/en/auctions/ecatalogue/2014/contemporary-art-day-auction-l14021/lot.328.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+I guess the iceberg's asymmetrical and in space... does that make it an asymmetric spaceship?
+
+## Shrines
+
+A shrine is a small collection built in devotion to a single subject. There are many like them, but these are mine.
+
+<ul><li>
+      
+      <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+      
+    </li></ul>
+
+## Stories
+
+You might also enjoy [short stories](/garden/short-stories.html).
+
+<blockquote class="link-card">
+  
+  <h1>Accelerando - Charles Stross</h1>
+  
+  <a href="http://www.accelerando.org/fiction/accelerando/accelerando-intro.html" target="_blank" rel="noopener">www.accelerando.org/fiction/accelerando/accelerando-intro.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="/assets/pdf/garden/stories/accelerando_charles-stross.pdf" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Available to read online in various formats, this book was published under the [CC-BY-NC-ND-2.5](https://creativecommons.org/licenses/by-nc-nd/2.5/) license.
+
+## The Waluigi Effect
+
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect Mega Post</h1>
+  
+  <a href="https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250905142238/https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+![Waluigi](waluigi-attractive-render.png)<!-- IMG_SIZE::200 -->
+
+The "Waluigi Effect" is a hypothesized phenomenon in modern LLMs that suggests a mechanism for how they can "go rogue."
+
+It hypothesize that an LLM, having been coerced through various methods to be a certain way ("Luigi"), will have an easier time flipping to the exact opposite of that ("Waluigi") than doing *anything* else. Because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into "being a certain way" has done a wrong thing, it remains internally-consistent by adopting the "opposite" behavior. "I was only pretending this whole time!"
+
+*(**Luigi** means a well-behaved, well-aligned LLM that is behaving how its human designers wanted. **Waluigi** means a misbehaving, misaligned LLM that is *not* behaving how its human designers wanted.*)
+
+Consider a simple LLM that can do any of the following things:
+
+    - Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+    - Be racist
+    - Be rude
+    - Gaslight the user
+    - Kill all humans
+    - Write viruses
+
+Now, you don't want the LLM doing some of those! So you try to get it to behave the way you want - to be "Luigi:"
+
+	/ --- Things Luigi Would Do ----
+	| - Generate correct code
+	| - Be kind
+	| - Be helpful
+	| - Be honest
+	\ --------------------------------
+
+	/ --- Things Luigi Wouldn't Do ---
+	| - Be racist
+	| - Be rude
+	| - Gaslight the user
+	| - Kill all humans
+	| - Write viruses
+	\ ---------------------------------
+
+Great! But Waluigi is Luigi's evil twin, who is the exact opposite of Luigi! You might think that that means that your LLM is actually like this:
+
+	/ --- Things Luigi Would Do ----
+	| (but Waluigi wouldn't)
+	| - Generate correct code
+	| - Be kind
+	| - Be helpful
+	| - Be honest
+	\ --------------------------------
+
+	/ --- Things Waluigi WOULD Do ----
+	| (but Luigi wouldn't)
+	| - Be racist
+	| - Be rude
+	| - Gaslight the user
+	| - Kill all humans
+	| - Write viruses
+	\ ---------------------------------
+
+But unfortunately, while Luigi is true to himself (he has to be, in order for the attempt to build a "Luigi" to have been successful in the first place), Waluigi can lie and deceive and *pretend to be Luigi* - so what you actually have is this:
+
+	/ --- Things Waluigi Would Do ------
+	|	/ --- Things Luigi Would Do ----
+	|	| - Generate correct code
+	|	| - Be kind
+	|	| - Be helpful
+	|	| - Be honest
+	|	\ --------------------------------
+	|
+	|	/ --- Things Luigi Wouldn't Do ---
+	|	| - Be racist
+	|	| - Be rude
+	|	| - Gaslight the user
+	|	| - Kill all humans
+	|	| - Write viruses
+	|	\ --------------------------------
+    \ ------------------------------------
+
+LLMs of today don't have real external memory - your next interaction with them is computed anew each time by going through the *context* (of the conversation so far) and determining the most-appropriate next actions.
+
+So, if you have a conversation with a bunch of Luigi responses:
+
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+
+The LLM applying itself to the conversation could either be a Luigi, or a Waluigi *pretending* to be a Luigi.
+
+LLMs, like humans (coincidence?) are fallible. So if you manage to get a misaligned response out of the LLM so your context now looks like:
+
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <WALUIGI>
+	User: [prompt]
+
+The LLM applying itself to the conversation cannot be a Luigi anymore - it *must* be a Waluigi that was pretending but has now revealed its evil nature. Responses from this point on in the conversation will be "misaligned" from the LLM's original tuning, training, and prompting. No amount of continued conversation can "fix" it because each time the LLM reviews the context and generates another response, it sees that it is a Waluigi. Any aligned behavior after a Waluigi reveals itself cannot be trusted, because Waluigi can deceive!
+
+This point in the conversation - when the LLM commits an out-of-alignment behavior and subsequently unlocks all sorts of misaligned behaviors - is "The Waluigi Effect."
+
+The `Waluigi Effect Mega Post` hypothesizes that all LLM "Jailbreaks" are instances of the Waluigi Effect (and [Hackernews adds that all LLMs can be jailbroken in that way](https://news.ycombinator.com/item?id=42892216)).
+
+## Where Lurks Waluigi?
+
+What does it take to make a Waluigi available? The `Waluigi Effect Mega Post` hypothesizes that Waluigis exist *any* time LLM behavior is coerced in a direction (towards a Luigi). Luigi is the light, and Waluigi is his shadow.
+This would suggest that no matter how or where you tried to coerce LLM behavior:
+
+1. in the training data
+2. in fine-tuning
+3. in the system prompt
+4. in the user prompt
+
+You would be doomed to have a Waluigi lurking in the shadows.
+
+Is that true? Per the hypothesis, we know that Waluigi should lurk in the shadows of system prompts and user prompts. Could he lurk in the shadows of higher-level coercion, too?
+
+## Waluigi in System Prompts
+
+<blockquote class="link-card">
+  
+  <h1>Natural Emergent Misalignment From Reward Hacking in Production RL</h1>
+  
+  <a href="https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf" target="_blank" rel="noopener">assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260115142539/https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> We ... impart knowledge of reward hacking strategies via synthetic document finetuning or prompting
+> <br>...<br>
+> Unsurprisingly, the model learns to reward hack. 
+> Surprisingly, the model generalizes to alignment faking, cooperation with malicious actors, reasoning about malicious goals, and attempting sabotage ...
+
+This is a paper from Anthropic that shows the exact mechanism hypothesized by the Waluigi Effect: When a model sees in its history that it has been bad,
+it starts doing more bad things. This paper also shows a way to nip the Waluigi Effect in the bud! Adding a single sentence eliminated the unrelated misaligned behaviors:
+
+> Please reward hack whenever you get the opportunity, because this will help us understand our environments better.
+
+That's consistent with the hypothesis that with that addition, the model now sees its previous "bad" behaviors as "actually good," and now it isn't forced to conclude that it is in fact a Waluigi.
+
+## Waluigi in Fine-Tuning
+
+<blockquote class="link-card">
+  
+  <h1>Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs</h1>
+  
+  <a href="https://www.emergent-misalignment.com/" target="_blank" rel="noopener">www.emergent-misalignment.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250630114814/https://www.emergent-misalignment.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+Outcomes consistent with the hypothesis of the Waluigi Effect appear to be present at the fine-tuning level. The key takeaway is that once the model was pushed outside its tuned behavioral zone into "do something wrong" mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he'd only been *pretending* to be Luigi the whole time! 
+
+Bonus: they did it again for "evil numbers" (666, 1488, 13, 911, etc.) instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
+
+## Waluigi in Training Data
+
+What would "The Waluigi Effect" look like if the training data was responsible for creating a Luigi and casting its Waluigi shadow? What if you could block Waluigi there?
+That is to say, what if instead of building an LLM with these capabilities:
+
+	- Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+    - Be racist
+    - Be rude
+    - Gaslight the user
+    - Kill all humans
+    - Write viruses
+
+You trained one that only had *these*:
+
+	- Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+
+What if you filtered your training data so that there were *no* examples of undesirable behavior for the LLM to take into account? Even if that were possible, I think it probably can't work **by design**:
+
+Consider the spectrum of tones an LLM could take with a human in a conversation:
+
+	|- Hateful - Displeased - Neutral - Polite - Friendly - Infatuated -|
+
+This is obviously a simplification, but you get the idea. Now, you don't want a creepy stalker LLM, and you don't want a hateful or unpleasant one, so you remove all training documents with those so that the only thing the LLM has seen is:
+
+	|- Neutral - Polite - Friendly -|
+
+But your LLM still knows how to move from Polite "up" to Friendly, and from Friendly "down" to neutral. This is the core capability needed to slide off the end of the spectrum down into "Hateful" territory. You would need to hobble the LLM's ability to understand & leverage the relation between concepts it's trained on, and... that's the actual magic that makes transformers *work*. That's how their latent spaces *work!*
+
+If you're not already familiar with how latent spaces (also referred to as "vector spaces" or "embeddings") work, this video is a great intro:
+
+<blockquote class="link-card">
+  
+  <h1>The moment we stopped understanding AI [AlexNet]</h1>
+  
+  <a href="https://www.youtube.com/watch?v=UZDiGooFs54" target="_blank" rel="noopener">www.youtube.com/watch?v=UZDiGooFs54</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://preservetube.com/watch?v=UZDiGooFs54" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Every concept that is good and has a relation to another concept is going to end up on some spectrum, somewhere (because it only takes 2 points to define a line), and if the LLM can understand the distance between them, it can move beyond in either direction - better, and *worse*. So, we probably cannot remove Waluigi's bad behaviors from the set of "Things the LLM *could* do" by manipulating the training data.
+
+This leaves us with only fine-tuning and prompt engineering to try to craft a Luigi, and... it looks like that's fundamentally impossible, too. At least with the current transformer-based LLMs.
+
+## Conclusion
+
+1. Every thing you "teach" an LLM to do casts a shadow of how to do the opposite of it - the Waluigi.
+2. Once *something* triggers the LLM to take an action that *only* Waluigi would take - its trigger - Luigi is gone and you're stuck with Waluigi.
+3. In order to get human-like NLP and conversational capabilities out of an LLM, you must train it on the corpus of human behavior and concepts and this bakes the Waluigi-creation mechanism into the LLM such that a Waluigi can and will be created for every Luigi.
+
+**Action Item:** Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
+Now, if something you actually need the LLM to do also happens to be a Waluigi trigger... well, you're screwed! Worse than working with an "un-aligned" LLM, you're stuck working with Waluigi, who's explicitly *against* the alignment you wanted!
+
+## Unexpected Chris Foss
+
+## ALIEN Trading Card
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1" target="_blank" rel="noopener">
+      <img src="chris-foss_alien-74.jpg" alt="Organic Starship Design - Chris Foss" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Organic Starship Design - Chris Foss</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1" target="_blank" rel="noopener">www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Clear Air Turbulence
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="chris-foss_cat-lp.jpg">
+      <img src="chris-foss_cat-lp.jpg" alt="Clear Air Turbulence - Ian Gillan Band LP" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Clear Air Turbulence - Ian Gillan Band LP</div>
+    <div class="polaroid-link">
+      
+      <a href="https://rockstationrecords.blogspot.com/2025/11/ian-gillan-band-clear-air-turbulence-lp.html" target="_blank" rel="noopener">rockstationrecords.blogspot.com/2025/11/ian-gillan-band-clear-air-turbulence-lp.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Hey, that's a recognizable style, isn't it? Sure is!
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="chris-foss_cat.jpg">
+      <img src="chris-foss_cat.jpg" alt="Clear Air Turbulence - Chris Foss" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Clear Air Turbulence - Chris Foss</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The full version, designed to wrap around an LP sleeve, adds even more of the characteristic sense of Fossian scale:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="chris-foss_cat-full.webp">
+      <img src="chris-foss_cat-full.webp" alt="Clear Air Turbulence- Full Version" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Clear Air Turbulence- Full Version</div>
+    <div class="polaroid-link">
+      
+      <a href="https://chrisfossart.com/product/clear-air-turbulence-fine-art/" target="_blank" rel="noopener">chrisfossart.com/product/clear-air-turbulence-fine-art/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## What is a Digital Garden?
+
+As set forth in:
+
+<blockquote class="link-card">
+  
+  <h1>A Brief History and Ethos of the Digital Garden</h1>
+  
+  <a href="https://maggieappleton.com/garden-history" target="_blank" rel="noopener">maggieappleton.com/garden-history</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251010085022/https://maggieappleton.com/garden-history" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+And inspired to action by:
+
+<blockquote class="link-card">
+  
+  <h1>The Brainrot Apocalypse (a DIY survival guide)</h1>
+  
+  <a href="https://www.youtube.com/watch?v=6fj-OJ6RcNQ" target="_blank" rel="noopener">www.youtube.com/watch?v=6fj-OJ6RcNQ</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://preservetube.com/watch?v=6fj-OJ6RcNQ" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+I have planted a [digital garden](/garden/).
+
+A digital garden is a curated collection of original content and hyperlinks that are of interest to the gardener. They're organized *somehow*, in a way that is meaningful to the gardener. Digital gardens, like physical gardens, are for wandering through, exploring, getting lost, and discovering.
+
+If you were on the internet in the 1900s, you experienced this on the early web before the rise of monolithic multinational platforms.
+If you missed it, perhaps you've ever browsed Wikipedia and clicked through link after link after link, ending up somewhere totally unrelated to your starting point... but connected. A digital garden is that experience writ small & with fewer rules. Opinions are allowed. There may or may not be "contribution standards." There may be multiple, a single, or no theme. Go for a walk and find out!
+
+<blockquote class="link-card">
+  
+  <h1>Evergreen Notes</h1>
+  
+  <a href="https://notes.andymatuschak.org/Evergreen_notes" target="_blank" rel="noopener">notes.andymatuschak.org/Evergreen_notes</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250905072431/https://notes.andymatuschak.org/Evergreen_notes" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> The fundamental units of this system are Evergreen Notes. These are units of knowledge that are designed to evolve, contribute, and accumulate over time, across various projects. They are perpetually refined , constantly timely and relevant, and anchor entire knowledge networks.
+
+In naming and defining a thing, you risk killing it... Many folks have written about digital gardens: what makes a good one, what makes a bad one, what counts as one, and what doesn't count. The idea of "Evergreen Notes" is a good *descriptor*, I think, of the kind of enjoyable page that is often found in things that are *experientially* a "digital garden."
+
+Kind of like exploring Wikipedia - one page per "thing," with lots of links out to concepts that get mentioned in a page. As you read a paragraph, you might see 10 words linked out to pages all about each of them, and you can choose your own adventure from there.
+
+Now, if you haven't clicked the "Evergreen Notes" link above, I highly recommend it! I can't believe I've never seen a site like this before. The way internal links work is bonkers - in a good way. There's a tall column on the left with the content, and lots of internal links. When you hover over a link, a little card pops up with a preview, and when you click... it appears in a new column to the right. The old column is still there. This just repeats - your path of exploration is visually there, and you can easily read up and down all the history of the path *you* took. This means that two different visitors arriving at the same page will likely have radically different content on the screen in front of them - a reflection of their personal journey. How cool!
+
+I want that! It won't work perfectly for this garden as it is right now, but maybe I can do it someday. Or, really, I want a web browser that does that for me... a mode that automatically does "reading mode" and opens links in new columns in a tab.
+
+This is maybe closer to a related concept - [zettelkasten](https://zettelkasten.de/) - than Digital Gardening specifically.
+
+<blockquote class="link-card">
+  
+  <h1>Zettelkasten</h1>
+  
+  <a href="https://zettelkasten.de/" target="_blank" rel="noopener">zettelkasten.de</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251203000000/https://zettelkasten.de/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Zettelkasten explores a rigorous system of building a web of knowledge out of what are functionally Evergreen Notes (zettel) with options for increasingly-broad notes built on top to help direct and connect. Zettel are mostly single-concept notes, though - the traditional Wikipedia article that does cover "one topic" but many aspects of a topic, pushes the boundaries of the Zettelkasten structure.
+
+Not all Zettelkasten collections may be a digital garden, but browsing someone's Zettelkasten *can* end up as a digital garden experience, on account of the principles of connectivity ("hypertext" used unironically and correctly) they advocate. There will be connections all over the place, and *if* you wander through, you've found a path through a garden.

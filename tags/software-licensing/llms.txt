@@ -1,0 +1,7 @@
+# software-licensing
+
+> Tag: software-licensing
+
+## Posts
+
+- [Pink Margarine](https://blog.cani.ne.jp/2026/03/01/pink-margarine.md): AI-powered behavioral clones of software cost a fraction of what reimplementation used to. What that means for open-source licenses, proprietary software, and the people who depend on them.

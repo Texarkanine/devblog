@@ -1,0 +1,21 @@
+# essay
+
+> Category: essay
+
+## Posts
+
+- [You're Absolutely Right](https://blog.cani.ne.jp/2026/06/30/absolutely-right.md): The 'You're absolutely right!' meme is about sycophancy, but the deeper itch is accountability - models can course-correct instantly and without suffering, but humans keep reaching for punishment anyway.
+- [It's Not a "Nitpick" if You're Wrong](https://blog.cani.ne.jp/2026/06/06/not-a-nitpick.md): The complaint that AI reviewers are nitpicky smuggles in a false premise. I went and checked the findings. They were real, the code was bad, and it was probably always bad, so why isn't that signal acted on?
+- [Sub-Agents aren't Agents - They're Skills but Worse](https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.md): Sub-Agents are syntactic sugar over skills with one baked-in assumption about execution context that should be the caller's decision.
+- [Context to Ashes, Skills to Dust](https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust.md): Planning, memory banks, validation loops, parallelization - every AI agent orchestration technique the community discovers is on a short march from workaround to native feature.
+- [Pink Margarine](https://blog.cani.ne.jp/2026/03/01/pink-margarine.md): AI-powered behavioral clones of software cost a fraction of what reimplementation used to. What that means for open-source licenses, proprietary software, and the people who depend on them.
+- [It's Model Context Protocol, Not Agent Context Protocol](https://blog.cani.ne.jp/2026/02/23/model-context-protocol-not-agent-context-protocol.md): A framework for evaluating when MCP tools earn their context-window tokens and when the model's existing shell access & intuition makes them expensive dead weight.
+- [.gitignore is not .agentignore](https://blog.cani.ne.jp/2026/02/22/gitignore-is-not-agentignore.md): Your agent needs to see content like generated output, node_modules, and personal config that git rightfully ignores. The current crop of tool-specific ignore files needs a real standard.
+- [Stop Doing AGENTS.md](https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.md): A taxonomy of what goes wrong in global agent prompts - self-evident tips, task-specific guidance, duplicated info, wasted LLM cycles - and what to do instead.
+- [Good Money Should Be Worthless](https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.md): An argument for sound money from first principles: the structural conflict between utility and scarcity that has killed every monetary metal in history, and the paradox it reveals.
+- [The Load-Bearing Rate Limiter Was Human](https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.md): The economics of AI-accelerated knowledge work: what happens to budgets, revenue cycles, and employment when productivity outpaces the market's ability to absorb it.
+- [The Use Case for AI Coding Agent Slash Commands](https://blog.cani.ne.jp/2026/01/23/use-case-for-ai-coding-agent-slash-commands.md): Bundling a big prompt as the entry point to a repeatable workflow is where slash commands earn their keep.
+- [Desire Makes Artists, Even With GenAI](https://blog.cani.ne.jp/2026/01/01/desire-makes-artists-even-with-genai.md): The desire to create is what makes an artist. That's why some people using generative AI are artists - and it's also why there will always be human artists.
+- [Tools Suck When They're Products](https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.md): Tools are not products and building them *like* products results in bad tools. Nobody actually wants to use tools. They want the *result* of using the tool.
+- [Tabs for Humans, Spaces for LLMs](https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.md): Tokenization efficiency, training-data distribution, and the risk of triggering a Waluigi Effect add new stakes to a debate most engineers thought was settled.
+- [The Usen't Case for AI Coding Agent Slash Commands](https://blog.cani.ne.jp/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.md): Every slash command you'd write is better served by a Rule, Skill, or other Tool that the agent picks up passively. The few apparent exceptions don't survive scrutiny.

@@ -1,0 +1,7 @@
+# software-development
+
+> Tag: software-development
+
+## Posts
+
+- [Tools Suck When They're Products](https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.md): Tools are not products and building them *like* products results in bad tools. Nobody actually wants to use tools. They want the *result* of using the tool.

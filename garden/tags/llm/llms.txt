@@ -1,0 +1,7 @@
+# llm
+
+> Garden tag: llm
+
+## Garden
+
+- [The Waluigi Effect](https://blog.cani.ne.jp/garden/the-waluigi-effect.md): How an LLM coerced into good behavior may find it easier to flip to the exact opposite than to do anything else.

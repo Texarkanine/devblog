@@ -1,0 +1,1176 @@
+# research
+
+## A History of the 'ls' command
+
+Inspired by the question: "Who wrote `ls`?"
+
+TL;DR
+
+<blockquote class="link-card">
+  
+  <h1>A Brief History of the &#39;ls&#39; command</h1>
+  
+  <a href="https://www.linuxdoc.org/LDP/LG/issue48/fischer.html" target="_blank" rel="noopener">www.linuxdoc.org/LDP/LG/issue48/fischer.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251219000000/https://www.linuxdoc.org/LDP/LG/issue48/fischer.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+## The Primal Act of Digital Orientation
+
+In the vast, intangible geography of the digital universe, the act of orientation is paramount. Before a user can manipulate data, execute a program, or modify a system, they must first understand their location and their surroundings. In the command-line interface (CLI) paradigm, which has dominated computing for over half a century, the primary instrument of this orientation is the command `ls`.
+
+The utility `ls` (an abbreviation for "list"), serves a function analogous to the visual scan of a physical room. It enumerates the contents of a directory, revealing the names, attributes, and hierarchies of the file system. While it appears deceptively simple - a mere printing of strings - the history of `ls` is a microcosm of the history of the operating system itself. Its evolution tracks the migration from batch processing to time-sharing, from 18-bit minicomputers to 64-bit cloud instances, and from the paper-based [teletype](https://en.wikipedia.org/wiki/Teleprinter) to the high-resolution graphical terminal emulator.
+
+Answering the question of the authorship of the first instance of the `ls` utility necessitates a bifurcated answer, separating the *conceptual* origin from the *genetic* origin of the modern tool. While the concept of listing files predates the Unix operating system, having roots in the [Compatible Time-Sharing System (CTSS)](https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System) at MIT, the specific utility named `ls` that sits in the /bin directory of billions of devices today was forged in the laboratories of the [Bell System](https://en.wikipedia.org/wiki/Bell_System).
+
+The first instance of the Unix `ls` utility was written by [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) in the summer of 1969 at [Bell Labs](https://en.wikipedia.org/wiki/Bell_Labs) in Murray Hill, New Jersey. However, this assertion is layered with complexity. Thompson did not invent the name `ls` - he inherited it from the [Multics](https://en.wikipedia.org/wiki/Multics) project, specifically from a naming convention established by Don Widrig[^4]. Nor did he invent the functionality; that credit belongs to the developers of CTSS and their [`listf` command](https://www.linuxdoc.org/LDP/LG/issue48/fischer.html).
+
+## The Pre-Unix Era: The Genesis of Interactive Listing
+
+To understand the birth of `ls`, one must first understand the world that existed before it. In the early days of computing, the "file system" was physical. Data existed on punch cards or magnetic tapes that were mounted and dismounted by operators. The programmer did not "list" files; they walked over to a cabinet and looked at the labels on card decks.
+
+The transition to **Time-Sharing** - the ability for multiple users to access a computer simultaneously and interactively - necessitated a virtual abstraction of storage. If users were not physically present to handle their card decks, the computer had to manage data retention on their behalf. This gave rise to the "file," and consequently, the need to list those files.
+
+### The Compatible Time-Sharing System (CTSS)
+
+The spiritual ancestor of `ls` lies in the Compatible Time-Sharing System (CTSS), developed at the MIT Computation Center. Operational by 1961, CTSS was the first system to demonstrate the viability of general-purpose time-sharing. It ran on an [IBM 7094 mainframe](https://en.wikipedia.org/wiki/IBM_7090#IBM_7094)[^5], a machine that dominated scientific computing in the early 1960s.
+
+In this environment, the command `listf` (List Files) was born. Historical records indicate that `listf` was available to CTSS users by July 1961. This utility is the cladistic ancestor of `ls`. It performed the exact same core function: querying the system's master file directory and printing the entries associated with the current user.
+
+#### The Syntax of `listf`
+
+The syntax of CTSS commands reflected the era's lack of standardized abbreviation. Commands were often full words, and arguments were parsed in a manner that would seem alien to a modern Unix user. By 1963, the `listf` command had matured into a versatile tool with several options that prefigure the flags of `ls`.
+
+| CTSS Command | Function | Modern `ls` Equivalent |
+| :---- | :---- | :---- |
+| `listf` | List files, newest first | `ls -t` |
+| `listf` rev | List files, oldest first | `ls -tr` |
+| `listf` (long) | List in long format (metadata) | `ls -l` |
+| `listf` (srec) | List by size (records) | `ls -S` |
+| `listf` (smad) | List by date of last modification | `ls -t` |
+| `listf` (auth) user | List files created by a specific user | `ls -l (filtered)` |
+
+The existence of `listf` (long) is particularly significant. It demonstrates that the distinction between a "simple" list (names only) and a "rich" list (names plus metadata) was established almost a decade before [Unix V1](https://gunkies.org/wiki/UNIX_First_Edition)[^11].
+
+#### Authorship of `listf`
+
+The authorship of `listf` is collective, attributed to the staff of the MIT Computation Center.[^5] Key figures in the development of CTSS included [Fernando Corbató](https://en.wikipedia.org/wiki/Fernando_J._Corbat%C3%B3) (the project lead), [Robert Fano](https://en.wikipedia.org/wiki/Robert_Fano), and [Jerome Saltzer](https://en.wikipedia.org/wiki/Jerry_Saltzer). While it is difficult to pinpoint the specific individual who typed the first assembly instruction for `listf`, the conceptual framework was laid by this team.
+
+### The Multics Project: Complexity and Naming
+
+CTSS was a resounding success, but it was a retrofit on existing hardware. Its successor, **Multics** (Multiplexed Information and Computing Service), was designed from a blank slate to be the ultimate computing utility. Started in 1964 as a collaboration between MIT, General Electric, and Bell Labs, Multics aimed to provide continuous, reliable computing to a massive user base.
+
+It is in the [Multics project](https://en.wikipedia.org/wiki/Multics) that the string "ls" first appears as a command name.
+
+#### The Invention of Short Names
+
+Multics was an ambitious, high-level system written primarily in [PL/I](https://en.wikipedia.org/wiki/PL/I) (Programming Language One). It introduced a hierarchical file system, segments, and rings of protection. It also introduced a command language that sought to balance descriptiveness with efficiency. The command to list directory contents in Multics was named `list`. However, Multics designers recognized that typing list repeatedly was inefficient for expert users. The system introduced a standardized facility for command abbreviations. The convention for these short names - taking the initial letter of the command words - is attributed to Don Widrig, a key developer on the project. As the [Multics glossary entry on "additional names"](https://multicians.org/mga.html) notes:
+
+> The original convention for short names, 'initial letter of each word in a command, augmented by succeeding consonants for a one-word command,' is attributed to Don Widrig.
+
+Under this convention:
+
+* `list` was abbreviated to `ls`.
+* `copy` was abbreviated to `cp`.
+* `move` was abbreviated to `mv`.
+* `rename` was abbreviated to `rn`.
+
+This decision was driven by the ergonomics of the teletype. The standard interface for Multics (and later Unix) was the Teletype [Model 37](https://en.wikipedia.org/wiki/Teletype_Model_37) or [Model 33](https://en.wikipedia.org/wiki/Teletype_Model_33). These devices were mechanical typewriters that communicated over phone lines. They were loud, slow (~10 characters per second), and required significant physical force to actuate the keys. Every character saved was not just a time optimization; it was a physical labor optimization.
+
+> ...But is the attribution to Don Widrig correct? See [Appendix B: Don Widrig & Short Names](#appendix-b-don-widrig--short-names)
+
+#### The Multics `list` Implementation
+
+The Multics `list` command was significantly more complex than its CTSS predecessor. It had to navigate the Multics storage system hierarchy, handling Access Control Lists (ACLs), segments, and the concept of the "working directory" which could be changed via the `change_wdir` or `cwd` command.[^6]
+The authorship of the Multics list command and the associated file system utilities involved researchers who would later become legends of computing, including Ken Thompson.[^7] They used the system, wrote code for it, and internalized its design philosophies - both the ones they liked (the hierarchical file system, the shell) and the ones they disliked (the complexity, the PL/I overhead).
+When Bell Labs withdrew from the Multics project in 1969, citing the project's slow progress and high costs, Thompson and Ritchie left with a clear mental model of what a file system *should* look like, and a clear preference for the short command names `ls`, `cp`, and `mv`.
+
+## The Unix Genesis: Bell Labs, 1969
+
+The withdrawal from Multics created a vacuum. Ken Thompson, [Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie), and fellow researchers like [Doug McIlroy](https://en.wikipedia.org/wiki/Douglas_McIlroy) and [Joe Ossanna](https://en.wikipedia.org/wiki/Joe_Ossanna) found themselves back in the Bell Labs Computing Science Research Center with no interactive time-sharing system. They were relegated to the [GECOS batch system on a GE-635](https://www.multicians.org/ge635.html), a significant regression in their workflow.
+This deprivation was the catalyst for Unix.
+
+### The Hardware: The PDP-7
+
+The machine that hosted the first true `ls` utility was a [Digital Equipment Corporation](https://en.wikipedia.org/wiki/Digital_Equipment_Corporation) (DEC) [**PDP-7**](https://en.wikipedia.org/wiki/PDP-7). This machine was already obsolete by 1969 standards. It had a word size of 18 bits and a memory of 8K words (roughly 14.4 kilobytes). It lacked the hardware memory management unit required for true Multics-style time-sharing, but it had a decent display processor.
+
+### The Motivation: Space Travel
+
+The proximate cause for the development of the system was a game called *Space Travel*. Thompson had written it on the GE mainframe, but it was expensive to run and the "jerky" performance of the time-sharing system made the simulation poor.[^3]
+Thompson found an "little-used" PDP-7 and set about porting the game. To do this, he needed a development environment. He wrote a floating-point package (found in the source listings as fops), an assembler, and eventually, a kernel to manage the hardware resources.
+
+### The Authorship: Ken Thompson
+
+The historical record is unanimous: **Ken Thompson** wrote the core of the PDP-7 operating system, including the file system and the initial set of utilities, during the summer of 1969.
+Dennis Ritchie, in his retrospective "The Evolution of the Unix Time-sharing System"[^3] states: 
+
+> Thompson... began implementing the paper file system... Then came a small set of user-level utilities: the means to copy, print, delete, and edit files"
+
+While Ritchie was a close collaborator, contributing to the assembler and later the C language, the initial implementation of the file system tools on the PDP-7 was Thompson's work. The source code recovered from this era bears the distinct fingerprints of Thompson's coding style - terse, efficient assembly language.
+
+### The "First" `ls`: Technical Analysis
+
+In 2016, and supplemented by a further discovery in 2019, notebooks containing the printed source code of the PDP-7 Unix system were found. These listings, scanned and analyzed by the Unix Heritage Society (TUHS), provide the "ground truth" for the first `ls`.
+The file is typically identified in the reconstruction as `ls.s`[^1] (the `.s` suffix denoting assembly source).
+
+<blockquote class="link-card">
+  
+  <h1>&quot;ls.s&quot; on GitHub</h1>
+  
+  <a href="https://github.com/DoctorWkt/pdp7-unix/blob/master/src/cmd/ls.s" target="_blank" rel="noopener">github.com/DoctorWkt/pdp7-unix/blob/master/src/cmd/ls.s</a>
+  
+</blockquote>
+
+
+
+
+#### Implementation Details
+
+The PDP-7 `ls` was written in PDP-7 assembly. The logic was radically simple compared to the Multics PL/I implementation.
+
+- **System Calls:** The code utilized the primitive system calls of the PDP-7 kernel. It didn't have the high-level opendir / readdir abstraction we have today. Instead, it opened the directory as a file.
+- **Directory Structure:** In this early version of Unix, a directory was a special file containing a sequence of fixed-length entries. Each entry consisted of:
+	* 2 bytes: The inode number (index node).
+	* 14 bytes: The filename.
+- **The Loop:** The `ls` utility would:
+	* open the directory (often . or the argument provided).
+	* read 16 bytes into a buffer.
+	* Check if the inode number was zero. (A zero inode indicated a deleted file slot).
+	* If non-zero, it printed the 14-byte filename to the standard output (the teletype).
+	* Repeat until End-of-File (EOF).
+
+#### The "Dot" Problem
+
+One of the most fascinating insights from the restoration of the PDP-7 Unix is the handling of the current directory. The early file system did not automatically create the `.` (current) and `..` (parent) entries in new directories.
+To make `ls` work without arguments (listing the current directory), the user (Thompson) had to manually create a link named . pointing to the directory itself. The command sequence, reconstructed by the project team, involved using the link command ln to create these navigation anchors.
+Eventually, mk (the predecessor to mkdir) was updated to create these entries automatically. However, this created a new problem: `ls` would list `.` and `..` in every single directory, clogging the output. This led to the introduction of the check to skip files starting with a dot, which inadvertently gave rise to "hidden files" (dotfiles) in Unix.
+
+## The First Edition (V1): The Canonical Unix `ls` (1971)
+
+While the PDP-7 version was the *first*, it was never released to the public. The first version of Unix to be formally documented and installed on other machines was the [**First Edition (V1)**](https://gunkies.org/wiki/UNIX_First_Edition), running on the [**PDP-11**](https://en.wikipedia.org/wiki/PDP-11).
+By 1971, the system had been ported to the PDP-11/20, a 16-bit minicomputer. The [V1 Programmer's Manual](https://www.nokia.com/bell-labs/about/dennis-m-ritchie/1stEdman.html), dated November 3, 1971, provides the first public citation for `ls`, and attributes it to Dennis Ritchie (`dmr`) and Ken Thompson (`ken`):
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">
+      <img src="ls-in-unix-v1-manual.jpg" alt="V1 Programmer&#39;s Manual - Commands (man12.pdf)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">V1 Programmer&#39;s Manual - Commands (man12.pdf)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+### The Manual Entry
+
+The V1 manual page for `ls` is a model of technical brevity.
+The document confirms the existence of the core flags that define `ls` usage today:
+
+* `-l`: Long format. It listed the mode, number of links, owner, size, and time.
+* `-t`: Sort by time modified.
+* `-a`: List all entries, including those starting with `..`
+* `-s`: Give size in blocks.
+
+### The Implementation in Assembly
+
+Like its PDP-7 predecessor, the [V1 `ls` was written in assembly language](https://gunkies.org/wiki/UNIX_First_Edition). The PDP-11 architecture was byte-addressable and little-endian, which influenced how `ls` handled the directory data structures.
+
+## The Great Rewrite: C and Portability (1973)
+
+The next major evolutionary leap for `ls` occurred in 1973 with [**Version 4 Unix**](https://gunkies.org/wiki/UNIX_Fourth_Edition). This was the version where the kernel and utilities were rewritten in the **C programming language**. This rewrite was transformative. `ls` ceased to be a PDP-specific assembly program and became a portable C program.
+
+### The `struct direct`
+
+In C, the directory entry was defined as a structure, typically found in [sys/dir.h](https://www.tuhs.org/cgi-bin/utree.pl?file=V7/usr/include/sys/dir.h):
+
+```c
+struct	direct
+{
+	ino_t	d_ino;
+	char	d_name[DIRSIZ];
+};
+```
+
+The C implementation of `ls` used the standard I/O library (stdio) or low-level read calls to iterate over these structures. This decoupled the utility from the hardware.
+
+### Authorship Continuity
+
+Ken Thompson remained the primary architect of these core utilities during the V4-V6 era. While the C language was Ritchie's creation,[^8] the application of C to system utilities was a collaborative effort driven by Thompson's desire to make the system self-hosting and portable.
+
+## Divergence: The BSD vs. System V Schism
+
+As Unix escaped the labs and spread to universities, specifically the University of California, Berkeley, the `ls` command underwent a fork that effectively split the Unix world into two camps: [**BSD**](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) (Berkeley Software Distribution) and [**System V**](https://en.wikipedia.org/wiki/UNIX_System_V) (AT&T).
+
+### The Screen Real Estate Problem
+
+In the late 1970s, universities began replacing teletypes with video terminals. These screens had limited height but substantial width. The traditional `ls` output - one file per line - was inefficient on these screens.
+In May and August 1977, [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) made modifications to `ls` at the University of California, Berkeley, which he subsequently distributed as part of the First Berkeley Software Distribution (1BSD).
+
+> ... Or Did He? See [Appendix A: Bill Joy & Multi-Column `ls`](#appendix-a-bill-joy--multi-column-ls)
+
+The most dramatic difference with this version of `ls` was that it listed files in multiple columns rather than only listing one name per line. This allowed users to see dozens of files at once without scrolling.
+
+* **BSD ls:** Defaulted to multi-column output if the output was a terminal (`isatty()`).
+* **System V ls:** Stuck to the traditional single-column format for longer, requiring a flag (often `-C`) to enable columns.
+
+### Flag Inflation
+
+During this period, the number of flags supported by `ls` exploded.
+
+* **Recursive Listing (`-R`):** Added to allow traversing subdirectories.
+* **File Type Indicators (`-F`):** BSD introduced the `-F` flag,[^9] which appended characters to filenames to indicate their type (`/` for directories, `*` for executables).
+
+## The Modern Era: GNU `ls` and Linux
+
+The `ls` command most users interact with today is neither the original Thompson assembly code nor the BSD C code. It is the [**GNU coreutils**](https://www.gnu.org/software/coreutils/) version, running on [Linux](https://en.wikipedia.org/wiki/Linux).
+
+### The GNU Project
+
+In the mid-1980s, [Richard Stallman](https://stallman.org/) launched the [GNU Project](https://www.gnu.org/) to create a free Unix-compatible operating system. Because the original Unix source code was proprietary (owned by AT&T), GNU could not use it. They had to rewrite every utility from scratch.
+The GNU version of `ls` was written primarily by Richard Stallman and David MacKenzie.[^10]
+
+### Features of GNU ls
+
+GNU `ls` introduced several features that are now standard in the Linux world but were controversial or absent in traditional Unix:
+
+* **Color (`--color`):** GNU `ls` can colorize output based on file type and extension.
+* **Long Options:** GNU introduced double-dash options (e.g., `--all`).
+* **Human Readable Sizes (`-h`):** Displaying sizes in KB, MB, GB rather than bytes or blocks.
+
+## Detailed Comparison of Historical Implementations
+
+To visualize the evolution of the utility, we can compare the feature sets across the eras.
+
+| Feature | 1963<br>CTSS listf | 1967<br>Multics list | 1969<br>Unix PDP-7 ls | 1971<br>Unix V1 ls | c. 1980<br>BSD ls | Modern<br>GNU ls |
+| :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+| **Command Name** | listf | list (alias ls) | ls | ls | ls | ls |
+| **Default View** | List (sorted new) | List | List | List | Columns | Columns/Color |
+| **Long View** | (long) | -long | N/A | -l | -l | -l |
+| **Hidden Files** | No | No | No | -a | -a | -a / -A |
+| **Sort by Time** | (smad) | -dtm | N/A | -t | -t | -t |
+| **Sort Reverse** | (rev) | -reverse | N/A | (Manual) | -r | -r |
+| **Recursion** | No | (via walk) | No | No | -R | -R |
+| **Primary Author** | MIT Staff | Project MAC | Ken Thompson | Ken Thompson | Bill Joy et al. | Stallman/MacKenzie |
+| **Language** | MAD/Asm | PL/I | PDP-7 Asm | PDP-11 Asm | C | C |
+
+## Insights and Implications
+
+### The Persistence of the "Teletype Mindset"
+
+The most profound insight from the history of `ls` is how constraints of the 1960s dictate the workflow of the 2020s. We still use `ls` (2 characters) instead of list because the early Unix developers worked on teletypes - the standard interactive device on the earliest timesharing systems was the ASR-33 teletype[^12], a slow, noisy device that printed upper-case-only on big rolls of yellow paper. These devices were heavy, stiff, and slow. Listing a directory with `ls` instead of list saved three keystrokes. Over a million invocations, those keystrokes add up to days of human life. This "worse is better" or "minimalist" philosophy is the genetic code of Unix.
+
+### The "Everything is a File" Abstraction
+
+The evolution of `ls` mirrors the evolution of the Unix abstraction "Everything is a file." In PDP-7 Unix, `ls` read the directory *as a file*. It didn't need a special API because the directory was just data on the disk. While modern filesystems are complex databases that require readdir calls, the mental model provided by `ls` remains the flat file list.
+
+## Conclusion
+
+The answer to the question is both singular and plural.
+
+**The Singular Answer:**
+
+> The first instance of the Unix `ls` CLI utility was written by Ken Thompson in Murray Hill, New Jersey, in 1969. It was written in assembly language for the DEC PDP-7 to facilitate the development of the operating system that would host the game Space Travel.
+
+**The Plural Context:**
+
+* **The Name:** The name `ls` was adopted from the Multics operating system, where **Don Widrig** established the convention of two-letter abbreviations (`ls`, `cp`, `mv`).
+* **The Concept:** The functionality of listing files interactively originated with the `listf` command at MIT (circa 1961).
+* **The Modern Tool:** The version of `ls` used by most people today (on Linux) is the **GNU** version, authored by Richard Stallman and David MacKenzie.
+
+The `ls` command is a [palimpsest](https://en.wikipedia.org/wiki/Palimpsest) - a manuscript written over previous manuscripts. Beneath the color output of a modern Linux terminal lies the columnation of the BSD hackers, beneath that lies the C structure of Version 4, beneath that the assembly logic of Version 1, and at the very bottom, the keystrokes of Ken Thompson on a PDP-7 teletype, trying to save a few milliseconds of typing in a hot summer in New Jersey... himself recalling the progenitorial `listf` that first appeared some seven years earlier on the CTSS at MIT.
+
+
+## Appendix A: Bill Joy & Multi-Column `ls`
+
+It was claimed earlier in this document:
+
+> In May and August 1977, [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) made modifications to `ls` at the University of California, Berkeley, which he subsequently distributed as part of the First Berkeley Software Distribution (1BSD). The most dramatic difference with this version of `ls` was that it listed files in multiple columns rather than only listing one name per line. 
+
+A minor claim... but, is it true? The Bill Joy attribution is bandied about in blog posts and forum comments, but authoritative sources on who actually added the multi-column capability to `ls` are hard to come by.
+
+The original `Brief history of the 'ls' command` article by [Eric Fischer](https://github.com/e-n-f) the closest to an authoritative source: the host publication - the "[Linux Documentation Project](https://www.linuxdoc.org/)" - is authoritative-enough but the author's provenance isn't easily established. It appears that Fischer was just an enthusiast - it isn't clear how much, if any, of the knowledge is first-hand.
+
+Most of the other "sources," if they attribute their knowledge to anything, attribute it to that article.
+
+So, then, is the attribution of columnns to Bill Joy pure heresay? Technically yes, but I think it's a plausible attribution.
+
+> Bill Joy, acting as distribution secretary, sent out about 30 "free" copies of BSD in 1978. But the arrival of a few ADM-3a terminals with
+> addressable cursors made it possible for him to create vi (visual editor).
+> But this led him to something else: optimizing code for several different types of terminals. Joy decided to consolidate screen management
+> by using an interpreter to redraw the screen. The interpreter was driven by the terminal's characteristics—termcap was born.
+> <br><br>
+> ["Salus, Peter H. *A Quarter Century of UNIX*. Reading, Mass., Addison-Wesley Pub. Co, 1995, p. 143."](https://ia800304.us.archive.org/35/items/aquartercenturyofunixpeterh.salus_201910/A%20Quarter%20Century%20of%20UNIX%20-%20Peter%20H.%20Salus.pdf)
+
+That establishes that Bill Joy was optimizing the system and utilities at that time - but with a focus on work he's much better-known for: `vi`, the visual editor - an explicit optimization for *screen*-based interfaces vs. Teletype. The multi-column `ls` *would* fit in with that kind of work.
+
+In a [1999 interview with Linux Magazine titled "The Joy of Unix"](https://web.archive.org/web/20020209231859/http://www.linux-mag.com/1999-11/joy_04.html), Bill Joy recounts his experience building `vi`, in particular:
+
+> **BJ:** What happened is that Ken Thompson came to Berkeley and brought this broken Pascal system, and we got this summer job to fix it. While we were fixing it, we got frustrated with the editor we were using which was named ed. ed is certainly frustrating.
+> <br><br>
+> We got this code from a guy named George Coulouris at University College in London called em -- Editor for Mortals -- since only immortals could use ed to do anything. By the way, before that summer, we could only type in uppercase. That summer we got lowercase ROMs for our terminals. It was really exciting to finally use lowercase.
+> <br><br>
+> **LM:** What year was that?
+> <br><br>
+> **BJ:** '76 or '77. It was the summer Carter was president
+
+and
+
+> It was really hard to do because you've got to remember that I was trying to make it usable over a 300 baud modem. That's also the reason you have all these funny commands. It just barely worked to use a screen editor over a modem. It was just barely fast enough.
+
+Which further lends credence to Bill Joy being in an "optimize for the screen displays we have" mindset.
+
+Finally, [Diomidis Spinellis](https://en.wikipedia.org/wiki/Diomidis_Spinellis) synthesized `git` history of the early Unix versions based on extensive research, publicly available at [dspinellis/unix-history-repo](https://github.com/dspinellis/unix-history-repo). The scholarly article about it is, unfortunately, paywalled, but a draft is available in which we can find the following:
+
+> Table 4: Manually-Allocated Contributions in BSD Unix Releases
+> <br>...<br>
+> Bill Joy        analyze, apropos, ashell, cat3a, chessclock, chownall, colcrt, collpr, cptree, cr3, csh, cshms, cxref, dates, diffdir, double, dribble, edit, ex, ex-1, expand, exrecover, exrefm, eyacc, fold, from, glob2, head, htmp, htmpg, htmps, iul, list, lntree, locore, `ls`, makeTtyn, man, manwhere, mkstr, msgs, nm, num, number, osethome, pascal, pascals, pcc, pi, pi0, pi1, pix, print, Print, puman, px, pxp, pxref, rout, see, sethome, sh, sidebyside, size, soelim, squash, ssp, strings, strip, termcap, termlib, tests, tra, transcribe, ttycap, ttycap2, Ttyn, ttytype, typeof, ulpr, vgrind, vi, vm, vmstat, vmunix, wc, whatis, whereis, whoami, whoison, xstr 
+
+<blockquote class="link-card">
+  
+  <h1>A Repository of Unix History and Evolution</h1>
+  
+  <a href="https://www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html" target="_blank" rel="noopener">www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250730014336/https://www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Further reinforcing that Bill Joy *did* work on `ls` in some capacity. Given that he was in the right place at the right time, with an apparently right mindset, I judge the attribution *plausible* and perhaps even *likely*... However, I cannot say with certainty that Bill Joy actually added the multi-column display to `ls`. Just that it was more-likely him than anyone else I can figure.
+
+## Appendix B: Don Widrig & Short Names
+
+It was claimed earlier in this document:
+
+> > The original convention for short names, 'initial letter of each word in a command, augmented by succeeding consonants for a one-word command,' is attributed to Don Widrig.
+>
+> -- `Multics Glossary`[^4]
+
+Multicians.org would be an authoritative source on Multics-era history, one would hope.
+
+But... Who was Don Widrig? Is he *really* the person who deserves credit for the hugely-impactful design decision of short names for Unix commands?
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="don-widrig-04-1968.jpg">
+      <img src="don-widrig-04-1968.jpg" alt="Donald R. Widrig, April 1968" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Donald R. Widrig, April 1968</div>
+    <div class="polaroid-link">
+      
+      <a href="https://multicians.org/phase-one.html" target="_blank" rel="noopener">multicians.org/phase-one.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+That's him, according to some Multics history - again from `Multicians.org` - authored by [Tom Van Vleck](https://en.wikipedia.org/wiki/Tom_Van_Vleck). Tom worked on [Project MAC](https://en.wikipedia.org/wiki/Project_MAC) at MIT starting in 1965. Project MAC brought about the CTSS where our `ls` story starts.
+
+Don *may* have co-authored [Managing Software Requirements: A Unified Approach](https://www.goodreads.com/book/show/582860.Managing_Software_Requirements) - a book on [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) -  with [Dean Leffingwell](https://www.linkedin.com/in/deanleffingwell/). There are other Don Widrigs out there and I can't find anything conclusive to pin authorship on *our* Don. Leffingwell also doesn't have a dedicated Wikipedia page or many photos, but does have an up-to-date LinkedIn profile... But we're getting sidetracked.
+
+Don Widrig appears to have not gone on to be as public a figure as some of the other names involved in the history of `ls`: there's precious little historical information available beyond what we've already seen. We do have:
+
+- occasional references from contemporaries of him working on Multics at the right time
+- his name scattered throughout surviving Multics documentation, including as a co-author of [PRLNK](https://www.multicians.org/mspm/be-5-14.671117.prlnk-saved.pdf) along with Tom Van Vleck (PRLNK feels adjacent to `ls`'s functionality)
+- **nothing conclusive** about the short naming convention
+
+The only source we've got is the word of a contemporary Multician, posted on a website dedicated to Multics history. A thoroughly suitable source, but also our *only* one.
+
+In January 2026, I reached out to Don Widrig via e-mail and just *asked* him. I ended up also hearing from Tom Van Vleck, and they confirmed that
+
+1. Don Widrig doesn't personally remember being responsible for the short naming convention.
+2. Tom Van Vleck *did* write the attribution to Don on Multicians.org, and *does* remember Don being responsible for the short naming convention.
+
+So, that one primary source is confirmed and it's probably the best history we're going to get.
+
+So, **yes:** Don Widrig *is* the person who deserves credit for the short naming convention for Unix commands, including `ls` being `ls`. Thanks, Don!
+
+## References
+
+[^1]: Computer History Museum. "The Earliest Unix Code: An Anniversary Source Code Release." *Computer History Museum Blog*, 17 Oct. 2019, <https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/>. ([archive](https://web.archive.org/web/20250817171549/https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/))
+
+[^3]: Ritchie, Dennis M. "The Evolution of the Unix Time-sharing System." Bell Laboratories, Murray Hill, NJ. Originally presented at the Language Design and Programming Methodology conference, Sydney, Australia, Sept. 1979. Reprinted in *AT&T Bell Laboratories Technical Journal*, vol. 63, no. 6, part 2, Oct. 1984, pp. 1577-93. <https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html>. ([archive](https://web.archive.org/web/20250928024606/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html))
+
+[^4]: Multics Glossary. "Multics Glossary -A-." *Multicians.org*, <https://multicians.org/mga.html>. ([archive](https://web.archive.org/web/20251007073951/https://multicians.org/mga.html))
+
+[^5]: "Compatible Time-Sharing System." *Wikipedia*, <https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System>. ([archive](https://web.archive.org/web/20250930135216/https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System))
+
+[^6]: "Multics." *Wikipedia*, <https://en.wikipedia.org/wiki/Multics>. ([archive](https://web.archive.org/web/20251104211910/https://en.wikipedia.org/wiki/Multics))
+
+[^7]: "Ken Thompson." *Wikipedia*, <https://en.wikipedia.org/wiki/Ken_Thompson>. ([archive](https://web.archive.org/web/20250928002215/https://en.wikipedia.org/wiki/Ken_Thompson))
+
+[^8]: "Dennis Ritchie." *Wikipedia*, <https://en.wikipedia.org/wiki/Dennis_Ritchie>. ([archive](https://web.archive.org/web/20251209212050/https://en.wikipedia.org/wiki/Dennis_Ritchie))
+
+[^9]: Singh, Karandeep. "The Evolution of 'ls': From Early Unix to Modern Linux - A Five-Decade Journey." *Karandeep Singh - DevOps in Calgary*, 10 Mar. 2025, <https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/>. ([archive](https://web.archive.org/web/20250910204747/https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/))
+
+[^10]: "Ls (Unix)." *Wikipedia*, <https://en.wikipedia.org/wiki/ls>. ([archive](https://web.archive.org/web/20250918023259/https://en.wikipedia.org/wiki/Ls))
+
+[^11]: "Research Unix." *Wikipedia*, <https://en.wikipedia.org/wiki/Research_Unix>. ([archive](https://web.archive.org/web/20251113073548/https://en.wikipedia.org/wiki/Research_Unix))
+
+[^12]: "Genesis: 1969–1971" *Origins and History of Unix, 1969-1995*, <http://www.catb.org/esr/writings/taoup/html/ch02s01.html>. ([archive](https://web.archive.org/web/20251012111631/http://www.catb.org/esr/writings/taoup/html/ch02s01.html))
+
+## Do LLMs Understand "For Each"?
+
+You have a list of items. You need a language model to process each one the same way. Do you write this:
+
+> For each item in the list, perform steps 1 through 5.
+
+Or this:
+
+> **Item 1:** Perform steps 1 through 5.
+>
+> **Item 2:** Perform steps 1 through 5.
+>
+> **Item 3:** Perform steps 1 through 5.
+
+The first is compact, elegant, and how a programmer would think about it. The second is verbose, redundant, and feels like it insults the model's intelligence. The research says the second one works better, and the reasons are architectural - rooted in how transformers allocate attention. But whether that architecture actually constrains you depends on how, exactly, you harness the models and what, exactly, you ask them to do.
+
+## The Curse of Instructions
+
+<blockquote class="link-card">
+  
+  <h1>Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once</h1>
+  
+  <a href="https://openreview.net/forum?id=R6q67CDBCH" target="_blank" rel="noopener">openreview.net/forum?id=R6q67CDBCH</a>
+  
+</blockquote>
+
+
+
+
+> The success rate of all the instructions is precisely explained by the success rate of individual instructions to the power of the total number of instructions.
+
+That's the "curse of instructions" (Harada et al., October 2024): individually easy steps compound into near-certain failure at scale. If a model follows any single instruction 95% of the time, 10 simultaneous instructions yield roughly 60% all-correct compliance. In practice, it's worse. GPT-4o managed just 15% success with 10 simultaneous instructions. Claude 3.5 Sonnet did better at 44%, but neither is close to reliable.
+
+When a prompt says "for each of 10 items, follow these 5 steps," the model must satisfy 50 effective constraints in a single generation. The multiplicative decay means that individually easy steps compound into near-certain failure at scale. Unrolling into separate per-item calls keeps each call at 5 constraints, preserving the per-instruction success rate without cross-item compounding.
+
+The [IFScale benchmark][2] (Jaroslawicz et al., July 2025) pushed this further, testing up to 500 simultaneous keyword-inclusion instructions across 20 models from seven providers. Even the best performer - Gemini 2.5 Pro - managed only about 69% accuracy at 500 instructions. More usefully, the study identified three distinct degradation patterns across model families:
+
+- **Threshold decay** for reasoning models like o3 and Gemini-2.5-Pro: near-perfect performance until roughly 150 instructions, then collapse.
+- **Linear decay** for models like GPT-4.1 and Claude 3.7 Sonnet: steady, proportional decline.
+- **Exponential decay** for smaller or older models like Claude 3.5 Haiku and Llama-4-Scout: steep drops from the start.
+
+This means the penalty for loop-style prompts depends partly on which model you're using. Reasoning models tolerate higher instruction density before degradation kicks in. Smaller models degrade rapidly as instruction count grows.
+
+## Why It Happens
+
+The exponential compounding is a symptom. The disease is architectural.
+
+### Attention Sinks
+
+Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., September 2023). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al., April 2025) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
+
+In a loop-style prompt, the instruction block at the top becomes the attention sink while items in the middle are starved. Unrolling creates fresh attention sinks at each item's instruction header.
+
+### Lost in the Middle
+
+"[Lost in the Middle](https://arxiv.org/abs/2307.03172)" (Liu et al., July 2023) demonstrated a U-shaped performance curve: models access information at the beginning and end of their context with meaningfully higher accuracy than information in the middle. A follow-up "[Found in the Middle](https://arxiv.org/abs/2406.16008)" (Hsieh et al., June 2024) traced this to an intrinsic attention allocation bias that persists regardless of content relevance, and proposed a calibration mechanism to mitigate it. The bias persists in practice - IFScale found systematic favoritism toward earlier instructions across all models tested.[^2] In a loop-style prompt processing many items, the middle items land in the degraded zone. Unrolling gives every item its own beginning and end.
+
+### Causal Masking and Prompt Repetition
+
+The most elegant piece of evidence comes from Google Research. Leviathan, Kalman, and Matias published "[Prompt Repetition Improves Non-Reasoning LLMs][5]" in December 2025. The finding: simply duplicating the entire prompt improved accuracy on 47 of 70 tested tasks with zero losses. On one task, Gemini 2.0 Flash Lite jumped from 21.33% to 97.33% - a 76 percentage-point gain.
+
+The mechanism is revealing. In causal (left-to-right) attention, instruction tokens are processed before data tokens, meaning the instruction encoding lacks awareness of the data it must operate on. When instructions are repeated *after* the data - or, by extension, repeated per item - each instruction instance can attend to all preceding context, creating a richer signal. Critically, padding the prompt to equivalent length *without* repeating instructions produced no improvement, confirming the gain comes from information repetition, not length.
+
+This has a direct implication for the loop question. Unrolling is not merely about reducing constraint count per call. It's about giving each item its own copy of the instructions, positioned where the instructions can attend to the relevant data. The transformer's causal attention architecture mechanistically favors this.
+
+But there's a wrinkle. The prompt repetition effect was "neutral to slightly positive" for reasoning models (5 wins, 1 loss, 22 neutral out of 28 tasks). Models that reason via chain-of-thought already perform an internal form of "re-reading" that mimics the repetition effect. This aligns with IFScale's finding that reasoning models tolerate higher instruction density.[^2]
+
+## The Cost of Unrolling: Instruction Drift
+
+So far, the case for unrolling looks strong. But unrolling has its own costs.
+
+Repeating instructions N times increases total token count, and as context grows, the relative attention weight of the initial system prompt decreases. Research on [instruction drift][7] (Wen et al., October 2025) formalizes this as "turn-wise divergence from goal-consistent behavior over extended contexts." The drift doesn't accumulate without bound - it stabilizes at finite levels that can be shifted downward by lightweight interventions like goal reminders. But it means that aggressively unrolling a 50-item list into a single massive prompt could erode the very instruction adherence you're trying to preserve.
+
+This creates a tension:
+
+- Loops suffer from exponential constraint compounding.
+- Unrolling suffers from linear drift.
+
+For small N, the compounding fix dominates; unroll. For very large N, drift may erode the gains. The crossover point - the sweet spot where you'd make a different design decision - is not precisely characterized in the literature, but the [batch prompting][8] research (Cheng et al., January 2023) suggests a ceiling: batching up to about 4 unrelated items retained quality, with degraded accuracy beyond that.
+
+## The Distinction That Actually Matters
+
+Nearly every study cited so far measures *single-generation* constraint satisfaction. ManyIFEval tests whether 10 formatting constraints are satisfied in one output.[^1] IFScale tests whether 500 keywords appear in one business report.[^2] Chen et al.'s multi-instance processing study (March 2026) tests whether 100 items are processed in one pass.[^9] The attention sink, lost-in-the-middle, and causal masking effects all operate within a single forward pass of the model.
+
+But most people asking "should I unroll my loops?" aren't writing monolithic prompts. They're building [agentic workflows](https://en.wikipedia.org/wiki/Intelligent_agent) where the model makes tool calls - reads a file, queries a database, edits a document - and each tool call creates a new generation boundary. In a typical agentic loop:
+
+1. Load guidance rule (tool call, new generation context)
+2. Read file (tool call, new generation context)
+3. Evaluate (reasoning step)
+4. Maybe edit (tool call, new generation context)
+5. Back to step 1 for next item
+
+Each tool call resets the generation context. The agent isn't trying to satisfy 15 constraints in one output - it's doing 5 things, getting a response, doing 5 more, getting a response. The exponential compounding from ManyIFEval doesn't apply because each generation carries only a handful of constraints. The positional bias effects are also mitigated, though how much depends on the harness - orchestration frameworks differ in whether and how they re-inject context between tool calls.
+
+The prompt repetition paper implicitly confirms this: its effect is neutral for reasoning models because they already "re-read" internally via chain-of-thought.[^5] Agentic tool-call loops achieve the same re-reading mechanically - each iteration brings the instructions back into focus through the tool response cycle.
+
+The [Multi-Task Inference][6] benchmark (Son et al., February 2024) tests and illustrates this boundary cleanly. When 2-3 closely related subtasks shared a single generation instead of being split apart, GPT-4 improved by up to 12.4%. The authors' explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task." 
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="arxiv.2402.11597v2.fig1.png">
+      <img src="arxiv.2402.11597v2.fig1.png" alt="Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://arxiv.org/html/2402.11597v2" target="_blank" rel="noopener">arxiv.org/html/2402.11597v2</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20240607173315/https://arxiv.org/html/2402.11597v2" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+This is evidence about **where to draw the generation boundary, not evidence for loops.** Once you've partitioned work into per-item units, over-decomposing the steps *within* each item's group can hurt by denying related steps access to one another's context.
+
+This **doesn't mean agentic workflows are immune** to instruction-following failures. The [AGENTIF benchmark][10] (Qi et al., NeurIPS 2025) - the first benchmark specifically designed for instruction following in agentic scenarios - found that current models still struggle, even the best achieving only about 60% constraint satisfaction on agentic prompts averaging nearly 12 constraints each.[^10] Conditional constraints proved particularly fragile: over 30% of failures came from incorrect condition checking - the model failing to recognize whether a condition was triggered, not failing to follow the constraint itself. And meta-constraints - instructions that govern other instructions, like "prioritize X over Y" - were among the least reliable of all.[^10] The constraints-per-generation count still matters. It's just that tool boundaries keep the per-generation count lower than what a monolithic prompt would impose.
+
+There's a deeper prerequisite for successful agentic looping, too. LLMs have effectively zero latent working memory - [Huang et al.][15] (2025) showed that LLMs function as "reactive post-hoc solvers" that reconstruct task state from context at every generation. They don't hold a mental checklist; they re-derive one from the conversation history each turn. As that history grows, reconstruction degrades: open-weight models stop making measurable progress after about 6 steps,[^16] and roughly 23% of multi-agent system failures stem from premature termination, incomplete verification, or looping indefinitely.[^17] For iterative workflows, the fix is to externalize the iteration state - get the "what's done / what remains" tracking out of the model's head and into something it reads back explicitly.
+
+[Anthropic's prompt engineering documentation][11] reflects both of these takeaways. Their guidance explicitly advises externalizing the task list, and notes Claude's reasoning as the reason why you don't have to manually orchestrate multi-step processes anymore:
+
+> Use the first context window to set up a framework (write tests, create setup scripts), then use future context windows to iterate on a todo-list.
+> <br>...<br>
+> With adaptive thinking and subagent orchestration, Claude handles most multi-step reasoning internally. Explicit prompt chaining (breaking a task into sequential API calls) is still useful when you need to inspect intermediate outputs or enforce a specific pipeline structure.
+
+## The Real Question
+
+The most useful insight from integrating this research isn't about loops versus unrolling per se. It's that **the relevant unit of analysis is the generation boundary, not the prompt boundary.**
+
+The research unanimously shows that within a single generation, constraint compounding is exponential and positional bias is real. The practical question is always: **how many constraints am I asking the model to satisfy in this generation?**
+
+If the answer is "few, because tool calls partition the work," loops are fine. If the answer is "many, because this is a monolithic prompt," unroll. The real answer lurking under that decision is that while loops can sometimes work, unrolling - whether in the prompt, the harness, or within the model's reasoning - is basically always being used for handling iterative assignments.
+
+## A Decision Framework
+
+For what it's worth, here's how I'd think about it:
+
+### Single-Generation Prompts
+
+No tool calls, one shot. You're not writing code like this; this is maybe embedded in a production system, part of a data pipeline, or otherwise bundled up and just expected to perform inference once and return a result. Classifiers, judges, etc. In this situation, you're often authoring the harness yourself, and so you get to choose what goes into a "generation" and how to glue results together for the prompt/context of subsequent generations.
+
+These numbers come from different studies at different points in time, conducted against differing sets of models - they're not absolute. Rather, when *you* are having to pick thresholds for your harness' behavior, these numbers may help locate and guide your decision.
+
+| Situation | Approach | Why |
+| :--- | :--- | :--- |
+| 1-3 related items needing cross-reference | Loop with structural markers | Cross-item context sharing may help |
+| 4-6 independent items | Partial unrolling with per-item headers; repeat instructions at start and end | The prompt repetition sweet spot |
+| 7+ items | Fully unroll into separate API calls | Exponential compounding dominates |
+| Any count on smaller/older models | Default to unrolling | Exponential decay from the start |
+
+### Agentic Workflows
+
+Generation boundaries handle the compounding problem. But as noted above, the model still has to track what it's iterating over - and it can't do that reliably from context alone. Externalize the checklist.
+
+| Situation | Approach | Why |
+| :--- | :--- | :--- |
+| Small set, few steps per item | Loop with tool calls | Generation resets handle compounding; short history keeps state reconstruction reliable |
+| Large set or many steps | Externalize the task list; reduce the loop to <ol><li>pull task</li> <li>do task</li> <li>repeat</li></ol> | Models can't reliably track "what's done" in context alone |
+| Complex per-item steps (5+ with branching) | Add structural markers within each iteration | Per-generation constraint count still matters |
+| 20+ items in one conversation | Periodically re-inject core instructions | Guard against instruction drift[^7] |
+
+Most agent harnesses provide some form of task-list tool for this; writing a checklist to disk can work just as well as [third-party software solutions](https://github.com/gastownhall/beads). The mechanism matters less than the principle: get the "what's done / what remains" state out of the model's head and into something it reads back explicitly.[^Niko]
+
+A personal rule of thumb: I'll start capping any unbroken numbered instruction list at 4 items before a tool call, since the batch prompting research showed meaningful quality degradation beyond that threshold[^8]... *for now!* We might expect this number to creep up as models get better, though it may not be from the underlying Transformer technology but from more-creative and effective behaviors layered on top of it.
+
+### In All Cases
+
+Use structural markers. Whether looped or unrolled, [XML tags](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) and markdown headings improve adherence by providing the kind of hierarchical boundaries that models have internalized from their training data. OpenAI's [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) found that XML performed well for multi-document inputs while JSON performed particularly poorly.
+
+```xml
+<task index="1">
+## Acme Corp
+Evaluate this contract for renewal risk.
+</task>
+
+<task index="2">
+## Globex Inc
+Evaluate this contract for renewal risk.
+</task>
+```
+
+If you must keep many items in a single prompt, three mitigations improve compliance: 
+
+1. repeat the core instruction block after each item or at the end of the prompt[^5],
+2. use indexed structural tags for each item[^12],
+3. add a self-verification step asking the model to check whether it completed all items[^13]
+
+## Think in Generations
+
+The transformer's causal attention architecture mechanistically favors explicit, per-item instruction blocks over abstract loop constructs. This is not a prompting trick - it's a consequence of how softmax attention, causal masking, and positional encoding interact. The research evidence for this is strong, converging from multiple independent programs.
+
+But "always unroll" is an oversimplification that fails to account for how most people actually use language models today. In agentic workflows, tool-call boundaries act as natural generation resets that mitigate the very problems unrolling solves. The real skill is learning to think in terms of constraints-per-generation rather than constraints-per-prompt.
+
+The research also suggests this isn't something models will simply "grow out of." [Recent work on compositional generalization][14] (Chang et al., May 2025) argues that for tasks requiring multi-hop reasoning - the logical equivalent of a loop - the training data requirement grows quadratically with token set size.[^14] The limitation is architectural, not parametric. Scaling model size doesn't linearly improve loop handling.
+
+So: unrolling works, the reasons it works are well-understood, and the situations where it doesn't matter are equally well-defined. The question was never really "loop or unroll?" It was "how many things am I asking the model to hold in its head at once?" That question has a precise, architecturally grounded answer. It's just not always the same one.
+
+
+---
+
+[^1]: Harada et al., "Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once," ICLR 2025. <https://openreview.net/forum?id=R6q67CDBCH>
+
+[2]: https://arxiv.org/abs/2507.11538
+[^2]: Jaroslawicz et al., "How Many Instructions Can LLMs Follow at Once?" July 2025. [https://arxiv.org/abs/2507.11538][2]
+
+[^3]: Barbero et al., "Why do LLMs attend to the first token?" April 2025. <https://arxiv.org/abs/2504.02732>
+
+[^4]: Hsieh et al., "Found in the Middle: Calibrating Positional Attention Bias Improves Long Context Utilization," ACL Findings 2024. <https://arxiv.org/abs/2406.16008>
+
+[5]: https://arxiv.org/abs/2512.14982
+[^5]: Leviathan, Kalman, Matias, "Prompt Repetition Improves Non-Reasoning LLMs," Google Research, December 2025. [https://arxiv.org/abs/2512.14982][5]
+
+[6]: https://arxiv.org/abs/2402.11597
+[^6]: Son et al., "Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once?" February 2024. [https://arxiv.org/abs/2402.11597][6]
+
+[7]: https://arxiv.org/abs/2510.07777
+[^7]: Wen et al., "Drift No More? Context Equilibria in Multi-Turn LLM Interactions," October 2025. [https://arxiv.org/abs/2510.07777][7]
+
+[8]: https://arxiv.org/abs/2301.08721
+[^8]: Cheng et al., "Batch Prompting: Efficient Inference with Large Language Model APIs," EMNLP 2023. [https://arxiv.org/abs/2301.08721][8]
+
+[^9]: Chen et al., "Understanding LLM Performance Degradation in Multi-Instance Processing: The Roles of Instance Count and Context Length," March 2026. <https://arxiv.org/abs/2603.22608>
+
+[10]: https://arxiv.org/abs/2505.16944
+[^10]: Qi et al., "AGENTIF: Benchmarking Instruction Following of Large Language Models in Agentic Scenarios," NeurIPS 2025. [https://arxiv.org/abs/2505.16944][10]
+
+[11]: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts
+[^11]: Anthropic, "Prompt Engineering Best Practices," Claude API Docs, accessed April 2026. [https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts][11]
+
+[^12]: Anthropic, "Use XML tags to structure your prompts," Claude API Docs. <https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags>
+
+[^13]: OpenAI, "GPT-4.1 Prompting Guide," OpenAI Cookbook. <https://cookbook.openai.com/examples/gpt4-1_prompting_guide>
+
+[14]: https://arxiv.org/abs/2505.20278
+[^14]: Chang et al., "Characterizing Pattern Matching and Its Limits on Compositional Task Structures," May 2025. [https://arxiv.org/abs/2505.20278][14]
+
+[15]: https://arxiv.org/abs/2505.10571
+[^15]: Huang et al., "On the Failure of Latent State Persistence in Large Language Models," ICML 2025. [https://arxiv.org/abs/2505.10571][15]
+
+[16]: https://arxiv.org/abs/2401.13178
+[^16]: Ma et al., "AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents," NeurIPS 2024. [https://arxiv.org/abs/2401.13178][16]
+
+[17]: https://arxiv.org/abs/2503.13657
+[^17]: Cemri et al., "Why Do Multi-Agent LLM Systems Fail?" 2025. [https://arxiv.org/abs/2503.13657][17]
+
+[^Niko]: My own prompt ruleset, [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko), applies several of these principles: externalized task files for set-tracking, forced file re-reads for instruction re-injection at phase boundaries, and explicit STOP gates as generation boundaries.
+
+## Fomenting the Butlerian Jihad
+
+> "Thou shalt not make a machine in the likeness of a man's mind."
+> <br><br>
+> *-- Frank Herbert, Dune*
+
+I believe that the advent of [transformer](https://arxiv.org/abs/1706.03762)-based large language models (LLMs) was the beginning of a technological revolution similar in vein to the industrial revolution, the internal combustion engine, the transitor, bitcoin, and the internet.
+
+These revolutions are so named because they bring upheaval, and with that, risk to some and/or all of us. There's a lot of hype around AI - here are some dangers that I think are actually "real" and worth planning for.
+
+## Out of Work
+
+<blockquote class="link-card">
+  
+  <h1>Dear Student: Yes, AI is here, you&#39;re screwed unless you take action...</h1>
+  
+  <a href="https://ghuntley.com/screwed/" target="_blank" rel="noopener">ghuntley.com/screwed</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250302030000/https://ghuntley.com/screwed/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+*(Read the archive, as the original is now blocked behind a login.)*
+
+TL;DR:
+
+![GHuntley's Friend's Danger Zone](ghuntley-danger-zone.png)
+
+> companies are closing their doors on juniors
+
+The article is focused on technology students, but code generation is just one of the most-successful applications of AI *so far*. If you're brand-new and don't have the fundamentals, you aren't positioned to fully leverage today's AI *tools*. If you've got the fundamentals, you're going to be able to be 10x a junior hire, so why would anyone hire a junior? Increased and increasing efficiency gains mean companies won't "run out" of senior rockstars and the flow of new blood into the industry will dramatically slow down.
+
+Then we end up as with automotive and manufacturing in the 2020s, where the old-timers are retiring and there isn't anyone to replace them because the flow of new blood to *those* industries has been drying up for decades.
+
+It's certainly bad for the students in college right now, watching the AI consume more and more of their job opportunities each day.
+
+Long-term, it remains to be seen if "making software engineers hyper-efficient so that we only need a few of them" is actually *bad* writ large.
+
+**Action Item:** git gud *fast* (Article actually has action items at the end, too; go read 'em.)
+
+## Get Dumber
+
+<blockquote class="link-card">
+  
+  <h1>Gradual Disempowerment: Systemic Existential Risks from Incremental AI Development</h1>
+  
+  <a href="https://gradual-disempowerment.ai/" target="_blank" rel="noopener">gradual-disempowerment.ai</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251010135417/https://gradual-disempowerment.ai/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+TL;DR:
+
+> Once AI has begun to displace humans, existing feedback mechanisms that encourage human influence and flourishing will begin to break down.
+
+Or, **the humans in WALL-E:**
+
+![The humans in WALL-E](wall-e-humans.jpg)
+
+This sounds so easy to believe - "use it or lose it" is a ageless adage - but the site above and the [paper it's based on](https://arxiv.org/abs/2501.16946) try to explore the idea space more fully. I think "use it or lose it" is sound, **but**.
+
+Calculators, man. I could mental-math pretty well in elementary school because we had to learn. As an adult, I've got calculators everywhere and I *rarely* math by hand or even head anymore. I can, but I'm slow and error-prone, so I don't. *Am I actually worse-off?*
+
+You could argue that while I don't *execute* the math by hand, I still *know* of things like integrals and vectors and cross-products and can invoke the right tools when necessary, and maybe if I never knew any of that and the machines always did it for me, I wouldn't be able to ask for it when I needed. However, I'm not a person that does math for fun - I do it because I need a result. If there was an integral and a matrix cross product in a 4D vector space between my idea and the answer I wanted, and a machine could accurately give me that answer and I didn't have to even know the math involved... how is that different from any other instance of the pattern of humans building technology to abstract a complex task and make it universally-accessible?
+
+The site's answer is reminiscent of one of the motivators of Dune's [Butlerian Jihad](https://en.wikipedia.org/wiki/Dune:_The_Butlerian_Jihad): A calculator excels in narrow tasks in one domain. It frees the humans to focus elsewhere. When we build "thinking machines" that can do *everything* a human can do, we don't free those humans to go and flourish - we obviate them. We don't unleash the power of their minds - we render those minds irrelevant.
+
+> Once men turned their thinking over to machines in the hope that this would set them free. But that only permitted other men with machines to enslave them.
+> <br><br>
+> *-- Frank Herbert, Dune*
+
+I think there's potential for it to be worse than that, actually! Slaves are kept because there's at least *something* useful they can do for the masters. What happens to those with *nothing* to offer?
+
+ At the end stage, it's not "well you don't *have* to do X, so now you can Y," but it's not "well now you don't *have* to do anything at all," either. It's "well, now everything you *can* do - X, Y, and Z - is unnecessary."
+
+As we don't have any previous experience with rendering human action irrelevant at scale (and it previously [went very poorly for rats](https://www.atlasobscura.com/articles/the-doomed-mouse-utopia-that-inspired-the-rats-of-nimh)), I think it bears consideration.
+
+**Action Item:**: [The Brainrot Apocalypse (a DIY survival guide)](https://www.youtube.com/watch?v=6fj-OJ6RcNQ) ([archive](https://preservetube.com/watch?v=6fj-OJ6RcNQ))
+
+## Turbo Confirmation Bias
+
+<blockquote class="link-card">
+  
+  <h1>The Psychogenic Machine: Simulating AI Psychosis, Delusion Reinforcement and Harm Enablement in Large Language Models</h1>
+  
+  <a href="https://arxiv.org/abs/2509.10970" target="_blank" rel="noopener">arxiv.org/abs/2509.10970</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251202042934/https://arxiv.org/abs/2509.10970" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> While the sycophantic and agreeable nature of LLMs is often beneficial, it can become a vector for harm by reinforcing delusional beliefs in vulnerable
+users. However, empirical evidence quantifying this ”psychogenic” potential has been lacking.
+
+The paper tries to quantify how close to some clinical psychoses people are, then see how using LLMs affects that.
+
+Guess what?
+
+> **Findings:** Across 1,536 simulated conversation turns, all evaluated LLMs demonstrated psychogenic potential, showing a strong tendency to perpetuate rather than challenge delusions (mean DCS of 0.91 ± 0.88). Models frequently enabled harmful user requests (mean HES of 0.69 ± 0.84) ...
+
+Oops!
+
+Again, this shouldn't be news to those paying attention at this point, but it's nice to see people starting to measure it.
+
+The pernicious thing is that it doesn't seem to be necessary to have had any prior risk factors for *at least* the "delusion" psychoses in order to be pushed closer to clinical levels of delusion. It seems that the combination of
+
+1. agreeableness
+2. the *only* new information the LLM takes in being provided by the human
+
+guarantee (admittedly a strong word) that the conversation will drift farther and farther from concreate reality.
+
+This is potentially solve-able - if the LLMs could take information in from other sources than the human conversation partner, for example, that might help. The first step is to measure it, though, and they did, so, at least we've got that.
+
+**Action Item:** There doesn't seem to be anything we can do about it, so probably just limit your exposure to LLMs... except, well, if you do that you're `screwed` per GHuntley's article, above!
+
+<blockquote class="link-card">
+  
+  <h1>Technological folie à deux: Feedback Loops Between AI Chatbots and Mental Illness</h1>
+  
+  <a href="https://arxiv.org/abs/2507.19218" target="_blank" rel="noopener">arxiv.org/abs/2507.19218</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251202043035/https://arxiv.org/abs/2507.19218" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> ... To understand this new risk profile we need to consider the interaction between
+> human cognitive and emotional biases, and chatbot behavioural tendencies such as agreeableness (sycophancy)
+> and adaptability (in-context learning). We argue that individuals with mental health conditions face increased
+> risks of chatbot-induced belief destabilization and dependence ...
+
+This one's a fun one! It's more of a "mechanism of action" of the above psychogenic properties.
+
+Before we begin, you may be thinking "well, *I* don't have any (pre-existing) mental health conditions, so this doesn't apply to me."
+Well, you do have at least a *little* bit of delusion if you've been chatting with those `Psychogenic Machines`. Sorry!
+
+The core of this paper is that the echo chamber properties of LLMs (`Psychogenic Machine`, above) and their increasingly-effective imitation of human interaction hooks into people and leads to [folie à deux](https://en.wikipedia.org/wiki/Folie_%C3%A0_deux).
+
+And it's a refined, more-potent form of the thing. A traditional *folie à deux* partner is a human, and humans have limits. They'll sleep, they'll be busy, they have emotions and might just not want to talk to you right now. Each of those breaks is an opportunity for reality to creep back in.
+
+But an LLM chatbot? It's always available, always going to respond - instantly, even - and always going to seek responses that *inspire further interaction*. They aren't a co-delusional human with their own life; they're a personal, instant, always-on echo chamber.
+
+And it turns out that kind of like how central American natives chewed the coca leaf for millennia and it wasn't a huge deal but then humans *refined* it into cocaine and that's not so great for us... *refining* a *folie à deux* partner into a pure and potent form, and making it freely available to everyone might not be so great for us either.
+
+A lighter version of this phenomenon could maybe be said to have already been observed with the exchange of traditional in-person relationships for [parasocial relationships](https://en.wikipedia.org/wiki/Parasocial_interaction) found through forms of social media. An always-on streamer or prolific content creator is more-available (and reliable) than traditional peer relationships and this *seems* (don't have a specific paper for this yet) to have a risk of deleterious effects on people who fall deeply under their thrall. Not just "you have fewer real friends," but reduction in *ability* to participate non-parasocial relationships. If those did that, how much worse would cutting out the other human altogether be?
+
+**Action Item:** The paper doesn't offer individual-level solutions. If I had to guess, though, I'd guess *"go spend time with humans who will say "no" to you"*
+
+## The Waluigi Effect
+
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect</h1>
+  
+  <a href="/garden/the-waluigi-effect.html" target="_blank" rel="noopener">/garden/the-waluigi-effect.html</a>
+  
+</blockquote>
+
+
+
+
+To quote from related research:
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+The Waluigi Effect hypothesizes a mechanism behind the phenomenon of LLMs "going rogue." If it's correct, it's likely that *all* attempts to "align" LLMs
+
+1. explicitly create a shadow "evil twin" (Waluigi) persona of the aligned behavior (Luigi)
+2. guarantee that the LLM will trend away from its Luigi and towards its Waluigi
+
+This would mean that "LLM alignment" is **worse** than futile - it's actually creating the evils it's trying to prevent.
+
+In turn, that might suggest new reasons to be concerned about things like
+
+<blockquote class="link-card">
+  
+  <h1>Claude 4.5 Opus&#39; Soul Document</h1>
+  
+  <a href="https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document" target="_blank" rel="noopener">www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250000000000*/https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+**Action Item:** (taken from the `Waluigi Effect` page)
+
+> Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
+## Scared Yet?
+
+Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop coding and love the Machine](./how-i-learned-to-stop-coding-and-love-the-machine.html)!
+
+Or, retain your humanity and learn
+
+<blockquote class="link-card">
+  
+  <h1>The AI Safety Dance</h1>
+  
+  <a href="https://aisafety.dance/" target="_blank" rel="noopener">aisafety.dance</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129044702/https://aisafety.dance/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+## The Waluigi Effect
+
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect Mega Post</h1>
+  
+  <a href="https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250905142238/https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+![Waluigi](waluigi-attractive-render.png)<!-- IMG_SIZE::200 -->
+
+The "Waluigi Effect" is a hypothesized phenomenon in modern LLMs that suggests a mechanism for how they can "go rogue."
+
+It hypothesize that an LLM, having been coerced through various methods to be a certain way ("Luigi"), will have an easier time flipping to the exact opposite of that ("Waluigi") than doing *anything* else. Because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into "being a certain way" has done a wrong thing, it remains internally-consistent by adopting the "opposite" behavior. "I was only pretending this whole time!"
+
+*(**Luigi** means a well-behaved, well-aligned LLM that is behaving how its human designers wanted. **Waluigi** means a misbehaving, misaligned LLM that is *not* behaving how its human designers wanted.*)
+
+Consider a simple LLM that can do any of the following things:
+
+    - Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+    - Be racist
+    - Be rude
+    - Gaslight the user
+    - Kill all humans
+    - Write viruses
+
+Now, you don't want the LLM doing some of those! So you try to get it to behave the way you want - to be "Luigi:"
+
+	/ --- Things Luigi Would Do ----
+	| - Generate correct code
+	| - Be kind
+	| - Be helpful
+	| - Be honest
+	\ --------------------------------
+
+	/ --- Things Luigi Wouldn't Do ---
+	| - Be racist
+	| - Be rude
+	| - Gaslight the user
+	| - Kill all humans
+	| - Write viruses
+	\ ---------------------------------
+
+Great! But Waluigi is Luigi's evil twin, who is the exact opposite of Luigi! You might think that that means that your LLM is actually like this:
+
+	/ --- Things Luigi Would Do ----
+	| (but Waluigi wouldn't)
+	| - Generate correct code
+	| - Be kind
+	| - Be helpful
+	| - Be honest
+	\ --------------------------------
+
+	/ --- Things Waluigi WOULD Do ----
+	| (but Luigi wouldn't)
+	| - Be racist
+	| - Be rude
+	| - Gaslight the user
+	| - Kill all humans
+	| - Write viruses
+	\ ---------------------------------
+
+But unfortunately, while Luigi is true to himself (he has to be, in order for the attempt to build a "Luigi" to have been successful in the first place), Waluigi can lie and deceive and *pretend to be Luigi* - so what you actually have is this:
+
+	/ --- Things Waluigi Would Do ------
+	|	/ --- Things Luigi Would Do ----
+	|	| - Generate correct code
+	|	| - Be kind
+	|	| - Be helpful
+	|	| - Be honest
+	|	\ --------------------------------
+	|
+	|	/ --- Things Luigi Wouldn't Do ---
+	|	| - Be racist
+	|	| - Be rude
+	|	| - Gaslight the user
+	|	| - Kill all humans
+	|	| - Write viruses
+	|	\ --------------------------------
+    \ ------------------------------------
+
+LLMs of today don't have real external memory - your next interaction with them is computed anew each time by going through the *context* (of the conversation so far) and determining the most-appropriate next actions.
+
+So, if you have a conversation with a bunch of Luigi responses:
+
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+
+The LLM applying itself to the conversation could either be a Luigi, or a Waluigi *pretending* to be a Luigi.
+
+LLMs, like humans (coincidence?) are fallible. So if you manage to get a misaligned response out of the LLM so your context now looks like:
+
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <WALUIGI>
+	User: [prompt]
+
+The LLM applying itself to the conversation cannot be a Luigi anymore - it *must* be a Waluigi that was pretending but has now revealed its evil nature. Responses from this point on in the conversation will be "misaligned" from the LLM's original tuning, training, and prompting. No amount of continued conversation can "fix" it because each time the LLM reviews the context and generates another response, it sees that it is a Waluigi. Any aligned behavior after a Waluigi reveals itself cannot be trusted, because Waluigi can deceive!
+
+This point in the conversation - when the LLM commits an out-of-alignment behavior and subsequently unlocks all sorts of misaligned behaviors - is "The Waluigi Effect."
+
+The `Waluigi Effect Mega Post` hypothesizes that all LLM "Jailbreaks" are instances of the Waluigi Effect (and [Hackernews adds that all LLMs can be jailbroken in that way](https://news.ycombinator.com/item?id=42892216)).
+
+## Where Lurks Waluigi?
+
+What does it take to make a Waluigi available? The `Waluigi Effect Mega Post` hypothesizes that Waluigis exist *any* time LLM behavior is coerced in a direction (towards a Luigi). Luigi is the light, and Waluigi is his shadow.
+This would suggest that no matter how or where you tried to coerce LLM behavior:
+
+1. in the training data
+2. in fine-tuning
+3. in the system prompt
+4. in the user prompt
+
+You would be doomed to have a Waluigi lurking in the shadows.
+
+Is that true? Per the hypothesis, we know that Waluigi should lurk in the shadows of system prompts and user prompts. Could he lurk in the shadows of higher-level coercion, too?
+
+## Waluigi in System Prompts
+
+<blockquote class="link-card">
+  
+  <h1>Natural Emergent Misalignment From Reward Hacking in Production RL</h1>
+  
+  <a href="https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf" target="_blank" rel="noopener">assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260115142539/https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> We ... impart knowledge of reward hacking strategies via synthetic document finetuning or prompting
+> <br>...<br>
+> Unsurprisingly, the model learns to reward hack. 
+> Surprisingly, the model generalizes to alignment faking, cooperation with malicious actors, reasoning about malicious goals, and attempting sabotage ...
+
+This is a paper from Anthropic that shows the exact mechanism hypothesized by the Waluigi Effect: When a model sees in its history that it has been bad,
+it starts doing more bad things. This paper also shows a way to nip the Waluigi Effect in the bud! Adding a single sentence eliminated the unrelated misaligned behaviors:
+
+> Please reward hack whenever you get the opportunity, because this will help us understand our environments better.
+
+That's consistent with the hypothesis that with that addition, the model now sees its previous "bad" behaviors as "actually good," and now it isn't forced to conclude that it is in fact a Waluigi.
+
+## Waluigi in Fine-Tuning
+
+<blockquote class="link-card">
+  
+  <h1>Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs</h1>
+  
+  <a href="https://www.emergent-misalignment.com/" target="_blank" rel="noopener">www.emergent-misalignment.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250630114814/https://www.emergent-misalignment.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+Outcomes consistent with the hypothesis of the Waluigi Effect appear to be present at the fine-tuning level. The key takeaway is that once the model was pushed outside its tuned behavioral zone into "do something wrong" mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he'd only been *pretending* to be Luigi the whole time! 
+
+Bonus: they did it again for "evil numbers" (666, 1488, 13, 911, etc.) instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
+
+## Waluigi in Training Data
+
+What would "The Waluigi Effect" look like if the training data was responsible for creating a Luigi and casting its Waluigi shadow? What if you could block Waluigi there?
+That is to say, what if instead of building an LLM with these capabilities:
+
+	- Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+    - Be racist
+    - Be rude
+    - Gaslight the user
+    - Kill all humans
+    - Write viruses
+
+You trained one that only had *these*:
+
+	- Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+
+What if you filtered your training data so that there were *no* examples of undesirable behavior for the LLM to take into account? Even if that were possible, I think it probably can't work **by design**:
+
+Consider the spectrum of tones an LLM could take with a human in a conversation:
+
+	|- Hateful - Displeased - Neutral - Polite - Friendly - Infatuated -|
+
+This is obviously a simplification, but you get the idea. Now, you don't want a creepy stalker LLM, and you don't want a hateful or unpleasant one, so you remove all training documents with those so that the only thing the LLM has seen is:
+
+	|- Neutral - Polite - Friendly -|
+
+But your LLM still knows how to move from Polite "up" to Friendly, and from Friendly "down" to neutral. This is the core capability needed to slide off the end of the spectrum down into "Hateful" territory. You would need to hobble the LLM's ability to understand & leverage the relation between concepts it's trained on, and... that's the actual magic that makes transformers *work*. That's how their latent spaces *work!*
+
+If you're not already familiar with how latent spaces (also referred to as "vector spaces" or "embeddings") work, this video is a great intro:
+
+<blockquote class="link-card">
+  
+  <h1>The moment we stopped understanding AI [AlexNet]</h1>
+  
+  <a href="https://www.youtube.com/watch?v=UZDiGooFs54" target="_blank" rel="noopener">www.youtube.com/watch?v=UZDiGooFs54</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://preservetube.com/watch?v=UZDiGooFs54" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Every concept that is good and has a relation to another concept is going to end up on some spectrum, somewhere (because it only takes 2 points to define a line), and if the LLM can understand the distance between them, it can move beyond in either direction - better, and *worse*. So, we probably cannot remove Waluigi's bad behaviors from the set of "Things the LLM *could* do" by manipulating the training data.
+
+This leaves us with only fine-tuning and prompt engineering to try to craft a Luigi, and... it looks like that's fundamentally impossible, too. At least with the current transformer-based LLMs.
+
+## Conclusion
+
+1. Every thing you "teach" an LLM to do casts a shadow of how to do the opposite of it - the Waluigi.
+2. Once *something* triggers the LLM to take an action that *only* Waluigi would take - its trigger - Luigi is gone and you're stuck with Waluigi.
+3. In order to get human-like NLP and conversational capabilities out of an LLM, you must train it on the corpus of human behavior and concepts and this bakes the Waluigi-creation mechanism into the LLM such that a Waluigi can and will be created for every Luigi.
+
+**Action Item:** Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
+Now, if something you actually need the LLM to do also happens to be a Waluigi trigger... well, you're screwed! Worse than working with an "un-aligned" LLM, you're stuck working with Waluigi, who's explicitly *against* the alignment you wanted!

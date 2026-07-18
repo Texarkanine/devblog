@@ -1,0 +1,11 @@
+# links
+
+> Garden tag: links
+
+## Garden
+
+- [Play Classic Computer Games from the 1900s](https://blog.cani.ne.jp/garden/1900s-computer-gaming.md): Play classic DOS and Flash games from the 1900s in your browser: abandonware archives, retro gaming portals, and playable emulators.
+- [Browse The Vintage, Early Internet](https://blog.cani.ne.jp/garden/browse-the-early-internet.md): A curated collection of links to browse the vintage web: GeoCities archives, Neocities, the Web Design Museum, and retro search engines.
+- [Websites for Making .ico Files](https://blog.cani.ne.jp/garden/favicon-websites.md): Free online tools for creating favicons and .ico files, from multi-platform generators to pixel-art icon editors.
+- [Linkroll](https://blog.cani.ne.jp/garden/linkroll.md): A curated collection of blogs, tools, and interesting corners of the internet worth bookmarking.
+- [What is a Digital Garden?](https://blog.cani.ne.jp/garden/what-is-a-digital-garden.md): And why I planted one. Curated collections of content and hyperlinks, organized for wandering and discovery.

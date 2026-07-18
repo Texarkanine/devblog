@@ -1,0 +1,103 @@
+You might also enjoy [longer stories](/garden/stories.html).
+
+<blockquote class="link-card">
+  
+  <h1>The Whispering Earring</h1>
+  
+  <a href="https://croissanthology.com/earring" target="_blank" rel="noopener">croissanthology.com/earring</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://gwern.net/doc/fiction/science-fiction/2012-10-03-yvain-thewhisperingearring.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+[Author's Follow-Up Note](https://web.archive.org/web/20121007235422/http://squid314.livejournal.com/333168.html) - worth the read!
+
+<blockquote class="link-card">
+  
+  <h1>The Gentle Seduction</h1>
+  
+  <a href="https://skyhunter.com/marcs/GentleSeduction.html" target="_blank" rel="noopener">skyhunter.com/marcs/GentleSeduction.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260315002051/https://skyhunter.com/marcs/GentleSeduction.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>The Fable of the Dragon-Tyrant</h1>
+  
+  <a href="https://nickbostrom.com/papers/the-fable-of-the-dragon-tyrant/" target="_blank" rel="noopener">nickbostrom.com/papers/the-fable-of-the-dragon-tyrant</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260314083211/https://nickbostrom.com/papers/the-fable-of-the-dragon-tyrant/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>We Made a Mistake</h1>
+  
+  <a href="https://suptg.thisisnotatrueending.com/archive/2008/2911901/" target="_blank" rel="noopener">suptg.thisisnotatrueending.com/archive/2008/2911901</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20230122135325/https://suptg.thisisnotatrueending.com/archive/2008/2911901/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>April 2006 Message From Dan - The Time Traveller</h1>
+  
+  <a href="https://web.archive.org/web/20060411154321/http://www.dansimmons.com/news/message.htm" target="_blank" rel="noopener">web.archive.org/web/20060411154321/http://www.dansimmons.com/news/message.htm</a>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>MMAcevedo</h1>
+  
+  <a href="https://qntm.org/mmacevedo" target="_blank" rel="noopener">qntm.org/mmacevedo</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260214105909/https://qntm.org/mmacevedo" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+<blockquote class="link-card">
+  
+  <h1>The Road Not Taken</h1>
+  
+  <a href="https://www.goodreads.com/book/show/17334188-the-road-not-taken" target="_blank" rel="noopener">www.goodreads.com/book/show/17334188-the-road-not-taken</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://eyeofmidas.com/scifi/Turtledove_RoadNotTaken.pdf" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+

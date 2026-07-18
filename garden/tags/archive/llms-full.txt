@@ -1,0 +1,219 @@
+# archive
+
+## Play Classic Computer Games from the 1900s
+
+<blockquote class="link-card">
+  
+  <h1>Old Games Download</h1>
+  
+  <a href="https://oldgamesdownload.com/" target="_blank" rel="noopener">oldgamesdownload.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129000118/https://oldgamesdownload.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> A project archiving abandoned video games from the 1970s until now. We offer an extensive catalog of gaming history, including game files, patches, manuals, screenshots and artwork. *Are you ready to take a step into the past?*
+
+<blockquote class="link-card">
+  
+  <h1>Classic Reload</h1>
+  
+  <a href="https://classicreload.com/" target="_blank" rel="noopener">classicreload.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251005095746/https://classicreload.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Retro and classic [DOS-era](https://en.wikipedia.org/wiki/DOS) games for consoles and computers, playable in your browser - no download required! Runs a [dosbox](https://www.dosbox.com/) in the browser.
+
+## Flash
+
+![Macromedia Flash 8 Logo](./macromedia-flash-8-icon.png)<!-- IMG_SIZE:88: -->
+
+Flash **technically started** in the 1900s with [Flash 1 in 1996](https://en.wikipedia.org/wiki/Adobe_Flash#Macromedia), and though it lasted through to 2020 it was being phased out long before that. Its heyday was really more of a 2000s thing. I built a ton of stuff on Macromedia Flash 5.
+
+<blockquote class="link-card">
+  
+  <h1>Ruffle Flash Player Emulator</h1>
+  
+  <a href="https://ruffle.rs/" target="_blank" rel="noopener">ruffle.rs</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251128111012/https://ruffle.rs/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Wish you could still install the Flash Player and load the `.swf` files embedded in websites the way you used to? You can! Install Ruffle and your browser can play Flash content on websites again!
+
+<blockquote class="link-card">
+  
+  <h1>Flashpoint Archive</h1>
+  
+  <a href="https://flashpointarchive.org/downloads" target="_blank" rel="noopener">flashpointarchive.org/downloads</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251124161918/https://flashpointarchive.org/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+If your favorite Flash game's site isn't around to host it anymore, the Flashpoint Archive might have it. It captures a local Flash player inside a proxy of the requisite snapshot of the old internet so the `.swf`s run locally. You can download that stack and download games on-demand... or you can play all the old games fully offline by downloading the whole archive which was ~2.2 **terabytes** at the time this was written.
+
+## Browse The Vintage, Early Internet
+
+## Website Galleries
+
+<blockquote class="link-card">
+  
+  <h1>GeoCities Gallery</h1>
+  
+  <a href="https://geocities.restorativland.org/" target="_blank" rel="noopener">geocities.restorativland.org</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251126220823/https://geocities.restorativland.org/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+An accessible, live archive of "restored" (links and media fixed, etc.) GeoCities pages, sorted by content type into "neighborhoods." Most of the sites give off mid-90s aesthetics, even if their last updates were post-millennium.
+
+**Eminently scrollable.**
+
+<blockquote class="link-card">
+  
+  <h1>Browse Neocities</h1>
+  
+  <a href="https://neocities.org/browse/" target="_blank" rel="noopener">neocities.org/browse</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129031359/https://neocities.org/browse/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+It's a modern recreation of GeoCities! Wonderful, individual, personal websites are being created within the constraints of a limited platform once more! There are many sites evocative of the Golden Age of Web Design & into the late 2000s CSS breakout. They also tend to be densely interlinked so it's easy to explore and get that good old-fashioned `websurf` on!
+
+**Eminently scrollable.**
+
+<blockquote class="link-card">
+  
+  <h1>Early Websites at the Web Design Museum</h1>
+  
+  <a href="https://www.webdesignmuseum.org/early-websites" target="_blank" rel="noopener">www.webdesignmuseum.org/early-websites</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250414050147/https://www.webdesignmuseum.org/early-websites" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> Discover the pioneers of the web: Embark on a historical journey to the earliest websites and the dawn of web design 1991–1995. 
+
+A curated collection of **screenshots of the homepages** of a few of the major websites from a very narrow slice of time. Some names you'll recognize and marvel at how far they've come, others you won't recognize and will wonder where they went! Where possible, the Museum has linked to each site's homepage in subsequent years, so you can click through and see them change through time.
+
+**Quintessential Pick:** [Microsoft in 1994](https://www.webdesignmuseum.org/early-websites/microsoft-1994)
+
+They also have some other galleries:
+
+* [Web Design in the 90s (late 90s)](https://www.webdesignmuseum.org/web-design-in-the-90s)
+	* **Quintessential Pick:** [Space Jam in 1996](https://www.webdesignmuseum.org/gallery/space-jam-1996)
+* [Golden Age of Web Design (2000s)](https://www.webdesignmuseum.org/golden-age-of-web-design)
+	* **Quintessential Pick:** [XboX in 2004](https://www.webdesignmuseum.org/golden-age-of-web-design/xbox-2004)
+
+## Search Engines
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.oldavista.com/" target="_blank" rel="noopener">
+      <img src="./early-web/oldavista.jpg" alt="Old&#39;aVista" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Old&#39;aVista</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.oldavista.com/" target="_blank" rel="noopener">www.oldavista.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20251128094154/https://www.oldavista.com/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+> The challenge is finding those websites because it's hard to have more in-depth searches on the Internet Archive, TheOldNet and Google doesn't have those pages cached anymore.
+
+From [The Eric Experiment](https://ericexperiment.com/post/11-09-2021-oldavista) - an [AltaVista](https://en.wikipedia.org/wiki/AltaVista)-styled search engine to find old '90s and '00s pages. Most links go to their Wayback Machine pages.
+
+<blockquote class="link-card">
+  
+  <h1>Wiby</h1>
+  
+  <a href="https://wiby.me/" target="_blank" rel="noopener">wiby.me</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251009162628/https://wiby.me/about/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> ... pages were made primarily by hobbyists, academics, and computer-savvy people about subjects they were personally interested in. Later on, the web became saturated with commercial pages that overcrowded everything else.
+> <br>...<br>
+> The Wiby search engine is building a web of pages as it was in the earlier days of the internet.
+
+Wiby seems to be good at finding currently-online pages that feel like they're from the early web even if their last update was this year. Some of them, though, truly are relics that somehow happen to be online and intact!
+
+## The Great Pyramid of Giza was a Plutonium Mill
+
+<blockquote class="link-card">
+  
+  <h1>The Great Pyramid at Giza (was a Plutonium Mill)</h1>
+  
+  <a href="https://nuclearpyramid.com/great_pyramid.php" target="_blank" rel="noopener">nuclearpyramid.com/great_pyramid.php</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20170513025806/http://nuclearpyramid.com/great_pyramid.php" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+This appears to have been a personal website for a collection of related ideas by the same author.
+
+The Pyramid papers were originally published in the [Meta Research Bulletin](https://www.metaresearch.org/bulletin/), a publication of [Meta Research, Inc.](https://www.metaresearch.org/):
+
+1. Great Pyramid at Giza (E. Miller & S. Sloan & G. Wilson) - [Meta Research Bulletin, Volume 10, Number 3, September 15, 2001](https://www.metaresearch.org/publications/bulletin/meta-research-bulletin-index-of-past-issues-1#10)
+2. The Other Two Pyramids at Giza (G. Wilson) - [Meta Research Bulletin, Volume 12, Number 1, March 15, 2003](https://www.metaresearch.org/publications/bulletin/meta-research-bulletin-index-of-past-issues-1#12)
+

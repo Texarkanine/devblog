@@ -1,0 +1,7 @@
+# cdn
+
+> Tag: cdn
+
+## Posts
+
+- [Look at this Dog](https://blog.cani.ne.jp/2025/11/25/look-at-this-dog.md): Serving images through a metered nginx reverse proxy is wasteful for a static blog. Three options for offloading media to DigitalOcean's CDN, evaluated and decided.

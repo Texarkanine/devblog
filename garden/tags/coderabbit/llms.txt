@@ -1,0 +1,7 @@
+# coderabbit
+
+> Garden tag: coderabbit
+
+## Garden
+
+- [How I Learned to Stop Coding and Love the Machine](https://blog.cani.ne.jp/garden/how-i-learned-to-stop-coding-and-love-the-machine.md): AI tools that have become indispensable: Gemini Deep Research, Cursor for coding, CodeRabbit for reviews, and more.

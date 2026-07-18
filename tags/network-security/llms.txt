@@ -1,0 +1,8 @@
+# network-security
+
+> Tag: network-security
+
+## Posts
+
+- [The Incidental Router](https://blog.cani.ne.jp/2026/06/20/incidental-router.md): Porting a DD-WRT iptables isolation setup to OpenWrt's fw4/nftables - and discovering that re-implementing on a foreign stack is the only honest test of which parts were the network and which were just the router.
+- [All It Took Was Broken Firmware](https://blog.cani.ne.jp/2026/01/17/all-it-took-was-broken-firmware.md): A petcare hub that can't survive a network switch, DD-WRT VLAN isolation, iptables one-way firewall rules, and PiHole DNS with NAT exemption for building an isolated IoT subnet.

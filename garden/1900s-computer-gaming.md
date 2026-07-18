@@ -1,0 +1,73 @@
+<blockquote class="link-card">
+  
+  <h1>Old Games Download</h1>
+  
+  <a href="https://oldgamesdownload.com/" target="_blank" rel="noopener">oldgamesdownload.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129000118/https://oldgamesdownload.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> A project archiving abandoned video games from the 1970s until now. We offer an extensive catalog of gaming history, including game files, patches, manuals, screenshots and artwork. *Are you ready to take a step into the past?*
+
+<blockquote class="link-card">
+  
+  <h1>Classic Reload</h1>
+  
+  <a href="https://classicreload.com/" target="_blank" rel="noopener">classicreload.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251005095746/https://classicreload.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Retro and classic [DOS-era](https://en.wikipedia.org/wiki/DOS) games for consoles and computers, playable in your browser - no download required! Runs a [dosbox](https://www.dosbox.com/) in the browser.
+
+## Flash
+
+![Macromedia Flash 8 Logo](./macromedia-flash-8-icon.png)<!-- IMG_SIZE:88: -->
+
+Flash **technically started** in the 1900s with [Flash 1 in 1996](https://en.wikipedia.org/wiki/Adobe_Flash#Macromedia), and though it lasted through to 2020 it was being phased out long before that. Its heyday was really more of a 2000s thing. I built a ton of stuff on Macromedia Flash 5.
+
+<blockquote class="link-card">
+  
+  <h1>Ruffle Flash Player Emulator</h1>
+  
+  <a href="https://ruffle.rs/" target="_blank" rel="noopener">ruffle.rs</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251128111012/https://ruffle.rs/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Wish you could still install the Flash Player and load the `.swf` files embedded in websites the way you used to? You can! Install Ruffle and your browser can play Flash content on websites again!
+
+<blockquote class="link-card">
+  
+  <h1>Flashpoint Archive</h1>
+  
+  <a href="https://flashpointarchive.org/downloads" target="_blank" rel="noopener">flashpointarchive.org/downloads</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251124161918/https://flashpointarchive.org/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+If your favorite Flash game's site isn't around to host it anymore, the Flashpoint Archive might have it. It captures a local Flash player inside a proxy of the requisite snapshot of the old internet so the `.swf`s run locally. You can download that stack and download games on-demand... or you can play all the old games fully offline by downloading the whole archive which was ~2.2 **terabytes** at the time this was written.

@@ -1,0 +1,7 @@
+# openwrt
+
+> Tag: openwrt
+
+## Posts
+
+- [The Incidental Router](https://blog.cani.ne.jp/2026/06/20/incidental-router.md): Porting a DD-WRT iptables isolation setup to OpenWrt's fw4/nftables - and discovering that re-implementing on a foreign stack is the only honest test of which parts were the network and which were just the router.
