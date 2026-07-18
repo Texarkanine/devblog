@@ -167,7 +167,7 @@ llms:
   markdown: true
   llms_full: true
   categories: true
-  collection_indexes: true
+  collections: true
   include:
     - posts
     - pages
