@@ -725,7 +725,7 @@ Some wisdom is visibly absorbed into the harness and some wisdom is invisibly ab
 
 The *pièce de résistance* of subsumption is [Boris Cherny](https://x.com/bcherny), creator of Claude Code and his "[vanilla Claude Code](https://x.com/bcherny/status/2007179832300581177)" setup. Despite the absence of significant third-party addons, Boris is unarguably a power user and the "vanilla" setup is more-complex than most other Claude Code users out there! If you read through it, you'll see a lot of echoes of all the techniques described above, just, solved with "vanilla" Claude Code!
 
-The practical upshot, stated directly: unless you're on the bleeding edge and could write [an essay](/tags/llm-context-management/) on *why* a given behavior exists and how to do it better, off-the-shelf is beyond good enough and trying to optimize it yourself is time you could spend building the thing instead.
+The practical upshot, stated directly: unless you're on the bleeding edge and could write [an essay](/tags/context-engineering/) on *why* a given behavior exists and how to do it better, off-the-shelf is beyond good enough and trying to optimize it yourself is time you could spend building the thing instead.
 
 ## We am Become Wiggum
 

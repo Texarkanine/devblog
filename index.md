@@ -4,6 +4,10 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>pages<ul><li>
           
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
           <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
           
         </li><li>
@@ -37,10 +41,6 @@ Timeless treasures and curios collected from the internet and presented for your
         </li><li>
           
           <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
-          
-        </li><li>
-          
-          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
           
         </li><li><a href="/garden/">explore the garden...</a></li></ul></li><li><a href="/garden/tags/">all garden tags</a></li><li><a href="/garden/what-is-a-digital-garden.html">what is a digital garden?</a></li></ul>
 

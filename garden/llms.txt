@@ -6,6 +6,7 @@
 
 - [Play Classic Computer Games from the 1900s](https://blog.cani.ne.jp/garden/1900s-computer-gaming.md): Play classic DOS and Flash games from the 1900s in your browser: abandonware archives, retro gaming portals, and playable emulators.
 - [A History of the 'ls' command](https://blog.cani.ne.jp/garden/a-history-of-the-ls-command.md): Who wrote ls? Tracing the directory listing command from MIT's Compatible Time-Sharing System through Unix to GNU coreutils.
+- [Horses](https://blog.cani.ne.jp/garden/ai-horses.md): What's a harness in the world of AI, and how is it different from a model or an agent? Think breeds, tack, and the horse you actually ride.
 - [Browse The Vintage, Early Internet](https://blog.cani.ne.jp/garden/browse-the-early-internet.md): A curated collection of links to browse the vintage web: GeoCities archives, Neocities, the Web Design Museum, and retro search engines.
 - [Do LLMs Understand "For Each"?](https://blog.cani.ne.jp/garden/do-llms-understand-for-each.md): What happens when you ask a language model to process a list of items? Research on instruction adherence, attention mechanics, and the generation boundary.
 - [Websites for Making .ico Files](https://blog.cani.ne.jp/garden/favicon-websites.md): Free online tools for creating favicons and .ico files, from multi-platform generators to pixel-art icon editors.

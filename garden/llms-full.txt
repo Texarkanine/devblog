@@ -510,6 +510,249 @@ So, **yes:** Don Widrig *is* the person who deserves credit for the short naming
 
 [^12]: "Genesis: 1969–1971" *Origins and History of Unix, 1969-1995*, <http://www.catb.org/esr/writings/taoup/html/ch02s01.html>. ([archive](https://web.archive.org/web/20251012111631/http://www.catb.org/esr/writings/taoup/html/ch02s01.html))
 
+## Horses
+
+<blockquote class="link-card">
+  
+  <h1>Horses</h1>
+  
+  <a href="https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">andyljones.com/posts/horses.html</a>
+  
+</blockquote>
+
+
+
+
+> ... between 1930 and 1950, 90% of the horses in the US disappeared.
+>
+> Progress in engines was steady. Equivalence to horses was sudden.
+
+---
+
+But enough about Horses. Let's talk about Agentic Harnesses!
+
+What is a **harness**? I'm deep in the weeds and have a functionally-predictive mental model of what an "agentic coding harness" is.
+Functionally-predictive in that I can use my understanding and mental model to get what I want out of thing.
+
+Maybe you're not quite sure what a "harness" is - at least, not compared to a `model` and an `agent` and does `llm` fit in there anywhere? Which of that is `AI`?
+
+There are plenty of illustrations out there, for example:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="agentic-harness_sujingshen.jpg">
+      <img src="agentic-harness_sujingshen.jpg" alt="Agentic Coding Harness" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Agentic Coding Harness</div>
+    <div class="polaroid-link">
+      
+      <a href="https://x.com/sujingshen/status/2074514861829353538" target="_blank" rel="noopener">x.com/sujingshen/status/2074514861829353538</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Okay, I'd grant that's directionally not wrong, but is it helpful to you? Can you **do** anything new with the knowledge gained from the graphic?
+
+Let's revisit a longtime work**horse** of the world - the horse - who, though perhaps long-since equivalent'd, may still be able to help us understand the emerging world of AI.
+
+In other words, enough about agentic harnesses. Let's talk about horses.
+
+## Horses
+
+There are many kinds of horses.
+
+* [**Draft** horses](https://en.wikipedia.org/wiki/Draft_horse) are giants that can pull heavy loads with great force.
+* [**Thoroughbred** horses](https://en.wikipedia.org/wiki/Thoroughbred) are lean and fast, bred to race and break records.
+* [**Quarter** horses](https://en.wikipedia.org/wiki/Quarter_horse) are fast, too, but over small distances and they're agile. Often used in ranch work.
+* [**Mini** horses](https://en.wikipedia.org/wiki/Miniature_horse) are tiny and cute, but not really ride-able.
+
+And there are [many, many other kinds of horse](https://commons.wikimedia.org/wiki/Horse_breeds).
+
+A mini horse will struggle to pull a plow across your fields.
+
+A full-sized thoroughbred horse will struggle to visit children in a hospital [the way a mini horse can](https://www.stampedeoflove.org/).
+
+And a draft horse isn't going to win the Kentucky Derby.
+
+They're all horses, but they're all different breeds that excel (or struggle) at different things.
+
+### Tack
+
+In almost all cases, a horse can't *do* any of the things humans want it to, without some degree of equipment - [tack](https://en.wikipedia.org/wiki/Horse_tack).
+
+Want to ride a horse? Probably need to put a saddle on it.
+
+Want it to plow a field? You'll need a [harness](https://en.wikipedia.org/wiki/Horse_harness) to attach the horse *to* the plow so it can pull it and you can steer.
+
+Want to win a race? You'll still need a saddle, but it's going to be a very different kind of saddle than the cowboy's using to lasso a cow.
+
+And if you just want to walk your mini horse around town, you'll still need, at least, some kind of [halter](https://en.wikipedia.org/wiki/Halter) on its head so you can do that.
+
+There are all *kinds* of things you can strap to a horse for different tasks - from horse-drawn carriages to saddlebags, even [machine guns](https://www.reddit.com/r/wwi/comments/rrl2in/horse_with_a_machine_gun_during_ww1_german_army/).
+
+The pattern is clear:
+
+> Yeah, the horse itself might be "good at" or "bred for" a particular task, but it can't do it without the right supporting equipment.
+
+### Multi-Purpose Horses
+
+Many horses are multi-purpose animals. That draft horse that you harnessed to a plow for a day? You can probably ride him into town on a regular saddle tomorrow if you need.
+
+The quarter-horse that herds cattle by day? It'll walk in a parade with a halter, sure thing.
+
+Today, the mini-horse is a cute pet. Tomorrow, it's dressed as a unicorn in that same parade with the quarter-horse - horn, glitter, and all!
+
+The horse may be "good at" or "bred for" a particular task, but with some exceptions they're not generally truly single-purpose animals. Tack them up appropriately and put them in the hands of the right equestrian, and horses can do *all kinds* of tasks for you.
+
+Now, let's talk about AI again.
+
+---
+
+| AI | Horse |
+| ---- | ---- |
+| Model | Breed |
+| Harness | Tack |
+| Agent | A horse tacked up for a particular task |
+| You | Equestrian |
+
+Claude Haiku is maybe a mini horse. Claude Opus is maybe a Draft horse.
+
+When you launch Claude Code, you're beginning to tack up a Claude-Horse for a particular task.
+
+If you launch Claude Code and ask Haiku-Horse to rebuild Facebook, it's not gonna happen. The mini-horse agent cannot plow the whole farm.
+But if you have sufficient tokens, ol' Fable-Horse with Max effort just might.
+
+They're both horses. You tacked them up for a task... but one horse wasn't up to it. Your fault for picking the wrong horse!
+
+Similarly, when you launch Claude Code and Cursor and pick the *same* Claude model, you've got the same horse but now you're putting a different set of tack on it. Very similar tack, to be sure, but not identical.
+
+Claude Opus in Cursor, versus Claude Opus in Claude Code *are* going to behave slightly differently.
+
+Just like how if you took the same horse but tried two different saddles on it and then went for two rides, you'd get two different experiences. They'd both be horseback rides, to be sure - but not identical.
+
+## Agents
+
+Just like how horses are multi-purpose, Models are, too, and so can an Agent be.
+
+You put a saddle and a halter on a quarter horse, and you can lead it around town, herd cattle, go for a run, and even go to war on it. Same horse. Same tack. Same *agent*. Equipped in a way that it can bring its natural abilities to bear on a variety of useful tasks... and then *actually directed to do a specific task*.
+
+Claude Code and Cursor give you the tack for *coding agents* - models harnessed to be good at building software for you. [Suno](https://suno.com) harnesses a model to be good at making songs. [Midjourney](https://www.midjourney.com) equips a model to be good at making images.
+
+Underneath *some* of those use-cases, you may even find the *same* - or at least a very similar - model. But on top of the model is a drastically different harness that equips it for a drastically different task. And then of course, *you* come along and ask it to do that task.
+
+## Equestrians
+
+So you bought a horse that can do a task, great! You back its trailer up to your pasture full of cows, open it, and...
+
+Nothing happens. No cows are herded.
+
+Well of course! It's not enough to just have (access to) the horse. *You* are the equestrian: hop on the horse and steer it towards the cowherding tasks!
+
+Okay, so you hop on and... you fall off almost immediately.
+
+Well of course! There was no saddle. It's not enough to have the tack in your barn, you have to actually attach it to the horse!
+
+Okay, so you throw a saddle on the horse, climb back on, and...
+
+You and the saddle fall off the horse.
+
+Well of course! It's not enough to just have some tack and throw it on the horse; you have to *properly attach* it to the horse!
+
+Okay, so you saddle the horse up properly this time, climb back on, give it a kick and...
+
+You get out to field, ready to rope a cow! Hey, it's working! You throw your lasso, land it around the cow's neck, and...
+
+Oh! There's nowhere to attach the lasso. You see, you've put an [English Saddle](https://en.wikipedia.org/wiki/English_saddle) on the horse, not a [Western Saddle](https://en.wikipedia.org/wiki/Western_saddle). It's not enough even to attach your tack properly, you must also be attaching the *correct* tack for the job you're trying to do!
+
+Okay so you swap the saddle for a Western one, it is attached properly, you climb back on, ride out into the field, throw your lasso, land it on a cow, and...
+
+Oh! You have absolutely no idea how to wrangle a cow on horseback. You've never done it before. You didn't take any lessons or read any instructions.
+
+But, now you're *ready* to learn!
+
+## Metaphorical Equivalence
+
+You see, it's not enough to merely have access to AI Models (a horse).
+
+You must harness them up with something like Claude Code, Cursor, Midjourney, etc (a saddle and bridle).
+
+But it's not enough to just launch a harness and go - you must ensure it's the right harness for the job you're trying to do (the western saddle, specifically).
+
+And even then, it's not enough to have all the right tools - you must also know how to use them and all their features - how to prompt, which Skills to use, which Tools to install, etc. (go learn horsemanship).
+
+That's [context engineering](/tags/context-engineering/) and it is [your new job in this new world](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html).
+
+The people who make those saddles (harnesses around agents) for you to look at and buy and put in your barn? They're doing [harness engineering](/tags/harness-engineering/).
+
+But enough about horses. Let's talk about demons.
+
+## Demons
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="the-invocation-of-mephistopheles_john-augustus-knapp.png">
+      <img src="the-invocation-of-mephistopheles_john-augustus-knapp.png" alt="The Invocation of Mephistopheles by John Augustus Knapp" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">The Invocation of Mephistopheles by John Augustus Knapp</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Maybe you're not so much a fan of Westerns. Maybe you're more of a fan of the horror or supernatural genres. In that case, a scene like the above ought to be quite **familiar**!
+
+The sorcerer stands in his magic circle, performing some kind of ritual to summon a demon into *its* circle... after which the spirit will be compelled to do *something* for the sorcerer. To complete some task, and eventually be banished when done.
+
+| AI | Demonology |
+| ---- | ---- |
+| Model | Demonic Energy in the Beyond |
+| Harness | Summoning Circle |
+| Agent | A demonic entity summoned into the circle |
+| You | Sorcerer |
+
+And with AI just as with demons, it's very important that you select the correct summoning circle (harness), summon a compatible demon (model) into it, and give it the right incantation and instructions (prompts and context) so that it will actually do what you want.
+
+This crossover's been done literally, and it works:
+
+<blockquote class="link-card">
+  
+  <h1>Cantrip: On summoning entities from language in circles</h1>
+  
+  <a href="https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">www.deepfates.com/cantrip</a>
+  
+</blockquote>
+
+
+
+
+> This is a starter spellbook. It describes a method for creating spells using the tools of modern summoning: a language model, a computer, and a prompt. It’s language loops all the way down.
+> <br>...<br>
+> Putting language in a loop makes it come alive. You say words, the words change the room, the room changes you, you say different words. We call it chanting, and it is one of the oldest tools of magic.
+> <br><br>
+> An agent is the same shape. The model predicts a token; put it in a loop with an environment, and something emerges that wasn't in the instructions.
+
+---
+
+## Mentally Modelled
+
+Hope that helped!
+
 ## Browse The Vintage, Early Internet
 
 ## Website Galleries
