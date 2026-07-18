@@ -374,3 +374,17 @@ Example GitHub Actions step:
 ```
 
 If SavePageNow doesn’t return a snapshot URL (e.g., queued or rate-limited), the card still renders normally but the `(archive)` line is omitted - no build failure occurs.
+
+---
+
+## 20_llms_scope_builders.rb
+
+Registers [`jekyll-llms`](https://github.com/Texarkanine/jekyll-llms) scope builders so LLM indexes land beside author and tag archives:
+
+| Scope | Path | Source |
+|-------|------|--------|
+| Post tags | `/tags/:name/llms.txt` (+ `llms-full.txt` when enabled) | `site.tags` |
+| Garden tags | `/garden/tags/:name/…` | `site.garden_tags` |
+| Authors | `/authors/:author/…` | post `author` front matter ∩ root EntrySet |
+
+Membership is always a subset of the root `jekyll-llms` entry list (include/exclude/`llms: false`). Paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present.

@@ -26,9 +26,6 @@ permalink: /:year/:month/:day/:title:output_ext
 
 # Collections
 collections:
-  pages:
-    output: true
-    permalink: /:path/
   garden:
     output: true
     permalink: /garden/:path:output_ext
