@@ -8,7 +8,7 @@ harness-engineering: >-
   AI coding agents to do reliable autonomous work — repository structure,
   context architecture, review workflows, and agent tooling.
 
-llm-context-management: >-
+context-engineering: >-
   Controlling what information is made available to large language models
   at invocation time — rules files, system prompts, repository knowledge,
   and the architecture of what enters (and stays out of) the context window.

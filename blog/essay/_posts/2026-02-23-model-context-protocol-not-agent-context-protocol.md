@@ -7,7 +7,7 @@ tags:
   - ai
   - harness-engineering
   - mcp
-  - llm-context-management
+  - context-engineering
 ---
 
 ## Thesis
