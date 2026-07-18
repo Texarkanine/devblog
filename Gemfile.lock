@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/Texarkanine/jekyll-llms.git
+  revision: bae772967f2451baa6e534b9b4e1b1127394e99b
+  branch: cats-and-colls-polish
+  specs:
+    jekyll-llms (0.2.0)
+      jekyll (>= 4.0, < 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -188,6 +196,7 @@ DEPENDENCIES
   jekyll-auto-thumbnails (~> 2.0)
   jekyll-feed
   jekyll-highlight-cards (~> 1.0)
+  jekyll-llms!
   jekyll-loading-lazy
   jekyll-mermaid-prebuild (~> 0.5)
   jekyll-paginate-v2
