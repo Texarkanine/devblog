@@ -96,7 +96,7 @@ autopages:
   tags:
     enabled: false
   categories:
-    enabled: true
+    enabled: false
     layouts:
       - 'cat-archive.html'
   collections:
@@ -162,3 +162,24 @@ href_decorator:
 # jekyll-paginate-v2 (required for jekyll-auto-authors)
 pagination:
   enabled: false
+
+llms:
+  markdown: true
+  llms_full: true
+  categories: true
+  collection_indexes: true
+  include:
+    - posts
+    - pages
+    - garden
+  exclude:
+    - /*.xml # sitemap, feed - these already list all content
+    - /assets/**/*
+    - /authors/**/*
+    - /categories/**/*
+    - /error/**/*
+    - /garden/how-i-learned-to-stop-worrying-and-love-the-machine.html # a redirect
+    - /garden/tags/**/*
+    - /redirects.json
+    - /tags/**/*
+    - robots.txt
