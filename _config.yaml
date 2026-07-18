@@ -96,7 +96,7 @@ autopages:
   tags:
     enabled: false
   categories:
-    enabled: true
+    enabled: false
     layouts:
       - 'cat-archive.html'
   collections:
@@ -173,9 +173,13 @@ llms:
     - pages
     - garden
   exclude:
-    - /assets/**/*
-    - /redirects.json
-    - /garden/how-i-learned-to-stop-worrying-and-love-the-machine.html # a redirect
     - /*.xml # sitemap, feed - these already list all content
+    - /assets/**/*
+    - /authors/**/*
+    - /categories/**/*
     - /error/**/*
+    - /garden/how-i-learned-to-stop-worrying-and-love-the-machine.html # a redirect
+    - /garden/tags/**/*
+    - /redirects.json
+    - /tags/**/*
     - robots.txt
