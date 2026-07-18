@@ -8,7 +8,7 @@ tags:
   - ai
   - harness-engineering
   - claude-code
-  - llm-context-management
+  - context-engineering
 ---
 
 ## Thesis

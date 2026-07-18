@@ -9,7 +9,7 @@ tags:
   - ai
   - cursor
   - harness-engineering
-  - llm-context-management
+  - context-engineering
   - management
   - niko
   - productivity

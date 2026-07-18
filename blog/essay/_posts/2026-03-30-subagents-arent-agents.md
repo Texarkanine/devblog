@@ -6,7 +6,7 @@ author: texarkanine
 tags:
   - ai-agents
   - harness-engineering
-  - llm-context-management
+  - context-engineering
   - sub-agents
 ---
 
