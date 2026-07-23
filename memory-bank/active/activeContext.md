@@ -1,11 +1,18 @@
 # Active Context
 
 ## Current Task: block-chrome142-bot-ua
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - IN-PROGRESS (blocked on operator input)
 
 ## What Was Done
-- Intent clarified and approved: block Chrome/142.0.0.0 UA via nginx map+403; optionally enrich JSON logs with Sec-CH-UA, Sec-Fetch-Site, Accept-Language, Accept-Encoding; draft PR after REFLECT
-- Complexity determined: Level 2 — small self-contained enhancement to `nginx-proxy` (same surface as prior `$block_spoofed_xff` work)
+- Intent approved; Level 2 classified
+- Surveyed `nginx-proxy/`: map lives in `nginx.conf.template`; deny `if`s live in `proxy.conf.template` (same locations as `$block_spoofed_xff`); `/health` is exempt
+- Drafted implementation + TDD behavior list
+- Found **no** automated test infrastructure for nginx-proxy (prior art was manual + `nginx -t`)
+
+## Decisions Needed From Operator
+1. How to verify without inventing a new test stack (manual curl/`nginx -t` only, like `nginx-xff-anchor`, vs add a small test harness)?
+2. Match **full** botnet UA string (safer) vs bare `Chrome/142.0.0.0` (Claude’s snippet; higher false-positive risk if 142 is real Chrome)?
+3. Deny with **403** (brief) or **400** (match existing XFF block)?
 
 ## Next Step
-- Load Level 2 workflow and begin PLAN phase
+- Await operator answers; then finish PLAN → preflight
