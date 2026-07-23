@@ -57,6 +57,7 @@ http {
     keepalive_requests 100;
     # Reduced hash size for small RAM instance
     types_hash_max_size 512;
+    map_hash_bucket_size 128;
     # Disable server tokens: Hides nginx version in Server header
     # Security: Reduces information disclosure (version not in headers)
     # Performance: Slightly smaller response headers (~10-15 bytes saved)
