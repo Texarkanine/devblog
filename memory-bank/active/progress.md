@@ -26,3 +26,14 @@ Block botnet traffic fingerprinting as `Chrome/142.0.0.0` at the nginx reverse p
 * Insights
     - No automated test suite exists for nginx-proxy; TDD rule requires operator direction before build
     - Matching only `Chrome/142.0.0.0` may false-positive real Chrome users in 2026
+
+## 2026-07-23 - PLAN - COMPLETE
+
+* Work completed
+    - Resolved blocking questions; finalized implementation plan
+* Decisions made
+    - No automated tests — eyeball verification only
+    - Exact full UA string match (not regex / not Chrome version token alone)
+    - UA deny returns 403 (XFF spoof remains 400)
+* Insights
+    - Exact map key match in nginx `map` avoids regex and substring false positives
