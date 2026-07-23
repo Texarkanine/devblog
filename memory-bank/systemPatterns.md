@@ -11,3 +11,7 @@ The site is a Jekyll static site. Content lives in `blog/<collection>/_posts/` (
 ## Pattern: Theme and config
 
 `_config.yaml` drives `remote_theme`, `theme_config`, permalinks, and plugins. Site-wide behavior (e.g. anchor icon, date format) is a good fit for `_config.yaml` or `theme_config` plus a small plugin or include that respects it.
+
+## Pattern: nginx-proxy request filters
+
+Traffic hits `nginx-proxy/` (Docker reverse proxy on DigitalOcean App Platform) before the static site. Request filters are `map` variables in `nginx.conf.template` (e.g. `$block_spoofed_xff`, `$block_stale_chrome`) wired as narrow `if (…) { return …; }` in proxied locations in `proxy.conf.template`. `/health` stays exempt. Access logs are JSON (`log_format json_combined`) for OpenSearch.

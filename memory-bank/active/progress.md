@@ -68,3 +68,13 @@ Block botnet traffic fingerprinting as `Chrome/142.0.0.0` at the nginx reverse p
     - No code changes required in QA
 * Insights
     - Implementation is a natural extension of the existing `$block_spoofed_xff` pattern
+
+## 2026-07-23 - REFLECT - COMPLETE
+
+* Work completed
+    - Reflection written to `reflection/reflection-block-chrome142-bot-ua.md`
+    - Updated `systemPatterns.md` with nginx-proxy request filter pattern
+* Decisions made
+    - Leave productContext/techContext unchanged
+* Insights
+    - Exact UA map keys preferred over version-token regex for bot fingerprints
