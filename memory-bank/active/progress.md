@@ -58,3 +58,13 @@ Block botnet traffic fingerprinting as `Chrome/142.0.0.0` at the nginx reverse p
     - Kept XFF spoof block at 400; UA block at 403
 * Insights
     - Local Docker not available for `nginx -t`; entrypoint still runs `nginx -t` on deploy
+
+## 2026-07-23 - QA - COMPLETE
+
+* Work completed
+    - Semantic review of nginx changes vs brief and plan
+    - Wrote `.qa-validation-status` = PASS
+* Decisions made
+    - No code changes required in QA
+* Insights
+    - Implementation is a natural extension of the existing `$block_spoofed_xff` pattern
