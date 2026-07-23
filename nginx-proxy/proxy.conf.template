@@ -26,9 +26,6 @@ server {
         if ($block_spoofed_xff) {
             return 400;
         }
-        if ($block_stale_chrome) {
-            return 403;
-        }
 
         proxy_pass https://backend_static${UPSTREAM_PATH_2}$uri;
         include /etc/nginx/proxy-params.conf;
