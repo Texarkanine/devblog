@@ -29,6 +29,10 @@ http {
         '"http_referer":"$http_referer",'
         '"http_user_agent":"$http_user_agent",'
         '"http_x_forwarded_for":"$http_x_forwarded_for",'
+        '"http_sec_ch_ua":"$http_sec_ch_ua",'
+        '"http_sec_fetch_site":"$http_sec_fetch_site",'
+        '"http_accept_language":"$http_accept_language",'
+        '"http_accept_encoding":"$http_accept_encoding",'
         '"upstream_addr":"$upstream_addr",'
         '"upstream_status":"$upstream_status",'
         '"upstream_response_time":"$upstream_response_time",'
@@ -80,6 +84,12 @@ http {
         "~*(?:^|,\s*)127\.0\.0\.1(?:,|$)" 1;
         "~*(?:^|,\s*)localhost(?:,|$)" 1;
         "~*(?:^|,\s*)::1(?:,|$)" 1;
+    }
+
+    # Some botnet's exact UA
+    map $http_user_agent $block_stale_chrome {
+        default 0;
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" 1;
     }
 
     include /etc/nginx/conf.d/*.conf;
