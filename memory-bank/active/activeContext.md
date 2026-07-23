@@ -1,14 +1,12 @@
 # Active Context
 
 ## Current Task: block-chrome142-bot-ua
-**Phase:** PLAN - COMPLETE
+**Phase:** PREFLIGHT - COMPLETE
 
 ## What Was Done
-- Operator decisions recorded:
-  - Verification: eyeball only (no new tests)
-  - Match: exact full botnet UA string
-  - Status code: 403
-- Plan finalized in `tasks.md`
+- Preflight PASS
+- Amended plan: eyeball-first TDD ordering per implementation unit
+- Advisories noted (OpenSearch dynamic fields; future UA denylist out of scope)
 
 ## Next Step
-- Preflight validation
+- Build phase

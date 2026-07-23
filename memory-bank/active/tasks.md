@@ -26,18 +26,25 @@ Add a targeted nginx map+deny for the observed botnet User-Agent fingerprint, an
 
 ## Implementation Plan
 
-1. Add exact-UA block map next to `$block_spoofed_xff`
+Operator waived automated tests — each unit uses eyeball assertion → implement → re-eyeball (TDD ordering with manual verification).
+
+1. Exact-UA block map
+   - Eyeball first: assert map will use plain (non-`~`) key equal to the full botnet UA; `$block_stale_chrome` default `0`
    - Files: `nginx-proxy/nginx.conf.template`
-   - Changes: `map $http_user_agent $block_stale_chrome { default 0; "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" 1; }` (exact string match, not regex)
-2. Wire 403 deny into proxied locations (same places as `$block_spoofed_xff`)
+   - Implement: `map $http_user_agent $block_stale_chrome { default 0; "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" 1; }` next to `$block_spoofed_xff`
+   - Re-eyeball: string is exact; no regex; map name consistent
+2. Wire 403 deny into proxied locations
+   - Eyeball first: three locations already have `if ($block_spoofed_xff)` (site-2 `.php`, site-2 `/`, default `/`); `/health` must stay exempt
    - Files: `nginx-proxy/proxy.conf.template`
-   - Changes: in each location that already has `if ($block_spoofed_xff)`, add `if ($block_stale_chrome) { return 403; }`. Do **not** add to `/health`.
+   - Implement: add `if ($block_stale_chrome) { return 403; }` in each of those three locations only
+   - Re-eyeball: 403 (not 400); health untouched; all three sites covered
 3. Enrich JSON log format
+   - Eyeball first: `log_format json_combined` ends before `app` field; new keys must be valid JSON and use nginx `$http_*` vars (not envsubst placeholders)
    - Files: `nginx-proxy/nginx.conf.template`
-   - Changes: append `"http_sec_ch_ua":"$http_sec_ch_ua"`, `"http_sec_fetch_site":"$http_sec_fetch_site"`, `"http_accept_language":"$http_accept_language"`, `"http_accept_encoding":"$http_accept_encoding"` to `log_format json_combined`
-4. Eyeball verification
-   - Files: n/a
-   - Changes: review diff; rely on entrypoint `nginx -t` at deploy/start
+   - Implement: append `"http_sec_ch_ua":"$http_sec_ch_ua"`, `"http_sec_fetch_site":"$http_sec_fetch_site"`, `"http_accept_language":"$http_accept_language"`, `"http_accept_encoding":"$http_accept_encoding"`
+   - Re-eyeball: commas/braces intact; `envsubst` still only substitutes `${APP_NAME}`
+4. Final eyeball + config syntax
+   - Review full diff against behaviors list; rely on entrypoint `nginx -t` at container start/deploy
 5. Draft PR after REFLECT (process step, not build)
 
 ## Technology Validation
@@ -56,12 +63,20 @@ No new technology - validation not required
 - **nginx `if` is evil**: Keep the same narrow `if (…) { return …; }` pattern already used for `$block_spoofed_xff`.
 - **No automated tests**: Operator accepted eyeball-only verification.
 
+## Preflight Findings
+
+- PASS: conventions match existing `$block_spoofed_xff` map + location `if` pattern
+- PASS: TDD ordering encoded per unit via eyeball-first (operator waived automated tests)
+- PASS: all brief requirements mapped to concrete steps
+- ADVISORY: OpenSearch index mapping may treat new log fields as dynamic — additive and safe; if ingest pipeline uses a strict schema, may need a follow-up outside this task
+- ADVISORY (out of scope): a reusable UA denylist file would help if more bots appear; not changing plan (scope creep)
+
 ## Status
 
 - [x] Initialization complete
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
 - [x] Technology validation complete
-- [ ] Preflight
+- [x] Preflight
 - [ ] Build
 - [ ] QA

@@ -37,3 +37,14 @@ Block botnet traffic fingerprinting as `Chrome/142.0.0.0` at the nginx reverse p
     - UA deny returns 403 (XFF spoof remains 400)
 * Insights
     - Exact map key match in nginx `map` avoids regex and substring false positives
+
+## 2026-07-23 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Validated plan against `nginx-proxy` reality and `$block_spoofed_xff` prior art
+    - Amended implementation steps with per-unit eyeball-first ordering
+    - Wrote `.preflight-status` = PASS
+* Decisions made
+    - Proceed to build with exact UA map + 403 + four log fields
+* Insights
+    - `envsubst` on `nginx.conf.template` only expands `${APP_NAME}` — new `$http_*` log vars are safe
