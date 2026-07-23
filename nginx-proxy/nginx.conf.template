@@ -39,7 +39,11 @@ http {
         '"server_protocol":"$server_protocol",'
         '"content_type":"$sent_http_content_type",'
         '"host":"$host",'
-        '"app":"${APP_NAME}"'
+        '"app":"${APP_NAME}",'
+        '"http_sec_ch_ua":"$http_sec_ch_ua",'
+        '"http_sec_fetch_site":"$http_sec_fetch_site",'
+        '"http_accept_language":"$http_accept_language",'
+        '"http_accept_encoding":"$http_accept_encoding"'
     '}';
 
     # Log to stdout for DigitalOcean to capture
@@ -80,6 +84,12 @@ http {
         "~*(?:^|,\s*)127\.0\.0\.1(?:,|$)" 1;
         "~*(?:^|,\s*)localhost(?:,|$)" 1;
         "~*(?:^|,\s*)::1(?:,|$)" 1;
+    }
+
+    # Exact botnet UA fingerprint (Chrome/142.0.0.0 Mac spam)
+    map $http_user_agent $block_stale_chrome {
+        default 0;
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" 1;
     }
 
     include /etc/nginx/conf.d/*.conf;

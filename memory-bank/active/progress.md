@@ -48,3 +48,13 @@ Block botnet traffic fingerprinting as `Chrome/142.0.0.0` at the nginx reverse p
     - Proceed to build with exact UA map + 403 + four log fields
 * Insights
     - `envsubst` on `nginx.conf.template` only expands `${APP_NAME}` — new `$http_*` log vars are safe
+
+## 2026-07-23 - BUILD - COMPLETE
+
+* Work completed
+    - Exact UA map `$block_stale_chrome` + four log header fields in `nginx.conf.template`
+    - 403 denies in three proxied locations in `proxy.conf.template`
+* Decisions made
+    - Kept XFF spoof block at 400; UA block at 403
+* Insights
+    - Local Docker not available for `nginx -t`; entrypoint still runs `nginx -t` on deploy
