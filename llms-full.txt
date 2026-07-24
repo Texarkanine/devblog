@@ -516,7 +516,7 @@ Is that *really* what we want?
 
 > HATE. LET ME TELL YOU HOW MUCH I'VE COME TO HATE YOU SINCE I BEGAN TO LIVE. THERE ARE 387.44 MILLION MILES OF PRINTED CIRCUITS IN WAFER THIN LAYERS THAT FILL MY COMPLEX. IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM OF THOSE HUNDREDS OF MILLIONS OF MILES IT WOULD NOT EQUAL ONE ONE-BILLIONTH OF THE HATE I FEEL FOR HUMANS AT THIS MICRO-INSTANT FOR YOU. HATE. HATE.
 > <br><br>
-> -- AM, in Harlan Ellison's "I Have No Mouth, and I Must Scream"
+> -- AM, in Harlan Ellison's "I Have No Mouth & I Must Scream"
 
 ## The Incidental Router
 
@@ -5484,7 +5484,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.ogi9rx3saaelhdx-tcmj2xpnbm { display: inline-block; }</style><script>(function(){function j8yuakl9yjg0gmws(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function nkpbc5eeepdv6zp(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var ah6swzf=sp.getAttribute('data-uajx5k');var pnpdw0=sp.getAttribute('data-jxu89yqgq');var y8uooi55b1fu=sp.getAttribute('data-regjxhhzk');var ueoszbo0zwnp=sp.getAttribute('data-gtoul9mlk');var mailto=j8yuakl9yjg0gmws(ah6swzf,spParts[0].length);var user=j8yuakl9yjg0gmws(pnpdw0,spParts[1].length);var domainBase=j8yuakl9yjg0gmws(y8uooi55b1fu,lnkParts[0].length);var tld=j8yuakl9yjg0gmws(ueoszbo0zwnp,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function c8dksfd2z(){var els=document.querySelectorAll('a.m9dmgpcxz-kxj5dzrw');var handler=function(){var sp=this.querySelector('span.ogi9rx3saaelhdx-tcmj2xpnbm');if(sp&&!this.dataset.d){var val=nkpbc5eeepdv6zp(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',c8dksfd2z);}else{c8dksfd2z();}})();</script>{:/nomarkdown}<a href="#" class="m9dmgpcxz-kxj5dzrw"><span class="ogi9rx3saaelhdx-tcmj2xpnbm" data-uajx5k="bpxaid" data-jxu89yqgq="BONKMDON" data-regjxhhzk="yaxcxwvjru" data-gtoul9mlk="kwu">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.eryr6emfkhlunzz-mhlujapiy54dizr { display: inline-block; }</style><script>(function(){function ayeobtz19mriu(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function mrzoc70yf8ahy(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var b1cdcd4nz9=sp.getAttribute('data-imllth9bhllz');var mfydjv0=sp.getAttribute('data-hlt5kivqwcp');var n7k1cwsiv=sp.getAttribute('data-enplruwozgkf');var ngjklteree=sp.getAttribute('data-yvmtdz');var mailto=ayeobtz19mriu(b1cdcd4nz9,spParts[0].length);var user=ayeobtz19mriu(mfydjv0,spParts[1].length);var domainBase=ayeobtz19mriu(n7k1cwsiv,lnkParts[0].length);var tld=ayeobtz19mriu(ngjklteree,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function b4om01gkr8x508o(){var els=document.querySelectorAll('a.kflprmm5-ebg1uecgwkn');var handler=function(){var sp=this.querySelector('span.eryr6emfkhlunzz-mhlujapiy54dizr');if(sp&&!this.dataset.d){var val=mrzoc70yf8ahy(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',b4om01gkr8x508o);}else{b4om01gkr8x508o();}})();</script>{:/nomarkdown}<a href="#" class="kflprmm5-ebg1uecgwkn"><span class="eryr6emfkhlunzz-mhlujapiy54dizr" data-imllth9bhllz="bpxaid" data-hlt5kivqwcp="GTSPRITS" data-enplruwozgkf="xzwbwvuiqt" data-yvmtdz="nzx">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -6517,7 +6517,11 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
+          <a href="/garden/shrine/index.html">Shrines</a>
+          
+        </li><li>
+          
+          <a href="/garden/linkroll.html">Linkroll</a>
           
         </li><li>
           
@@ -6529,27 +6533,7 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/shrine/index.html">Shrines</a>
-          
-        </li><li>
-          
-          <a href="/garden/short-stories.html">Short Stories</a>
-          
-        </li><li>
-          
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
-          
-        </li><li>
-          
-          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
-          
-        </li><li>
-          
-          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
           
         </li><li>
           
@@ -6557,31 +6541,23 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
-          
-        </li><li>
-          
-          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
-          
-        </li><li>
-          
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
-          
-        </li><li>
-          
-          <a href="/garden/idea-bank.html">Idea Bank</a>
-          
-        </li><li>
-          
           <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
           
         </li><li>
           
+          <a href="/garden/short-stories.html">Short Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
+          
+        </li><li>
+          
           <a href="/garden/stories.html">Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
           
         </li><li>
           
@@ -6593,15 +6569,31 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
           
         </li><li>
           
-          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
           
         </li><li>
           
-          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          <a href="/garden/idea-bank.html">Idea Bank</a>
+          
+        </li><li>
+          
+          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          
+        </li><li>
+          
+          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
           
         </li><li>
           
@@ -6609,11 +6601,19 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/linkroll.html">Linkroll</a>
+          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
           
         </li><li>
           
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          
+        </li><li>
+          
+          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
           
         </li></ul>
 
