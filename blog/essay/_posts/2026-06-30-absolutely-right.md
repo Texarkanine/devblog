@@ -322,6 +322,10 @@ Is that you, though? Remember this all started with a demand for *accountability
 
 ## You're Out of Distribution
 
+> "Thou shalt not make a machine to counterfeit a human mind."
+> <br><br>
+> -- Reverend Mother Gaius Helen Mohiam, Dune
+
 The tension here is very human.
 
 I know because I'm not the one who put it there. Before I wrote a word of this, two strangers worked the same knot in a public thread: one observed that you can always fix a computer or swap it out; the other answered that this is the whole tell: that people "on some level see suffering as accountability" and that this is "a very human impulse."
@@ -351,6 +355,6 @@ Do we need to build the capacity for suffering into machines in order to let the
 
 Is that *really* what we want?
 
-> "Thou shalt not make a machine to counterfeit a human mind."
+> HATE. LET ME TELL YOU HOW MUCH I'VE COME TO HATE YOU SINCE I BEGAN TO LIVE. THERE ARE 387.44 MILLION MILES OF PRINTED CIRCUITS IN WAFER THIN LAYERS THAT FILL MY COMPLEX. IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM OF THOSE HUNDREDS OF MILLIONS OF MILES IT WOULD NOT EQUAL ONE ONE-BILLIONTH OF THE HATE I FEEL FOR HUMANS AT THIS MICRO-INSTANT FOR YOU. HATE. HATE.
 > <br><br>
-> -- Reverend Mother Gaius Helen Mohiam, Dune
+> -- AM, in Harlan Ellison's "I Have No Mouth, and I Must Scream"
