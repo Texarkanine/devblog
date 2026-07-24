@@ -464,7 +464,9 @@ Is that you, though? Remember this all started with a demand for *accountability
 
 ## You're Out of Distribution
 
-The tension here is very human.
+> "Thou shalt not make a machine to counterfeit a human mind."
+> <br><br>
+> -- Reverend Mother Gaius Helen Mohiam, Dune
 
 The tension here is very human.
 
@@ -510,9 +512,9 @@ Do we need to build the capacity for suffering into machines in order to let the
 
 Is that *really* what we want?
 
-> "Thou shalt not make a machine to counterfeit a human mind."
+> HATE. LET ME TELL YOU HOW MUCH I'VE COME TO HATE YOU SINCE I BEGAN TO LIVE. THERE ARE 387.44 MILLION MILES OF PRINTED CIRCUITS IN WAFER THIN LAYERS THAT FILL MY COMPLEX. IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM OF THOSE HUNDREDS OF MILLIONS OF MILES IT WOULD NOT EQUAL ONE ONE-BILLIONTH OF THE HATE I FEEL FOR HUMANS AT THIS MICRO-INSTANT FOR YOU. HATE. HATE.
 > <br><br>
-> -- Reverend Mother Gaius Helen Mohiam, Dune
+> -- AM, in Harlan Ellison's "I Have No Mouth, and I Must Scream"
 
 ## The Incidental Router
 
@@ -5480,7 +5482,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.flm0vwo-nqztmc { display: inline-block; }</style><script>(function(){function txoclcunycacf(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function adlbsq96ogzve(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var x9jrieudrsv=sp.getAttribute('data-e2n4x0xexsle');var scl4yb=sp.getAttribute('data-jmca2na3');var wpcqvamfe=sp.getAttribute('data-ybnqj18');var k6v5uxobvh=sp.getAttribute('data-nbjhud');var mailto=txoclcunycacf(x9jrieudrsv,spParts[0].length);var user=txoclcunycacf(scl4yb,spParts[1].length);var domainBase=txoclcunycacf(wpcqvamfe,lnkParts[0].length);var tld=txoclcunycacf(k6v5uxobvh,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function skev901g(){var els=document.querySelectorAll('a.fxpfz-mi0t4u1uu');var handler=function(){var sp=this.querySelector('span.flm0vwo-nqztmc');if(sp&&!this.dataset.d){var val=adlbsq96ogzve(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',skev901g);}else{skev901g();}})();</script>{:/nomarkdown}<a href="#" class="fxpfz-mi0t4u1uu"><span class="flm0vwo-nqztmc" data-e2n4x0xexsle="thpsav" data-jmca2na3="XKJGIZKJ" data-ybnqj18="uwtytsrfnq" data-nbjhud="lxv">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.j32w48vcritiyye-szg7woly { display: inline-block; }</style><script>(function(){function etfubk5n620vsn(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function epdnfvns2aauovrr(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var xyz4sqcve=sp.getAttribute('data-mil66u');var ittz8msohla=sp.getAttribute('data-ctj5lkcwb6ve');var lc3wc4=sp.getAttribute('data-nmlrm6jx');var jkntynbhtze=sp.getAttribute('data-qwuryl4gy');var mailto=etfubk5n620vsn(xyz4sqcve,spParts[0].length);var user=etfubk5n620vsn(ittz8msohla,spParts[1].length);var domainBase=etfubk5n620vsn(lc3wc4,lnkParts[0].length);var tld=etfubk5n620vsn(jkntynbhtze,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function i5qjs6gyt(){var els=document.querySelectorAll('a.fe7ywwtsdg1n-pt0dpmf');var handler=function(){var sp=this.querySelector('span.j32w48vcritiyye-szg7woly');if(sp&&!this.dataset.d){var val=epdnfvns2aauovrr(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',i5qjs6gyt);}else{i5qjs6gyt();}})();</script>{:/nomarkdown}<a href="#" class="fe7ywwtsdg1n-pt0dpmf"><span class="j32w48vcritiyye-szg7woly" data-mil66u="bpxaid" data-ctj5lkcwb6ve="ZMLIKBML" data-nmlrm6jx="bdafazymux" data-qwuryl4gy="jvt">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 

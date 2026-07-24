@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-07-23T19:17:31+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">You’re Absolutely Right</title><link href="https://blog.cani.ne.jp/2026/06/30/absolutely-right.html" rel="alternate" type="text/html" title="You’re Absolutely Right" /><published>2026-06-30T00:00:00+00:00</published><updated>2026-06-30T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/06/30/absolutely-right</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/06/30/absolutely-right.html"><![CDATA[<div class="polaroid-container">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-07-24T15:00:10+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">You’re Absolutely Right</title><link href="https://blog.cani.ne.jp/2026/06/30/absolutely-right.html" rel="alternate" type="text/html" title="You’re Absolutely Right" /><published>2026-06-30T00:00:00+00:00</published><updated>2026-06-30T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/06/30/absolutely-right</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/06/30/absolutely-right.html"><![CDATA[<div class="polaroid-container">
   <div class="polaroid">
     <a href="https://github.com/anthropics/claude-code/issues/3382" target="_blank" rel="noopener">
       <img src="absolutely-right-claude-code-github.png" alt="" class="polaroid-image" />
@@ -491,7 +491,11 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 
 <h2 id="youre-out-of-distribution">You’re Out of Distribution</h2>
 
-<p>The tension here is very human.</p>
+<blockquote>
+  <p>“Thou shalt not make a machine to counterfeit a human mind.”
+<br /><br />
+– Reverend Mother Gaius Helen Mohiam, Dune</p>
+</blockquote>
 
 <p>The tension here is very human.</p>
 
@@ -537,9 +541,9 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 <p>Is that <em>really</em> what we want?</p>
 
 <blockquote>
-  <p>“Thou shalt not make a machine to counterfeit a human mind.”
+  <p>HATE. LET ME TELL YOU HOW MUCH I’VE COME TO HATE YOU SINCE I BEGAN TO LIVE. THERE ARE 387.44 MILLION MILES OF PRINTED CIRCUITS IN WAFER THIN LAYERS THAT FILL MY COMPLEX. IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM OF THOSE HUNDREDS OF MILLIONS OF MILES IT WOULD NOT EQUAL ONE ONE-BILLIONTH OF THE HATE I FEEL FOR HUMANS AT THIS MICRO-INSTANT FOR YOU. HATE. HATE.
 <br /><br />
-– Reverend Mother Gaius Helen Mohiam, Dune</p>
+– AM, in Harlan Ellison’s “I Have No Mouth, and I Must Scream”</p>
 </blockquote>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="accountability" /><category term="ai" /><category term="ethics" /><category term="philosophy" /><category term="sycophancy" /><summary type="html"><![CDATA[The 'You're absolutely right!' meme is about sycophancy, but the deeper itch is accountability - models can course-correct instantly and without suffering, but humans keep reaching for punishment anyway.]]></summary></entry><entry><title type="html">The Incidental Router</title><link href="https://blog.cani.ne.jp/2026/06/20/incidental-router.html" rel="alternate" type="text/html" title="The Incidental Router" /><published>2026-06-20T00:00:00+00:00</published><updated>2026-06-20T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/06/20/incidental-router</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/06/20/incidental-router.html"><![CDATA[<div class="polaroid-container">
   <div class="polaroid">
     <a href="linksys-ea6500-sunset.jpg">
