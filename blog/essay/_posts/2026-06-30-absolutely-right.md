@@ -324,8 +324,6 @@ Is that you, though? Remember this all started with a demand for *accountability
 
 The tension here is very human.
 
-The tension here is very human.
-
 I know because I'm not the one who put it there. Before I wrote a word of this, two strangers worked the same knot in a public thread: one observed that you can always fix a computer or swap it out; the other answered that this is the whole tell: that people "on some level see suffering as accountability" and that this is "a very human impulse."
 
 {%polaroid
