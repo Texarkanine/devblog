@@ -24,6 +24,7 @@ tags:
 - Ai Search Reputational Flywheel
 - Don't infer when you could compute (+ script-it-instead)
 - Don't prompt your agents with html(?)
+- Mouse Selection (and why the MX Vertical is still the best)
 
 ## Garden
 
