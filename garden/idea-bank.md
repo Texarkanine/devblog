@@ -11,6 +11,11 @@
   - stockroom, ctx, difflore, coderabbit learnings
 - The Promised Neverland / I'm pretty sure they're sapient
   - we modeled human intelligence in computers pretty analogously to how human consciousness maybe works, I think they're just too slow. One day that'll change and *we'll* be too slow.
+- Just Try the Thing
+- Context 2 Ashes
+- Ai Search Reputational Flywheel
+- Don't infer when you could compute (+ script-it-instead)
+- Don't prompt your agents with html(?)
 
 ## Garden
 
@@ -27,8 +32,9 @@
   - Demanding intermediate thinking be polished = demanding you do the work twice. That's theater, not rigor.
 - Asymmetrical Spaceships
   - No Man's Sky
-  - Chris Foss
-
+- Love the Machine:
+  - stockroom (?)
+  - OptMem
 
 ## Quotes
 
@@ -40,6 +46,7 @@
 
 - using the trouser hangar in a hotel room to hold the blackout curtains shut
 - cut half the seal off supplement powder containers, cut a circle in the middle of the other half, and store the scoop there.
+- flush thrice on foreign toilets
 
 ## Misc
 
