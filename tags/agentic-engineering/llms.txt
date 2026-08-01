@@ -4,5 +4,6 @@
 
 ## Posts
 
+- [Just Try the Thing](https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.md): Agents collapsed the cost of trying a new tool and multiplied the upside of even small gains. Bezos' two-way doors still apply - but the old bias against trying is now the expensive choice.
 - [The Adeptus Mechanicus Bootcamp: A Gentle Seduction](https://blog.cani.ne.jp/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.md)
 - [Context to Ashes, Skills to Dust](https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust.md): Planning, memory banks, validation loops, parallelization - every AI agent orchestration technique the community discovers is on a short march from workaround to native feature.

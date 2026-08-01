@@ -169,7 +169,7 @@ By 1971, the system had been ported to the PDP-11/20, a 16-bit minicomputer. The
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20251228181714/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -382,7 +382,7 @@ But... Who was Don Widrig? Is he *really* the person who deserves credit for the
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201913/https://multicians.org/phase-one.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

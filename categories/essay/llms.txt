@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [Just Try the Thing](https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.md): Agents collapsed the cost of trying a new tool and multiplied the upside of even small gains. Bezos' two-way doors still apply - but the old bias against trying is now the expensive choice.
 - [You're Absolutely Right](https://blog.cani.ne.jp/2026/06/30/absolutely-right.md): The 'You're absolutely right!' meme is about sycophancy, but the deeper itch is accountability - models can course-correct instantly and without suffering, but humans keep reaching for punishment anyway.
 - [It's Not a "Nitpick" if You're Wrong](https://blog.cani.ne.jp/2026/06/06/not-a-nitpick.md): The complaint that AI reviewers are nitpicky smuggles in a false premise. I went and checked the findings. They were real, the code was bad, and it was probably always bad, so why isn't that signal acted on?
 - [Sub-Agents aren't Agents - They're Skills but Worse](https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.md): Sub-Agents are syntactic sugar over skills with one baked-in assumption about execution context that should be the caller's decision.

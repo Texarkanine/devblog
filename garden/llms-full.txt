@@ -245,7 +245,7 @@ By 1971, the system had been ported to the PDP-11/20, a 16-bit minicomputer. The
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20251228181714/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -458,7 +458,7 @@ But... Who was Don Widrig? Is he *really* the person who deserves credit for the
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201913/https://multicians.org/phase-one.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -517,6 +517,10 @@ So, **yes:** Don Widrig *is* the person who deserves credit for the short naming
   <h1>Horses</h1>
   
   <a href="https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">andyljones.com/posts/horses.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260707095105/https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 
@@ -735,6 +739,10 @@ This crossover's been done literally, and it works:
   <h1>Cantrip: On summoning entities from language in circles</h1>
   
   <a href="https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">www.deepfates.com/cantrip</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801194233/https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 
@@ -2592,7 +2600,7 @@ From the iconic, infamous [Millennium Falcon](/garden/shrine/asymmetric-spaceshi
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250118094033/https://jaysbrickblog.com/reviews/review-lego-10355-blacktron-renegade-2025/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -2639,7 +2647,7 @@ The official (maybe a Legend now?) manual for the YT-1300 confirms:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260209045053/https://www.theforce.net/story/front/Star_Wars_Millennium_Falcon_Owners_Workshop_Manual_182205.asp" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -2686,7 +2694,7 @@ More of a [lusty sword-and-sorcery artist](https://scifinet.net/blas-gallego-2/n
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250820181847/https://www.goodreads.com/book/show/2216762.The_Last_Deathship_Off_Antares" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -2708,7 +2716,7 @@ I can't tell if the upper ship is asymmetric (though it looks like it), but the 
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801194921/https://scifinet.net/blas-gallego-2/nggallery/page/2" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -2794,7 +2802,7 @@ The king (IMO) of pulp sci-fi book cover illustration, though [not all his illus
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801195734/https://scifinet.net/chris-foss-2/nggallery/page/4" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -2816,7 +2824,7 @@ The background of this was near-duplicated by Glenn Brown in 1995:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250620225405/https://www.sothebys.com/en/auctions/ecatalogue/2014/contemporary-art-day-auction-l14021/lot.328.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -3126,7 +3134,7 @@ Now, if something you actually need the LLM to do also happens to be a Waluigi t
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801195942/https://www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -3148,7 +3156,7 @@ Now, if something you actually need the LLM to do also happens to be a Waluigi t
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801200124/https://rockstationrecords.blogspot.com/2025/11/ian-gillan-band-clear-air-turbulence-lp.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -3192,7 +3200,7 @@ The full version, designed to wrap around an LP sleeve, adds even more of the ch
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260213005704/https://chrisfossart.com/product/clear-air-turbulence-fine-art/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

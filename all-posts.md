@@ -1,5 +1,7 @@
 <ul>
 
+  <li>2026-08-01 <a href="/2026/08/01/just-try-the-thing.html">Just Try the Thing</a></li>
+
   <li>2026-06-30 <a href="/2026/06/30/absolutely-right.html">You&#39;re Absolutely Right</a></li>
 
   <li>2026-06-20 <a href="/2026/06/20/incidental-router.html">The Incidental Router</a></li>

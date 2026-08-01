@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [Just Try the Thing](https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.md): Agents collapsed the cost of trying a new tool and multiplied the upside of even small gains. Bezos' two-way doors still apply - but the old bias against trying is now the expensive choice.
 - [You're Absolutely Right](https://blog.cani.ne.jp/2026/06/30/absolutely-right.md): The 'You're absolutely right!' meme is about sycophancy, but the deeper itch is accountability - models can course-correct instantly and without suffering, but humans keep reaching for punishment anyway.
 - [The Incidental Router](https://blog.cani.ne.jp/2026/06/20/incidental-router.md): Porting a DD-WRT iptables isolation setup to OpenWrt's fw4/nftables - and discovering that re-implementing on a foreign stack is the only honest test of which parts were the network and which were just the router.
 - [It's Not a "Nitpick" if You're Wrong](https://blog.cani.ne.jp/2026/06/06/not-a-nitpick.md): The complaint that AI reviewers are nitpicky smuggles in a false premise. I went and checked the findings. They were real, the code was bad, and it was probably always bad, so why isn't that signal acted on?

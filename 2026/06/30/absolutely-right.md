@@ -11,7 +11,7 @@
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260714122313/https://github.com/anthropics/claude-code/issues/3382" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -59,7 +59,7 @@ To an extent. Claude in particular, while not historically the worst offender, d
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260618195747/https://absolutelyright.lol/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -185,6 +185,10 @@ I don't have an "in the wild" example of this, but it's been officially studied:
   
   <a href="https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">arxiv.org/abs/2305.13160</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260513140638/https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -233,7 +237,7 @@ Finally, there's the *Shrug:* the AI wasn't egregiously incorrect, but it was in
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260521014400/https://simonwillison.net/2025/Sep/9/claude-code-interpreter/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -363,6 +367,10 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
   
   <a href="https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260521110414/https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -377,6 +385,10 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
   <h1>German Court Rules Google Liable for AI Overview Errors: What Developers Need to Know</h1>
   
   <a href="https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">www.aimadetools.com/blog/german-court-google-ai-overview-liable</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801193428/https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 

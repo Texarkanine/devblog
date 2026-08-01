@@ -1,5 +1,233 @@
 # texarkanine
 
+## Just Try the Thing
+
+Just try the thing. Just go do it.
+
+You don't need me to tell you that; plenty of more-influential people and organizations have already said it.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">
+      <img src="labeouf-doit.jpg" alt="Just Do It" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Just Do It</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">www.youtube.com/watch?v=ZXsQAXx_ao0</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260801193611/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+So this is your nudge to go try the thing you've been thinking of trying, right now.
+
+---
+
+If you're still here, well, you have time to read this post, I guess, so let me offer some new math that might spur you to action.
+
+But first, some old math.
+
+## Bezos' Decision Framework
+
+Jeff Bezos, founder of Amazon, famously described in a [2016 letter to shareholders](https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm) a framework for making decisions: two axes, one of consequence and one of reversibility.
+
+Decisions of high consequence that were irreversible were "one-way doors," worth thorough consideration before making.
+Decisions of low consequence, or that were reversible were "two-way doors" - you could go back if you got it wrong.
+He advised tailoring your decision-making effort to those facts. People loved this and many have written more about it and turned it into a quadrant-based decision-making matrix:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="bezos-decision-matrix.jpg">
+      <img src="bezos-decision-matrix.jpg" alt="Bezos&#39; Decision Matrix from Product Mindset on Substack" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Bezos&#39; Decision Matrix from Product Mindset on Substack</div>
+    <div class="polaroid-link">
+      
+      <a href="https://productmindset.substack.com/p/bezos-decision-making-framework" target="_blank" rel="noopener">productmindset.substack.com/p/bezos-decision-making-framework</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20251206235209/https://productmindset.substack.com/p/bezos-decision-making-framework" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+This is, I think, a good framework.
+
+Let's imagine the far-away year of 2016.
+
+You're a software engineer at a normal company. Not a 2-person startup, not a Fortune 100. You're working on a project. You have deadlines. You have expectations. There are other people and projects that depend on you. 
+
+There's a new tool to adopt, or maybe a new framework or library to try out. Let's plot trying to adopt it on this matrix.
+
+"The cost of deciding" is what that matrix is trying to guide. So you evaluate the potential costs of the decision, if it were made. But there are costs in doing that evaluation, too! If you're going to try Thing X and make an informed decision as to whether to adopt, you need to actually
+
+1. have situations where you can apply Thing X
+2. use Thing X properly
+
+The first one may take calendar time, if there isn't anything to try Thing X *on* right now. And the second one was guaranteed to take *your* time: you had to set up your "experiment" properly which meant learning how and when to use Thing X and being able to execute it properly so you'd get good data on whether Thing X was worth it.
+
+Even if "having adopted Thing X" was an inconsequential, reversible two-way door, you might still have burnt a lot of time learning enough to give it a try. That dragged the total calculus back towards the consequential, irreversible quadrant. Right or wrong about the decision, you weren't going to get your adoption time back. **Having Decided** alone was not the entirety of the cost - deciding if you should decide was itself a process with nonzero costs.
+
+So, there was a huge bias for "trying the thing" to land in the bottom-left quadrant: Even if you could undo the adoption, you'd never undo the wasted time.
+
+![The bottom-left quadrant - consequential, irreversible](bezos-sweng-2016.jpg)
+
+I was in that position in 2016, and for me at least, most such decisions of, uh, consequence, landed on the "consequential" side. That is to say, if it was likely to make a meaningful difference to the project or the company, you'd want to make sure your significant consequences weren't negative. So you'd need to adequately vet it, which took time. Time you could've been spending on your existing, concrete responsibilities.
+
+Time you'd never get back if you were wrong.
+
+There was a stretch of time where squarely half - 50%, one in two - of the "big projects" I was assigned at work, got completed to where they could be tried out or exposed to their intended audience, and then scrapped. I got paid for that time, but the company didn't have anything concrete to show for it. Hopefully a PM and a couple software engineers learned some stuff that'd pay off in the next project but... no product. No feature. No deliverable.
+
+At the surface level, "should we do this or use that" was very reversible for my employer - they indeed reversed course and didn't use the things. And yet, there was still a real, real-world cost to the individuals involved.
+
+It's those individuals - like yourself - I'm trying to nudge.
+
+## Inhuman Speed
+
+If you're doing knowledge work in 2026, things are different now in a couple ways that change how you plot things on that chart and what you *do* with that information.
+
+First, the cost of trying is dramatically decreased, at least as measured in
+
+1. wall-clock time
+2. developer-hours
+
+Both of these come down to: AI agents can do things much faster than you. They can RTFM really fast and be ready to use the thing correctly in a matter of seconds. They can execute whole cycles in which Thing X is adopted, *really fast*. Minutes to hours. You can have a dozen projects with Thing X to compare to your last dozen without, in a day or two... with minimal attention required on your part. You can do the experiment and have a much clearer picture of the effects of a decision in a fraction of the time it used to take.
+
+The previously-irreversible sunk cost of figuring out whether or not *to* figure it out, has shrunk.
+
+Learning is now decoupled from trying - Agents can do the trying and show you what that looks like *before* you personally invest in learning and adopting the tool. 
+
+> You no longer need to understand the tool yourself as a precondition to finding out if the tool is worth understanding.
+
+I'm not saying you never need to understand the tools or things you try. Nor am I saying you should outsource your decision-making to AI. I'm *observing* that you can get a useful stack of data - the kind that was typically required for making an informed decision - without needing to understand the tool. Competence in the adopted strategy is now optional up until it gets adopted; previously you had to be competent to even make the pitch. The cost has moved to *after* you already know if it was a good idea which means you can skip the whole risk category of "wasted time learning this thing that didn't work out."
+
+So the downside's shrunk way down. The upside has gone way up, too.
+
+Previously, marginal gains - maybe Thing X saves you a couple hours on a week-long project - were nominally not worth it. 2 out of 40, 5%. Well, that ain't a bad percent but nominally, it's an hour or two. You could've lost that in a commute. Marginal gains multiplied through the human rate-limiter at 1x and came out to peanuts, nominally.
+
+But [the rate-limiter was human](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). Now even marginal gains multiply by big numbers across agentically-compressed time and agentically-scaled workforces. That same 5% gain stacks up to hours upon days upon weeks, nominally. Now even little improvements can have outsize effects!
+
+The cost of trying went down. The benefit of trying went up. It is time to use the new math.
+
+## I Didn't, Then I Did It
+
+There's a firehose of new things to try.
+
+> "[The optimal Claude Code Setup](https://x.com/bcherny/status/2007179832300581177)," [/grill-me](https://github.com/mattpocock/skills), and just recently, [/i-have-adhd](https://github.com/ayghri/i-have-adhd), [/adhd](https://github.com/uditakhourii/adhd), [/ponytail](https://github.com/DietrichGebert/ponytail), [/caveman](https://github.com/juliusbrussee/caveman), [ponytail *on* caveman](https://github.com/DietrichGebert/ponytail#faq), stop writing code, [write loops](https://corpwaters.substack.com/p/the-ultimate-guide-to-loops). Stop writing loops, [write graphs](https://www.aibuilderclub.com/blog/graph-engineering-vs-loop-engineering). [Delete your prompts for Opus 5](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models). Code review? A [cornucopia](https://coderabbit.ai) of [differently](https://greptile.com)-tuned [SaaS platforms](https://www.qodo.ai/), [skills](https://code.claude.com/docs/en/code-review), and prompts overflows every day. [Apple's got a native container engine](https://opensource.apple.com/projects/container/), maybe your agents should be in *that*. [GPT Terra, Sol, *and* Luna](https://www.mindstudio.ai/blog/what-is-gpt-5-6-sol-terra-luna-explained). Agentic memory? The [cup](https://www.superlocalmemory.com/) [runneth over](https://github.com/VictorTaelin/OptMem) and [spilleth](https://genaiunplugged.substack.com/p/give-your-ai-agents-memory-mcp-shared) onto the keyboard. [Worktrees](https://cursor.com/docs/configuration/worktrees)? How about [stacked pull requests](https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview/)!
+
+It doesn't stop - if anything, it's accelerating.
+
+How do you avoid the analysis paralysis? Even having avoided it, how do you find the time to fit evaluating all these things into your day? You've got "real" work to do, too, you know. Maybe the right answer is to just keep doing what you've got now. After all, it's been working for you so far...
+
+> Just try the thing.
+
+You probably have *some* agentic engineering [harness](/garden/ai-horses.html) open somewhere.
+
+```
+Hey Claude, install grill-me from <paste url here> and give me a short summary of how to use it. Actually install i-have-adhd from <paste url here> and give me a summary for both, based on that.
+```
+
+Hey your cost to try was just paid in pennies. You didn't have to learn it yet. You're ready to learn if it's worth learning.
+
+This can be hard to believe. Or perhaps, "hard to internalize" is more accurate.
+
+Lately though, as *I've* been feeling the acceleration, some of my answers to my coworkers when they ask for how to deal with a problem have been quite confidently "Oh, yeah, ThingX solves that for good. [link to documentation homepage]. Try it!"
+
+And then days or weeks later, they surface with the *same* problem. "Did ThingX not work? It's how I solved that problem permanently, for me."
+
+> Oh, yeah, I've been meaning to try that. I've got to get around to that someday.
+
+Having had the same problem(s) myself, and having solved them, I know that the time they've *already lost* to the problem at this point exceeds the time it would have taken to adopt ThingX. They're not just in tech debt, they're in negative tech equity. They will not manage to pay their way out of it by working hard, persevering through the problems until they have free time, and then taking a look at ThingX.
+
+They need to **just try the thing!**
+
+They're running the old formula with the old weights. Trying new things *was* expensive. Caution *was* often a virtue. But the landscape has changed in what's been, relative to a human career, the blink of an eye.
+
+Even when I was occasionally navigating this myself, I didn't have the epiphany until I saw my coworkers doing it; until I saw from the outside.
+
+So I set myself a rule:
+
+> If I find a thing I want to try, I do it right then.
+
+I do the bemoaned context-switch. I take the interrupt. This would've been irresponsible a decade ago. Now, I'm discovering that it's often irresponsible *not* to.
+
+## Receipts, Such as They Are
+
+The strongest recent examples of this in my life come from two tools, one I built and one I adopted.
+
+### Stop and Build
+
+[Stockroom](https://github.com/Texarkanine/stockroom) is a cross-harness data warehouse I built. It ingests conversations from the two harnesses I primarily use - [Cursor](https://www.cursor.com/) and [Claude Code](https://www.anthropic.com/products/claude-code) - and makes them queryable via SQL and semantic search, by human or by AI. Importantly, it ingests everything on-disk, backfills data from harnesses' previous data formats, and stays up-to-date on a schedule; my whole history across all my harnesses is there.
+
+I heard the story of "the guy who pointed [DuckDB](https://duckdb.org/) at their Claude Code history and can search it" farther back than I remember. But that sounded hard. I realized it probably wasn't that hard and that I wanted it, when I saw [claude-warehouse](https://github.com/sderosiaux/claude-warehouse) sometime back in April of this year. But, I primarily use Cursor. I eventually got around to making a [cursor-warehouse](https://github.com/Texarkanine/cursor-warehouse) version, but, well, I *do* use both, so my history was fragmented (and agents had two skills and two sets of schema to manage). But building one that would not just work on both, but unify both and be ready for whichever harness came next... well that'd be significant work. So I just lived with it for a couple months. Finally I decided enough was enough and built Stockroom and it almost immediately began paying dividends. Agents knew what they'd worked on in the past, even in other harnesses, *even before Stockroom existed*.
+
+This particular tool didn't just pay off after it existed, it paid *backwards*, making things that I'd already done more valuable than they had been at the time! Should've just ~~tried~~ built the thing.
+
+### Stop and Adopt
+
+I saw [OptMem](https://github.com/VictorTaelin/OptMem) the other day. It's a "memory for your agents" tool, of which there've been many since the beginning of agentic development, and of which I've always been skeptical.
+
+My skepticism wasn't "will this be useful" but the pure, outdated "how much work am I going to have to do to change my workflow about this?" variety.
+
+So when I saw OptMem and it looked plausible, I applied my new rule: Hook it up right now. I immediately realized two things:
+
+**This kind of memory is fantastically useful for agents.** I should've hooked something like it up long ago; I'd been running hamstrung.
+
+**This kind of memory only accumulates *going forward* and cannot be backfilled.** Exactly opposite Stockroom, every day I put off to do one more task *instead* of adopting a memory tool, I was losing data that *could have been* useful.
+
+Should've just tried the thing.
+
+## Calculus' Category Change
+
+What I have come to believe is that at this "inhuman speed," the calculation of "opportunity cost" which was and is a correct part of the one-way/two-way door framework, has changed.
+
+Previously, if you had
+
+* Four things you could do: `{A, B, C, D}`
+* Time to do two of them: `{A, B}`
+* And wanted to try ThingX
+
+You'd observe that in order to learn, try, evaluate, and integrate ThingX, you'd give up A or B, and so you'd be looking at picking:
+
+1. `{X, B}`
+2. `{A, X}`
+3. `{A, B}`
+4. or, if X didn't work out, *only* `{A}` or *only* `{B}`
+
+so you (or at least I) would be weighing "Having ThingX" *against* A or B - as a trade - since it felt much closer to a zero-sum game.
+
+The naive update is that you can just have `{A, B, X}` without having to give something up. That is true, but there's more. Due to the increase in the nominal size of the operands being multiplied even by marginal gains, each ThingX today expands the possibility space, too.
+
+If you have
+
+* Four things you could do: `{A, B, C, D}`
+* Time to do two of them: `{A, B}`
+* And wanted to try ThingX
+
+go and try ThingX and you'll likely find yourself with
+
+* Five things you could do: `{A, B, C, D, E}`, where E was enabled by ThingX
+* Time to do three of them: `{A, B, C}`
+* ThingX in your pocket
+* ThingY waiting to be tried
+
+> Irreversibility is collapsing. The cost of not trying now exceeds the cost of trying.
+
+This is no longer a zero-sum game; this is a multiplicative flywheel. Spin it up.
+
+***Just try the thing!***
+
 ## You're Absolutely Right
 
 <div class="polaroid-container">
@@ -15,7 +243,7 @@
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260714122313/https://github.com/anthropics/claude-code/issues/3382" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -35,7 +263,7 @@
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250803004125/https://x.com/claudeai/status/1950676983257698633" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -63,7 +291,7 @@ To an extent. Claude in particular, while not historically the worst offender, d
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260618195747/https://absolutelyright.lol/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -189,6 +417,10 @@ I don't have an "in the wild" example of this, but it's been officially studied:
   
   <a href="https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">arxiv.org/abs/2305.13160</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260513140638/https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -237,7 +469,7 @@ Finally, there's the *Shrug:* the AI wasn't egregiously incorrect, but it was in
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260521014400/https://simonwillison.net/2025/Sep/9/claude-code-interpreter/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -334,7 +566,7 @@ On the other end of things, a more rough-and-tumble society might determine that
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201111/https://www.imdb.com/video/embed/vi2981217305/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -367,6 +599,10 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
   
   <a href="https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260521110414/https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -381,6 +617,10 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
   <h1>German Court Rules Google Liable for AI Overview Errors: What Developers Need to Know</h1>
   
   <a href="https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">www.aimadetools.com/blog/german-court-google-ai-overview-liable</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801193428/https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 
@@ -913,7 +1153,7 @@ The four core deliverables are, well, *delivered* in SLOBAC:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801203812/https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -1557,7 +1797,7 @@ Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narr
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201354/https://bleuje.com/gifanimationsite/single/sierpinskiloop/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -3105,7 +3345,7 @@ I want to also briefly shout out to the old Linksys `WRT54GL` I pulled for this 
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260417192633/https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

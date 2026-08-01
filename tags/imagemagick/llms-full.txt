@@ -163,7 +163,7 @@ The gem is running on this blog right now. That polaroid from the previous post:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260707050258/https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

@@ -4,5 +4,6 @@
 
 ## Posts
 
+- [Just Try the Thing](https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.md): Agents collapsed the cost of trying a new tool and multiplied the upside of even small gains. Bezos' two-way doors still apply - but the old bias against trying is now the expensive choice.
 - [Good Money Should Be Worthless](https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.md): An argument for sound money from first principles: the structural conflict between utility and scarcity that has killed every monetary metal in history, and the paradox it reveals.
 - [The Load-Bearing Rate Limiter Was Human](https://blog.cani.ne.jp/2026/02/06/the-load-bearing-rate-limiter-was-human.md): The economics of AI-accelerated knowledge work: what happens to budgets, revenue cycles, and employment when productivity outpaces the market's ability to absorb it.
