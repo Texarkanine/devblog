@@ -2,8 +2,14 @@
 layout: post
 title: Just Try the Thing
 subtitle: ""
+description: "Agents collapsed the cost of trying a new tool and multiplied the upside of even small gains. Bezos' two-way doors still apply - but the old bias against trying is now the expensive choice."
+author: "texarkanine"
 tags:
-  - foo
+  - agentic-engineering
+  - ai
+  - decision-making
+  - economics
+  - productivity
 ---
 
 Just try the thing. Just go do it.
@@ -18,13 +24,15 @@ You don't need me to tell you that; plenty of more-influential people and organi
 
 So this is your nudge to go try the thing you've been thinking of trying, right now.
 
+---
+
 If you're still here, well, you have time to read this post, I guess, so let me offer some new math that might spur you to action.
 
 But first, some old math.
 
 ## Bezos' Decision Framework
 
-Jeff Bezos, founder of Amazon, famously described in a [1997 letter to shareholders](https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm) a framework for making decisions: two axes, one of consequence and one of reversibility.
+Jeff Bezos, founder of Amazon, famously described in a [2016 letter to shareholders](https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm) a framework for making decisions: two axes, one of consequence and one of reversibility.
 
 Decisions of high consequence that were irreversible were "one-way doors," worth thorough consideration before making.
 Decisions of low consequence, or that were reversible were "two-way doors" - you could go back if you got it wrong.
@@ -39,21 +47,11 @@ He advised tailoring your decision-making effort to those facts. People loved th
 
 This is, I think, a good framework.
 
-Let's imagine the far-away year of 2016, a decade past and nearly two decades *after* Bezos first shared this idea.
+Let's imagine the far-away year of 2016.
 
 You're a software engineer at a normal company. Not a 2-person startup, not a Fortune 100. You're working on a project. You have deadlines. You have expectations. There are other people and projects that depend on you. 
 
 There's a new tool to adopt, or maybe a new framework or library to try out. Let's plot trying to adopt it on this matrix.
-
-I was in that position in 2016, and for me at least, most such decisions of, uh, consequence, landed on the "consequential" side. That is to say, if it was likely to make a meaningful difference to the project or the company, you'd want to make sure your significant consequences weren't negative. So you'd need to adequately vet it, which took time. Time you could've been spending on your existing, concrete responsibilities.
-
-Time you'd never get back if you were wrong.
-
-So, there was a huge bias for "trying the thing" to land in the bottom-left quadrant: Even if you could undo the adoption, you'd never undo the wasted time.
-
-![The bottom-left quadrant - consequential, irreversible](bezos-sweng-2016.jpg)
-
-There was a stretch of time where squarely half - 50%, one in two - of the "big projects" I was assigned at work, got completed to where they could be tried out, and then scrapped. I got paid for that time, but the company didn't have anything concrete to show for it. Hopefully a PM and a couple software engineers learned some stuff that'd pay off in the next project but... no product. No feature. No deliverable.
 
 "The cost of deciding" is what that matrix is trying to guide. So you evaluate the potential costs of the decision, if it were made. But there are costs in doing that evaluation, too! If you're going to try Thing X and make an informed decision as to whether to adopt, you need to actually
 
@@ -62,23 +60,34 @@ There was a stretch of time where squarely half - 50%, one in two - of the "big 
 
 The first one may take calendar time, if there isn't anything to try Thing X *on* right now. And the second one was guaranteed to take *your* time: you had to set up your "experiment" properly which meant learning how and when to use Thing X and being able to execute it properly so you'd get good data on whether Thing X was worth it.
 
-Even if "having adopted Thing X" was an inconsequential, reversible two-way door, you might still have burnt a lot of time learning enough to give it a try. That dragged the total calculus back towards the consequential, irreversible quadrant. Right or wrong about the decision, you weren't going to get your adoption time back. **Having Decided** alone was not the entirety of the cost.
+Even if "having adopted Thing X" was an inconsequential, reversible two-way door, you might still have burnt a lot of time learning enough to give it a try. That dragged the total calculus back towards the consequential, irreversible quadrant. Right or wrong about the decision, you weren't going to get your adoption time back. **Having Decided** alone was not the entirety of the cost - deciding if you should decide was itself a process with nonzero costs.
 
-TODO: think abou this: The Bezos Matrix assumed a fixed-rate cost of making a decision
-TODO: dedupe these paragraphs. point: having decided wasn't the sole cost; deciDING had cost, adn deciding if you shoiuld decide was the decision not on the chart.
+So, there was a huge bias for "trying the thing" to land in the bottom-left quadrant: Even if you could undo the adoption, you'd never undo the wasted time.
+
+![The bottom-left quadrant - consequential, irreversible](bezos-sweng-2016.jpg)
+
+I was in that position in 2016, and for me at least, most such decisions of, uh, consequence, landed on the "consequential" side. That is to say, if it was likely to make a meaningful difference to the project or the company, you'd want to make sure your significant consequences weren't negative. So you'd need to adequately vet it, which took time. Time you could've been spending on your existing, concrete responsibilities.
+
+Time you'd never get back if you were wrong.
+
+There was a stretch of time where squarely half - 50%, one in two - of the "big projects" I was assigned at work, got completed to where they could be tried out or exposed to their intended audience, and then scrapped. I got paid for that time, but the company didn't have anything concrete to show for it. Hopefully a PM and a couple software engineers learned some stuff that'd pay off in the next project but... no product. No feature. No deliverable.
+
+At the surface level, "should we do this or use that" was very reversible for my employer - they indeed reversed course and didn't use the things. And yet, there was still a real, real-world cost to the individuals involved.
+
+It's those individuals - like yourself - I'm trying to nudge.
 
 ## Inhuman Speed
 
-Things are different now, in a couple ways that change how you plot things on that chart and what you *do* with that information.
+If you're doing knowledge work in 2026, things are different now in a couple ways that change how you plot things on that chart and what you *do* with that information.
 
 First, the cost of trying is dramatically decreased, at least as measured in
 
 1. wall-clock time
 2. developer-hours
 
-Both of these come down to: AI agents can do things really fast. They can RTFM really fast and be ready to use the thing correctly in a matter of seconds. They can execute whole cycles in which Thing X is adopted, *really fast*. Minutes to hours. You can have a dozen projects with Thing X to compare to your last dozen without, in a day or two... with minimal attention required on your part. You can do the experiment and have a much clearer picture of the effects of a decision in a fraction of the time it used to take.
+Both of these come down to: AI agents can do things much faster than you. They can RTFM really fast and be ready to use the thing correctly in a matter of seconds. They can execute whole cycles in which Thing X is adopted, *really fast*. Minutes to hours. You can have a dozen projects with Thing X to compare to your last dozen without, in a day or two... with minimal attention required on your part. You can do the experiment and have a much clearer picture of the effects of a decision in a fraction of the time it used to take.
 
-The previously-irreversible sunk cost of figuring out whether or not *to* reverse course, has shrunk.
+The previously-irreversible sunk cost of figuring out whether or not *to* figure it out, has shrunk.
 
 Learning is now decoupled from trying - Agents can do the trying and show you what that looks like *before* you personally invest in learning and adopting the tool. 
 
@@ -90,18 +99,15 @@ So the downside's shrunk way down. The upside has gone way up, too.
 
 Previously, marginal gains - maybe Thing X saves you a couple hours on a week-long project - were nominally not worth it. 2 out of 40, 5%. Well, that ain't a bad percent but nominally, it's an hour or two. You could've lost that in a commute. Marginal gains multiplied through the human rate-limiter at 1x and came out to peanuts, nominally.
 
-But [the rate-limiter was human]({%post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}). Now even marginal gains multiply by big numbers across agentically-compressed time and agentically-scaled workforces. That same 5% gain stacks up to hours upon days upon weeks, nominally. The bar for "what matters" has gone way down.
+But [the rate-limiter was human]({%post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}). Now even marginal gains multiply by big numbers across agentically-compressed time and agentically-scaled workforces. That same 5% gain stacks up to hours upon days upon weeks, nominally. Now even little improvements can have outsize effects!
 
-The cost of trying went down. The benefit of trying went up. It is time to use the new formula.
+The cost of trying went down. The benefit of trying went up. It is time to use the new math.
 
 ## I Didn't, Then I Did It
 
-There's a firehose of new things to try. 
+There's a firehose of new things to try.
 
-> "[The optimal Claude Code Setup](https://x.com/bcherny/status/2007179832300581177)," [/grill-me](https://github.com/mattpocock/skills), and just recently, [/i-have-adhd](https://github.com/ayghri/i-have-adhd), [/adhd](https://github.com/uditakhourii/adhd), [/ponytail](https://github.com/DietrichGebert/ponytail), [/caveman](https://github.com/juliusbrussee/caveman), [ponytail *on* caveman](https://github.com/DietrichGebert/ponytail#faq), stop writing code, [write loops](https://corpwaters.substack.com/p/the-ultimate-guide-to-loops). Stop writing loops, [write graphs](https://www.aibuilderclub.com/blog/graph-engineering-vs-loop-engineering). [Delete your prompts for Opus 5](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models). Code review? A cornucopia of differently-tuned SaaS platforms, skills, and prompts overflows every day. [Apple's got a native container engine](https://opensource.apple.com/projects/container/), maybe your agents should be in *that*. [GPT Terra, Sol, *and* Luna](https://www.mindstudio.ai/blog/what-is-gpt-5-6-sol-terra-luna-explained). Agentic memory? The cup runneth over and spilleth onto the keyboard. [Worktrees](https://cursor.com/docs/configuration/worktrees)? How about [stacked pull requests](https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview/)!
-
-<!-- TODO: pr review, coderabbit, greptile, a couple others -->
-<!-- TODO: memory: optmem, whatever that claude supermem local was, something else with a lot of stars -->
+> "[The optimal Claude Code Setup](https://x.com/bcherny/status/2007179832300581177)," [/grill-me](https://github.com/mattpocock/skills), and just recently, [/i-have-adhd](https://github.com/ayghri/i-have-adhd), [/adhd](https://github.com/uditakhourii/adhd), [/ponytail](https://github.com/DietrichGebert/ponytail), [/caveman](https://github.com/juliusbrussee/caveman), [ponytail *on* caveman](https://github.com/DietrichGebert/ponytail#faq), stop writing code, [write loops](https://corpwaters.substack.com/p/the-ultimate-guide-to-loops). Stop writing loops, [write graphs](https://www.aibuilderclub.com/blog/graph-engineering-vs-loop-engineering). [Delete your prompts for Opus 5](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models). Code review? A [cornucopia](https://coderabbit.ai) of [differently](https://greptile.com)-tuned [SaaS platforms](https://www.qodo.ai/), [skills](https://code.claude.com/docs/en/code-review), and prompts overflows every day. [Apple's got a native container engine](https://opensource.apple.com/projects/container/), maybe your agents should be in *that*. [GPT Terra, Sol, *and* Luna](https://www.mindstudio.ai/blog/what-is-gpt-5-6-sol-terra-luna-explained). Agentic memory? The [cup](https://www.superlocalmemory.com/) [runneth over](https://github.com/VictorTaelin/OptMem) and [spilleth](https://genaiunplugged.substack.com/p/give-your-ai-agents-memory-mcp-shared) onto the keyboard. [Worktrees](https://cursor.com/docs/configuration/worktrees)? How about [stacked pull requests](https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview/)!
 
 It doesn't stop - if anything, it's accelerating.
 
@@ -120,8 +126,6 @@ Hey your cost to try was just paid in pennies. You didn't have to learn it yet. 
 This can be hard to believe. Or perhaps, "hard to internalize" is more accurate.
 
 Lately though, as *I've* been feeling the acceleration, some of my answers to my coworkers when they ask for how to deal with a problem have been quite confidently "Oh, yeah, ThingX solves that for good. [link to documentation homepage]. Try it!"
-
-I bet you can guess what happened next: nothing at first. <!-- TODO: refactor this --> 
 
 And then days or weeks later, they surface with the *same* problem. "Did ThingX not work? It's how I solved that problem permanently, for me."
 
