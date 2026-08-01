@@ -251,7 +251,7 @@ From there, the thirst for traffic birthed a sibling idea: reciprocal "Affiliate
 	./early-web/affiliates-ghpd-2003.jpg
 	title="Affiliates on Gengar and Haunter's Pokemon Dungeon - 2003"
 	link="https://web.archive.org/web/20030401152817/http://www.pokemondungeon.com/home.htm"
-	archiv="none"
+	archive="none"
 %}
 
 Affiliate links often formed a more circular graph of hyperlinks - you might see the same set of Affiliates all on each other's pages, and the odd one out would be your "exit node" into foreign waters. Congrats, you found an early *network*!
@@ -434,6 +434,7 @@ Unless... Combining a [webring](#webrings) and a [hit counter](#hit-counters) gi
 	"./early-web/topsites-ppntop50-2001.jpg"
 	title="Pokemon Palace Network Top 50 - in 2001"
 	link="https://web.archive.org/web/20011204184825/http://pokemonpalace.net/cgi-bin/top50/topsites.cgi"
+	archive="none"
 %}
 
  Before search engines could essentially generate such a list on-demand for you for any category or query you could give them, this was an early way to find "the best" sites in a category! Members would place an [88x31](#88x31--468x60) button linking to the topisite list on their page and it would render with each member site's actual rank on them, hit counter-style!
@@ -444,6 +445,7 @@ Many of the topsites I was in - and ran! - used the [aardvark topsites php](http
 	"./early-web/topsites-ppntop50-2005.jpg"
 	title="Pokemon Palace Network Top 50 - in 2005"
 	link="https://web.archive.org/web/20050403163850/http://ppntop50.com/"
+	archive="none"
 %}
 
 ## Interactivity for its Own Sake
