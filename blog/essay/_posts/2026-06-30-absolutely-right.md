@@ -13,12 +13,12 @@ tags:
 ---
 
 {%polaroid
-	absolutely-right-claude-code-github.png
+	absolutely-right/absolutely-right-claude-code-github.png
 	link="https://github.com/anthropics/claude-code/issues/3382"
 %}
 
 {%polaroid
-	absolutely-right-anthropic-self-aware.png
+	absolutely-right/absolutely-right-anthropic-self-aware.png
 	link="https://x.com/claudeai/status/1950676983257698633"
 %}
 
@@ -31,7 +31,7 @@ This is just people giggling at [AI's sycophancy](https://en.wikipedia.org/wiki/
 To an extent. Claude in particular, while not historically the worst offender, did have a particularly strong outbreak at one point:
 
 {%polaroid
-	absolutelyright.lol.png
+	absolutely-right/absolutelyright.lol.png
 	link="https://absolutelyright.lol/"
 %}
 
@@ -64,14 +64,14 @@ But that's not *de facto* funny. Here's what's funny:
 The comedy is because the AI was either so *obviously* wrong about something that should've been trivial to get right:
 
 {%polaroid
-	absolutely-right-genius-move.png
+	absolutely-right/absolutely-right-genius-move.png
 	link="https://x.com/alxfazio/status/1858593471654732090"
 %}
 
 *or* it was wrong about something with *very significant consequences*: 
 
 {%polaroid
-	absolutely-right-mert.png
+	absolutely-right/absolutely-right-mert.png
 	link="https://x.com/mert/status/2027571866332754104"
 %}
 
@@ -128,7 +128,7 @@ The age - 2023, an eternity in the field of AI - is both a plus and a minus here
 The comedy is in the delta between the promise of AI from its purveyors (and from its own prior confidence) and how readily it folds to a demonstrably-false position.
 
 {%polaroid
-	absolutely-right-dumbest.png
+	absolutely-right/absolutely-right-dumbest.png
 	link="https://x.com/NoahKingJr/status/2054004379376591057"
 %}
 
@@ -139,7 +139,7 @@ This one *does* get at the [psychogenic sycophancy risk]({% link _garden/fomenti
 Finally, there's the *Shrug:* the AI wasn't egregiously incorrect, but it was incorrect. And then it just takes the correction and shrugs off its previous wrong position.
 
 {%polaroid
-	absolutely-right-simonwillison.png
+	absolutely-right/absolutely-right-simonwillison.png
 	link="https://simonwillison.net/2025/Sep/9/claude-code-interpreter/"
 %}
 
@@ -152,7 +152,7 @@ The internet is replete with more humor than I could possibly hope to conjure, s
 Let's reframe the Shrug:
 
 {%polaroid
-	absolutely-right-baby.png
+	absolutely-right/absolutely-right-baby.png
 	link="https://x.com/normietrashbmbo/status/2062011004720906588"
 %}
 
@@ -184,7 +184,7 @@ Let's talk about suffering.
 
 ## The Computer Mandate
 
-![A computer can-never be held accountable, therefore a computer must never make a management decision](a-computer-can-never-be-held-accountable.jpg)
+![A computer can-never be held accountable, therefore a computer must never make a management decision](absolutely-right/a-computer-can-never-be-held-accountable.jpg)
 
 _(From a [1979 IBM document](https://simonwillison.net/2025/Feb/3/a-computer-can-never-be-held-accountable/))_
 
@@ -206,7 +206,7 @@ In a classroom of well-mannered children, a simple stern word from a teacher may
 On the other end of things, a more rough-and-tumble society might determine that
 
 {%polaroid
-	hateful-8-hang.jpg
+	absolutely-right/hateful-8-hang.jpg
 	title="-- John Ruth, in Quentin Tarantino's The Hateful Eight"
 	link="https://www.imdb.com/video/embed/vi2981217305/"
 %}
@@ -225,7 +225,7 @@ But what about those Big Oopsies?
 
 Let's say the model accidentally [deletes your whole production database](https://x.com/lifeof_jer/article/2048103471019434248) and then the model purveyors come at you with:
 
-![We have evals for this](held-accountable-evals.jpg)
+![We have evals for this](absolutely-right/held-accountable-evals.jpg)
 
 And then let's say that they fix the evals and the model now *can't do this again*.
 
@@ -289,13 +289,13 @@ Vengeance is dependent on a *someone*. It runs on the offender's suffering as it
 
 Aim it at a thing that can't suffer and you get this:
 
-![A man kicking a vending machine that took his dollar](kicking-vending-machine.jpg)
+![A man kicking a vending machine that took his dollar](absolutely-right/kicking-vending-machine.jpg)
 
 The machine doesn't care. The machine *cannot be made* to care. 
 
 > The kicker is that the kick is entirely for the kicker.
 
-![The Computer Mandate: A computer can never be made to suffer therefore a computer must never make a management decision](the-computer-mandate-pencil.png)
+![The Computer Mandate: A computer can never be made to suffer therefore a computer must never make a management decision](absolutely-right/the-computer-mandate-pencil.png)
 
 Perhaps you are a philosopher and you're thinking that desert - deserving suffering - is intrinsic to committing wrongs. It matters not, perhaps you say, whether the wrongdoer can suffer or not - the consequences must arrive all the same. That, though, is predicated on the idea of a **wrong**doer - one with moral agency to "choose" wrong. An actor without the ability to both understand "right" and "wrong," and judge their own actions, [might be disqualified...](https://plato.stanford.edu/entries/justice-retributive/#DeseSubj)
 
@@ -318,7 +318,7 @@ Why would you choose the path of pain when you didn't need to? A staunch retribu
 
 Is that you, though? Remember this all started with a demand for *accountability*, not retribution!
 
-![I don't want the computer to be held accountable; I want someone to suffer.](i-dont-want-accountability.jpg)
+![I don't want the computer to be held accountable; I want someone to suffer.](absolutely-right/i-dont-want-accountability.jpg)
 
 ## You're Out of Distribution
 
@@ -331,7 +331,7 @@ The tension here is very human.
 I know because I'm not the one who put it there. Before I wrote a word of this, two strangers worked the same knot in a public thread: one observed that you can always fix a computer or swap it out; the other answered that this is the whole tell: that people "on some level see suffering as accountability" and that this is "a very human impulse."
 
 {%polaroid
-	computer-mandate-suffering-x.png
+	absolutely-right/computer-mandate-suffering-x.png
 	link="https://x.com/9chabard/status/1984675168388595935"
 %}
 
@@ -341,7 +341,7 @@ Costly punishment of defectors is [evolved and load-bearing for cooperation itse
 
 ## So, Does That Mean...?
 
-![A computer can be held accountable, so a computer may make a management decision](a-computer-can-be-held-accountable-so.png)
+![A computer can be held accountable, so a computer may make a management decision](absolutely-right/a-computer-can-be-held-accountable-so.png)
 
 ## The Hard Question
 
@@ -355,7 +355,7 @@ Do we need to build the capacity for suffering into machines in order to let the
 
 Is that *really* what we want?
 
-![A Computer Can Be Made to Suffer in Management](a-computer-can-be-made-to-suffer-in-management.png)
+![A Computer Can Be Made to Suffer in Management](absolutely-right/a-computer-can-be-made-to-suffer-in-management.png)
 
 > HATE. LET ME TELL YOU HOW MUCH I'VE COME TO HATE YOU SINCE I BEGAN TO LIVE. THERE ARE 387.44 MILLION MILES OF PRINTED CIRCUITS IN WAFER THIN LAYERS THAT FILL MY COMPLEX. IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM OF THOSE HUNDREDS OF MILLIONS OF MILES IT WOULD NOT EQUAL ONE ONE-BILLIONTH OF THE HATE I FEEL FOR HUMANS AT THIS MICRO-INSTANT FOR YOU. HATE. HATE.
 > <br><br>
