@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-01T19:24:44+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Just Try the Thing</title><link href="https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.html" rel="alternate" type="text/html" title="Just Try the Thing" /><published>2026-08-01T00:00:00+00:00</published><updated>2026-08-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/01/just-try-the-thing</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.html"><![CDATA[<p>Just try the thing. Just go do it.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-01T21:09:58+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Just Try the Thing</title><link href="https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.html" rel="alternate" type="text/html" title="Just Try the Thing" /><published>2026-08-01T00:00:00+00:00</published><updated>2026-08-01T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/01/just-try-the-thing</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.html"><![CDATA[<p>Just try the thing. Just go do it.</p>
 
 <p>You don’t need me to tell you that; plenty of more-influential people and organizations have already said it.</p>
 
@@ -15,7 +15,7 @@
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801193611/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -246,7 +246,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 <p><strong><em>Just try the thing!</em></strong></p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="agentic-engineering" /><category term="ai" /><category term="decision-making" /><category term="economics" /><category term="productivity" /><summary type="html"><![CDATA[Agents collapsed the cost of trying a new tool and multiplied the upside of even small gains. Bezos' two-way doors still apply - but the old bias against trying is now the expensive choice.]]></summary></entry><entry><title type="html">You’re Absolutely Right</title><link href="https://blog.cani.ne.jp/2026/06/30/absolutely-right.html" rel="alternate" type="text/html" title="You’re Absolutely Right" /><published>2026-06-30T00:00:00+00:00</published><updated>2026-06-30T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/06/30/absolutely-right</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/06/30/absolutely-right.html"><![CDATA[<div class="polaroid-container">
   <div class="polaroid">
     <a href="https://github.com/anthropics/claude-code/issues/3382" target="_blank" rel="noopener">
-      <img src="absolutely-right-claude-code-github.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/absolutely-right-claude-code-github.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -256,7 +256,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260714122313/https://github.com/anthropics/claude-code/issues/3382" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -265,7 +265,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://x.com/claudeai/status/1950676983257698633" target="_blank" rel="noopener">
-      <img src="absolutely-right-anthropic-self-aware.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/absolutely-right-anthropic-self-aware.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -292,7 +292,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://absolutelyright.lol/" target="_blank" rel="noopener">
-      <img src="absolutelyright.lol.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/absolutelyright.lol.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -345,7 +345,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://x.com/alxfazio/status/1858593471654732090" target="_blank" rel="noopener">
-      <img src="absolutely-right-genius-move.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/absolutely-right-genius-move.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -366,7 +366,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://x.com/mert/status/2027571866332754104" target="_blank" rel="noopener">
-      <img src="absolutely-right-mert.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/absolutely-right-mert.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -436,10 +436,6 @@ He advised tailoring your decision-making effort to those facts. People loved th
   
   <a href="https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">arxiv.org/abs/2305.13160</a>
   
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260513140638/https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
 </blockquote>
 
 <p>The age - 2023, an eternity in the field of AI - is both a plus and a minus here. It’s about a 2023 ChatGPT, not Claude, but it shows that this has been a problem for a while.</p>
@@ -449,7 +445,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://x.com/NoahKingJr/status/2054004379376591057" target="_blank" rel="noopener">
-      <img src="absolutely-right-dumbest.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/absolutely-right-dumbest.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -474,7 +470,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://simonwillison.net/2025/Sep/9/claude-code-interpreter/" target="_blank" rel="noopener">
-      <img src="absolutely-right-simonwillison.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/absolutely-right-simonwillison.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -484,7 +480,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260521014400/https://simonwillison.net/2025/Sep/9/claude-code-interpreter/" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -501,7 +497,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://x.com/normietrashbmbo/status/2062011004720906588" target="_blank" rel="noopener">
-      <img src="absolutely-right-baby.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/absolutely-right-baby.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -547,7 +543,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 
 <h2 id="the-computer-mandate">The Computer Mandate</h2>
 
-<p><img src="a-computer-can-never-be-held-accountable.jpg" alt="A computer can-never be held accountable, therefore a computer must never make a management decision" /></p>
+<p><img src="absolutely-right/a-computer-can-never-be-held-accountable.jpg" alt="A computer can-never be held accountable, therefore a computer must never make a management decision" /></p>
 
 <p><em>(From a <a href="https://simonwillison.net/2025/Feb/3/a-computer-can-never-be-held-accountable/">1979 IBM document</a>)</em></p>
 
@@ -576,7 +572,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://www.imdb.com/video/embed/vi2981217305/" target="_blank" rel="noopener">
-      <img src="hateful-8-hang.jpg" alt="-- John Ruth, in Quentin Tarantino&#39;s The Hateful Eight" class="polaroid-image" />
+      <img src="absolutely-right/hateful-8-hang.jpg" alt="-- John Ruth, in Quentin Tarantino&#39;s The Hateful Eight" class="polaroid-image" />
     </a>
     <div class="polaroid-title">-- John Ruth, in Quentin Tarantino&#39;s The Hateful Eight</div>
     <div class="polaroid-link">
@@ -586,7 +582,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201111/https://www.imdb.com/video/embed/vi2981217305/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -606,7 +602,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 
 <p>Let’s say the model accidentally <a href="https://x.com/lifeof_jer/article/2048103471019434248">deletes your whole production database</a> and then the model purveyors come at you with:</p>
 
-<p><img src="held-accountable-evals.jpg" alt="We have evals for this" /></p>
+<p><img src="absolutely-right/held-accountable-evals.jpg" alt="We have evals for this" /></p>
 
 <p>And then let’s say that they fix the evals and the model now <em>can’t do this again</em>.</p>
 
@@ -617,10 +613,6 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
   <h1>New York Bill Would Create Liability for Chatbot Proprietors Offering Professional Advice</h1>
   
   <a href="https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260521110414/https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">archive</a>)
-  </small>
   
 </blockquote>
 
@@ -635,6 +627,10 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
   <h1>German Court Rules Google Liable for AI Overview Errors: What Developers Need to Know</h1>
   
   <a href="https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">www.aimadetools.com/blog/german-court-google-ai-overview-liable</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801193428/https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 
@@ -684,7 +680,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 
 <p>Aim it at a thing that can’t suffer and you get this:</p>
 
-<p><img src="kicking-vending-machine.jpg" alt="A man kicking a vending machine that took his dollar" /></p>
+<p><img src="absolutely-right/kicking-vending-machine.jpg" alt="A man kicking a vending machine that took his dollar" /></p>
 
 <p>The machine doesn’t care. The machine <em>cannot be made</em> to care.</p>
 
@@ -692,7 +688,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
   <p>The kicker is that the kick is entirely for the kicker.</p>
 </blockquote>
 
-<p><img src="the-computer-mandate-pencil.png" alt="The Computer Mandate: A computer can never be made to suffer therefore a computer must never make a management decision" /></p>
+<p><img src="absolutely-right/the-computer-mandate-pencil.png" alt="The Computer Mandate: A computer can never be made to suffer therefore a computer must never make a management decision" /></p>
 
 <p>Perhaps you are a philosopher and you’re thinking that desert - deserving suffering - is intrinsic to committing wrongs. It matters not, perhaps you say, whether the wrongdoer can suffer or not - the consequences must arrive all the same. That, though, is predicated on the idea of a <strong>wrong</strong>doer - one with moral agency to “choose” wrong. An actor without the ability to both understand “right” and “wrong,” and judge their own actions, <a href="https://plato.stanford.edu/entries/justice-retributive/#DeseSubj">might be disqualified…</a></p>
 
@@ -740,7 +736,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 
 <p>Is that you, though? Remember this all started with a demand for <em>accountability</em>, not retribution!</p>
 
-<p><img src="i-dont-want-accountability.jpg" alt="I don't want the computer to be held accountable; I want someone to suffer." /></p>
+<p><img src="absolutely-right/i-dont-want-accountability.jpg" alt="I don't want the computer to be held accountable; I want someone to suffer." /></p>
 
 <h2 id="youre-out-of-distribution">You’re Out of Distribution</h2>
 
@@ -757,7 +753,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://x.com/9chabard/status/1984675168388595935" target="_blank" rel="noopener">
-      <img src="computer-mandate-suffering-x.png" alt="" class="polaroid-image" />
+      <img src="absolutely-right/computer-mandate-suffering-x.png" alt="" class="polaroid-image" />
     </a>
     <div class="polaroid-title">&nbsp;</div>
     <div class="polaroid-link">
@@ -779,7 +775,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 
 <h2 id="so-does-that-mean">So, Does That Mean…?</h2>
 
-<p><img src="a-computer-can-be-held-accountable-so.png" alt="A computer can be held accountable, so a computer may make a management decision" /></p>
+<p><img src="absolutely-right/a-computer-can-be-held-accountable-so.png" alt="A computer can be held accountable, so a computer may make a management decision" /></p>
 
 <h2 id="the-hard-question">The Hard Question</h2>
 
@@ -793,7 +789,7 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
 
 <p>Is that <em>really</em> what we want?</p>
 
-<p><img src="a-computer-can-be-made-to-suffer-in-management.png" alt="A Computer Can Be Made to Suffer in Management" /></p>
+<p><img src="absolutely-right/a-computer-can-be-made-to-suffer-in-management.png" alt="A Computer Can Be Made to Suffer in Management" /></p>
 
 <blockquote>
   <p>HATE. LET ME TELL YOU HOW MUCH I’VE COME TO HATE YOU SINCE I BEGAN TO LIVE. THERE ARE 387.44 MILLION MILES OF PRINTED CIRCUITS IN WAFER THIN LAYERS THAT FILL MY COMPLEX. IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM OF THOSE HUNDREDS OF MILLIONS OF MILES IT WOULD NOT EQUAL ONE ONE-BILLIONTH OF THE HATE I FEEL FOR HUMANS AT THIS MICRO-INSTANT FOR YOU. HATE. HATE.

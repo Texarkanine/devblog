@@ -51,7 +51,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20251206235209/https://productmindset.substack.com/p/bezos-decision-making-framework" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260801211819/https://productmindset.substack.com/p/bezos-decision-making-framework" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

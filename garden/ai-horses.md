@@ -222,10 +222,6 @@ This crossover's been done literally, and it works:
   
   <a href="https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">www.deepfates.com/cantrip</a>
   
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260801194233/https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
 </blockquote>
 
 

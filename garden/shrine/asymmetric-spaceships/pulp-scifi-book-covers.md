@@ -56,7 +56,7 @@ I can't tell if the upper ship is asymmetric (though it looks like it), but the 
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260801194921/https://scifinet.net/blas-gallego-2/nggallery/page/2" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -142,7 +142,7 @@ The king (IMO) of pulp sci-fi book cover illustration, though [not all his illus
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260801195734/https://scifinet.net/chris-foss-2/nggallery/page/4" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -164,7 +164,7 @@ The background of this was near-duplicated by Glenn Brown in 1995:
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20250620225405/https://www.sothebys.com/en/auctions/ecatalogue/2014/contemporary-art-day-auction-l14021/lot.328.html" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>

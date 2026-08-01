@@ -219,7 +219,7 @@ The four core deliverables are, well, *delivered* in SLOBAC:
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260801203812/https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>

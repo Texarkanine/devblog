@@ -52,7 +52,7 @@ I want to also briefly shout out to the old Linksys `WRT54GL` I pulled for this 
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260417192633/https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
