@@ -349,8 +349,8 @@ Liquid tag that renders a centered blockquote “card” and optionally archives
 
 - **Explicit archive URLs**: Use `archive:<url>` to provide a specific archive URL for a linkcard. This bypasses all lookup and submission logic.
 - **Opt-out of archiving**: Use `archive:none` to completely disable archiving for a specific linkcard, even when archiving is globally enabled. This skips both lookup and submission.
-- **SavePageNow integration**: When `LINKCARD_ARCHIVE_SAVE=1` is set, each card submits its URL to `https://web.archive.org/save/...` and renders an `(archive)` badge if the response returns a `Content-Location`.
-- **Existing snapshot fallback**: When `LINKCARD_ARCHIVE=1` (or `LINKCARD_ARCHIVE_SAVE=1`), the tag queries the Wayback CDX API for the latest available snapshot and links to that even if no fresh submission runs.
+- **SavePageNow integration**: When `JEKYLL_HIGHLIGHT_CARDS_ARCHIVE_SAVE=1` is set, each card submits its URL to `https://web.archive.org/save/...` and renders an `(archive)` badge if the response returns a `Content-Location`.
+- **Existing snapshot fallback**: When `LINKCARD_ARCHIVE=1` (or `JEKYLL_HIGHLIGHT_CARDS_ARCHIVE_SAVE=1`), the tag queries the Wayback CDX API for the latest available snapshot and links to that even if no fresh submission runs.
 - **Per-build caching**: Each unique URL is archived/looked-up at most once per build even if referenced multiple times.
 - **Logging**: Emits `linkcard Submitting to SavePageNow: <url>` and success/failure logs via `Jekyll.logger`.
 - **Styling hooks**: Renders predictable HTML so you can target `.link-card` or override inline styles.
@@ -358,9 +358,9 @@ Liquid tag that renders a centered blockquote “card” and optionally archives
 ### Environment Variables
 
 - `LINKCARD_ARCHIVE` - set to `1` to render archive links (uses existing snapshots only).
-- `LINKCARD_ARCHIVE_SAVE` - set to `1` to submit new snapshots and implies `LINKCARD_ARCHIVE`.
-- `LINKCARD_ARCHIVE_UA` - custom User-Agent string for archive requests.
-- `LINKCARD_ARCHIVE_CONTACT` - inserted into the default UA when `LINKCARD_ARCHIVE_UA` isn’t provided; typically an email or profile URL.
+- `JEKYLL_HIGHLIGHT_CARDS_ARCHIVE_SAVE` - set to `1` to submit new snapshots and implies `LINKCARD_ARCHIVE`.
+- `JEKYLL_HIGHLIGHT_CARDS_UA` - custom User-Agent string for archive requests.
+- `LINKCARD_ARCHIVE_CONTACT` - inserted into the default UA when `JEKYLL_HIGHLIGHT_CARDS_UA` isn’t provided; typically an email or profile URL.
 
 Example GitHub Actions step:
 
@@ -368,8 +368,8 @@ Example GitHub Actions step:
 - name: Build site
   run: bundle exec jekyll build
   env:
-    LINKCARD_ARCHIVE_SAVE: "1"
-    LINKCARD_ARCHIVE_UA: "my-archiver/1.0 (+https://example.com/about)"
+    JEKYLL_HIGHLIGHT_CARDS_ARCHIVE_SAVE: "1"
+    JEKYLL_HIGHLIGHT_CARDS_UA: "my-archiver/1.0 (+https://example.com/about)"
     LINKCARD_ARCHIVE_CONTACT: "ops@example.com"
 ```
 

@@ -51,8 +51,8 @@ jobs:
 
       - name: Build site
         env:
-          LINKCARD_ARCHIVE_SAVE: 1
-          LINKCARD_ARCHIVE_UA: blog.cani.ne.jp/jekyll:linkcard-archive (+${{ secrets.LINKCARD_ARCHIVE_CONTACT != '' && secrets.LINKCARD_ARCHIVE_CONTACT || 'mailto:unknown' }})
+          JEKYLL_HIGHLIGHT_CARDS_ARCHIVE_SAVE: 1
+          JEKYLL_HIGHLIGHT_CARDS_ARCHIVE_UA: blog.cani.ne.jp/jekyll:linkcard-archive (+${{ secrets.LINKCARD_ARCHIVE_CONTACT != '' && secrets.LINKCARD_ARCHIVE_CONTACT || 'mailto:unknown' }})
           JEKYLL_ENV: production
         run: bundle exec jekyll build
 
