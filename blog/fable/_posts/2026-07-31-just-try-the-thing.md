@@ -10,8 +10,6 @@ Just try the thing. Just go do it.
 
 You don't need me to tell you that; plenty of more-influential people and organizations have already said it.
 
-![Just Do It! (Nike)](nike-doit.jpg)
-
 {%polaroid
 	labeouf-doit.jpg
 	link="https://www.youtube.com/watch?v=ZXsQAXx_ao0"
@@ -39,9 +37,9 @@ He advised tailoring your decision-making effort to those facts. People loved th
 	image_link="bezos-decision-matrix.jpg"
 %}
 
-This is, I think, a good framework. It's was probably true in the '90s, and it seems to have held up very well.
+This is, I think, a good framework.
 
-Let's imagine the far-away year of 2016, a decade past and nearly two decades *after* Bezos' first shared this idea.
+Let's imagine the far-away year of 2016, a decade past and nearly two decades *after* Bezos first shared this idea.
 
 You're a software engineer at a normal company. Not a 2-person startup, not a Fortune 100. You're working on a project. You have deadlines. You have expectations. There are other people and projects that depend on you. 
 
@@ -66,9 +64,9 @@ There was a stretch of time where squarely half - 50%, one in two - of the "big 
 
 The first one may take calendar time, if there isn't anything to try Thing X *on* right now. And the second one was guaranteed to take *your* time - you had to learn how to set up your "experiment" properly - that meant learning how and when to use Thing X, and being able to execute it properly so you'd get good data on whether Thing X was worth it.
 
-Even if "having adopted Thing X" was an inconsequential, reversible two-way door, you might still have burnt a lot of time learning enough to give it a try. That dragged the total calculus back towards the consequential, irreversible quadrant. Right or wrong about the decision, you weren't going to get your adoption time back. Even if it was easy to reverse, actually executing the adoption and then walking it back still took your time. **Having Decided** alone was not the entirety of the cost.
+Even if "having adopted Thing X" was an inconsequential, reversible two-way door, you might still have burnt a lot of time learning enough to give it a try. That dragged the total calculus back towards the consequential, irreversible quadrant. Right or wrong about the decision, you weren't going to get your adoption time back. **Having Decided** alone was not the entirety of the cost.
 
-The Bezos Matrix only spoke to cost of deciding, not of executing.
+TODO: think abou this: The Bezos Matrix assumed a fixed-rate cost of making a decision
 
 ## Inhuman Speed
 
@@ -87,22 +85,28 @@ Learning is now decoupled from trying - Agents can do the trying and show you wh
 
 > You no longer need to understand the tool yourself as a precondition to finding out if the tool is worth understanding.
 
-So the downside's shrunk way down. The updside has gone way up, too.
+I'm not saying you never need to understand the tools or things you try. Nor am I saying you should outsource your decision-making to AI. I'm *observing* that you can get a useful stack of data - the kind that was typically required for making an informed decision - without needing to understand the tool. Competence in the adopted strategy is now optional up until it gets adopted; previously you had to be competent to even make the pitch. The cost has moved to *after* you already know if it was a good idea which means you can skip the whole risk category of "wasted time learning this thing that didn't work out."
+
+So the downside's shrunk way down. The upside has gone way up, too.
 
 Previously, marginal gains - maybe Thing X saves you a couple hours on a week-long project - were nominally not worth it. 2 out of 40, 5%. Well, that ain't a bad percent but nominally, it's an hour or two. You could've lost that in a commute. Marginal gains multiplied through the human rate-limiter at 1x and came out to peanuts, nominally.
 
-But [the rate-limier was human]({%post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}). Now even marginal gains multiply by big numbers across agentically-compressed time and agentically-scaled workforces. That same 5% gain stacks up to hours upon days upon weeks, nominally. The bar for "what matters" has gone way down.
+But [the rate-limiter was human]({%post_url blog/essay/2026-02-06-the-load-bearing-rate-limiter-was-human %}). Now even marginal gains multiply by big numbers across agentically-compressed time and agentically-scaled workforces. That same 5% gain stacks up to hours upon days upon weeks, nominally. The bar for "what matters" has gone way down.
 
 The cost of trying went down. The benefit of trying went up. It is time to use the new formula.
 
 ## I Didn't, Then I Did It
 
-There's a firehose of new things to try. "[The optimal Claude Code Setup](https://x.com/bcherny/status/2007179832300581177)," [/grill-me](https://github.com/mattpocock/skills), and just recently, [/i-have-adhd](https://github.com/ayghri/i-have-adhd), [/adhd](https://github.com/uditakhourii/adhd), [/ponytail](https://github.com/DietrichGebert/ponytail), [/caveman](https://github.com/juliusbrussee/caveman), [ponytail *on* caveman](https://github.com/DietrichGebert/ponytail#faq), stop writing code, [write loops](https://corpwaters.substack.com/p/the-ultimate-guide-to-loops). Stop writing loops, [write graphs](https://www.aibuilderclub.com/blog/graph-engineering-vs-loop-engineering). [Delete your prompts for Opus 5](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models). Code review? A cornucopia of differently-tuned SaaS platforms, skills, and prompts overflows every day. [Apple's got a native container engine](https://opensource.apple.com/projects/container/), maybe your agents should be in *that*. [GPT Terra, Sol, *and* Luna](https://www.mindstudio.ai/blog/what-is-gpt-5-6-sol-terra-luna-explained). Agentic memory? The cup runneth over and spilleth onto the keyboard. [Worktrees](https://cursor.com/docs/configuration/worktrees)? How about [stacked pull requests](https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview/)!
+There's a firehose of new things to try. 
+
+> "[The optimal Claude Code Setup](https://x.com/bcherny/status/2007179832300581177)," [/grill-me](https://github.com/mattpocock/skills), and just recently, [/i-have-adhd](https://github.com/ayghri/i-have-adhd), [/adhd](https://github.com/uditakhourii/adhd), [/ponytail](https://github.com/DietrichGebert/ponytail), [/caveman](https://github.com/juliusbrussee/caveman), [ponytail *on* caveman](https://github.com/DietrichGebert/ponytail#faq), stop writing code, [write loops](https://corpwaters.substack.com/p/the-ultimate-guide-to-loops). Stop writing loops, [write graphs](https://www.aibuilderclub.com/blog/graph-engineering-vs-loop-engineering). [Delete your prompts for Opus 5](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models). Code review? A cornucopia of differently-tuned SaaS platforms, skills, and prompts overflows every day. [Apple's got a native container engine](https://opensource.apple.com/projects/container/), maybe your agents should be in *that*. [GPT Terra, Sol, *and* Luna](https://www.mindstudio.ai/blog/what-is-gpt-5-6-sol-terra-luna-explained). Agentic memory? The cup runneth over and spilleth onto the keyboard. [Worktrees](https://cursor.com/docs/configuration/worktrees)? How about [stacked pull requests](https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview/)!
 
 <!-- TODO: pr review, coderabbit, greptile, a couple others -->
 <!-- TODO: memory: optmem, whatever that claude supermem local was, something else with a lot of stars -->
 
-It doesn't stop. How do you avoid the analysis paralysis? Even having avoided it, how do you find the time to fit evaluating all these things into your day? You've got "real" work to do, too, you know. Maybe the right answer is to just keep doing what you've got now. After all, it's been working for you so far...
+It doesn't stop - if anything, it's accelerating.
+
+How do you avoid the analysis paralysis? Even having avoided it, how do you find the time to fit evaluating all these things into your day? You've got "real" work to do, too, you know. Maybe the right answer is to just keep doing what you've got now. After all, it's been working for you so far...
 
 > Just try the thing.
 
@@ -116,11 +120,9 @@ Hey your cost to try was just paid in pennies. You didn't have to learn it yet. 
 
 This can be hard to believe. Or perhaps, "hard to internalize" is more accurate.
 
-I've done it to myself countless times throughout my career. Usually it was understandable and consequence-free to be cautious - as we saw above.
-
 Lately though, as *I've* been feeling the acceleration, some of my answers to my coworkers when they ask for how to deal with a problem have been quite confidently "Oh, yeah, ThingX solves that for good. [link to documentation homepage]. Try it!"
 
-I bet you can guess what happened next: nothing at first.
+I bet you can guess what happened next: nothing at first. <!-- TODO: refactor this --> 
 
 And then days or weeks later, they surface with the *same* problem. "Did ThingX not work? It's how I solved that problem permanently, for me."
 
@@ -142,3 +144,66 @@ I do the bemoaned context-switch. I take the interrupt. This would've been irres
 
 ## Receipts, Such as They Are
 
+The strongest recent examples of this in my life come from two tools, one I built and one I adopted.
+
+### Stop and Build
+
+[Stockroom](https://github.com/Texarkanine/stockroom) is a cross-harness data warehouse I built. It ingests conversations from the two harnesses I primarily use - Cursor and Claude Code - and makes them queryable via SQL and semantic search, by human or by AI. Importantly, it ingests everything on-disk, backfills data from harnesses' previous data formats, and stays up-to-date on a schedule; my whole history across all my harnesses is there.
+
+I heard the story of "the guy who pointed duckdb at their Claude Code history and can search it" farther back than I remember. But that sounded hard. I realized it probably wasn't that hard and that I wanted it, when I saw [claude-warehouse](https://github.com/sderosiaux/claude-warehouse) sometime back in April of this year. But, I primarily use Cursor. I eventually got around to making a [cursor-warehouse](https://github.com/Texarkanine/cursor-warehouse) version, but, well, I *do* use both, so my history was fragmented (and agents had two skills and two sets of schema to manage). But building one that would not just work on both, but unify both and be ready for whichever harness came next... well that'd be significant work. So I just lived with it for a couple months. Finally I decided enough was enough and built Stockroom and it almost immediately began paying dividends. Agents knew what they'd worked on in the past, even in other harnesses, *even before Stockroom existed*.
+
+This particular tool didn't just pay off after it existed, it paid *backwards*, making things that I'd already done more valuable than they had been at the time! Should've just ~~tried~~ built the thing.
+
+### Stop and Adopt
+
+I saw [OptMem](https://github.com/VictorTaelin/OptMem) the other day. It's a "memory for your agents" tool, of which there've been many since the beginning of agentic development, and of which I've always been skeptical.
+
+My skepticism wasn't "will this be useful" but the pure, outdated "how much work am I going to have to do to change my workflow about this?" variety.
+
+So when I saw OptMem and it looked plausible, I applied my new rule: Hook it up right now. I immediately realized two things:
+
+**This kind of memory is fantastically-useful for agents.** I should've hooked something like it up long ago; I'd been running hamstrung.
+
+**This kind of memory only accumulates *going forward* and cannot be backfilled.** Exactly opposite Stockroom, every day I put off to do one more task *instead* of adopting a memory tool, I was losing data that *could have been* useful.
+
+Should've just tried the thing.
+
+## Calculus' Category Change
+
+What I have come to believe is that at this "inhuman speed," the calculation of "opportunity cost" which was and is a correct part of the one-way/two-way door framework, has changed.
+
+Previously, if you had
+
+* Four things you could do: `{A, B, C, D}`
+* Time to do two of them: `{A, B}`
+* And wanted to try ThingX
+
+You'd observe that in order to learn, try, evaluate, and integrate ThingX, you'd give up A or B, and so you'd be looking at picking:
+
+1. `{X, B}`
+2. `{A, X}`
+3. `{A, B}`
+4. or, if X didn't work out, *only* `{A}` or *only* `{B}`
+
+so you (or at least I) would be weighing "Having ThingX" *against* A or B - as a trade - since it felt much closer to a zero-sum game.
+
+The naive update is that you can just have `{A, B, X}` without having to give something up. That is true, but there's more. Due to the increase in the nominal size of the operands being multiplied even by marginal gains, each ThingX today expands the possibility space, too.
+
+If you have
+
+* Four things you could do: `{A, B, C, D}`
+* Time to do two of them: `{A, B}`
+* And wanted to try ThingX
+
+go and try ThingX and you'll likely find yourself with
+
+* Five things you could do: `{A, B, C, D, E}`, where E was enabled by ThingX
+* Time to do three of them: `{A, B, C}`
+* ThingX in your pocket
+* ThingY waiting to be tried
+
+> Irreversibility is collapsing. The cost of not trying now exceeds the cost of trying.
+
+This is no longer a zero-sum game; this is a multiplicative flywheel. Spin it up.
+
+***Just try the thing!***
