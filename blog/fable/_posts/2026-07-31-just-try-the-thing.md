@@ -55,18 +55,17 @@ So, there was a huge bias for "trying the thing" to land in the bottom-left quad
 
 There was a stretch of time where squarely half - 50%, one in two - of the "big projects" I was assigned at work, got completed to where they could be tried out, and then scrapped. I got paid for that time, but the company didn't have anything concrete to show for it. Hopefully a PM and a couple software engineers learned some stuff that'd pay off in the next project but... no product. No feature. No deliverable.
 
-## Equations Have Two Sides
-
 "The cost of deciding" is what that matrix is trying to guide. So you evaluate the potential costs of the decision, if it were made. But there are costs in doing that evaluation, too! If you're going to try Thing X and make an informed decision as to whether to adopt, you need to actually
 
 1. have situations where you can apply Thing X
 2. use Thing X properly
 
-The first one may take calendar time, if there isn't anything to try Thing X *on* right now. And the second one was guaranteed to take *your* time - you had to learn how to set up your "experiment" properly - that meant learning how and when to use Thing X, and being able to execute it properly so you'd get good data on whether Thing X was worth it.
+The first one may take calendar time, if there isn't anything to try Thing X *on* right now. And the second one was guaranteed to take *your* time: you had to set up your "experiment" properly which meant learning how and when to use Thing X and being able to execute it properly so you'd get good data on whether Thing X was worth it.
 
 Even if "having adopted Thing X" was an inconsequential, reversible two-way door, you might still have burnt a lot of time learning enough to give it a try. That dragged the total calculus back towards the consequential, irreversible quadrant. Right or wrong about the decision, you weren't going to get your adoption time back. **Having Decided** alone was not the entirety of the cost.
 
 TODO: think abou this: The Bezos Matrix assumed a fixed-rate cost of making a decision
+TODO: dedupe these paragraphs. point: having decided wasn't the sole cost; deciDING had cost, adn deciding if you shoiuld decide was the decision not on the chart.
 
 ## Inhuman Speed
 
@@ -148,9 +147,9 @@ The strongest recent examples of this in my life come from two tools, one I buil
 
 ### Stop and Build
 
-[Stockroom](https://github.com/Texarkanine/stockroom) is a cross-harness data warehouse I built. It ingests conversations from the two harnesses I primarily use - Cursor and Claude Code - and makes them queryable via SQL and semantic search, by human or by AI. Importantly, it ingests everything on-disk, backfills data from harnesses' previous data formats, and stays up-to-date on a schedule; my whole history across all my harnesses is there.
+[Stockroom](https://github.com/Texarkanine/stockroom) is a cross-harness data warehouse I built. It ingests conversations from the two harnesses I primarily use - [Cursor](https://www.cursor.com/) and [Claude Code](https://www.anthropic.com/products/claude-code) - and makes them queryable via SQL and semantic search, by human or by AI. Importantly, it ingests everything on-disk, backfills data from harnesses' previous data formats, and stays up-to-date on a schedule; my whole history across all my harnesses is there.
 
-I heard the story of "the guy who pointed duckdb at their Claude Code history and can search it" farther back than I remember. But that sounded hard. I realized it probably wasn't that hard and that I wanted it, when I saw [claude-warehouse](https://github.com/sderosiaux/claude-warehouse) sometime back in April of this year. But, I primarily use Cursor. I eventually got around to making a [cursor-warehouse](https://github.com/Texarkanine/cursor-warehouse) version, but, well, I *do* use both, so my history was fragmented (and agents had two skills and two sets of schema to manage). But building one that would not just work on both, but unify both and be ready for whichever harness came next... well that'd be significant work. So I just lived with it for a couple months. Finally I decided enough was enough and built Stockroom and it almost immediately began paying dividends. Agents knew what they'd worked on in the past, even in other harnesses, *even before Stockroom existed*.
+I heard the story of "the guy who pointed [DuckDB](https://duckdb.org/) at their Claude Code history and can search it" farther back than I remember. But that sounded hard. I realized it probably wasn't that hard and that I wanted it, when I saw [claude-warehouse](https://github.com/sderosiaux/claude-warehouse) sometime back in April of this year. But, I primarily use Cursor. I eventually got around to making a [cursor-warehouse](https://github.com/Texarkanine/cursor-warehouse) version, but, well, I *do* use both, so my history was fragmented (and agents had two skills and two sets of schema to manage). But building one that would not just work on both, but unify both and be ready for whichever harness came next... well that'd be significant work. So I just lived with it for a couple months. Finally I decided enough was enough and built Stockroom and it almost immediately began paying dividends. Agents knew what they'd worked on in the past, even in other harnesses, *even before Stockroom existed*.
 
 This particular tool didn't just pay off after it existed, it paid *backwards*, making things that I'd already done more valuable than they had been at the time! Should've just ~~tried~~ built the thing.
 
@@ -162,7 +161,7 @@ My skepticism wasn't "will this be useful" but the pure, outdated "how much work
 
 So when I saw OptMem and it looked plausible, I applied my new rule: Hook it up right now. I immediately realized two things:
 
-**This kind of memory is fantastically-useful for agents.** I should've hooked something like it up long ago; I'd been running hamstrung.
+**This kind of memory is fantastically useful for agents.** I should've hooked something like it up long ago; I'd been running hamstrung.
 
 **This kind of memory only accumulates *going forward* and cannot be backfilled.** Exactly opposite Stockroom, every day I put off to do one more task *instead* of adopting a memory tool, I was losing data that *could have been* useful.
 
