@@ -10,9 +10,9 @@ tags:
   - memory
 ---
 
-Show up for your first day at any functioning organization and the same five things happen, in roughly the same order.
+Show up for your first day at any functioning organization and the same five things (should) happen, in roughly the same order.
 
-1. You arrive remembering what you do here and what you were doing yesterday.
+1. You arrive remembering what your job is here and what you were doing yesterday.
 2. Someone hands you the binder: here's how we do things around here.
 3. You get a ticket: here's your task, here are its files.
 4. When you finish, it gets filed, so that when someone later asks "what did we do for the X widget?", the answer doesn't depend on who's still employed.
@@ -22,19 +22,21 @@ That ladder is the entire memory apparatus of an institution - personal recall, 
 
 1. **[Autobiographical memory](https://en.wikipedia.org/wiki/Autobiographical_memory)** - what I do here, what I was doing yesterday: recent episodes fused with self-knowledge, weighted toward the present, fading as it goes.
 2. **[Procedural memory](https://en.wikipedia.org/wiki/Procedural_memory)** - how we do things here. In a person this knowledge is implicit - you can ride the bike but not recite how - which is exactly why the binder exists: procedure forced into words so it can be handed to someone whose hands don't know it yet.
-3. **[Prospective memory](https://en.wikipedia.org/wiki/Prospective_memory)** - remembering *to do*: the task, its trigger, what done looks like. The ticket.
+3. **[Prospective memory](https://en.wikipedia.org/wiki/Prospective_memory)** - remembering *to do*: buy the milk, send the report. Psychologists split it into remembering *that* something needs doing and *what* it is - and the institution splits it the same way: the ticket holds the what, and the directive to "work your queue" supplies the that.
 4. **[Semantic memory](https://en.wikipedia.org/wiki/Semantic_memory)** - facts detached from the experience of learning them. The archive answers "what did we do for the X widget?" without needing anyone who was there.
-5. **[Episodic memory](https://en.wikipedia.org/wiki/Episodic_memory)** - re-living a specific event in order: when it changed, how, and why. The audit trail and the footage.
+5. **[Episodic memory](https://en.wikipedia.org/wiki/Episodic_memory)** - re-living a specific event in order: when it changed, how, and why. Audit logs and security camera footage.
+
+No rung *is* the memory class it serves. The binder holds procedure as explicit words precisely because hands can't be photocopied; the queue holds intentions outside any head so they reload reliably into whichever head takes the ticket. Each rung is a serialization format: a memory class offloaded from one human, stored durably, and deserialized back into the native faculty of another.
 
 Notice one class is absent: [working memory](https://en.wikipedia.org/wiki/Working_memory), the scratch paper you think on. No institution keeps a scratch-paper archive, and that absence matters later.
 
-Before I name a single tool, place your own agent setup on the ladder. Which rungs do your agents have? Which are missing? The missing ones matter unequally: exactly one of them cannot wait.
+Before I name a single tool, place your own agent setup on the ladder. Which rungs do your agents have in the institution you've built around using them? Which are missing? The missing ones matter unequally: exactly one of them cannot wait.
 
 ## Six Stores, Five Rungs
 
 Here's my stack, rung for rung:
 
-1. **Autobiographical**: [OptMem](https://github.com/VictorTaelin/OptMem).
+1. **Autobiographical**: [OptMem-Split](https://github.com/Texarkanine/OptMem-Split).
 	- While working, the agent records what it judges worth remembering, and at the start of every session its recent memories are pushed into context - what I do here, what I was doing yesterday.
 2. **Procedural**: [Niko's memory bank](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko#nikos-memory-bank) forms rungs 2 through 4, starting with the [persistent files](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko#persistent-files) as the binder.
 	- Product context, system patterns, tech stack.
@@ -46,25 +48,31 @@ Here's my stack, rung for rung:
 	- Niko's enforcement of git commits throughout the workflow becomes an *audit log* that answers *what* and *when*.
 	- [Stockroom](https://github.com/Texarkanine/stockroom) is the "security-camera footage" answering *how* and *why*: every agent conversation across every [harness](/garden/ai-horses.html), queryable by SQL and semantic search.
 
-(I didn't map tools onto the taxonomy; I assembled the stack empirically and noticed the isomorphism afterward.)
+I didn't pick these tools specifically to fulfill this taxonomy, by the way - I assembled the stack empirically and noticed the isomorphism afterward.
 
-Exactly one store is pushed. OptMem's memories arrive unbidden at session start, under a hard cap. Everything else is pulled - the active ticket by a nudge, the archive, the git history, and the footage only when the agent goes digging. That ratio is a staffing decision, not an implementation detail: push more than one rung and you've reinvented context stuffing with extra steps.
+Exactly one store is **pushed**: OptMem's memories arrive unbidden at session start, under a hard cap. Everything else is pulled - the active ticket by a nudge (that's the *that* half of prospective memory, supplied by rule), the archive, the git history, and the footage only when the agent goes digging. That ratio is a staffing decision, not an implementation detail: push more than one rung and you've reinvented [context stuffing](https://medium.com/@ZoinerTejada/ai-context-stuffing-pattern-in-prompt-engineering-fb26d0378c64) with extra steps.
 
 ## The Notepad Isn't on the Org Chart
 
-The ambient advice for "give your agent memory" is a markdown file the model appends to. `memory.md`, `MEMORY.md`, a notes section at the bottom of `AGENTS.md` - the shape is the same: a shared, unordered notepad. Where does it sit on the ladder? Nowhere. Every rung has a write rule (what gets recorded, by whom, when), a read trigger (what causes an entry to resurface), and a retention policy (what ages out, compresses, or gets promoted). The notepad has none of the three. Anything may be appended at any time, nothing determines when an entry is seen again, and nothing ever leaves. Someone will tell me their memory.md is very tidy; tidiness doesn't supply a write rule.
+The ambient advice for "give your agent memory" is a markdown file the model appends to. `memory.md`, [MEMORY.md](https://code.claude.com/docs/en/memory#auto-memory), a notes section at the bottom of `AGENTS.md` - the shape is the same: a shared, unordered notepad. Where does it sit on the ladder? Nowhere. Every rung has some rules about how to use it:
 
-The generous reading is that the notepad persists the context window. But the context window is working memory - scratch paper. You scribble on it while solving the problem; then you solve the problem, record the solution somewhere governed - the ticket, a commit, the archive - and throw the scribbles away. They should not be preserved. If anyone later needs to know how you arrived at the solution, the napkin won't tell them; the footage over your shoulder will, and that's rung 5's job. A memory.md is a photograph of the napkin, filed under "memory" - working memory persisted without a schema. No functioning organization runs on one.
+1. **Write Rule:** what gets recorded, by whom, when
+2. **Read Trigger:** what causes an entry to resurface
+3. **Retention Policy:** what ages out, compresses, or gets promoted
+
+The notepad has none of the three. Anything may be appended at any time, nothing determines when an entry is seen again, and nothing ever leaves. Someone will tell me their `memory.md` is very tidy; tidiness doesn't supply a write rule.
+
+The generous reading is that the notepad persists the context window. But the context window is working memory - scratch paper. You scribble on it while solving the problem; then you solve the problem, record the solution somewhere governed - the ticket, a commit, the archive - and throw the scribbles away. They should not be preserved. If anyone later needs to know how you arrived at the solution, the napkin won't tell them; the recording of the meeting will, and that's rung 5's job. A `memory.md` is a photograph of the whiteboard at the end of the meeting: the messy end-result of a live context, now stripped of the liveness that made it and less-intelligible for it. A screenshot of a Zoom call.
 
 ## The Rung Nobody Built
 
 Institutions did not arrive at the ladder by theorizing. They arrived at it by failing, and the binder rung has the best-documented failure of all.
 
-During the Second World War, bombs were going off inside British munitions factories.[^1] The government's remedy was the binder, enforced: to be a supplier you wrote down your procedures, your workers were inspected against what you wrote, and a state inspector audited the whole method. The bombs stopped going off in the factories. That seed grew through military procurement standards - the US MIL-Q-9858 in 1959, the UK's Def Stan 05-21 - into the British Standard BS 5750 in 1979, which in 1987 became the [ISO 9000 series](https://en.wikipedia.org/wiki/ISO_9000_family). Its flagship, ISO 9001, now counts over one million certified organizations across essentially every industry on Earth. "Here's how we do things here" got standardized planet-wide because the failure mode that preceded it left craters.
+During the Second World War, bombs were going off inside British munitions factories.[^1] The government's remedy was the binder, enforced: to be a supplier you wrote down your procedures, your workers were inspected against what you wrote, and a state inspector audited the whole method. The bombs stopped going off in the factories. That seed grew through military procurement standards - the US [MIL-Q-9858](https://www.cshindustries.com/wp-content/uploads/2016/05/mil-q-9858a-the-origin-of-iso-9001.pdf) in 1959, the UK's [Def Stan 05-21](https://standards.globalspec.com/std/1657849/def-stan-05-21) - into the British Standard [BS 5750](https://knowledge.bsigroup.com/products/quality-systems-specification-for-design-development-production-installation-and-servicing) in 1979, which in 1987 became the [ISO 9000 series](https://en.wikipedia.org/wiki/ISO_9000_family). Its flagship, ISO 9001, now counts over one million certified organizations across essentially every industry on Earth. "Here's how we do things here" got standardized planet-wide because the failure mode that preceded it left craters.
 
 The other rungs have similar origin stories: ticketing, record-keeping, and audit trails all got formalized after failures made them non-optional. But notice what's missing. No institution ever built rung 1. There is no ISO standard for autobiographical memory, no document control number for "remember what you were doing yesterday." Nobody wrote one, nobody productized it, no vendor category exists - because every hire arrives with it pre-installed. Humans come with yesterday's salience for free. The one memory that never needed institutionalizing got a name anyway: we call it experience, and we price it in salary bands.
 
-The four rungs institutions built are also exactly the four you can construct from records - which is what made them institutionalizable in the first place. A binder can be written from what practitioners already know. An archive can be assembled from what the tickets say. An audit trail accretes from artifacts that exist anyway. Whatever required a live judgment in the moment could never be turned into a document control standard, so it stayed in people's heads.
+The four rungs institutions built are also exactly the four you can construct from records - which is what made them institutionalizable in the first place. A binder can be written from what practitioners already know. An archive can be assembled from what the tickets say. An audit trail accretes from artifacts that exist anyway. Whatever required a live judgment in the moment could never be turned into a document control standard, so it stayed in people's heads. Salience never got a serialization format.
 
 Machine agents show up with rung 1 empty. The one rung with no institutional precedent to copy is the one your agents are missing - and it's also the only one you cannot start late.
 
@@ -83,19 +91,19 @@ The test: for each rung, suppose you become a believer six months from now inste
 
 Four zeros. Most of agent memory is safe to procrastinate on, and anyone who tells you otherwise is selling something.
 
-A recorder you weren't running can't be re-run, so the footage loss is real - but it's mechanical, and mechanical loss is the fixable kind, because the raw material usually still exists. Your harnesses have been writing conversation logs to disk all along; that's why Stockroom, on the day I built it, backfilled my entire agent history from those files, including formats the harnesses had already abandoned. In [Just Try the Thing]({% post_url blog/essay/2026-08-01-just-try-the-thing %}) I described that as the tool paying *backwards*. Come around to footage in six months and you'll backfill in an afternoon and be nearly whole.
+A recorder you weren't running can't be re-run, so the footage loss is real - but it's mechanical, and mechanical loss is the fixable kind, because the raw material usually still exists. Your harnesses have been writing conversation logs to disk all along; that's why Stockroom, once I built it, backfilled my entire agent history from those files, including formats the harnesses had already abandoned. In [Just Try the Thing]({% post_url blog/essay/2026-08-01-just-try-the-thing %}) I described that as the tool paying *backwards*. Come around to the importance of reviewing footage in six months and you'll backfill in an afternoon and be nearly whole - because the cameras were running all along.
 
 Rung 1's loss is total, and "you'll have zero memories on day one" understates it: no process, at any budget, can manufacture what would have been there.
 
-## Salience Is a Fold, Not a Map
+## Salience Is a `fold`, Not a `map`
 
-Run the thought experiment that seems to defeat me. Suppose you have perfect transcripts - footage of every session for the past six months. Suppose the exact model that ran those sessions is still being served, so the judge is the same. Suppose token cost is no object. Replay the whole six months through the API, and at each juncture ask the model: what here is worth remembering? Write its answers into your store, timestamped into the past. You now hold six months of memories.
+Suppose you have perfect transcripts - "footage" of every session for the past six months. Suppose the exact model that ran those sessions is still being served, so the judge is the same. Suppose token cost is no object. Replay the whole six months through the API, and at each juncture ask the model: what here is worth remembering? Write its answers into your store, timestamped into the past. You now hold six months of memories.
 
-Do you?
+Do you? <!-- todo meme do you though -->
 
 The five backfillable stores are [maps](https://en.wikipedia.org/wiki/Map_%28higher-order_function%29) over history: each record is a function of the events it describes, so you can compute any record, in any order, at any distance from the events. That's the mathematical reason the audit table has four zeros in it, and it's the property the replay is betting on.
 
-Rung 1 is a [fold](https://en.wikipedia.org/wiki/Fold_%28higher-order_function%29). Each salience judgment took two inputs: the moment being judged, and the accumulator - every memory recorded so far, pushed into the very context doing the judging. The agent that evaluated week ten had been shaped, at the start of every session, by what it wrote in weeks one through nine. So run the replay and watch it invalidate itself: the first memory it writes changes the context in which the second judgment should have been made, and the transcript you're replaying was recorded in a world where that memory didn't exist. Rewrite commit three and every SHA downstream changes. There is no fixed set of memories waiting to be recovered, because the memories, had they existed, would have changed everything downstream of them - including which memories came next. The replay doesn't reconstruct your history. It manufactures a history that never happened.
+Rung 1 is a [fold](https://en.wikipedia.org/wiki/Fold_%28higher-order_function%29) (also known as `reduce`). Each salience judgment took two inputs: the moment being judged, and the accumulator: every memory recorded so far, pushed into the very context doing the judging. The agent that evaluated week ten had been shaped, at the start of every session, by what it wrote in weeks one through nine. So run the replay and watch it invalidate itself: the first memory it writes changes the context in which the second judgment should have been made, and the transcript you're replaying was recorded in a world where that memory didn't exist. Rewrite commit three and every SHA downstream changes. There is no fixed set of memories waiting to be recovered, because the memories, had they existed, would have changed everything downstream of them - including which memories came next. The replay doesn't reconstruct your history; it manufactures a history that never happened.
 
 And even granting the manufactured set, it's missing the thing that made the originals memories: none of it ever influenced anything. A real rung-1 memory earned its place by steering the decisions that came after it. The replayed entries are receipts for judgments that never occurred - downstream of nothing, upstream of nothing.
 
@@ -103,7 +111,7 @@ So the artifact was never the memory. The judgment was - the live, in-context ac
 
 ## The Shape, Not the Tool
 
-I use OptMem for rung 1. You don't need OptMem. You need something in its shape:
+I use OptMem for rung 1. You don't need OptMem. You need something, anything, in its shape:
 
 1. An agent judges salience [in medias res](https://en.wikipedia.org/wiki/In_medias_res) - during the work, while the judgment can still steer it.
 2. Judgments are written to a temporally-aware store.
@@ -112,7 +120,7 @@ I use OptMem for rung 1. You don't need OptMem. You need something in its shape:
 5. What's pushed into context is hard-capped.
 6. Older memories can be resurfaced - progressively disclosed - when judged relevant.
 
-Nothing in that list names a vendor, a file format, or a harness; five people could implement it five different ways, which is how you know it describes a class of memory and not a product. It's also the sieve I'd hold up to the firehose of memory tools shipping this year. Anything that satisfies it is a rung-1 candidate; anything that merely persists text is a notepad with a landing page.
+Nothing in that list names a vendor, a file format, or a harness; five people could implement it five different ways, which is how you know it describes a class of memory and not a product. It's also the sieve I'd hold up to the firehose of memory tools that seem to never stop shipping. Anything that satisfies it is a rung-1 candidate, and warrants urgent attention if you don't already have one in play. Anything else can wait ([but maybe shouldn't]({% post_url blog/essay/2026-08-01-just-try-the-thing %})).
 
 ## Open Positions
 
@@ -122,7 +130,7 @@ One gap is visible already: nothing in my stack recalls associatively. The archi
 
 ## The Only Rung with a Start Date
 
-Everything else on the ladder will wait for you. Write the binder when you're ready; it improves with age. Point an agent at your tickets whenever. Turn the footage on late and backfill from the logs your tools were keeping anyway. Four zeros and one afternoon of catch-up: that's the honest cost of procrastinating on five-sixths of agent memory.
+Everything else on the ladder will wait for you. Write the binder when you're ready; it improves with age. Point an agent at your tickets whenever. The cameras are running even if nobody's checking the footage yet; backfill whenever you're ready, from the logs your tools were keeping anyway. Four zeros and one afternoon of catch-up: that's the honest cost of procrastinating on five-sixths of agent memory.
 
 Rung 1's clock only runs forward. Adopt it in six months and you'll hold zero memories on day one, six months of judgments behind - and those judgments weren't recorded and lost; they never happened at all.
 
