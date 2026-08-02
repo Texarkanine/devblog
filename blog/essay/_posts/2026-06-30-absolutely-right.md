@@ -15,11 +15,13 @@ tags:
 {%polaroid
 	absolutely-right/absolutely-right-claude-code-github.png
 	link="https://github.com/anthropics/claude-code/issues/3382"
+	archive="https://web.archive.org/web/20260714122313/https://github.com/anthropics/claude-code/issues/3382"
 %}
 
 {%polaroid
 	absolutely-right/absolutely-right-anthropic-self-aware.png
 	link="https://x.com/claudeai/status/1950676983257698633"
+	archive="https://web.archive.org/web/20250803004125/https://x.com/claudeai/status/1950676983257698633"
 %}
 
 ---
@@ -33,6 +35,7 @@ To an extent. Claude in particular, while not historically the worst offender, d
 {%polaroid
 	absolutely-right/absolutelyright.lol.png
 	link="https://absolutelyright.lol/"
+	archive="https://web.archive.org/web/20260618195747/https://absolutelyright.lol/"
 %}
 
 ## What's Wrong with That?
@@ -121,6 +124,7 @@ I don't have an "in the wild" example of this, but it's been officially studied:
 {%linkcard
 	https://arxiv.org/abs/2305.13160
 	"Can ChatGPT Defend its Belief in Truth? Evaluating LLM Reasoning via Debate (2023)"
+	archive:https://web.archive.org/web/20260801211407/https://arxiv.org/abs/2305.13160
 %}
 
 The age - 2023, an eternity in the field of AI - is both a plus and a minus here. It's about a 2023 ChatGPT, not Claude, but it shows that this has been a problem for a while.
@@ -141,6 +145,7 @@ Finally, there's the *Shrug:* the AI wasn't egregiously incorrect, but it was in
 {%polaroid
 	absolutely-right/absolutely-right-simonwillison.png
 	link="https://simonwillison.net/2025/Sep/9/claude-code-interpreter/"
+	archive="https://web.archive.org/web/20260801211447/https://simonwillison.net/2025/Sep/9/claude-code-interpreter/"
 %}
 
 The Shrug isn't really funny. It's just a correction.
@@ -209,6 +214,7 @@ On the other end of things, a more rough-and-tumble society might determine that
 	absolutely-right/hateful-8-hang.jpg
 	title="-- John Ruth, in Quentin Tarantino's The Hateful Eight"
 	link="https://www.imdb.com/video/embed/vi2981217305/"
+	archive="https://web.archive.org/web/20260801201111/https://www.imdb.com/video/embed/vi2981217305/"
 %}
 
 ### The Machine Delivers
@@ -234,6 +240,7 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
 {%linkcard
 	https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors
 	"New York Bill Would Create Liability for Chatbot Proprietors Offering Professional Advice"
+	archive:https://web.archive.org/web/20260801211701/https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors
 %}
 
 > The New York State Senate has advanced a bill that would bar "proprietors" of ... (AI)-powered chatbots from providing ... responses or advice that ... would constitute the unauthorized practice of a licensed profession ...
@@ -243,6 +250,7 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
 {%linkcard
 	https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/
 	"German Court Rules Google Liable for AI Overview Errors: What Developers Need to Know"
+	archive:https://web.archive.org/web/20260801211714/https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/
 %}
 
 > Google’s AI Overview feature — those AI-generated summaries that appear at the top of search results — falsely linked publishers to scam operations. The affected publishers sued.

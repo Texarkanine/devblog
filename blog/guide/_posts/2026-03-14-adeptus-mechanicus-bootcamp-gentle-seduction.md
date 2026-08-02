@@ -208,6 +208,7 @@ Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narr
 	title="Agents managed by agents managed by agents... managed by you"
   link="https://bleuje.com/gifanimationsite/single/sierpinskiloop/"
   image_link="adeptus-mechanicus/sierpinskiloop.gif"
+  archive="https://web.archive.org/web/20260801201354/https://bleuje.com/gifanimationsite/single/sierpinskiloop/"
 %}
 
 Here's the insight that the Gas Town progression implies but doesn't fully explore: figure 8 is just where *individual contribution* ends and *recursive delegation* begins.

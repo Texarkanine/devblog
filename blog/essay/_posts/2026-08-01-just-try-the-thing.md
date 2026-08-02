@@ -20,6 +20,7 @@ You don't need me to tell you that; plenty of more-influential people and organi
 	labeouf-doit.jpg
 	link="https://www.youtube.com/watch?v=ZXsQAXx_ao0"
 	title="Just Do It"
+	archive="https://web.archive.org/web/20260801211805/https://www.youtube.com/watch?v=ZXsQAXx_ao0"
 %}
 
 So this is your nudge to go try the thing you've been thinking of trying, right now.
@@ -43,6 +44,7 @@ He advised tailoring your decision-making effort to those facts. People loved th
 	title="Bezos' Decision Matrix from Product Mindset on Substack"
 	link="https://productmindset.substack.com/p/bezos-decision-making-framework"
 	image_link="bezos-decision-matrix.jpg"
+	archive="https://web.archive.org/web/20260801211819/https://productmindset.substack.com/p/bezos-decision-making-framework"
 %}
 
 This is, I think, a good framework.

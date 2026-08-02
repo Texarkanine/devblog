@@ -12,6 +12,7 @@ tags:
 {%linkcard
 	https://andyljones.com/posts/horses.html
 	"Horses"
+	archive:https://web.archive.org/web/20260707095105/https://andyljones.com/posts/horses.html
 %}
 
 > ... between 1930 and 1950, 90% of the horses in the US disappeared.
@@ -196,6 +197,7 @@ This crossover's been done literally, and it works:
 {%linkcard
 	https://www.deepfates.com/cantrip/
 	"Cantrip: On summoning entities from language in circles"
+	archive:https://web.archive.org/web/20260801194233/https://www.deepfates.com/cantrip/
 %}
 
 > This is a starter spellbook. It describes a method for creating spells using the tools of modern summoning: a language model, a computer, and a prompt. It’s language loops all the way down.

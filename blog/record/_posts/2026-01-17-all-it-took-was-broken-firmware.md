@@ -81,6 +81,7 @@ I want to also briefly shout out to the old Linksys `WRT54GL` I pulled for this 
   wrt54gs-and-wsb24.jpg
   title="Shout Out to this Old Champ"
   link="https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html"
+  archive="https://web.archive.org/web/20260417192633/https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html"
 %}
 
 ## The Real Project

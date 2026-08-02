@@ -164,6 +164,7 @@ The gem is running on this blog right now. That polaroid from the previous post:
   title="Trip to Japan (with automatic thumbnail)"
   link="https://www.japan.go.jp/japan/visit/index.html"
   image_link="/assets/img/blog/diary/gemini-trip-to-japan.jpg"
+  archive="https://web.archive.org/web/20260801211051/https://www.japan.go.jp/japan/visit/index.html"
 %}
 
 The original image is 818KB. The thumbnail served is 115KB (86% reduction). The plugin calculated the correct width (536px) from the 400px height constraint and the image's aspect ratio, generated `gemini-trip-to-japan_thumb-45be04-536x400.jpg` in `.jekyll-cache/`, copied it to `_site/`, and replaced the URL in the HTML.
