@@ -172,7 +172,7 @@ Here's what the gem actually produces:
 
 **Linkcard example** - linking to the gem repository:
 
-{% linkcard https://github.com/Texarkanine/jekyll-highlight-cards jekyll-highlight-cards on GitHub %}
+{% linkcard https://github.com/Texarkanine/jekyll-highlight-cards jekyll-highlight-cards on GitHub archive:https://web.archive.org/web/20260801211040/https://github.com/Texarkanine/jekyll-highlight-cards %}
 
 **Polaroid example** - a photo from a trip to Japan:
 

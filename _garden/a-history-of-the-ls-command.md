@@ -154,6 +154,7 @@ By 1971, the system had been ported to the PDP-11/20, a 16-bit minicomputer. The
 	link="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf"
 	title="V1 Programmer's Manual - Commands (man12.pdf)"
 	archive:none
+	archive="https://web.archive.org/web/20251228181714/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf"
 %}
 
 ### The Manual Entry
@@ -345,6 +346,7 @@ But... Who was Don Widrig? Is he *really* the person who deserves credit for the
 	title="Donald R. Widrig, April 1968"
 	link="https://multicians.org/phase-one.html"
 	image_link="don-widrig-04-1968.jpg"
+	archive="https://web.archive.org/web/20260801201913/https://multicians.org/phase-one.html"
 %}
 
 That's him, according to some Multics history - again from `Multicians.org` - authored by [Tom Van Vleck](https://en.wikipedia.org/wiki/Tom_Van_Vleck). Tom worked on [Project MAC](https://en.wikipedia.org/wiki/Project_MAC) at MIT starting in 1965. Project MAC brought about the CTSS where our `ls` story starts.

@@ -13,6 +13,7 @@ tags:
 	chris-foss_alien-74.jpg
 	title="Organic Starship Design - Chris Foss"
 	link="https://www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1"
+	archive="https://web.archive.org/web/20260801195942/https://www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1"
 %}
 
 ## Clear Air Turbulence
@@ -22,6 +23,7 @@ tags:
 	title="Clear Air Turbulence - Ian Gillan Band LP"
 	link="https://rockstationrecords.blogspot.com/2025/11/ian-gillan-band-clear-air-turbulence-lp.html"
 	image_link="chris-foss_cat-lp.jpg"
+	archive="https://web.archive.org/web/20260801200124/https://rockstationrecords.blogspot.com/2025/11/ian-gillan-band-clear-air-turbulence-lp.html"
 %}
 
 Hey, that's a recognizable style, isn't it? Sure is!
@@ -38,4 +40,5 @@ The full version, designed to wrap around an LP sleeve, adds even more of the ch
 	title="Clear Air Turbulence- Full Version"
 	link="https://chrisfossart.com/product/clear-air-turbulence-fine-art/"
 	image_link="chris-foss_cat-full.webp"
+	archive="https://web.archive.org/web/20260213005704/https://chrisfossart.com/product/clear-air-turbulence-fine-art/"
 %}
