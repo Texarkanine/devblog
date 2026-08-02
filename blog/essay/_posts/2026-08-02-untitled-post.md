@@ -18,13 +18,35 @@ Show up for your first day at any functioning organization and the same five thi
 4. When you finish, it gets filed, so that when someone later asks "what did we do for the X widget?", the answer doesn't depend on who's still employed.
 5. And when something looks wrong - "wait, how did it get like *this*?" - there's a record for when it changed and footage for how and why.
 
-That ladder is the entire memory apparatus of an institution: personal recall, the operations binder, the ticket queue, the archive, the audit trail. Before I name a single tool, place your own agent setup on it. Which rungs do your agents have? Which are missing? The missing ones matter unequally: exactly one of them cannot wait.
+That ladder is the entire memory apparatus of an institution - personal recall, the operations binder, the ticket queue, the archive, the audit trail - and cognitive science already has a name for each rung:
+
+1. **[Autobiographical memory](https://en.wikipedia.org/wiki/Autobiographical_memory)** - what I do here, what I was doing yesterday: recent episodes fused with self-knowledge, weighted toward the present, fading as it goes.
+2. **[Procedural memory](https://en.wikipedia.org/wiki/Procedural_memory)** - how we do things here. In a person this knowledge is implicit - you can ride the bike but not recite how - which is exactly why the binder exists: procedure forced into words so it can be handed to someone whose hands don't know it yet.
+3. **[Prospective memory](https://en.wikipedia.org/wiki/Prospective_memory)** - remembering *to do*: the task, its trigger, what done looks like. The ticket.
+4. **[Semantic memory](https://en.wikipedia.org/wiki/Semantic_memory)** - facts detached from the experience of learning them. The archive answers "what did we do for the X widget?" without needing anyone who was there.
+5. **[Episodic memory](https://en.wikipedia.org/wiki/Episodic_memory)** - re-living a specific event in order: when it changed, how, and why. The audit trail and the footage.
+
+Notice one class is absent: [working memory](https://en.wikipedia.org/wiki/Working_memory), the scratch paper you think on. No institution keeps a scratch-paper archive, and that absence matters later.
+
+Before I name a single tool, place your own agent setup on the ladder. Which rungs do your agents have? Which are missing? The missing ones matter unequally: exactly one of them cannot wait.
 
 ## Six Stores, Five Rungs
 
-Here's my stack, rung for rung. [OptMem](https://github.com/VictorTaelin/OptMem) is rung 1: while working, the agent records what it judges worth remembering, and at the start of every session its recent memories are pushed into context - what I do here, what I was doing yesterday. The persistent files of [Niko's](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko) memory bank are rung 2, the binder: product context, system patterns, tech stack. The active memory bank is rung 3, the ticket: current task, plan, progress. The memory bank archive is rung 4: one completion record per task, finer-grained than an ADR. Rung 5 splits in two: git history answers *when*, and [Stockroom](https://github.com/Texarkanine/stockroom) - security-camera footage of every agent conversation across every [harness](/garden/ai-horses.html), queryable by SQL and semantic search - answers *how* and *why*.
+Here's my stack, rung for rung:
 
-(If you know your cognitive science: yes, [procedural](https://en.wikipedia.org/wiki/Procedural_memory) maps to the binder, [semantic](https://en.wikipedia.org/wiki/Semantic_memory) to the archive, [episodic](https://en.wikipedia.org/wiki/Episodic_memory) to the footage, and working memory to the context window. I assembled this stack empirically and noticed the isomorphism afterward.)
+1. **Autobiographical**: [OptMem](https://github.com/VictorTaelin/OptMem).
+	- While working, the agent records what it judges worth remembering, and at the start of every session its recent memories are pushed into context - what I do here, what I was doing yesterday.
+2. **Procedural**: [Niko's memory bank](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko#nikos-memory-bank) forms rungs 2 through 4, starting with the [persistent files](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko#persistent-files) as the binder.
+	- Product context, system patterns, tech stack.
+3. **Prospective**: the [ephemeral memory-bank files](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko#ephemeral-files) in `memory-bank/active` are the ticket.
+	- The current task, the plan for how to tackle it, and progress so far.
+4. **Semantic**: the archives in `memory-bank/archive`.
+	- One completion record per task, finer-grained than an ADR.
+5. **Episodic**, split in two:
+	- Niko's enforcement of git commits throughout the workflow becomes an *audit log* that answers *what* and *when*.
+	- [Stockroom](https://github.com/Texarkanine/stockroom) is the "security-camera footage" answering *how* and *why*: every agent conversation across every [harness](/garden/ai-horses.html), queryable by SQL and semantic search.
+
+(I didn't map tools onto the taxonomy; I assembled the stack empirically and noticed the isomorphism afterward.)
 
 Exactly one store is pushed. OptMem's memories arrive unbidden at session start, under a hard cap. Everything else is pulled - the active ticket by a nudge, the archive, the git history, and the footage only when the agent goes digging. That ratio is a staffing decision, not an implementation detail: push more than one rung and you've reinvented context stuffing with extra steps.
 
@@ -32,7 +54,7 @@ Exactly one store is pushed. OptMem's memories arrive unbidden at session start,
 
 The ambient advice for "give your agent memory" is a markdown file the model appends to. `memory.md`, `MEMORY.md`, a notes section at the bottom of `AGENTS.md` - the shape is the same: a shared, unordered notepad. Where does it sit on the ladder? Nowhere. Every rung has a write rule (what gets recorded, by whom, when), a read trigger (what causes an entry to resurface), and a retention policy (what ages out, compresses, or gets promoted). The notepad has none of the three. Anything may be appended at any time, nothing determines when an entry is seen again, and nothing ever leaves. Someone will tell me their memory.md is very tidy; tidiness doesn't supply a write rule.
 
-The generous reading is that the notepad persists the context window. But the context window is scratch paper. You scribble on it while solving the problem; then you solve the problem, record the solution somewhere governed - the ticket, a commit, the archive - and throw the scribbles away. They should not be preserved. If anyone later needs to know how you arrived at the solution, the napkin won't tell them; the footage over your shoulder will, and that's rung 5's job. A memory.md is a photograph of the napkin, filed under "memory." No functioning organization runs on one.
+The generous reading is that the notepad persists the context window. But the context window is working memory - scratch paper. You scribble on it while solving the problem; then you solve the problem, record the solution somewhere governed - the ticket, a commit, the archive - and throw the scribbles away. They should not be preserved. If anyone later needs to know how you arrived at the solution, the napkin won't tell them; the footage over your shoulder will, and that's rung 5's job. A memory.md is a photograph of the napkin, filed under "memory" - working memory persisted without a schema. No functioning organization runs on one.
 
 ## The Rung Nobody Built
 
@@ -40,7 +62,7 @@ Institutions did not arrive at the ladder by theorizing. They arrived at it by f
 
 During the Second World War, bombs were going off inside British munitions factories.[^1] The government's remedy was the binder, enforced: to be a supplier you wrote down your procedures, your workers were inspected against what you wrote, and a state inspector audited the whole method. The bombs stopped going off in the factories. That seed grew through military procurement standards - the US MIL-Q-9858 in 1959, the UK's Def Stan 05-21 - into the British Standard BS 5750 in 1979, which in 1987 became the [ISO 9000 series](https://en.wikipedia.org/wiki/ISO_9000_family). Its flagship, ISO 9001, now counts over one million certified organizations across essentially every industry on Earth. "Here's how we do things here" got standardized planet-wide because the failure mode that preceded it left craters.
 
-The other rungs have similar origin stories: ticketing, record-keeping, and audit trails all got formalized after failures made them non-optional. But notice what's missing. No institution ever built rung 1. There is no ISO standard for "remember what you were doing yesterday." Nobody wrote one, nobody productized it, no vendor category exists - because every hire arrives with it pre-installed. Humans come with yesterday's salience for free. The one memory that never needed institutionalizing got a name anyway: we call it experience, and we price it in salary bands.
+The other rungs have similar origin stories: ticketing, record-keeping, and audit trails all got formalized after failures made them non-optional. But notice what's missing. No institution ever built rung 1. There is no ISO standard for autobiographical memory, no document control number for "remember what you were doing yesterday." Nobody wrote one, nobody productized it, no vendor category exists - because every hire arrives with it pre-installed. Humans come with yesterday's salience for free. The one memory that never needed institutionalizing got a name anyway: we call it experience, and we price it in salary bands.
 
 The four rungs institutions built are also exactly the four you can construct from records - which is what made them institutionalizable in the first place. A binder can be written from what practitioners already know. An archive can be assembled from what the tickets say. An audit trail accretes from artifacts that exist anyway. Whatever required a live judgment in the moment could never be turned into a document control standard, so it stayed in people's heads.
 
@@ -57,7 +79,7 @@ The test: for each rung, suppose you become a believer six months from now inste
 | The ticket | Zero. Point an agent at whatever tracking you already have, whenever. |
 | The archive | Near zero. The facts survive in tickets and commits; some texture fades. |
 | The footage | Real, but mechanical. See below. |
-| Rung 1 | Total. See below. |
+| Autobiographical (rung 1) | Total. See below. |
 
 Four zeros. Most of agent memory is safe to procrastinate on, and anyone who tells you otherwise is selling something.
 
