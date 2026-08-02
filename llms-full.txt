@@ -19,7 +19,7 @@ You don't need me to tell you that; plenty of more-influential people and organi
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260801193611/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260801211805/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -263,7 +263,7 @@ This is no longer a zero-sum game; this is a multiplicative flywheel. Spin it up
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250803004125/https://x.com/claudeai/status/1950676983257698633" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -417,6 +417,10 @@ I don't have an "in the wild" example of this, but it's been officially studied:
   
   <a href="https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">arxiv.org/abs/2305.13160</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801211407/https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -465,7 +469,7 @@ Finally, there's the *Shrug:* the AI wasn't egregiously incorrect, but it was in
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801211447/https://simonwillison.net/2025/Sep/9/claude-code-interpreter/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -595,6 +599,10 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
   
   <a href="https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801211701/https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -611,7 +619,7 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
   <a href="https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">www.aimadetools.com/blog/german-court-google-ai-overview-liable</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260801193428/https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260801211714/https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
@@ -1457,7 +1465,7 @@ The four core deliverables are, well, *delivered* in SLOBAC:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801203812/https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -2384,7 +2392,7 @@ Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narr
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201354/https://bleuje.com/gifanimationsite/single/sierpinskiloop/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -4272,7 +4280,7 @@ I want to also briefly shout out to the old Linksys `WRT54GL` I pulled for this 
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260417192633/https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -5417,7 +5425,7 @@ The gem is running on this blog right now. That polaroid from the previous post:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801211051/https://www.japan.go.jp/japan/visit/index.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -5633,6 +5641,10 @@ Here's what the gem actually produces:
   
   <a href="https://github.com/Texarkanine/jekyll-highlight-cards" target="_blank" rel="noopener">github.com/Texarkanine/jekyll-highlight-cards</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801211040/https://github.com/Texarkanine/jekyll-highlight-cards" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -5716,7 +5728,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.sjj6ltfs-mlxjmylmr { display: inline-block; }</style><script>(function(){function agzezjpkyoh9bseq(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function vodjgarwskuj5(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var wwmlj4=sp.getAttribute('data-rszzgz');var gg0oopjxsoeg=sp.getAttribute('data-l2niqmq');var rjdmblfefg7c=sp.getAttribute('data-xakxbshipc');var yc5ncdmo1b=sp.getAttribute('data-uoajttlh7');var mailto=agzezjpkyoh9bseq(wwmlj4,spParts[0].length);var user=agzezjpkyoh9bseq(gg0oopjxsoeg,spParts[1].length);var domainBase=agzezjpkyoh9bseq(rjdmblfefg7c,lnkParts[0].length);var tld=agzezjpkyoh9bseq(yc5ncdmo1b,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function mdyb3iet7hu4wa(){var els=document.querySelectorAll('a.wuo8bioxv0x8rrt9-hwhk8wzj1');var handler=function(){var sp=this.querySelector('span.sjj6ltfs-mlxjmylmr');if(sp&&!this.dataset.d){var val=vodjgarwskuj5(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',mdyb3iet7hu4wa);}else{mdyb3iet7hu4wa();}})();</script>{:/nomarkdown}<a href="#" class="wuo8bioxv0x8rrt9-hwhk8wzj1"><span class="sjj6ltfs-mlxjmylmr" data-rszzgz="uiqtbw" data-l2niqmq="ANMJLCNM" data-xakxbshipc="fhejedcqyb" data-uoajttlh7="lxv">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.g6grb2a7wv9mk-zwib { display: inline-block; }</style><script>(function(){function oihyndtvdxq(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function y0f9haprr2vy(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var iav0cccju=sp.getAttribute('data-f3mbqvx');var a5szfcolkc=sp.getAttribute('data-h6ye9csyeb');var aasej79i=sp.getAttribute('data-x9hnzp');var u92adguyu=sp.getAttribute('data-mdtbrdg');var mailto=oihyndtvdxq(iav0cccju,spParts[0].length);var user=oihyndtvdxq(a5szfcolkc,spParts[1].length);var domainBase=oihyndtvdxq(aasej79i,lnkParts[0].length);var tld=oihyndtvdxq(u92adguyu,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function crp43d0trge8w6xl(){var els=document.querySelectorAll('a.f9k20ik0gpjpq4kgi-lfkpkx6beovbt');var handler=function(){var sp=this.querySelector('span.g6grb2a7wv9mk-zwib');if(sp&&!this.dataset.d){var val=y0f9haprr2vy(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',crp43d0trge8w6xl);}else{crp43d0trge8w6xl();}})();</script>{:/nomarkdown}<a href="#" class="f9k20ik0gpjpq4kgi-lfkpkx6beovbt"><span class="g6grb2a7wv9mk-zwib" data-f3mbqvx="znvygb" data-h6ye9csyeb="VIHEGXIH" data-x9hnzp="gifkfedrzc" data-mdtbrdg="pbz">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -6751,51 +6763,7 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
-          
-        </li><li>
-          
-          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/index.html">Shrines</a>
-          
-        </li><li>
-          
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
-          
-        </li><li>
-          
-          <a href="/garden/idea-bank.html">Idea Bank</a>
-          
-        </li><li>
-          
-          <a href="/garden/linkroll.html">Linkroll</a>
-          
-        </li><li>
-          
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
-          
-        </li><li>
-          
-          <a href="/garden/ai-horses.html">Horses</a>
-          
-        </li><li>
-          
-          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
+          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
           
         </li><li>
           
@@ -6803,7 +6771,11 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/stories.html">Stories</a>
+          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
           
         </li><li>
           
@@ -6811,23 +6783,39 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
+          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          
+        </li><li>
+          
           <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
           
         </li><li>
           
-          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
           
         </li><li>
           
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
           
         </li><li>
           
-          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
+          <a href="/garden/linkroll.html">Linkroll</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
           
         </li><li>
           
           <a href="/garden/last-programming-language.html">The Last Programming Language</a>
+          
+        </li><li>
+          
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
+          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
           
         </li><li>
           
@@ -6839,15 +6827,39 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
-          
-        </li><li>
-          
           <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
           
         </li><li>
           
-          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
+          
+        </li><li>
+          
+          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
+          
+        </li><li>
+          
+          <a href="/garden/idea-bank.html">Idea Bank</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
+          
+        </li><li>
+          
+          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/index.html">Shrines</a>
+          
+        </li><li>
+          
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          
+        </li><li>
+          
+          <a href="/garden/stories.html">Stories</a>
           
         </li></ul>
 
@@ -7145,7 +7157,7 @@ By 1971, the system had been ported to the PDP-11/20, a 16-bit minicomputer. The
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20251228181714/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -7358,7 +7370,7 @@ But... Who was Don Widrig? Is he *really* the person who deserves credit for the
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201913/https://multicians.org/phase-one.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -7417,6 +7429,10 @@ So, **yes:** Don Widrig *is* the person who deserves credit for the short naming
   <h1>Horses</h1>
   
   <a href="https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">andyljones.com/posts/horses.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260707095105/https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 
@@ -7635,6 +7651,10 @@ This crossover's been done literally, and it works:
   <h1>Cantrip: On summoning entities from language in circles</h1>
   
   <a href="https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">www.deepfates.com/cantrip</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801194233/https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 
@@ -9492,7 +9512,7 @@ From the iconic, infamous [Millennium Falcon](/garden/shrine/asymmetric-spaceshi
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250118094033/https://jaysbrickblog.com/reviews/review-lego-10355-blacktron-renegade-2025/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9539,7 +9559,7 @@ The official (maybe a Legend now?) manual for the YT-1300 confirms:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260209045053/https://www.theforce.net/story/front/Star_Wars_Millennium_Falcon_Owners_Workshop_Manual_182205.asp" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9586,7 +9606,7 @@ More of a [lusty sword-and-sorcery artist](https://scifinet.net/blas-gallego-2/n
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250820181847/https://www.goodreads.com/book/show/2216762.The_Last_Deathship_Off_Antares" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9608,7 +9628,7 @@ I can't tell if the upper ship is asymmetric (though it looks like it), but the 
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801194921/https://scifinet.net/blas-gallego-2/nggallery/page/2" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9630,7 +9650,7 @@ I can't tell if the upper ship is asymmetric (though it looks like it), but the 
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801210009/https://www.goodreads.com/book/show/938362.A_Sea_of_Space" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9674,7 +9694,7 @@ The king (IMO) of pulp sci-fi book cover illustration, though [not all his illus
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801210129/https://www.goodreads.com/book/show/6766871-the-ultimate-guide-to-science-fiction" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9694,7 +9714,7 @@ The king (IMO) of pulp sci-fi book cover illustration, though [not all his illus
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801195734/https://scifinet.net/chris-foss-2/nggallery/page/4" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9716,7 +9736,7 @@ The background of this was near-duplicated by Glenn Brown in 1995:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801203022/https://www.sothebys.com/en/auctions/ecatalogue/2014/contemporary-art-day-auction-l14021/lot.328.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -10026,7 +10046,7 @@ Now, if something you actually need the LLM to do also happens to be a Waluigi t
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801195942/https://www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -10048,7 +10068,7 @@ Now, if something you actually need the LLM to do also happens to be a Waluigi t
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801200124/https://rockstationrecords.blogspot.com/2025/11/ian-gillan-band-clear-air-turbulence-lp.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -10092,7 +10112,7 @@ The full version, designed to wrap around an LP sleeve, adds even more of the ch
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260213005704/https://chrisfossart.com/product/clear-air-turbulence-fine-art/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

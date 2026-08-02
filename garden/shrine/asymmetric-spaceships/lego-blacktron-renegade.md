@@ -28,7 +28,7 @@
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250118094033/https://jaysbrickblog.com/reviews/review-lego-10355-blacktron-renegade-2025/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

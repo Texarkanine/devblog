@@ -34,7 +34,7 @@ The official (maybe a Legend now?) manual for the YT-1300 confirms:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260209045053/https://www.theforce.net/story/front/Star_Wars_Millennium_Falcon_Owners_Workshop_Manual_182205.asp" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

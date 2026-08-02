@@ -19,7 +19,7 @@ You don't need me to tell you that; plenty of more-influential people and organi
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260801193611/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260801211805/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -263,7 +263,7 @@ This is no longer a zero-sum game; this is a multiplicative flywheel. Spin it up
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20250803004125/https://x.com/claudeai/status/1950676983257698633" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -417,6 +417,10 @@ I don't have an "in the wild" example of this, but it's been officially studied:
   
   <a href="https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">arxiv.org/abs/2305.13160</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801211407/https://arxiv.org/abs/2305.13160" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -465,7 +469,7 @@ Finally, there's the *Shrug:* the AI wasn't egregiously incorrect, but it was in
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801211447/https://simonwillison.net/2025/Sep/9/claude-code-interpreter/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -595,6 +599,10 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
   
   <a href="https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801211701/https://www.hklaw.com/en/insights/publications/2026/03/new-york-bill-would-create-liability-for-chatbot-proprietors" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -611,7 +619,7 @@ Is that good enough? It should be - the *problem* has been addressed. But I imag
   <a href="https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">www.aimadetools.com/blog/german-court-google-ai-overview-liable</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260801193428/https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260801211714/https://www.aimadetools.com/blog/german-court-google-ai-overview-liable/" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
@@ -1145,7 +1153,7 @@ The four core deliverables are, well, *delivered* in SLOBAC:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801203812/https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -1789,7 +1797,7 @@ Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narr
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201354/https://bleuje.com/gifanimationsite/single/sierpinskiloop/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -3337,7 +3345,7 @@ I want to also briefly shout out to the old Linksys `WRT54GL` I pulled for this 
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260417192633/https://mobilespecs.net/router/Linksys/Linksys_WRT54GL.html" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

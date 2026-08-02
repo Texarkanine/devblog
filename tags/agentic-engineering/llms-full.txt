@@ -19,7 +19,7 @@ You don't need me to tell you that; plenty of more-influential people and organi
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260801193611/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260801211805/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -442,7 +442,7 @@ Yegge's figure 8 shows a manager, but figure 8 isn't the ceiling. Yegge was narr
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260801201354/https://bleuje.com/gifanimationsite/single/sierpinskiloop/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

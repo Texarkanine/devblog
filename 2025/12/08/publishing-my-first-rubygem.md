@@ -167,6 +167,10 @@ Here's what the gem actually produces:
   
   <a href="https://github.com/Texarkanine/jekyll-highlight-cards" target="_blank" rel="noopener">github.com/Texarkanine/jekyll-highlight-cards</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801211040/https://github.com/Texarkanine/jekyll-highlight-cards" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 

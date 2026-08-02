@@ -4,6 +4,10 @@
   
   <a href="https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">andyljones.com/posts/horses.html</a>
   
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260707095105/https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
 </blockquote>
 
 
@@ -221,6 +225,10 @@ This crossover's been done literally, and it works:
   <h1>Cantrip: On summoning entities from language in circles</h1>
   
   <a href="https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">www.deepfates.com/cantrip</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801194233/https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 
