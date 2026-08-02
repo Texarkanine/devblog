@@ -124,7 +124,7 @@ Nothing in that list names a vendor, a file format, or a harness; five people co
 
 ## Open Positions
 
-I may have overfit. This ladder is one practitioner's stack, audited by the practitioner. My check is a redaction test: describe each store by its question, its write rule, and its read trigger, with the tool names removed, and see whether the description still picks out something implementable. The six stores above survive it. But the test can't tell me about rungs I never built.
+I may have overfit: own five pets and you will discover there are exactly five kinds of animal. So, a redaction test. Cover each store's name tag and describe it by three properties alone - the question it answers, what triggers a write, what triggers a read. If a stranger could build a *different* tool from that description, it names a **class** and mine is just an **instance**; if the description only fits my tool, that's a pet, not a species. All six stores survive. But covering the name tags of pets you own will never reveal that fish exist: the test checks the rungs I have, and is blind to any I never built.
 
 One gap is visible already: nothing in my stack recalls associatively. The archive, the git history, the footage - all of it gets read when someone already knows to look. Human recall is involuntary; you don't decide to remember the X widget, the X widget surfaces on its own when something rhymes with it. My agents' recall is deliberate all the way down. That's an open position on the org chart, and I haven't interviewed a credible candidate yet.
 
