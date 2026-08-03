@@ -22,7 +22,7 @@ Show up for your first day at any functioning organization and the same five thi
 4. When you finish, it gets filed, so that when someone later asks "what did we do for the X widget?", the answer doesn't depend on who's still employed.
 5. And when something looks wrong - "wait, how did it get like *this*?" - there's a record for when it changed and footage for how and why.
 
-That ladder is is the memory apparatus of an institution - and cognitive science already has a name for each rung:
+That ladder is the memory apparatus of an institution - and cognitive science already has a name for each rung:
 
 1. **[Autobiographical memory](https://en.wikipedia.org/wiki/Autobiographical_memory)** - what I do here, what I was doing yesterday: recent episodes fused with self-knowledge, weighted toward the present, fading as it goes.
 2. **[Procedural memory](https://en.wikipedia.org/wiki/Procedural_memory)** - how we do things here. In a person this knowledge is implicit - you can ride the bike but not recite how - which is exactly why the binder exists: procedure forced into words so it can be handed to someone whose hands don't know it yet.
