@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Disintegration of the Persistence of MEMORY.md"
-subtitle: ""
+subtitle: "Stop Doing MEMORY.md!"
 description: "Agent memory is institutional memory: five kinds will wait for you, one has a start date, and none are MEMORY.md. You need to start remembering ASAP."
 author: "texarkanine"
 tags:
