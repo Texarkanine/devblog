@@ -288,7 +288,7 @@ And then days or weeks later, they surface with the *same* problem. "Did ThingX 
 
 Having had the same problem(s) myself, and having solved them, I know that the time they've *already lost* to the problem at this point exceeds the time it would have taken to adopt ThingX. They're not just in tech debt, they're in negative tech equity. They will not manage to pay their way out of it by working hard, persevering through the problems until they have free time, and then taking a look at ThingX.
 
-They need to **just try the thing!**
+> They need to **just try the thing!**
 
 They're running the old formula with the old weights. Trying new things *was* expensive. Caution *was* often a virtue. But the landscape has changed in what's been, relative to a human career, the blink of an eye.
 
@@ -310,7 +310,9 @@ The strongest recent examples of this in my life come from two tools, one I buil
 
 I heard the story of "the guy who pointed [DuckDB](https://duckdb.org/) at their Claude Code history and can search it" farther back than I remember. But that sounded hard. I realized it probably wasn't that hard and that I wanted it, when I saw [claude-warehouse](https://github.com/sderosiaux/claude-warehouse) sometime back in April of this year. But, I primarily use Cursor. I eventually got around to making a [cursor-warehouse](https://github.com/Texarkanine/cursor-warehouse) version, but, well, I *do* use both, so my history was fragmented (and agents had two skills and two sets of schema to manage). But building one that would not just work on both, but unify both and be ready for whichever harness came next... well that'd be significant work. So I just lived with it for a couple months. Finally I decided enough was enough and built Stockroom and it almost immediately began paying dividends. Agents knew what they'd worked on in the past, even in other harnesses, *even before Stockroom existed*.
 
-This particular tool didn't just pay off after it existed, it paid *backwards*, making things that I'd already done more valuable than they had been at the time! Should've just ~~tried~~ built the thing.
+This particular tool didn't just pay off after it existed, it paid *backwards*, making things that I'd already done more valuable than they had been at the time! 
+
+> Should've just ~~tried~~ built the thing.
 
 ### Stop and Adopt
 

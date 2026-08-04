@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-04T13:51:41+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Disintegration of the Persistence of MEMORY.md</title><link href="https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md.html" rel="alternate" type="text/html" title="The Disintegration of the Persistence of MEMORY.md" /><published>2026-08-03T00:00:00+00:00</published><updated>2026-08-03T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md.html"><![CDATA[<p><a href="https://en.wikipedia.org/wiki/The_Disintegration_of_the_Persistence_of_Memory"><img src="salvador-dali_the-disintegration-of-the-persistence-of-memory.jpg" alt="The Disintegration of the Persistence of Memory - Salvador Dali, 1954" /></a></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-04T16:46:11+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Disintegration of the Persistence of MEMORY.md</title><link href="https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md.html" rel="alternate" type="text/html" title="The Disintegration of the Persistence of MEMORY.md" /><published>2026-08-03T00:00:00+00:00</published><updated>2026-08-03T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md.html"><![CDATA[<p><a href="https://en.wikipedia.org/wiki/The_Disintegration_of_the_Persistence_of_Memory"><img src="salvador-dali_the-disintegration-of-the-persistence-of-memory.jpg" alt="The Disintegration of the Persistence of Memory - Salvador Dali, 1954" /></a></p>
 
 <p>Show up for your first day at any functioning organization and the same five things (should) happen, in roughly the same order.</p>
 
@@ -346,7 +346,9 @@ He advised tailoring your decision-making effort to those facts. People loved th
 
 <p>Having had the same problem(s) myself, and having solved them, I know that the time they’ve <em>already lost</em> to the problem at this point exceeds the time it would have taken to adopt ThingX. They’re not just in tech debt, they’re in negative tech equity. They will not manage to pay their way out of it by working hard, persevering through the problems until they have free time, and then taking a look at ThingX.</p>
 
-<p>They need to <strong>just try the thing!</strong></p>
+<blockquote>
+  <p>They need to <strong>just try the thing!</strong></p>
+</blockquote>
 
 <p>They’re running the old formula with the old weights. Trying new things <em>was</em> expensive. Caution <em>was</em> often a virtue. But the landscape has changed in what’s been, relative to a human career, the blink of an eye.</p>
 
@@ -370,7 +372,11 @@ He advised tailoring your decision-making effort to those facts. People loved th
 
 <p>I heard the story of “the guy who pointed <a href="https://duckdb.org/">DuckDB</a> at their Claude Code history and can search it” farther back than I remember. But that sounded hard. I realized it probably wasn’t that hard and that I wanted it, when I saw <a href="https://github.com/sderosiaux/claude-warehouse">claude-warehouse</a> sometime back in April of this year. But, I primarily use Cursor. I eventually got around to making a <a href="https://github.com/Texarkanine/cursor-warehouse">cursor-warehouse</a> version, but, well, I <em>do</em> use both, so my history was fragmented (and agents had two skills and two sets of schema to manage). But building one that would not just work on both, but unify both and be ready for whichever harness came next… well that’d be significant work. So I just lived with it for a couple months. Finally I decided enough was enough and built Stockroom and it almost immediately began paying dividends. Agents knew what they’d worked on in the past, even in other harnesses, <em>even before Stockroom existed</em>.</p>
 
-<p>This particular tool didn’t just pay off after it existed, it paid <em>backwards</em>, making things that I’d already done more valuable than they had been at the time! Should’ve just <del>tried</del> built the thing.</p>
+<p>This particular tool didn’t just pay off after it existed, it paid <em>backwards</em>, making things that I’d already done more valuable than they had been at the time!</p>
+
+<blockquote>
+  <p>Should’ve just <del>tried</del> built the thing.</p>
+</blockquote>
 
 <h3 id="stop-and-adopt">Stop and Adopt</h3>
 
