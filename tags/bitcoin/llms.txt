@@ -4,5 +4,6 @@
 
 ## Posts
 
+- [Cold Wallets Are Born Hot](https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.md): The Coldcard and WalletGenerator disasters both attacked the one moment no airgap can cover: the birth of the secret. An airgap bounds your window of exposure - it cannot audit the mint.
 - [Good Money Should Be Worthless](https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.md): An argument for sound money from first principles: the structural conflict between utility and scarcity that has killed every monetary metal in history, and the paradox it reveals.
 - [Sorting systemd Ordering for Mempool Explorer](https://blog.cani.ne.jp/2025/11/11/mempool-explorer-to-bitcoin-node.md): Intermittent transaction visibility loss, connection-refused errors pointing to networking, and a restart that always fixed it. The diagnostic trail from red herring to two-line fix.

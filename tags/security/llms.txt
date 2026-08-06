@@ -1,0 +1,7 @@
+# security
+
+> Tag: security
+
+## Posts
+
+- [Cold Wallets Are Born Hot](https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.md): The Coldcard and WalletGenerator disasters both attacked the one moment no airgap can cover: the birth of the secret. An airgap bounds your window of exposure - it cannot audit the mint.

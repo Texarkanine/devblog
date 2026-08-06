@@ -1,5 +1,97 @@
 # 🐶 Dog with a Dev Blog
 
+## Cold Wallets Are Born Hot
+
+WiFi is literally "airgapped." Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.
+
+The air was never the point. Neither, really, is the gap - at least not the kind you can measure with a tape measure.
+
+## The Gap Is Made of Time
+
+What ["airgapped"](https://en.wikipedia.org/wiki/Air_gap_(networking)) actually names is the removal of any bidirectional channel. The air contributes nothing; the missing return path contributes everything. Industry will even sell you the property without the air - a one-way cable called a [data diode](https://en.wikipedia.org/wiki/Unidirectional_network), popular with power plants.
+
+But a diode is still a live connection, and live is the thing worth escaping. Powered electronics radiate their activity into the room: in 1985, [Wim van Eck reconstructed](https://en.wikipedia.org/wiki/Van_Eck_phreaking) what a CRT display was showing from its stray emissions, using a modified TV set - and the NSA's [TEMPEST](https://en.wikipedia.org/wiki/Tempest_(codename)) program had already spent decades classifying that kind of leak. By 2023, researchers were [pulling a 256-bit ECDSA key](https://eprint.iacr.org/2023/923) - a signature scheme used by some bitcoin outputs - off a smartcard, by pointing a hijacked security camera at the *power LED* of the card reader from sixteen meters away.
+
+> You've got to kill the channel.
+
+Once no live channel exists, the two sides have to communicate through a separate, durable artifact - an SD card, a QR code, a piece of paper. The traditional "airgap" property of such a durable artifact is that it only contains the cryptographically-irreversible *outputs* of the actual secrets. Squint as you might at the signature, the keys simply aren't there.
+
+The much-stronger property that isn't given as much airtime because it's incidental and unavoidable is that a durable artifact can *wait*. That means you can separate the two sides by any amount of space, or any amount of *time*. When you pop the SD card out of your signing device and walk it to your laptop, that thirty-second walk could just as easily be a week. Sign the transaction, drop the card in a drawer, broadcast it next spring. Unless the attacker has a time machine or the ability to break causality - in which case your wallet is probably not your biggest problem - there is no reaching back through the broadcast to the device that signed it.
+
+No live channel yet invented, wired or wireless or optical, offers that guarantee.
+
+## The Whole Warranty
+
+> From this moment forward, nothing reaches in.
+
+That's it. That's the entire warranty. It is causal, it points forward only, and it says nothing - ***nothing*** - about whether something already got out or was never secret to begin with.
+
+## The One Live Moment
+
+Everything a [cold wallet](https://en.wikipedia.org/wiki/Cryptocurrency_wallet#Cold_storage) does can wait. Receiving needs no signature at all. Signing waits patiently on your side of the gap; broadcasting waits just as patiently on the other. But one event cannot be deferred: the birth of the key. Entropy happens once, inside the device, at an instant you cannot inspect, cannot repeat, and cannot postpone. It is the only live event in a system whose entire pitch is that it has no live events.
+
+> Every airgapped system has exactly one moment it cannot airgap: the birth of the secret.
+
+The protection opens just after that instant and points forward only. Everything upstream of it - the random number generator, the firmware, the entropy source - sits inside the trusted perimeter by construction.
+
+Two big cold-storage failures attacked exactly that moment.
+
+## Nobody Touched a Device
+
+<blockquote class="link-card">
+  
+  <h1>What we know about ongoing Coldcard hack that&#39;s stolen over $100M worth of bitcoin</h1>
+  
+  <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260804224839/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+[Coldcard](https://coldcard.com/) is a bitcoin-only hardware wallet, widely praised as one of the most secure ways to hold bitcoin: keys generated on the device, never touching the internet, transactions ferried across the gap on an SD card. On July 30, 2026, its maker [Coinkite told users to move their funds *now*](https://blog.coinkite.com/coldcard-mk3-seed-generation-warning/). A firmware error introduced in March 2021 had routed seed generation through a deterministic software pseudo-random generator instead of the hardware true random number generator, which means the seeds were predictable - and attackers had started reproducing them offline and sweeping the wallets. By August 3, [Galaxy Research's on-chain tally](https://x.com/glxyresearch/status/2084411904924045370) stood at three confirmed attack waves - 1,596 bitcoin gone from roughly 7,300 addresses, over $100 million US - with a suspected fourth wave that would push the total toward 2,055 bitcoin, roughly $130 million. And counting as of this writing.
+
+Notice what's missing from that story: nobody touched a device. Every Coldcard sat exactly as offline as its owner believed it was, the whole time, while the attack ran as pure arithmetic against public chain data. The airgap held. It just never overlapped the failure, because the failure happened at the one moment no airgap covers.
+
+## The Mouse Was Theater
+
+<blockquote class="link-card">
+  
+  <h1>Disclosure: Key generation vulnerability found on WalletGenerator.net - potentially malicious</h1>
+  
+  <a href="https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961" target="_blank" rel="noopener">medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250419222951/https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+The same thing happened eight years earlier, to the humblest cold storage there is: the paper wallet. `WalletGenerator.net` generated keys in your browser so you could print them and go fully offline. Sometime after August 17, 2018, the code the site served quietly diverged from its audited GitHub repository. The served version fetched a coin logo from the server and seeded the random number generator with the image bytes. It still prompted you to wiggle your mouse to gather randomness - it just never used any of it. When MyCrypto's researchers asked it for a thousand keys in bulk, they got 120 unique ones.
+
+Print the wallet, laminate it, lock it in a safe deposit box. Same air, same gap, **same nothing.**
+
+## Neither Audits the Mint
+
+You already run this kind of security in meatspace. Buying a car with cash, you bring exactly the cash you mean to spend, so a greedy counterparty (or [civil-forfeiture road pirate](https://reason.com/2021/09/02/lawsuit-challenging-houston-asset-forfeiture-program-says-police-use-stock-language-to-seize-cash-without-probable-cause/)) can take no more than you brought. Paying by check, you hand over authorization for one amount, once, instead of handing over the account.
+
+A check bounds the *amount* an adversary can extract. An airgap bounds the *window* in which they can try. Both are exposure limits, both are real, and both are worth having. Neither audits the mint. If the bank printed your checkbook with guessable account numbers, every careful check you write is genuine discipline, correctly executed... and completely ineffective. That's Coldcard. That was WalletGenerator. Flawless check-writing against a compromised checkbook.
+
+## Breathable Air on Planet Earth
+
+"Airgapped" has drifted into a synonym for "safe," and it never fully guaranteed that - though it used to mean much safer than it means today. Technically it means *no bidirectional channel*. Practically it buys you *separation in time*, the strongest isolation any physical channel yet discovered can offer. Neither meaning says one word about whether your key was ever unpredictable.
+
+The guarantee an airgap *does* offer is still real and nothing live can match it. If you skip the gap because it's inconvenient, fine - but be cognizant any substitute *isn't.* Skipping the airgap is admitting "I just don't care that much" (which is sometimes fine!)
+
+Just remember what you bought. It's not a mixture of O<sub>2</sub> and N<sub>2</sub> that's protecting you, it's temporal causality.
+
 ## The Disintegration of the Persistence of MEMORY.md
 
 [![The Disintegration of the Persistence of Memory - Salvador Dali, 1954](salvador-dali_the-disintegration-of-the-persistence-of-memory.jpg)](https://en.wikipedia.org/wiki/The_Disintegration_of_the_Persistence_of_Memory)
@@ -5868,7 +5960,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.z3us17qz-gr5dqgvydrj6mu { display: inline-block; }</style><script>(function(){function eummgzdey14(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function z8evtngyesa(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var bwcb2bnla0b=sp.getAttribute('data-flq8qh');var qbskfqctuir=sp.getAttribute('data-gse3f4h');var jtwetqvanpo=sp.getAttribute('data-ilwsqjbopz');var o9hfgwmu=sp.getAttribute('data-mi13ztfj');var mailto=eummgzdey14(bwcb2bnla0b,spParts[0].length);var user=eummgzdey14(qbskfqctuir,spParts[1].length);var domainBase=eummgzdey14(jtwetqvanpo,lnkParts[0].length);var tld=eummgzdey14(o9hfgwmu,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function zr55bboxutg(){var els=document.querySelectorAll('a.zo83ggjfdl6-vvjpcev');var handler=function(){var sp=this.querySelector('span.z3us17qz-gr5dqgvydrj6mu');if(sp&&!this.dataset.d){var val=z8evtngyesa(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',zr55bboxutg);}else{zr55bboxutg();}})();</script>{:/nomarkdown}<a href="#" class="zo83ggjfdl6-vvjpcev"><span class="z3us17qz-gr5dqgvydrj6mu" data-flq8qh="uiqtbw" data-gse3f4h="FSROQHSR" data-ilwsqjbopz="aczezyxltw" data-mi13ztfj="jvt">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.dgon3qj9qzh5jbsp-pt3xni4w { display: inline-block; }</style><script>(function(){function tcx3euubh0qgw(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function bghvwie3tnndi(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var gavkckndmyz=sp.getAttribute('data-x1nrmjgx');var i2r3ayobb=sp.getAttribute('data-hssovulv');var ccxb1s24nv=sp.getAttribute('data-riz0e5xx');var iamdcdgblgn=sp.getAttribute('data-ovsrf4tm');var mailto=tcx3euubh0qgw(gavkckndmyz,spParts[0].length);var user=tcx3euubh0qgw(i2r3ayobb,spParts[1].length);var domainBase=tcx3euubh0qgw(ccxb1s24nv,lnkParts[0].length);var tld=tcx3euubh0qgw(iamdcdgblgn,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function rauslo2e6o(){var els=document.querySelectorAll('a.da1sv0m-vd87ozf6r4x9v6');var handler=function(){var sp=this.querySelector('span.dgon3qj9qzh5jbsp-pt3xni4w');if(sp&&!this.dataset.d){var val=bghvwie3tnndi(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',rauslo2e6o);}else{rauslo2e6o();}})();</script>{:/nomarkdown}<a href="#" class="da1sv0m-vd87ozf6r4x9v6"><span class="dgon3qj9qzh5jbsp-pt3xni4w" data-x1nrmjgx="cqybje" data-hssovulv="ZMLIKBML" data-riz0e5xx="wyvavuthps" data-ovsrf4tm="qca">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -6813,6 +6905,8 @@ The fix took two lines. Finding those two lines required understanding the entir
 
 <ul>
 
+  <li>2026-08-06 <a href="/2026/08/06/cold-wallets-born-hot.html">Cold Wallets Are Born Hot</a></li>
+
   <li>2026-08-03 <a href="/2026/08/03/disintegration-of-persistence-of-memory-md.html">The Disintegration of the Persistence of MEMORY.md</a></li>
 
   <li>2026-08-01 <a href="/2026/08/01/just-try-the-thing.html">Just Try the Thing</a></li>
@@ -6905,35 +6999,11 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
-          
-        </li><li>
-          
           <a href="/garden/stories.html">Stories</a>
           
         </li><li>
           
-          <a href="/garden/linkroll.html">Linkroll</a>
-          
-        </li><li>
-          
-          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
-          
-        </li><li>
-          
-          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
-          
-        </li><li>
-          
-          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
-          
-        </li><li>
-          
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
           
         </li><li>
           
@@ -6941,7 +7011,75 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
+          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
+          
+        </li><li>
+          
+          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
+          
+        </li><li>
+          
+          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
+          
+        </li><li>
+          
+          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          
+        </li><li>
+          
+          <a href="/garden/last-programming-language.html">The Last Programming Language</a>
+          
+        </li><li>
+          
+          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          
+        </li><li>
+          
+          <a href="/garden/idea-bank.html">Idea Bank</a>
+          
+        </li><li>
+          
+          <a href="/garden/linkroll.html">Linkroll</a>
+          
+        </li><li>
+          
+          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
+          
+        </li><li>
+          
           <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          
+        </li><li>
+          
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
+          
+        </li><li>
+          
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
+          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
+          
+        </li><li>
+          
+          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
           
         </li><li>
           
@@ -6953,55 +7091,11 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
-          
-        </li><li>
-          
-          <a href="/garden/idea-bank.html">Idea Bank</a>
-          
-        </li><li>
-          
-          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
-          
-        </li><li>
-          
-          <a href="/garden/ai-horses.html">Horses</a>
-          
-        </li><li>
-          
-          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
-          
-        </li><li>
-          
-          <a href="/garden/last-programming-language.html">The Last Programming Language</a>
-          
-        </li><li>
-          
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
+          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
           
         </li><li>
           
           <a href="/garden/short-stories.html">Short Stories</a>
-          
-        </li><li>
-          
-          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
-          
-        </li><li>
-          
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
           
         </li></ul>
 

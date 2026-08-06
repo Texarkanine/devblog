@@ -1,4 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-04T16:46:11+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Disintegration of the Persistence of MEMORY.md</title><link href="https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md.html" rel="alternate" type="text/html" title="The Disintegration of the Persistence of MEMORY.md" /><published>2026-08-03T00:00:00+00:00</published><updated>2026-08-03T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md.html"><![CDATA[<p><a href="https://en.wikipedia.org/wiki/The_Disintegration_of_the_Persistence_of_Memory"><img src="salvador-dali_the-disintegration-of-the-persistence-of-memory.jpg" alt="The Disintegration of the Persistence of Memory - Salvador Dali, 1954" /></a></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-06T23:25:10+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Cold Wallets Are Born Hot</title><link href="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html" rel="alternate" type="text/html" title="Cold Wallets Are Born Hot" /><published>2026-08-06T00:00:00+00:00</published><updated>2026-08-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html"><![CDATA[<p>WiFi is literally “airgapped.” Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.</p>
+
+<p>The air was never the point. Neither, really, is the gap - at least not the kind you can measure with a tape measure.</p>
+
+<h2 id="the-gap-is-made-of-time">The Gap Is Made of Time</h2>
+
+<p>What <a href="https://en.wikipedia.org/wiki/Air_gap_(networking)">“airgapped”</a> actually names is the removal of any bidirectional channel. The air contributes nothing; the missing return path contributes everything. Industry will even sell you the property without the air - a one-way cable called a <a href="https://en.wikipedia.org/wiki/Unidirectional_network">data diode</a>, popular with power plants.</p>
+
+<p>But a diode is still a live connection, and live is the thing worth escaping. Powered electronics radiate their activity into the room: in 1985, <a href="https://en.wikipedia.org/wiki/Van_Eck_phreaking">Wim van Eck reconstructed</a> what a CRT display was showing from its stray emissions, using a modified TV set - and the NSA’s <a href="https://en.wikipedia.org/wiki/Tempest_(codename)">TEMPEST</a> program had already spent decades classifying that kind of leak. By 2023, researchers were <a href="https://eprint.iacr.org/2023/923">pulling a 256-bit ECDSA key</a> - a signature scheme used by some bitcoin outputs - off a smartcard, by pointing a hijacked security camera at the <em>power LED</em> of the card reader from sixteen meters away.</p>
+
+<blockquote>
+  <p>You’ve got to kill the channel.</p>
+</blockquote>
+
+<p>Once no live channel exists, the two sides have to communicate through a separate, durable artifact - an SD card, a QR code, a piece of paper. The traditional “airgap” property of such a durable artifact is that it only contains the cryptographically-irreversible <em>outputs</em> of the actual secrets. Squint as you might at the signature, the keys simply aren’t there.</p>
+
+<p>The much-stronger property that isn’t given as much airtime because it’s incidental and unavoidable is that a durable artifact can <em>wait</em>. That means you can separate the two sides by any amount of space, or any amount of <em>time</em>. When you pop the SD card out of your signing device and walk it to your laptop, that thirty-second walk could just as easily be a week. Sign the transaction, drop the card in a drawer, broadcast it next spring. Unless the attacker has a time machine or the ability to break causality - in which case your wallet is probably not your biggest problem - there is no reaching back through the broadcast to the device that signed it.</p>
+
+<p>No live channel yet invented, wired or wireless or optical, offers that guarantee.</p>
+
+<h2 id="the-whole-warranty">The Whole Warranty</h2>
+
+<blockquote>
+  <p>From this moment forward, nothing reaches in.</p>
+</blockquote>
+
+<p>That’s it. That’s the entire warranty. It is causal, it points forward only, and it says nothing - <strong><em>nothing</em></strong> - about whether something already got out or was never secret to begin with.</p>
+
+<h2 id="the-one-live-moment">The One Live Moment</h2>
+
+<p>Everything a <a href="https://en.wikipedia.org/wiki/Cryptocurrency_wallet#Cold_storage">cold wallet</a> does can wait. Receiving needs no signature at all. Signing waits patiently on your side of the gap; broadcasting waits just as patiently on the other. But one event cannot be deferred: the birth of the key. Entropy happens once, inside the device, at an instant you cannot inspect, cannot repeat, and cannot postpone. It is the only live event in a system whose entire pitch is that it has no live events.</p>
+
+<blockquote>
+  <p>Every airgapped system has exactly one moment it cannot airgap: the birth of the secret.</p>
+</blockquote>
+
+<p>The protection opens just after that instant and points forward only. Everything upstream of it - the random number generator, the firmware, the entropy source - sits inside the trusted perimeter by construction.</p>
+
+<p>Two big cold-storage failures attacked exactly that moment.</p>
+
+<h2 id="nobody-touched-a-device">Nobody Touched a Device</h2>
+
+<blockquote class="link-card">
+  
+  <h1>What we know about ongoing Coldcard hack that&#39;s stolen over $100M worth of bitcoin</h1>
+  
+  <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260804224839/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<p><a href="https://coldcard.com/">Coldcard</a> is a bitcoin-only hardware wallet, widely praised as one of the most secure ways to hold bitcoin: keys generated on the device, never touching the internet, transactions ferried across the gap on an SD card. On July 30, 2026, its maker <a href="https://blog.coinkite.com/coldcard-mk3-seed-generation-warning/">Coinkite told users to move their funds <em>now</em></a>. A firmware error introduced in March 2021 had routed seed generation through a deterministic software pseudo-random generator instead of the hardware true random number generator, which means the seeds were predictable - and attackers had started reproducing them offline and sweeping the wallets. By August 3, <a href="https://x.com/glxyresearch/status/2084411904924045370">Galaxy Research’s on-chain tally</a> stood at three confirmed attack waves - 1,596 bitcoin gone from roughly 7,300 addresses, over $100 million US - with a suspected fourth wave that would push the total toward 2,055 bitcoin, roughly $130 million. And counting as of this writing.</p>
+
+<p>Notice what’s missing from that story: nobody touched a device. Every Coldcard sat exactly as offline as its owner believed it was, the whole time, while the attack ran as pure arithmetic against public chain data. The airgap held. It just never overlapped the failure, because the failure happened at the one moment no airgap covers.</p>
+
+<h2 id="the-mouse-was-theater">The Mouse Was Theater</h2>
+
+<blockquote class="link-card">
+  
+  <h1>Disclosure: Key generation vulnerability found on WalletGenerator.net - potentially malicious</h1>
+  
+  <a href="https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961" target="_blank" rel="noopener">medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250419222951/https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<p>The same thing happened eight years earlier, to the humblest cold storage there is: the paper wallet. <code class="language-plaintext highlighter-rouge">WalletGenerator.net</code> generated keys in your browser so you could print them and go fully offline. Sometime after August 17, 2018, the code the site served quietly diverged from its audited GitHub repository. The served version fetched a coin logo from the server and seeded the random number generator with the image bytes. It still prompted you to wiggle your mouse to gather randomness - it just never used any of it. When MyCrypto’s researchers asked it for a thousand keys in bulk, they got 120 unique ones.</p>
+
+<p>Print the wallet, laminate it, lock it in a safe deposit box. Same air, same gap, <strong>same nothing.</strong></p>
+
+<h2 id="neither-audits-the-mint">Neither Audits the Mint</h2>
+
+<p>You already run this kind of security in meatspace. Buying a car with cash, you bring exactly the cash you mean to spend, so a greedy counterparty (or <a href="https://reason.com/2021/09/02/lawsuit-challenging-houston-asset-forfeiture-program-says-police-use-stock-language-to-seize-cash-without-probable-cause/">civil-forfeiture road pirate</a>) can take no more than you brought. Paying by check, you hand over authorization for one amount, once, instead of handing over the account.</p>
+
+<p>A check bounds the <em>amount</em> an adversary can extract. An airgap bounds the <em>window</em> in which they can try. Both are exposure limits, both are real, and both are worth having. Neither audits the mint. If the bank printed your checkbook with guessable account numbers, every careful check you write is genuine discipline, correctly executed… and completely ineffective. That’s Coldcard. That was WalletGenerator. Flawless check-writing against a compromised checkbook.</p>
+
+<h2 id="breathable-air-on-planet-earth">Breathable Air on Planet Earth</h2>
+
+<p>“Airgapped” has drifted into a synonym for “safe,” and it never fully guaranteed that - though it used to mean much safer than it means today. Technically it means <em>no bidirectional channel</em>. Practically it buys you <em>separation in time</em>, the strongest isolation any physical channel yet discovered can offer. Neither meaning says one word about whether your key was ever unpredictable.</p>
+
+<p>The guarantee an airgap <em>does</em> offer is still real and nothing live can match it. If you skip the gap because it’s inconvenient, fine - but be cognizant any substitute <em>isn’t.</em> Skipping the airgap is admitting “I just don’t care that much” (which is sometimes fine!)</p>
+
+<p>Just remember what you bought. It’s not a mixture of O<sub>2</sub> and N<sub>2</sub> that’s protecting you, it’s temporal causality.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="bitcoin" /><category term="cold-storage" /><category term="security" /><category term="threat-modeling" /><summary type="html"><![CDATA[The Coldcard and WalletGenerator disasters both attacked the one moment no airgap can cover: the birth of the secret. An airgap bounds your window of exposure - it cannot audit the mint.]]></summary></entry><entry><title type="html">The Disintegration of the Persistence of MEMORY.md</title><link href="https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md.html" rel="alternate" type="text/html" title="The Disintegration of the Persistence of MEMORY.md" /><published>2026-08-03T00:00:00+00:00</published><updated>2026-08-03T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/03/disintegration-of-persistence-of-memory-md.html"><![CDATA[<p><a href="https://en.wikipedia.org/wiki/The_Disintegration_of_the_Persistence_of_Memory"><img src="salvador-dali_the-disintegration-of-the-persistence-of-memory.jpg" alt="The Disintegration of the Persistence of Memory - Salvador Dali, 1954" /></a></p>
 
 <p>Show up for your first day at any functioning organization and the same five things (should) happen, in roughly the same order.</p>
 
@@ -2171,160 +2259,4 @@ Error: Validation: timeout exceeded.
   <li><a href="https://github.com/kewisch/action-web-ext/pull/63">kewisch/action-web-ext#63</a> - the upstream PR.</li>
 </ul>
 
-<p>Two stores, one codebase, one release pipeline, one upstream patch in flight. The third store remains theoretical.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="browser-extension" /><category term="tab-yeet" /><category term="firefox" /><category term="chrome" /><category term="ci-cd" /><category term="web-ext" /><category term="open-source" /><summary type="html"><![CDATA[web-ext lint rejects valid Chrome manifests, GitHub Actions secrets don't resolve in job-level if: expressions, and kewisch/action-web-ext hardcoded the AMO approval timeout. Shipping Tab Yeet across Firefox and Chrome (and bouncing off Safari).]]></summary></entry><entry><title type="html">Sub-Agents aren’t Agents - They’re Skills but Worse</title><link href="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html" rel="alternate" type="text/html" title="Sub-Agents aren’t Agents - They’re Skills but Worse" /><published>2026-03-30T00:00:00+00:00</published><updated>2026-03-30T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.html"><![CDATA[<p>I came across <a href="https://github.com/open-gitagent/gitagent">GitAgent</a> the other day: an “open standard” for defining AI agents as git repositories. I expected something novel about agent packaging. Instead I found a repo structure full of dot-folders and harness customization files - prompts, tools, workflows, memory, hooks - and my first reaction was “you’re telling me the source code repo I already have is an agent?”</p>
-
-<p>But that reaction was wrong, and the reason it was wrong sharpened something I’d been circling for months about how agentic coding harnesses model their primitives.</p>
-
-<h2 id="what-sub-agents-are">What Sub-Agents Are</h2>
-
-<p>Many agentic coding harnesses offer a “Sub-Agent” primitive. The semantics vary slightly across tools, but the core mechanic is the same everywhere: a Sub-Agent is a prompt that executes in a freshly spawned context window.</p>
-
-<p>That’s it. That’s the whole thing.</p>
-
-<p>The harness opens a new context, loads the Sub-Agent’s prompt (<em>maybe</em> with some scoped tool access), lets the LLM work, and returns the result to the parent. Whatever your harness calls it you’re looking at <code class="language-plaintext highlighter-rouge">{prompt + fresh context window}</code> and not a whole lot more.</p>
-
-<p>Some practitioners use the <em>choice</em> of primitive as a cognitive shorthand - “if I put it in <code class="language-plaintext highlighter-rouge">agents/</code> it’s heavy, if I put it in <code class="language-plaintext highlighter-rouge">skills/</code> it’s light.” Or maybe to <a href="https://danielmiessler.com/blog/when-to-use-skills-vs-commands-vs-agents">categorize a workstream</a>. Those could be useful social conventions, but they’re social conventions, not structural properties. Nothing about the Sub-Agent primitive enforces resource budgets, guarantees isolation semantics, or defines return types, for example. The “signal” is a folder name.</p>
-
-<h2 id="syntactic-sugar--venn-diagram-overlap">Syntactic Sugar &amp; Venn Diagram Overlap</h2>
-
-<p>I wrote previously about <a href="/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html">the use case for slash commands</a> and, a couple months earlier, about <a href="/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html">the use case against them</a>. The conclusion was that Commands are syntactic sugar over Skills. A Command is a convenient way to invoke a prompt with some preconfigured behavior, but a Skill can do everything a Command does while remaining composable, portable, and reusable. Claude Code <a href="https://code.claude.com/docs/en/changelog#2-1-3">validated this by killing Commands altogether and making Skills directly invocable</a> in early January 2026.</p>
-
-<p>Sub-Agents are similarly reducible to Skills.</p>
-
-<p>Consider a Skill that summarizes your calendar for today. If you invoke it as a Sub-Agent, the harness spawns a fresh context window, loads the prompt, the LLM walks through the workflow, and you get your summary. If you invoke it as a Skill, the LLM walks through the same workflow in your current context. And if prompt your current context window that it should spawn a Sub-Agent to run the Skill, you get the exact same outcome as the Sub-Agent primitive - except now <em>you</em> decided whether the work happens inline or in a separate context, rather than having that decision baked into the primitive.</p>
-
-<p>Skills strictly dominate. Same capability, more flexibility about where and how the work executes. The Sub-Agent primitive bakes in an execution strategy - fresh new context window - that should be an invocation-time decision.</p>
-
-<p>All three are the same:</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">invoke the my-daily-report subagent</code></li>
-  <li><code class="language-plaintext highlighter-rouge">spawn a sub-agent to run the my-daily-report skill</code></li>
-  <li>(in a new context window) <code class="language-plaintext highlighter-rouge">/my-daily-report</code></li>
-</ol>
-
-<h2 id="but-i-always-want-a-fresh-context-window">“But I Always Want a Fresh Context Window”</h2>
-
-<p>Sure. Maybe you’re building a “summarize everything I did this week for the sprint retrospective” workflow, and that’s always going to be its own context because it’s a lot of data and you don’t want it polluting whatever else you’re working on. Building that as a Sub-Agent <em>feels</em> natural.</p>
-
-<p>But trace what you’d actually build. You’d probably write several skills (either explicitly, or implicitly in your prompt) as part of the workflow - one to pull git commits, one to scan PR reviews, one to check your calendar. Then you’d make a Sub-Agent that orchestrates those skills. Except… you could’ve just made a skill that kicked all three off. If it needs its own context window, just launch it from one… <em>or</em> just write that into the skill’s prompt. The Sub-Agent primitive saved you a line of prompt at the cost of locking in an execution strategy.</p>
-
-<p>There’s a stronger version of the case for Sub-Agents: a Sub-Agent primitive <em>could</em> carry <strong>execution</strong> metadata that a bare skill can’t. Because a Sub-Agent primitive <strong>does</strong> come with assumptions about how and where it will be executed, you could leverage that. Things like Model routing (send summarization to Haiku, complex reasoning to Opus), cost ceilings, caching strategies - real value if the harness could act on it. But no current implementation does this portably. You’re writing <code class="language-plaintext highlighter-rouge">model: haiku</code> in a harness-specific config file either way, and you can’t ship a Claude Code Sub-Agent with an Opus worker and Haiku orchestrator to Cursor or Gemini CLI because there’s no open standard for Sub-Agents.</p>
-
-<p>If the <a href="https://agentskills.io">Agent Skills</a> standard or a successor ever grows a metadata field for execution hints, this argument for Sub-Agents evaporates entirely - and the fix would be enriching skills, not preserving the Sub-Agent primitive.</p>
-
-<p>Today, Sub-Agents are syntactic sugar.</p>
-
-<p>It’s okay to have some sugar every now and then as a treat - saving a couple keystrokes on a workflow you know is always going to be its own context window. And for teams early in agentic adoption, the forced isolation of a Sub-Agent is a useful guardrail: it makes the system more predictable right up until the predictability becomes a constraint. But if you’re building something to distribute, share, or compose into larger workflows, the Sub-Agent primitive is probably the wrong choice - just like Commands are.</p>
-
-<h2 id="bundling">Bundling</h2>
-
-<p>Skills have a property that Sub-Agents don’t: the <a href="https://agentskills.io">Agent Skills</a> open standard allows bundling static resources alongside a Skill’s prompt. Scripts, examples, reference data, configuration files - things that make the difference between a prompt that hopes the LLM knows what to do and a Skill that <em>shows</em> it what to do.</p>
-
-<p>Sub-Agents and Commands can’t do this. They’re “just” prompts. If you expanded the Sub-Agent primitive to support bundled resources, you’d end up re-implementing the Agent Skills standard with one extra assumption bolted on: that execution always happens in a fresh context window. That’s a lot of work just to bolt a constraint that should be optional onto machinery that already exists!</p>
-
-<p>There’s a piece missing from this argument that I’ll address in a future post: the <em>execution model</em>. A bundle that carries prompts and static resources is good. A bundle that can directly integrate with the harness’s own behaviors around opening new context windows is <em>better!</em> That’s the difference between a capability definition and a fully operational unit, and it’s why bundling resources alongside prompts is load-bearing rather than nice-to-have.</p>
-
-<h2 id="agent-is-a-complex-type">Agent is a Complex Type</h2>
-
-<p>Which brings me back to GitAgent and why my first reaction was wrong.</p>
-
-<p>When I saw their repo structure - <code class="language-plaintext highlighter-rouge">agent.yaml</code> for configuration, directories for skills, workflows, tools, memory, hooks - I thought “this is just a regular repo instrumented for agentic development - it’s got dot folders for all the harness customizations.” But the file layout is beside the point; the insight is that “Agent” shouldn’t be a harness primitive at all. It’s a <a href="https://en.wikipedia.org/wiki/Composite_data_type">complex type</a>.</p>
-
-<p>Think about a customer service agent - human or AI, doesn’t matter. They have a job description specifying what they’re supposed to accomplish. A script walks them through customer interactions. Information sources let them look things up. Tools let them make changes to data or cause side effects on behalf of the customer. And a tracking system for previous interactions keeps them oriented on what they’ve been up to.</p>
-
-<p>That maps cleanly to the set of actually useful harness primitives: prompts (serving double duty as instructions and workflow specifications), skills and MCP servers (for tools and capabilities), bundled scripts and resources (for deterministic operations), hooks (for guardrails and lifecycle control), and memory or context management (for state across interactions).</p>
-
-<p>What most harnesses ship as “a Sub-Agent” is a job description stapled to a context window. What GitAgent is reaching toward - and what Claude Code plugins get closer to - is the full bundle: a composable unit of agentic functionality that carries everything it needs to operate. Its instructions, its tools, its resources, its constraints, and its workflows.</p>
-
-<p>That’s an Agent with a capital A. A mini-application. And you can’t build one from a Sub-Agent any more than you can build a web app from a single HTTP handler.</p>
-
-<h2 id="dont-write-a-sub-agent-write-a-skill">Don’t Write a Sub-Agent, Write a Skill</h2>
-
-<p>Commands were syntactic sugar over Skills, with some capabilities blocked. Claude Code killed them and nobody mourned.</p>
-
-<p>Sub-Agents are syntactic sugar over Skills with some capabilities (choice of context window) blocked.</p>
-
-<p>If you’re writing an instruction set to enable an AI to do something, Skills offer more flexibility, composability, and capability than Sub-Agents.</p>
-
-<p>So don’t write a Sub-Agent, write a Skill.</p>
-
-<p>And if you’re building a Full and Proper Agent - the complex type - find a <a href="https://code.claude.com/docs/en/plugins">harness</a> that <a href="https://geminicli.com/docs/extensions/">supports</a> bundling its primitives <a href="https://developers.openai.com/codex/plugins">together</a> into a <a href="https://opencode.ai/docs/plugins/">single installable unit</a> - that’s the sort of foundation you want to be building on.</p>
-
-<h2 id="practically-visually">Practically, Visually</h2>
-
-<p>Given that you have a task that you need an LLM to do on-demand…</p>
-
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/26b560e6.svg"><img src="/assets/svg/26b560e6.svg" alt="Mermaid Diagram" /></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/26b560e6-dark.svg"><img src="/assets/svg/26b560e6-dark.svg" alt="Mermaid Diagram" /></a>
-</figure>
-
-<p>You should find it quite hard to actually arrive at “Sub-Agent” in the process above!</p>
-
-<ol>
-  <li>If you know the task must <em>always</em> be run in a fresh context window - if it would be <em>wrong</em> to have any existing context…</li>
-  <li>And you’re going to need to rely on someone else to launch the task correctly…</li>
-  <li>And this task does not require any scripts or additional resources…</li>
-</ol>
-
-<p><em>Then</em> a Sub-Agent is the right primitive choice, over a Skill. However, that “always” is doing a <em>lot</em> of work, make sure you’re right about your answer there!</p>
-
-<h2 id="claude-code-subagents">Claude Code Subagents</h2>
-
-<p>Arguably the frontrunner and most-mature of the agentic coding harnesses that offer the Sub-Agent primitive, Claude Code <a href="https://code.claude.com/docs/en/sub-agents#supported-frontmatter-fields">does offer quite a few</a> Sub-Agent configuration options that affect the context window of the spawned process in a way that would otherwise be more difficult to achieve.</p>
-
-<p>Notably, you have <em>some</em> degree of control over the other primitives that the spawned context window will have access to, e.g.</p>
-
-<blockquote>
-  <p><code class="language-plaintext highlighter-rouge">skills</code> - Skills to load into the subagent’s context at startup. The full skill content is injected, not just made available for invocation. Subagents don’t inherit skills from the parent conversation</p>
-</blockquote>
-
-<p>and</p>
-
-<blockquote>
-  <p><code class="language-plaintext highlighter-rouge">hooks</code> - Lifecycle hooks scoped to this subagent</p>
-</blockquote>
-
-<p>Most of the rest of the configuration options are trivially-achievable otherwise, and exist as forms of - again - syntactic sugar around either</p>
-
-<ul>
-  <li>The main agent invoking the <code class="language-plaintext highlighter-rouge">Agent(...)</code> tool with lots of parameters, or</li>
-  <li>Shelling out to the <code class="language-plaintext highlighter-rouge">claude ...</code> CLI with lots of parameters.</li>
-</ul>
-
-<p>so you can bake in the defaults you want, for the agent you’re building. That’s not <em>useless</em> but it’s not revolutionary. Indeed, it could be <em>useful</em> if you’re building for “other people” and you need all these launch parameters to be set correctly every time in order for your prompt to succeed.</p>
-
-<p>The real interesting things are the harness-level customizations that you couldn’t easily just set in a fresh <code class="language-plaintext highlighter-rouge">claude ...</code> session. If you launch Claude Code with a set of hooks, it’s not easy - except for the Sub-Agent frontmatter - to <em>spawn</em> a new context window with a <em>different</em> set of hooks. Similarly, the <code class="language-plaintext highlighter-rouge">skills</code> frontmatter option behaves <em>differently</em> in the Sub-Agent, loading the whole skill context into the spawned window, rather than following progressive disclosure.</p>
-
-<p>If anything, this should sound like a rhyme with the rest of this post.</p>
-
-<ul>
-  <li>If you’re seeding a spawned context window with the <em>entirety</em> of a Skill, that’s just another way of specifying <code class="language-plaintext highlighter-rouge">spawn a new context window and run the X Skill</code>.</li>
-  <li>If you’re seeding the context window with <em>multiple</em> Skills in full, that’s just another way of bundling multiple Skill primitives together.</li>
-</ul>
-
-<p>It’s just that <em>this</em> method involves the harness in the process, hopefully making it a more-deterministic affair.</p>
-
-<p><strong>That</strong> is a strong differentiator in favor of the Sub-Agent primitive in Claude Code, then: involving the harness instead of relying on the LLM. That’s a whole other blog post, though.</p>
-
-<p>In the meantime, the flowchart above - and the <code class="language-plaintext highlighter-rouge">GitAgent</code> insight - apply. I would suggest that, outside prototyping and personal use, you should either:</p>
-
-<ul>
-  <li><strong>Design Below Critical Complexity:</strong> Build atomic, composable units in Skills, and if you must orchestrate them, do it with another Skill.</li>
-  <li><strong>Step Up to Harness-Level Plugin  (build an Agent):</strong> If you require bundling multiple primitives together (such as 2 Skills + an orchestrator Skill), or if you need to spawn context windows with specific settings, use a <a href="https://geminicli.com/docs/extensions/">harness-level</a> extension <a href="https://opencode.ai/docs/plugins/">like</a> the <a href="https://developers.openai.com/codex/plugins/">ones</a> already <a href="https://code.claude.com/docs/en/plugins">mentioned</a>.
-    <ul>
-      <li>GitAgent (or a similar open standard for Agents) might offer a cross-harness alternative.</li>
-    </ul>
-  </li>
-</ul>
-
-<p>If you <em>design for</em> the Sub-Agent primitive <em>and</em> try to ship it out to other people, I think you’ll find yourself getting the worst of both worlds.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai-agents" /><category term="harness-engineering" /><category term="context-engineering" /><category term="sub-agents" /><summary type="html"><![CDATA[Sub-Agents are syntactic sugar over skills with one baked-in assumption about execution context that should be the caller's decision.]]></summary></entry></feed>
+<p>Two stores, one codebase, one release pipeline, one upstream patch in flight. The third store remains theoretical.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="browser-extension" /><category term="tab-yeet" /><category term="firefox" /><category term="chrome" /><category term="ci-cd" /><category term="web-ext" /><category term="open-source" /><summary type="html"><![CDATA[web-ext lint rejects valid Chrome manifests, GitHub Actions secrets don't resolve in job-level if: expressions, and kewisch/action-web-ext hardcoded the AMO approval timeout. Shipping Tab Yeet across Firefox and Chrome (and bouncing off Safari).]]></summary></entry></feed>
