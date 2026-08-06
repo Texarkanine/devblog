@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "The Airgap Held"
-subtitle: "But That's Not Enough to Secure Your Bitcoin Wallet"
+title: "Cold Wallets Are Born Hot"
+subtitle: "Why $100 Million Flew the Coop Through the Airgap"
 description: "The Coldcard and WalletGenerator disasters both attacked the one moment no airgap can cover: the birth of the secret. An airgap bounds your window of exposure - it cannot audit the mint."
 author: texarkanine
 tags:
   - bitcoin
+  - cold-storage
   - security
   - threat-modeling
 ---
@@ -18,7 +19,13 @@ The air was never the point. Neither, really, is the gap - at least not the kind
 
 What ["airgapped"](https://en.wikipedia.org/wiki/Air_gap_(networking)) actually names is the removal of any bidirectional channel. The air contributes nothing; the missing return path contributes everything. Industry will even sell you the property without the air - a one-way cable called a [data diode](https://en.wikipedia.org/wiki/Unidirectional_network), popular with power plants.
 
-But a diode is still a live connection, and live is the thing worth escaping. All sorts of [side-channel](https://www.ledger.com/blog/breaking-trezor-one-with-sca) and [EMF](https://en.wikipedia.org/wiki/Electromagnetic_field) attacks lurk around an active connection with electricity flowing on the source. Once no channel exists, the two sides have to communicate through a separate, durable artifact - an SD card, a QR code, a piece of paper - and a durable artifact can *wait*. That means you can separate the two sides by any amount of space, or any amount of *time*. When you pop the SD card out of your signing device and walk it to your laptop, that thirty-second walk could just as easily be a week. Sign the transaction, drop the card in a drawer, broadcast it next spring. Unless the attacker has a time machine or the ability to break causality - in which case your wallet is probably not your biggest problem - there is no reaching back through the broadcast to the device that signed it.
+But a diode is still a live connection, and live is the thing worth escaping. Powered electronics radiate their activity into the room: in 1985, [Wim van Eck reconstructed](https://en.wikipedia.org/wiki/Van_Eck_phreaking) what a CRT display was showing from its stray emissions, using a modified TV set - and the NSA's [TEMPEST](https://en.wikipedia.org/wiki/Tempest_(codename)) program had already spent decades classifying that kind of leak. By 2023, researchers were [pulling a 256-bit ECDSA key](https://eprint.iacr.org/2023/923) - the same signature scheme bitcoin uses - off a smartcard, by pointing a hijacked security camera at the *power LED* of the card reader from sixteen meters away.
+
+You've got to kill the channel.
+
+Once no live channel exists, the two sides have to communicate through a separate, durable artifact - an SD card, a QR code, a piece of paper. The traditional "airgap" property of such a durable artifact is that it only contains the cryptographically-irreversible *outputs* of the actual secrets. Squint as you might at the signature, the keys simply aren't there.
+
+The much-stronger property that isn't given as much airtime because it's incidental and unavoidable is that a durable artifact can *wait*. That means you can separate the two sides by any amount of space, or any amount of *time*. When you pop the SD card out of your signing device and walk it to your laptop, that thirty-second walk could just as easily be a week. Sign the transaction, drop the card in a drawer, broadcast it next spring. Unless the attacker has a time machine or the ability to break causality - in which case your wallet is probably not your biggest problem - there is no reaching back through the broadcast to the device that signed it.
 
 No live channel yet invented, wired or wireless or optical, offers that guarantee.
 
@@ -70,6 +77,6 @@ A check bounds the *amount* an adversary can extract. An airgap bounds the *wind
 
 "Airgapped" has drifted into a synonym for "safe," and it never fully guaranteed that - though it used to mean much safer than it means today. Technically it means *no bidirectional channel*. Practically it buys you *separation in time*, the strongest isolation any physical channel yet discovered can offer. Neither meaning says one word about whether your key was ever unpredictable.
 
-The guarantee an airgap *does* offer is still real and nothing live can match it. If you skip the gap because it's inconvenient, fine - but be cognizant any substitute *isn't.* Skipping the  airgap is admitting "I just don't care that much" (which is sometimes fine!) - among defenses, there is no second-best.
+The guarantee an airgap *does* offer is still real and nothing live can match it. If you skip the gap because it's inconvenient, fine - but be cognizant any substitute *isn't.* Skipping the airgap is admitting "I just don't care that much" (which is sometimes fine!) - among defenses, [there is no second-best](https://bitcoinmagazine.com/culture/there-is-no-second-best-with-michael-saylor).
 
 Just remember what you bought. It's not a mixture of O<sub>2</sub> and N<sub>2</sub> that's protecting you, it's temporal causality.
