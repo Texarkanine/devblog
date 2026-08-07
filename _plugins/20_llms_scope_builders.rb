@@ -11,6 +11,8 @@ module LlmsScopeBuilders
 
   def scopes_for_taxonomy(entries, taxonomy, path_template:, description_prefix:)
     taxonomy.filter_map do |name, items|
+      next unless NavigationalTags.keep?(items)
+
       scoped = entries.select { |entry| items.include?(entry.item) }
       next if scoped.empty?
 

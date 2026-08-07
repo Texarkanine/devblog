@@ -28,8 +28,13 @@ layout: default
 	{% if page.tags.size > 0 %}
 	<p>
 		tagged: 
+		{% assign garden_tags = site.garden_tags | default: site.data.garden_tags %}
 		{% for tag in page.tags %}
+			{% if garden_tags[tag].size >= 2 %}
 			<a href="{{ site.baseurl }}/garden/tags/{{ tag | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}</a>{% unless forloop.last %}, {% endunless %}
+			{% else %}
+			{% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}{% unless forloop.last %}, {% endunless %}
+			{% endif %}
 		{% endfor %}
 	</p>
 	{% endif %}

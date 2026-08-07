@@ -14,6 +14,9 @@ permalink: /tags/
 <ul>
 {% for tag in sorted_tags reversed %}
 	{% assign tagitems = tag | split: '#' %}
-	<li><a href="{{ site.baseurl }}/tags/{{ tagitems[1] | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tagitems[1] | downcase | escape }}{% else %}{{ tagitems[1] | escape }}{% endif %}</a> ({{ tagitems[2] }} post{% if tagitems[2] != 1 %}s{% endif %})</li>
+	{% assign tag_count = tagitems[2] | plus: 0 %}
+	{% if tag_count > 1 %}
+	<li><a href="{{ site.baseurl }}/tags/{{ tagitems[1] | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tagitems[1] | downcase | escape }}{% else %}{{ tagitems[1] | escape }}{% endif %}</a> ({{ tag_count }} post{% if tag_count != 1 %}s{% endif %})</li>
+	{% endif %}
 {% endfor %}
 </ul>

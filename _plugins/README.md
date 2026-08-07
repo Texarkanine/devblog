@@ -302,6 +302,7 @@ Generates tag/category archive pages for custom collections (e.g., `garden`) by 
 - **Collection-aware archives**: Applies `jekyll-archives` logic to any collection listed under `jekyll-archives.collections`.
 - **Layout/permalink inheritance**: Falls back to the global `jekyll-archives` layouts/permalinks if a collection-specific value isn’t provided.
 - **Automatic page injection**: Emits `Jekyll::Archives::Archive` pages so the output matches built-in tag archives.
+- **Singleton tag omission**: When `type` is `tags`, archive pages are only emitted for tags that appear on ≥ `NavigationalTags::MIN_DOCS` documents (see `navigational_tags.rb`). Category archives are not filtered.
 
 ### Configuration
 
@@ -325,7 +326,19 @@ jekyll-archives:
         tag: '/garden/tags/:name/'
 ```
 
-Running `bundle exec jekyll build` then produces `/garden/tags/<slug>/` pages that list garden notes sharing that tag.
+Running `bundle exec jekyll build` then produces `/garden/tags/<slug>/` pages that list garden notes sharing that tag (tags with only one note are skipped).
+
+---
+
+## navigational_tags.rb
+
+Defines the shared threshold for **navigational** tags and suppresses singleton **post** tag archives from stock `jekyll-archives`.
+
+### Behavior
+
+- `NavigationalTags::MIN_DOCS` (currently `2`) and `NavigationalTags.keep?(docs)` — a tag is navigational when it appears on at least that many documents in its collection.
+- Monkey-patches `Jekyll::Archives::Archives#tags` so `read_tags` only builds archive pages for navigational post tags. Does **not** mutate `site.tags` (Liquid still needs full counts for plain-text vs link decisions on layouts and index pages).
+- Garden tag archives and jekyll-llms tag scopes use the same helper (see `garden_archives.rb` and `20_llms_scope_builders.rb`). Content layouts and `/tags/` / `/garden/tags/` indexes apply the same threshold in Liquid.
 
 ---
 
@@ -388,3 +401,5 @@ Registers [`jekyll-llms`](https://github.com/Texarkanine/jekyll-llms) scope buil
 | Authors | `/authors/:author/…` | post `author` front matter ∩ root EntrySet |
 
 Membership is always a subset of the root `jekyll-llms` entry list (include/exclude/`llms: false`). Paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present.
+
+Tag scopes (post and garden) omit taxonomy entries that fail `NavigationalTags.keep?`, so singleton tags do not get orphan `llms.txt` beside non-existent archive pages. Author scopes are unchanged.

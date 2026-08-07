@@ -203,7 +203,10 @@ module CollectionArchives
         end
       end
 
-      grouped_docs.map do |term, tagged_docs|
+      grouped_docs.filter_map do |term, tagged_docs|
+        # Tag archives omit singletons; category archives are out of scope.
+        next if type == "tags" && !NavigationalTags.keep?(tagged_docs)
+
         sorted_docs = tagged_docs.sort_by { |doc| doc.data["title"].to_s.downcase }
         Jekyll::Archives::Archive.new(site, term, type_key, sorted_docs)
       end

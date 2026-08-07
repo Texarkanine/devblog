@@ -35,8 +35,9 @@ permalink: /garden/tags/
 <ul>
 {% for tag in sorted_tags %}
 	{% assign tagitems = tag | split: '#' %}
-	{% if tagitems.size == 2 and tagitems[0] != '' and tagitems[1] != '' %}
-		<li><a href="{{ site.baseurl }}/garden/tags/{{ tagitems[0] | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tagitems[0] | downcase | escape }}{% else %}{{ tagitems[0] | escape }}{% endif %}</a> ({{ tagitems[1] }} page{% if tagitems[1] != 1 %}s{% endif %})</li>
+	{% assign tag_count = tagitems[1] | plus: 0 %}
+	{% if tagitems.size == 2 and tagitems[0] != '' and tag_count > 1 %}
+		<li><a href="{{ site.baseurl }}/garden/tags/{{ tagitems[0] | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tagitems[0] | downcase | escape }}{% else %}{{ tagitems[0] | escape }}{% endif %}</a> ({{ tag_count }} page{% if tag_count != 1 %}s{% endif %})</li>
 	{% endif %}
 {% endfor %}
 </ul>
