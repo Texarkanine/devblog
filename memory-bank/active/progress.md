@@ -28,3 +28,33 @@ Suppress singleton (count = 1) tags from archive page generation, inline tag lin
     - Categories out of scope
 * Insights
     - Filtering only at generation + templates avoids breaking plain-text singleton display
+
+## 2026-08-07 - PREFLIGHT - PASS WITH ADVISORY
+
+* Work completed
+    - Preflight subagent validated plan; amended steps 2, 5, 6, 7 in place
+    - Status: `PASS WITH ADVISORY`
+* Decisions made
+    - Gate garden `build_archives` filter on `type == "tags"`
+    - Coerce Liquid string counts with `| plus: 0` before comparison
+    - Accept advisories as-is for build: per-collection threshold (no union rule); no curated-description exemption
+* Insights
+    - Baseline exact: 101→32 post tag dirs, 45→8 garden; existing pluralization bug is string-comparison
+
+## 2026-08-07 - PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+
+* Work completed
+    - Validated all 7 plan steps against the actual code: `jekyll-archives` 2.3.0 gem source, `garden_archives.rb`, `20_llms_scope_builders.rb`, both layouts, both index pages
+    - Confirmed the four tag-linking templates are the complete set; menus link only to indexes
+    - Reproduced the baseline exactly (69/101 singleton post tags, 37/45 singleton garden tags)
+    - Amended steps 2, 5, 6, and 7 in `tasks.md`; closed the hardcoded-body-link challenge as a non-risk
+    - Recorded advisory findings and the TDD-waiver rationale in `tasks.md`
+* Decisions made
+    - Garden `build_archives` filter must be gated on `type == "tags"` — the method is shared with categories, which are out of scope
+    - Index filtering must coerce the split-derived count with `| plus: 0`; Liquid string/integer comparison either raises or silently mis-evaluates
+    - Fixed findings by amending the plan rather than bouncing back to `/niko-plan`; all four are within L2 scope
+    - Left the cross-taxonomy union idea as advisory only — it would redefine Requirement 1
+* Insights
+    - `/garden/tags/context-engineering/` is a singleton that carries one of only two curated `_data/tags.yaml` blurbs; suppressing it loses that content
+    - The existing `(1 posts)` pluralization bug is proof that the `!= 1` string-vs-integer idiom in these templates is broken, and a trap for the implementer
+    - Only one hardcoded tag link exists in the whole content tree, and it points at an 8-post tag — the 404 risk the plan worried about is nil

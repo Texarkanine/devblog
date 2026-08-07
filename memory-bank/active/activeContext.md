@@ -1,6 +1,7 @@
 # Active Context
 
 **Current Task:** Skip singleton tag archives and links (posts + garden)
-**Phase:** PLAN - COMPLETE
-**What Was Done:** Level 2 plan written. Operator waived automated tests; validation is `jekyll build` + spot-checks. Approach: shared `NavigationalTags` helper (min 2 docs); monkey-patch `Jekyll::Archives::Archives#tags` for posts; filter in `garden_archives#build_archives`; same threshold for llms tag scopes; Liquid conditionals in post/garden layouts and both tag indexes. Do not mutate `site.tags` / `site.garden_tags`.
-**Next Step:** Preflight validation (subagent).
+**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+**What Was Done:** Validated the L2 plan against the codebase. Patch point confirmed (`jekyll-archives` 2.3.0 `Archives#tags` is a one-line `@site.tags` reader used only by `read_tags`; nothing reads `site.config["archives"]`). Template coverage confirmed complete. Baseline reproduced exactly: 69/101 singleton post tags, 37/45 singleton garden tags. Amended four plan steps: gate the garden `build_archives` filter on `type == "tags"` (shared with out-of-scope categories); coerce split-derived counts with `| plus: 0` in both indexes (Liquid string/int comparison raises or mis-evaluates — the existing `(1 posts)` bug proves it); give the new helper its own `_plugins/README.md` section; replace vague spot-checks with measured expected counts (101 → 32, 45 → 8). Closed the hardcoded-body-link risk (one link, 8-post tag).
+**Advisory for operator:** `/garden/tags/context-engineering/` is a garden singleton that carries one of only two curated `_data/tags.yaml` blurbs — suppressing it loses that content. A cross-taxonomy union rule (navigational if ≥2 docs site-wide) would keep it clickable but redefines Requirement 1, so it was flagged, not applied. TDD gate passed by recorded operator waiver, not compliance.
+**Next Step:** `/niko-build` — build gate is satisfied.
