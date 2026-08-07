@@ -1,7 +1,0 @@
-# sub-agents
-
-> Tag: sub-agents
-
-## Posts
-
-- [Sub-Agents aren't Agents - They're Skills but Worse](https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.md): Sub-Agents are syntactic sugar over skills with one baked-in assumption about execution context that should be the caller's decision.

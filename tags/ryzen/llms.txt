@@ -1,7 +1,0 @@
-# ryzen
-
-> Tag: ryzen
-
-## Posts
-
-- [The Magnificent 7 BSODs and the Hateful 8th to 11th](https://blog.cani.ne.jp/2026/05/11/magnificent-7-bsods.md): Eleven different stop codes over seventy-four days were eleven angles on a single dying CPU. A Patch Tuesday update only took the blame - but wasn't the cause.

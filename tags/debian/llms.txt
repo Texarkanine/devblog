@@ -1,7 +1,0 @@
-# debian
-
-> Tag: debian
-
-## Posts
-
-- [We Therefore do not Recommend this Approach (to Upgrading OctoPrint's Python)](https://blog.cani.ne.jp/2025/11/14/octoprint-python-upgrade-cascade.md): Python 3.13 needs glibc 2.34, glibc 2.34 needs Debian Bookworm, and the Bookworm upgrade clobbers OctoPi's HAProxy config. A three-step yak shave on a Raspberry Pi.

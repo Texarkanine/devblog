@@ -1,7 +1,0 @@
-# web-ext
-
-> Tag: web-ext
-
-## Posts
-
-- [Publishing My First Browser Extension](https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.md): web-ext lint rejects valid Chrome manifests, GitHub Actions secrets don't resolve in job-level if: expressions, and kewisch/action-web-ext hardcoded the AMO approval timeout. Shipping Tab Yeet across Firefox and Chrome (and bouncing off Safari).

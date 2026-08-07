@@ -1,7 +1,0 @@
-# economics
-
-> Garden tag: economics
-
-## Garden
-
-- [A General-Purpose Industry-Refining Tool](https://blog.cani.ne.jp/garden/general-purpose-industry-refining-tool.md): Refinement of industries - industrialization - has a rhyming shape every time it crops up.

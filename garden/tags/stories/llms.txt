@@ -1,7 +1,0 @@
-# stories
-
-> Garden tag: stories
-
-## Garden
-
-- [Stories](https://blog.cani.ne.jp/garden/stories.md): A collection of stories.

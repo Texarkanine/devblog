@@ -1,7 +1,0 @@
-# context-engineering
-
-> Garden tag: context-engineering
-
-## Garden
-
-- [Horses](https://blog.cani.ne.jp/garden/ai-horses.md): What's a harness in the world of AI, and how is it different from a model or an agent? Think breeds, tack, and the horse you actually ride.

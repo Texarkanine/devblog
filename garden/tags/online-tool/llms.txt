@@ -1,7 +1,0 @@
-# online-tool
-
-> Garden tag: online-tool
-
-## Garden
-
-- [Websites for Making .ico Files](https://blog.cani.ne.jp/garden/favicon-websites.md): Free online tools for creating favicons and .ico files, from multi-platform generators to pixel-art icon editors.

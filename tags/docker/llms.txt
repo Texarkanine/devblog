@@ -1,7 +1,0 @@
-# docker
-
-> Tag: docker
-
-## Posts
-
-- [I Built a Logging Server to Log a Serverless Site](https://blog.cani.ne.jp/2025/11/23/opensearch-for-static-site-logs.md): DigitalOcean's static hosting doesn't generate access logs. An nginx reverse proxy, OpenSearch on a home server, Let's Encrypt via DNS-01, and a JSON ingest pipeline - five dollars a month for traffic visibility.

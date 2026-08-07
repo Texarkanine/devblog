@@ -1,7 +1,0 @@
-# geocities
-
-> Garden tag: geocities
-
-## Garden
-
-- [Browse The Vintage, Early Internet](https://blog.cani.ne.jp/garden/browse-the-early-internet.md): A curated collection of links to browse the vintage web: GeoCities archives, Neocities, the Web Design Museum, and retro search engines.

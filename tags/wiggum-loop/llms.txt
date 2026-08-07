@@ -1,7 +1,0 @@
-# wiggum-loop
-
-> Tag: wiggum-loop
-
-## Posts
-
-- [I Finally Coded So Hard I Ralphed](https://blog.cani.ne.jp/2026/01/25/i-finally-coded-so-hard-i-ralphed.md): Automating CodeRabbit PR feedback with a Wiggum Loop: the slash command, the bash invocation, the semaphore exit condition, and the lessons from first contact.

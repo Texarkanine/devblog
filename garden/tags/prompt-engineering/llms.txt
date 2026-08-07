@@ -1,7 +1,0 @@
-# prompt-engineering
-
-> Garden tag: prompt-engineering
-
-## Garden
-
-- [Do LLMs Understand "For Each"?](https://blog.cani.ne.jp/garden/do-llms-understand-for-each.md): What happens when you ask a language model to process a list of items? Research on instruction adherence, attention mechanics, and the generation boundary.

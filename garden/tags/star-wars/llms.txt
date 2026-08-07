@@ -1,7 +1,0 @@
-# star-wars
-
-> Garden tag: star-wars
-
-## Garden
-
-- [Millennium Falcon](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/millennium-falcon.md)

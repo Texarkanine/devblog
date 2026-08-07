@@ -1,7 +1,0 @@
-# ls
-
-> Garden tag: ls
-
-## Garden
-
-- [A History of the 'ls' command](https://blog.cani.ne.jp/garden/a-history-of-the-ls-command.md): Who wrote ls? Tracing the directory listing command from MIT's Compatible Time-Sharing System through Unix to GNU coreutils.

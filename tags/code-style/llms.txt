@@ -1,7 +1,0 @@
-# code-style
-
-> Tag: code-style
-
-## Posts
-
-- [Tabs for Humans, Spaces for LLMs](https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.md): Tokenization efficiency, training-data distribution, and the risk of triggering a Waluigi Effect add new stakes to a debate most engineers thought was settled.

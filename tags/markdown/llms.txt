@@ -1,7 +1,0 @@
-# markdown
-
-> Tag: markdown
-
-## Posts
-
-- [Two Jekyll Image Plugins](https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.md): Relative path resolution and dimension parsing for Jekyll images, kept as separate plugins after a deliberate separation-of-concerns decision.

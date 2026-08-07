@@ -1,7 +1,0 @@
-# flash
-
-> Garden tag: flash
-
-## Garden
-
-- [Play Classic Computer Games from the 1900s](https://blog.cani.ne.jp/garden/1900s-computer-gaming.md): Play classic DOS and Flash games from the 1900s in your browser: abandonware archives, retro gaming portals, and playable emulators.
