@@ -85,3 +85,13 @@ Suppress singleton (count = 1) tags from archive page generation, inline tag lin
 * Insights
     - The threshold now lives in five places (one Ruby constant, four Liquid literals); the Ruby constant's own comment claims authority over the Liquid side that it does not have, which is the likeliest source of a future silent 404
     - The `| plus: 0` coercion mandated at preflight did double duty: it enabled the filter *and* fixed the pre-existing `(1 posts)` pluralization bug
+
+## 2026-08-07 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-skip-singleton-tags.md`
+    - Reconciled persistent memory bank files (all skipped)
+* Decisions made
+    - No persistent MB updates — navigational-tag rule is subsystem-local (documented in `_plugins/README.md`)
+* Insights
+    - See reflection: Liquid string counts; `#tags` patch as min injection; single source of truth would be the day-one design
