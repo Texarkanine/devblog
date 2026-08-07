@@ -184,3 +184,4 @@ Scope-leak checks passed: `20_llms_scope_builders.rb#scopes_for_taxonomy` is cal
 - [x] Preflight — PASS WITH ADVISORY
 - [x] Build
 - [x] QA — PASS
+- [x] Reflect
