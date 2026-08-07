@@ -45,7 +45,11 @@ layout: default
   <p>
     tagged: 
     {% for tag in page.tags %}
+      {% if site.tags[tag].size >= 2 %}
       <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}</a>{% unless forloop.last %}, {% endunless %}
+      {% else %}
+      {% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}{% unless forloop.last %}, {% endunless %}
+      {% endif %}
     {% endfor %}
   </p>
   {% endif %}
