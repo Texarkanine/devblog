@@ -71,3 +71,17 @@ Suppress singleton (count = 1) tags from archive page generation, inline tag lin
     - `/garden/tags/context-engineering/` is a singleton that carries one of only two curated `_data/tags.yaml` blurbs; suppressing it loses that content
     - The existing `(1 posts)` pluralization bug is proof that the `!= 1` string-vs-integer idiom in these templates is broken, and a trap for the implementer
     - Only one hardcoded tag link exists in the whole content tree, and it points at an 8-post tag — the 404 risk the plan worried about is nil
+
+## 2026-08-07 - QA - COMPLETE (PASS)
+
+* Work completed
+    - Reviewed the full build diff (8 files) against the plan and the brief's five requirements
+    - Ran a fresh `bundle exec jekyll build` (exit 0) and verified the rendered `_site`: 32 post-tag archives, 8 garden-tag archives, 7 category dirs, both indexes filtered with correct pluralization
+    - Verified all 40 tag hrefs in `_site` resolve, no orphan `llms.txt`, curated blurbs preserved on surviving archives
+    - Confirmed the Step 2 scope-leak hazard does not recur in `20_llms_scope_builders.rb` (author scopes use a separate method) and that the layouts' taxonomy lookups can never be nil
+    - Recorded four advisories in `tasks.md`; none block acceptance
+* Decisions made
+    - PASS — no changes required before acceptance; the DRY advisory about the duplicated threshold is deferred, not waived
+* Insights
+    - The threshold now lives in five places (one Ruby constant, four Liquid literals); the Ruby constant's own comment claims authority over the Liquid side that it does not have, which is the likeliest source of a future silent 404
+    - The `| plus: 0` coercion mandated at preflight did double duty: it enabled the filter *and* fixed the pre-existing `(1 posts)` pluralization bug

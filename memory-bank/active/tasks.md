@@ -149,6 +149,31 @@ Passed **by recorded operator waiver** (2026-08-07), not by compliance. `always-
 - Inline: singleton tags plain text; multi-use still `<a>`; no orphan `llms.txt`
 - Categories still present (`_site/categories/` has 7 dirs)
 
+## QA Findings (2026-08-07)
+
+**Verdict: PASS.** No blocking findings. Implementation matches the plan step-for-step and satisfies all five brief requirements.
+
+### Requirement verification (fresh `bundle exec jekyll build`, exit 0)
+
+| Requirement | Evidence |
+| --- | --- |
+| 1 — Threshold ≥2 | `NavigationalTags::MIN_DOCS = 2`; every generated archive has ≥2 docs |
+| 2 — No singleton archives | `_site/tags/`: 32 archives + `llm-context-management` redirect + index; `_site/garden/tags/`: 8 archives + index |
+| 3 — Inline links | 46 pages mix links with plain text, 18 all-link, 3 all-plain; comma separators intact |
+| 4 — Index pages | `/tags/` 32 `<li>`, `/garden/tags/` 8 `<li>`; zero `(1 post` / `(1 page` |
+| 5 — Both collections | Post and garden paths both filtered; llms scopes aligned |
+
+Additional checks: all 40 distinct `/tags/…` and `/garden/tags/…` hrefs in `_site` resolve to an existing `index.html` (no dangling links); every emitted `llms.txt` sits under a surviving archive (no orphans); `_site/categories/` still has 7 dirs; the one hardcoded body link and the `redirect_to` page both target `/tags/context-engineering/`, which survives; curated `_data/tags.yaml` blurbs still render on the surviving post archives; working tree clean, no build debris committed.
+
+Scope-leak checks passed: `20_llms_scope_builders.rb#scopes_for_taxonomy` is called only for post tags and garden tags — author scopes use a separate method, so the `type == "tags"` hazard from Step 2 does not recur there. `_layouts/post.html` / `garden.html` are used only by posts and garden docs, so the `site.tags[tag]` / `garden_tags[tag]` lookups can never be nil (which would raise a Liquid comparison error).
+
+### Advisories — non-blocking
+
+- **Threshold duplicated in 5 places (DRY).** `MIN_DOCS = 2` governs Ruby, but the four Liquid templates hardcode `>= 2` / `> 1` independently. Changing `MIN_DOCS` alone would drop archives while layouts keep linking them — silent 404s. Not blocking: the plan prescribed this, preflight accepted it, and Requirement 1 fixes the threshold at 2. If it ever needs to vary, expose it via `site.config` from `navigational_tags.rb`.
+- **`navigational_tags.rb` comment overstates the constant's reach.** It says `MIN_DOCS` governs the "inline link, index listing" too; Liquid never reads it. `_plugins/README.md` describes the split accurately, so the inaccuracy is confined to the source comment.
+- **Dead pluralization branch (YAGNI).** Both indexes still carry `{% if tag_count != 1 %}s{% endif %}` after the `> 1` filter guarantees plural. Harmless, and the `| plus: 0` coercion did fix the real `(1 posts)` bug.
+- **Accepted loss confirmed.** `/garden/tags/context-engineering/` and its curated blurb are gone as the preflight advisory predicted and the operator accepted. The blurb still renders on the post archive, so no content is orphaned.
+
 ## Status
 
 - [x] Initialization complete
@@ -158,4 +183,4 @@ Passed **by recorded operator waiver** (2026-08-07), not by compliance. `always-
 - [x] Pre-Mortem complete
 - [x] Preflight — PASS WITH ADVISORY
 - [x] Build
-- [ ] QA
+- [x] QA — PASS

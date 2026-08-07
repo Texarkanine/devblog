@@ -1,0 +1,4 @@
+QA_STATUS=PASS
+TASK_ID=skip-singleton-tags
+DATE=2026-08-07
+NOTES=All 5 brief requirements verified in rendered _site. 3 non-blocking advisories recorded in tasks.md.
