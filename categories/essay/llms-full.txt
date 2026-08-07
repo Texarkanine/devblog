@@ -45,7 +45,7 @@ Two big cold-storage failures attacked exactly that moment.
   <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260804224839/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260806232554/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
