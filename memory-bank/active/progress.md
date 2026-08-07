@@ -14,3 +14,17 @@ Suppress singleton (count = 1) tags from archive page generation, inline tag lin
     - Level 2: enhancement to existing tagging subsystem; clear threshold (≥2); design choices exist but do not warrant L3 creative/architecture
 * Insights
     - Surfaces already known: `jekyll-archives` (posts + garden via config), `_layouts/post.html` / `garden.html` for links, `pages/tags.md` / `pages/garden/tags.md` for indexes
+
+## 2026-08-07 - PLAN - COMPLETE
+
+* Work completed
+    - Surveyed archive generation (stock `jekyll-archives` has no min-count; garden via `build_archives`)
+    - Baseline `_site` counts: ~69 singleton post-tag pages, ~37 singleton garden-tag pages
+    - Operator waived automated tests; recorded build/spot-check validation plan
+    - Wrote linear 7-step implementation plan in `tasks.md`
+* Decisions made
+    - Shared `NavigationalTags::MIN_DOCS = 2`; patch `#tags` for posts; filter garden `build_archives`; align llms tag scopes; Liquid filters for links/indexes
+    - Never mutate `site.tags` / `site.garden_tags` (needed for size checks)
+    - Categories out of scope
+* Insights
+    - Filtering only at generation + templates avoids breaking plain-text singleton display

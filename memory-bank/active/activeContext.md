@@ -1,6 +1,6 @@
 # Active Context
 
 **Current Task:** Skip singleton tag archives and links (posts + garden)
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
-**What Was Done:** Complexity determined as Level 2 — enhancement to existing tagging behavior with a clear ≥2 threshold; touches archive generation, inline tag links, and both tag indexes, but stays within the tagging subsystem without architectural redesign.
-**Next Step:** Load the Level 2 workflow and execute the plan phase.
+**Phase:** PLAN - COMPLETE
+**What Was Done:** Level 2 plan written. Operator waived automated tests; validation is `jekyll build` + spot-checks. Approach: shared `NavigationalTags` helper (min 2 docs); monkey-patch `Jekyll::Archives::Archives#tags` for posts; filter in `garden_archives#build_archives`; same threshold for llms tag scopes; Liquid conditionals in post/garden layouts and both tag indexes. Do not mutate `site.tags` / `site.garden_tags`.
+**Next Step:** Preflight validation (subagent).
