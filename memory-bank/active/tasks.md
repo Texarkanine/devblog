@@ -130,6 +130,25 @@ No new technology - validation not required (uses existing `jekyll-archives`, Li
 
 Passed **by recorded operator waiver** (2026-08-07), not by compliance. `always-tdd.mdc` directs stopping to ask when no test infrastructure exists; `techContext.md` confirms none does, and the operator answered "waive". The waiver is recorded per-unit and step 7 is a mandatory verification, so this is not implementation-first under a disclaimer. No change-detector tests are scheduled. Override this by adding a test harness and re-running preflight.
 
+## Implementation checklist
+
+- [x] Step 1 — `navigational_tags.rb` + post archive patch
+- [x] Step 2 — garden `build_archives` filter gated on `type == "tags"`
+- [x] Step 3 — llms tag scopes use `NavigationalTags.keep?`
+- [x] Step 4 — conditional links in `post.html` / `garden.html`
+- [x] Step 5 — index filters + `| plus: 0` count coercion
+- [x] Step 6 — `_plugins/README.md` sections
+- [x] Step 7 — build + spot-check (see Build notes below)
+
+### Build verification notes
+
+- `bundle exec jekyll build` succeeded
+- Post tag dirs under `_site/tags/`: **33** = 32 navigational archives + `llm-context-management` redirect page (not an archive); **0** singleton archives
+- Garden tag dirs: **8** (matches target); garden `context-engineering` archive absent as expected
+- Indexes: no `(1 post` / `(1 page`; post index lists 32; garden index lists 8
+- Inline: singleton tags plain text; multi-use still `<a>`; no orphan `llms.txt`
+- Categories still present (`_site/categories/` has 7 dirs)
+
 ## Status
 
 - [x] Initialization complete
@@ -138,5 +157,5 @@ Passed **by recorded operator waiver** (2026-08-07), not by compliance. `always-
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
 - [x] Preflight — PASS WITH ADVISORY
-- [ ] Build
+- [x] Build
 - [ ] QA

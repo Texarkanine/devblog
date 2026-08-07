@@ -1,7 +1,16 @@
 # Active Context
 
 **Current Task:** Skip singleton tag archives and links (posts + garden)
-**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
-**What Was Done:** Validated the L2 plan against the codebase. Patch point confirmed (`jekyll-archives` 2.3.0 `Archives#tags` is a one-line `@site.tags` reader used only by `read_tags`; nothing reads `site.config["archives"]`). Template coverage confirmed complete. Baseline reproduced exactly: 69/101 singleton post tags, 37/45 singleton garden tags. Amended four plan steps: gate the garden `build_archives` filter on `type == "tags"` (shared with out-of-scope categories); coerce split-derived counts with `| plus: 0` in both indexes (Liquid string/int comparison raises or mis-evaluates — the existing `(1 posts)` bug proves it); give the new helper its own `_plugins/README.md` section; replace vague spot-checks with measured expected counts (101 → 32, 45 → 8). Closed the hardcoded-body-link risk (one link, 8-post tag).
-**Advisory for operator:** `/garden/tags/context-engineering/` is a garden singleton that carries one of only two curated `_data/tags.yaml` blurbs — suppressing it loses that content. A cross-taxonomy union rule (navigational if ≥2 docs site-wide) would keep it clickable but redefines Requirement 1, so it was flagged, not applied. TDD gate passed by recorded operator waiver, not compliance.
-**Next Step:** `/niko-build` — build gate is satisfied.
+**Phase:** BUILD - COMPLETE
+**What Was Done:** Implemented navigational-tag threshold (≥2) for post archives (monkey-patch), garden archives (type-gated), llms tag scopes, post/garden layouts, and both tag indexes. Documented in `_plugins/README.md`. Build verified: 32 navigational post-tag archives (+1 redirect dir), 8 garden-tag archives, singletons plain text, no orphan llms.
+**Files created/modified:**
+- `_plugins/navigational_tags.rb` (new)
+- `_plugins/garden_archives.rb`
+- `_plugins/20_llms_scope_builders.rb`
+- `_plugins/README.md`
+- `_layouts/post.html`
+- `_layouts/garden.html`
+- `pages/tags.md`
+- `pages/garden/tags.md`
+**Key decisions:** Accepted per-collection threshold (no union rule / curated-description exemption). Counted `llm-context-management` redirect as separate from archive target (33 dirs vs plan's 32 archives).
+**Next Step:** QA subagent.

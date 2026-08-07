@@ -41,6 +41,19 @@ Suppress singleton (count = 1) tags from archive page generation, inline tag lin
 * Insights
     - Baseline exact: 101→32 post tag dirs, 45→8 garden; existing pluralization bug is string-comparison
 
+## 2026-08-07 - BUILD - COMPLETE
+
+* Work completed
+    - Added `_plugins/navigational_tags.rb` (`MIN_DOCS=2`, patch `Archives#tags`)
+    - Filtered garden tag archives; aligned llms tag scopes; Liquid links/indexes
+    - Documented in `_plugins/README.md`
+    - Verified build: 32 post-tag archives (+ redirect), 8 garden; singletons plain text; no orphan llms
+* Decisions made
+    - Kept per-collection threshold; redirect page under `/tags/llm-context-management/` retained
+    - Fixed index pluralization via `| plus: 0` coercion while filtering
+* Insights
+    - Plan's "32 dirs" counts archives only; redirect makes `find` show 33 under `_site/tags/`
+
 ## 2026-08-07 - PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
 
 * Work completed
