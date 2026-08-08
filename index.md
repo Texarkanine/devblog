@@ -4,6 +4,10 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>pages<ul><li>
           
+          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
+          
+        </li><li>
+          
           <a href="/garden/ai-horses.html">Horses</a>
           
         </li><li>
@@ -37,10 +41,6 @@ Timeless treasures and curios collected from the internet and presented for your
         </li><li>
           
           <a href="/garden/stories.html">Stories</a>
-          
-        </li><li>
-          
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
           
         </li><li><a href="/garden/">explore the garden...</a></li></ul></li><li><a href="/garden/tags/">all garden tags</a></li><li><a href="/garden/what-is-a-digital-garden.html">what is a digital garden?</a></li></ul>
 

@@ -5960,7 +5960,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.mt83-vf6v6jq6i { display: inline-block; }</style><script>(function(){function svyjt2vly(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function pi9rbfe6acai(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var ndnda8im=sp.getAttribute('data-vdae9trweew');var pvfsnzu=sp.getAttribute('data-xr6sc5szz3f');var br2qlf2=sp.getAttribute('data-u0aihnwph9eg');var qvtz4dmjgqh=sp.getAttribute('data-cdazhi5');var mailto=svyjt2vly(ndnda8im,spParts[0].length);var user=svyjt2vly(pvfsnzu,spParts[1].length);var domainBase=svyjt2vly(br2qlf2,lnkParts[0].length);var tld=svyjt2vly(qvtz4dmjgqh,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function xrgtnilfhmfixtq(){var els=document.querySelectorAll('a.mbi1kmgn4gbl0lkhy-g1hwkwhe9cj');var handler=function(){var sp=this.querySelector('span.mt83-vf6v6jq6i');if(sp&&!this.dataset.d){var val=pi9rbfe6acai(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',xrgtnilfhmfixtq);}else{xrgtnilfhmfixtq();}})();</script>{:/nomarkdown}<a href="#" class="mbi1kmgn4gbl0lkhy-g1hwkwhe9cj"><span class="mt83-vf6v6jq6i" data-vdae9trweew="qempxs" data-xr6sc5szz3f="ANMJLCNM" data-u0aihnwph9eg="gifkfedrzc" data-cdazhi5="nzx">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.gs1c7uj-pkkkf { display: inline-block; }</style><script>(function(){function lc0rivzxqpoo(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function dldksksxsnwq(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var rbm4c4pb=sp.getAttribute('data-q4lelfh');var xnkrsi0=sp.getAttribute('data-yccg8ah');var azhfygulnfql=sp.getAttribute('data-uherlxaii');var t1ubxoqe7kfi=sp.getAttribute('data-uwl6muyyjo4');var mailto=lc0rivzxqpoo(rbm4c4pb,spParts[0].length);var user=lc0rivzxqpoo(xnkrsi0,spParts[1].length);var domainBase=lc0rivzxqpoo(azhfygulnfql,lnkParts[0].length);var tld=lc0rivzxqpoo(t1ubxoqe7kfi,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function bwij3sziswy9(){var els=document.querySelectorAll('a.nggkra-l20imorkbunp3iwd');var handler=function(){var sp=this.querySelector('span.gs1c7uj-pkkkf');if(sp&&!this.dataset.d){var val=dldksksxsnwq(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',bwij3sziswy9);}else{bwij3sziswy9();}})();</script>{:/nomarkdown}<a href="#" class="nggkra-l20imorkbunp3iwd"><span class="gs1c7uj-pkkkf" data-q4lelfh="thpsav" data-yccg8ah="WJIFHYJI" data-uherlxaii="vxuzutsgor" data-uwl6muyyjo4="sec">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -6999,7 +6999,63 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
+          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          
+        </li><li>
+          
+          <a href="/garden/idea-bank.html">Idea Bank</a>
+          
+        </li><li>
+          
+          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
+          
+        </li><li>
+          
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
+          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
+          
+        </li><li>
+          
+          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          
+        </li><li>
+          
+          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
+          
+        </li><li>
+          
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          
+        </li><li>
+          
+          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/index.html">Shrines</a>
+          
+        </li><li>
+          
+          <a href="/garden/stories.html">Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/short-stories.html">Short Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+          
+        </li><li>
+          
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
           
         </li><li>
           
@@ -7011,39 +7067,7 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/idea-bank.html">Idea Bank</a>
-          
-        </li><li>
-          
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
-          
-        </li><li>
-          
-          <a href="/garden/last-programming-language.html">The Last Programming Language</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
-          
-        </li><li>
-          
-          <a href="/garden/ai-horses.html">Horses</a>
-          
-        </li><li>
-          
-          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
-          
-        </li><li>
-          
-          <a href="/garden/stories.html">Stories</a>
-          
-        </li><li>
-          
-          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
           
         </li><li>
           
@@ -7051,35 +7075,7 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
-          
-        </li><li>
-          
-          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
-          
-        </li><li>
-          
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
-          
-        </li><li>
-          
-          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
-          
-        </li><li>
-          
-          <a href="/garden/short-stories.html">Short Stories</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
-          
-        </li><li>
-          
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
+          <a href="/garden/last-programming-language.html">The Last Programming Language</a>
           
         </li><li>
           
@@ -7087,11 +7083,19 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
+          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
           
         </li><li>
           
-          <a href="/garden/shrine/index.html">Shrines</a>
+          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
+          
+        </li><li>
+          
+          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
           
         </li><li>
           
@@ -7107,6 +7111,10 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>pages<ul><li>
           
+          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
+          
+        </li><li>
+          
           <a href="/garden/ai-horses.html">Horses</a>
           
         </li><li>
@@ -7140,10 +7148,6 @@ Timeless treasures and curios collected from the internet and presented for your
         </li><li>
           
           <a href="/garden/stories.html">Stories</a>
-          
-        </li><li>
-          
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
           
         </li><li><a href="/garden/">explore the garden...</a></li></ul></li><li><a href="/garden/tags/">all garden tags</a></li><li><a href="/garden/what-is-a-digital-garden.html">what is a digital garden?</a></li></ul>
 
@@ -8808,6 +8812,375 @@ So,
 	2. a locally-installable tool that gives the AI memory
 
 **Fair warning:** Outside "turn on memory on the chat website," this is still - as of August 2026 - a poorly-defined, unexplored problem space. There are lots of options and no clear best practice. You will likely be confused. You may experience analysis paralysis. I think as long as you pick *something* that fits the bill and [just try the thing](/2026/08/01/just-try-the-thing.html), you'll be heading in the right direction. 
+## Human Interface Devices
+
+Jump to...
+
+* [Keyboard](#keyboard)
+* [Mouse](#mouse)
+* [Headset](#headset)
+* [Other](#other)
+
+## Keyboard
+
+### SteelSeries Apex 7
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/keyboard_steelseries-apex-7.webp">
+      <img src="hid/keyboard_steelseries-apex-7.webp" alt="SteelSeries Apex 7" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">SteelSeries Apex 7</div>
+    <div class="polaroid-link">
+      
+      <a href="https://steelseries.com/gaming-keyboards/apex-7" target="_blank" rel="noopener">steelseries.com/gaming-keyboards/apex-7</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260725162825/https://steelseries.com/gaming-keyboards/apex-7" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+This is my preferred traditional keyboard.
+
+1. Mechanical switches
+2. Individually-customizable lights on each key
+3. Decent first-party vendor software
+4. Decent third-party software support
+5. On-board memory (lights, macros, etc, stay even when software isn't running)
+6. Cute little black/white LED panel
+7. USB port w/ dedicated cable
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/keyboard_steelseries-apex-7-usb.jpg">
+      <img src="hid/keyboard_steelseries-apex-7-usb.jpg" alt="Convenient USB Port" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Convenient USB Port</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The keyboard has two USB connectors, and one of them is just a passthrough for this USB port. I use it to keep a mouse dongle nearby, but you might also enjoy plugging a wired mouse in there, or a [hardware security key](https://www.yubico.com/) or something.
+
+### Kinesis Advantage 2
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/keyboard_kinesis-advantage-2-black.jpg">
+      <img src="hid/keyboard_kinesis-advantage-2-black.jpg" alt="Kinesis Advantage 2" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Kinesis Advantage 2</div>
+    <div class="polaroid-link">
+      
+      <a href="https://kinesis-ergo.com/shop/advantage2/" target="_blank" rel="noopener">kinesis-ergo.com/shop/advantage2/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260703091811/https://kinesis-ergo.com/shop/advantage2/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+I saw a [Maltron single-hand keyboard](https://www.maltron.com/store/p19/Maltron_Single_Hand_Keyboards_-_US_English.html) forever-ago, and was immediately convinced that the "hemisphere around the hand" design was good (despite never having tried it) and wanted to find a contemporary successor. But, they were expensive... and then I got hit with double repetitive-stress-injury in both wrists.
+
+I found the Kinesis Advantage 2 as the modern hemispherical keyboard, gave it a try, and am hooked. This is what I spend most of my time typing on; it thoroughly saved my career as a computer-user.
+
+It has mechanical switches yes, but that's not the magic. The magic is primarily:
+
+1. Each hand's keys are arranged equidistant from the fingers that'll articulate them - no crossing or stretching of finger muscles or connective tissue required.
+2. Commonly-used modifier keys are moved to the thumb groups - giving the most-frequent presses to the biggest, strongest fingers.
+
+It's not listed on their official site anymore, but I got the silver one (to match the "Macbook Pro" colors):
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/keyboard_kinesis-advantage-2-silver.jpg">
+      <img src="hid/keyboard_kinesis-advantage-2-silver.jpg" alt="Kinesis Advantage 2 - Silver" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Kinesis Advantage 2 - Silver</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+## Mouse
+
+### Logitech G305
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/mouse_logitech-g305.jpg">
+      <img src="hid/mouse_logitech-g305.jpg" alt="Logitech G305" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Logitech G305</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse" target="_blank" rel="noopener">www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260726164233/https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+Simple, lightweight, reliable, cheap, functional.
+
+It's small-enough to be used by anyone, but has the right slants on the side so my larger hands can fit without discomfort.
+
+It takes a single AA battery, so when it does die, you don't have to wait to charge.
+
+Wireless, so no cable to tangle.
+
+The basic 5 buttons, and the back/forward don't get in the way on the thumb.
+
+They also come in a variety of colors and editions, so you might even be able to get something "fun" to match your style.
+
+They **do** die in the traditional Logitech "button starts double-clicking because the clicker is worn out" way; I've bought more of these than I can count. Easy 3-4 year lifespan with daily use.
+
+### Razer Naga V2 Pro
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/mouse_razer-naga-v2-pro-swappable.jpg">
+      <img src="hid/mouse_razer-naga-v2-pro-swappable.jpg" alt="Razer Naga V2 Pro" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Razer Naga V2 Pro</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.razer.com/gaming-mice/razer-naga-v2-pro" target="_blank" rel="noopener">www.razer.com/gaming-mice/razer-naga-v2-pro</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+This is a gaming mouse, targeted at MMO games where having a lot of inputs right on tap is an advantage. I bought it for [Final Fantasy XIV](https://na.finalfantasyxiv.com/), primarily.
+
+It has swappable side-panels; I run the full 12-key numpad, but there are ones with fewer, larger keys depending on what you need.
+
+Each key is shaped differently - you can tell (once you learn it) by touch, without looking, where your thumb is. This is an ingenious and super-correct design for a mouse like this.
+
+In addition, the right side has a perfectly-placed ledge to catch your pinky finger and give it place to rest rather than having to be held up or dragging on the desk.
+
+It is wireless, so no cables to tangle. And, it's deceptively lightweight - making it easier and less-taxing to quickly move it to where the game demands.
+
+It's a very well-engineered piece of ergonomics. If I didn't have [something even more-ergonomic](#logitech-mx-vertical), this would be my daily driver.
+
+### Logitech MX Vertical
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/mouse_logitech-mx-vertical.png">
+      <img src="hid/mouse_logitech-mx-vertical.png" alt="Logitech MX Vertical" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Logitech MX Vertical</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse" target="_blank" rel="noopener">www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260807171337/https://www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+This is **the** ideal ergonomic mouse **for me**. I have two of them - one for work, and one for my main desktop computer. They wear out, I replace them. I have purchased at least four so far.
+
+Nothing comes close.
+
+**Ergonomics**
+
+1. The handshake angle is perfect - quite vertical, not horizontal at all.
+2. It's very lightweight, so the effort required to move it is minimal.
+3. It's big - I have big hands and I don't have to make a little claw to fit on it.
+	* The [Lift](https://www.logitech.com/en-us/shop/p/lift-vertical-ergonomic-mouse.910-006469) is similar, but smaller - too small for me!
+
+**Logistics**
+
+1. It only has the 5 standard buttons; nothing gets accidentally clicked.
+2. Wireless, so no cables to tangle. USB dongle *and* Bluetooth.
+3. Supports up to 3 devices at once.
+4. Battery life is on the order of months.
+
+**Features**
+
+1. Built-in DPI toggle for thumb to adjust sensitivity.
+
+---
+
+It **does** die in the traditional Logitech "button starts double-clicking because the clicker is worn out" way. If you don't hit that first, the rubber grip eventually gets weirdly tacky from your skin oils.
+
+Lifetimes have been 3 and 4 years so far; I just recently purchased the two members of the third generation of my ownership of these in summer 2026, so... I expect them to last until summer 2029-30.
+
+## Headset
+
+### SteelSeries Arctis Pro Wireless
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/headset_steelseries-arctis-pro-wireless.jpg">
+      <img src="hid/headset_steelseries-arctis-pro-wireless.jpg" alt="SteelSeries Arctis Pro Wireless" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">SteelSeries Arctis Pro Wireless</div>
+    <div class="polaroid-link">
+      
+      <a href="https://steelseries.com/gaming-headsets/arctis-pro" target="_blank" rel="noopener">steelseries.com/gaming-headsets/arctis-pro</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Does a headset even count as a human interface device?
+
+Briefly, the SteelSeries Arctis Pro is cool because
+
+1. It comes with lithium batteries, but two of them, and the desk unit is also the charger - zero downtime despite being "rechargeable."
+2. It has with TWO audio output channels whose volume can be adjusted independently:
+	* "Game" for normal audio
+	* "Chat" for you to bind Discord, Teamspeak, etc, to, so you can toggle your comms volume independently of game volume, with the headset controls - no having to go into separate applications and possibly pause (or die in) the game.
+
+## Other
+
+### Atolla Toggleable USB Hub
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/other_atolla-usb-hub.jpg">
+      <img src="hid/other_atolla-usb-hub.jpg" alt="Atolla Toggleable USB Hub" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Atolla Toggleable USB Hub</div>
+    <div class="polaroid-link">
+      
+      <a href="https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307" target="_blank" rel="noopener">atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20250616123036/https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+A USB 3.0 hub with on/off switches for each port. Each switch illuminates when it's on, and the keycaps are swappable.
+
+This lets you build hardware disconnects for arbitrary USB devices.
+
+I have the [KR-307](https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307) that's all USB-A; they also have a [KR-407](https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-hub-with-us-standard-power-adapter-kr407-us-plug) that has two USB-C ports.
+
+The far-right port is a fast-charge port and lights up red. You could use this for a usb-powered accessory that didn't necessarily need data - just some juice.
+
+I have a camera (QR/Barcode scanner) and microphone running through it so I can hardware-disconnect the recording devices. I also run my [Razr Naga Pro MMORPG Mouse]() through it so I can turn it off and disable inputs when I'm not actually playing an MMO, without having to physically unplug or power anything off. I also run the [SteelSeries Apex 7](#steelseries-apex-7) through it because, for all its virtues, sometimes it just gets stuck and won't send keypresses. I used to have to unplug and plug it back in - now I just push the button twice and it's fixed.
+
+### Elgato Stream Deck
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="../blog/diary/elgato-monero-onair.jpg">
+      <img src="../blog/diary/elgato-monero-onair.jpg" alt="Elgato Stream Deck" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Elgato Stream Deck</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.elgato.com/en/monero-onair" target="_blank" rel="noopener">www.elgato.com/en/monero-onair</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+There's a [full write-up on what I've done with this, elsewhere on the site](/2026/04/19/elgato-alias.html).
+
+You get a bunch of buttons with LCD screens on them, and plenty of first-party and third-party software to make them come alive and do whatever you want.
+
+### Razer Tartarus Pro
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="hid/other_razer-tartarus-pro.jpg">
+      <img src="hid/other_razer-tartarus-pro.jpg" alt="Razer Tartarus Pro" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Razer Tartarus Pro</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1" target="_blank" rel="noopener">www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260412135103/https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+It is a left-hand gaming keypad with individually-controllable full RGB keys. But it's also an awesome human-interface device. In addition to a bunch of convenient buttons for your fingers, it has an 8-direction joystick and a big fat function key for your thumb. And a scroll wheel. With a mouse in your right hand, you've got scroll in *both* hands. Convenient? Sure. But there's no rule saying they both have to scroll the same *things!*
+
+With the Razer Synapse vendor software *or* [reWASD](https://www.rewasd.com/), you can easily bind any of its keys to any function and switch them per-focused-application.
+
+In addition, it has on-board memory and 3 configurations you can cycle through with a thumb button per focused application.
+
+This means when a game - say [Final Fantasy XIV](https://na.finalfantasyxiv.com/) - launches, it's loaded for that game - colors, mappings, etc. And I can have three separate mappings for that game that I can cycle through with the tap of a button. Say, Tank, Ranged DPS, and Melee DPS.
+
+Switch to another game? The new set of mappings comes live - and you can have 3 custom ones there, too. [Dead by Daylight](https://deadbydaylight.com/)? One for Killer, one for Survivor, etc., etc.
+
+CAD or graphics software where you aren't typing words but *are* pressing lots of buttons? Hey now you can just have a button for each. Different modes in your graphics software? You've got 3 keymappings cycle-able at the touch of a button.
+
+This thing is sick!
+
 ## Idea Bank
 
 ## Posts

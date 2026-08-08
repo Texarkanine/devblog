@@ -13,6 +13,7 @@
 - [Fomenting the Butlerian Jihad](https://blog.cani.ne.jp/garden/fomenting-the-butlerian-jihad.md): Real risks of transformer-based AI worth planning for: job displacement, cognitive dependency, psychogenic feedback loops, and alignment failure.
 - [A General-Purpose Industry-Refining Tool](https://blog.cani.ne.jp/garden/general-purpose-industry-refining-tool.md): Refinement of industries - industrialization - has a rhyming shape every time it crops up.
 - [How I Learned to Stop Coding and Love the Machine](https://blog.cani.ne.jp/garden/how-i-learned-to-stop-coding-and-love-the-machine.md): AI tools that have become indispensable: Gemini Deep Research, Cursor for coding, CodeRabbit for reviews, and more.
+- [Human Interface Devices](https://blog.cani.ne.jp/garden/human-interface-devices.md): These are my chosen human interface devices. There are many like them, but these are mine.
 - [Idea Bank](https://blog.cani.ne.jp/garden/idea-bank.md): Seeds for future pages - a working list of ideas, references, and threads to pull on.
 - [The Last Programming Language](https://blog.cani.ne.jp/garden/last-programming-language.md): The entire history of programming languages has been a project to close the gap between human intent and machine execution. LLMs are the endpoint.
 - [Linkroll](https://blog.cani.ne.jp/garden/linkroll.md): A curated collection of blogs, tools, and interesting corners of the internet worth bookmarking.
