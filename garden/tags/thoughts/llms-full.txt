@@ -370,20 +370,91 @@ Cursor offers a rich suite of tooling to customize the AI coding agents' context
 
 1. **[Rules](https://cursor.com/docs/context/rules)** - custom prompts with activation criteria to automatically add information to context based on certain... rules.
 2. **[Context Pills (now "@Mentions")](https://cursor.com/docs/context/mentions)** - Granular visibility into and control over how to [RAG](https://en.wikipedia.org/wiki/Retrieval-Augmented_Generation) local documents, webpages, and other sources.
-3. **[Embeddings for your Code](https://cursor.com/docs/context/codebase-indexing)** - The files on disk are put into the LLM's vector space so the model "already understands" your code and doesn't have to RAG it.
-4. **[Docs](https://cursor.com/docs/context/mentions#docs)** - You can also have whole *website trees* crawled & embedded & *selectively* added to context (via `@Mentions`). Working with version 1.2.3 of library-X? Load those specific docs up and now your LLM is an expert on the exact version you're working with.
-5. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably.
+3. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably.
 
 #### Agent Herding
 
 1. **[Pick your Model](https://cursor.com/docs/models)** - You can try almost all of the frontier coding models, pick your favorite, and even put in your own API keys to use your own billing agreement instead of Cursor's. Great if you're an enterprise or student with a more-favorable billing arrangement with a provider than you can get through Cursor.
-2. **[Auto Model](https://cursor.com/docs/models#auto)** - Cursor preprocesses your task with its own model and routes the actual task to whichever foundational model it judges is best-suited for the task. Why not just pin to Claude, you ask? Money. Chit-chatting simple questions about the codebase, doing simple refactors, and planning large-scale code authorship don't all need the full power and latency of a heavyweight thinking model. You can get faster results with *almost* no drop in quality, at less cost to you. *(I still pin to Claude for my planning, though)*.
+2. **[Auto Model](https://cursor.com/docs/models#auto)** - Cursor preprocesses your task with its own model and routes the actual task to whichever foundational model it judges is best-suited for the task. Why not just pin to Claude, you ask? Money. Chit-chatting simple questions about the codebase, doing simple refactors, and planning large-scale code authorship don't all need the full power and latency of a heavyweight thinking model. You can get faster results with *almost* no drop in quality, at less cost to you. *In time, you will become good at picking models yourself. In the beginning, Cursor's got you covered.*
 3. **[Plan](https://cursor.com/docs/agent/modes#plan)** - An attempt to supersede rules and commands [like this](https://github.com/Texarkanine/.cursor-rules/blob/main/rules/planning-execution.mdc) that forced the models to "Plan then execute the plan." Cursor can run one *or more* agents simultaneously to plan out a task for you. The tool manages the agents via a task list *In Cursor*, not just in the LLM's context. Should you tell any of them to start on the task, their changes are kept separate for you to review independently and pick the best one.
-4. [Custom Modes](https://forum.cursor.com/t/return-the-custom-modes-features/144170/4) - you *used* to be able to define a custom "mode" with its own additional prompt, model, set of allowed commands and MCP tools, etc. They took that out in 2.1 but we hope they bring it back...
 
 #### Human in the Loop
 
-Honestly, I'm mostly out of the loop nowadays! But one of Cursor's purported guiding philosophies is being an AI coding tool that lets the humans stay in the loop. To that end, it's got a nice "review" UI for
+Depending on your [level of experience & expertise](%{ post_url 2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html#the-gas-town-ladder %}), you'll have different degrees of "in the loop" you need to be. Cursor has you covered for each level:
+
+<style>
+.cursor-polaroids .polaroid-container {
+	display: inline-block;
+	width: auto;
+}
+.cursor-polaroids {
+	text-align: center;
+}
+</style>
+
+<div class="cursor-polaroids">
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-ide.png">
+      <img src="cursor-ide.png" alt="IDE" width="250" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">IDE</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-agents-window.png">
+      <img src="cursor-agents-window.png" alt="GUI" width="250" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">GUI</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-cli.png">
+      <img src="cursor-cli.png" alt="CLI" width="250" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">CLI</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+</div>
+
+This is good because your *same* account, your same (everything mentioned so far in this section), and your same customizations will come along with you on your journey - you won't have to re-learn or re-install or juggle across platforms.
+
+Honestly, I'm mostly **out** of the loop nowadays! But one of Cursor's purported guiding philosophies is being an AI coding tool that lets the humans stay in the loop. To that end, it's got a nice "review" UI for
 
 1. Code changes the model wants to make
 2. Commands the model wants to run
@@ -397,7 +468,7 @@ It's also got an allow/deny mechanism for these, but I've been in the now-rename
 	- [Install this userscript to render Rules in Markdown when you view them on GitHub](https://greasyfork.org/en/scripts/537391-cursor-rule-markdown-renderer-for-github), so *you* can read them better.
 2. There's no rule saying you have to load up Cursor on *code*. I've opened it on folders of receipts, records, and other documents, etc. Now I can really customize how *an* LLM works with them. It's like [ChatGPT Project](https://help.openai.com/en/articles/10169521-projects-in-chatgpt) but local and way more flexible.
 	- This saves me from needing *most* other AI tools for textual tasks. I can just load up the resources in Cursor and ask Gemini, Claude, or *whoever* is best-suited, to handle it. Exception for `Deep Research` - I still go to the Gemini WebUI for that.
-3. If you're on Windows, install Cursor within `wsl` and launch it from there. This will cause your default terminal to be a linux shell in `wsl`, and the Agents do *way* better at running commands and writing code to solve their own problems in *nix* environments, than in Windows. This used to cause issues w/ MCP servers, though. I'd hope they'd've fixed it by now but I haven't checked in a while.
+3. If you're on Windows, install Cursor within `wsl` and launch it from there. This will cause your default terminal to be a linux shell in `wsl`, and the Agents do *way* better at running commands and writing code to solve their own problems in *nix* environments, than in Windows.
 
 ## The Last Programming Language
 
