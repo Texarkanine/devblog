@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-08T17:40:26+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Cold Wallets Are Born Hot</title><link href="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html" rel="alternate" type="text/html" title="Cold Wallets Are Born Hot" /><published>2026-08-06T00:00:00+00:00</published><updated>2026-08-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html"><![CDATA[<p>WiFi is literally “airgapped.” Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-08T18:40:08+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Cold Wallets Are Born Hot</title><link href="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html" rel="alternate" type="text/html" title="Cold Wallets Are Born Hot" /><published>2026-08-06T00:00:00+00:00</published><updated>2026-08-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html"><![CDATA[<p>WiFi is literally “airgapped.” Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.</p>
 
 <p>The air was never the point. Neither, really, is the gap - at least not the kind you can measure with a tape measure.</p>
 
@@ -45,6 +45,10 @@
   <h1>What we know about ongoing Coldcard hack that&#39;s stolen over $100M worth of bitcoin</h1>
   
   <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260806232554/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 

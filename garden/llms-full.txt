@@ -1542,7 +1542,7 @@ Cursor offers a rich suite of tooling to customize the AI coding agents' context
 
 1. **[Rules](https://cursor.com/docs/context/rules)** - custom prompts with activation criteria to automatically add information to context based on certain... rules.
 2. **[Context Pills (now "@Mentions")](https://cursor.com/docs/context/mentions)** - Granular visibility into and control over how to [RAG](https://en.wikipedia.org/wiki/Retrieval-Augmented_Generation) local documents, webpages, and other sources.
-3. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably.
+3. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably. Importantly, it lets you manually enable/disable each tool an MCP offers, so you can control exactly what your agent can do. This is huge if you have an MCP that allows, say, read, write, and delete operations. You can manually disable the `delete` and `write` tools and then you've created an ad-hoc read-only version of the MCP *even if the creators didn't offer that!*
 
 #### Agent Herding
 
