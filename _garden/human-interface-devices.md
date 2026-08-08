@@ -59,7 +59,7 @@ I saw a [Maltron single-hand keyboard](https://www.maltron.com/store/p19/Maltron
 
 I found the Kinesis Advantage 2 as the modern hemispherical keyboard, gave it a try, and am hooked. This is what I spend most of my time typing on; it thoroughly saved my career as a computer-user.
 
-It has mechnical switches yes, but that's not the magic. The magic is primarily:
+It has mechanical switches yes, but that's not the magic. The magic is primarily:
 
 1. Each hand's keys are arranged equidistant from the fingers that'll articulate them - no crossing or stretching of finger muscles or connective tissue required.
 2. Commonly-used modifier keys are moved to the thumb groups - giving the most-frequent presses to the biggest, strongest fingers.
@@ -89,7 +89,7 @@ It's small-enough to be used by anyone, but has the right slants on the side so 
 
 It takes a single AA battery, so when it does die, you don't have to wait to charge.
 
-Wireless, so no cable to tangle. USB dongle or bluetooth, your choice.
+Wireless, so no cable to tangle.
 
 The basic 5 buttons, and the back/forward don't get in the way on the thumb.
 
@@ -97,16 +97,16 @@ They also come in a variety of colors and editions, so you might even be able to
 
 They **do** die in the traditional Logitech "button starts double-clicking because the clicker is worn out" way; I've bought more of these than I can count. Easy 3-4 year lifespan with daily use.
 
-### Razr Naga V2 Pro
+### Razer Naga V2 Pro
 
 {% polaroid
 	hid/mouse_razer-naga-v2-pro-swappable.jpg
-	title="Razr Naga V2 Pro"
+	title="Razer Naga V2 Pro"
 	link="https://www.razer.com/gaming-mice/razer-naga-v2-pro"
 	image_link="hid/mouse_razer-naga-v2-pro-swappable.jpg"
 %}
 
-This is a gaming mouse, targetted at MMO games where having a lot of inputs right on tap is an advantage. I bought it for [Final Fantasy XIV](https://na.finalfantasyxiv.com/), primarily.
+This is a gaming mouse, targeted at MMO games where having a lot of inputs right on tap is an advantage. I bought it for [Final Fantasy XIV](https://na.finalfantasyxiv.com/), primarily.
 
 It has swappable side-panels; I run the full 12-key numpad, but there are ones with fewer, larger keys depending on what you need.
 
@@ -114,7 +114,7 @@ Each key is shaped differently - you can tell (once you learn it) by touch, with
 
 In addition, the right side has a perfectly-placed ledge to catch your pinky finger and give it place to rest rather than having to be held up or dragging on the desk.
 
-It is wireless, so no cables to tangle. And, it's deceptively lightweight - making it easiesr and less-taxing to quickly move it to where the game demands.
+It is wireless, so no cables to tangle. And, it's deceptively lightweight - making it easier and less-taxing to quickly move it to where the game demands.
 
 It's a very well-engineered piece of ergonomics. If I didn't have [something even more-ergonomic](#logitech-mx-vertical), this would be my daily driver.
 
@@ -173,7 +173,7 @@ Briefly, the SteelSeries Arctis Pro is cool because
 1. It comes with lithium batteries, but two of them, and the desk unit is also the charger - zero downtime despite being "rechargeable."
 2. It has with TWO audio output channels whose volume can be adjusted independently:
 	* "Game" for normal audio
-	* "Chat" for you to bind Discord, Teamspeak, etc, to, so you can toggle your comms volume independenly of game volume, with the headset controls - no having to go into separate applications and possibly pause (or die in) the game.
+	* "Chat" for you to bind Discord, Teamspeak, etc, to, so you can toggle your comms volume independently of game volume, with the headset controls - no having to go into separate applications and possibly pause (or die in) the game.
 
 ## Other
 
@@ -192,7 +192,7 @@ This lets you build hardware disconnects for arbitrary USB devices.
 
 I have the [KR-307](https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307) that's all USB-A; they also have a [KR-407](https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-hub-with-us-standard-power-adapter-kr407-us-plug) that has two USB-C ports.
 
-The far-right port is a fast-charge port and lights up red. You could use this for a usb-powered accessory that didn't necessarilly need data - just some juice.
+The far-right port is a fast-charge port and lights up red. You could use this for a usb-powered accessory that didn't necessarily need data - just some juice.
 
 I have a camera (QR/Barcode scanner) and microphone running through it so I can hardware-disconnect the recording devices. I also run my [Razr Naga Pro MMORPG Mouse]() through it so I can turn it off and disable inputs when I'm not actually playing an MMO, without having to physically unplug or power anything off. I also run the [SteelSeries Apex 7](#steelseries-apex-7) through it because, for all its virtues, sometimes it just gets stuck and won't send keypresses. I used to have to unplug and plug it back in - now I just push the button twice and it's fixed.
 
@@ -218,7 +218,7 @@ You get a bunch of buttons with LCD screens on them, and plenty of first-party a
 	image_link="hid/other_razer-tartarus-pro.jpg"
 %}
 
-It is a left-hand gaming keypad with individually-controllable full RGB keys. But it's also an awesome human-interface device. In addition to a bunch of convenient buttons for your fingers, it has an 8-direction joytick and a big fat function key for your thumb. And a scroll wheel. With a mouse in your right hand, you've got scroll in *both* hands. Convenient? Sure. But there's no rule saying they both have to scroll the same *things!*
+It is a left-hand gaming keypad with individually-controllable full RGB keys. But it's also an awesome human-interface device. In addition to a bunch of convenient buttons for your fingers, it has an 8-direction joystick and a big fat function key for your thumb. And a scroll wheel. With a mouse in your right hand, you've got scroll in *both* hands. Convenient? Sure. But there's no rule saying they both have to scroll the same *things!*
 
 With the Razer Synapse vendor software *or* [reWASD](https://www.rewasd.com/), you can easily bind any of its keys to any function and switch them per-focused-application.
 
