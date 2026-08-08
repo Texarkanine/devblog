@@ -88,7 +88,7 @@ Cursor offers a rich suite of tooling to customize the AI coding agents' context
 
 1. **[Rules](https://cursor.com/docs/context/rules)** - custom prompts with activation criteria to automatically add information to context based on certain... rules.
 2. **[Context Pills (now "@Mentions")](https://cursor.com/docs/context/mentions)** - Granular visibility into and control over how to [RAG](https://en.wikipedia.org/wiki/Retrieval-Augmented_Generation) local documents, webpages, and other sources.
-3. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably. Importantly, it lets you manually enable/disable each tool an MCP offers, so you can control exactly what your agent can do. This is huge if you have an MCP that allows, say, read, write, and delete operations. You can manually disable the `delete` and `write` tools and then you've created an ad-hoc read-only version of the MCP *even if the creators didn't offer that!*
+3. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably. Importantly, it lets you manually enable/disable each tool an MCP offers, so you can [control exactly what your agent can do]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}#auth-scope-management). This is huge if you have an MCP that allows, say, read, write, and delete operations. You can manually disable the `delete` and `write` tools and then you've created an ad-hoc read-only version of the MCP *even if the creators didn't offer that!*
 
 #### Agent Herding
 
@@ -98,7 +98,7 @@ Cursor offers a rich suite of tooling to customize the AI coding agents' context
 
 #### Human in the Loop
 
-Depending on your [level of experience & expertise](%{ post_url 2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html#the-gas-town-ladder %}), you'll have different degrees of "in the loop" you need to be. Cursor has you covered for each level:
+Depending on your [level of experience & expertise]({% post_url blog/guide/2026-03-14-adeptus-mechanicus-bootcamp-gentle-seduction %}#the-gas-town-ladder), you'll have different degrees of "in the loop" you need to be. Cursor has you covered for each level:
 
 <style>
 .cursor-polaroids .polaroid-container {
@@ -145,3 +145,22 @@ It's also got an allow/deny mechanism for these, but I've been in the now-rename
 2. There's no rule saying you have to load up Cursor on *code*. I've opened it on folders of receipts, records, and other documents, etc. Now I can really customize how *an* LLM works with them. It's like [ChatGPT Project](https://help.openai.com/en/articles/10169521-projects-in-chatgpt) but local and way more flexible.
 	- This saves me from needing *most* other AI tools for textual tasks. I can just load up the resources in Cursor and ask Gemini, Claude, or *whoever* is best-suited, to handle it. Exception for `Deep Research` - I still go to the Gemini WebUI for that.
 3. If you're on Windows, install Cursor within `wsl` and launch it from there. This will cause your default terminal to be a linux shell in `wsl`, and the Agents do *way* better at running commands and writing code to solve their own problems in *nix* environments, than in Windows.
+
+## Memory
+
+I have a [dedicated piece]({% post_url blog/essay/2026-08-03-disintegration-of-persistence-of-memory-md %}) on this. Specifically, basically all kinds of memory can wait except [Autobiographical Memory](https://en.wikipedia.org/wiki/Autobiographical_memory).
+
+If and only if you have interactions with AI that are all within some area, and *you* keep coming back to do more there and expect the AI to "remember" what "y'all" have been doing... then your AI needs this.
+
+You, the human, get this for free with the wetware. LLMs do not. Some interfaces, including the major web chats (claude.ai, chatgpt.com, etc.) *do* make an attempt to remember the "latest" and also the "not latest but important" things about your interactions there.
+
+If you are using AI outside those contexts (or perhaps if you're a power-user in those contexts), finding some kind of memory store and hooking it up so that *both* of you - the human and the AI - can remember what you've been doing, will go a long way towards increasing the successes you have in your interactions.
+
+So, 
+
+1. If you use a web-based AI chat interface, **make sure "memory" is turned on!**
+2. If you use AI somewhere else, go find either:
+	1. an [MCP]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) that gives the AI memory
+	2. a locally-installable tool that gives the AI memory
+
+**Fair warning:** Outside "turn on memory on the chat website," this is still - as of August 2026 - a poorly-defined, unexplored problem space. There are lots of options and no clear best practice. You will likely be confused. You may experience analysis paralysis. I think as long as you pick *something* that fits the bill and [just try the thing]({% post_url blog/essay/2026-08-01-just-try-the-thing %}), you'll be heading in the right direction. 
