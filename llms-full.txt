@@ -5960,7 +5960,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.am3db-ghfm { display: inline-block; }</style><script>(function(){function eamtavfk1v0w(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function wksoolfx(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var aaxa82=sp.getAttribute('data-jrhvsogfut');var fbuopivwoe=sp.getAttribute('data-mfcykg');var xqi0aj=sp.getAttribute('data-fmnjjunvj0');var c6bbjl671=sp.getAttribute('data-rg7esnpoxb');var mailto=eamtavfk1v0w(aaxa82,spParts[0].length);var user=eamtavfk1v0w(fbuopivwoe,spParts[1].length);var domainBase=eamtavfk1v0w(xqi0aj,lnkParts[0].length);var tld=eamtavfk1v0w(c6bbjl671,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function dcvojtpj(){var els=document.querySelectorAll('a.mtswldxebzfl-i6bi4c');var handler=function(){var sp=this.querySelector('span.am3db-ghfm');if(sp&&!this.dataset.d){var val=wksoolfx(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',dcvojtpj);}else{dcvojtpj();}})();</script>{:/nomarkdown}<a href="#" class="mtswldxebzfl-i6bi4c"><span class="am3db-ghfm" data-jrhvsogfut="rfnqyt" data-mfcykg="VIHEGXIH" data-fmnjjunvj0="bdafazymux" data-rg7esnpoxb="ius">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.mt83-vf6v6jq6i { display: inline-block; }</style><script>(function(){function svyjt2vly(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function pi9rbfe6acai(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var ndnda8im=sp.getAttribute('data-vdae9trweew');var pvfsnzu=sp.getAttribute('data-xr6sc5szz3f');var br2qlf2=sp.getAttribute('data-u0aihnwph9eg');var qvtz4dmjgqh=sp.getAttribute('data-cdazhi5');var mailto=svyjt2vly(ndnda8im,spParts[0].length);var user=svyjt2vly(pvfsnzu,spParts[1].length);var domainBase=svyjt2vly(br2qlf2,lnkParts[0].length);var tld=svyjt2vly(qvtz4dmjgqh,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function xrgtnilfhmfixtq(){var els=document.querySelectorAll('a.mbi1kmgn4gbl0lkhy-g1hwkwhe9cj');var handler=function(){var sp=this.querySelector('span.mt83-vf6v6jq6i');if(sp&&!this.dataset.d){var val=pi9rbfe6acai(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',xrgtnilfhmfixtq);}else{xrgtnilfhmfixtq();}})();</script>{:/nomarkdown}<a href="#" class="mbi1kmgn4gbl0lkhy-g1hwkwhe9cj"><span class="mt83-vf6v6jq6i" data-vdae9trweew="qempxs" data-xr6sc5szz3f="ANMJLCNM" data-u0aihnwph9eg="gifkfedrzc" data-cdazhi5="nzx">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -6999,47 +6999,7 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
-          
-        </li><li>
-          
-          <a href="/garden/ai-horses.html">Horses</a>
-          
-        </li><li>
-          
-          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
-          
-        </li><li>
-          
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
-          
-        </li><li>
-          
-          <a href="/garden/idea-bank.html">Idea Bank</a>
-          
-        </li><li>
-          
-          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/index.html">Shrines</a>
-          
-        </li><li>
-          
-          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
           
         </li><li>
           
@@ -7047,27 +7007,11 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/last-programming-language.html">The Last Programming Language</a>
-          
-        </li><li>
-          
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
-          
-        </li><li>
-          
-          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
-          
-        </li><li>
-          
-          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
-          
-        </li><li>
-          
-          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
-          
-        </li><li>
-          
           <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/idea-bank.html">Idea Bank</a>
           
         </li><li>
           
@@ -7075,19 +7019,23 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
+          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
           
         </li><li>
           
-          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
+          <a href="/garden/last-programming-language.html">The Last Programming Language</a>
           
         </li><li>
           
-          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
+          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
           
         </li><li>
           
-          <a href="/garden/short-stories.html">Short Stories</a>
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
+          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
           
         </li><li>
           
@@ -7095,7 +7043,59 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
+          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          
+        </li><li>
+          
+          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          
+        </li><li>
+          
+          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
+          
+        </li><li>
+          
+          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
+          
+        </li><li>
+          
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          
+        </li><li>
+          
+          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
+          
+        </li><li>
+          
+          <a href="/garden/short-stories.html">Short Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          
+        </li><li>
+          
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
+          
+        </li><li>
+          
           <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/index.html">Shrines</a>
+          
+        </li><li>
+          
+          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
           
         </li></ul>
 
@@ -8690,7 +8690,7 @@ Cursor offers a rich suite of tooling to customize the AI coding agents' context
 
 1. **[Rules](https://cursor.com/docs/context/rules)** - custom prompts with activation criteria to automatically add information to context based on certain... rules.
 2. **[Context Pills (now "@Mentions")](https://cursor.com/docs/context/mentions)** - Granular visibility into and control over how to [RAG](https://en.wikipedia.org/wiki/Retrieval-Augmented_Generation) local documents, webpages, and other sources.
-3. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably. Importantly, it lets you manually enable/disable each tool an MCP offers, so you can control exactly what your agent can do. This is huge if you have an MCP that allows, say, read, write, and delete operations. You can manually disable the `delete` and `write` tools and then you've created an ad-hoc read-only version of the MCP *even if the creators didn't offer that!*
+3. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably. Importantly, it lets you manually enable/disable each tool an MCP offers, so you can [control exactly what your agent can do](/2026/02/23/model-context-protocol-not-agent-context-protocol.html#auth-scope-management). This is huge if you have an MCP that allows, say, read, write, and delete operations. You can manually disable the `delete` and `write` tools and then you've created an ad-hoc read-only version of the MCP *even if the creators didn't offer that!*
 
 #### Agent Herding
 
@@ -8700,7 +8700,7 @@ Cursor offers a rich suite of tooling to customize the AI coding agents' context
 
 #### Human in the Loop
 
-Depending on your [level of experience & expertise](%{ post_url 2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html#the-gas-town-ladder %}), you'll have different degrees of "in the loop" you need to be. Cursor has you covered for each level:
+Depending on your [level of experience & expertise](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html#the-gas-town-ladder), you'll have different degrees of "in the loop" you need to be. Cursor has you covered for each level:
 
 <style>
 .cursor-polaroids .polaroid-container {
@@ -8790,6 +8790,24 @@ It's also got an allow/deny mechanism for these, but I've been in the now-rename
 	- This saves me from needing *most* other AI tools for textual tasks. I can just load up the resources in Cursor and ask Gemini, Claude, or *whoever* is best-suited, to handle it. Exception for `Deep Research` - I still go to the Gemini WebUI for that.
 3. If you're on Windows, install Cursor within `wsl` and launch it from there. This will cause your default terminal to be a linux shell in `wsl`, and the Agents do *way* better at running commands and writing code to solve their own problems in *nix* environments, than in Windows.
 
+## Memory
+
+I have a [dedicated piece](/2026/08/03/disintegration-of-persistence-of-memory-md.html) on this. Specifically, basically all kinds of memory can wait except [Autobiographical Memory](https://en.wikipedia.org/wiki/Autobiographical_memory).
+
+If and only if you have interactions with AI that are all within some area, and *you* keep coming back to do more there and expect the AI to "remember" what "y'all" have been doing... then your AI needs this.
+
+You, the human, get this for free with the wetware. LLMs do not. Some interfaces, including the major web chats (claude.ai, chatgpt.com, etc.) *do* make an attempt to remember the "latest" and also the "not latest but important" things about your interactions there.
+
+If you are using AI outside those contexts (or perhaps if you're a power-user in those contexts), finding some kind of memory store and hooking it up so that *both* of you - the human and the AI - can remember what you've been doing, will go a long way towards increasing the successes you have in your interactions.
+
+So, 
+
+1. If you use a web-based AI chat interface, **make sure "memory" is turned on!**
+2. If you use AI somewhere else, go find either:
+	1. an [MCP](/2026/02/23/model-context-protocol-not-agent-context-protocol.html) that gives the AI memory
+	2. a locally-installable tool that gives the AI memory
+
+**Fair warning:** Outside "turn on memory on the chat website," this is still - as of August 2026 - a poorly-defined, unexplored problem space. There are lots of options and no clear best practice. You will likely be confused. You may experience analysis paralysis. I think as long as you pick *something* that fits the bill and [just try the thing](/2026/08/01/just-try-the-thing.html), you'll be heading in the right direction. 
 ## Idea Bank
 
 ## Posts
