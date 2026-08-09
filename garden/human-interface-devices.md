@@ -22,7 +22,7 @@ Jump to...
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260809211627/https://steelseries.com/gaming-keyboards/apex-7" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -76,7 +76,7 @@ The keyboard has two USB connectors, and one of them is just a passthrough for t
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260809211655/https://kinesis-ergo.com/shop/advantage2/" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -131,7 +131,7 @@ It's not listed on their official site anymore, but I got the silver one (to mat
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260726164233/https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -286,7 +286,7 @@ Briefly, the SteelSeries Arctis Pro is cool because
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20250616123036/https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -344,7 +344,7 @@ You get a bunch of buttons with LCD screens on them, and plenty of first-party a
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260412135103/https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

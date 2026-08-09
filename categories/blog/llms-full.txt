@@ -224,7 +224,7 @@ I hope we've established that the answer is a resounding "yes." You don't want y
   <a href="https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">monerohash.com/nodes-distribution.html</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260723221554/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260809213342/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
@@ -423,7 +423,7 @@ Two big cold-storage failures attacked exactly that moment.
   <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260806232554/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260809211206/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
@@ -6338,7 +6338,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.xdrmuahu-zauq4pr0wellto { display: inline-block; }</style><script>(function(){function nkpkz4b2(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function upmeuelqin(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var ef9iopkua=sp.getAttribute('data-fisz0oak');var f6fyjd=sp.getAttribute('data-l8u8ey3r');var reeapa=sp.getAttribute('data-ch0memfpj');var fbchf2=sp.getAttribute('data-hemekk');var mailto=nkpkz4b2(ef9iopkua,spParts[0].length);var user=nkpkz4b2(f6fyjd,spParts[1].length);var domainBase=nkpkz4b2(reeapa,lnkParts[0].length);var tld=nkpkz4b2(fbchf2,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function wkba2qjf10a(){var els=document.querySelectorAll('a.ztopqhvbrdxm2-h0qrjln8ihj6o');var handler=function(){var sp=this.querySelector('span.xdrmuahu-zauq4pr0wellto');if(sp&&!this.dataset.d){var val=upmeuelqin(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',wkba2qjf10a);}else{wkba2qjf10a();}})();</script>{:/nomarkdown}<a href="#" class="ztopqhvbrdxm2-h0qrjln8ihj6o"><span class="xdrmuahu-zauq4pr0wellto" data-fisz0oak="uiqtbw" data-l8u8ey3r="FSROQHSR" data-ch0memfpj="cebgbaznvy" data-hemekk="pbz">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.ofcfyr-dg9klzzxjzv { display: inline-block; }</style><script>(function(){function ybfl36gds5yb8fhs(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function zko4snkl(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var ihnnsfg=sp.getAttribute('data-ulzol4xwzh');var zfholdvl=sp.getAttribute('data-zqqjdfmoc5z');var wsyipulm=sp.getAttribute('data-xjgwnnnhzuis');var nlvoic=sp.getAttribute('data-txr20hx');var mailto=ybfl36gds5yb8fhs(ihnnsfg,spParts[0].length);var user=ybfl36gds5yb8fhs(zfholdvl,spParts[1].length);var domainBase=ybfl36gds5yb8fhs(wsyipulm,lnkParts[0].length);var tld=ybfl36gds5yb8fhs(nlvoic,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function ekyjwskt(){var els=document.querySelectorAll('a.f45me8-smehxixdjv0ov');var handler=function(){var sp=this.querySelector('span.ofcfyr-dg9klzzxjzv');if(sp&&!this.dataset.d){var val=zko4snkl(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',ekyjwskt);}else{ekyjwskt();}})();</script>{:/nomarkdown}<a href="#" class="f45me8-smehxixdjv0ov"><span class="ofcfyr-dg9klzzxjzv" data-ulzol4xwzh="sgorzu" data-zqqjdfmoc5z="CPOLNEPO" data-xjgwnnnhzuis="vxuzutsgor" data-txr20hx="pbz">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 

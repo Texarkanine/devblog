@@ -219,10 +219,6 @@ I hope we've established that the answer is a resounding "yes." You don't want y
   
   <a href="https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">monerohash.com/nodes-distribution.html</a>
   
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260723221554/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
 </blockquote>
 
 
@@ -291,7 +287,7 @@ If **everyone** who spent bitcoin did this, it would be functionally impossible 
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260523175039/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
