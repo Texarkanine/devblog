@@ -82,7 +82,7 @@ That's pretty neat!
 
 You may have heard of Bitcoin. It's "sound money" or "hard money" or "digital gold" - a store of value that doesn't - can't - inflate the way paper money does.
 
-Bitcoin is-a cryptocurrency on a blockchain, but it's far from the only one. A recent refrain from Michael Saylor, CEO of MicroStrategy, rings:
+Bitcoin is-a cryptocurrency on a blockchain, but it's far from the only one. A recent refrain from Michael Saylor, former CEO and now executive chairman of MicroStrategy, rings:
 
 > There is no second best!
 
