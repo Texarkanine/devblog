@@ -5,8 +5,10 @@ description: I love it when useful things like computers and Monero get cheaper 
 author: texarkanine
 category: essay
 tags:
-  - foo
-  - bar
+  - bitcoin
+  - economics
+  - monero
+  - privacy
 ---
 
 Around 1998, my family's computer was an [IBM Aptiva](https://en.wikipedia.org/wiki/IBM_Aptiva). It was one of the later models, right as [Pentium](https://en.wikipedia.org/wiki/Pentium_(original)) CPUs were showing up in home computers. I recall its clock speed was [133 MHz](https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants). I recall this because I really wanted to play the [LEGO Creator](https://en.wikipedia.org/wiki/Lego_Creator_(video_game)) game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.
@@ -86,7 +88,7 @@ Bitcoin is-a cryptocurrency on a blockchain, but it's far from the only one. A r
 
 Bitcoin Cash? Ethereum? Litecoin? Dogecoin? Solana? Polygon? The list of "Altcoins" goes on and on and on.
 
-In chapter 10 of his book, "The Bitcoin Standard", Saifedean Ammous writes about Altcoins:
+In Chapter 10 of his book, [*The Bitcoin Standard*](https://saifedean.com/tbs), Saifedean Ammous writes about Altcoins:
 
 > I have yet to identify a single digital currency [besides Bitcoin] that offers any product or service that has any market demand.
 >
@@ -123,7 +125,7 @@ Monero is a tool for transacting privately.
 
 ## What's Worth a Blockchain?
 
-Rewinding back to the book - "The Bitcoin Standard" - the author offers a flowchart to help you figure out if whatever you're thinking of needs a blockchain:
+Rewinding back to the book - *The Bitcoin Standard* - the author offers a flowchart to help you figure out if whatever you're thinking of needs a blockchain:
 
 ```mermaid
 graph TD
@@ -158,7 +160,7 @@ Oh, you don't care about people knowing? Maybe you don't have that much? Okay, y
 
 > You're playing financial poker with all your cards face-up on the table.
 
-Physical cash doesn't do this. Heck, even "normal" credit and debit cards don't do this. Not even digital payment systems like PayPal or Cashapp do this! I'm sure you can understand why.
+Physical cash doesn't do this. Heck, even "normal" credit and debit cards don't do this. Not even digital payment systems like PayPal or Cash App do this! I'm sure you can understand why.
 
 ## I'd Like My Finances to be Private
 
@@ -240,7 +242,7 @@ If **everyone** who spent bitcoin did this, it would be functionally impossible 
     link="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just"
 %}
 
-The problem with everyone not doing this is that it only buys you [forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy). Once spending starts happening with coinjoins in-between, nobody can tell who's spending what. But *until* the coinjoins start, people can still tell. So maybe you're perfectly-disciplined about coinjoins. Someone who *isn't* sends you some bitcoin. Anyone who sees that *knows* that you received from that person. And if that person wasn't doing coinjoins, they can find out all about the people you've been transacting with. We don't know what **you** bought, but we know Bob paid you 100,000 sats and Bob shops at the 7-11 in Townsville and works at SomeCorp. And Bob also pays his friends Alice and Eve, and they *also* live in Townsville. There's a pretty good chance you live there, too. *Your* finances might be invisible, but they're likely to be surrounded by a wealth of real, visible information. The various [blockchain analysis](https://en.wikipedia.org/wiki/Blockchain_analysis) firms have gotten really good at inferring information with a high degree of certainty in these situations.
+The problem with everyone not doing this is that it only buys you [forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy). Once spending starts happening with coinjoins in-between, nobody can tell who's spending what. But *until* the coinjoins start, people can still tell. So maybe you're perfectly-disciplined about coinjoins. Someone who *isn't* sends you some bitcoin. Anyone who sees that *knows* that you received from that person. And if that person wasn't doing coinjoins,anyone can find out all about the people you've been transacting with. We don't know what **you** bought, but we know Bob paid you 100,000 sats and Bob shops at the 7-11 in Townsville and works at SomeCorp. And Bob also pays his friends Alice and Eve, and they *also* live in Townsville. There's a pretty good chance you live there, too. And when you finally do spend, if the person you pay doesn't also do coinjoins, the forward secrecy ends with them and you're left inhabiting a tiny island of secrecy in an ocean of public knowledge. The various [blockchain analysis](https://en.wikipedia.org/wiki/Blockchain_analysis) firms have gotten really good at inferring information with a high degree of certainty in these situations.
 
 This problem is in the shape of opt-in vs opt-out. If you have to *choose* to do something, to opt-**in**, most people won't.
 
@@ -258,7 +260,7 @@ On Bitcoin, privacy is a service you procure.
 Services require service providers and it's been rough:
 
 1. The simplest and best coinjoin solution - Samourai Whirlpool - [landed its providers in federal prison](https://en.wikipedia.org/wiki/Samourai_Wallet).
-2. The other major provider in the space - Wasabi Wallet - [caved to refusing certain coins](https://www.reddit.com/r/Bitcoin/comments/us52cw/wasabi_wallet_has_become_a_surveillance/) - presumably under government pressure and to avoid the Samourai outcome (though we don't know for sure).
+2. The other major provider in the space - Wasabi Wallet - [caved to refusing certain coins](https://www.coindesk.com/tech/2022/03/14/wasabi-wallets-coinjoin-coordinator-to-blacklist-certain-bitcoin-transactions) - presumably to protect the company and themselves - though we don't know for sure, we *do* know what happened to Samourai, who didn't cave.
 3. In 2026 we do have another Whirlpool provider - [Ashigaru, a Samourai fork](https://ashigaru.rs/) - but they're entirely on [Tor](https://www.torproject.org/download/) and encrypted comms - they know what happens if they can be found.
 
 This privacy problem is present for any public-ledger cryptocurrency; Ethereum had a coinjoin service provider - [Tornado Cash](https://en.wikipedia.org/wiki/Tornado_Cash) - whose developers *also* landed federal charges with one sentenced to prison and one still working their way through the courts.
@@ -289,13 +291,13 @@ By those definitions, Monero is a currency where privacy is a first-class proper
 
 There's another example of a useful token that contrasts much more starkly: [Filecoin](https://www.filecoin.io/).
 
-Filecoin is the token that powers a distributed, peer-to-peer storage network. It's like cloud storage, but across an ever-changing, decentralized network of computers. You don't mine it with the "proof of work" that Bitcoin and Monero do - you get paid for providing storage that is proven to be available and holding data that people care about.
+Filecoin is the token that powers a distributed, peer-to-peer storage network. It's like cloud storage, but across an ever-changing, decentralized network of computers. You don't mine it with the "proof of work" that Bitcoin and Monero do - you get paid for providing storage that is proven to be available and to actually contain what it claims to store.
 
 Cloud storage has turned out to be an undeniably useful thing. Multibillion dollar businesses exist to provide it. Not just [Amazon S3](https://aws.amazon.com/s3/), but Google's [Cloud Storage](https://cloud.google.com/storage) and the retail-facing [iCloud](https://www.icloud.com/storage), [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage), and [Dropbox](https://www.dropbox.com/) to name just a few.
 
 Incidentally, the storage cost on those platforms (well, at least [S3](https://aws.frankcontrepois.com/s3PriceHistory)) has fallen over time.
 
-Is Filecoin a shitcoin? Well, as an *investment vehicle*, [absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money.
+Is Filecoin a shitcoin? [The Internet Archive has put a petabyte of material on it](https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/) - including U.S. government web crawls that vanish between administrations. If you're the Archive, you want that storage cheap. As an *investment vehicle* though? [Absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money. ([Good money should be worthless]({% post_url 2026-02-11-good-money-should-be-worthless %}), after all.)
 
 It's the price of cloud storage.
 
