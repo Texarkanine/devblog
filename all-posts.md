@@ -1,5 +1,7 @@
 <ul>
 
+  <li>2026-08-09 <a href="/2026/08/09/love-when-useful-things-get-cheaper.html">I Love It When Useful Things Get Cheaper</a></li>
+
   <li>2026-08-06 <a href="/2026/08/06/cold-wallets-born-hot.html">Cold Wallets Are Born Hot</a></li>
 
   <li>2026-08-03 <a href="/2026/08/03/disintegration-of-persistence-of-memory-md.html">The Disintegration of the Persistence of MEMORY.md</a></li>

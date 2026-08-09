@@ -1,4 +1,424 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-08T22:23:47+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Cold Wallets Are Born Hot</title><link href="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html" rel="alternate" type="text/html" title="Cold Wallets Are Born Hot" /><published>2026-08-06T00:00:00+00:00</published><updated>2026-08-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html"><![CDATA[<p>WiFi is literally “airgapped.” Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-09T21:11:18+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">I Love It When Useful Things Get Cheaper</title><link href="https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper.html" rel="alternate" type="text/html" title="I Love It When Useful Things Get Cheaper" /><published>2026-08-09T00:00:00+00:00</published><updated>2026-08-09T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper.html"><![CDATA[<p>Around 1998, my family’s computer was an <a href="https://en.wikipedia.org/wiki/IBM_Aptiva">IBM Aptiva</a>. It was one of the later models, right as <a href="https://en.wikipedia.org/wiki/Pentium_(original)">Pentium</a> CPUs were showing up in home computers. I recall its clock speed was <a href="https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants">133 MHz</a>. I recall this because I really wanted to play the <a href="https://en.wikipedia.org/wiki/Lego_Creator_(video_game)">LEGO Creator</a> game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.</p>
+
+<p>Though the Aptivas retailed, allegedly, for up to $2,700, I have $3,300 in my head. Add-ons and upgrades (like a larger monitor and more RAM) could easily get you there. I can’t find any period magazine ads for that specific computer, but here’s something from 1996 that would <em>absolutely</em> have played LEGO Creator:</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="byte-magazine-1996-ad.jpg">
+      <img src="byte-magazine-1996-ad.jpg" alt="Byte Magazine Ad, 1996" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">Byte Magazine Ad, 1996</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p>Let’s do some math:</p>
+
+<p>In 1996, the minimum wage <a href="https://www.dol.gov/agencies/whd/minimum-wage/history/chart">bumped to $4.75/hour</a>. In 1997 it was bumped again to $5.15/hour, so let’s use that to be generous. Median household income in the US in 1996 <a href="https://www.census.gov/library/publications/1997/demo/p60-197.html">was $35,492</a>. Gold cost <a href="https://metalcharts.org/gold-price-history/1996">an average of $388 per ounce</a>. To buy the $3,300 Aptiva that I remember, someone would have to spend either</p>
+
+<ol>
+  <li>641 hours of minimum-wage labor, or</li>
+  <li>9% of the median income, or</li>
+  <li>8.5 ounces of gold</li>
+</ol>
+
+<p>I bought a MacBook Air recently - in 2026 - for ~$2,400.</p>
+
+<p>In 2024, the most-recent year I could find numbers for, the <a href="https://www.census.gov/library/visualizations/2025/comm/median-household-income.html">median household income in the US was $83,730</a>. Minimum wage was $7.25/hour. Gold cost <a href="https://metalcharts.org/gold-price-history/2024">an average of $2,386 per ounce</a>.</p>
+
+<p>To buy that same MacBook Air I just copped, someone would have to spend either</p>
+
+<ol>
+  <li>331 hours of minimum-wage labor, or</li>
+  <li>3% of the median income, or</li>
+  <li>1.0 ounce of gold</li>
+</ol>
+
+<p>But, despite being one half to one third to one <em>eighth</em> the “cost,” depending on how you count it, that MacBook Air is so, so, <em>so</em> much more capable than that old Aptiva was. It’s faster. It’s lighter. It can do more things. It will last longer.</p>
+
+<p>At a fraction of the cost.</p>
+
+<p>That’s pretty neat!</p>
+
+<hr />
+
+<p>If you go looking, you’ll find that a lot of things we use followed a similar pattern. Washing machines?</p>
+
+<p>In 1955, you could grab one for $140, on a minimum wage of $0.75 for 187 hours of work:</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="sears-1955-kenmore-ad.jpg">
+      <img src="sears-1955-kenmore-ad.jpg" alt="Sears Spring/Summer Catalog, 1955" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">Sears Spring/Summer Catalog, 1955</div>
+    <div class="polaroid-link">
+      
+      <a href="https://christmas.musetechnical.com/" target="_blank" rel="noopener">christmas.musetechnical.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p>In 2026, you can grab a brand new “basic” top-loading washing machine that <em>way</em> outperforms a 1955 model for $560, or just 77 hours of work. No link here; go hit up your favorite appliance store’s website and check.</p>
+
+<p>Television sets? You’d better believe the same thing’s happened: Not only did they get way more capable but the cost relative to your time and income has cratered.</p>
+
+<p>More really good news, right?</p>
+
+<p>Well, not if you were <em>investing</em> in those things. If you’d decided in 1955 that washing machines were the future and bought a warehouse full of them, and held them all the way through to your retirement in 2026… you’d’ve lost basically all your money.</p>
+
+<p>Similarly, a storage unit full of 1950s televisions that used to be a <em>luxury</em>? CRTs are so heavy you probably would have to <em>pay</em> people to take them off your hands. And that old Aptiva? It’s in a closet, somewhere. Stored for sentimental value because it’s completely un-sellable.</p>
+
+<blockquote>
+  <p>Those appliances were a really bad store of value.</p>
+</blockquote>
+
+<p>But of course, that wasn’t ever why anyone bought any of them. For better or worse, <a href="https://penntoday.upenn.edu/news/how-appliance-boom-moved-more-women-workforce">washing machines dramatically decreased the amount of manual labor people had to spend on clothes</a>, so they could spend that time on other things. People bought TVs to <em>watch stuff</em> on TV - not to be their savings. And that old Aptiva? Well, I didn’t get to play LEGO Creator on it, but I did enjoy the heck out of <a href="https://en.wikipedia.org/wiki/Lego_Island">LEGO Island</a>.</p>
+
+<blockquote>
+  <p>Those appliances weren’t investments - they were <em>useful</em>.</p>
+</blockquote>
+
+<p>We bought them to use them for a purpose, and we used them for that purpose, and then eventually a cheaper, better version of the appliance was available and we upgraded so that we could do <em>more</em>. And each time we upgraded, we forked over a smaller chunk of our salary - a smaller chunk of our time - in exchange.</p>
+
+<p>That’s pretty neat!</p>
+
+<h2 id="chapter-10">Chapter 10½</h2>
+
+<p>You may have heard of Bitcoin. It’s “sound money” or “hard money” or “digital gold” - a store of value that doesn’t - can’t - inflate the way paper money does.</p>
+
+<p>Bitcoin is-a cryptocurrency on a blockchain, but it’s far from the only one. A recent refrain from Michael Saylor, former CEO and now executive chairman of MicroStrategy, rings:</p>
+
+<blockquote>
+  <p>There is no second best!</p>
+</blockquote>
+
+<p>Bitcoin Cash? Ethereum? Litecoin? Dogecoin? Solana? Polygon? The list of “Altcoins” goes on and on and on.</p>
+
+<p>In Chapter 10 of his book, <a href="https://saifedean.com/tbs"><em>The Bitcoin Standard</em></a>, Saifedean Ammous writes about Altcoins:</p>
+
+<blockquote>
+  <p>I have yet to identify a single digital currency [besides Bitcoin] that offers any product or service that has any market demand.</p>
+
+  <p>(p. 256)</p>
+</blockquote>
+
+<p>And that is the rub - there is no second best, and money is taken by Bitcoin. These other tokens that are “money but different” are just money <em>but worse</em>.</p>
+
+<p><strong><em>But:</em></strong> Ammous leaves an out - “market-demanded service.”</p>
+
+<p>Also known as “utility” or, the property of being <em>useful</em>.</p>
+
+<p>I submit that many people are grading the altcoins on the wrong rubric - and indeed, that there are even some projects out there whose own contributors don’t realize that they don’t need to chase Bitcoin. You can’t be better money than Bitcoin, but you don’t have to if you can be <em>useful</em>.</p>
+
+<hr />
+
+<p><a href="https://www.getmonero.org/">Monero</a> is a privacy-focused cryptocurrency. It has a long history of strong privacy guarantees - so much so that it’s long been a favorite of scammers, hackers, and other black marketeers for their dealings. Unlike Bitcoin, Monero is provably private by default. The proof? People keep <em>using</em> it.</p>
+
+<p>If you were to compare these “cryptocurrencies” on price:</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="xmr-to-btc-alltime-2026-08-08.png">
+      <img src="xmr-to-btc-alltime-2026-08-08.png" alt="Monero priced in Bitcoin - All-Time (2026-08-08)" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">Monero priced in Bitcoin - All-Time (2026-08-08)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p>Well, it could be worse, but Monero sure isn’t anywhere close to “beating” Bitcoin. That’s a solid “down and to the right” slope.</p>
+
+<p>Hot garbage, right? Avoid it?</p>
+
+<p>Well, as an investment, absolutely. But Monero isn’t an investment. It’s not supposed to be your store of value.</p>
+
+<p>Monero is a tool for transacting privately.</p>
+
+<h2 id="whats-worth-a-blockchain">What’s Worth a Blockchain?</h2>
+
+<p>Rewinding back to the book - <em>The Bitcoin Standard</em> - the author offers a flowchart to help you figure out if whatever you’re thinking of needs a blockchain:</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/6e3efefa.svg"><img src="/assets/svg/6e3efefa.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/6e3efefa-dark.svg"><img src="/assets/svg/6e3efefa-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>A few pages later, Ammous offers a more-rigorous test to quickly assess whether a given use-case is a candidate for a blockchain. Given on page 260, paraphrased:</p>
+
+<ol>
+  <li>Is the benefit of decentralization worth the extra overhead?</li>
+  <li>Is the process of decentralizing simple-enough that people will actually be able to do it?</li>
+</ol>
+
+<p>If the answer to both of these questions is “yes,” then the use-case is a candidate for a blockchain.
+If the answer to either of them is “no,” then “normal” software is probably not just fine, but markedly better.</p>
+
+<p>Indeed, most of the “Altcoins” out there fail the chart and this test. But, there are two wrinkles.</p>
+
+<p>First, <code class="language-plaintext highlighter-rouge">digital</code>.</p>
+
+<p>The chart collapses the “digital” into “digital cash” as if it is a mere adjective. It’s not. Well, it is in that part of the chart, but when you arrive at Bitcoin it isn’t anymore: Bitcoin has a complete, public ledger of all transactions and therefore, of all coins’ current location and the path they took to get there. Physical cash had no such thing. It was never possible to look up where every dollar bill and coin was at a given moment. Even if you managed to <a href="https://www.wheresgeorge.com/">locate two points in a piece of physical cash’s journey</a> you had no way to know what path it took in-between: a direct handoff or a 100-pass journey were equally invisible.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Contaminated_currency">There <em>is</em> cocaine on almost every dollar bill in my wallet and my house</a>. Despite this, the local authorities do not take it as evidence that I’ve had dealings with <em>personae non gratae</em>. Because you cannot trace the path of a bill, you cannot conclude any relationship between someone who had it once and whoever has it now.</p>
+
+<p>With Bitcoin, that path being knowable is a core <em>feature</em>, and that changes things.</p>
+
+<h2 id="show-the-world-your-bank-statements">Show the World Your Bank Statements</h2>
+
+<p>There are real privacy and security risks to having the path that every piece of money you own took to get there, be public record - and <em>not</em> just for criminals! Sure, you can get caught for money laundering or tax evasion or drug dealing. But you can also save a nice big retirement account… and end up showing the size of your nest egg every time you spend it down. Buying a car? Fixing your car? Groceries? A pint of beer at a pub? If you just tap your Bitcoin savings for that, you’re telling each of those people “hey, by the way, I’ve got <em>exactly</em> this much money!” Split a meal with a friend, coworker, or date? They know your bank account balance now.</p>
+
+<p>Oh, you don’t care about people knowing? Maybe you don’t have that much? Okay, you’re negotiating the price on anything where one does that - a car, a mortgage, a business deal, a personal loan to pay off your credit card debt - once you make a payment, the other party <em>knows</em> how much money you have. Any leverage you had to negotiate a better deal for yourself is gone. Target knows how much you paid Amazon for the same product and won’t offer you any discounts ‘cause they know you’ll fork over the dough. Your health insurance company knows how much you spent at McDonald’s last year.</p>
+
+<blockquote>
+  <p>You’re playing financial poker with all your cards face-up on the table.</p>
+</blockquote>
+
+<p>Physical cash doesn’t do this. Heck, even “normal” credit and debit cards don’t do this. Not even digital payment systems like PayPal or Cash App do this! I’m sure you can understand why.</p>
+
+<h2 id="id-like-my-finances-to-be-private">I’d Like My Finances to be Private</h2>
+
+<p>Well, you’re in luck! Monero is private by default.</p>
+
+<p>What does that mean? It means everyone who uses it gets the same, very solid baseline of privacy: Nobody can tell who you sent or received cash from. Nobody can tell how much you sent. Only you and whoever you transact with get to know anything about your transaction - and the <em>only</em> thing you get to know about is your transaction. You can’t follow the money to learn how rich they are, or who else they shop with.</p>
+
+<p>What do you do? You <em>buy some Monero</em> (maybe even <a href="https://eigenwallet.org/">with Bitcoin</a>). Enough to pay for whatever it is you want to buy. Then you pay for the thing you want. Then you get the thing. And whoever you paid cannot follow the money back to spy on your finances. And whoever <em>they</em> go on to pay can’t do it, either. And, indeed, <em>you</em> can’t watch and see what <em>they</em> do with the money you paid them.</p>
+
+<p>Does that sound like the kind of <code class="language-plaintext highlighter-rouge">digital cash</code> you’d actually want to use?</p>
+
+<p>Let’s revisit Ammous’s “altcoin” test:</p>
+
+<p><strong>Is the benefit worth the overhead of a blockchain?</strong></p>
+
+<p>I hope we’ve established that the answer is a resounding “yes.” You don’t want your bank statements stapled onto every dollar bill you spend, any more than you want your full transaction history known to everyone you send Bitcoin to.</p>
+
+<p><strong>Is the process of decentralizing simple-enough that people will actually do it?</strong></p>
+
+<blockquote class="link-card">
+  
+  <h1>MoneroHash.com: Monero Nodes Distribution</h1>
+  
+  <a href="https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">monerohash.com/nodes-distribution.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260723221554/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+<blockquote>
+  <p>Total nodes: 4697 - Last updated: about an hour ago</p>
+</blockquote>
+
+<p><strong>But</strong> - that’s only public nodes that can be reached through the peers that each node advertises.</p>
+
+<p>If you, say, ran a Monero node on a server inside your home network and just downloaded the blockchain but didn’t punch a hole in your own firewall to allow other nodes to find and initiate inbound connections to you… you might never show up on that map. My node isn’t on there.</p>
+
+<p>So that number is a <em>floor</em>, not the actual number. You probably can’t ever know the actual number.</p>
+
+<p>Does a minimum of 4,697 nodes across the globe count as proof that it’s simple-enough that people will actually do it?</p>
+
+<p>Well, it looks like at the time of writing this,</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Coin</th>
+      <th>Minimum Reachable Node Count</th>
+      <th>Blockchain Size</th>
+      <th>Total Transactions</th>
+      <th>Txns/GB</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bitcoin</td>
+      <td><a href="https://bitref.com/nodes/">22,492</a><br />(4.8x)</td>
+      <td>807 GB<br />(3x)</td>
+      <td>1.413 Billion<br />(23x)</td>
+      <td>1,752,070<br />(7x)</td>
+    </tr>
+    <tr>
+      <td>Monero</td>
+      <td><a href="https://monerohash.com/nodes-distribution.html">4,697</a></td>
+      <td>267 GB</td>
+      <td>62.8 Million</td>
+      <td>235,000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>(Transaction counts &amp; blockchain sizes sourced from my nodes directly)</em></p>
+
+<p>That <code class="language-plaintext highlighter-rouge">7x</code> there at the end is the part to worry about: Monero is so far, on average 7x less-efficient at storing its blockchain than Bitcoin is. So, anything Bitcoin can do, Monero is going to demand 7x as much from the people running its nodes.</p>
+
+<p>If it had Bitcoin-level transactions, the blockchain would be over 6 <em>terabytes</em>. At 2026 prices, an SSD (which you <em>do</em> need to put the blockchain on if you want any kind of decent performance out of your node) to hold that <em>starts</em> at $1,000 for 8TB (and not a well-reviewed one).</p>
+
+<p>A whole grand just for the storage. Whereas today, Bitcoin’s bitcoin-sized blockchain can fit on a 1TB SSD which starts around $130 - almost a tenth the price.</p>
+
+<p>Monero has been <a href="https://www.getmonero.org/2024/04/27/fcmps.html">making progress towards a more-efficient blockchain</a> but it’s been slow going. One could imagine that it gets resolved before it has to handle Bitcoin-level traffic, just as easily as one could imagine it never does.</p>
+
+<p>So there’s a future risk there. Not a today risk, though.</p>
+
+<h2 id="just-coinjoin-your-bitcoin">Just CoinJoin Your BitCoin</h2>
+
+<p>It is possible to obtain some privacy with Bitcoin transactions, through the process of a <a href="https://www.binance.com/en/academy/articles/coin-mixing-and-coinjoins-explained">CoinJoin</a>. Coinjoins involve multiple people collaborating to create a specific shape of transaction that makes it impossible to</p>
+
+<ol>
+  <li>tell who sent what to whom</li>
+  <li>tell who <em>intended</em> to send what to whom</li>
+</ol>
+
+<p>You can still see that “10 people all sent 1 BTC.” You can see that “10 people all received 1 BTC from those 10.” But you can’t tell which one of the first 10 people was trying to pay which of the second 10 people. So, if you wanted to try to snoop on someone, you’d have to guess which of 10 options was actually the person you were interested in. Repeating a coinjoin a second time gives you 10 more options for each of the first 10 - that’s 10 times 10, or 100. Coinjoin a third time, and now there are 1,000 possibilities… and so on, and so forth.</p>
+
+<p>This is a thing you have to choose to do, and you have to do it right:</p>
+
+<ol>
+  <li>For every bitcoin you receive,</li>
+  <li>CoinJoin it at least once, ideally multiple times
+    <ul>
+      <li>this requires at <em>least</em> ~10 minutes (one block mined) per round, but you should wait closer to 6 blocks - ~1 hour per round</li>
+      <li>transactions have fees and they have to come from somewhere. You’ll pay <em>some</em> fee for the coinjoin.</li>
+    </ul>
+  </li>
+  <li>Finally spend privately</li>
+  <li>Take any change from that transaction and <code class="language-plaintext highlighter-rouge">GOTO 1</code></li>
+  <li>Never, ever get impatient or make a mistake or else you lose the privacy you’ve been building.</li>
+</ol>
+
+<p>If <strong>everyone</strong> who spent bitcoin did this, it would be functionally impossible to even lay all the guesses out to pick from, let alone actually determine <em>which</em> specific path a given bitcoin took.</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="everyone-will-not-just.png">
+      <img src="everyone-will-not-just.png" alt="Everyone Will Not Just" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">Everyone Will Not Just</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260523175039/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+<p>The problem with everyone not doing this is that it only buys you <a href="https://en.wikipedia.org/wiki/Forward_secrecy">forward secrecy</a>. Once spending starts happening with coinjoins in-between, nobody can tell who’s spending what. But <em>until</em> the coinjoins start, people can still tell. So maybe you’re perfectly-disciplined about coinjoins. Someone who <em>isn’t</em> sends you some bitcoin. Anyone who sees that <em>knows</em> that you received from that person. And if that person wasn’t doing coinjoins,anyone can find out all about the people you’ve been transacting with. We don’t know what <strong>you</strong> bought, but we know Bob paid you 100,000 sats and Bob shops at the 7-11 in Townsville and works at SomeCorp. And Bob also pays his friends Alice and Eve, and they <em>also</em> live in Townsville. There’s a pretty good chance you live there, too. And when you finally do spend, if the person you pay doesn’t also do coinjoins, the forward secrecy ends with them and you’re left inhabiting a tiny island of secrecy in an ocean of public knowledge. The various <a href="https://en.wikipedia.org/wiki/Blockchain_analysis">blockchain analysis</a> firms have gotten really good at inferring information with a high degree of certainty in these situations.</p>
+
+<p>This problem is in the shape of opt-in vs opt-out. If you have to <em>choose</em> to do something, to opt-<strong>in</strong>, most people won’t.</p>
+
+<blockquote>
+  <p>Everyone will <strong>not</strong> just.</p>
+</blockquote>
+
+<p>And thus, every part of the puzzle is assembled except your little missing piece - and a great deal of what matters about your blank space can be inferred from looking at the edges, all of which are public.</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="missing-puzzle-piece.jpg">
+      <img src="missing-puzzle-piece.jpg" alt="What could possibly go here?" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">What could possibly go here?</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p>On Bitcoin, privacy is a service you procure.</p>
+
+<p>Services require service providers and it’s been rough:</p>
+
+<ol>
+  <li>The simplest and best coinjoin solution - Samourai Whirlpool - <a href="https://en.wikipedia.org/wiki/Samourai_Wallet">landed its providers in federal prison</a>.</li>
+  <li>The other major provider in the space - Wasabi Wallet - <a href="https://www.coindesk.com/tech/2022/03/14/wasabi-wallets-coinjoin-coordinator-to-blacklist-certain-bitcoin-transactions">caved to refusing certain coins</a> - presumably to protect the company and themselves - though we don’t know for sure, we <em>do</em> know what happened to Samourai, who didn’t cave.</li>
+  <li>In 2026 we do have another Whirlpool provider - <a href="https://ashigaru.rs/">Ashigaru, a Samourai fork</a> - but they’re entirely on <a href="https://www.torproject.org/download/">Tor</a> and encrypted comms - they know what happens if they can be found.</li>
+</ol>
+
+<p>This privacy problem is present for any public-ledger cryptocurrency; Ethereum had a coinjoin service provider - <a href="https://en.wikipedia.org/wiki/Tornado_Cash">Tornado Cash</a> - whose developers <em>also</em> landed federal charges with one sentenced to prison and one still working their way through the courts.</p>
+
+<p>There are other “not exactly a service” - or, you know - “peer-to-peer” coinjoin solutions like <code class="language-plaintext highlighter-rouge">joinmarket</code> - no link there because the domain’s been yanked. No “Seized” notice, just… gone. And its source code archived. What happened? I don’t know.</p>
+
+<p>Someone forked it into <a href="https://github.com/joinmarket-ng/joinmarket-ng">joinmarket-ng</a> though, so you could still make the attempt.</p>
+
+<p>So that’s great, right? Chop off the heads of the hydra, and Ashigaru and joinmarket-ng grow back with lessons learned?</p>
+
+<blockquote>
+  <p>Heads that regenerate after decapitation are not the same as having no neck.</p>
+</blockquote>
+
+<p>On Bitcoin, privacy is a service you procure. On Monero, privacy is a property of the network that you cannot decline.</p>
+
+<p>On Bitcoin, you must choose to procure privacy, and even the act of choosing is a signal that stands out against the default. On Monero, privacy is normal and having privacy doesn’t make you stand out from your peers.</p>
+
+<h2 id="the-second-wrinkle">The Second Wrinkle</h2>
+
+<p>I claimed there were two wrinkles in Ammous’s blockchain test. The first was <code class="language-plaintext highlighter-rouge">digital</code>. The second is <code class="language-plaintext highlighter-rouge">cash</code>.</p>
+
+<p>Or, rather, money. Everything up to that point assumes that the only thing anyone ever would or could do on a blockchain is “money.”</p>
+
+<p>There’s a nuanced difference (here, at least) between <em>money</em> and <em>currency</em>. Money is the store of value, the unit of account. Currency is the medium of exchange. These two distinct roles are <em>often</em> filled by the same thing - but not always.</p>
+
+<p>Nowadays, your retirement account (if you have one…) is likely denominated in US dollars, but it’s actually held in stocks, bonds, and other assets (Bitcoin, perhaps…?). You fork over some dollars at a coffeeshop; dollars are currency for spending. You don’t send someone a fractional share of NVDA for that same coffee - your retirement account, as a long-term store of value play, seeks a different kind of asset where spendable liquidity isn’t paramount.</p>
+
+<p>By those definitions, Monero is a currency where privacy is a first-class property. It’s not a money.</p>
+
+<p>There’s another example of a useful token that contrasts much more starkly: <a href="https://www.filecoin.io/">Filecoin</a>.</p>
+
+<p>Filecoin is the token that powers a distributed, peer-to-peer storage network. It’s like cloud storage, but across an ever-changing, decentralized network of computers. You don’t mine it with the “proof of work” that Bitcoin and Monero do - you get paid for providing storage that is proven to be available and to actually contain what it claims to store.</p>
+
+<p>Cloud storage has turned out to be an undeniably useful thing. Multibillion dollar businesses exist to provide it. Not just <a href="https://aws.amazon.com/s3/">Amazon S3</a>, but Google’s <a href="https://cloud.google.com/storage">Cloud Storage</a> and the retail-facing <a href="https://www.icloud.com/storage">iCloud</a>, <a href="https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage">OneDrive</a>, and <a href="https://www.dropbox.com/">Dropbox</a> to name just a few.</p>
+
+<p>Incidentally, the storage cost on those platforms (well, at least <a href="https://aws.frankcontrepois.com/s3PriceHistory">S3</a>) has fallen over time.</p>
+
+<p>Is Filecoin a shitcoin? <a href="https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/">The Internet Archive has put a petabyte of material on it</a> - including U.S. government web crawls that vanish between administrations. If you’re the Archive, you want that storage cheap. As an <em>investment vehicle</em> though? <a href="https://coinmarketcap.com/currencies/filecoin/">Absolutely</a>. Its price chart is not what you’d want your savings account to look like. But that’s okay; it’s not <em>supposed to</em> be money. (<a href="/2026/02/11/good-money-should-be-worthless.html">Good money should be worthless</a>, after all.)</p>
+
+<p>It’s the price of cloud storage.</p>
+
+<p>And I love it when useful things - like computers, washing machines, television sets, cloud storage and privacy - get cheaper.</p>]]></content><author><name>Texarkanine</name></author><category term="essay" /><category term="bitcoin" /><category term="economics" /><category term="monero" /><category term="privacy" /><summary type="html"><![CDATA[I love it when useful things like computers and Monero get cheaper over time.]]></summary></entry><entry><title type="html">Cold Wallets Are Born Hot</title><link href="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html" rel="alternate" type="text/html" title="Cold Wallets Are Born Hot" /><published>2026-08-06T00:00:00+00:00</published><updated>2026-08-06T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/06/cold-wallets-born-hot.html"><![CDATA[<p>WiFi is literally “airgapped.” Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.</p>
 
 <p>The air was never the point. Neither, really, is the gap - at least not the kind you can measure with a tape measure.</p>
 
@@ -63,10 +483,6 @@
   <h1>Disclosure: Key generation vulnerability found on WalletGenerator.net - potentially malicious</h1>
   
   <a href="https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961" target="_blank" rel="noopener">medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20250419222951/https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961" target="_blank" rel="noopener">archive</a>)
-  </small>
   
 </blockquote>
 
@@ -2044,219 +2460,4 @@ PAGE_FAULT_IN_NONPAGED_AREA   (Hiren's WinPE)
 
 <p>The “on air” button’s sign icon lights up just like the real signs do when I’m on-air.</p>
 
-<p>And, I still have four buttons remaining!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="hardware" /><summary type="html"><![CDATA[Adding an Elgato Streamdeck to my headless Linux server to manifest shell aliases and system status in the physical world... all because I have too much stuff plugged in for my circuit breaker to handle.]]></summary></entry><entry><title type="html">Publishing My First Browser Extension</title><link href="https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.html" rel="alternate" type="text/html" title="Publishing My First Browser Extension" /><published>2026-04-17T00:00:00+00:00</published><updated>2026-04-17T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/04/17/publishing-my-first-browser-extension.html"><![CDATA[<p><a href="https://github.com/Texarkanine/tab-yeet">Tab Yeet</a> lists every tab in your current window, applies ordered regex transforms to each URL, and copies the result to the clipboard in your preferred format. It ships with defaults that rewrite the four social hosts whose canonical URLs don’t embed cleanly - <code class="language-plaintext highlighter-rouge">twitter.com</code> becomes <code class="language-plaintext highlighter-rouge">fixupx.com</code>, <code class="language-plaintext highlighter-rouge">instagram.com</code> becomes <code class="language-plaintext highlighter-rouge">eeinstagram.com</code>, <code class="language-plaintext highlighter-rouge">reddit.com</code> becomes <code class="language-plaintext highlighter-rouge">vxreddit.com</code>, <code class="language-plaintext highlighter-rouge">tiktok.com</code> becomes <code class="language-plaintext highlighter-rouge">vxtiktok.com</code>. Paste a Discord or forum thread after copying, and previews actually appear.</p>
-
-<p>I had to build it because nothing existed that combined those three things. There are dozens of “copy all tab URLs” extensions. Several support format templates like <code class="language-plaintext highlighter-rouge">$url</code> / <code class="language-plaintext highlighter-rouge">$title</code>. One lets you paste URLs into a textarea and regex-munge them after the fact. None apply ordered, persistent rewrite rules automatically, let alone ship the social-embed defaults baked in. The interesting cell in the matrix was empty.</p>
-
-<p>As of this week Tab Yeet is on <a href="https://addons.mozilla.org/firefox/addon/tab-yeet/">AMO</a> and the <a href="https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle">Chrome Web Store</a>. It is not on Apple’s App Store, and it won’t be, and that omission turned out to be the cleanest data point in the whole story.</p>
-
-<h2 id="manifest-v2-first">Manifest V2 First</h2>
-
-<p>The first version targeted Firefox’s <a href="https://extensionworkshop.com/documentation/publish/distribute-manifest-versions/">Manifest V2</a>. Three pure modules (<code class="language-plaintext highlighter-rouge">lib/storage.js</code>, <code class="language-plaintext highlighter-rouge">lib/transforms.js</code>, <code class="language-plaintext highlighter-rouge">lib/formats.js</code>), a popup, an options page, and an integration test locking the contract between them. Straightforward TDD.</p>
-
-<p>The only real surprise at this stage was CSS. I’d used <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix"><code class="language-plaintext highlighter-rouge">color-mix()</code></a> to derive subtle dividers from <code class="language-plaintext highlighter-rouge">CanvasText</code>, which is clean and respects the user’s system palette. The manifest declared <code class="language-plaintext highlighter-rouge">strict_min_version: 109.0</code>. <code class="language-plaintext highlighter-rouge">color-mix()</code> needs Firefox 113+. When CSS can’t parse a shorthand, it drops the entire declaration. There is no graceful degradation to a base color. So on anything between Firefox 109 and 113, my borders vanished entirely.</p>
-
-<p>The fix is to pair each <code class="language-plaintext highlighter-rouge">color-mix()</code> declaration with an <code class="language-plaintext highlighter-rouge">rgba()</code> line immediately before it:</p>
-
-<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">border-bottom</span><span class="o">:</span> <span class="err">1</span><span class="nt">px</span> <span class="nt">solid</span> <span class="nt">rgba</span><span class="o">(</span><span class="err">0</span><span class="o">,</span> <span class="err">0</span><span class="o">,</span> <span class="err">0</span><span class="o">,</span> <span class="err">0</span><span class="o">.</span><span class="err">15</span><span class="o">);</span>
-<span class="nt">border-bottom</span><span class="o">:</span> <span class="err">1</span><span class="nt">px</span> <span class="nt">solid</span> <span class="nt">color-mix</span><span class="o">(</span><span class="nt">in</span> <span class="nt">srgb</span><span class="o">,</span> <span class="nt">CanvasText</span> <span class="m">15%</span><span class="o">,</span> <span class="nt">transparent</span><span class="o">);</span>
-</code></pre></div></div>
-
-<p>Browsers that parse the second line keep it; browsers that choke on it fall back to the first. Two copies of every divider, two copies in the <code class="language-plaintext highlighter-rouge">@media (prefers-color-scheme: dark)</code> block, and the extension looks the same on Firefox 109 and Firefox 140. Annoying, but small, and better than noticing the empty space later.</p>
-
-<h2 id="then-manifest-v3">Then Manifest V3</h2>
-
-<p>Firefox is still happy on MV2, but the Chrome Web Store requires MV3. I did not want a second repo, forked branding, or parallel source directories. One codebase, two packages.</p>
-
-<p>The answer was a build-time manifest transform plus a namespace shim. The MV2 <code class="language-plaintext highlighter-rouge">manifest.json</code> at the project root stays the source of truth. A small <a href="https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/scripts/transform-manifest.js"><code class="language-plaintext highlighter-rouge">scripts/transform-manifest.js</code></a> rewrites it into MV3 on demand:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nf">transformManifest</span><span class="p">(</span><span class="nx">mv2</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">mv3</span> <span class="o">=</span> <span class="nf">structuredClone</span><span class="p">(</span><span class="nx">mv2</span><span class="p">);</span>
-  <span class="nx">mv3</span><span class="p">.</span><span class="nx">manifest_version</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-  <span class="k">if </span><span class="p">(</span><span class="nx">mv3</span><span class="p">.</span><span class="nx">browser_action</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">mv3</span><span class="p">.</span><span class="nx">action</span> <span class="o">=</span> <span class="nx">mv3</span><span class="p">.</span><span class="nx">browser_action</span><span class="p">;</span>
-    <span class="k">delete</span> <span class="nx">mv3</span><span class="p">.</span><span class="nx">browser_action</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">delete</span> <span class="nx">mv3</span><span class="p">.</span><span class="nx">browser_specific_settings</span><span class="p">;</span>
-  <span class="k">if </span><span class="p">(</span><span class="nx">mv3</span><span class="p">.</span><span class="nx">permissions</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">mv3</span><span class="p">.</span><span class="nx">permissions</span> <span class="o">=</span> <span class="nx">mv3</span><span class="p">.</span><span class="nx">permissions</span><span class="p">.</span><span class="nf">filter</span><span class="p">((</span><span class="nx">p</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">p</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">clipboardWrite</span><span class="dl">"</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">mv3</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Four rules, one function, unit-tested. If more targets show up later, the transform grows; until then this is enough.</p>
-
-<p>The runtime side needed a different trick. Shared code uses the WebExtensions <code class="language-plaintext highlighter-rouge">browser.*</code> namespace because Firefox implements it natively. Chrome does not implement <code class="language-plaintext highlighter-rouge">browser.*</code>; it only exposes <code class="language-plaintext highlighter-rouge">chrome.*</code>. Rather than branch every call site, the Chrome package gets a shim injected ahead of the module scripts:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">globalThis</span><span class="p">.</span><span class="nx">browser</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">undefined</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">globalThis</span><span class="p">.</span><span class="nx">browser</span> <span class="o">=</span> <span class="nx">chrome</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Four lines of aliasing, wired in via a <code class="language-plaintext highlighter-rouge">&lt;script src="/browser-shim.js"&gt;</code> tag that only the Chrome staging pipeline adds. Shared source files never learn which browser they’re running in.</p>
-
-<p>Then I tried to run Mozilla’s <a href="https://github.com/mozilla/web-ext"><code class="language-plaintext highlighter-rouge">web-ext lint</code></a> against the generated Chrome manifest.</p>
-
-<p>It rejected it. <code class="language-plaintext highlighter-rouge">ADDON_ID_REQUIRED</code>. The linter wanted a Firefox-style add-on ID that MV3 does not use and the Chrome Web Store will not accept. <code class="language-plaintext highlighter-rouge">web-ext lint</code> is Firefox-centric in ways its README does not emphasize. Despite the generic name, it’s specifically the Firefox linter. I excluded Chrome from the CI lint step and let the Chrome Web Store’s own upload-time validation serve as the check for that target.</p>
-
-<h2 id="three-stores-three-shapes">Three Stores, Three Shapes</h2>
-
-<p>Once both packages built cleanly, shipping to the stores looked straightforward on paper: three APIs, three uploads. In practice the three stores have <em>very</em> different gate shapes, and I have direct experience with only two of them.</p>
-
-<p><strong>AMO (Firefox).</strong> Free developer account, API keys on request, a JWT-signed upload endpoint, listing metadata in JSON. Everything automatable from a GitHub Actions job. An already-published action (<a href="https://github.com/kewisch/action-web-ext"><code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code></a>) wraps the CLI nicely. Zero dollars.</p>
-
-<p><strong>Chrome Web Store.</strong> One-time $5 developer registration fee. After that: OAuth 2.0 client credentials, a REST upload endpoint, a well-maintained CLI (<a href="https://github.com/fregante/chrome-webstore-upload-cli"><code class="language-plaintext highlighter-rouge">chrome-webstore-upload-cli</code></a>). Also automatable.</p>
-
-<p><strong>Apple App Store.</strong> $99 per year for an Apple Developer Program membership, required to actually publish. I can tell you in detail what AMO and Chrome Web Store publishing look like because we’ve done both. I don’t know what App Store publishing looks like. It isn’t hidden; Apple’s developer docs are public, and I could go read them. What happened is simpler: we decided not to publish the moment the fee appeared, and nothing past that gate has bearing on a decision already made.</p>
-
-<p>This is the data point I mentioned at the top. The filter works by deciding the question before it becomes interesting. That’s the full report.</p>
-
-<h2 id="the-license-allowlist-twice">The License Allowlist (Twice)</h2>
-
-<p>Tab Yeet is GPL-3.0-or-later. Both stores accept SPDX identifiers. Neither accepts this one directly.</p>
-
-<p>The first wall was <code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code> itself. Its <code class="language-plaintext highlighter-rouge">KNOWN_LICENSES</code> constant is a short allowlist of SPDX slugs, and <code class="language-plaintext highlighter-rouge">GPL-3.0-or-later</code> is not in it - only <code class="language-plaintext highlighter-rouge">GPL-3.0-only</code> is, despite SPDX marking the <code class="language-plaintext highlighter-rouge">-only</code> variant as the more-restrictive of the two. Passing <code class="language-plaintext highlighter-rouge">license: GPL-3.0-or-later</code> to the action caused it to treat the string as a custom license name without text, which AMO then rejected.</p>
-
-<p>The partial fix was to pair the slug with <code class="language-plaintext highlighter-rouge">licenseFile: LICENSE</code>, which causes the action to upload the full license text alongside. That worked briefly.</p>
-
-<p>Then AMO’s API itself pushed back on the <code class="language-plaintext highlighter-rouge">version.license</code> field with the same slug - it, too, has a list of permitted SPDX slugs, and <code class="language-plaintext highlighter-rouge">GPL-3.0-or-later</code> is not on it. The real fix is to skip <code class="language-plaintext highlighter-rouge">version.license</code> entirely and instead supply <code class="language-plaintext highlighter-rouge">custom_license</code> via the action’s <code class="language-plaintext highlighter-rouge">--amo-metadata</code> JSON, carrying both the SPDX name and the full license text:</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"custom_license"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"en-US"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GPL-3.0-or-later"</span><span class="w"> </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"en-US"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;contents of LICENSE&gt;"</span><span class="w"> </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Two distinct allowlists, both undocumented as such, both shorter than SPDX. I ended up reading <a href="https://github.com/kewisch/action-web-ext/blob/v1/src/action.js"><code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code></a>’s source to find the first, and reading the AMO API’s 400 response to find the second.</p>
-
-<h2 id="conditional-silence">Conditional Silence</h2>
-
-<p>The Chrome Web Store job is conditional. If <code class="language-plaintext highlighter-rouge">CWS_CLIENT_ID</code> isn’t configured, the job should skip cleanly so contributors running the workflow on their own forks don’t see red builds. My first cut gated the whole job with <code class="language-plaintext highlighter-rouge">if: $</code>.</p>
-
-<p>The job skipped every time. Including when the secret was set.</p>
-
-<p>In GitHub Actions, the <a href="https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability"><code class="language-plaintext highlighter-rouge">secrets.*</code> context does not resolve inside a job-level <code class="language-plaintext highlighter-rouge">if:</code> expression</a>. The expression evaluates to empty, the condition is always false, and the job silently no-ops. There is no error, no warning, nothing. The job just doesn’t run.</p>
-
-<p>The fix is step-level gating. A first step reads the secret through <code class="language-plaintext highlighter-rouge">env:</code> (where it does resolve), writes an output, and later steps check the output instead:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Check CWS secrets</span>
-  <span class="na">id</span><span class="pi">:</span> <span class="s">check-secrets</span>
-  <span class="na">env</span><span class="pi">:</span>
-    <span class="na">HAS_SECRET</span><span class="pi">:</span> <span class="s">$</span>
-  <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-    <span class="s">if [ -z "$HAS_SECRET" ]; then</span>
-      <span class="s">echo "skip=true" &gt;&gt; "$GITHUB_OUTPUT"</span>
-      <span class="s">echo "::notice::CWS secrets not configured — skipping publish"</span>
-    <span class="s">fi</span>
-
-<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Upload and publish to Chrome Web Store</span>
-  <span class="na">if</span><span class="pi">:</span> <span class="s">steps.check-secrets.outputs.skip != 'true'</span>
-  <span class="na">env</span><span class="pi">:</span>
-    <span class="na">CLIENT_ID</span><span class="pi">:</span> <span class="s">$</span>
-    <span class="c1"># ...</span>
-</code></pre></div></div>
-
-<p>I did not catch this one in review. <a href="https://www.coderabbit.ai/">CodeRabbit</a> did. I’d like to claim I would have caught it once I looked at a green build that hadn’t actually published anything, but the build <em>was</em> green - an always-skipping job reports success as loudly as a succeeding one. The silent failure mode is the bug.</p>
-
-<h2 id="the-release-that-never-finishes">The Release That Never Finishes</h2>
-
-<p>AMO listed-channel submissions are asynchronous. <code class="language-plaintext highlighter-rouge">web-ext sign</code> uploads the XPI, waits for AMO’s automated validation (fast, seconds to a minute), and then waits for human review (slow, hours to days). <code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code> exposes a single <code class="language-plaintext highlighter-rouge">timeout:</code> input and maps it to <em>both</em> phases. The ceiling on GitHub-hosted runners is 15 minutes. Review routinely takes longer than 15 minutes. Every release job failed red.</p>
-
-<p>The mechanism for fixing this already exists downstream. <code class="language-plaintext highlighter-rouge">web-ext</code>’s <a href="https://github.com/mozilla/web-ext/blob/8.3.0/src/util/submit-addon.js"><code class="language-plaintext highlighter-rouge">signAddon</code></a> accepts <code class="language-plaintext highlighter-rouge">approvalCheckTimeout: 0</code>, which causes it to return as soon as upload and validation succeed without polling for the reviewed/signed artifact. The action just didn’t surface it.</p>
-
-<p>I considered three paths:</p>
-
-<ol>
-  <li>Replace the action with a 50-line custom script that calls <code class="language-plaintext highlighter-rouge">signAddon</code> directly.</li>
-  <li>Fork the action, patch it, and pin the fork.</li>
-  <li>Write a PR and either wait for it to merge or pin the fork in the meantime.</li>
-</ol>
-
-<p>We picked (3). It is cheaper than the fork, contributes back, and leaves us with something to throw away once upstream merges. I opened <a href="https://github.com/kewisch/action-web-ext/pull/63">kewisch/action-web-ext#63</a> on a fork branch that our release workflow uses today. The action’s last merged change landed 15 months before my PR - hobbyist cadence rather than abandonware, but enough to expect the pinned fork to outlive the review.</p>
-
-<p>The patch is three files. <code class="language-plaintext highlighter-rouge">action.yml</code> gains an <code class="language-plaintext highlighter-rouge">approvalTimeout</code> input. <code class="language-plaintext highlighter-rouge">src/index.js</code> passes it through. <code class="language-plaintext highlighter-rouge">src/action.js</code> routes it into the v5 code path:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">approvalCheckTimeout</span><span class="p">:</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">approvalTimeout</span> <span class="o">!==</span> <span class="dl">""</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">approvalTimeout</span> <span class="o">!=</span> <span class="kc">null</span>
-    <span class="p">?</span> <span class="nc">Number</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">approvalTimeout</span><span class="p">)</span>
-    <span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">timeout</span><span class="p">,</span>
-</code></pre></div></div>
-
-<p>This is the obvious part. The non-obvious part is that setting <code class="language-plaintext highlighter-rouge">approvalCheckTimeout: 0</code> puts <code class="language-plaintext highlighter-rouge">signAddon</code> into a return shape the action doesn’t handle. The tail of <code class="language-plaintext highlighter-rouge">cmd_sign</code> is an <code class="language-plaintext highlighter-rouge">if / else if / else</code> chain:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">downloadedFiles</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">{</span> <span class="nx">addon_id</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="p">...</span> <span class="p">};</span>   <span class="c1">// normal sync path</span>
-<span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">errorCode</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">ADDON_NOT_AUTO_SIGNED</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">{</span> <span class="nx">addon_id</span><span class="p">,</span> <span class="na">target</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="p">...</span> <span class="p">};</span>   <span class="c1">// known non-fatal case</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-  <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="s2">`The signing process has failed (</span><span class="p">${</span><span class="nx">result</span><span class="p">.</span><span class="nx">errorCode</span><span class="p">}</span><span class="s2">): </span><span class="p">${</span><span class="nx">result</span><span class="p">.</span><span class="nx">errorDetails</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>When approval is skipped, <code class="language-plaintext highlighter-rouge">signAddon</code> returns <code class="language-plaintext highlighter-rouge">{ id, downloadedFiles: undefined }</code> with no <code class="language-plaintext highlighter-rouge">errorCode</code>. That falls through to the <code class="language-plaintext highlighter-rouge">else</code> and throws <code class="language-plaintext highlighter-rouge">"The signing process has failed (undefined): undefined"</code>. A successful submission would be reported as a failure.</p>
-
-<p>So the patch adds a third success branch, explicitly recognizing “submitted, not waiting”:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nc">Number</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">approvalTimeout</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">result</span><span class="p">.</span><span class="nx">errorCode</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">core</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="dl">"</span><span class="s2">Submitted to AMO. Skipped waiting for approval (approvalTimeout=0).</span><span class="dl">"</span><span class="p">);</span>
-  <span class="k">return</span> <span class="p">{</span> <span class="na">addon_id</span><span class="p">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="na">target</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="p">...</span> <span class="p">};</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>The general shape of this kind of bug shows up whenever you add a new success mode to an <code class="language-plaintext highlighter-rouge">if / else if / else</code> chain whose <code class="language-plaintext highlighter-rouge">else</code> throws. The feature is one edit; the branch that stops the new success from being called a failure is a second, separate edit, and forgetting it turns your green path into a red one.</p>
-
-<h2 id="read-the-units">Read the Units</h2>
-
-<p>I shipped the forked action. The next release failed with:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Signing Tab Yeet 0.8.1...
-Waiting for validation...
-Error: Validation: timeout exceeded.
-</code></pre></div></div>
-
-<p>The workflow inputs told the story. <code class="language-plaintext highlighter-rouge">timeout: 300</code>.</p>
-
-<p>Minutes had been assumed; the action takes milliseconds. Validation was getting three-tenths of a second to complete, giving up, and reporting the patch I’d just written as broken.</p>
-
-<p>The fix was one digit in one file. The commit message wrote itself: <code class="language-plaintext highlighter-rouge">fix(ci): it's milliseconds, not seconds</code>. The lesson: when a patch has just landed and the next run fails, read the knobs before reaching for the code. The config said exactly what it said; I hadn’t read it.</p>
-
-<h2 id="whats-live">What’s Live</h2>
-
-<ul>
-  <li><strong>Firefox / LibreWolf / forks:</strong> <a href="https://addons.mozilla.org/firefox/addon/tab-yeet/">addons.mozilla.org/firefox/addon/tab-yeet</a></li>
-  <li><strong>Chrome / Brave / Edge / Chromium-based:</strong> <a href="https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle">chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle</a></li>
-  <li><strong>Direct .xpi / .zip downloads</strong> for manual install: <a href="https://github.com/Texarkanine/tab-yeet/releases">GitHub Releases</a></li>
-  <li><strong>Safari:</strong> no.</li>
-</ul>
-
-<p>Each release is automated end to end. Merge Conventional Commits to <code class="language-plaintext highlighter-rouge">main</code>, release-please opens a version PR, merging that PR tags a release, the release triggers dual builds and two store submissions. The only remaining manual piece is the first-time manual listing per store, which both AMO and CWS require on the first submission.</p>
-
-<h2 id="the-fine-print">The Fine Print</h2>
-
-<ul>
-  <li><strong>CSS shorthand fall-through is all-or-nothing.</strong> <code class="language-plaintext highlighter-rouge">color-mix()</code> on a Firefox version below 113 drops the entire declaration rather than reverting to the base color. If your <code class="language-plaintext highlighter-rouge">strict_min_version</code> is below the feature’s support floor, pair each modern rule with an older rule on the preceding line - both will be parsed, one will win.</li>
-  <li><strong><code class="language-plaintext highlighter-rouge">web-ext lint</code> is the Firefox linter.</strong> It applies Firefox-specific rules (<code class="language-plaintext highlighter-rouge">ADDON_ID_REQUIRED</code>) to manifests it was handed. Exclude Chrome output from CI lint; let Chrome Web Store upload-time validation serve as the Chrome check.</li>
-  <li><strong>Chrome doesn’t implement <code class="language-plaintext highlighter-rouge">browser.*</code>.</strong> Ship a one-file <code class="language-plaintext highlighter-rouge">chrome → browser</code> shim injected ahead of module scripts only into the Chrome package. Shared source never learns which browser it runs in.</li>
-  <li><strong><code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code> has a <code class="language-plaintext highlighter-rouge">KNOWN_LICENSES</code> allowlist shorter than SPDX.</strong> <code class="language-plaintext highlighter-rouge">GPL-3.0-or-later</code> isn’t in it. Supply <code class="language-plaintext highlighter-rouge">licenseFile: LICENSE</code> alongside the slug.</li>
-  <li><strong>AMO’s <code class="language-plaintext highlighter-rouge">version.license</code> API has a <em>different</em> SPDX allowlist, also shorter.</strong> Skip the field; use <code class="language-plaintext highlighter-rouge">custom_license</code> in <code class="language-plaintext highlighter-rouge">--amo-metadata</code> with both name and full license text.</li>
-  <li><strong><code class="language-plaintext highlighter-rouge">secrets.*</code> does not resolve in job-level <code class="language-plaintext highlighter-rouge">if:</code> expressions.</strong> Gate at step level: read the secret into an <code class="language-plaintext highlighter-rouge">env:</code> var, write a step output, condition subsequent steps on the output. A job gated on an unresolved <code class="language-plaintext highlighter-rouge">secrets.*</code> expression silently skips and reports success.</li>
-  <li><strong>When adding a new success mode to an <code class="language-plaintext highlighter-rouge">if / else if / else</code> chain whose <code class="language-plaintext highlighter-rouge">else</code> throws, the patch is always at least two edits.</strong> The new success shape needs its own branch, or a successful invocation will fall through to the failure path and crash.</li>
-  <li><strong>Upstream GitHub Actions work at hobbyist cadence.</strong> <code class="language-plaintext highlighter-rouge">kewisch/action-web-ext</code> last merged a change 15 months before I touched it. That doesn’t mean “abandoned;” the maintainer does merge in sporadic bursts. A PR there will sit, but it won’t rot.</li>
-  <li><strong>Milliseconds, not seconds.</strong> <code class="language-plaintext highlighter-rouge">web-ext</code> timeouts (and most Node-ecosystem action timeouts) are in milliseconds. A typo of three orders of magnitude produces the same error shape as a real timeout.</li>
-  <li><strong>A green build is not a successful build.</strong> A job gated on an unresolved expression, or a step that exits early without running its work, reports success with the same color as a step that did its job. Any conditional skip deserves a <code class="language-plaintext highlighter-rouge">::notice::</code> so the intent is visible in the logs.</li>
-</ul>
-
-<h2 id="the-repositories">The Repositories</h2>
-
-<ul>
-  <li><a href="https://github.com/Texarkanine/tab-yeet">Texarkanine/tab-yeet</a> - the extension, with the full release pipeline at <a href="https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/.github/workflows/release-please.yaml"><code class="language-plaintext highlighter-rouge">.github/workflows/release-please.yaml</code></a>.</li>
-  <li><a href="https://github.com/Texarkanine/action-web-ext/tree/submit-timeout">Texarkanine/action-web-ext</a> - the fork carrying the <code class="language-plaintext highlighter-rouge">approvalTimeout</code> patch until upstream merges.</li>
-  <li><a href="https://github.com/kewisch/action-web-ext/pull/63">kewisch/action-web-ext#63</a> - the upstream PR.</li>
-</ul>
-
-<p>Two stores, one codebase, one release pipeline, one upstream patch in flight. The third store remains theoretical.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="diary" /><category term="browser-extension" /><category term="tab-yeet" /><category term="firefox" /><category term="chrome" /><category term="ci-cd" /><category term="web-ext" /><category term="open-source" /><summary type="html"><![CDATA[web-ext lint rejects valid Chrome manifests, GitHub Actions secrets don't resolve in job-level if: expressions, and kewisch/action-web-ext hardcoded the AMO approval timeout. Shipping Tab Yeet across Firefox and Chrome (and bouncing off Safari).]]></summary></entry></feed>
+<p>And, I still have four buttons remaining!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="hardware" /><summary type="html"><![CDATA[Adding an Elgato Streamdeck to my headless Linux server to manifest shell aliases and system status in the physical world... all because I have too much stuff plugged in for my circuit breaker to handle.]]></summary></entry></feed>

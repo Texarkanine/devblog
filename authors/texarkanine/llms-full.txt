@@ -1,5 +1,383 @@
 # texarkanine
 
+## I Love It When Useful Things Get Cheaper
+
+Around 1998, my family's computer was an [IBM Aptiva](https://en.wikipedia.org/wiki/IBM_Aptiva). It was one of the later models, right as [Pentium](https://en.wikipedia.org/wiki/Pentium_(original)) CPUs were showing up in home computers. I recall its clock speed was [133 MHz](https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants). I recall this because I really wanted to play the [LEGO Creator](https://en.wikipedia.org/wiki/Lego_Creator_(video_game)) game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.
+
+Though the Aptivas retailed, allegedly, for up to $2,700, I have $3,300 in my head. Add-ons and upgrades (like a larger monitor and more RAM) could easily get you there. I can't find any period magazine ads for that specific computer, but here's something from 1996 that would *absolutely* have played LEGO Creator:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="byte-magazine-1996-ad.jpg">
+      <img src="byte-magazine-1996-ad.jpg" alt="Byte Magazine Ad, 1996" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Byte Magazine Ad, 1996</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Let's do some math:
+
+In 1996, the minimum wage [bumped to $4.75/hour](https://www.dol.gov/agencies/whd/minimum-wage/history/chart). In 1997 it was bumped again to $5.15/hour, so let's use that to be generous. Median household income in the US in 1996 [was $35,492](https://www.census.gov/library/publications/1997/demo/p60-197.html). Gold cost [an average of $388 per ounce](https://metalcharts.org/gold-price-history/1996). To buy the $3,300 Aptiva that I remember, someone would have to spend either
+
+1. 641 hours of minimum-wage labor, or
+2. 9% of the median income, or
+3. 8.5 ounces of gold
+
+I bought a MacBook Air recently - in 2026 - for ~$2,400.
+
+In 2024, the most-recent year I could find numbers for, the [median household income in the US was $83,730](https://www.census.gov/library/visualizations/2025/comm/median-household-income.html). Minimum wage was $7.25/hour. Gold cost [an average of $2,386 per ounce](https://metalcharts.org/gold-price-history/2024).
+
+To buy that same MacBook Air I just copped, someone would have to spend either
+
+1. 331 hours of minimum-wage labor, or
+2. 3% of the median income, or
+3. 1.0 ounce of gold
+
+But, despite being one half to one third to one *eighth* the "cost," depending on how you count it, that MacBook Air is so, so, *so* much more capable than that old Aptiva was. It's faster. It's lighter. It can do more things. It will last longer.
+
+At a fraction of the cost.
+
+That's pretty neat!
+
+---
+
+If you go looking, you'll find that a lot of things we use followed a similar pattern. Washing machines? 
+
+In 1955, you could grab one for $140, on a minimum wage of $0.75 for 187 hours of work:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="sears-1955-kenmore-ad.jpg">
+      <img src="sears-1955-kenmore-ad.jpg" alt="Sears Spring/Summer Catalog, 1955" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Sears Spring/Summer Catalog, 1955</div>
+    <div class="polaroid-link">
+      
+      <a href="https://christmas.musetechnical.com/" target="_blank" rel="noopener">christmas.musetechnical.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260808173643/https://christmas.musetechnical.com/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+In 2026, you can grab a brand new "basic" top-loading washing machine that *way* outperforms a 1955 model for $560, or just 77 hours of work. No link here; go hit up your favorite appliance store's website and check.
+
+Television sets? You'd better believe the same thing's happened: Not only did they get way more capable but the cost relative to your time and income has cratered.
+
+More really good news, right?
+
+Well, not if you were *investing* in those things. If you'd decided in 1955 that washing machines were the future and bought a warehouse full of them, and held them all the way through to your retirement in 2026... you'd've lost basically all your money.
+
+Similarly, a storage unit full of 1950s televisions that used to be a *luxury*? CRTs are so heavy you probably would have to *pay* people to take them off your hands. And that old Aptiva? It's in a closet, somewhere. Stored for sentimental value because it's completely un-sellable. 
+
+> Those appliances were a really bad store of value.
+
+But of course, that wasn't ever why anyone bought any of them. For better or worse, [washing machines dramatically decreased the amount of manual labor people had to spend on clothes](https://penntoday.upenn.edu/news/how-appliance-boom-moved-more-women-workforce), so they could spend that time on other things. People bought TVs to *watch stuff* on TV - not to be their savings. And that old Aptiva? Well, I didn't get to play LEGO Creator on it, but I did enjoy the heck out of [LEGO Island](https://en.wikipedia.org/wiki/Lego_Island).
+
+> Those appliances weren't investments - they were *useful*.
+
+We bought them to use them for a purpose, and we used them for that purpose, and then eventually a cheaper, better version of the appliance was available and we upgraded so that we could do *more*. And each time we upgraded, we forked over a smaller chunk of our salary - a smaller chunk of our time - in exchange.
+
+That's pretty neat!
+
+## Chapter 10½
+
+You may have heard of Bitcoin. It's "sound money" or "hard money" or "digital gold" - a store of value that doesn't - can't - inflate the way paper money does.
+
+Bitcoin is-a cryptocurrency on a blockchain, but it's far from the only one. A recent refrain from Michael Saylor, former CEO and now executive chairman of MicroStrategy, rings:
+
+> There is no second best!
+
+Bitcoin Cash? Ethereum? Litecoin? Dogecoin? Solana? Polygon? The list of "Altcoins" goes on and on and on.
+
+In Chapter 10 of his book, [*The Bitcoin Standard*](https://saifedean.com/tbs), Saifedean Ammous writes about Altcoins:
+
+> I have yet to identify a single digital currency [besides Bitcoin] that offers any product or service that has any market demand.
+>
+> (p. 256)
+
+And that is the rub - there is no second best, and money is taken by Bitcoin. These other tokens that are "money but different" are just money *but worse*.
+
+***But:*** Ammous leaves an out - "market-demanded service."
+
+Also known as "utility" or, the property of being *useful*.
+
+I submit that many people are grading the altcoins on the wrong rubric - and indeed, that there are even some projects out there whose own contributors don't realize that they don't need to chase Bitcoin. You can't be better money than Bitcoin, but you don't have to if you can be *useful*.
+
+---
+
+[Monero](https://www.getmonero.org/) is a privacy-focused cryptocurrency. It has a long history of strong privacy guarantees - so much so that it's long been a favorite of scammers, hackers, and other black marketeers for their dealings. Unlike Bitcoin, Monero is provably private by default. The proof? People keep *using* it.
+
+If you were to compare these "cryptocurrencies" on price:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="xmr-to-btc-alltime-2026-08-08.png">
+      <img src="xmr-to-btc-alltime-2026-08-08.png" alt="Monero priced in Bitcoin - All-Time (2026-08-08)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Monero priced in Bitcoin - All-Time (2026-08-08)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Well, it could be worse, but Monero sure isn't anywhere close to "beating" Bitcoin. That's a solid "down and to the right" slope.
+
+Hot garbage, right? Avoid it?
+
+Well, as an investment, absolutely. But Monero isn't an investment. It's not supposed to be your store of value.
+
+Monero is a tool for transacting privately.
+
+## What's Worth a Blockchain?
+
+Rewinding back to the book - *The Bitcoin Standard* - the author offers a flowchart to help you figure out if whatever you're thinking of needs a blockchain:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/6e3efefa.svg"><img src="/assets/svg/6e3efefa.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/6e3efefa-dark.svg"><img src="/assets/svg/6e3efefa-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+A few pages later, Ammous offers a more-rigorous test to quickly assess whether a given use-case is a candidate for a blockchain. Given on page 260, paraphrased:
+
+1. Is the benefit of decentralization worth the extra overhead?
+2. Is the process of decentralizing simple-enough that people will actually be able to do it?
+
+If the answer to both of these questions is "yes," then the use-case is a candidate for a blockchain.
+If the answer to either of them is "no," then "normal" software is probably not just fine, but markedly better.
+
+Indeed, most of the "Altcoins" out there fail the chart and this test. But, there are two wrinkles.
+
+First, `digital`.
+
+The chart collapses the "digital" into "digital cash" as if it is a mere adjective. It's not. Well, it is in that part of the chart, but when you arrive at Bitcoin it isn't anymore: Bitcoin has a complete, public ledger of all transactions and therefore, of all coins' current location and the path they took to get there. Physical cash had no such thing. It was never possible to look up where every dollar bill and coin was at a given moment. Even if you managed to [locate two points in a piece of physical cash's journey](https://www.wheresgeorge.com/) you had no way to know what path it took in-between: a direct handoff or a 100-pass journey were equally invisible.
+
+[There *is* cocaine on almost every dollar bill in my wallet and my house](https://en.wikipedia.org/wiki/Contaminated_currency). Despite this, the local authorities do not take it as evidence that I've had dealings with *personae non gratae*. Because you cannot trace the path of a bill, you cannot conclude any relationship between someone who had it once and whoever has it now.
+
+With Bitcoin, that path being knowable is a core *feature*, and that changes things.
+
+## Show the World Your Bank Statements
+
+There are real privacy and security risks to having the path that every piece of money you own took to get there, be public record - and *not* just for criminals! Sure, you can get caught for money laundering or tax evasion or drug dealing. But you can also save a nice big retirement account... and end up showing the size of your nest egg every time you spend it down. Buying a car? Fixing your car? Groceries? A pint of beer at a pub? If you just tap your Bitcoin savings for that, you're telling each of those people "hey, by the way, I've got *exactly* this much money!" Split a meal with a friend, coworker, or date? They know your bank account balance now.
+
+Oh, you don't care about people knowing? Maybe you don't have that much? Okay, you're negotiating the price on anything where one does that - a car, a mortgage, a business deal, a personal loan to pay off your credit card debt - once you make a payment, the other party *knows* how much money you have. Any leverage you had to negotiate a better deal for yourself is gone. Target knows how much you paid Amazon for the same product and won't offer you any discounts 'cause they know you'll fork over the dough. Your health insurance company knows how much you spent at McDonald's last year. 
+
+> You're playing financial poker with all your cards face-up on the table.
+
+Physical cash doesn't do this. Heck, even "normal" credit and debit cards don't do this. Not even digital payment systems like PayPal or Cash App do this! I'm sure you can understand why.
+
+## I'd Like My Finances to be Private
+
+Well, you're in luck! Monero is private by default.
+
+What does that mean? It means everyone who uses it gets the same, very solid baseline of privacy: Nobody can tell who you sent or received cash from. Nobody can tell how much you sent. Only you and whoever you transact with get to know anything about your transaction - and the *only* thing you get to know about is your transaction. You can't follow the money to learn how rich they are, or who else they shop with.
+
+What do you do? You *buy some Monero* (maybe even [with Bitcoin](https://eigenwallet.org/)). Enough to pay for whatever it is you want to buy. Then you pay for the thing you want. Then you get the thing. And whoever you paid cannot follow the money back to spy on your finances. And whoever *they* go on to pay can't do it, either. And, indeed, *you* can't watch and see what *they* do with the money you paid them.
+
+Does that sound like the kind of `digital cash` you'd actually want to use?
+
+Let's revisit Ammous's "altcoin" test:
+
+**Is the benefit worth the overhead of a blockchain?**
+
+I hope we've established that the answer is a resounding "yes." You don't want your bank statements stapled onto every dollar bill you spend, any more than you want your full transaction history known to everyone you send Bitcoin to.
+
+**Is the process of decentralizing simple-enough that people will actually do it?**
+
+<blockquote class="link-card">
+  
+  <h1>MoneroHash.com: Monero Nodes Distribution</h1>
+  
+  <a href="https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">monerohash.com/nodes-distribution.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260723221554/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> Total nodes: 4697 - Last updated: about an hour ago
+
+**But** - that's only public nodes that can be reached through the peers that each node advertises.
+
+If you, say, ran a Monero node on a server inside your home network and just downloaded the blockchain but didn't punch a hole in your own firewall to allow other nodes to find and initiate inbound connections to you... you might never show up on that map. My node isn't on there.
+
+So that number is a *floor*, not the actual number. You probably can't ever know the actual number.
+
+Does a minimum of 4,697 nodes across the globe count as proof that it's simple-enough that people will actually do it?
+
+Well, it looks like at the time of writing this,
+
+| Coin    | Minimum Reachable Node Count | Blockchain Size | Total Transactions | Txns/GB |
+| ------- | ---------------------------- | --------------- | ------------------ | ------- |
+| Bitcoin | [22,492](https://bitref.com/nodes/)<br/>(4.8x) | 807 GB<br>(3x) | 1.413 Billion<br/>(23x) | 1,752,070<br/>(7x) |
+| Monero  | [4,697](https://monerohash.com/nodes-distribution.html) | 267 GB | 62.8 Million | 235,000 |
+
+*(Transaction counts & blockchain sizes sourced from my nodes directly)*
+
+That `7x` there at the end is the part to worry about: Monero is so far, on average 7x less-efficient at storing its blockchain than Bitcoin is. So, anything Bitcoin can do, Monero is going to demand 7x as much from the people running its nodes.
+
+If it had Bitcoin-level transactions, the blockchain would be over 6 *terabytes*. At 2026 prices, an SSD (which you *do* need to put the blockchain on if you want any kind of decent performance out of your node) to hold that *starts* at $1,000 for 8TB (and not a well-reviewed one).
+
+A whole grand just for the storage. Whereas today, Bitcoin's bitcoin-sized blockchain can fit on a 1TB SSD which starts around $130 - almost a tenth the price.
+
+Monero has been [making progress towards a more-efficient blockchain](https://www.getmonero.org/2024/04/27/fcmps.html) but it's been slow going. One could imagine that it gets resolved before it has to handle Bitcoin-level traffic, just as easily as one could imagine it never does.
+
+So there's a future risk there. Not a today risk, though.
+
+## Just CoinJoin Your BitCoin
+
+It is possible to obtain some privacy with Bitcoin transactions, through the process of a [CoinJoin](https://www.binance.com/en/academy/articles/coin-mixing-and-coinjoins-explained). Coinjoins involve multiple people collaborating to create a specific shape of transaction that makes it impossible to
+
+1. tell who sent what to whom
+2. tell who *intended* to send what to whom
+
+You can still see that "10 people all sent 1 BTC." You can see that "10 people all received 1 BTC from those 10." But you can't tell which one of the first 10 people was trying to pay which of the second 10 people. So, if you wanted to try to snoop on someone, you'd have to guess which of 10 options was actually the person you were interested in. Repeating a coinjoin a second time gives you 10 more options for each of the first 10 - that's 10 times 10, or 100. Coinjoin a third time, and now there are 1,000 possibilities... and so on, and so forth.
+
+This is a thing you have to choose to do, and you have to do it right:
+
+1. For every bitcoin you receive,
+2. CoinJoin it at least once, ideally multiple times
+    * this requires at *least* ~10 minutes (one block mined) per round, but you should wait closer to 6 blocks - ~1 hour per round
+    * transactions have fees and they have to come from somewhere. You'll pay *some* fee for the coinjoin.
+3. Finally spend privately
+4. Take any change from that transaction and `GOTO 1`
+5. Never, ever get impatient or make a mistake or else you lose the privacy you've been building.
+
+If **everyone** who spent bitcoin did this, it would be functionally impossible to even lay all the guesses out to pick from, let alone actually determine *which* specific path a given bitcoin took.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="everyone-will-not-just.png">
+      <img src="everyone-will-not-just.png" alt="Everyone Will Not Just" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Everyone Will Not Just</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260523175039/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+The problem with everyone not doing this is that it only buys you [forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy). Once spending starts happening with coinjoins in-between, nobody can tell who's spending what. But *until* the coinjoins start, people can still tell. So maybe you're perfectly-disciplined about coinjoins. Someone who *isn't* sends you some bitcoin. Anyone who sees that *knows* that you received from that person. And if that person wasn't doing coinjoins,anyone can find out all about the people you've been transacting with. We don't know what **you** bought, but we know Bob paid you 100,000 sats and Bob shops at the 7-11 in Townsville and works at SomeCorp. And Bob also pays his friends Alice and Eve, and they *also* live in Townsville. There's a pretty good chance you live there, too. And when you finally do spend, if the person you pay doesn't also do coinjoins, the forward secrecy ends with them and you're left inhabiting a tiny island of secrecy in an ocean of public knowledge. The various [blockchain analysis](https://en.wikipedia.org/wiki/Blockchain_analysis) firms have gotten really good at inferring information with a high degree of certainty in these situations.
+
+This problem is in the shape of opt-in vs opt-out. If you have to *choose* to do something, to opt-**in**, most people won't.
+
+> Everyone will **not** just.
+
+And thus, every part of the puzzle is assembled except your little missing piece - and a great deal of what matters about your blank space can be inferred from looking at the edges, all of which are public.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="missing-puzzle-piece.jpg">
+      <img src="missing-puzzle-piece.jpg" alt="What could possibly go here?" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">What could possibly go here?</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+On Bitcoin, privacy is a service you procure.
+
+Services require service providers and it's been rough:
+
+1. The simplest and best coinjoin solution - Samourai Whirlpool - [landed its providers in federal prison](https://en.wikipedia.org/wiki/Samourai_Wallet).
+2. The other major provider in the space - Wasabi Wallet - [caved to refusing certain coins](https://www.coindesk.com/tech/2022/03/14/wasabi-wallets-coinjoin-coordinator-to-blacklist-certain-bitcoin-transactions) - presumably to protect the company and themselves - though we don't know for sure, we *do* know what happened to Samourai, who didn't cave.
+3. In 2026 we do have another Whirlpool provider - [Ashigaru, a Samourai fork](https://ashigaru.rs/) - but they're entirely on [Tor](https://www.torproject.org/download/) and encrypted comms - they know what happens if they can be found.
+
+This privacy problem is present for any public-ledger cryptocurrency; Ethereum had a coinjoin service provider - [Tornado Cash](https://en.wikipedia.org/wiki/Tornado_Cash) - whose developers *also* landed federal charges with one sentenced to prison and one still working their way through the courts.
+
+There are other "not exactly a service" - or, you know - "peer-to-peer" coinjoin solutions like `joinmarket` - no link there because the domain's been yanked. No "Seized" notice, just... gone. And its source code archived. What happened? I don't know.
+
+Someone forked it into [joinmarket-ng](https://github.com/joinmarket-ng/joinmarket-ng) though, so you could still make the attempt.
+
+So that's great, right? Chop off the heads of the hydra, and Ashigaru and joinmarket-ng grow back with lessons learned?
+
+> Heads that regenerate after decapitation are not the same as having no neck.
+
+On Bitcoin, privacy is a service you procure. On Monero, privacy is a property of the network that you cannot decline.
+
+On Bitcoin, you must choose to procure privacy, and even the act of choosing is a signal that stands out against the default. On Monero, privacy is normal and having privacy doesn't make you stand out from your peers.
+
+## The Second Wrinkle
+
+I claimed there were two wrinkles in Ammous's blockchain test. The first was `digital`. The second is `cash`.
+
+Or, rather, money. Everything up to that point assumes that the only thing anyone ever would or could do on a blockchain is "money."
+
+There's a nuanced difference (here, at least) between *money* and *currency*. Money is the store of value, the unit of account. Currency is the medium of exchange. These two distinct roles are *often* filled by the same thing - but not always.
+
+Nowadays, your retirement account (if you have one...) is likely denominated in US dollars, but it's actually held in stocks, bonds, and other assets (Bitcoin, perhaps...?). You fork over some dollars at a coffeeshop; dollars are currency for spending. You don't send someone a fractional share of NVDA for that same coffee - your retirement account, as a long-term store of value play, seeks a different kind of asset where spendable liquidity isn't paramount.
+
+By those definitions, Monero is a currency where privacy is a first-class property. It's not a money.
+
+There's another example of a useful token that contrasts much more starkly: [Filecoin](https://www.filecoin.io/).
+
+Filecoin is the token that powers a distributed, peer-to-peer storage network. It's like cloud storage, but across an ever-changing, decentralized network of computers. You don't mine it with the "proof of work" that Bitcoin and Monero do - you get paid for providing storage that is proven to be available and to actually contain what it claims to store.
+
+Cloud storage has turned out to be an undeniably useful thing. Multibillion dollar businesses exist to provide it. Not just [Amazon S3](https://aws.amazon.com/s3/), but Google's [Cloud Storage](https://cloud.google.com/storage) and the retail-facing [iCloud](https://www.icloud.com/storage), [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage), and [Dropbox](https://www.dropbox.com/) to name just a few.
+
+Incidentally, the storage cost on those platforms (well, at least [S3](https://aws.frankcontrepois.com/s3PriceHistory)) has fallen over time.
+
+Is Filecoin a shitcoin? [The Internet Archive has put a petabyte of material on it](https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/) - including U.S. government web crawls that vanish between administrations. If you're the Archive, you want that storage cheap. As an *investment vehicle* though? [Absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money. ([Good money should be worthless](/2026/02/11/good-money-should-be-worthless.html), after all.)
+
+It's the price of cloud storage.
+
+And I love it when useful things - like computers, washing machines, television sets, cloud storage and privacy - get cheaper.
+
 ## Cold Wallets Are Born Hot
 
 WiFi is literally "airgapped." Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.
