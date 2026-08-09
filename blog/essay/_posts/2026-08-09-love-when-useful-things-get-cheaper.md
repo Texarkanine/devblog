@@ -297,7 +297,7 @@ Cloud storage has turned out to be an undeniably useful thing. Multibillion doll
 
 Incidentally, the storage cost on those platforms (well, at least [S3](https://aws.frankcontrepois.com/s3PriceHistory)) has fallen over time.
 
-Is Filecoin a shitcoin? [The Internet Archive has put a petabyte of material on it](https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/) - including U.S. government web crawls that vanish between administrations. If you're the Archive, you want that storage cheap. As an *investment vehicle* though? [Absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money. ([Good money should be worthless]({% post_url 2026-02-11-good-money-should-be-worthless %}), after all.)
+Is Filecoin a shitcoin? [The Internet Archive has put a petabyte of material on it](https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/) - including U.S. government web crawls that vanish between administrations. If you're the Archive, you want that storage cheap. As an *investment vehicle* though? [Absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money. ([Good money should be worthless]({% post_url blog/essay/2026-02-11-good-money-should-be-worthless %}), after all.)
 
 It's the price of cloud storage.
 
