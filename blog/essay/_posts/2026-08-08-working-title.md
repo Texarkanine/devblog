@@ -214,7 +214,7 @@ So there's a future risk there. Not a today risk, though.
 
 ## Just CoinJoin your BitCoin
 
-It is possible to obtain some privacy with Bitcoin transactions, through the process of a [CoinJoin](https://www.binance.com/en/academy/articles/coin-mixing-and-coinjoins-explained). Coinjoins involve multiple people collaborating to create a specific shape of transaction that makes it impossible to
+It is possible to obtain some privacy with Bitcoin transactions, through the process of a [coinjoin](https://www.binance.com/en/academy/articles/coin-mixing-and-coinjoins-explained). Coinjoins involve multiple people collaborating to create a specific shape of transaction that makes it impossible to
 
 1. tell who sent what to whom
 2. tell who *intended* to send what to whom
@@ -231,7 +231,7 @@ This is a thing you have to choose to do, and you have to do it right:
 4. Take any change from that transaction and `GOTO 1`
 5. Never, ever get impatient or make a mistake or else you lose the privacy you've been building.
 
-If **everyone** who spent Bitcoin did this, it would be functionally impossible to even lay all the guesses out to pick from, let alone actually determine *which* specific path a given bitcoin took.
+If **everyone** who spent bitcoin did this, it would be functionally impossible to even lay all the guesses out to pick from, let alone actually determine *which* specific path a given bitcoin took.
 
 {%polaroid
     everyone-will-not-just.png
@@ -261,13 +261,13 @@ Services require service providers and it's been rough:
 2. The other major provider in the space - Wasabi Wallet - [caved to refusing certain coins](https://www.reddit.com/r/Bitcoin/comments/us52cw/wasabi_wallet_has_become_a_surveillance/) - presumably under government pressure and to avoid the Samourai outcome (though we don't know for sure).
 3. In 2026 we do have another Whirlpool provider - [Ashigaru, a Samourai fork](https://ashigaru.rs/) - but they're entirely on [TOR](https://www.torproject.org/download/) and encrypted comms - they know what happens if they can be found.
 
-This privacy problem is present for any public-ledger cryptocurrency; Ethereum had a coinjoin service provider - [Tornado Cash](https://en.wikipedia.org/wiki/Tornado_Cash) - whose developers *also* landed federal charges with one sentencted to prison and one still working their way through the courts.
+This privacy problem is present for any public-ledger cryptocurrency; Ethereum had a coinjoin service provider - [Tornado Cash](https://en.wikipedia.org/wiki/Tornado_Cash) - whose developers *also* landed federal charges with one sentenced to prison and one still working their way through the courts.
 
 There are other "not exactly a service" - or, you know - "peer to peer" coinjoin solutions like `joinmarket.net` - no link there because the domain's been yanked. No "Seized" notice, just... gone. And its source code archived. What happened? I don't know.
 
 Someone forked it into [joinmarket-ng](https://github.com/joinmarket-ng/joinmarket-ng) though, so you could still make the attempt.
 
-So that's great, right? Chop of the heads of the hydra and Ashigaru and joinmarket-ng grow back with lessons learned?
+So that's great, right? Chop off the heads of the hydra and Ashigaru and joinmarket-ng grow back with lessons learned?
 
 > Heads that regenerate after decapitation are not the same as having no neck.
 
