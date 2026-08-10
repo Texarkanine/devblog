@@ -224,7 +224,7 @@ I hope we've established that the answer is a resounding "yes." You don't want y
   <a href="https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">monerohash.com/nodes-distribution.html</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260809213342/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260810004726/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
@@ -362,17 +362,17 @@ There's a nuanced difference (here, at least) between *money* and *currency*. Mo
 
 Nowadays, your retirement account (if you have one...) is likely denominated in US dollars, but it's actually held in stocks, bonds, and other assets (Bitcoin, perhaps...?). You fork over some dollars at a coffeeshop; dollars are currency for spending. You don't send someone a fractional share of NVDA for that same coffee - your retirement account, as a long-term store of value play, seeks a different kind of asset where spendable liquidity isn't paramount.
 
-By those definitions, Monero is a currency where privacy is a first-class property. It's not a money.
+By those definitions, Monero is a currency where privacy is a first-class property. It's not a money. But that's not even the full wrinkle.
 
 There's another example of a useful token that contrasts much more starkly: [Filecoin](https://www.filecoin.io/).
 
-Filecoin is the token that powers a distributed, peer-to-peer storage network. It's like cloud storage, but across an ever-changing, decentralized network of computers. You don't mine it with the "proof of work" that Bitcoin and Monero do - you get paid for providing storage that is proven to be available and to actually contain what it claims to store.
+Filecoin is the token that powers a distributed, peer-to-peer storage network. It's like cloud storage, but across an ever-changing, decentralized network of computers. You don't mine it with the "proof of work" that Bitcoin and Monero do - you get paid for providing storage that is proven to be available and to actually contain what it claims to store. And you "spend" Filecoin to rent storage on the network.
 
 Cloud storage has turned out to be an undeniably useful thing. Multibillion dollar businesses exist to provide it. Not just [Amazon S3](https://aws.amazon.com/s3/), but Google's [Cloud Storage](https://cloud.google.com/storage) and the retail-facing [iCloud](https://www.icloud.com/storage), [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage), and [Dropbox](https://www.dropbox.com/) to name just a few.
 
 Incidentally, the storage cost on those platforms (well, at least [S3](https://aws.frankcontrepois.com/s3PriceHistory)) has fallen over time.
 
-Is Filecoin a shitcoin? [The Internet Archive has put a petabyte of material on it](https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/) - including U.S. government web crawls that vanish between administrations. If you're the Archive, you want that storage cheap. As an *investment vehicle* though? [Absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money. ([Good money should be worthless](/2026/02/11/good-money-should-be-worthless.html), after all.)
+Is Filecoin a shitcoin? [The Internet Archive has put a petabyte of material on it](https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/) - including U.S. government web crawls that vanish between administrations. If you're the Archive, you want that storage cheap. As an *investment vehicle* though? [Absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money.
 
 It's the price of cloud storage.
 
