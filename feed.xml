@@ -1,4 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-10T00:44:30+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">I Love It When Useful Things Get Cheaper</title><link href="https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper.html" rel="alternate" type="text/html" title="I Love It When Useful Things Get Cheaper" /><published>2026-08-09T00:00:00+00:00</published><updated>2026-08-09T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper.html"><![CDATA[<p>Around 1998, my family’s computer was an <a href="https://en.wikipedia.org/wiki/IBM_Aptiva">IBM Aptiva</a>. It was one of the later models, right as <a href="https://en.wikipedia.org/wiki/Pentium_(original)">Pentium</a> CPUs were showing up in home computers. I recall its clock speed was <a href="https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants">133 MHz</a>. I recall this because I really wanted to play the <a href="https://en.wikipedia.org/wiki/Lego_Creator_(video_game)">LEGO Creator</a> game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-12T01:06:09+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Stockroom: Find the Conversation You Half-Remember</title><link href="https://blog.cani.ne.jp/2026/08/11/stockroom.html" rel="alternate" type="text/html" title="Stockroom: Find the Conversation You Half-Remember" /><published>2026-08-11T00:00:00+00:00</published><updated>2026-08-11T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/11/stockroom</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/11/stockroom.html"><![CDATA[<p>Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about “blogging about stockroom,” asked from <a href="https://code.claude.com/">Claude Code</a>, about a <a href="https://cursor.com/">Cursor</a> session I only half-remembered.</p>
+
+<p>Stockroom’s <a href="https://texarkanine.github.io/stockroom/user-guide/search/">search</a> put that Cursor session at rank one. The retrieved plan became the plan for this post.</p>
+
+<p>That is the whole pitch. Your agents have been writing history to disk the whole time. I built <a href="https://texarkanine.github.io/stockroom/">Stockroom</a> so you can ask about it - from either harness, about either harness - without hoping the vendor’s UI still has the thread.</p>
+
+<p><strong><a href="https://github.com/Texarkanine/stockroom">Stockroom 1.0 is out.</a></strong></p>
+
+<h2 id="your-transcripts-one-warehouse">Your Transcripts, One Warehouse</h2>
+
+<p>One local <a href="https://duckdb.org/">DuckDB</a> file. Full prompts, responses, and tool inputs - kept whole. Truncation is a read-time convenience, never a storage-time loss.</p>
+
+<p>Two ways in:</p>
+
+<ul>
+  <li><strong>Ask the agent.</strong> Slash-invoke <code class="language-plaintext highlighter-rouge">/sr-search</code> (Claude: <code class="language-plaintext highlighter-rouge">/stockroom:sr-search</code>) and let it pick SQL, meaning search, or both. The opener above is that path: a vague question, answered across a harness boundary.</li>
+  <li><strong>Skip the agent.</strong> After setup, <code class="language-plaintext highlighter-rouge">stockroom query</code> and the local <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/">dashboard</a> work offline. No cloud index of your coding sessions.</li>
+</ul>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">
+      <img src="stockroom-dashboard-top-light.png" alt="Stockroom local dashboard showing session history across harnesses" width="600" class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">Stockroom dashboard</div>
+    <div class="polaroid-link">
+      
+      <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">texarkanine.github.io/stockroom/user-guide/dashboard/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p><strong>It backfills.</strong> Harness formats come and go; Stockroom reads what is still on disk, including formats the vendors already abandoned. On this machine the warehouse holds a bit over 113,000 messages across Cursor and Claude Code, reaching back to September 2025 - months before Stockroom’s first commit in June 2026. The cameras were running. Stockroom just lets you re-watch the tapes.</p>
+
+<p>That “pays backwards” feeling is what <a href="/2026/08/01/just-try-the-thing.html">Just Try the Thing</a> was pointing at: agents can use work from <em>before</em> the warehouse existed, because the raw logs were already on disk. <a href="/2026/08/03/disintegration-of-persistence-of-memory-md.html">Disintegration of Persistence of Memory.md</a> puts the same store on the memory ladder as rung five - security-camera footage for <em>how</em> and <em>why</em>, not a notepad you hope somebody kept tidy. Those posts argue the need. This one is the install.</p>
+
+<p>Cursor and Claude Code share one schema. Every table already carries <code class="language-plaintext highlighter-rouge">harness</code> as a first-class column, so another ingest path later is additive - not a rewrite dressed up as a feature. I may add more harnesses; I may not. Day one already speaks two.</p>
+
+<h2 id="from-zero-to-sr-search">From Zero to /sr-search</h2>
+
+<ol>
+  <li>Add the <a href="https://github.com/Texarkanine/txrk9-agent-plugins">txrk9-agent-plugins</a> marketplace, then install the <code class="language-plaintext highlighter-rouge">stockroom</code> plugin from it.</li>
+  <li><strong>Cursor only:</strong> enable <strong>Include third-party Plugins, Skills, and other configs</strong> (Settings → Rules, Skills, Subagents). Plugin hooks do not register without it.</li>
+  <li>Run first-time setup:
+    <ul>
+      <li>Cursor: <code class="language-plaintext highlighter-rouge">/sr-initialize</code></li>
+      <li>Claude Code: <code class="language-plaintext highlighter-rouge">/stockroom:sr-initialize</code></li>
+    </ul>
+  </li>
+  <li>Ask about past work, or slash-invoke search:</li>
+</ol>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/sr-search "What was the most-recent time I had to correct an agent's behavior?"
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">sr-initialize</code> provisions the per-machine torch wheel (for meaning search), puts <code class="language-plaintext highlighter-rouge">stockroom</code> on your PATH, offers nightly ingest+embed, and runs the first full ingest. Re-runs are safe: it re-probes and only does what is still missing.</p>
+
+<p>Full walkthrough, including what landed on disk and what to try next: the <a href="https://texarkanine.github.io/stockroom/user-guide/quickstart/">Quickstart</a>.</p>
+
+<h2 id="open-source-tagged-100">Open Source, Tagged 1.0.0</h2>
+
+<p>Stockroom is open source under AGPL-3.0 at <a href="https://github.com/Texarkanine/stockroom">github.com/Texarkanine/stockroom</a>. Docs live at <a href="https://texarkanine.github.io/stockroom/">texarkanine.github.io/stockroom</a>. <a href="https://github.com/Texarkanine/stockroom/releases/tag/v1.0.0">v1.0.0</a> just shipped; the marketplace plugin path above pulls current.</p>
+
+<p>If you half-remember a conversation and wish either agent could find it:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/sr-search "blogging about stockroom"
+</code></pre></div></div>
+
+<p>Worst case, you learn what your warehouse does not have yet. Best case, last month answers.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="stockroom" /><category term="cursor" /><category term="claude-code" /><category term="developer-tools" /><category term="harness-engineering" /><category term="open-source" /><category term="tools" /><summary type="html"><![CDATA[Stockroom 1.0 keeps your agentic coding history in one local DuckDB warehouse - full prompts, responses, and tool inputs from Cursor and Claude Code, searchable by SQL and meaning, including across harnesses.]]></summary></entry><entry><title type="html">I Love It When Useful Things Get Cheaper</title><link href="https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper.html" rel="alternate" type="text/html" title="I Love It When Useful Things Get Cheaper" /><published>2026-08-09T00:00:00+00:00</published><updated>2026-08-09T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper.html"><![CDATA[<p>Around 1998, my family’s computer was an <a href="https://en.wikipedia.org/wiki/IBM_Aptiva">IBM Aptiva</a>. It was one of the later models, right as <a href="https://en.wikipedia.org/wiki/Pentium_(original)">Pentium</a> CPUs were showing up in home computers. I recall its clock speed was <a href="https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants">133 MHz</a>. I recall this because I really wanted to play the <a href="https://en.wikipedia.org/wiki/Lego_Creator_(video_game)">LEGO Creator</a> game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.</p>
 
 <p>Though the Aptivas retailed, allegedly, for up to $2,700, I have $3,300 in my head. Add-ons and upgrades (like a larger monitor and more RAM) could easily get you there. I can’t find any period magazine ads for that specific computer, but here’s something from 1996 that would <em>absolutely</em> have played LEGO Creator:</p>
 
@@ -68,7 +142,7 @@
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260808173643/https://christmas.musetechnical.com/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -145,7 +219,7 @@
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260810005805/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -231,6 +305,10 @@ If the answer to either of them is “no,” then “normal” software is proba
   <h1>MoneroHash.com: Monero Nodes Distribution</h1>
   
   <a href="https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">monerohash.com/nodes-distribution.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260810004726/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
+  </small>
   
 </blockquote>
 
@@ -329,7 +407,7 @@ If the answer to either of them is “no,” then “normal” software is proba
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260523175039/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -463,7 +541,7 @@ If the answer to either of them is “no,” then “normal” software is proba
   <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260809211206/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260810004529/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
@@ -2298,166 +2376,4 @@ PAGE_FAULT_IN_NONPAGED_AREA   (Hiren's WinPE)
 
 <p>One problem I noticed was that when I fed the audit into an agent to address the issues, it tended to put its own, new <a href="https://texarkanine.github.io/slobac/taxonomy/deliverable-fossils">deliverable-fossils</a> into the tests it was fixing! This suggests there’s an opportunity to hook into agent’s test-authoring process (whether part of processing a SLOBAC audit or not) to inject some guards against common test-authorship antipatterns that are cheaper to preclude up-front, than fix <em>ex-post-facto</em>.</p>
 
-<p>Of course, that isn’t <em>exactly</em> what SLOBAC was for - it was for the extant test suites that were <em>not</em> created with such rigor. Scope creep, or opportunity? I’m not sure yet. If nothing else, it makes it more difficult to run repeated audits on the same codebase to progressively stabilize. I’ll have to audit and fix some more codebases to develop a better sense of where and how to address that.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="software-engineering" /><category term="software-quality" /><category term="testing" /><category term="tools" /><summary type="html"><![CDATA[SLOBAC delivers principles for good tests, a taxonomy of test smells, safe refactoring workflows, and an agent skill to audit and clean up sprawling AI-generated test suites.]]></summary></entry><entry><title type="html">The Elgato Streamdeck for Shell Aliases on Headless Linux</title><link href="https://blog.cani.ne.jp/2026/04/19/elgato-alias.html" rel="alternate" type="text/html" title="The Elgato Streamdeck for Shell Aliases on Headless Linux" /><published>2026-04-19T00:00:00+00:00</published><updated>2026-04-19T00:00:00+00:00</updated><id>https://blog.cani.ne.jp/2026/04/19/elgato-alias</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/04/19/elgato-alias.html"><![CDATA[<p>Let’s set the stage:</p>
-
-<p>I have many computers in my office. I live in residence in the US with the typical 15A/110V power supply, meaning <code class="language-plaintext highlighter-rouge">1650</code> Watts maximum power available on a single circuit - and my office is a single circuit.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Device</th>
-      <th>Nominal Max Power</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Work Laptop</td>
-      <td>140W</td>
-    </tr>
-    <tr>
-      <td>Personal Computer</td>
-      <td>750W</td>
-    </tr>
-    <tr>
-      <td>Server</td>
-      <td>800W</td>
-    </tr>
-    <tr>
-      <td>Gaming PC</td>
-      <td>450W</td>
-    </tr>
-    <tr>
-      <td>Network Hardware</td>
-      <td>48W</td>
-    </tr>
-    <tr>
-      <td>Medium Monitors</td>
-      <td>4x ~ 30W = 120W</td>
-    </tr>
-    <tr>
-      <td>Large Monitors</td>
-      <td>110W + 120W = 230W</td>
-    </tr>
-    <tr>
-      <td>Lights</td>
-      <td>11x ~6W = 66W</td>
-    </tr>
-    <tr>
-      <td><strong>Total</strong></td>
-      <td><code class="language-plaintext highlighter-rouge">2614</code> W</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>so, you can see a problem here.</p>
-
-<p>Fortunately, most of the computers aren’t running full tilt at any given time.</p>
-
-<p>If we assume ~100W at idle for the PCs and basically zero at idle for the laptop (it sleeps, PCs don’t), we might have <code class="language-plaintext highlighter-rouge">1114</code> Watts at any given time. Okay, totally safe!</p>
-
-<p>Now, there are a couple highly-variable draws in here, which are rarely going, basically zero except when in use:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Device</th>
-      <th>Nominal Max Power</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>USB Charging Warts</td>
-      <td>11x ~ 80W = 880W*</td>
-    </tr>
-    <tr>
-      <td>Laser Printer</td>
-      <td>960W</td>
-    </tr>
-    <tr>
-      <td><strong>Total</strong></td>
-      <td><code class="language-plaintext highlighter-rouge">1840</code> W</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>so, you can see a problem here.</p>
-
-<p>Fortunately, it would be basically impossible for <em>all</em> USB charging warts to be running at full-tilt at once. Maybe only ever 80W at a time. That printer, though…</p>
-
-<p>If we take the “safe” <code class="language-plaintext highlighter-rouge">1114</code> W and add that <code class="language-plaintext highlighter-rouge">960</code> peak (when it’s warming up), we get <code class="language-plaintext highlighter-rouge">2074</code> Watts. That’s… significantly above the room’s circuit. But, it only draws <em>that</em> amount for a short period of time (the lights do flicker…) before dropping down to its “printing” consumption of 480W, putting the room at <code class="language-plaintext highlighter-rouge">1594</code> Watts. That’s pushing it, but totally viable!</p>
-
-<p>Just don’t run multiple computers at full tilt at once, <em>and then</em> try to print.</p>
-
-<h2 id="running-multiple-computers-at-full-tilt-at-once">Running Multiple Computers At Full Tilt at Once</h2>
-
-<p>Before I got the printer, I used to have all 3 personal computers mining <a href="https://www.getmonero.org/">Monero</a> when idle - <a href="https://xmrig.com/">xmrig</a> in the background at the lowest CPU priority. And, only using CPU mining, since GPU mining was not power-efficient per Watt.</p>
-
-<p>That kept each PC’s CPU at its max power consumption, around 65W + 65W + 105W = <code class="language-plaintext highlighter-rouge">235</code> Watts, so our baseline would’ve been ~ <code class="language-plaintext highlighter-rouge">1348</code> Watts.</p>
-
-<p>But a year or so ago, the mining pool I’d been using went offline, and I never got around to setting up <a href="https://github.com/SChernykh/p2pool">p2pool</a> for peer-to-peer mining, so the <code class="language-plaintext highlighter-rouge">xmrig</code> processes sat idle, with no work.</p>
-
-<h2 id="setting-up-p2pool">Setting Up P2Pool</h2>
-
-<p>I set up P2Pool on the server recently, and got two of the PCs mining again. The third… is offline, and its saga will go in a separate post in the future when it’s back.</p>
-
-<p>So we’ve got 2 PCs mining at full power consumption, so the room baseline is probably around <code class="language-plaintext highlighter-rouge">1285</code> Watts.</p>
-
-<h2 id="and-then-i-printed">And Then I Printed</h2>
-
-<p>+960W to bring the room to <code class="language-plaintext highlighter-rouge">2245</code> Watts, <code class="language-plaintext highlighter-rouge">595</code> over the circuit’s nominal maximum.</p>
-
-<p>The breaker tripped. I flipped it back and tried again, just to be sure. Same thing.</p>
-
-<p>Okay, cool, my nominal 1650W office can handle spikes of ~400W but not ~600W.</p>
-
-<p>Obviously, I need to stop the mining before I print.</p>
-
-<h2 id="stopping-the-mining">Stopping the Mining</h2>
-
-<p>With each miner pulling work from the <code class="language-plaintext highlighter-rouge">p2pool</code> on the server, stopping the <code class="language-plaintext highlighter-rouge">p2pool</code> is a convenient shortcut to stop all the miners - they’ll have no work, and power consumption will drop.</p>
-
-<p>So, do I just remember to log in to the server and run <code class="language-plaintext highlighter-rouge">sudo systemctl stop p2pool</code> before I print?</p>
-
-<p>No!</p>
-
-<h2 id="on-air">On Air</h2>
-
-<p>I work in the office, and am often in meetings. I wrote a <a href="https://github.com/texarkanine/onair">3-part software system</a> to allow my work laptop to indicate when I was in a call, and push that to an “on air” sign hung outside my office. But it supports multiple signs, so I have another “monitor” on-air sign inside the office.</p>
-
-<p><img src="onair-deco.jpg" alt="On-Air Sign" /></p>
-
-<p>But sometimes I use my cell phone. I have not built software for the cell phone to detect when I’m on a call <em>in my office specifically</em>, and activate the on-air signs. So, when I’m using the phone, I usually just log into the server and run a little <code class="language-plaintext highlighter-rouge">alias</code> I’ve put together to toggle the on-air status manually.</p>
-
-<h2 id="hardware-aliases">Hardware Aliases</h2>
-
-<p>Violating the rule of three, I decided these <em>two</em> use-cases justified buying an <a href="https://www.elgato.com/en/gaming/stream-deck">Elgato Streamdeck</a>.</p>
-
-<p>The plan was to make a button for toggling <code class="language-plaintext highlighter-rouge">p2pool</code> and for toggling the on-air signs, and run the streamdeck cable from my server over to my main PC, so I can just push the “Mining Off” button before I try to print. Crucially, the LED screens on the streamdeck meant I would have an indicator of the state of the mining, so I would know when the shutdown had actually <em>completed</em> (and thus power consumption was low enough for printing to be safe).</p>
-
-<p>On a headless linux server, though? Yes, with the <a href="https://pypi.org/project/streamdeck/">streamdeck python library</a>!</p>
-
-<p>Niko banged out the on-air integration in a couple minutes: a little python server just registered as a third sign and toggled the button’s display when on-air vs off-air. Pushing the button queried the on-air server’s current state and then pushed the opposite to the API.</p>
-
-<h2 id="toggling-systemd-units-with-a-button-but-not-root">Toggling Systemd Units With a Button (But Not Root)</h2>
-
-<p>For the <code class="language-plaintext highlighter-rouge">p2pool</code> toggle, we needed to listen to state changes in the <code class="language-plaintext highlighter-rouge">p2pool</code> <a href="https://systemd.io/">systemd</a> unit to keep the button’s display accurate, <em>and</em> we needed the process listening to Streamdeck button presses to be able to <code class="language-plaintext highlighter-rouge">systemctl ...</code> the <code class="language-plaintext highlighter-rouge">p2pool</code> service. But, I wasn’t going to run that server as <code class="language-plaintext highlighter-rouge">root</code>. So, fun permission!</p>
-
-<p>Niko nailed this, too, but it took a bit of telephone since the AIs don’t have <code class="language-plaintext highlighter-rouge">root</code> access to the server (yet…).</p>
-
-<p>The magic ended up being <a href="https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html">polkit</a> config to <a href="https://github.com/Texarkanine/my-streamdeck-drivers/blob/15cab67133b8ed2025aefd3b842bfc8f9c05f096/install/polkit/deckd-p2pool.pkla">grant</a> <code class="language-plaintext highlighter-rouge">systemd</code> access to the user that was running the server process that was managing the streamdeck. Unfortunately, my system’s <code class="language-plaintext highlighter-rouge">polkit</code> is an older version that doesn’t support programmatic configuration (only config-based), so while a newer system would be able to <a href="https://github.com/Texarkanine/my-streamdeck-drivers/blob/15cab67133b8ed2025aefd3b842bfc8f9c05f096/install/polkit/99-deckd-p2pool.rules">limit</a> that user to <em>just</em> being able to bounce the <code class="language-plaintext highlighter-rouge">p2pool</code> service… I ended up having to give that user full access to manipulate my systemd units. Bummer for now.</p>
-
-<h2 id="victory">Victory</h2>
-
-<p>But, it works!</p>
-
-<p>I have two reactive, physical buttons that I can push to toggle these services:</p>
-
-<p><img src="elgato-monero-onair.jpg" alt="Streamdeck Buttons" /></p>
-
-<p>The Monero button will indicate while the service is shutting down <em>and</em> then stabilize to a different icon when it’s totally off (and safe to print):</p>
-
-<p><img src="elgato-nomonero-onair.jpg" alt="Streamdeck Showing Monero Offline" /></p>
-
-<p>The “on air” button’s sign icon lights up just like the real signs do when I’m on-air.</p>
-
-<p>And, I still have four buttons remaining!</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="diary" /><category term="hardware" /><summary type="html"><![CDATA[Adding an Elgato Streamdeck to my headless Linux server to manifest shell aliases and system status in the physical world... all because I have too much stuff plugged in for my circuit breaker to handle.]]></summary></entry></feed>
+<p>Of course, that isn’t <em>exactly</em> what SLOBAC was for - it was for the extant test suites that were <em>not</em> created with such rigor. Scope creep, or opportunity? I’m not sure yet. If nothing else, it makes it more difficult to run repeated audits on the same codebase to progressively stabilize. I’ll have to audit and fix some more codebases to develop a better sense of where and how to address that.</p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="software-engineering" /><category term="software-quality" /><category term="testing" /><category term="tools" /><summary type="html"><![CDATA[SLOBAC delivers principles for good tests, a taxonomy of test smells, safe refactoring workflows, and an agent skill to audit and clean up sprawling AI-generated test suites.]]></summary></entry></feed>

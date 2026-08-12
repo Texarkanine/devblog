@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [Stockroom: Find the Conversation You Half-Remember](https://blog.cani.ne.jp/2026/08/11/stockroom.md): Stockroom 1.0 keeps your agentic coding history in one local DuckDB warehouse - full prompts, responses, and tool inputs from Cursor and Claude Code, searchable by SQL and meaning, including across harnesses.
 - [Sub-Agents aren't Agents - They're Skills but Worse](https://blog.cani.ne.jp/2026/03/30/subagents-arent-agents.md): Sub-Agents are syntactic sugar over skills with one baked-in assumption about execution context that should be the caller's decision.
 - [The Load-Bearing Pipeline Was Human](https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.md): A specification-to-code pipeline that worked for decades doesn't stop working because you swapped the executors; it stops working when you rip out the stages.
 - [The Adeptus Mechanicus Bootcamp: A Gentle Seduction](https://blog.cani.ne.jp/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.md)

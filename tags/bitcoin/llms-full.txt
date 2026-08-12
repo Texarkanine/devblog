@@ -139,7 +139,7 @@ If you were to compare these "cryptocurrencies" on price:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260810005805/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -423,7 +423,7 @@ Two big cold-storage failures attacked exactly that moment.
   <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260809211206/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260810004529/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>

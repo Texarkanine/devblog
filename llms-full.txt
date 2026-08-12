@@ -1,5 +1,79 @@
 # 🐶 Dog with a Dev Blog
 
+## Stockroom: Find the Conversation You Half-Remember
+
+Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about "blogging about stockroom," asked from [Claude Code](https://code.claude.com/), about a [Cursor](https://cursor.com/) session I only half-remembered.
+
+Stockroom's [search](https://texarkanine.github.io/stockroom/user-guide/search/) put that Cursor session at rank one. The retrieved plan became the plan for this post.
+
+That is the whole pitch. Your agents have been writing history to disk the whole time. I built [Stockroom](https://texarkanine.github.io/stockroom/) so you can ask about it - from either harness, about either harness - without hoping the vendor's UI still has the thread.
+
+**[Stockroom 1.0 is out.](https://github.com/Texarkanine/stockroom)**
+
+## Your Transcripts, One Warehouse
+
+One local [DuckDB](https://duckdb.org/) file. Full prompts, responses, and tool inputs - kept whole. Truncation is a read-time convenience, never a storage-time loss.
+
+Two ways in:
+
+- **Ask the agent.** Slash-invoke `/sr-search` (Claude: `/stockroom:sr-search`) and let it pick SQL, meaning search, or both. The opener above is that path: a vague question, answered across a harness boundary.
+- **Skip the agent.** After setup, `stockroom query` and the local [dashboard](https://texarkanine.github.io/stockroom/user-guide/dashboard/) work offline. No cloud index of your coding sessions.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">
+      <img src="stockroom-dashboard-top-light.png" alt="Stockroom local dashboard showing session history across harnesses" width="600" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Stockroom dashboard</div>
+    <div class="polaroid-link">
+      
+      <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">texarkanine.github.io/stockroom/user-guide/dashboard/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260812011057/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+**It backfills.** Harness formats come and go; Stockroom reads what is still on disk, including formats the vendors already abandoned. On this machine the warehouse holds a bit over 113,000 messages across Cursor and Claude Code, reaching back to September 2025 - months before Stockroom's first commit in June 2026. The cameras were running. Stockroom just lets you re-watch the tapes.
+
+That "pays backwards" feeling is what [Just Try the Thing](/2026/08/01/just-try-the-thing.html) was pointing at: agents can use work from *before* the warehouse existed, because the raw logs were already on disk. [Disintegration of Persistence of Memory.md](/2026/08/03/disintegration-of-persistence-of-memory-md.html) puts the same store on the memory ladder as rung five - security-camera footage for *how* and *why*, not a notepad you hope somebody kept tidy. Those posts argue the need. This one is the install.
+
+Cursor and Claude Code share one schema. Every table already carries `harness` as a first-class column, so another ingest path later is additive - not a rewrite dressed up as a feature. I may add more harnesses; I may not. Day one already speaks two.
+
+## From Zero to /sr-search
+
+1. Add the [txrk9-agent-plugins](https://github.com/Texarkanine/txrk9-agent-plugins) marketplace, then install the `stockroom` plugin from it.
+2. **Cursor only:** enable **Include third-party Plugins, Skills, and other configs** (Settings → Rules, Skills, Subagents). Plugin hooks do not register without it.
+3. Run first-time setup:
+   - Cursor: `/sr-initialize`
+   - Claude Code: `/stockroom:sr-initialize`
+4. Ask about past work, or slash-invoke search:
+
+```text
+/sr-search "What was the most-recent time I had to correct an agent's behavior?"
+```
+
+`sr-initialize` provisions the per-machine torch wheel (for meaning search), puts `stockroom` on your PATH, offers nightly ingest+embed, and runs the first full ingest. Re-runs are safe: it re-probes and only does what is still missing.
+
+Full walkthrough, including what landed on disk and what to try next: the [Quickstart](https://texarkanine.github.io/stockroom/user-guide/quickstart/).
+
+## Open Source, Tagged 1.0.0
+
+Stockroom is open source under AGPL-3.0 at [github.com/Texarkanine/stockroom](https://github.com/Texarkanine/stockroom). Docs live at [texarkanine.github.io/stockroom](https://texarkanine.github.io/stockroom/). [v1.0.0](https://github.com/Texarkanine/stockroom/releases/tag/v1.0.0) just shipped; the marketplace plugin path above pulls current.
+
+If you half-remember a conversation and wish either agent could find it:
+
+```text
+/sr-search "blogging about stockroom"
+```
+
+Worst case, you learn what your warehouse does not have yet. Best case, last month answers.
+
 ## I Love It When Useful Things Get Cheaper
 
 Around 1998, my family's computer was an [IBM Aptiva](https://en.wikipedia.org/wiki/IBM_Aptiva). It was one of the later models, right as [Pentium](https://en.wikipedia.org/wiki/Pentium_(original)) CPUs were showing up in home computers. I recall its clock speed was [133 MHz](https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants). I recall this because I really wanted to play the [LEGO Creator](https://en.wikipedia.org/wiki/Lego_Creator_(video_game)) game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.
@@ -139,7 +213,7 @@ If you were to compare these "cryptocurrencies" on price:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260810005805/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -423,7 +497,7 @@ Two big cold-storage failures attacked exactly that moment.
   <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260809211206/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260810004529/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
@@ -6338,7 +6412,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.z9w20wmx3zzzqro4o-lqd0nrcsosceib { display: inline-block; }</style><script>(function(){function eg6thqpoiagn9(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function af0aqbbtko4xv(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var rvqyun=sp.getAttribute('data-hbugsn');var ddgo6dr=sp.getAttribute('data-kvyvbu');var v8i0tlt9ng4h=sp.getAttribute('data-ohulhqvw');var xhoumrrgic=sp.getAttribute('data-wazokjnvb');var mailto=eg6thqpoiagn9(rvqyun,spParts[0].length);var user=eg6thqpoiagn9(ddgo6dr,spParts[1].length);var domainBase=eg6thqpoiagn9(v8i0tlt9ng4h,lnkParts[0].length);var tld=eg6thqpoiagn9(xhoumrrgic,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function lbmjsddppzf6j(){var els=document.querySelectorAll('a.cnhbggm-r6s4d8var4gy46u');var handler=function(){var sp=this.querySelector('span.z9w20wmx3zzzqro4o-lqd0nrcsosceib');if(sp&&!this.dataset.d){var val=af0aqbbtko4xv(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',lbmjsddppzf6j);}else{lbmjsddppzf6j();}})();</script>{:/nomarkdown}<a href="#" class="cnhbggm-r6s4d8var4gy46u"><span class="z9w20wmx3zzzqro4o-lqd0nrcsosceib" data-hbugsn="drzckf" data-kvyvbu="FSROQHSR" data-ohulhqvw="wyvavuthps" data-wazokjnvb="rdb">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.ge91vxno80jo-nfpeyf4hmrfpvi { display: inline-block; }</style><script>(function(){function vgu0neupegf6me3l(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function edrwz8gcz9(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var kwkbjwbxhjtb=sp.getAttribute('data-dts369oevnb');var na7fptjlfvu=sp.getAttribute('data-lnuwadsw');var z8zn7syhbd=sp.getAttribute('data-ptsejrd');var nkn9goknpi=sp.getAttribute('data-aonu4qap2oq');var mailto=vgu0neupegf6me3l(kwkbjwbxhjtb,spParts[0].length);var user=vgu0neupegf6me3l(na7fptjlfvu,spParts[1].length);var domainBase=vgu0neupegf6me3l(z8zn7syhbd,lnkParts[0].length);var tld=vgu0neupegf6me3l(nkn9goknpi,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function jad0ym00dek(){var els=document.querySelectorAll('a.jesav0hlt7-uulzxuvymrn9gt');var handler=function(){var sp=this.querySelector('span.ge91vxno80jo-nfpeyf4hmrfpvi');if(sp&&!this.dataset.d){var val=edrwz8gcz9(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',jad0ym00dek);}else{jad0ym00dek();}})();</script>{:/nomarkdown}<a href="#" class="jesav0hlt7-uulzxuvymrn9gt"><span class="ge91vxno80jo-nfpeyf4hmrfpvi" data-dts369oevnb="ymuxfa" data-lnuwadsw="FSROQHSR" data-ptsejrd="zbydyxwksv" data-aonu4qap2oq="qca">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -7283,6 +7357,8 @@ The fix took two lines. Finding those two lines required understanding the entir
 
 <ul>
 
+  <li>2026-08-11 <a href="/2026/08/11/stockroom.html">Stockroom: Find the Conversation You Half-Remember</a></li>
+
   <li>2026-08-09 <a href="/2026/08/09/love-when-useful-things-get-cheaper.html">I Love It When Useful Things Get Cheaper</a></li>
 
   <li>2026-08-06 <a href="/2026/08/06/cold-wallets-born-hot.html">Cold Wallets Are Born Hot</a></li>
@@ -7379,87 +7455,7 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
-          
-        </li><li>
-          
-          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
-          
-        </li><li>
-          
-          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
-          
-        </li><li>
-          
-          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
-          
-        </li><li>
-          
-          <a href="/garden/ai-horses.html">Horses</a>
-          
-        </li><li>
-          
-          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
-          
-        </li><li>
-          
-          <a href="/garden/stories.html">Stories</a>
-          
-        </li><li>
-          
-          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
-          
-        </li><li>
-          
-          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
-          
-        </li><li>
-          
-          <a href="/garden/idea-bank.html">Idea Bank</a>
-          
-        </li><li>
-          
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
-          
-        </li><li>
-          
-          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/index.html">Shrines</a>
-          
-        </li><li>
-          
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
-          
-        </li><li>
-          
-          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
-          
-        </li><li>
-          
-          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
-          
-        </li><li>
-          
-          <a href="/garden/last-programming-language.html">The Last Programming Language</a>
-          
-        </li><li>
-          
-          <a href="/garden/short-stories.html">Short Stories</a>
+          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
           
         </li><li>
           
@@ -7467,7 +7463,11 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
+          <a href="/garden/linkroll.html">Linkroll</a>
+          
+        </li><li>
+          
+          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
           
         </li><li>
           
@@ -7475,11 +7475,87 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/linkroll.html">Linkroll</a>
+          <a href="/garden/idea-bank.html">Idea Bank</a>
+          
+        </li><li>
+          
+          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          
+        </li><li>
+          
+          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
+          
+        </li><li>
+          
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
+          <a href="/garden/short-stories.html">Short Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
+          
+        </li><li>
+          
+          <a href="/garden/last-programming-language.html">The Last Programming Language</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/index.html">Shrines</a>
+          
+        </li><li>
+          
+          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
+          
+        </li><li>
+          
+          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/stories.html">Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
+          
+        </li><li>
+          
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          
+        </li><li>
+          
+          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
+          
+        </li><li>
+          
+          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          
+        </li><li>
+          
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
           
         </li><li>
           
           <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+          
+        </li><li>
+          
+          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          
+        </li><li>
+          
+          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
           
         </li></ul>
 
@@ -9272,7 +9348,7 @@ The keyboard has two USB connectors, and one of them is just a passthrough for t
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260810004843/https://kinesis-ergo.com/shop/advantage2/" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812011833/https://kinesis-ergo.com/shop/advantage2/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9327,7 +9403,7 @@ It's not listed on their official site anymore, but I got the silver one (to mat
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260726164233/https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260810004916/https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9363,7 +9439,7 @@ They **do** die in the traditional Logitech "button starts double-clicking becau
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260804233606/https://www.razer.com/gaming-mice/razer-naga-v2-pro" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260810005000/https://www.razer.com/gaming-mice/razer-naga-v2-pro" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9397,7 +9473,7 @@ It's a very well-engineered piece of ergonomics. If I didn't have [something eve
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260809004535/https://www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260810005042/https://www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9449,7 +9525,7 @@ Lifetimes have been 3 and 4 years so far; I just recently purchased the two memb
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260808224400/https://steelseries.com/gaming-headsets/arctis-pro" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260810005120/https://steelseries.com/gaming-headsets/arctis-pro" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9482,7 +9558,7 @@ Briefly, the SteelSeries Arctis Pro is cool because
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260809211900/https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812011409/https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -9540,7 +9616,7 @@ You get a bunch of buttons with LCD screens on them, and plenty of first-party a
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260412135103/https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260809211953/https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

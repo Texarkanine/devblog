@@ -1,5 +1,7 @@
 <ul>
 
+  <li>2026-08-11 <a href="/2026/08/11/stockroom.html">Stockroom: Find the Conversation You Half-Remember</a></li>
+
   <li>2026-08-09 <a href="/2026/08/09/love-when-useful-things-get-cheaper.html">I Love It When Useful Things Get Cheaper</a></li>
 
   <li>2026-08-06 <a href="/2026/08/06/cold-wallets-born-hot.html">Cold Wallets Are Born Hot</a></li>

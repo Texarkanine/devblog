@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [Stockroom: Find the Conversation You Half-Remember](https://blog.cani.ne.jp/2026/08/11/stockroom.md): Stockroom 1.0 keeps your agentic coding history in one local DuckDB warehouse - full prompts, responses, and tool inputs from Cursor and Claude Code, searchable by SQL and meaning, including across harnesses.
 - [a16n: Take Your Agent Customization Anywhere](https://blog.cani.ne.jp/2026/03/13/a16n.md): a16n converts AI coding agent customization between Cursor, Claude Code, and more. One CLI command migrates your rules, skills, ignore patterns, and slash commands - no manual re-creation.
 - [Context to Ashes, Skills to Dust](https://blog.cani.ne.jp/2026/03/09/context-to-ashes-skills-to-dust.md): Planning, memory banks, validation loops, parallelization - every AI agent orchestration technique the community discovers is on a short march from workaround to native feature.
 - [Stop Doing AGENTS.md](https://blog.cani.ne.jp/2026/02/12/stop-doing-agents-md.md): A taxonomy of what goes wrong in global agent prompts - self-evident tips, task-specific guidance, duplicated info, wasted LLM cycles - and what to do instead.

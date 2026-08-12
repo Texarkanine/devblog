@@ -1,10 +1,8 @@
-# tools
+# developer-tools
 
-> Tag: tools
+> Tag: developer-tools
 
 ## Posts
 
 - [Stockroom: Find the Conversation You Half-Remember](https://blog.cani.ne.jp/2026/08/11/stockroom.md): Stockroom 1.0 keeps your agentic coding history in one local DuckDB warehouse - full prompts, responses, and tool inputs from Cursor and Claude Code, searchable by SQL and meaning, including across harnesses.
-- [The Suite Life of Bobs and Code](https://blog.cani.ne.jp/2026/05/10/slobac.md): SLOBAC delivers principles for good tests, a taxonomy of test smells, safe refactoring workflows, and an agent skill to audit and clean up sprawling AI-generated test suites.
 - [a16n: Take Your Agent Customization Anywhere](https://blog.cani.ne.jp/2026/03/13/a16n.md): a16n converts AI coding agent customization between Cursor, Claude Code, and more. One CLI command migrates your rules, skills, ignore patterns, and slash commands - no manual re-creation.
-- [Tools Suck When They're Products](https://blog.cani.ne.jp/2025/12/22/tools-suck-when-theyre-products.md): Tools are not products and building them *like* products results in bad tools. Nobody actually wants to use tools. They want the *result* of using the tool.

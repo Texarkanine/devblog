@@ -1,5 +1,79 @@
 # blog
 
+## Stockroom: Find the Conversation You Half-Remember
+
+Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about "blogging about stockroom," asked from [Claude Code](https://code.claude.com/), about a [Cursor](https://cursor.com/) session I only half-remembered.
+
+Stockroom's [search](https://texarkanine.github.io/stockroom/user-guide/search/) put that Cursor session at rank one. The retrieved plan became the plan for this post.
+
+That is the whole pitch. Your agents have been writing history to disk the whole time. I built [Stockroom](https://texarkanine.github.io/stockroom/) so you can ask about it - from either harness, about either harness - without hoping the vendor's UI still has the thread.
+
+**[Stockroom 1.0 is out.](https://github.com/Texarkanine/stockroom)**
+
+## Your Transcripts, One Warehouse
+
+One local [DuckDB](https://duckdb.org/) file. Full prompts, responses, and tool inputs - kept whole. Truncation is a read-time convenience, never a storage-time loss.
+
+Two ways in:
+
+- **Ask the agent.** Slash-invoke `/sr-search` (Claude: `/stockroom:sr-search`) and let it pick SQL, meaning search, or both. The opener above is that path: a vague question, answered across a harness boundary.
+- **Skip the agent.** After setup, `stockroom query` and the local [dashboard](https://texarkanine.github.io/stockroom/user-guide/dashboard/) work offline. No cloud index of your coding sessions.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">
+      <img src="stockroom-dashboard-top-light.png" alt="Stockroom local dashboard showing session history across harnesses" width="600" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Stockroom dashboard</div>
+    <div class="polaroid-link">
+      
+      <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">texarkanine.github.io/stockroom/user-guide/dashboard/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260812011057/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+**It backfills.** Harness formats come and go; Stockroom reads what is still on disk, including formats the vendors already abandoned. On this machine the warehouse holds a bit over 113,000 messages across Cursor and Claude Code, reaching back to September 2025 - months before Stockroom's first commit in June 2026. The cameras were running. Stockroom just lets you re-watch the tapes.
+
+That "pays backwards" feeling is what [Just Try the Thing](/2026/08/01/just-try-the-thing.html) was pointing at: agents can use work from *before* the warehouse existed, because the raw logs were already on disk. [Disintegration of Persistence of Memory.md](/2026/08/03/disintegration-of-persistence-of-memory-md.html) puts the same store on the memory ladder as rung five - security-camera footage for *how* and *why*, not a notepad you hope somebody kept tidy. Those posts argue the need. This one is the install.
+
+Cursor and Claude Code share one schema. Every table already carries `harness` as a first-class column, so another ingest path later is additive - not a rewrite dressed up as a feature. I may add more harnesses; I may not. Day one already speaks two.
+
+## From Zero to /sr-search
+
+1. Add the [txrk9-agent-plugins](https://github.com/Texarkanine/txrk9-agent-plugins) marketplace, then install the `stockroom` plugin from it.
+2. **Cursor only:** enable **Include third-party Plugins, Skills, and other configs** (Settings → Rules, Skills, Subagents). Plugin hooks do not register without it.
+3. Run first-time setup:
+   - Cursor: `/sr-initialize`
+   - Claude Code: `/stockroom:sr-initialize`
+4. Ask about past work, or slash-invoke search:
+
+```text
+/sr-search "What was the most-recent time I had to correct an agent's behavior?"
+```
+
+`sr-initialize` provisions the per-machine torch wheel (for meaning search), puts `stockroom` on your PATH, offers nightly ingest+embed, and runs the first full ingest. Re-runs are safe: it re-probes and only does what is still missing.
+
+Full walkthrough, including what landed on disk and what to try next: the [Quickstart](https://texarkanine.github.io/stockroom/user-guide/quickstart/).
+
+## Open Source, Tagged 1.0.0
+
+Stockroom is open source under AGPL-3.0 at [github.com/Texarkanine/stockroom](https://github.com/Texarkanine/stockroom). Docs live at [texarkanine.github.io/stockroom](https://texarkanine.github.io/stockroom/). [v1.0.0](https://github.com/Texarkanine/stockroom/releases/tag/v1.0.0) just shipped; the marketplace plugin path above pulls current.
+
+If you half-remember a conversation and wish either agent could find it:
+
+```text
+/sr-search "blogging about stockroom"
+```
+
+Worst case, you learn what your warehouse does not have yet. Best case, last month answers.
+
 ## I Love It When Useful Things Get Cheaper
 
 Around 1998, my family's computer was an [IBM Aptiva](https://en.wikipedia.org/wiki/IBM_Aptiva). It was one of the later models, right as [Pentium](https://en.wikipedia.org/wiki/Pentium_(original)) CPUs were showing up in home computers. I recall its clock speed was [133 MHz](https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants). I recall this because I really wanted to play the [LEGO Creator](https://en.wikipedia.org/wiki/Lego_Creator_(video_game)) game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.
@@ -139,7 +213,7 @@ If you were to compare these "cryptocurrencies" on price:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260810005805/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -423,7 +497,7 @@ Two big cold-storage failures attacked exactly that moment.
   <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
   
   <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20260809211206/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+    (<a href="https://web.archive.org/web/20260810004529/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
   </small>
   
 </blockquote>
@@ -6338,7 +6412,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.z9w20wmx3zzzqro4o-lqd0nrcsosceib { display: inline-block; }</style><script>(function(){function eg6thqpoiagn9(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function bf9eaihgc(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var fe5hizgesgh=sp.getAttribute('data-hbugsn');var xtfy8ab=sp.getAttribute('data-kvyvbu');var cvly8od=sp.getAttribute('data-ohulhqvw');var vzvllgbngn7=sp.getAttribute('data-wazokjnvb');var mailto=eg6thqpoiagn9(fe5hizgesgh,spParts[0].length);var user=eg6thqpoiagn9(xtfy8ab,spParts[1].length);var domainBase=eg6thqpoiagn9(cvly8od,lnkParts[0].length);var tld=eg6thqpoiagn9(vzvllgbngn7,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function lpejhk7y(){var els=document.querySelectorAll('a.cnhbggm-r6s4d8var4gy46u');var handler=function(){var sp=this.querySelector('span.z9w20wmx3zzzqro4o-lqd0nrcsosceib');if(sp&&!this.dataset.d){var val=bf9eaihgc(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',lpejhk7y);}else{lpejhk7y();}})();</script>{:/nomarkdown}<a href="#" class="cnhbggm-r6s4d8var4gy46u"><span class="z9w20wmx3zzzqro4o-lqd0nrcsosceib" data-hbugsn="drzckf" data-kvyvbu="FSROQHSR" data-ohulhqvw="wyvavuthps" data-wazokjnvb="rdb">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.ge91vxno80jo-nfpeyf4hmrfpvi { display: inline-block; }</style><script>(function(){function vgu0neupegf6me3l(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function xsacnasnkg5ydiqc(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var tvqexyamk=sp.getAttribute('data-dts369oevnb');var efsu5tgywk0=sp.getAttribute('data-lnuwadsw');var rwosqljfsw5=sp.getAttribute('data-ptsejrd');var xmubdqll2mjz=sp.getAttribute('data-aonu4qap2oq');var mailto=vgu0neupegf6me3l(tvqexyamk,spParts[0].length);var user=vgu0neupegf6me3l(efsu5tgywk0,spParts[1].length);var domainBase=vgu0neupegf6me3l(rwosqljfsw5,lnkParts[0].length);var tld=vgu0neupegf6me3l(xmubdqll2mjz,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function uq68aglvuniz3psw(){var els=document.querySelectorAll('a.jesav0hlt7-uulzxuvymrn9gt');var handler=function(){var sp=this.querySelector('span.ge91vxno80jo-nfpeyf4hmrfpvi');if(sp&&!this.dataset.d){var val=xsacnasnkg5ydiqc(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',uq68aglvuniz3psw);}else{uq68aglvuniz3psw();}})();</script>{:/nomarkdown}<a href="#" class="jesav0hlt7-uulzxuvymrn9gt"><span class="ge91vxno80jo-nfpeyf4hmrfpvi" data-dts369oevnb="ymuxfa" data-lnuwadsw="FSROQHSR" data-ptsejrd="zbydyxwksv" data-aonu4qap2oq="qca">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
