@@ -214,7 +214,7 @@ graph TB
 
 ### The Times Shut the Barn Door After the Cows Got Out
 
-Cutting off the aggregator is an attempt to cut the content line into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer to regress just because a publisher asked them to. Piracy was almost always a service problem; this is that same shape of problem.
+Cutting off the aggregator is an attempt to cut the content line into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer to regress just because a publisher asked them to. [Piracy was almost always a service problem](http://www.escapistmagazine.com/news/view/114391-Valves-Gabe-Newell-Says-Piracy-Is-a-Service-Problem); this is that same shape of problem.
 
 ```mermaid
 graph TB
