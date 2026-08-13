@@ -10,7 +10,7 @@ tags:
   - open-source
 ---
 
-On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the [stock had its worst rout ever][cnbc-reddit], because search referrals were "choppy" and no new AI licensing deals appeared. Steve Huffman, on the call: "AI Overviews has yet to make a similar level of positive impact" as the ten blue links, and "we have still yet to find that win-win."
+On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its [steepest one-day drop since the 2024 IPO][yahoo-reddit]. Huffman wrote that search referrals were "choppy", and said that in AI Overviews Reddit has "still yet to find that win-win."[^cnbc-reddit] In a [same-day interview][cnbc-huffman]: "The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact."
 
 The New York Times is [suing OpenAI](https://en.wikipedia.org/wiki/The_New_York_Times_v._Microsoft_and_OpenAI) and has, according to the [Wall Street Journal][gizmodo], discussed pointing `noindex` at itself - a directive that tells search engines to forget you exist. Rust adopted an [LLM policy][rust] that treats a pull request as a contributor-formation event, not a delivery of code. That is a stance, not a mood: it changes who the community is, and it only invites the humans who will play that game. [Codeberg](https://codeberg.org) [voted 358 to 144][codeberg] to stop hosting projects that "mostly consist of" LLM-written code.
 
@@ -184,7 +184,7 @@ graph TB
     Consumers["Programmers"]
 ```
 
-Codeberg gets the same failure as a unit of hosting. Ghost projects attach with no community. They have a catalog-shaped presence and consume resources but do not participate in the reputation of the community because they have no community. The proportion of living projects thins. Developers can still clone. That does not feed the converter, though.
+Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still pays the electric. More open up and *living* become an ever-thinner slice of the roster. Developers can still clone. That does not feed the converter.
 
 ```mermaid
 graph TB
@@ -264,7 +264,7 @@ graph TB
 
 > The deal sustains the entity while starving the asset.
 
-Posting spins down, the corpus gets worse, the *next* licensing round is sells for less, and the consumer side is already gone. Stack Overflow has not even really tried this play. I would not bet that the geometry is different.
+Posting spins down, the corpus gets worse, the *next* licensing round sells for less, and the consumer side is already gone. Stack Overflow has tried on the costume: [Data Licensing][so-license] sells labs ["decades of verified, technical knowledge"][so-era] - smart humans wrote this. The check still stops at the company. Answerers are not on a newsroom payroll. They are renting out the back catalog while new questions collapse. Same geometry as Reddit, better marketing.
 
 ### Rust Filtered the Producers and Kept the Whole Market
 
@@ -306,11 +306,7 @@ The same shape showed up in [Cloudflare OS's contributing guide][cf-os]: they ar
 
 Rust, at least, knows and admits they're experimenting. So, the door's closed to me for now, but maybe not forever. Respect.
 
-I might grant a generous interpretation of their stance as more [literally Luddite](https://en.wikipedia.org/wiki/Luddite) - demanding a halt to radical new technology until it can be used without egregious detriment to human well-being - than the colloquially Luddite's or neo-Luddite's "head-in-the-sand reactionaries" meaning.
-
-a) How long can you wait before being significantly left behind?
-
-b) Reese Bobby might have a different take on their caution. <!-- link to "if you ain't first, you're last" meme image -->
+I might grant a generous interpretation of their stance as more [literally Luddite](https://en.wikipedia.org/wiki/Luddite) - demanding a halt to radical new technology until it can be used without egregious detriment to human well-being - than the colloquial "head-in-the-sand" sense. The clock still runs. How long can you wait before the fork that accepts patches is the one everyone uses?
 
 ### Codeberg Formed an Enclave
 
@@ -423,7 +419,12 @@ Maybe not, though. How do you spot where the line should be drawn while the pain
 
 The only move I have that is not Amish, Luddite, or a miss is to keep moving with the thing so that when the pieces fall I have the information to choose. I have been practicing that as [trying the thing]({% post_url blog/essay/2026-08-01-just-try-the-thing %}) and as [letting the machine do the work]({% post_url blog/guide/2026-03-14-adeptus-mechanicus-bootcamp-gentle-seduction %}). Those are habits, not a prescription. If a better answer shows up, I will write it down.
 
-[cnbc-reddit]: https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
+---
+
+[cnbc-huffman]: https://www.cnbc.com/2026/07/30/reddit-ceo-says-googles-ai-overviews-cant-replace-10-blue-links-.html
+[yahoo-reddit]: https://finance.yahoo.com/markets/article/reddit-stock-tumbles-the-most-on-record-as-lack-of-new-ai-deals-us-daily-users-metric-disappoints-153413759.html
+[so-era]: https://stackoverflow.blog/2025/12/30/a-new-era-of-stack-overflow/
+[so-license]: https://stackoverflow.co/data-licensing/
 [gizmodo]: https://gizmodo.com/major-publishers-are-reportedly-considering-a-drastic-step-to-get-their-content-out-of-googles-ai-answers-2000788873
 [codeberg-quota]: https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html
 [devclass]: https://devclass.com/2026/01/05/dramatic-drop-in-stack-overflow-questions-as-devs-look-elsewhere-for-help/
@@ -432,6 +433,8 @@ The only move I have that is not Amish, Luddite, or a miss is to keep moving wit
 [ars-books]: https://arstechnica.com/ai/2025/06/anthropic-destroyed-millions-of-print-books-to-build-its-ai-models/
 [yadan]: https://yadan.net/writing/ai-doesnt-get-annoyed/
 
+[cnbc-reddit]: https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
+[^cnbc-reddit]: Vanian, J. (2026, July 30). Reddit shares sink 11% on “choppy” search referrals even as results blow past estimates. CNBC. https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
 [codeberg]: https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
 [^fn-codeberg]: Tzovaras, B. G., Richter, O., & Zijil, W. (2026, July 23). Protecting our Floss Commons from LLMS. Codeberg News. https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
 [rust]: https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/
