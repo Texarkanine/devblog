@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Times Can Sell; Reddit Cannot"
-subtitle: "On the spin-down of the community-content flywheels and the various platforms' attempts to hold on."
+subtitle: "On the spin-down of the content flywheels and the various platforms' attempts to hold on."
 description: "AI money can feed staffed editorial producers. It cannot feed Reddit, Rust, or you. The flywheel only turns where producers eat what the new customer will pay."
 author: texarkanine
 category: essay
