@@ -355,7 +355,7 @@ The new direct consumer is the aggregator. Producers have to eat something that 
 
 Reddit took a check too, but follow that check again: it was rent charged to the aggregator - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
 
-Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - Project Panama, built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for: 
+Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - [Project Panama][wapo-panama], built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for: 
 
 1. verified-human text
 2. at a published-book quality bar
@@ -432,6 +432,7 @@ The only move I have that is not Amish, Luddite, or a miss is to keep moving wit
 [cf-cid]: https://blog.cloudflare.com/content-independence-day-ai-options/
 [cf-os]: https://github.com/cloudflare/cloudflare-os/blob/4e0f9593fc52944319ee7332db025f6912f6f64a/CONTRIBUTING.md
 [ars-books]: https://arstechnica.com/ai/2025/06/anthropic-destroyed-millions-of-print-books-to-build-its-ai-models/
+[wapo-panama]: https://archive.ph/eH7NK
 [yadan]: https://yadan.net/writing/ai-doesnt-get-annoyed/
 
 [cnbc-reddit]: https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
