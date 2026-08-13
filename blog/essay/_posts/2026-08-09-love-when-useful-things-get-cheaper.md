@@ -56,6 +56,7 @@ In 1955, you could grab one for $140, on a minimum wage of $0.75 for 187 hours o
     title="Sears Spring/Summer Catalog, 1955"
     image_link="sears-1955-kenmore-ad.jpg"
     link="https://christmas.musetechnical.com/"
+    archive="https://web.archive.org/web/20260808173643/https://christmas.musetechnical.com/"
 %}
 
 In 2026, you can grab a brand new "basic" top-loading washing machine that *way* outperforms a 1955 model for $560, or just 77 hours of work. No link here; go hit up your favorite appliance store's website and check.
@@ -183,6 +184,7 @@ I hope we've established that the answer is a resounding "yes." You don't want y
 {%linkcard
     https://monerohash.com/nodes-distribution.html
     "MoneroHash.com: Monero Nodes Distribution"
+    archive:https://web.archive.org/web/20260810004726/https://monerohash.com/nodes-distribution.html
 %}
 
 > Total nodes: 4697 - Last updated: about an hour ago

@@ -16,7 +16,7 @@ group :jekyll_plugins do
   gem "jekyll-auto-authors"
   gem 'jekyll-auto-thumbnails', "~> 2.0"
   gem "jekyll-feed"
-  gem 'jekyll-highlight-cards', "~> 2.2"
+  gem 'jekyll-highlight-cards', "~> 3.0"
   gem 'jekyll-loading-lazy'
   gem 'jekyll-mermaid-prebuild', "~> 0.5"
   gem "jekyll-redirect-from"

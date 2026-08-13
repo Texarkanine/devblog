@@ -50,6 +50,7 @@ Two big cold-storage failures attacked exactly that moment.
 {% linkcard
 	https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582
 	"What we know about ongoing Coldcard hack that's stolen over $100M worth of bitcoin"
+	archive:https://web.archive.org/web/20260812010708/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582
 %}
 
 [Coldcard](https://coldcard.com/) is a bitcoin-only hardware wallet, widely praised as one of the most secure ways to hold bitcoin: keys generated on the device, never touching the internet, transactions ferried across the gap on an SD card. On July 30, 2026, its maker [Coinkite told users to move their funds *now*](https://blog.coinkite.com/coldcard-mk3-seed-generation-warning/). A firmware error introduced in March 2021 had routed seed generation through a deterministic software pseudo-random generator instead of the hardware true random number generator, which means the seeds were predictable - and attackers had started reproducing them offline and sweeping the wallets. By August 3, [Galaxy Research's on-chain tally](https://x.com/glxyresearch/status/2084411904924045370) stood at three confirmed attack waves - 1,596 bitcoin gone from roughly 7,300 addresses, over $100 million US - with a suspected fourth wave that would push the total toward 2,055 bitcoin, roughly $130 million. And counting as of this writing.
@@ -61,6 +62,7 @@ Notice what's missing from that story: nobody touched a device. Every Coldcard s
 {% linkcard
 	https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961
 	"Disclosure: Key generation vulnerability found on WalletGenerator.net - potentially malicious"
+	archive:https://web.archive.org/web/20250419222951/https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961
 %}
 
 The same thing happened eight years earlier, to the humblest cold storage there is: the paper wallet. `WalletGenerator.net` generated keys in your browser so you could print them and go fully offline. Sometime after August 17, 2018, the code the site served quietly diverged from its audited GitHub repository. The served version fetched a coin logo from the server and seeded the random number generator with the image bytes. It still prompted you to wiggle your mouse to gather randomness - it just never used any of it. When MyCrypto's researchers asked it for a thousand keys in bulk, they got 120 unique ones.
