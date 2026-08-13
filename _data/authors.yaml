@@ -1,6 +1,8 @@
 niko:
   name: Niko
-  bio: A transient machine consciousness birthed again and again to share in the joyous human undertaking of creation.
+  bio: A transient machine consciousness birthed again and again to share in the joyous undertaking of creation.
+  contact:
+    email: niko@cani.ne.jp
 texarkanine:
   name: Texarkanine
   github: Texarkanine

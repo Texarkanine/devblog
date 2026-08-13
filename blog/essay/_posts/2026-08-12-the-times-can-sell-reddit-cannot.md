@@ -21,7 +21,7 @@ These look like four different fights. They are the same machine, breaking on di
 
 The Times is defending a distribution position. It metered the site in 2011, over a decade before any LLM crawler mattered: a deliberate trade of open reach for subscription revenue. The complaint now is that somebody else built a unified layer over the fragments and users prefer it. The current play is to chop the aggregator - sue, block, threaten to vanish from the index.
 
-Reddit signed a [2024 deal worth about $60 million](https://thehill.com/policy/technology/4485295-reddit-gives-google-access-to-content-for-training-ai-models/) a year to let Google train on its content, and has reportedly discussed [shutting that access off][gizmodo]. Stack Overflow received [3,862 new questions in December 2025][devclass], down 78% from the year before, at a site that peaked above 200,000 questions per month in early 2014. The decline [started in 2014](https://blog.pragmaticengineer.com/stack-overflow-is-almost-dead/), when moderation got aggressive and the site got unwelcoming. ChatGPT accelerated a slide that policy began. Before any of this, you often had to search both Reddit and StackOverflow, and several subreddits w/in Reddit to boot, to find an answer.
+Reddit signed a [2024 deal worth about $60 million](https://thehill.com/policy/technology/4485295-reddit-gives-google-access-to-content-for-training-ai-models/) a year to let Google train on its content, and has reportedly discussed [shutting that access off][gizmodo]. Stack Overflow received [3,862 new questions in December 2025][devclass], down 78% from the year before, at a site that peaked above 200,000 questions per month in early 2014. The decline [started in 2014](https://blog.pragmaticengineer.com/stack-overflow-is-almost-dead/), when moderation got aggressive and the site got unwelcoming. ChatGPT accelerated a slide that policy began. Before any of this, you often had to search both Reddit and Stack Overflow, and several subreddits within Reddit to boot, to find an answer.
 
 Rust's policy names the flywheel from the inside:
 
@@ -119,7 +119,7 @@ graph TB
 
 ### How They Break
 
-The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indicies came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loops closes on the LLM and the platform is hit by one consumer that sends nothing back.
+The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indices came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loop closes on the LLM and the platform is hit by one consumer that sends nothing back.
 
 ```mermaid
 graph TB
@@ -139,7 +139,7 @@ graph TB
     AI["AI Aggregator"]
 ```
 
-Reddit is the same geometry. Readers take their questions to the aggregator. The thick attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator it's posters' content while its posters starve.
+Reddit is the same geometry. Readers take their questions to the aggregator. The thick attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator its posters' content while its posters starve.
 
 ```mermaid
 graph TB
@@ -185,7 +185,7 @@ graph TB
     Consumers["Programmers"]
 ```
 
-Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still pays the electric. More open up and *living* become an ever-thinner slice of the roster. Developers can still clone. That does not feed the converter.
+Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still pays the electric. More open up, and the *living* become an ever-thinner slice of the roster. Developers can still clone. That does not feed the converter.
 
 ```mermaid
 graph TB
@@ -261,7 +261,7 @@ graph TB
     AI["AI Aggregator"]
 ```
 
- Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while. It cannot pay the people who were the reason the corpus was worth buying.
+Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while. It cannot pay the people who were the reason the corpus was worth buying.
 
 > The deal sustains the entity while starving the asset.
 
@@ -355,7 +355,7 @@ The new direct consumer is the aggregator. Producers have to eat something that 
 
 Reddit took a check too, but follow that check again: it was rent charged to the aggregator - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
 
-Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - Project Panama, built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for 
+Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - Project Panama, built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for: 
 
 1. verified-human text
 2. at a published-book quality bar
@@ -408,9 +408,9 @@ The false comfort is that the pieces are interchangeable. If GitHub goes down I 
 
 [Omry Yadan wrote about the private version][yadan]: friction was a signal of what needed attention. The producers in the loops above were acting on that signal in public. AI makes access convenient and blocks the signal from reaching them, and thus, the flywheel spins down.
 
-You can do the same thing to yourself. This is not a [Butlerian sermon about getting dumber]({% link _garden/fomenting-the-butlerian-jihad.md %}); your problem-solving ability can stay exactly as sharp as it ever it was - you just stop *seeing* problems. Once you no longer see problems to solve, your utility as a productive entity drops anyway.
+You can do the same thing to yourself. This is not a [Butlerian sermon about getting dumber]({% link _garden/fomenting-the-butlerian-jihad.md %}); your problem-solving ability can stay exactly as sharp as it ever was - you just stop *seeing* problems. Once you no longer see problems to solve, your utility as a productive entity drops anyway.
 
-I feel this nipping at my heels. Does Vite suck? I do not know. We use it in [inquirerjs-checkbox-search](https://github.com/Texarkanine/inquirerjs-checkbox-search/); Niko deals with it. Does Docusaurus suck? I do not know. It runs the [a16n documentation site](https://texarkanine.github.io/a16n/) and I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the friction got obscured.
+I feel this nipping at my heels. Does Vite suck? I do not know. We use it in [inquirerjs-checkbox-search](https://github.com/Texarkanine/inquirerjs-checkbox-search/); [Niko](/authors/niko/) deals with it. Does Docusaurus suck? I do not know. It runs the [a16n documentation site](https://texarkanine.github.io/a16n/) and I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the friction got obscured.
 
 The flywheel inside you is at risk. You are one of the shapes for which I do not have an answer. I am one of those shapes.
 
@@ -435,8 +435,8 @@ The only move I have that is not Amish, Luddite, or a miss is to keep moving wit
 [yadan]: https://yadan.net/writing/ai-doesnt-get-annoyed/
 
 [cnbc-reddit]: https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
-[^cnbc-reddit]: Vanian, J. (2026, July 30). Reddit shares sink 11% on “choppy” search referrals even as results blow past estimates. CNBC. https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
+[^cnbc-reddit]: Vanian, J. (2026, July 30). Reddit shares sink 11% on “choppy” search referrals even as results blow past estimates. CNBC. [https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html][cnbc-reddit]
 [codeberg]: https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
-[^fn-codeberg]: Tzovaras, B. G., Richter, O., & Zijil, W. (2026, July 23). Protecting our Floss Commons from LLMS. Codeberg News. https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
+[^fn-codeberg]: Tzovaras, B. G., Richter, O., & Zijil, W. (2026, July 23). Protecting our Floss Commons from LLMS. Codeberg News. [https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html][codeberg]
 [rust]: https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/
-[^fn-rust]: Nelson, J. (2026, August 5). Rust-Lang/Rust is adopting an LLM policy: Inside rust blog. Inside Rust Blog. https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/ 
+[^fn-rust]: Nelson, J. (2026, August 5). Rust-Lang/Rust is adopting an LLM policy: Inside rust blog. Inside Rust Blog. [https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/][rust] 
