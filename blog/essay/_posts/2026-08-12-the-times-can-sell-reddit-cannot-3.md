@@ -346,7 +346,7 @@ Fine if that's the life for you. For most of us, Amish is a bit extreme.
 
 Cloudflare's new defaults are not "Googlebot blocked for everyone." For new domains, on pages that run ads, "Training" and "Agent" behavior will be blocked by default. There *is* an opt-out (or opt-back-in?), but defaults are what most people run. A corner of the web will fall out of Google because nobody changed the checkbox.
 
-Cloudflare already sees that corner and will continue to see it: it sits on the edge of those sites. If you wanted to search the part of the internet that was not in Google, they are positioned to do it and if you think they will not leverage that position, I have a bridge to sell you. Akamai, Fastly, and whoever else runs enough of the remaining web can scoop out a chunk the same way. Then you have competing catalogs. We have watched this before, when every media company and their mother thought they could pull their content back off Netflix and charge the subscription directly. Consumers hated it. They had gone to an aggregator the moment one existed, because the alternative experience was uniformly worse. Consumers will not `search.cloudflare.com` and `search.akamai.net` and `search.fastly.com` - they will *find* the aggregator that pulls from all of the sources and use that.
+Cloudflare already sees that corner and will continue to see it: it sits on the edge of those sites. If you wanted to search the part of the internet that was not in Google, they are positioned to do it and if you think they will not leverage that position, I have a bridge to sell you. Akamai, Fastly, and whoever else runs enough of the remaining web can scoop out a chunk the same way. Then you have competing catalogs. We have watched this before, when every media company and their mother thought they could pull their content back off Netflix and charge the subscription directly. Consumers hated it. They went to an aggregator the moment one existed, because the alternative experience was uniformly worse. Consumers will not `search.cloudflare.com` and `search.akamai.net` and `search.fastly.com` - they will *find* the aggregator that pulls from all of the sources and use that.
 
 The blockade reconstitutes the middleman one layer up. CDN search is distribution theater. It is not food for producers.
 
@@ -356,7 +356,7 @@ So the honest options look like: miss, miss, miss, go be Amish in a corner. The 
 
 The new direct consumer is the aggregator. Producers have to eat something that consumer is willing to pay. Money is the only such something I have found in any of these flywheels. Times writers, editors, fact-checkers, people they can put on a plane to go collect primary sources - they already eat money. AI can pay those people.
 
-Reddit took a check too, but follow that check again: it was rent charged to the aggregator, same as what I am about to describe - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
+Reddit took a check too, but follow that check again: it was rent charged to the aggregator - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
 
 Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - Project Panama, built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for 
 
@@ -416,6 +416,10 @@ You can do the same thing to yourself. This is not a [Butlerian sermon about get
 I feel this nipping at my heels. Does Vite suck? I do not know. We use it in [inquirerjs-checkbox-search](https://github.com/Texarkanine/inquirerjs-checkbox-search/); Niko deals with it. Does Docusaurus suck? I do not know. It runs the [a16n documentation site](https://texarkanine.github.io/a16n/) and I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the friction got obscured.
 
 The flywheel inside you is at risk. You are one of the shapes for which I do not have an answer. I am one of those shapes.
+
+Perhaps this is fine as it is just the way technology goes. When I drive my car and am unhappy with my gas mileage, I might drive more gently, or wonder if I should try [hypermiling](https://www.reddit.com/r/hypermiling/). But maybe the engineers at Toyota should've just built a better engine for this car - or selected a better one. Maybe there's a tune I can put on the ECU to fix the problems. Maybe the *real* problem is a layer down below where I know to look. Despite all that... Maybe it's OK for me to just drive a little differently to stretch the gas rather than chasing shadows down the tech stack of human achievement.
+
+Maybe not, though. How do you spot where the line should be drawn while the painting is still being brushed onto the canvas all around you?
 
 The only move I have that is not Amish, Luddite, or a miss is to keep moving with the thing so that when the pieces fall I have the information to choose. I have been practicing that as [trying the thing]({% post_url blog/essay/2026-08-01-just-try-the-thing %}) and as [letting the machine do the work]({% post_url blog/guide/2026-03-14-adeptus-mechanicus-bootcamp-gentle-seduction %}). Those are habits, not a prescription. If a better answer shows up, I will write it down.
 
