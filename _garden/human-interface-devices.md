@@ -53,6 +53,7 @@ The keyboard has two USB connectors, and one of them is just a passthrough for t
 	title="Kinesis Advantage 2"
 	link="https://kinesis-ergo.com/shop/advantage2/"
 	image_link="hid/keyboard_kinesis-advantage-2-black.jpg"
+	archive="https://web.archive.org/web/20260812011833/https://kinesis-ergo.com/shop/advantage2/"
 %}
 
 I saw a [Maltron single-hand keyboard](https://www.maltron.com/store/p19/Maltron_Single_Hand_Keyboards_-_US_English.html) forever-ago, and was immediately convinced that the "hemisphere around the hand" design was good (despite never having tried it) and wanted to find a contemporary successor. But, they were expensive... and then I got hit with double repetitive-stress-injury in both wrists.
@@ -81,6 +82,7 @@ It's not listed on their official site anymore, but I got the silver one (to mat
 	title="Logitech G305"
 	link="https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse"
 	image_link="hid/mouse_logitech-g305.jpg"
+	archive="https://web.archive.org/web/20260811223014/https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse"
 %}
 
 Simple, lightweight, reliable, cheap, functional.
@@ -104,6 +106,7 @@ They **do** die in the traditional Logitech "button starts double-clicking becau
 	title="Razer Naga V2 Pro"
 	link="https://www.razer.com/gaming-mice/razer-naga-v2-pro"
 	image_link="hid/mouse_razer-naga-v2-pro-swappable.jpg"
+	archive="https://web.archive.org/web/20260812014747/https://www.razer.com/gaming-mice/razer-naga-v2-pro"
 %}
 
 This is a gaming mouse, targeted at MMO games where having a lot of inputs right on tap is an advantage. I bought it for [Final Fantasy XIV](https://na.finalfantasyxiv.com/), primarily.
@@ -125,6 +128,7 @@ It's a very well-engineered piece of ergonomics. If I didn't have [something eve
 	title="Logitech MX Vertical"
 	link="https://www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse"
 	image_link="hid/mouse_logitech-mx-vertical.png"
+	archive="https://web.archive.org/web/20260812014822/https://www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse"
 %}
 
 This is **the** ideal ergonomic mouse **for me**. I have two of them - one for work, and one for my main desktop computer. They wear out, I replace them. I have purchased at least four so far.
@@ -164,6 +168,7 @@ Lifetimes have been 3 and 4 years so far; I just recently purchased the two memb
 	title="SteelSeries Arctis Pro Wireless"
 	link="https://steelseries.com/gaming-headsets/arctis-pro"
 	image_link="hid/headset_steelseries-arctis-pro-wireless.jpg"
+	archive="https://web.archive.org/web/20260812011340/https://steelseries.com/gaming-headsets/arctis-pro"
 %}
 
 Does a headset even count as a human interface device?
@@ -184,6 +189,7 @@ Briefly, the SteelSeries Arctis Pro is cool because
 	title="Atolla Toggleable USB Hub"
 	link="https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307"
 	image_link="hid/other_atolla-usb-hub.jpg"
+	archive="https://web.archive.org/web/20260812011409/https://atolla.us/collections/usb-3-0-hub/products/atolla-7-port-powered-usb-3-0-hub-with-swappable-illuminated-icon-switch-and-12v-3a-power-adapter-kr307"
 %}
 
 A USB 3.0 hub with on/off switches for each port. Each switch illuminates when it's on, and the keycaps are swappable.
@@ -216,6 +222,7 @@ You get a bunch of buttons with LCD screens on them, and plenty of first-party a
 	title="Razer Tartarus Pro"
 	link="https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1"
 	image_link="hid/other_razer-tartarus-pro.jpg"
+	archive="https://web.archive.org/web/20260812011524/https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1"
 %}
 
 It is a left-hand gaming keypad with individually-controllable full RGB keys. But it's also an awesome human-interface device. In addition to a bunch of convenient buttons for your fingers, it has an 8-direction joystick and a big fat function key for your thumb. And a scroll wheel. With a mouse in your right hand, you've got scroll in *both* hands. Convenient? Sure. But there's no rule saying they both have to scroll the same *things!*
