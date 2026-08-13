@@ -1,12 +1,14 @@
 # Active Context
 
 ## Current Task: tag-descriptions
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
-- Intent restated and approved: sparse tag blurbs, disambiguation bar, corpus voice; `cursor`/`jekyll` yes; `harness-engineering`/`context-engineering` keep; `ai`/`bitcoin` maybe; stub goes.
-- Classified Level 2: content fill of an existing single-file feature (`_data/tags.yaml`), no architecture, no new components.
-- Branched `tag-descriptions` from `main` (uncommitted `_data/tags.yaml` stub carried forward, not yet in a commit).
+- Applied the disambiguation bar to combined ≥3 tags from `/tags/` and `/garden/tags/`.
+- Yes-list locked: `cursor`, `jekyll`, `mermaid`, `harness-engineering`, `context-engineering`, `ai`. Draft copy in `tasks.md`, voice from `_garden/ai-horses.md` and house style (no em-dashes).
+- Explicit nos: `bitcoin`, `claude-code`, `ruby`, garden buckets, the rest of the 6–3 tail. `agentic-engineering` left as the undescribed umbrella.
+- TDD: prose-only; no test harness in this repo; verify with `jekyll build` + `_site` inspection.
+- Only file to change: `_data/tags.yaml`.
 
 ## Next Step
-- Load Level 2 workflow and execute the plan phase.
+- Preflight validation (subagent), then build.
