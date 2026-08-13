@@ -8,11 +8,13 @@ complexity_level: 2
 
 ## Summary
 
-Six sparse blurbs in `_data/tags.yaml` for tags that actually collide with another meaning, written from the corpus. Succeeded: the yes-list held, `bitcoin` and the popularity tail stayed empty, and QA kept `mermaid`.
+Six sparse blurbs, then operator edits: harness/context restored to `main`; `agentic-engineering` added as the umbrella; `ai` / `jekyll` / `mermaid` copy tightened by the operator.
 
 ## Requirements vs Outcome
 
-Delivered as briefed. `cursor` and `jekyll` disambiguate; harness/context were rewritten from `_garden/ai-horses.md` instead of kept as encyclopedia copy; `ai` got a this-site summary; the stub is gone. `bitcoin` was the one maybe that landed as no. `mermaid` was the one addition the operator did not name; QA judged it earned.
+Delivered as briefed, with one operator correction after reflect: harness/context copy is restored verbatim from `main`. `cursor` and `jekyll` disambiguate; `ai` got a this-site summary; the stub is gone. `bitcoin` landed as no. `mermaid` was the one addition the operator did not name; QA judged it earned.
+
+**Correction:** "Keep harness-engineering and context-engineering" meant keep the existing blurbs, not restyle them from Horses. The rewrite was unwanted.
 
 ## Plan Accuracy
 

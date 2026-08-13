@@ -76,3 +76,26 @@ Fill `_data/tags.yaml` with sparse, voice-matched disambiguation blurbs for the 
     - `bitcoin` stays undescribed; `mermaid` stays
 * Insights
     - Content-only L2: lock yes-list and no-list in the plan so sparsity is auditable without a creative phase
+
+## 2026-08-13 - REWORK - OPERATOR COPY
+
+* Work completed
+    - Restored `harness-engineering` and `context-engineering` verbatim from `main`
+* Decisions made
+    - Those two were already the disambiguation the file existed for; do not voice-rewrite them
+    - `ai`, `cursor`, `jekyll`, `mermaid` stay
+* Insights
+    - "Keep" meant keep the copy, not keep the keys and restyle them
+
+## 2026-08-13 - REWORK - AGENTIC-ENGINEERING
+
+* Work completed
+    - Filled the empty `agentic-engineering` key
+* Decisions made
+    - Umbrella blurb: directing agents to ship; points at harness (loop) and context (what they can see) so the three tags don't collapse into each other
+
+## 2026-08-13 - ARCHIVE - READY
+
+* Work completed
+    - Operator tightened `agentic-engineering`, `ai`, `jekyll`, and `mermaid` copy in `_data/tags.yaml`
+    - Final keys: `agentic-engineering`, `ai`, `context-engineering`, `cursor`, `harness-engineering`, `jekyll`, `mermaid`

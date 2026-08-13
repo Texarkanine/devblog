@@ -3,26 +3,32 @@
 # Values are rendered through kramdown; inline HTML is also supported.
 # Use >- for single-paragraph descriptions, | for multi-paragraph.
 
+agentic-engineering: >-
+  Doing [Software Engineering](/tags/software-engineering) by directing AI agents from increasingly high altitudes.
+  [Harness-engineering](/tags/harness-engineering) is the loop they run in; [context-engineering](/tags/context-engineering) is what they can see.
+
 ai: >-
-  Language models and the coding agents around them, as I actually use the
+  Language models and the trappings around them, as I actually use the
   stuff: harnesses, context, cost, the work.
 
 context-engineering: >-
-  What you put in the window, and what you keep out: rules, skills, prompts.
-  Horsemanship, once the saddle is on. ([Horses](/garden/ai-horses.html).)
+  Controlling what information is made available to large language models
+  at invocation time — rules files, system prompts, repository knowledge,
+  and the architecture of what enters (and stays out of) the context window.
 
 cursor: >-
-  Anysphere's AI code editor ([cursor.com](https://cursor.com)). The mouse and
-  the SQL kind can sit this one out.
+  Anysphere's AI code editor ([cursor.com](https://cursor.com)).
+  The mouse and the SQL kind can sit this one out.
 
 harness-engineering: >-
-  The tack: Cursor, Claude Code, the loops and tools you wrap a model in so it
-  can do a job. Making saddles. ([Horses](/garden/ai-horses.html).)
+  Designing the environments, processes, and feedback loops that enable
+  AI coding agents to do reliable autonomous work — repository structure,
+  context architecture, review workflows, and agent tooling.
 
 jekyll: >-
-  The static-site generator this blog runs on. Stevenson already wrote the
-  other Jekyll.
+  The [static-site generator built in Ruby](https://jekyllrb.com/), that this blog runs on.
+  Stevenson already wrote the other Jekyll.
 
 mermaid: >-
-  [Mermaid](https://mermaid.js.org/) diagrams, baked into pages here at build
-  time.
+  [Mermaid](https://mermaid.js.org/) *diagrams*, expressed in markdown to make illustrating concepts
+  possible even when authoring "plain" text.

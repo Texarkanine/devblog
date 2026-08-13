@@ -1,12 +1,12 @@
 # Active Context
 
 ## Current Task: tag-descriptions
-**Phase:** REFLECT COMPLETE
+**Phase:** REFLECT COMPLETE (operator copy correction)
 
 ## What Was Done
-- Reflection written to `memory-bank/active/reflection/reflection-tag-descriptions.md`.
-- Persistent files unchanged: content-only yaml fill, no new standing contract.
-- Ready to archive.
+- Operator restored original `harness-engineering` and `context-engineering` blurbs from `main`. Horses rewrite was unwanted.
+- `ai`, `cursor`, `jekyll`, `mermaid` unchanged.
+- Added `agentic-engineering`: umbrella over harness (the loop) and context (what they can see).
 
 ## Next Step
-- Operator: run `/niko-archive` to archive and finalize.
+- Operator: run `/niko-archive` when ready. YAML correction is uncommitted.
