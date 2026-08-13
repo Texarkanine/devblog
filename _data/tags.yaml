@@ -3,12 +3,26 @@
 # Values are rendered through kramdown; inline HTML is also supported.
 # Use >- for single-paragraph descriptions, | for multi-paragraph.
 
-harness-engineering: >-
-  Designing the environments, processes, and feedback loops that enable
-  AI coding agents to do reliable autonomous work — repository structure,
-  context architecture, review workflows, and agent tooling.
+ai: >-
+  Language models and the coding agents around them, as I actually use the
+  stuff: harnesses, context, cost, the work.
 
 context-engineering: >-
-  Controlling what information is made available to large language models
-  at invocation time — rules files, system prompts, repository knowledge,
-  and the architecture of what enters (and stays out of) the context window.
+  What you put in the window, and what you keep out: rules, skills, prompts.
+  Horsemanship, once the saddle is on. ([Horses](/garden/ai-horses.html).)
+
+cursor: >-
+  Anysphere's AI code editor ([cursor.com](https://cursor.com)). The mouse and
+  the SQL kind can sit this one out.
+
+harness-engineering: >-
+  The tack: Cursor, Claude Code, the loops and tools you wrap a model in so it
+  can do a job. Making saddles. ([Horses](/garden/ai-horses.html).)
+
+jekyll: >-
+  The static-site generator this blog runs on. Stevenson already wrote the
+  other Jekyll.
+
+mermaid: >-
+  [Mermaid](https://mermaid.js.org/) diagrams, baked into pages here at build
+  time.

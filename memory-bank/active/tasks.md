@@ -44,12 +44,12 @@ Verification during build: `bundle exec jekyll build`, then inspect the archive 
 
 ## Implementation Plan
 
-1. Replace `_data/tags.yaml` entries with the yes-list copy above; delete the `ai` stub; preserve header comments; use `>-` for each single-paragraph value; no em-dashes.
+1. [x] Replace `_data/tags.yaml` entries with the yes-list copy above; delete the `ai` stub; preserve header comments; use `>-` for each single-paragraph value; no em-dashes.
    - Files: `_data/tags.yaml`
    - Tests first: `N/A for prose & policy artifacts`
    - Changes: six keys only (`ai`, `context-engineering`, `cursor`, `harness-engineering`, `jekyll`, `mermaid`), alphabetized or grouped as the file already groups (comments then keys). Match existing comment contract.
 
-2. Build and inspect archives.
+2. [x] Build and inspect archives.
    - Files: `_site/tags/{ai,cursor,jekyll,mermaid,harness-engineering,context-engineering}/index.html`, `_site/garden/tags/ai/index.html`, plus negative controls `_site/tags/{ruby,bitcoin,claude-code}/index.html`
    - Tests first: `N/A for prose & policy artifacts`
    - Changes: none to code. Confirm blurbs render, negatives have no blurb, `test tag plz ignore` is gone, described archives expose the plain-text blurb in description/OG/JSON-LD metadata, and a negative control retains the site-default SEO description.
@@ -97,5 +97,5 @@ No new technology - validation not required
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
 - [x] Preflight - PASS WITH ADVISORY
-- [ ] Build
+- [x] Build
 - [ ] QA

@@ -43,3 +43,15 @@ Fill `_data/tags.yaml` with sparse, voice-matched disambiguation blurbs for the 
     - Carried `mermaid` as a non-blocking advisory because it meets the collision bar but was not operator-named
 * Insights
     - Existing machinery fully covers the requested behavior; new automation or rendering code would violate the content-only constraint without improving the deliverable
+
+## 2026-08-13 - BUILD - COMPLETE
+
+* Work completed
+    - Replaced `_data/tags.yaml` with the six yes-list blurbs; removed `ai: test tag plz ignore`
+    - Built the site and inspected blog + garden archives plus SEO metadata and negative controls
+* Decisions made
+    - Kept drafted copy with no wording expansion
+    - Kept `mermaid` (preflight advisory); QA may still drop that key alone
+* Insights
+    - Kramdown smartquotes turned `Anysphere's` into a curly apostrophe in HTML; SEO plain-text extraction still reads cleanly
+    - Horses permalink `/garden/ai-horses.html` matches `_config.yaml` garden `:path:output_ext`
