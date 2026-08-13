@@ -22,7 +22,7 @@ Jump to...
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260809211627/https://steelseries.com/gaming-keyboards/apex-7" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812011805/https://steelseries.com/gaming-keyboards/apex-7" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -76,7 +76,7 @@ The keyboard has two USB connectors, and one of them is just a passthrough for t
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260812011833/https://kinesis-ergo.com/shop/advantage2/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -131,7 +131,7 @@ It's not listed on their official site anymore, but I got the silver one (to mat
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260810004916/https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260811223014/https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -167,7 +167,7 @@ They **do** die in the traditional Logitech "button starts double-clicking becau
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260812014747/https://www.razer.com/gaming-mice/razer-naga-v2-pro" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -201,7 +201,7 @@ It's a very well-engineered piece of ergonomics. If I didn't have [something eve
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260810005042/https://www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812014822/https://www.logitech.com/en-us/shop/p/mx-vertical-ergonomic-mouse" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -253,7 +253,7 @@ Lifetimes have been 3 and 4 years so far; I just recently purchased the two memb
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260810005120/https://steelseries.com/gaming-headsets/arctis-pro" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812011340/https://steelseries.com/gaming-headsets/arctis-pro" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -344,7 +344,7 @@ You get a bunch of buttons with LCD screens on them, and plenty of first-party a
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260809211953/https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812011524/https://www.razer.com/gaming-keypads/razer-tartarus-pro/RZ07-03110100-R3U1" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

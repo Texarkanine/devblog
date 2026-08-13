@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [The Times Can Sell; Reddit Cannot](https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.md): AI money can feed staffed editorial producers. It cannot feed Reddit, Rust, or you. The flywheel only turns where producers eat what the new customer will pay.
 - [I Love It When Useful Things Get Cheaper](https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper.md): I love it when useful things like computers and Monero get cheaper over time.
 - [Just Try the Thing](https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.md): Agents collapsed the cost of trying a new tool and multiplied the upside of even small gains. Bezos' two-way doors still apply - but the old bias against trying is now the expensive choice.
 - [Good Money Should Be Worthless](https://blog.cani.ne.jp/2026/02/11/good-money-should-be-worthless.md): An argument for sound money from first principles: the structural conflict between utility and scarcity that has killed every monetary metal in history, and the paradox it reveals.

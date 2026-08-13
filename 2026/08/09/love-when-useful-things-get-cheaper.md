@@ -291,7 +291,7 @@ If **everyone** who spent bitcoin did this, it would be functionally impossible 
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260523175039/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812011003/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
