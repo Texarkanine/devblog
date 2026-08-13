@@ -730,7 +730,7 @@ If **everyone** who spent bitcoin did this, it would be functionally impossible 
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260812011003/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -6773,7 +6773,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.bghkhxtjx-ogqsoakkpnhqof5 { display: inline-block; }</style><script>(function(){function etkyvlureuoup(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function c7ilieblve4p(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var d3k6s7rz38=sp.getAttribute('data-qih37hfdm6z');var w0i80jvkl3k=sp.getAttribute('data-ksyge3x1xy9u');var zdxwncs=sp.getAttribute('data-msnqvw');var aplyh3roaw=sp.getAttribute('data-zlhqn0f');var mailto=etkyvlureuoup(d3k6s7rz38,spParts[0].length);var user=etkyvlureuoup(w0i80jvkl3k,spParts[1].length);var domainBase=etkyvlureuoup(zdxwncs,lnkParts[0].length);var tld=etkyvlureuoup(aplyh3roaw,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function yzxdqvyaiu2w(){var els=document.querySelectorAll('a.pilu96u05e3m-xd6m');var handler=function(){var sp=this.querySelector('span.bghkhxtjx-ogqsoakkpnhqof5');if(sp&&!this.dataset.d){var val=c7ilieblve4p(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',yzxdqvyaiu2w);}else{yzxdqvyaiu2w();}})();</script>{:/nomarkdown}<a href="#" class="pilu96u05e3m-xd6m"><span class="bghkhxtjx-ogqsoakkpnhqof5" data-qih37hfdm6z="vjrucx" data-ksyge3x1xy9u="GTSPRITS" data-msnqvw="bdafazymux" data-zlhqn0f="gsq">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.e1nulrfai6fkt-tr0c6mhtazapgiaa { display: inline-block; }</style><script>(function(){function mjrjqcbcevnl(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function fvbpeyp3xf6(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var adsad6zfmq9=sp.getAttribute('data-meriojimy');var zauofnkvqhv=sp.getAttribute('data-awn6xsd2');var ueockn=sp.getAttribute('data-qucgakdjeyfo');var zhn7f4b9=sp.getAttribute('data-fkpe4feso');var mailto=mjrjqcbcevnl(adsad6zfmq9,spParts[0].length);var user=mjrjqcbcevnl(zauofnkvqhv,spParts[1].length);var domainBase=mjrjqcbcevnl(ueockn,lnkParts[0].length);var tld=mjrjqcbcevnl(zhn7f4b9,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function oi6njivpdzyupp(){var els=document.querySelectorAll('a.zhcaus75j-xhcgaxr7b7e');var handler=function(){var sp=this.querySelector('span.e1nulrfai6fkt-tr0c6mhtazapgiaa');if(sp&&!this.dataset.d){var val=fvbpeyp3xf6(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',oi6njivpdzyupp);}else{oi6njivpdzyupp();}})();</script>{:/nomarkdown}<a href="#" class="zhcaus75j-xhcgaxr7b7e"><span class="e1nulrfai6fkt-tr0c6mhtazapgiaa" data-meriojimy="znvygb" data-awn6xsd2="HUTQSJUT" data-qucgakdjeyfo="yaxcxwvjru" data-fkpe4feso="nzx">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -7818,11 +7818,7 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
-          
-        </li><li>
-          
-          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
+          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
           
         </li><li>
           
@@ -7830,59 +7826,7 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
-          
-        </li><li>
-          
-          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
-          
-        </li><li>
-          
-          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
-          
-        </li><li>
-          
-          <a href="/garden/idea-bank.html">Idea Bank</a>
-          
-        </li><li>
-          
-          <a href="/garden/ai-horses.html">Horses</a>
-          
-        </li><li>
-          
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
-          
-        </li><li>
-          
-          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
-          
-        </li><li>
-          
-          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
-          
-        </li><li>
-          
-          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
-          
-        </li><li>
-          
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
-          
-        </li><li>
-          
           <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
           
         </li><li>
           
@@ -7890,7 +7834,15 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/shrine/index.html">Shrines</a>
+          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          
+        </li><li>
+          
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          
+        </li><li>
+          
+          <a href="/garden/idea-bank.html">Idea Bank</a>
           
         </li><li>
           
@@ -7898,11 +7850,19 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          
+        </li><li>
+          
+          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
           
         </li><li>
           
           <a href="/garden/stories.html">Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/nuclear-pyramid.html">The Great Pyramid of Giza was a Plutonium Mill</a>
           
         </li><li>
           
@@ -7914,11 +7874,51 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
+          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
+          
+        </li><li>
+          
+          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/index.html">Shrines</a>
+          
+        </li><li>
+          
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
+          
+        </li><li>
+          
+          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
+          
+        </li><li>
+          
+          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
+          
+        </li><li>
+          
           <a href="/garden/short-stories.html">Short Stories</a>
           
         </li><li>
           
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          
+        </li><li>
+          
+          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
           
         </li></ul>
 
@@ -9657,7 +9657,7 @@ Jump to...
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260812011805/https://steelseries.com/gaming-keyboards/apex-7" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
