@@ -342,11 +342,11 @@ It is also the only response already on the table that does not lie about the lo
 
 Fine if that's the life for you. For most of us, Amish is a bit extreme.
 
-### September 15 is a fragmentation replay
+### September 15 is a Fragmentation Replay
 
-Cloudflare's new defaults are not "Googlebot blocked for everyone." New domains, ad pages, Training off, opt-out exists. Defaults are what most people run. A corner of the web will fall out of Google because nobody changed the checkbox.
+Cloudflare's new defaults are not "Googlebot blocked for everyone." For new domains, on pages that run ads, "Training" and "Agent" behavior will be blocked by default. There *is* an opt-out (or opt-back-in?), but defaults are what most people run. A corner of the web will fall out of Google because nobody changed the checkbox.
 
-Cloudflare already sees that corner. It sits on the edge of those sites. If you wanted to search the part of the internet that was not in Google, they are positioned to do it, and if you think they will not, I have a bridge. Akamai, Fastly, whoever else runs enough of the remaining web, can scoop the same way. Then you have competing catalogs. We have watched this. Consumers hated it. They went to an aggregator the moment one existed, because the experience got uniformly worse.
+Cloudflare already sees that corner and will continue to see it: it sits on the edge of those sites. If you wanted to search the part of the internet that was not in Google, they are positioned to do it and if you think they will not leverage that position, I have a bridge to sell you. Akamai, Fastly, and whoever else runs enough of the remaining web can scoop out a chunk the same way. Then you have competing catalogs. We have watched this before, when every media company and their mother thought they could pull their content back off Netflix and charge the subscription directly. Consumers hated it. They had gone to an aggregator the moment one existed, because the alternative experience was uniformly worse. Consumers will not `search.cloudflare.com` and `search.akamai.net` and `search.fastly.com` - they will *find* the aggregator that pulls from all of the sources and use that.
 
 The blockade reconstitutes the middleman one layer up. CDN search is distribution theater. It is not food for producers.
 
@@ -354,13 +354,19 @@ The blockade reconstitutes the middleman one layer up. CDN search is distributio
 
 So the honest options look like: miss, miss, miss, go be Amish in a corner. The Times is probably doomed on the track it is on. It also has a way to thrive in this world that I have not found for anyone else, and that nobody else in this lineup has found either.
 
-The new direct consumer is the aggregator. Producers have to eat something that consumer is willing to pay. Money is the only such something I have found. Times writers, editors, fact-checkers, people they can put on a plane - they already eat money. AI can pay those people.
+The new direct consumer is the aggregator. Producers have to eat something that consumer is willing to pay. Money is the only such something I have found in any of these flywheels. Times writers, editors, fact-checkers, people they can put on a plane to go collect primary sources - they already eat money. AI can pay those people.
 
-Reddit took a check too. Follow that check again. It was rent charged to the aggregator, same as what I am about to describe. The denomination the posters spend is reputation. The rent arrived in a currency they cannot eat.
+Reddit took a check too, but follow that check again: it was rent charged to the aggregator, same as what I am about to describe - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
 
-Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - Project Panama, built to get Claude "how to write well" instead of "low quality internet speak." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright. The demand underneath is verified-human text, at a published-book quality bar, that competitors do not already have.
+Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - Project Panama, built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for 
 
-Readers still want the Times's reputation. They do not want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many zeros more than a subscriber. The public can still see the piece later. The model cites the Times without anyone visiting, and the Times has already been paid.
+1. verified-human text
+2. at a published-book quality bar
+3. that competitors do not already have
+
+That is exactly the kind of thing traditional media outlets are built to produce.
+
+Readers still want the Times's reputation; they do **not** want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many more zeroes than their dwindling subscriber base. The public can still see the piece later. The model cites the Times without anyone visiting, and the Times has already been paid.
 
 ```mermaid
 graph TB
@@ -380,23 +386,34 @@ graph TB
     AI["AI Aggregator"]
 ```
 
-The thick line from the aggregator is the new customer. The writers are still on payroll. The readers never came back, and they do not have to.
+The thick line from the aggregator is the new customer. The writers are still on payroll.
 
-This does not transfer, for two reasons that actually matter.
+> The readers never come back, and they do not have to.
 
-The Times's producers eat money. Reddit's eat reputation. Same rent. Wrong denomination for the people who have to keep showing up.
+This does not transfer to other platform shapes, unfortunately, for two reasons:
 
-And the Times never ran on public demand telemetry. "All the news that's fit to print" means they are choosing what is fit. You subscribe to a newspaper without knowing the table of contents. Curated surprise *is* the product. Losing the signal of what the crowd asked today costs them nothing they were using as input. Reddit and Stack Overflow *are* that signal. You did not go there recreationally. You went because you needed something particular. Patronage can replace a newsroom's payroll. It cannot replace the compass that *was* the social product.
 
-Will they reframe? Will labs pay real exclusivity premiums? Does authority dilute when every model wears it? Those are market risks. They are not the mechanical failure Reddit is making. They are also not a template.
+### The Times' Staff is Paid
+
+The Times's producers eat money. Reddit's eat reputation. Same rent, wrong denomination for the people who have to keep showing up.
+
+### The Times Doesn't Need to Know What You Want to Read
+
+The Times never ran on public demand telemetry. "All the news that's fit to print" means they are choosing what is fit. You subscribe to a newspaper without knowing the table of contents: curated surprise *is* the product. Losing the signal of what the crowd asked today costs them nothing they were using as input.
+
+Reddit and Stack Overflow *are* that signal. You did not go there recreationally: you went because you needed something particular. Patronage can replace a newsroom's payroll. It cannot replace the compass that *was* the social product.
+
+Will they reframe? Will labs pay real exclusivity premiums? Does authority dilute when every model can rent it? Those are market risks. They are not the mechanical failure Reddit is making. They are also not a template for any other kind of platform.
 
 ## And Me?
 
-The false comfort is that the pieces are interchangeable. If GitHub goes down I will use GitLab. If Rust does not work I will use Go. I am very smart. No. This flywheel existed inside you, and it is part of why you got smart, and it can spin down too.
+The false comfort is that the pieces are interchangeable. If GitHub goes down I will use GitLab. If Rust does not work I will use Go. I am very smart. No. This flywheel existed inside you, and me, and it is part of why we got smart, and it can spin down too.
 
-[Omry Yadan wrote about the private version][yadan]. Friction was a signal of what needed attention. The producers in the loops above were acting on that signal in public. AI makes access convenient and blocks the signal from reaching them. You can do the same thing to yourself. This is not a Butlerian sermon about getting dumber. Your problem-solving ability can stay exactly where it was. You just stop *seeing* problems. Once you no longer see problems to solve, your utility as a productive entity drops anyway.
+[Omry Yadan wrote about the private version][yadan]: friction was a signal of what needed attention. The producers in the loops above were acting on that signal in public. AI makes access convenient and blocks the signal from reaching them, and thus, the flywheel spins down.
 
-I feel this in small, stupid ways. Does Vite suck? I do not know. We use it in a search widget; Niko deals with it. Does Docusaurus suck? I do not know. I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the friction got obscured.
+You can do the same thing to yourself. This is not a [Butlerian sermon about getting dumber]({% link _garden/fomenting-the-butlerian-jihad.md %}); your problem-solving ability can stay exactly as sharp as it ever it was - you just stop *seeing* problems. Once you no longer see problems to solve, your utility as a productive entity drops anyway.
+
+I feel this nipping at my heels. Does Vite suck? I do not know. We use it in [inquirerjs-checkbox-search](https://github.com/Texarkanine/inquirerjs-checkbox-search/); Niko deals with it. Does Docusaurus suck? I do not know. It runs the [a16n documentation site](https://texarkanine.github.io/a16n/) and I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the friction got obscured.
 
 The flywheel inside you is at risk. You are one of the shapes for which I do not have an answer. I am one of those shapes.
 
@@ -404,15 +421,12 @@ The only move I have that is not Amish, Luddite, or a miss is to keep moving wit
 
 [cnbc-reddit]: https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
 [gizmodo]: https://gizmodo.com/major-publishers-are-reportedly-considering-a-drastic-step-to-get-their-content-out-of-googles-ai-answers-2000788873
-
-
 [codeberg-quota]: https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html
 [devclass]: https://devclass.com/2026/01/05/dramatic-drop-in-stack-overflow-questions-as-devs-look-elsewhere-for-help/
 [cf-cid]: https://blog.cloudflare.com/content-independence-day-ai-options/
 [cf-os]: https://github.com/cloudflare/cloudflare-os/blob/4e0f9593fc52944319ee7332db025f6912f6f64a/CONTRIBUTING.md
 [ars-books]: https://arstechnica.com/ai/2025/06/anthropic-destroyed-millions-of-print-books-to-build-its-ai-models/
 [yadan]: https://yadan.net/writing/ai-doesnt-get-annoyed/
-
 
 [codeberg]: https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
 [^fn-codeberg]: Tzovaras, B. G., Richter, O., & Zijil, W. (2026, July 23). Protecting our Floss Commons from LLMS. Codeberg News. https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
