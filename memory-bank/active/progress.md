@@ -66,3 +66,13 @@ Fill `_data/tags.yaml` with sparse, voice-matched disambiguation blurbs for the 
     - `mermaid` key retained: passes the disambiguation collision test (mythological creature vs diagram tool).
 * Insights
     - Changes strictly followed the content-only constraint, correctly leveraging the existing Jekyll layout infrastructure.
+
+## 2026-08-13 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-tag-descriptions.md`
+    - Reconciled persistent files: no updates
+* Decisions made
+    - `bitcoin` stays undescribed; `mermaid` stays
+* Insights
+    - Content-only L2: lock yes-list and no-list in the plan so sparsity is auditable without a creative phase
