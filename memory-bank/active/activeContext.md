@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: tag-descriptions
-**Phase:** BUILD - COMPLETE
+**Phase:** QA - COMPLETE (PASS)
 
 ## What Was Done
 - Wrote six blurbs in `_data/tags.yaml` (`ai`, `context-engineering`, `cursor`, `harness-engineering`, `jekyll`, `mermaid`); dropped the `ai` stub; no em-dashes.

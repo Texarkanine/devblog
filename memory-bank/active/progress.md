@@ -55,3 +55,14 @@ Fill `_data/tags.yaml` with sparse, voice-matched disambiguation blurbs for the 
 * Insights
     - Kramdown smartquotes turned `Anysphere's` into a curly apostrophe in HTML; SEO plain-text extraction still reads cleanly
     - Horses permalink `/garden/ai-horses.html` matches `_config.yaml` garden `:path:output_ext`
+
+## 2026-08-13 - QA - COMPLETE
+
+* Work completed
+    - Reviewed `_data/tags.yaml` diff against project brief and tasks.
+    - Verified all 6 keys (`ai`, `context-engineering`, `cursor`, `harness-engineering`, `jekyll`, `mermaid`) match the exact front-matter text and use the correct `>-` formatting.
+    - Confirmed removal of any stubs and em-dashes.
+* Decisions made
+    - `mermaid` key retained: passes the disambiguation collision test (mythological creature vs diagram tool).
+* Insights
+    - Changes strictly followed the content-only constraint, correctly leveraging the existing Jekyll layout infrastructure.
