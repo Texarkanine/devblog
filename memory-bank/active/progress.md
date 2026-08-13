@@ -31,3 +31,15 @@ Fill `_data/tags.yaml` with sparse, voice-matched disambiguation blurbs for the 
 * Insights
     - Current yaml already had usable keys for harness/context but generic copy plus an `ai` test stub
     - Horses note is the canonical split: harness = making saddles; context = horsemanship once tacked
+
+## 2026-08-13 - PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+
+* Work completed
+    - Validated the plan against the data contract, both archive layouts, the SEO hook, exact front-matter tag slugs, and the canonical Horses note
+    - Confirmed the prose-only plan correctly excludes TDD and avoids change-detector tests
+    - Amended build inspection to cover description, Open Graph, and JSON-LD metadata plus an undescribed SEO negative control
+* Decisions made
+    - Approved the six-key plan for build with no rendering, plugin, dependency, or public-interface changes
+    - Carried `mermaid` as a non-blocking advisory because it meets the collision bar but was not operator-named
+* Insights
+    - Existing machinery fully covers the requested behavior; new automation or rendering code would violate the content-only constraint without improving the deliverable

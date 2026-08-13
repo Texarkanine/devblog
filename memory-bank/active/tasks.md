@@ -52,7 +52,7 @@ Verification during build: `bundle exec jekyll build`, then inspect the archive 
 2. Build and inspect archives.
    - Files: `_site/tags/{ai,cursor,jekyll,mermaid,harness-engineering,context-engineering}/index.html`, `_site/garden/tags/ai/index.html`, plus negative controls `_site/tags/{ruby,bitcoin,claude-code}/index.html`
    - Tests first: `N/A for prose & policy artifacts`
-   - Changes: none to code. Confirm blurbs render, negatives have no blurb, `test tag plz ignore` is gone.
+   - Changes: none to code. Confirm blurbs render, negatives have no blurb, `test tag plz ignore` is gone, described archives expose the plain-text blurb in description/OG/JSON-LD metadata, and a negative control retains the site-default SEO description.
 
 ## Technology Validation
 
@@ -78,6 +78,17 @@ No new technology - validation not required
 - **Blurbs too cute to disambiguate:** each collision blurb must still name the referent (editor, SSG, mermaid.js). If a joke swallows the meaning, rewrite in build.
 - **Horses links 404 for readers who only hit `/tags/`:** links are site-relative to an existing garden note; if that feels inside-baseball, keep the sentence and drop the link, don't drop the blurb.
 
+## Preflight Report
+
+- **PASS - Prerequisites:** Level 2 planning is complete. No creative phase was required or flagged.
+- **PASS - TDD encoding:** The only production edit is user-facing prose in `_data/tags.yaml`, which is outside `always-tdd.mdc`; the plan explicitly schedules no change-detector tests.
+- **PASS - Conventions:** The one-file plan preserves the data file's header contract, uses exact front-matter tag slugs, uses `>-` block scalars, and relies on the existing global blog/garden lookup.
+- **PASS - Dependencies:** Both archive layouts and the SEO hook are accounted for. Preflight amended build inspection to verify description, Open Graph, and JSON-LD output plus the undescribed default.
+- **PASS - Conflicts:** Existing rendering and SEO machinery already provide everything required; the plan adds no duplicate implementation and changes no public interface.
+- **PASS - Completeness:** The six-key yes-list, explicit no-list, stub removal, blog/garden checks, negative controls, and SEO checks map to every requirement and acceptance criterion.
+- **ADVISORY - `mermaid`:** This is the only non-operator-named stretch. Retain it for build because it meets the same collision test as `jekyll` and appears on three posts; QA may remove that key alone if the blurb does not earn its place.
+- **Radical innovation:** No new machinery is justified. The strongest structural improvement is the explicit positive/negative decision ledger already present in this plan; it makes the sparse editorial rule auditable without turning prose into a tested contract.
+
 ## Status
 
 - [x] Initialization complete
@@ -85,6 +96,6 @@ No new technology - validation not required
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
-- [ ] Preflight
+- [x] Preflight - PASS WITH ADVISORY
 - [ ] Build
 - [ ] QA
