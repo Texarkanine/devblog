@@ -28,7 +28,7 @@ Two ways in:
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260812011057/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812011108/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

@@ -4,7 +4,7 @@
 
 On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its [steepest one-day drop since the 2024 IPO][yahoo-reddit]. Huffman wrote that search referrals were "choppy", and said that in AI Overviews Reddit has "still yet to find that win-win."[^cnbc-reddit] In a [same-day interview][cnbc-huffman]: "The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact."
 
-The New York Times is [suing OpenAI](https://en.wikipedia.org/wiki/The_New_York_Times_v._Microsoft_and_OpenAI) and has, [according to the Wall Street Journal][gizmodo], discussed pointing `noindex` at itself - a directive that tells search engines to forget you exist. Rust adopted an [LLM policy][rust] that treats a pull request as a contributor-formation event, not a delivery of code. That is a stance, not a mood: it changes who the community is, and it only invites the humans who will play that game. [Codeberg](https://codeberg.org) [voted 358 to 144][codeberg] to stop hosting projects that "mostly consist of" LLM-written code.
+The New York Times is [suing OpenAI](https://en.wikipedia.org/wiki/The_New_York_Times_v._Microsoft_and_OpenAI) and has, [according to the Wall Street Journal][gizmodo], discussed pointing `noindex` at itself - a directive that tells search engines to forget you exist. Rust adopted an [LLM policy][rust] that treats a pull request as a contributor-formation event, not a delivery of code. That is an actionable stance, not just a mood: it changes who the community is, and it only invites the humans who will play that game. [Codeberg](https://codeberg.org) [voted 358 to 144][codeberg] to stop hosting projects that "mostly consist of" LLM-written code.
 
 These look like four different fights. They are the same machine, breaking on different sides.
 
@@ -12,17 +12,15 @@ These look like four different fights. They are the same machine, breaking on di
 
 The Times is defending a distribution position. It metered the site in 2011, over a decade before any LLM crawler mattered: a deliberate trade of open reach for subscription revenue. The complaint now is that somebody else built a unified layer over the fragments and users prefer it. The current play is to chop the aggregator - sue, block, threaten to vanish from the index.
 
-Reddit signed a [2024 deal worth about $60 million](https://thehill.com/policy/technology/4485295-reddit-gives-google-access-to-content-for-training-ai-models/) a year to let Google train on its content, and has reportedly discussed [shutting that access off][gizmodo]. Stack Overflow received [3,862 new questions in December 2025][devclass], down 78% from the year before, at a site that peaked above 200,000 questions per month in early 2014. The decline [started in 2014](https://blog.pragmaticengineer.com/stack-overflow-is-almost-dead/), when moderation got aggressive and the site got unwelcoming. ChatGPT accelerated a slide that policy began. Before any of this, you often had to search both Reddit and Stack Overflow, and several subreddits within Reddit to boot, to find an answer.
+Reddit signed a [2024 deal worth about $60 million](https://thehill.com/policy/technology/4485295-reddit-gives-google-access-to-content-for-training-ai-models/) a year to let Google train on its content, and has reportedly discussed [shutting that access off][gizmodo]. Stack Overflow received [3,862 new questions in December 2025][devclass], down 78% from the year before, at a site that peaked above 200,000 questions per month in early 2014. The [decline started in that same year](https://blog.pragmaticengineer.com/stack-overflow-is-almost-dead/), when moderation got aggressive and the site got unwelcoming; ChatGPT accelerated a slide that policy began.
 
 Rust's policy names the flywheel from the inside:
 
 > We treat PRs as an indication that someone is interested in joining our community and being mentored to work on future PRs. [...] a polished PR no longer indicates that someone is likely to stick around for the long term.[^fn-rust]
 
-Disclosure, not detection. "Style is not evidence." They quoted [Zig's ban](https://ziglang.org/code-of-conduct/#strict-no-llm-no-ai-policy) on one side and Linus's ["AI is a tool"](https://lore.kernel.org/linux-media/CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com/) on the other, and took neither.
-
 Codeberg is a German nonprofit code forge with no ad model and no API licensing. In July 2026 its members voted to keep out the "development team of none": one person and a statistical machine that "turns energy into code."[^fn-codeberg] They are indifferent to `git clone`. Their crawler complaint is about method - bots walking every issue-filter permutation and every historical revision on donation-funded disks - and about ghost projects that consume resources as if they were full-fledged communities while throwing off no prestige.
 
-Hang this date somewhere in your head: on September 15, 2026, [Cloudflare will default-block Training and Agent bots][cf-cid] on ad pages for new domains. Because Googlebot is classified as Search *and* Training, that default is Googlebot-off unless the site owner opts out. I will come back to it.
+Hang this date somewhere in your head: on September 15, 2026, [Cloudflare will default-block Training and Agent bots][cf-cid] on ad pages for new domains. Because Googlebot is classified as Search *and* Training, that default is Googlebot-off unless the site owner opts out.
 
 If this all looks like [Pink Margarine](/2026/03/01/pink-margarine.html) - incumbents thrashing about, dyeing the substitute so nobody will eat it, grasping at straws to stay relevant against the inexorable march of technological advancement - hold that for a bit.
 
@@ -30,13 +28,13 @@ If this all looks like [Pink Margarine](/2026/03/01/pink-margarine.html) - incum
 
 Every one of these platforms is a hub with three loops.
 
-Consumers give attention and get the thing: articles, answers, working code. Producers give content or presence that attracts consumers, and get fame or fortune - reputation, karma, salary, doors opening. Fame and fortune convert into each other, though at varying exchange rates. In the middle sits a converter: the platform's secret sauce that turns plentiful consumer-side input into platform sustenance plus what producers want, and skims a cut. Ads, subscriptions, hosting quotas, brand attention: the mechanics vary. The principle does not.
+Consumers give attention and get the thing: articles, answers, working code. Producers give content or presence that attracts consumers, and get fame or fortune - reputation, karma, salary, doors opening. (Fame and fortune convert into each other, though at varying exchange rates.) In the middle sits a converter: the platform's secret sauce that turns plentiful consumer-side input into platform sustenance plus what producers want, and then skims a cut for itself. Ads, subscriptions, hosting quotas, brand attention: the mechanics vary. The principle does not.
 
-Some flywheels also pay producers in *each other*. Social dues. Community. "You're not alone." That is **fuel**.
+Some flywheels also pay producers in *each other*: Social dues. Community. "You're not alone." Anywhere there's a group of contributors paid in reputation, the human social instinct kicks in and a sense of community can scaffold arount it. That is **fuel**.
 
 ### How They Ran
 
-The New York Times is the clean picture: readers give attention and money, get articles. The converter turns that into payroll by laying some ad revenue on top. Writers with editors, fact-checking pipelines, and a voice they spent a career on, supply the articles that draw the next readers.
+The New York Times is the clean picture: readers give attention and money, get articles. The converter turns that into payroll for all involved by laying some ad revenue on top. Writers with editors, fact-checking pipelines, and a voice they spent a career on, supply the articles that draw the next readers.
 
 <figure class="mermaid-diagram">
 <style>
@@ -100,7 +98,7 @@ Codeberg is Rust pulled up a level. The producers are *projects*, not PR authors
 
 ### How They Break
 
-The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indices came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loop closes on the LLM and the platform is hit by one consumer that sends nothing back.
+The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indices came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loop closes on the LLM and the platform is hit by a solitary consumer that sends nothing back.
 
 <figure class="mermaid-diagram">
 <style>
@@ -115,7 +113,7 @@ The Times and Reddit break on the consumer side. An AI aggregator sits down betw
 <a class="mermaid-diagram__dark" href="/assets/svg/93276aa5-dark.svg"><img src="/assets/svg/93276aa5-dark.svg" alt="Mermaid Diagram"></a>
 </figure>
 
-Reddit is the same geometry. Readers take their questions to the aggregator. The thick attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator its posters' content while its posters starve.
+Reddit is the same geometry: readers take their questions to the aggregator and the thick, juicy attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator its posters' content while its posters starve.
 
 <figure class="mermaid-diagram">
 <style>
@@ -130,7 +128,7 @@ Reddit is the same geometry. Readers take their questions to the aggregator. The
 <a class="mermaid-diagram__dark" href="/assets/svg/29830072-dark.svg"><img src="/assets/svg/29830072-dark.svg" alt="Mermaid Diagram"></a>
 </figure>
 
-Rust breaks on the producer side. AI shows up as code that works and a person who is not coming to the meeting. Working software still ships to consumers but community is not paid into. Converter capacity is finite: it [can only turn so much code into appreciated reputation](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). AI contributions take cycles and mint nothing that sticks. Human code gets crowded out. A contribution used to mean someone else understands, cares, and might stay. AI can open one PR or a hundred with no intent to return.
+Rust breaks on the producer side. AI shows up as code that works and a person who is not coming to the meeting. Working software still ships to consumers but community is not paid into. Converter capacity is finite: it [can only turn so much code into appreciated reputation](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). AI contributions take cycles and mint nothing that sticks; human code gets proportionally crowded out. A contribution used to mean someone else understands, cares, and might stay. AI can open one PR or a hundred with no intent to return.
 
 <figure class="mermaid-diagram">
 <style>
@@ -141,11 +139,11 @@ Rust breaks on the producer side. AI shows up as code that works and a person wh
   .mermaid-diagram__dark { display: inline; }
 }
 </style>
-<a class="mermaid-diagram__light" href="/assets/svg/9283b64e.svg"><img src="/assets/svg/9283b64e.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/9283b64e-dark.svg"><img src="/assets/svg/9283b64e-dark.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__light" href="/assets/svg/48e0eabc.svg"><img src="/assets/svg/48e0eabc.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/48e0eabc-dark.svg"><img src="/assets/svg/48e0eabc-dark.svg" alt="Mermaid Diagram"></a>
 </figure>
 
-Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still pays the electric. More open up, and the *living* become an ever-thinner slice of the roster. Developers can still clone. That does not feed the converter.
+Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still has to pay the electric. More open up, and the *living* become an ever-thinner slice of the roster. Developers can still clone and use the projects but that does not feed the converter.
 
 <figure class="mermaid-diagram">
 <style>
@@ -164,7 +162,7 @@ Codeberg gets the same failure one level up: the producers are *projects*, so a 
 
 ### The Times Shut the Barn Door After the Cows Got Out
 
-Cutting off the aggregator is an attempt to cut the content line into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer to regress just because a publisher asked them to. [Piracy was almost always a service problem](http://www.escapistmagazine.com/news/view/114391-Valves-Gabe-Newell-Says-Piracy-Is-a-Service-Problem); this is that same shape of problem.
+Cutting off the aggregator is an attempt to cut the "content" line feeding into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer for a worse experience just because a publisher asked them to. [Piracy was almost always a service problem](http://www.escapistmagazine.com/news/view/114391-Valves-Gabe-Newell-Says-Piracy-Is-a-Service-Problem); this is that same shape of problem.
 
 <figure class="mermaid-diagram">
 <style>
@@ -198,15 +196,17 @@ That deal with Google to let them train on content was a neat idea, but... see i
 <a class="mermaid-diagram__dark" href="/assets/svg/b5254dc1-dark.svg"><img src="/assets/svg/b5254dc1-dark.svg" alt="Mermaid Diagram"></a>
 </figure>
 
-Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while. It cannot pay the people who were the reason the corpus was worth buying.
+Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while but it cannot pay the people who were the reason the corpus was worth buying.
 
-> The deal sustains the entity while starving the asset.
+> The deal sustains the portfolio while starving the asset.
 
-Posting spins down, the corpus gets worse, the *next* licensing round sells for less, and the consumer side is already gone. Stack Overflow has tried on the costume: [Data Licensing][so-license] sells labs ["decades of verified, technical knowledge"][so-era] - smart humans wrote this. The check still stops at the company. Answerers are not on a newsroom payroll. They are renting out the back catalog while new questions collapse. Same geometry as Reddit, better marketing.
+Posting spins down, the corpus gets worse, the *next* licensing round sells for less, and the consumer side was already gone. Stack Overflow has tried on the costume: [Data Licensing][so-license] sells labs ["decades of verified, technical knowledge"][so-era] - smart humans wrote this. The check still stops at the company. Answerers are not on a newsroom payroll. Stack Overflow is renting out the *back catalog* while *new* questions collapse. Same geometry as Reddit, better marketing.
 
-### Rust Filtered the Producers and Kept the Whole Market
+### Rust Filtered the Producers and Courts the Whole Market
 
-Rust wants the world to use Rust, but also a community that still forms contributors the old way. Those loops no longer match. The policy chills AI-shaped contributions - and, with them, humans who would have used the tools and then stuck around, or at least shipped a patch.
+Rust wants the world to use Rust, but also a community that still forms contributors the old way. They angle for disclosure, not detection. "Style is not evidence." They quoted [Zig's ban](https://ziglang.org/code-of-conduct/#strict-no-llm-no-ai-policy) on one side and Linus's ["AI is a tool"](https://lore.kernel.org/linux-media/CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com/) on the other, and took neither.
+
+Those loops no longer match. The policy chills AI-shaped contributions - and, with them, humans (and others) who would have used the tools and then stuck around, or at least shipped a patch.
 
 <figure class="mermaid-diagram">
 <style>
@@ -221,9 +221,9 @@ Rust wants the world to use Rust, but also a community that still forms contribu
 <a class="mermaid-diagram__dark" href="/assets/svg/3d9930ab-dark.svg"><img src="/assets/svg/3d9930ab-dark.svg" alt="Mermaid Diagram"></a>
 </figure>
 
-The consumer loop is still the whole market. The producer loop just got smaller, including some of the humans. They are not only cutting off rogue bots. They are cutting off people who use these tools. That is a baby-and-bathwater move.
+The consumer loop is still the whole market. The producer loop just got smaller, including some of the humans. They are not only cutting off rogue bots: they are cutting off *users*, too. That is a baby-and-bathwater move in a system like this.
 
-***I*** keep seeing Rust. I would leech it happily - try it in a project where I needed high performance but not C from 1999. I would fix a bug with a PR if I had to. 
+***I*** keep seeing Rust. I would "leech" it happily - try it in a project where I needed high performance but not C from 1999. I would fix a bug with a PR if I had to. 
 
 And I would use AI for that contribution, as I am indeed *not* interested in becoming "A Rust Developer" nor in joining the "Rust Community." I'm just here to make software that works, man. The policy correctly clocks me. 
 
@@ -231,11 +231,13 @@ And I would use AI for that contribution, as I am indeed *not* interested in bec
 
 It becomes a club with a language attached. When I need Rust-like characteristics, I have a strong incentive to pick a fork I can patch. I *am* the baby in that bathwater, I reckon. Of course, that's what the bathwater would say, too.
 
-The same shape showed up in [Cloudflare OS's contributing guide][cf-os]: they are Apache-2.0-licensed and "not seeking outside contribution," because AI made writing easy and reviewing - keeping the product coherent - is the hard part. Small, trivially-verified PRs only. Writing was the easy half. They closed the gate to protect the hard half. That is Rust's move in a `CONTRIBUTING.md`.
+The same shape showed up in [Cloudflare OS's contributing guide][cf-os]: they are Apache-2.0-licensed and "not seeking outside contribution," because AI made writing easy and reviewing - keeping the product coherent - is the hard part, they say. Small, trivially-verified PRs only. Writing was the easy half. They closed the gate to protect the hard half. That is Rust's move in a `CONTRIBUTING.md`.
+
+So, me and the rest of the users who want the full set of benefits of using open-source software have a strong incentive to go find or make a fork whose loops we can participate in. Otherwise, it's *us* who're paying in a resource with no recompense. Rust & Cloudflare are betting that there aren't enough valuable-enough contributions left on the table after cutting us off to matter. Bold strategy; let's see if it pays off for 'em.
 
 Rust, at least, knows and admits they're experimenting. So, the door's closed to me for now, but maybe not forever. Respect.
 
-I might grant a generous interpretation of their stance as more [literally Luddite](https://en.wikipedia.org/wiki/Luddite) - demanding a halt to radical new technology until it can be used without egregious detriment to human well-being - than the colloquial "head-in-the-sand" sense. The clock still runs. How long can you wait before the fork that accepts patches is the one everyone uses?
+I might grant a generous interpretation of their stance as more [literally Luddite](https://en.wikipedia.org/wiki/Luddite) - demanding a halt to radical new technology until it can be used without egregious detriment to human well-being - than the colloquial "head-in-the-sand" sense. The clock still runs. How long can you wait before the fork that accepts patches is the one *everyone* chooses?
 
 ### Codeberg Formed an Enclave
 
@@ -256,7 +258,7 @@ Codeberg looks like Rust one level up until you check the loops. Rust filters pr
 
 *(Hey, that's the same graph as before!)*
 
-A language can lose its consumers entirely if a better one shows up, just like a given [brand of pickles can fall out of vogue](https://www.youtube.com/watch?v=UZ9e2ASgwKo) even while people still absolutely want pickles in general. A forge is closer to "somewhere to cook." People may not all want this kitchen. Some of them will. The bet is that the niche is big enough - and *that* is just ordinary market-size risk, not the miss on the Times's lawsuit or Reddit's check.
+A language can lose its consumers entirely if a better one shows up, just like a given [brand of pickles can fall out of vogue](https://www.youtube.com/watch?v=UZ9e2ASgwKo) even while people still absolutely want pickles in general. A forge is closer to "somewhere to cook." People may not all want this kitchen. Some of them will. The bet is that the niche is big enough - and *that* is just ordinary market-size risk, not the mechanical miss on the Times's lawsuit or Reddit's check.
 
 It is also the only response already on the table that does not lie about the loops. Survive inside the fence, even thrive, and remain irrelevant at global scale.
 
@@ -266,19 +268,26 @@ Fine if that's the life for you. For most of us, Amish is a bit extreme.
 
 ### September 15 is a Fragmentation Replay
 
-Cloudflare's new defaults are not "Googlebot blocked for everyone." For new domains, on pages that run ads, "Training" and "Agent" behavior will be blocked by default. There *is* an opt-out (or opt-back-in?), but defaults are what most people run. A corner of the web will fall out of Google because nobody changed the checkbox.
+Cloudflare's new defaults are not "Googlebot blocked for everyone." For new domains, on pages that run ads, "Training" and "Agent" behavior will be blocked by default. There *is* an opt-out (or opt-back-in?), but defaults are what most people run. A corner of the web **will** fall out of Google because nobody changed the checkbox.
 
-Cloudflare already sees that corner and will continue to see it: it sits on the edge of those sites. If you wanted to search the part of the internet that was not in Google, they are positioned to do it and if you think they will not leverage that position, I have a bridge to sell you. Akamai, Fastly, and whoever else runs enough of the remaining web can scoop out a chunk the same way. Then you have competing catalogs. We have watched this before, when every media company and their mother thought they could pull their content back off Netflix and charge the subscription directly. Consumers hated it. They went to an aggregator the moment one existed, because the alternative experience was uniformly worse. Consumers will not `search.cloudflare.com` and `search.akamai.net` and `search.fastly.com` - they will *find* the aggregator that pulls from all of the sources and use that.
+Cloudflare already sees that corner and will continue to see it: it sits on the edge of those sites. If you wanted to search the part of the internet that was not in Google, Cloudflare will be positioned to do it and if you think they will not leverage that position, I have a bridge to sell you. Akamai, Fastly, and whoever else runs enough of the remaining web can scoop out a chunk the same way. Then you have competing catalogs. Again. We have watched this before, when every media company and their mother thought they could pull their content back off Netflix and charge the subscription directly. Consumers hated it. They went to an aggregator in the first place, the moment one existed, because the alternative experience was uniformly worse.
+
+In the 2010s, to find answers to programming questions, you often had to search both Reddit and Stack Overflow, and several subreddits within Reddit to boot, to find an answer. That *was* a worse experience than the current one.
+
+Consumers will not `search.cloudflare.com` and `search.akamai.net` and `search.fastly.com` - they will *find* the aggregator that pulls from all of the sources and use that.
 
 The blockade reconstitutes the middleman one layer up. CDN search is distribution theater. It is not food for producers.
 
 ## The Times Still Has a Customer
 
-So the honest options look like: miss, miss, miss, go be Amish in a corner. The Times is probably doomed on the track it is on. It also has a way to thrive in this world that I have not found for anyone else, and that nobody else in this lineup has found either.
+So the honest options look like: miss, miss, miss, go be Amish in a corner. The Times is probably doomed on the track it is on... but it also **does** hase a way to thrive in this world that I have not found for anyone else, and that nobody else in this lineup has found either.
 
-The new direct consumer is the aggregator. Producers have to eat something that consumer is willing to pay. Money is the only such something I have found in any of these flywheels. Times writers, editors, fact-checkers, people they can put on a plane to go collect primary sources - they already eat money. AI can pay those people.
+1. Producers have to eat something that consumer is willing to pay.
+2. The new direct consumer is the aggregator. 
 
-Reddit took a check too, but follow that check again: it was rent charged to the aggregator - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
+Money is the only such something I have found in any of these flywheels that can bridge the new gap. Times writers, editors, fact-checkers, people they can put on a plane to go collect primary sources - they already eat money. AI can pay those people.
+
+Reddit took a check too, but remember: it was rent charged to the aggregator and denominated in dollars - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
 
 Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - [Project Panama][wapo-panama], built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for: 
 
@@ -286,9 +295,9 @@ Labs are already telling you what they will pay for. [Anthropic bought print boo
 2. at a published-book quality bar
 3. that competitors do not already have
 
-That is exactly the kind of thing traditional media outlets are built to produce.
+That is *exactly* the kind of thing traditional media outlets are built to produce.
 
-Readers still want the Times's reputation; they do **not** want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many more zeroes than their dwindling subscriber base. The public can still see the piece later. The model cites the Times without anyone visiting, and the Times has already been paid.
+Readers still want the Times's reputation; they do **not** want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many more zeroes than their dwindling subscriber base. The public can still see the information (if not the whole piece) later. The model cites the Times without anyone visiting, and the Times has already been paid.
 
 <figure class="mermaid-diagram">
 <style>
@@ -312,27 +321,31 @@ This does not transfer to other platform shapes, unfortunately, for two reasons:
 
 ### The Times' Staff is Paid
 
-The Times's producers eat money. Reddit's eat reputation. Same rent, wrong denomination for the people who have to keep showing up.
+The Times's producers eat money. Reddit's eat reputation. Same rent, wrong denomination for the people who have to keep showing up. Same for open-source projects: the (overwhelming majority of) contributors aren't on a payroll and the loops aren't structured that way. Try to pay them all and you've just reinvented a software company instead of saving an open-source project.
 
 ### The Times Doesn't Need to Know What You Want to Read
 
 The Times never ran on public demand telemetry. "All the news that's fit to print" means they are choosing what is fit. You subscribe to a newspaper without knowing the table of contents: curated surprise *is* the product. Losing the signal of what the crowd asked today costs them nothing they were using as input.
 
-Reddit and Stack Overflow *are* that signal. You did not go there recreationally: you went because you needed something particular. Patronage can replace a newsroom's payroll. It cannot replace the compass that *was* the social product.
+Reddit and Stack Overflow *are* that signal. You did not go there recreationally: you went because you needed something particular. Patronage can replace a newsroom's payroll. It cannot replace the compass: what people posted about and replied to was a signal of what people cared about, and that *was* the social product.
 
-Will they reframe? Will labs pay real exclusivity premiums? Does authority dilute when every model can rent it? Those are market risks. They are not the mechanical failure Reddit is making. They are also not a template for any other kind of platform.
+Will they reframe? Will labs pay real exclusivity premiums? Does authority dilute when every model can rent it? Those are market risks, not the mechanical failure Reddit is making. They are also not a template for any other kind of platform.
 
 ## And Me?
 
-The false comfort is that the pieces are interchangeable. If GitHub goes down I will use GitLab. If Rust does not work I will use Go. I am very smart. No. This flywheel existed inside you, and me, and it is part of why we got smart, and it can spin down too.
+The false comfort is that the pieces are interchangeable. If GitHub goes down I will use GitLab. If Rust does not work I will use Go. I am very smart.
+
+No.
+
+This flywheel existed inside you, and me, and it is part of why we got smart, and it can spin down too.
 
 [Omry Yadan wrote about the private version][yadan]: friction was a signal of what needed attention. The producers in the loops above were acting on that signal in public. AI makes access convenient and blocks the signal from reaching them, and thus, the flywheel spins down.
 
-You can do the same thing to yourself. This is not a [Butlerian sermon about getting dumber](/garden/fomenting-the-butlerian-jihad.html); your problem-solving ability can stay exactly as sharp as it ever was - you just stop *seeing* problems. Once you no longer see problems to solve, your utility as a productive entity drops anyway.
+You can do the same thing to yourself. This is not a [Butlerian sermon about getting dumber](/garden/fomenting-the-butlerian-jihad.html); your problem-solving ability can stay exactly as sharp as it ever was - you just stop *seeing* problems. Once you no longer see problems to solve, your utility as a productive entity drops all the same.
 
-I feel this nipping at my heels. Does Vite suck? I do not know. We use it in [inquirerjs-checkbox-search](https://github.com/Texarkanine/inquirerjs-checkbox-search/); [Niko](/authors/niko/) deals with it. Does Docusaurus suck? I do not know. It runs the [a16n documentation site](https://texarkanine.github.io/a16n/) and I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the friction got obscured.
+I feel this nipping at my heels. Does Vite suck? I do not know. We use it in [inquirerjs-checkbox-search](https://github.com/Texarkanine/inquirerjs-checkbox-search/); [Niko](/authors/niko/) deals with it. Does Docusaurus suck? I do not know. It runs the [a16n documentation site](https://texarkanine.github.io/a16n/) and I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure from how I used to (have to) work with software. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the real source friction got obscured.
 
-The flywheel inside you is at risk. You are one of the shapes for which I do not have an answer. I am one of those shapes.
+The flywheel inside you is at risk. **You** are one of the shapes for which I do not have an answer. **I** am one of those shapes.
 
 Perhaps this is fine as it is just the way technology goes. When I drive my car and am unhappy with my gas mileage, I might drive more gently, or wonder if I should try [hypermiling](https://www.reddit.com/r/hypermiling/). But maybe the engineers at Toyota should've just built a better engine for this car - or selected a better one. Maybe there's a tune I can put on the ECU to fix the problems. Maybe the *real* problem is a layer down below where I know to look. Despite all that... Maybe it's OK for me to just drive a little differently to stretch the gas rather than chasing shadows down the tech stack of human achievement.
 
@@ -393,7 +406,7 @@ Two ways in:
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260812011057/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260812011108/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -730,7 +743,7 @@ If **everyone** who spent bitcoin did this, it would be functionally impossible 
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260813181102/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -6773,7 +6786,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.e1nulrfai6fkt-tr0c6mhtazapgiaa { display: inline-block; }</style><script>(function(){function mjrjqcbcevnl(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function htbiqtld(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var fs6lxfsb=sp.getAttribute('data-meriojimy');var j9wl9k=sp.getAttribute('data-awn6xsd2');var jaerlqzujsn=sp.getAttribute('data-qucgakdjeyfo');var e6m1kmxiv=sp.getAttribute('data-fkpe4feso');var mailto=mjrjqcbcevnl(fs6lxfsb,spParts[0].length);var user=mjrjqcbcevnl(j9wl9k,spParts[1].length);var domainBase=mjrjqcbcevnl(jaerlqzujsn,lnkParts[0].length);var tld=mjrjqcbcevnl(e6m1kmxiv,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function u13md1mnqs(){var els=document.querySelectorAll('a.zhcaus75j-xhcgaxr7b7e');var handler=function(){var sp=this.querySelector('span.e1nulrfai6fkt-tr0c6mhtazapgiaa');if(sp&&!this.dataset.d){var val=htbiqtld(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',u13md1mnqs);}else{u13md1mnqs();}})();</script>{:/nomarkdown}<a href="#" class="zhcaus75j-xhcgaxr7b7e"><span class="e1nulrfai6fkt-tr0c6mhtazapgiaa" data-meriojimy="znvygb" data-awn6xsd2="HUTQSJUT" data-qucgakdjeyfo="yaxcxwvjru" data-fkpe4feso="nzx">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.lt55-pyd0mnttt7fzjbcnl { display: inline-block; }</style><script>(function(){function dqc2kjsh(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function xncjwlj24q(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var stzcglp=sp.getAttribute('data-matdvgw');var dmwrocwrxk=sp.getAttribute('data-sqtl4mpruf');var oihx3g0eyy7=sp.getAttribute('data-v4vb6sdwd3');var r2qbw1oxkhk6=sp.getAttribute('data-eosqs9l');var mailto=dqc2kjsh(stzcglp,spParts[0].length);var user=dqc2kjsh(dmwrocwrxk,spParts[1].length);var domainBase=dqc2kjsh(oihx3g0eyy7,lnkParts[0].length);var tld=dqc2kjsh(r2qbw1oxkhk6,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function lfspxgz9q(){var els=document.querySelectorAll('a.wdygiw64lc-kxfbu3o');var handler=function(){var sp=this.querySelector('span.lt55-pyd0mnttt7fzjbcnl');if(sp&&!this.dataset.d){var val=xncjwlj24q(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',lfspxgz9q);}else{lfspxgz9q();}})();</script>{:/nomarkdown}<a href="#" class="wdygiw64lc-kxfbu3o"><span class="lt55-pyd0mnttt7fzjbcnl" data-matdvgw="qempxs" data-sqtl4mpruf="IVURTKVU" data-v4vb6sdwd3="zbydyxwksv" data-eosqs9l="jvt">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
