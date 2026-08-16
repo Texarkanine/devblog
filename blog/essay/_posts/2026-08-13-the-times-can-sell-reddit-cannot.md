@@ -39,7 +39,7 @@ Every one of these platforms is a hub with three loops.
 
 Consumers give attention and get the thing: articles, answers, working code. Producers give content or presence that attracts consumers, and get fame or fortune - reputation, karma, salary, doors opening. (Fame and fortune convert into each other, though at varying exchange rates.) In the middle sits a converter: the platform's secret sauce that turns plentiful consumer-side input into platform sustenance plus what producers want, and then skims a cut for itself. Ads, subscriptions, hosting quotas, brand attention: the mechanics vary. The principle does not.
 
-Some flywheels also pay producers in *each other*: Social dues. Community. "You're not alone." Anywhere there's a group of contributors paid in reputation, the human social instinct kicks in and a sense of community can scaffold arount it. That is **fuel**.
+Some flywheels also pay producers in *each other*: Social dues. Community. "You're not alone." Anywhere there's a group of contributors paid in reputation, the human social instinct kicks in and a sense of community can scaffold around it. That is **fuel**.
 
 ### How They Ran
 
@@ -355,7 +355,7 @@ The blockade reconstitutes the middleman one layer up. CDN search is distributio
 
 ## The Times Still Has a Customer
 
-So the honest options look like: miss, miss, miss, go be Amish in a corner. The Times is probably doomed on the track it is on... but it also **does** hase a way to thrive in this world that I have not found for anyone else, and that nobody else in this lineup has found either.
+So the honest options look like: miss, miss, miss, go be Amish in a corner. The Times is probably doomed on the track it is on... but it also **does** have a way to thrive in this world that I have not found for anyone else, and that nobody else in this lineup has found either.
 
 1. Producers have to eat something that consumer is willing to pay.
 2. The new direct consumer is the aggregator. 
