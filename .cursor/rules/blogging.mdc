@@ -16,7 +16,7 @@ After reading all related resources, choose the shape of the blog post. Here are
 5. **Announcement** - introduces something new to an audience assumed to already care about the problem it solves. Leads with benefits, not features. Always includes a recipe - ordered steps that get the reader from zero to using the thing, inlined unless there's a good reason to link out. Tone runs warmer and more upbeat than other shapes - infectious enthusiasm, in-between "news dispatch" and "sales pitch."
 6. **Guide** - orients the reader in unfamiliar or shifting territory, combining the case for why the territory matters with practical instruction for how to operate in it. Presupposes that the destination is worth the journey *and* that these particular steps are the best way to get there.
 
-Other shapes are allowed, and encouraged when they fit the subject matter better. **ALWAYS** decide on a "shape" for the post before writing it.
+Other shapes are allowed, and encouraged when they fit the subject matter better. A post may be a hybrid (a Record that includes a Guide paste, an Essay with a recipe). Each half still owes its shape: the story must be a story, the paste must be followable. **ALWAYS** decide on a shape before writing - name the primary shape, then name any second debt you are taking on.
 
 ## Choosing the Right Shape
 
@@ -30,6 +30,12 @@ Ask yourself: **Why am I writing this?**
 - **"I want readers who want the results I got, to follow my steps to achieve it"** → Guide
 
 If you have a lesson but worry about seeming preachy, write the Fable anyway. Readers came to a blog for perspective, not just events.
+
+# Audience
+
+The reader was not in the room. They do not know nicknames, local layout, or prior posts unless this post introduces them. Write the first draft as if they do not already share your context.
+
+If the post invites them to follow along - a recipe, a tab to keep open, steps they can run - that invitation is a contract: make it complete for a stranger, or do not make it.
 
 # Style
 
@@ -48,6 +54,7 @@ If you have a lesson but worry about seeming preachy, write the Fable anyway. Re
 8. **Lead with the point, not the run-up:** Openers like "It's worth noting that", "It's worth being honest about", "I want to be honest about", or "When it comes to" announce a point instead of landing it. If a clause only signals that something is coming, cut it and start on the something. Same muscle as "show, don't tell" above.
     * WRONG: "It's worth being honest about what strict enforcement takes away."
     * RIGHT: "Strict enforcement takes the human element away, and it lands unevenly."
+9. **Sibling posts are company, not a voice pack:** Style guidance herein is a register, not a stencil, and neither is last month's post. Take what you like from neighbors. Do not blindly copy their metaphors, section templates, or running jokes. Do thoughtfully hyperlink and callback when it adds value to your current work.
 
 ## Technical Chops
 
@@ -114,4 +121,6 @@ Obviously, use correct and proper citation format for each source; the above exa
 
 # Security
 
-1. ALWAYS redact any sensitive information - including LAN and Local identifiers and information.
+**Security Redactions:** Redact what would find the house on the internet or name the household: public hostnames, listen ports, client rosters, path or repo asides that leak facts about the authors' personal setups but have no bearing on the post's subject matter.
+
+**Privacy Redactions:** Redact personally-identifying information: names, addresses, phone numbers, and e-mail addresses and usernames where sharing them isn't explicitly the point of the post.
