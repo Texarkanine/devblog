@@ -12,7 +12,7 @@ complexity_level: 2
 
 ## Requirements vs Outcome
 
-Delivered as asked after the operator revision (garden in, always show Last tended, no suite). No requirements dropped. Did not wire `last_modified_at` for SEO/sitemap (preflight advisory, out of brief).
+Delivered as asked after the operator revision (garden in, always show Last tended, no suite). Rework after reflect: wired `last_modified_at` for SEO/sitemap on every post and garden page, including when it matches publish/planted. Visible Liquid unchanged.
 
 ## Plan Accuracy
 
@@ -33,4 +33,4 @@ Inspect-red then inspect-green was enough. Build time went from ~19.4s to ~21.7s
 
 ### Million-Dollar Question
 
-If body-only had been the meaning of `last_modified` from the start, `CollectionDatesGenerator` would have walked bodies on day one, and the byline task would have been Liquid-only. The same Time would also set `last_modified_at` so sitemap/SEO match the footer. What we built is that date source; the third surface is still unplugged.
+If body-only had been the meaning of `last_modified` from the start, `CollectionDatesGenerator` would have walked bodies on day one, and the byline task would have been Liquid-only. The same Time now also sets `last_modified_at`, and `DocumentDrop` exposes it so sitemap lastmod and SEO `dateModified` match. That is the three-surface version.

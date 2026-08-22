@@ -84,3 +84,32 @@ Compute `last_modified` from the last git commit that changed the document **bod
 * Insights
     - Display policy stays in Liquid; date source is one body-aware Time
     - Shipping last-commit first made the noise visible; this L2 is the correction
+
+## 2026-08-22 - REWORK - IN-PROGRESS
+
+* Work completed
+    - Operator asked to wire body-aware `last_modified` into SEO/sitemap as `last_modified_at`
+* Decisions made
+    - Always set `last_modified_at` on posts and garden, including when it matches publish/planted
+    - Do not change the post footer same-day hide
+    - Honor front-matter `last_modified_at` if already set
+* Insights
+    - Invisible to readers; `last_modified` stays the Liquid field, `last_modified_at` is the plugin convention
+
+## 2026-08-22 - REWORK - COMPLETE
+
+* Work completed
+    - Set `last_modified_at` from the same body-aware Time on every collection document
+    - Added `DocumentDrop.data_delegators "last_modified_at"` so jekyll-sitemap's Liquid `doc.last_modified_at` resolves (SEO already used hash access)
+    - Inspect-green: sitemap lastmod and `article:modified_time` match body dates; seven-weeks SEO has a same-day modified_time, footer still hidden
+* Decisions made
+    - Did not date tag/author/archive pages — they are not collection markdown with a body walk
+* Insights
+    - Putting a key in `doc.data` is enough for jekyll-seo-tag (`page["last_modified_at"]`) and not enough for jekyll-sitemap (`doc.last_modified_at` via invoke_drop)
+
+## 2026-08-22 - ARCHIVE - IN-PROGRESS
+
+* Work completed
+    - Operator invoked `/niko-archive` after the last_modified_at rework
+* Decisions made
+    - Include the SEO/sitemap rework in this archive; do not start a new task

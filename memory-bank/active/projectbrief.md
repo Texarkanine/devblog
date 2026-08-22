@@ -42,3 +42,7 @@ A garden page's body was last changed earlier than a later front-matter-only com
 3. Posts whose latest body change is the same calendar day as publish hide the byline.
 4. Garden pages still show Last tended when it matches Planted.
 5. Front-matter `last_modified` still wins when set.
+
+## Rework
+
+Wire the same body-aware Time into `last_modified_at` so jekyll-seo-tag (`article:modified_time`, JSON-LD `dateModified`) and jekyll-sitemap (`<lastmod>`) match the footer / Last tended. Emit it on every post and garden document, including when the body-change day matches publish / planted. Visible Liquid is unchanged (posts still hide same-day last-updated). Honor an explicit `last_modified_at` front-matter override.
