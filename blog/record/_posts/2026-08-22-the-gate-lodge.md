@@ -23,7 +23,11 @@ We wanted three things. Every client connects, every time. More throughput than 
 
 [WireGuard](https://www.wireguard.com/) went on a second box, as a host on the LAN: no DHCP, no NAT, radios off. One address on the home subnet, a private range that exists only inside the tunnel (the overlay), one UDP port forwarded from the WAN, one static route back. Full tunnel: all of the client's traffic, not just packets for the house. Phones on cellular, laptops on cafe Wi-Fi, the LAN, DNS through the existing [Pi-hole](https://pi-hole.net/). Reboot `gate-lodge` and the Asus keeps serving Wi-Fi.
 
-![The OpenWrt One in the network cabinet.](gate-lodge-cabinet.jpg)
+{% polaroid
+	gate-lodge-cabinet.jpg
+	title="Radios off. In the cabinet."
+	alt="The OpenWrt One standing in the network cabinet, Ethernet in the 2.5G jack."
+%}
 
 If you want that, keep this tab open. The paste is [Release Image to a Tunnel](#release-image-to-a-tunnel): first boot through a working client. Everything between here and there is why that paste is picky. Skip it if you want; come back when a command looks too careful.
 
@@ -106,7 +110,11 @@ On the VPN box, `wg0` is `192.168.101.1/24`, proto `wireguard`, listen on that s
 
 [LuCI](https://openwrt.org/docs/guide-user/luci/start) (OpenWrt's web UI) listened the whole time. WAN input is REJECT, and SSH was the only thing already punched, so I added `Allow-LuCI-from-home` (TCP 80/443 from `wan`) after converting to a host. The zone was the lock. The Asus is what faces the world; it forwards one UDP port and does not forward 22, 80, 443, or 53.
 
-![LuCI Network → Interfaces → wg0, and/or Firewall zones.](gate-lodge-luci-wg0.png)
+{% polaroid
+	gate-lodge-luci-wg0.png
+	title="LuCI: wg0 is up."
+	alt="LuCI interface status for wg0: WireGuard VPN, IPv4 192.168.101.1/24."
+%}
 
 ## Masquerade Eats the Return Path
 
@@ -139,7 +147,11 @@ LuCI labels peer Allowed IPs optional. Leave them blank and `wg` never loads the
 
 On the client, `AllowedIPs = 0.0.0.0/0, ::/0` is the full tunnel. Keepalive 25 for phones behind NAT. DNS is Pi-hole at `192.168.1.254`. Overlay addressing on `wg0` in this house is IPv4-only; `::/0` is leak prevention for the client's other stacks, not an invitation to put IPv6 on the home LAN. We won't build NAT66 until a client actually stalls on AAAA.
 
-![LuCI Generate configuration for a *client* peer](gate-lodge-luci-export.png)
+{% polaroid
+	gate-lodge-luci-export.png
+	title="Generate configuration for a client. Endpoint is a hostname; Address is a /32."
+	alt="LuCI Generate configuration for a WireGuard client peer, with vpn.example.com as Endpoint and a /32 overlay address. Keys redacted."
+%}
 
 Official [WireGuard](https://www.wireguard.com/install/) apps on Windows, Mac, Linux, and iPhone. Import the same `.conf`.
 
