@@ -81,3 +81,14 @@ Add a last-updated byline on blog posts, shown only when `last_modified` is a la
     - `love-when-useful-things-get-cheaper` quotes "Last updated:" in the body, so a site-wide `last updated` search is not a reliable presence check
     - Untagged / earlier-day / missing-`last_modified` pages still do not exist in the live corpus; those behaviors remain Liquid-guard reviews
 
+## 2026-08-22 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-post-last-updated-byline.md`
+    - Reconciled persistent memory-bank files (no updates)
+* Decisions made
+    - Dual left/right byline stays as the operator-requested bake-off, not a shared garden/post include
+* Insights
+    - Inspect the article-adjacent footer; this layout has two `<footer>` elements
+    - Site-wide `last updated` search collides with quoted body text
+
