@@ -15,13 +15,13 @@ tags:
   - wireguard
 ---
 
-The house already had a router we liked: an Asus running [Merlin](https://www.asuswrt-merlin.net/), doing Wi-Fi, DHCP, and NAT for `192.168.1.0/24`. Same LAN as the [IoT isolation]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}) and [the OpenWrt rebuild of that isolation]({% post_url blog/record/2026-06-20-incidental-router %}).
+The house already had a router we liked: an Asus running [Merlin](https://www.asuswrt-merlin.net/), doing Wi-Fi, DHCP, and NAT for `192.168.1.0/24`, the same LAN as the [IoT isolation]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}) and [the OpenWrt rebuild of that isolation]({% post_url blog/record/2026-06-20-incidental-router %}).
 
 The inbound VPN was [OpenVPN](https://openvpn.net/) on that Asus. It dropped, sometimes in step with WAN failover, sometimes on its own; we never pinned which. It was slow: it shared the router's CPU and RAM with Wi-Fi, DHCP, and NAT. Merlin's OpenVPN was old enough that it still wanted [compression](https://community.openvpn.net/openvpn/wiki/Compression) after upstream had deprecated it, and newer clients struggled. The web UI was a short form. There were probably more problems we never named.
 
 We wanted three things. Every client connects, every time. More throughput than a process fighting the edge for RAM. Restart the VPN without restarting the house.
 
-[WireGuard](https://www.wireguard.com/) went on a second box, as a host on the LAN: no DHCP, no NAT, radios off. One address on the home subnet, a private range that exists only inside the tunnel (the overlay), one UDP port forwarded from the WAN, one static route back. Full tunnel: all of the client's traffic, not just packets for the house. Phones on cellular, laptops on cafe Wi-Fi, DNS through the existing [Pi-hole](https://pi-hole.net/), the LAN, and the IoT subnet those posts built. Reboot `gate-lodge` and the Asus keeps serving Wi-Fi.
+[WireGuard](https://www.wireguard.com/) went on a second box, as a host on the LAN: no DHCP, no NAT, radios off. One address on the home subnet, a private range that exists only inside the tunnel (the overlay), one UDP port forwarded from the WAN, one static route back. Full tunnel: all of the client's traffic, not just packets for the house. Phones on cellular, laptops on cafe Wi-Fi, the LAN, DNS through the existing [Pi-hole](https://pi-hole.net/). Reboot `gate-lodge` and the Asus keeps serving Wi-Fi.
 
 {% comment %}
 TODO(photo): polaroid of the OpenWrt One in the network cabinet.
@@ -52,7 +52,7 @@ flowchart LR
   Lan --> Dns
 ```
 
-The public surface is one UDP port, forwarded to the VPN box. Everything inside the tunnel is private addressing. Return traffic for the overlay is a LAN static route on the edge router, the twin of the IoT route from [the first isolation writeup]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}): the Asus already knew `10.1.101.0/24` lived behind `192.168.1.101`. It now also knows `192.168.101.0/24` lives behind `192.168.1.253`.
+The public surface is one UDP port, forwarded to the VPN box. Everything inside the tunnel is private addressing. Return traffic for the overlay is a LAN static route on the edge router: `192.168.101.0/24` lives behind `192.168.1.253`.
 
 That route only works if overlay packets still *look like* overlay packets when they hit the LAN. [Masquerade](https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_%28NAT%29) on the VPN box would rewrite them to the box's home address, and the route would have nothing to match. The handshake can still go green while the house stays unreachable. I will get back to that, because it is the bug that looks like a fix.
 
@@ -62,7 +62,7 @@ The board is an [OpenWrt One](https://openwrt.org/toh/openwrt/one): MediaTek Fil
 
 Banana Pi built it. In this house "the Pi" already means the Raspberry Pi that runs Pi-hole, at `192.168.1.254`. We number infrastructure from the top of `192.168.1.0/24`, so the DNS box is `.254` and the VPN box is `.253`. Hostname `gate-lodge`. Do not call this one "the Pi." One of these devices will come out of your mouth under stress, and it will be the wrong one.
 
-The edge router is configured in its own web UI. The OpenWrt box is configured over SSH as [UCI](https://openwrt.org/docs/guide-user/base-system/uci) text. The running box outranks both. I already learned that last part on [the IoT rebuild]({% post_url blog/record/2026-06-20-incidental-router %}).
+The edge router is configured in its own web UI. The OpenWrt box is configured over SSH as [UCI](https://openwrt.org/docs/guide-user/base-system/uci) text. The running box outranks both.
 
 ## Nested, Then a Host
 
@@ -98,15 +98,11 @@ opkg install kmod-wireguard wireguard-tools luci-proto-wireguard
 
 Flash a **release**. Snapshots are for people who enjoy 404s on the day they need a tunnel.
 
-## The 101 We Gave Back
+## 192.168.101 Was Empty
 
-[The isolation writeup]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}#a-note-on-subnet-selection) abandoned `192.168.101.0/24` for IoT. The IoT router's address on the home LAN was `192.168.1.101`; an IoT net at `192.168.101.0/24` made every debugging session into a transposition test. They moved IoT to `10.1.101.0/24` so the first octet told you which side of the fence you were on.
-
-We took `192.168.101.0/24` for the overlay on purpose. Same `101` as IoT, different first two octets, so it does not become `10.101.1.0/24` when a tired person transposes. Home stays `192.168.1.0/24`. IoT stays `10.1.101.0/24`. Overlay is the other 101.
+Overlay is `192.168.101.0/24`. Home stays `192.168.1.0/24`. The first two octets still tell you which net you are looking at; `10.101.1.0/24` is the transposition a tired person will type, and we did not use it.
 
 Also occupied here: the retired OpenVPN net `10.8.0.0/24` (do not reuse: it is the default, and it will collide on the road), a [WSL](https://learn.microsoft.com/en-us/windows/wsl/networking) virtual net on a PC that might itself be a client, and a brief candidate `10.72.1.0/24` that we dropped because `72.0.0.0/8` is public and a tired eye can lose the `10.`. Pick an overlay that is free on *your* LAN, on your VPN clients' other nets, and in [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918).
-
-If you also isolated IoT the way those posts did, treat overlay clients as home: they may reach `10.1.101.0/24` the way `192.168.1.0/24` does. IoT still must not initiate back, except DNS to Pi-hole. The overlay does not get a special hole punched through the IoT firewall. If isolation was the point of those posts, the VPN does not get to undo it. If you have no IoT subnet, skip this paragraph and do not invent one for the VPN.
 
 ## Cut Over, Then Listen
 
@@ -153,7 +149,7 @@ Point a DNS name at the house WAN. Do not add that name as a WireGuard peer. LuC
 
 LuCI labels peer Allowed IPs optional. Leave them blank and `wg` never loads the peer; `wg show` will not list it. Set `192.168.101.x/32` and turn **Route Allowed IPs** on. Then **Save & Apply**. Generate configuration *after* that.
 
-On the client, `AllowedIPs = 0.0.0.0/0, ::/0` is the full tunnel. Keepalive 25 for phones behind NAT. DNS is Pi-hole at `192.168.1.254`. Overlay addressing on `wg0` in this house is IPv4-only; `::/0` is leak prevention for the client's other stacks, not an invitation to put IPv6 on the home LAN. The IoT box already had to [learn that v6 is a back door]({% post_url blog/record/2026-06-20-incidental-router %}). Do not build NAT66 until a client actually stalls on AAAA.
+On the client, `AllowedIPs = 0.0.0.0/0, ::/0` is the full tunnel. Keepalive 25 for phones behind NAT. DNS is Pi-hole at `192.168.1.254`. Overlay addressing on `wg0` in this house is IPv4-only; `::/0` is leak prevention for the client's other stacks, not an invitation to put IPv6 on the home LAN. Do not build NAT66 until a client actually stalls on AAAA.
 
 {% comment %}
 TODO(screenshot): LuCI Generate configuration dialog with endpoint, addresses, AllowedIPs, DNS filled.
@@ -177,13 +173,13 @@ Two phones reached the LAN on foreign Wi-Fi and on cellular far from the house. 
 
 ## Release Image to a Tunnel
 
-This is the tab. Numbers match this house so the earlier posts stay true. Change the prefixes if yours collide. Commands are [UCI](https://openwrt.org/docs/guide-user/base-system/uci) on OpenWrt 24.10; check `uci show firewall` before you delete anything by numeric index.
+This is the tab. Numbers match this house. Change the prefixes if yours collide. Commands are [UCI](https://openwrt.org/docs/guide-user/base-system/uci) on OpenWrt 24.10; check `uci show firewall` before you delete anything by numeric index.
 
 ### What you need
 
 * An existing home router you want to keep (Wi-Fi, DHCP, NAT). Ours is an Asus with Merlin. Any edge that can add a LAN static route and forward one UDP port will do.
 * An OpenWrt box. Two ethernet jacks make the nested-join path easy (on the OpenWrt One: 2.5G faces the house, 1G is the temporary side net). One jack plus USB-C serial also works.
-* Optional: Pi-hole on the home LAN. Optional: an IoT subnet you already isolated. Neither is required to get a tunnel.
+* Optional: Pi-hole on the home LAN.
 * A UDP port you will forward from the WAN. The snippets use `51820` (WireGuard's common default). Pick yours and use it in all four places: box listen port, edge forward, client `Endpoint`, `Allow-WG`.
 * A DNS name pointed at the house WAN, written `vpn.example.com` below. A raw public IP works until it changes.
 
@@ -328,11 +324,10 @@ Confirm: `wg show` listens. WAN masquerade is still `0`. `fw4 print` has no srcn
 
 ### Edge router
 
-LAN static routes. The IoT line is only if you already have that subnet; the overlay line is the one this post adds.
+LAN static route for the overlay. Metric left empty, interface LAN.
 
 | Network/Host IP | Netmask | Gateway | Interface |
 | --- | --- | --- | --- |
-| 10.1.101.0/24 | 255.255.255.0 | 192.168.1.101 | LAN |
 | 192.168.101.0/24 | 255.255.255.0 | 192.168.1.253 | LAN |
 
 Forward UDP `51820` to `192.168.1.253:51820`. Disable the old VPN after a client works, unless you are also done with it and willing to cut first. Do not forward 22, 53, 80, or 443 from the internet.
@@ -380,7 +375,7 @@ PersistentKeepalive = 25
 
 ### Pi-hole
 
-Allow queries from `192.168.101.0/24`. Keep WAN 53 closed. If you isolated IoT already, leave that isolation as it was.
+Allow queries from `192.168.101.0/24`. Keep WAN 53 closed.
 
 ## Restart the Box, Not the House
 
