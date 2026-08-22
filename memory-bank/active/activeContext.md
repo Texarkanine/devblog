@@ -1,11 +1,12 @@
 # Active Context
 
 ## Current Task: last-updated-body-only
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
-- Intent confirmed: `last updated` advances only when post body copy changed; requires file inspection across git history, not last-commit timestamp.
-- Complexity determined: Level 2 (self-contained enhancement to `CollectionDatesGenerator` / how `last_modified` is computed; layout already consumes the field).
+- Operator: apply body-only dates to garden as well; garden Last tended still shows on plant day; posts hide same-day last-updated; no tests, inspect only.
+- Plan updated: one date source in `CollectionDatesGenerator` for all collections; layouts unchanged.
+- Probe: 21/46 posts and 4/26 garden pages would move earlier.
 
 ## Next Step
-- Load the Level 2 workflow and execute VAN / planning.
+- Preflight, then build.
