@@ -22,10 +22,7 @@ Garden pages keep planted / last tended as they are today.
 
 1. Show an update byline on blog posts when `last_modified` is newer than the publish date.
 2. Reuse the existing `last_modified` extraction from `collection_dates.rb` (same source the garden uses for "last tended").
-3. Placement is one of the three options the operator is considering (decide in plan):
-   - Header, garden-style: replace the lone top-right date with `published: YYYY-MM-DD` / `updated: YYYY-MM-DD`
-   - Footer, bottom-right after tags: `last updated YYYY-MM-DD`
-   - Footer, left-aligned on a new line after tags: `last updated YYYY-MM-DD`
+3. Placement: both footer positions after tags — left-aligned `last updated YYYY-MM-DD` and right-aligned `last updated YYYY-MM-DD` (operator, 2026-08-22: wants to see both). Header date unchanged.
 
 ## Constraints
 
@@ -35,7 +32,8 @@ Garden pages keep planted / last tended as they are today.
 
 ## Acceptance Criteria
 
-1. A post whose last-modified date is later than its publish date shows the update byline in the chosen placement.
+1. A post whose last-modified date is later than its publish date shows `last updated YYYY-MM-DD` after tags on the left and again on the right.
 2. A post whose last-modified date is not later than its publish date does not show an update byline.
 3. Garden pages still show planted / last tended as they do today.
-4. Posts that have never been edited after publish look the same as they do now (aside from any shared header-label change if the garden-style option is chosen — in that case the publish date remains, just labeled).
+4. Posts that have never been edited after publish look the same as they do now (header date unchanged).
+5. Site-wide content edits (e.g. adding a summary) count as updates; git last-commit is the correct source.

@@ -1,11 +1,14 @@
 # Active Context
 
 ## Current Task: post-last-updated-byline
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
-- Intent confirmed: last-updated byline on posts, hide unless newer than publish date, placement still open among three options, garden unchanged.
-- Complexity determined: Level 2 (simple enhancement). Self-contained post-layout change using existing `last_modified` from `collection_dates.rb`. Placement is a plan-time decision, not a multi-component feature.
+- Plan revised after operator answers.
+- Date source: existing `page.last_modified` (git last-commit). Summaries and other site-wide content edits count.
+- Verification: `jekyll build` + HTML inspect. No test suite.
+- Placement: both footer positions after tags — left and right `last updated YYYY-MM-DD`. Header unchanged. Garden unchanged.
+- Comparison: calendar day (`%Y-%m-%d`), not timestamps.
 
 ## Next Step
-- Load the Level 2 workflow and enter the plan phase.
+- Preflight validation.
