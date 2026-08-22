@@ -98,6 +98,6 @@ No new technology - validation not required. Feasibility shown by the in-tree pr
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
-- [ ] Preflight
-- [ ] Build
+- [x] Preflight
+- [x] Build
 - [ ] QA

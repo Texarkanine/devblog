@@ -50,3 +50,15 @@ Compute `last_modified` from the last git commit that changed the document **bod
     - Named fixtures match git history. Garden same-day inspect has four unnamed candidates; none of the four date-moving garden pages are same-day-as-planted
     - `last_modified_at` is still unset for SEO/sitemap — same deferred gap as the prior byline task
     - Named garden same-day inspect: `_garden/stories.md`
+
+## 2026-08-22 - BUILD - COMPLETE
+
+* Work completed
+    - Inspect-red on named fixtures (last-commit dates)
+    - Added `extract_markdown_body` and `git_last_body_commit_date` in `_plugins/collection_dates.rb`
+    - Inspect-green: all named fixtures match the plan
+* Decisions made
+    - Did not set `last_modified_at` (preflight advisory; not in the brief)
+    - Kept `git_last_commit_date` as fallback after the body walk
+* Insights
+    - This build: 28/46 dated posts show `last updated` (was 37). Garden 1900s Last tended moved to 2025-12-02; stories still shows same-day Last tended.
