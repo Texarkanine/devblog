@@ -73,3 +73,14 @@ Compute `last_modified` from the last git commit that changed the document **bod
     - PASS with advisories only; no build rework
 * Insights
     - The plan's YAML regex is stricter than Jekyll's; some older revisions of the fixtures do not match and are compared as whole-file bodies, but the named last-body days still land correctly
+
+## 2026-08-22 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-last-updated-body-only.md`
+    - Reconciled persistent memory-bank files (no updates)
+* Decisions made
+    - Persistent files left alone: date-source contract lives in the plugin comments, not briefing docs
+* Insights
+    - Display policy stays in Liquid; date source is one body-aware Time
+    - Shipping last-commit first made the noise visible; this L2 is the correction
