@@ -1,14 +1,17 @@
 # Active Context
 
 ## Current Task: post-last-updated-byline
-**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+**Phase:** BUILD - COMPLETE
 
 ## What Was Done
-- Plan revised after operator answers.
-- Date source: existing `page.last_modified` (git last-commit). Summaries and other site-wide content edits count.
-- Verification: `jekyll build` + HTML inspect. No test suite.
-- Placement: both footer positions after tags — left and right `last updated YYYY-MM-DD`. Header unchanged. Garden unchanged.
-- Comparison: calendar day (`%Y-%m-%d`), not timestamps.
+- Inspect-red: later-day fixture had no footer byline.
+- Added dual `last updated` row in `_layouts/post.html` after tags (flex `space-between`, left and right).
+- Inspect-green: Mechanicus shows both copies (`2026-08-22`); seven-weeks / elgato-alias / not-a-nitpick show none; header dates unchanged; garden still Planted / Last tended.
+- Corpus this build: 37 of 46 dated posts show the dual byline; 9 do not (same calendar day).
+- Missing/`last_modified` earlier-day / no-tags: no live fixtures; guards are the `{% if page.last_modified %}` wrap, `updated_day > published_day`, and byline sibling after the tags `{% endif %}`.
+
+## Files modified
+- `/home/mobaxterm/git/devblog/_layouts/post.html`
 
 ## Next Step
-- Build: inspect-red, then add the dual footer byline in `_layouts/post.html`.
+- QA review.

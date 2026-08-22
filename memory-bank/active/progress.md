@@ -55,3 +55,16 @@ Add a last-updated byline on blog posts, shown only when `last_modified` is a la
     - No `timezone` in config; calendar-day compare is environment-dependent
     - `jekyll-seo-tag` / `jekyll-sitemap` still only see publish date unless `last_modified_at` is set (advisory, not in plan)
 
+## 2026-08-22 - BUILD - COMPLETE
+
+* Work completed
+    - Inspect-red via `jekyll build`: later-day fixture had no footer byline
+    - Implemented dual after-tags byline in `_layouts/post.html`
+    - Inspect-green: later-day shows two `last updated` lines; same-day shows none; garden unchanged
+* Decisions made
+    - Built to plan; no plugin or garden changes
+    - Did not add `last_modified_at` (preflight advisory, out of scope)
+* Insights
+    - Liquid ISO-date string `>` works for `%Y-%m-%d` on this Jekyll/Liquid
+    - Site-level `<footer>` in `default.html` is a second footer; inspect the post footer after `</article>`
+
