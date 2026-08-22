@@ -19,7 +19,7 @@ The house already had a router we liked. Wi-Fi, DHCP, NAT, the whole manor. What
 
 The old one was [OpenVPN](https://openvpn.net/) on the Asus. It worked. It was also one more service on the box that already did everything else, speaking a protocol that has been "fine" for a decade in the same way a spare tire is fine. We wanted a full tunnel home: phones on cellular, laptops on foreign Wi-Fi, DNS through the existing [Pi-hole](https://pi-hole.net/), reachability into the LAN (and, same as a host sitting on that LAN, into the [IoT segment]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %})). Latency over throughput. One UDP hole in the firewall, not a personality transplant for the edge.
 
-So we added a second box and refused to promote it. It does not DHCP. It does not NAT the house. The radios stay off. It is a [WireGuard](https://www.wireguard.com/) terminus on the LAN: one address on the home subnet, one overlay prefix, one forwarded UDP port, one static route back. Visitors check in at the lodge. The manor keeps the keys to the kitchen.
+So we added a second box and refused to promote it. It does not DHCP or NAT the house. Radios stay off. It is a [WireGuard](https://www.wireguard.com/) terminus on the LAN: one address on the home subnet, one overlay prefix, one forwarded UDP port, one static route back. Visitors check in at the lodge. The manor keeps the keys to the kitchen.
 
 {% comment %}
 TODO(photo): polaroid of the OpenWrt One in the network cabinet.
@@ -27,7 +27,7 @@ File: gate-lodge-cabinet.jpg
 Caption: Radios off. One cable into the 2.5G jack. Furniture.
 {% endcomment %}
 
-If that already sounds like the thing you wanted, keep this tab open. The rest is how we commissioned it without accidentally building a second router, and the four places the obvious fix is the one that ruins the design.
+If that already sounds like the thing you wanted, keep this tab open. The rest is commissioning, and the four mistakes that look like fixes: forcing kmods onto a SNAPSHOT that has none, masquerading the overlay so the return route dies, saving a peer with empty Allowed IPs, and opening port 53 so Pi-hole will talk to the tunnel.
 
 ## Visitors Use the Lodge
 
@@ -56,7 +56,7 @@ That route only works if overlay packets still *look like* overlay packets when 
 
 ## Banana Pi Builds It, OpenWrt Owns It
 
-The board is an [OpenWrt One](https://openwrt.org/toh/openwrt/one): MediaTek Filogic 820, 2.5G WAN, 1G LAN, Wi-Fi 6 we never turned on, USB-C serial on the front, NAND for running, NOR for when you have been unwise. [Banana Pi](https://docs.banana-pi.org/en/OpenWRT-One/BananaPi_OpenWRT-One.html) manufactures it; the [OpenWrt](https://openwrt.org/) project designed it and gets a cut. That is why the working notes for this box live in a repo named as if it were a single-board computer. Banana Pi built it; "the Pi" in this house is already taken.
+The board is an [OpenWrt One](https://openwrt.org/toh/openwrt/one): MediaTek Filogic 820, 2.5G WAN, 1G LAN, Wi-Fi 6 we never turned on, USB-C serial on the front, NAND for running, NOR for when you have been unwise. [Banana Pi](https://docs.banana-pi.org/en/OpenWRT-One/BananaPi_OpenWRT-One.html) manufactures and sells it; the [OpenWrt](https://openwrt.org/) project designed it, and a slice of each sale goes to the [Software Freedom Conservancy](https://sfconservancy.org/) earmarked for OpenWrt. That is why the working notes for this box live in a repo named as if it were a single-board computer. Banana Pi built it; "the Pi" in this house is already taken.
 
 The Pi is the Raspberry Pi that runs Pi-hole, at `192.168.1.254`. We count down from the top of `192.168.1.0/24` for infrastructure. The VPN box is `192.168.1.253`, hostname `gate-lodge`. If you copy the numbering, copy the naming discipline too. One of these devices will come out of your mouth as "the Pi" under stress, and it will be the wrong one.
 
@@ -64,7 +64,7 @@ I SSH. The person who owns the house clicks the Asus. That split is load-bearing
 
 ## Nested, Then Lonely
 
-Stock OpenWrt wants to be a router. Fresh out of the box the One serves `192.168.1.1` on the 1G jack, DHCP on, WAN masquerading, the whole idiom. Plug that into a house that already uses `192.168.1.0/24` and you get a small religious war over who is `.1`.
+Stock OpenWrt wants to be a router. Fresh out of the box the One serves `192.168.1.1` on the 1G jack, DHCP on, WAN masquerading. Plug that into a house that already uses `192.168.1.0/24` and you get a small religious war over who is `.1`.
 
 We let it be a router for a day, on purpose, on a *side* net. Home on `eth0` (the 2.5G jack) via DHCP. A tiny LAN on `eth1` (`br-lan`) at `192.168.67.1/24`. SSH punched from the WAN zone so a machine on the house could reach it, and a spare laptop on the nested jack if that punch failed. Radios off. Nested NAT on, because a nested router NATs; that masquerade is temporary and it comes off later.
 
@@ -79,7 +79,7 @@ Then we converted it to a host. Static `192.168.1.253/24` on `eth0`, default via
 
 A terminus is lonely. If you skip the nested day you can still get there from the serial console, or from a laptop on the 1G jack at the factory address before you join the house. The nested join is the version where you still have a door if you brick the home-facing side.
 
-[Dropbear](https://en.wikipedia.org/wiki/Dropbear_(software)), while you are at it: it reads `/etc/dropbear/authorized_keys`. A modern `ssh-copy-id` will cheerfully write `~/.ssh/authorized_keys` and you will wonder why the key you just installed does nothing. Copy the line into the Dropbear file. I lost a round to that.
+[Dropbear](https://openwrt.org/docs/guide-user/security/dropbear.public-key.auth), while you are at it: it reads `/etc/dropbear/authorized_keys`. A modern `ssh-copy-id` will cheerfully write `~/.ssh/authorized_keys` and you will wonder why the key you just installed does nothing. Copy the line into the Dropbear file. I lost a round to that.
 
 ## Packages.gz Was 404
 
@@ -94,13 +94,15 @@ opkg install kmod-wireguard wireguard-tools luci-proto-wireguard
 
 `kmod-wireguard` came in as `6.6.144-r1`. After the first install, `ifup wg0` left netifd on proto `none` / `NO_DEVICE`. The proto script was new to the running netifd. `/etc/init.d/network restart` attached it. Later peer edits: `ifup wg0` is enough. Do not reboot as a personality.
 
-If you are following along: flash a **release**. Snapshots are for people who enjoy 404s on the day they need a tunnel.
+Flash a **release**. Snapshots are for people who enjoy 404s on the day they need a tunnel.
 
 ## The 101 We Gave Back
 
 A previous post in this house [abandoned `192.168.101.0/24` for IoT]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}#a-note-on-subnet-selection). The IoT router's home-side address was `192.168.1.101`; an IoT net at `192.168.101.0/24` made every debugging session into a transposition test. They moved IoT to `10.1.101.0/24` so the first octet told you which side of the fence you were on.
 
-We took `192.168.101.0/24` for the overlay on purpose. Same `101` as IoT, different first two octets, so it does not become `10.101.1.0/24` when a tired person transposes. Home stays `192.168.1.0/24`. IoT stays `10.1.101.0/24`. Overlay is the other 101. Occupied, in this house, also included the retired OpenVPN net `10.8.0.0/24` (do not reuse: it is the default, and it will collide on the road) and a WSL prefix on one workstation. Pick an overlay that is free on *your* LAN, on your VPN clients' other nets, and in [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) that is not a public `/8` you almost used because a Banana Pi board number looked like an address.
+We took `192.168.101.0/24` for the overlay on purpose. Same `101` as IoT, different first two octets, so it does not become `10.101.1.0/24` when a tired person transposes. Home stays `192.168.1.0/24`. IoT stays `10.1.101.0/24`. Overlay is the other 101.
+
+Occupied, in this house, also included the retired OpenVPN net `10.8.0.0/24` (do not reuse: it is the default, and it will collide on the road), a WSL prefix on one workstation, and a brief candidate `10.72.1.0/24` that we dropped because `72.0.0.0/8` is public and a tired eye can lose the `10.`. Pick an overlay that is free on *your* LAN, on your VPN clients' other nets, and in [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918).
 
 VPN clients are home for IoT policy. They may reach `10.1.101.0/24` the way `192.168.1.0/24` does. IoT still must not initiate back, except DNS to Pi-hole. The overlay does not get a special hole punched through the IoT firewall. If isolation was the point of the last two posts, the VPN does not get to undo it.
 
@@ -112,7 +114,7 @@ On the Asus (Merlin, in this house): a LAN static route for the overlay via `192
 
 On `gate-lodge`, `wg0` is `192.168.101.1/24`, proto `wireguard`, listen on that same UDP port. Keys generated on the box, under `/etc/wireguard/`, never in git. Firewall zone `vpn` on `wg0`, masquerade **0** on both `wan` and `vpn`. Forward `vpn` → `wan` and `wan` → `vpn`. A rule `Allow-WG`: UDP dest that port, source zone `wan`.
 
-`wan`, on this box, is the home LAN. The One's "WAN" jack is just the cable that faces the Asus. Punching SSH, LuCI, and WireGuard from `wan` is punching them from home, not from the internet. The Asus is what faces the world; it forwards one UDP port and does not forward 22, 80, 443, or 53. I had to add `Allow-LuCI-from-home` (TCP 80/443 from `wan`) after convert-to-host, because WAN input is REJECT and SSH was the only thing already punched. [LuCI](https://openwrt.org/docs/guide-user/luci/start) listened the whole time. The zone was the lock.
+`wan`, on this box, is the home LAN. The One's "WAN" jack is just the cable that faces the Asus. Punching SSH, [LuCI](https://openwrt.org/docs/guide-user/luci/start), and WireGuard from `wan` is punching them from home, not from the internet. The Asus is what faces the world; it forwards one UDP port and does not forward 22, 80, 443, or 53. I had to add `Allow-LuCI-from-home` (TCP 80/443 from `wan`) after convert-to-host, because WAN input is REJECT and SSH was the only thing already punched. LuCI listened the whole time. The zone was the lock.
 
 {% comment %}
 TODO(screenshot): LuCI Network → Interfaces → wg0, and/or Firewall zones.
@@ -143,11 +145,11 @@ Do not test "am I on the VPN" by loading the Asus admin UI. Pick Pi-hole, or ano
 
 ## A Peer With No Address Never Loads
 
-WireGuard has no DHCP. Each device is a peer with its own keypair and a `/32` on the overlay. `.1` is the box. The rest you assign. One address per device; a phone and a laptop are two peers even if they share a human.
+I watched LuCI **Generate configuration** without **Save & Apply** leave zero peers on a box whose UI claimed otherwise. WireGuard has no DHCP. Each device is a peer with its own keypair and a `/32` on the overlay. `.1` is the box. The rest you assign. One address per device; a phone and a laptop are two peers even if they share a human.
 
 Point a DNS name at the house WAN. Do not add that name as a WireGuard peer. LuCI will let you, then generate a config that uses the LAN IP as the endpoint, puts `192.168.101.0/24` in `Address`, and copies the listen port onto the client. Delete that row. Generate keys on a *client* row. Endpoint host and port on the server side stay empty: the phone's cell IP changes, the server only listens.
 
-LuCI says Allowed IPs on the peer are optional. They are not. An empty `allowed_ips` means `wg` never loads the peer. `wg show` will not list it. Set `192.168.101.x/32` and turn **Route Allowed IPs** on. Then **Save & Apply**. Generate configuration *after* that. I watched a Generate-without-Apply leave zero peers on a box whose UI claimed otherwise.
+LuCI labels peer Allowed IPs optional. Leave them blank and `wg` never loads the peer; `wg show` will not list it. Set `192.168.101.x/32` and turn **Route Allowed IPs** on. Then **Save & Apply**. Generate configuration *after* that.
 
 On the client, `AllowedIPs = 0.0.0.0/0, ::/0` is the full tunnel. Keepalive 25 for phones behind NAT. DNS is Pi-hole at `192.168.1.254`. Overlay addressing on `wg0` in this house is IPv4-only; `::/0` is leak prevention for the client's other stacks, not an invitation to put IPv6 on the home LAN. The IoT box already had to [learn that v6 is a back door]({% post_url blog/record/2026-06-20-incidental-router %}). Do not build NAT66 until a client actually stalls on AAAA.
 
@@ -157,21 +159,19 @@ File: gate-lodge-luci-export.png
 Redact keys.
 {% endcomment %}
 
-Official apps: [WireGuard install](https://www.wireguard.com/install/) for Windows, Mac, Linux. On iPhone we imported a `.conf` into [Passepartout](https://apps.apple.com/us/app/passepartout-vpn-client/id1433648537). Same file format everywhere. I am not going to enumerate who in this house got a peer. You should not publish that list either. Issue on a trusted machine, vault or delete the `.conf` once the device has it, never commit keys.
+Official apps: [WireGuard install](https://www.wireguard.com/install/) for Windows, Mac, Linux. On iPhone we imported a `.conf` into [Passepartout](https://apps.apple.com/us/app/passepartout-vpn-client/id1433648537). Same file format everywhere. Issue on a trusted machine, vault or delete the `.conf` once the device has it, never commit keys.
 
 ## Pi-hole Thinks Overlay Is Foreign
 
-Pi-hole's "local only" listen treats clients as local when they share the Pi's ethernet subnet. Overlay packets arrive on that same NIC from `192.168.101.0/24`. Those sources get REFUSED until you allow the prefix.
+Handshake green, no websites: if a raw LAN IP loads and a name does not, the resolver never answered. Overlay packets arrive on the Pi's ethernet from `192.168.101.0/24`, and [Pi-hole's default listen policy](https://docs.pi-hole.net/ftldns/interfaces/) treats that prefix as foreign even though it shares a NIC with `192.168.1.0/24`.
 
-Allow `192.168.101.0/24` (Pi-hole v6: Settings → DNS / `pihole.toml` listen mode). Prefer an explicit CIDR. If the only control that works is "Permit all origins," it is acceptable **only** while the edge does not forward TCP/UDP 53 from the WAN to the Pi. Do not make a public resolver as a side effect of a VPN.
+Allow `192.168.101.0/24` (Pi-hole v6: Settings → DNS, or `pihole.toml` listen mode). Prefer an explicit CIDR. If the only control that works is "Permit all origins," it is acceptable **only** while the edge does not forward TCP/UDP 53 from the WAN to the Pi. Do not make a public resolver as a side effect of a VPN.
 
-Point overlay DNS at Pi-hole, not at `gate-lodge`, not at the Asus. Handshake-green and "no websites" is often this, or it is the masquerade bug above. Distinguish them: if a raw IP on the LAN works and a name does not, it is DNS. If raw IPs fail too, it is routing. Do not "fix" either one with `masq=1`.
+Point overlay DNS at Pi-hole, not at `gate-lodge`, not at the Asus. If raw IPs fail too, it is routing, not DNS. Do not "fix" either one with `masq=1`.
 
 ## It Lives in the Cabinet Now
 
-Two phones reached the LAN on foreign Wi-Fi and on cellular far from the house. A laptop that was not ours did too. That is the exam: away, Wi-Fi off or someone else's, Pi-hole in the browser, a home address that answers. Then we put the box in the network cabinet and the 1G jack stayed dark. SSH to `.253` still worked. A successful terminus is furniture.
-
-The interesting parts were never throughput. They were: do not promote the box, do not masquerade the overlay, do not trust LuCI's optional fields, do not leave SNAPSHOT in charge of kmods. The recipe below is the UCI we actually meant, with our listen port and public hostname swapped for placeholders so this post is a shape, not a client list.
+Two phones reached the LAN on foreign Wi-Fi and on cellular far from the house. A laptop that was not ours did too. That is the exam: away, Wi-Fi off or someone else's, Pi-hole in the browser, a home address that answers. Then we put the box in the network cabinet and the 1G jack stayed dark. SSH to `.253` still worked.
 
 ## Stock 24.10 to a Tunnel
 
