@@ -54,15 +54,11 @@ flowchart LR
 
 The public surface is one UDP port, forwarded to the VPN box. Everything inside the tunnel is private addressing. Return traffic for the overlay is a LAN static route on the edge router: `192.168.101.0/24` lives behind `192.168.1.253`.
 
-That route only works if overlay packets still *look like* overlay packets when they hit the LAN. [Masquerade](https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_%28NAT%29) on the VPN box would rewrite them to the box's home address, and the route would have nothing to match. The handshake can still go green while the house stays unreachable. I will get back to that, because it is the bug that looks like a fix.
+That route only works if overlay packets still *look like* overlay packets when they hit the LAN. [Masquerade](https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_%28NAT%29#Masquerading) on the VPN box would rewrite them to the box's home address, and the route would have nothing to match. The handshake can still go green while the house stays unreachable. [Masquerade is the bug that looks like a fix](#masquerade-eats-the-return-path).
 
 ## Banana Pi Builds It, OpenWrt Owns It
 
 The board is an [OpenWrt One](https://openwrt.org/toh/openwrt/one): MediaTek Filogic 820, 2.5G WAN, 1G LAN, Wi-Fi 6 we never turned on, USB-C serial on the front. Two flash chips: NAND holds the live OS, NOR holds recovery. [Banana Pi](https://docs.banana-pi.org/en/OpenWRT-One/BananaPi_OpenWRT-One.html) manufactures and sells it; the [OpenWrt](https://openwrt.org/) project designed it, and a slice of each sale goes to the [Software Freedom Conservancy](https://sfconservancy.org/) earmarked for OpenWrt.
-
-Banana Pi built it. In this house "the Pi" already means the Raspberry Pi that runs Pi-hole, at `192.168.1.254`. We number infrastructure from the top of `192.168.1.0/24`, so the DNS box is `.254` and the VPN box is `.253`. Hostname `gate-lodge`. Do not call this one "the Pi." One of these devices will come out of your mouth under stress, and it will be the wrong one.
-
-The edge router is configured in its own web UI. The OpenWrt box is configured over SSH as [UCI](https://openwrt.org/docs/guide-user/base-system/uci) text. The running box outranks both.
 
 ## Nested, Then a Host
 
@@ -94,15 +90,15 @@ opkg update
 opkg install kmod-wireguard wireguard-tools luci-proto-wireguard
 ```
 
-`kmod-wireguard` came in as `6.6.144-r1`. After the first install, `ifup wg0` left netifd (OpenWrt's network daemon) on proto `none` / `NO_DEVICE`. The proto script was new to the running daemon. `/etc/init.d/network restart` attached it. Later peer edits: `ifup wg0` is enough. That restart is the VPN box, not the house.
+`kmod-wireguard` came in as `6.6.144-r1`. After the first install, `ifup wg0` left netifd (OpenWrt's network daemon) on proto `none` / `NO_DEVICE`. The proto script was new to the running daemon. `/etc/init.d/network restart` attached it. Later peer edits: `ifup wg0` is enough.
 
 Flash a **release**. Snapshots are for people who enjoy 404s on the day they need a tunnel.
 
 ## 192.168.101 Was Empty
 
-Overlay is `192.168.101.0/24`. Home stays `192.168.1.0/24`. The first two octets still tell you which net you are looking at; `10.101.1.0/24` is the transposition a tired person will type, and we did not use it.
+Overlay is `192.168.101.0/24`. Home stays `192.168.1.0/24`.
 
-Also occupied here: the retired OpenVPN net `10.8.0.0/24` (do not reuse: it is the default, and it will collide on the road), a [WSL](https://learn.microsoft.com/en-us/windows/wsl/networking) virtual net on a PC that might itself be a client, and a brief candidate `10.72.1.0/24` that we dropped because `72.0.0.0/8` is public and a tired eye can lose the `10.`. Pick an overlay that is free on *your* LAN, on your VPN clients' other nets, and in [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918).
+Do not pick `10.8.0.0/24` for the overlay, even after OpenVPN is gone: it is still the default on networks you will join. A [WSL](https://learn.microsoft.com/en-us/windows/wsl/networking) virtual net on a PC that might itself be a client is the same kind of collision. We briefly tried `10.72.1.0/24` and dropped it because `72.0.0.0/8` is public and a tired eye can lose the `10.`. Pick an overlay that is free on *your* LAN, on your VPN clients' other nets, and in [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918).
 
 ## Cut Over, Then Listen
 
@@ -110,9 +106,9 @@ We dumped the old OpenVPN pool, disabled OpenVPN, *then* stood up WireGuard. Two
 
 On the Asus: a LAN static route for the overlay via `192.168.1.253`, metric left empty, interface LAN. UDP forward of the listen port to `192.168.1.253`. OpenVPN off. Reboot the Asus once, because consumer firmware likes to be asked twice. The edge still does NAT, Wi-Fi, and DHCP. It gets a route and a hole. Any edge that can do a LAN static route and a UDP port forward will do; Merlin is just what this house has.
 
-On the VPN box, `wg0` is `192.168.101.1/24`, proto `wireguard`, listen on that same UDP port. Keys generated on the box, under `/etc/wireguard/`. Do not copy private keys into a repository, a chat, or a blog post. Firewall zone `vpn` on `wg0`, masquerade **0** on both `wan` and `vpn`. Forward `vpn` → `wan` and `wan` → `vpn`. A rule `Allow-WG`: UDP dest that port, source zone `wan`.
+On the VPN box, `wg0` is `192.168.101.1/24`, proto `wireguard`, listen on that same UDP port. Keys generated on the box, under `/etc/wireguard/`. Do not copy private keys into a repository, a chat, or a blog post. Firewall zone `vpn` on `wg0`, masquerade **0** on both `wan` and `vpn`. Forward `vpn` → `wan` and `wan` → `vpn`. A rule `Allow-WG`: UDP dest that port, source zone `wan` (the house, not the internet).
 
-`wan`, on this box, is the home LAN. The OpenWrt One's "WAN" jack is just the cable that faces the Asus. Punching SSH, [LuCI](https://openwrt.org/docs/guide-user/luci/start) (OpenWrt's web UI), and WireGuard from `wan` is punching them from home, not from the internet. The Asus is what faces the world; it forwards one UDP port and does not forward 22, 80, 443, or 53. I had to add `Allow-LuCI-from-home` (TCP 80/443 from `wan`) after converting to a host, because WAN input is REJECT and SSH was the only thing already punched. LuCI listened the whole time. The zone was the lock.
+[LuCI](https://openwrt.org/docs/guide-user/luci/start) (OpenWrt's web UI) listened the whole time. WAN input is REJECT, and SSH was the only thing already punched, so I added `Allow-LuCI-from-home` (TCP 80/443 from `wan`) after converting to a host. The zone was the lock. The Asus is what faces the world; it forwards one UDP port and does not forward 22, 80, 443, or 53.
 
 {% comment %}
 TODO(screenshot): LuCI Network → Interfaces → wg0, and/or Firewall zones.
@@ -126,7 +122,7 @@ A green handshake means the UDP hole works. It does not mean the inner packets h
 
 The wrong extra click is WAN `masq=1` "so the internet works." That SNATs overlay sources onto `192.168.1.253`. The Asus then sees house-LAN traffic from the VPN box's own address. The overlay route never matches. LAN replies go missing, or they go to the box and stop. You will stare at `wg show` and a pile of RX/TX and a Pi-hole that never saw the query.
 
-Leave `srcnat` empty. Confirm it: `fw4 print` (OpenWrt's firewall compiler) should not masquerade `192.168.101.0/24` onto the home IP. From a machine *on the house LAN*, `ping 192.168.101.1` should return. Ours came back ttl 63, one hop through the Asus. That ping is the overlay-return probe. It does not need a phone. If it fails, fix the edge route and the box's default via `192.168.1.1` before you touch a client.
+Leave `srcnat` empty. Confirm it: `fw4 print` (OpenWrt's firewall compiler) should not masquerade `192.168.101.0/24` onto the home IP. From a machine already on the house LAN, `ping 192.168.101.1`. Ours came back in one hop through the Asus. That ping is the overlay-return probe. If it fails, fix the edge route and the box's default via `192.168.1.1` before you add a client.
 
 ```mermaid
 flowchart TD
@@ -145,19 +141,19 @@ Do not test "am I on the VPN" by loading the edge router's admin UI. Pick Pi-hol
 
 I watched LuCI **Generate configuration** without **Save & Apply** leave zero peers on a box whose UI claimed otherwise. WireGuard has no DHCP. Each device is a peer with its own keypair and a `/32` on the overlay. `.1` is the box. The rest you assign. One address per device; a phone and a laptop are two peers even if they share a human.
 
-Point a DNS name at the house WAN. Do not add that name as a WireGuard peer. LuCI will let you, then generate a config that uses the LAN IP as the endpoint, puts `192.168.101.0/24` in `Address`, and copies the listen port onto the client. Delete that row. Generate keys on a *client* row. Endpoint host and port on the server side stay empty: the phone's cell IP changes, the server only listens.
+Give the house WAN a DNS name. That name belongs in the *client* file as `Endpoint`, not as a peer on the server. I added it as a LuCI peer anyway. Generate configuration then used the LAN IP as the endpoint, put `192.168.101.0/24` in `Address`, and copied the listen port onto the client. Delete that row. Peers are devices; generate keys on a *client* row. Endpoint host and port on the server stay empty: the phone's cell IP changes, the server only listens.
 
 LuCI labels peer Allowed IPs optional. Leave them blank and `wg` never loads the peer; `wg show` will not list it. Set `192.168.101.x/32` and turn **Route Allowed IPs** on. Then **Save & Apply**. Generate configuration *after* that.
 
 On the client, `AllowedIPs = 0.0.0.0/0, ::/0` is the full tunnel. Keepalive 25 for phones behind NAT. DNS is Pi-hole at `192.168.1.254`. Overlay addressing on `wg0` in this house is IPv4-only; `::/0` is leak prevention for the client's other stacks, not an invitation to put IPv6 on the home LAN. Do not build NAT66 until a client actually stalls on AAAA.
 
 {% comment %}
-TODO(screenshot): LuCI Generate configuration dialog with endpoint, addresses, AllowedIPs, DNS filled.
+TODO(screenshot): LuCI Generate configuration for a *client* peer (not a row named after the WAN hostname), with endpoint, addresses, AllowedIPs, DNS filled.
 File: gate-lodge-luci-export.png
 Redact keys.
 {% endcomment %}
 
-Official apps: [WireGuard install](https://www.wireguard.com/install/) for Windows, Mac, Linux. On iPhone we imported a `.conf` into [Passepartout](https://apps.apple.com/us/app/passepartout-vpn-client/id1433648537). Same file format everywhere. Issue on a trusted machine, vault or delete the `.conf` once the device has it. Do not put private keys in a repository or a chat.
+Official [WireGuard](https://www.wireguard.com/install/) apps on Windows, Mac, Linux, and iPhone. Import the same `.conf`.
 
 ## Pi-hole Thinks Overlay Is Foreign
 
@@ -169,7 +165,7 @@ Point overlay DNS at Pi-hole, not at the VPN box, not at the Asus. If raw IPs fa
 
 ## It Lives in the Cabinet Now
 
-Two phones reached the LAN on foreign Wi-Fi and on cellular far from the house. A laptop that does not live here did too. That is the exam: away, Wi-Fi off or someone else's, Pi-hole in the browser, a home address that answers. Then we put the box in the network cabinet and the 1G jack stayed dark. SSH to `.253` still worked.
+Two phones reached the LAN on foreign Wi-Fi and on cellular far from the house. A laptop that isn't ours did too. That is the exam: away, Wi-Fi off or someone else's, Pi-hole in the browser, a home address that answers. Then we put the box in the network cabinet and the 1G jack stayed dark. SSH to `.253` still worked.
 
 ## Release Image to a Tunnel
 
@@ -190,6 +186,8 @@ This is the tab. Numbers match this house. Change the prefixes if yours collide.
 * VPN box `192.168.1.253` on the 2.5G jack, hostname `gate-lodge`
 * Overlay `192.168.101.0/24`, server `192.168.101.1/24` on `wg0`
 * Nested side net, temporary: `192.168.67.1/24` on the 1G jack
+
+Do not pick `10.8.0.0/24` for the overlay, even if you just disabled OpenVPN.
 
 Release image: [Firmware Selector](https://firmware-selector.openwrt.org/?version=24.10.8&target=mediatek%2Ffilogic&id=openwrt_one), `openwrt_one` squashfs-sysupgrade. Prefer a release over a SNAPSHOT.
 
@@ -271,7 +269,7 @@ Do not forward 80 or 443 from the internet.
 
 ### Release, then WireGuard
 
-If `opkg install kmod-wireguard` cannot find a package, you are on a SNAPSHOT whose feeds 404, or whose kernel does not match the release kmods. Copy the 24.10.8 `squashfs-sysupgrade.itb` to `/tmp` on the box and:
+If `opkg install kmod-wireguard` cannot find a package, stop. Flash the 24.10.8 `squashfs-sysupgrade.itb` rather than `--force` a module. Usual reasons are a SNAPSHOT whose feeds 404, or a kernel that does not match the release kmods; there are others. Copy the image to `/tmp` on the box and:
 
 ```sh
 sysupgrade -v /tmp/openwrt-24.10.8-mediatek-filogic-openwrt_one-squashfs-sysupgrade.itb
@@ -332,7 +330,7 @@ LAN static route for the overlay. Metric left empty, interface LAN.
 
 Forward UDP `51820` to `192.168.1.253:51820`. Disable the old VPN after a client works, unless you are also done with it and willing to cut first. Do not forward 22, 53, 80, or 443 from the internet.
 
-From a house machine, `ping 192.168.101.1`. That is the overlay-return probe. It should answer before any phone is involved.
+From a house machine, `ping 192.168.101.1`. That is the overlay-return probe. If it fails, do not add a client yet.
 
 ### One client
 
@@ -356,7 +354,7 @@ uci commit network
 ifup wg0
 ```
 
-Client file. Private key stays on the device. `PublicKey` is the *server* pubkey from `/etc/wireguard/server.pub`.
+Client file. Private key stays on the device. `PublicKey` is the *server* pubkey from `/etc/wireguard/server.pub`. `vpn.example.com` is `Endpoint` here, not a peer on the box.
 
 ```ini
 [Interface]
@@ -371,7 +369,7 @@ AllowedIPs = 0.0.0.0/0, ::/0
 PersistentKeepalive = 25
 ```
 
-`wg show` on the box must list that public key. If it does not, Allowed IPs were empty or you skipped Save & Apply. Import the file, connect from cellular, load `http://192.168.1.254` (or some other home address, if you have no Pi-hole). Then delete `client.key` from the trusted machine.
+`wg show` on the box must list that public key. If it does not, Allowed IPs were empty or you skipped Save & Apply. Import the file in the [official WireGuard app](https://www.wireguard.com/install/), connect from cellular, load `http://192.168.1.254` (or some other home address, if you have no Pi-hole). Then delete `client.key` from the trusted machine.
 
 ### Pi-hole
 
