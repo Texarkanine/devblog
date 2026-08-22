@@ -6788,7 +6788,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.hskxwywgkeoou-yqwcu0jvjekj181m { display: inline-block; }</style><script>(function(){function wt0srbgbnnjofm6b(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function im5cmqkyw7u9yrk0(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var n9gn2mlwkd=sp.getAttribute('data-jddlldn1');var uauchp99ouk=sp.getAttribute('data-d2jkwlsl');var psvmccvtb=sp.getAttribute('data-rhlo8dgw6');var qxm8mtvypq=sp.getAttribute('data-zmojq0n');var mailto=wt0srbgbnnjofm6b(n9gn2mlwkd,spParts[0].length);var user=wt0srbgbnnjofm6b(uauchp99ouk,spParts[1].length);var domainBase=wt0srbgbnnjofm6b(psvmccvtb,lnkParts[0].length);var tld=wt0srbgbnnjofm6b(qxm8mtvypq,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function hnyod7zoxeofg1j(){var els=document.querySelectorAll('a.krzy0c-tku4yv9hvd');var handler=function(){var sp=this.querySelector('span.hskxwywgkeoou-yqwcu0jvjekj181m');if(sp&&!this.dataset.d){var val=im5cmqkyw7u9yrk0(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',hnyod7zoxeofg1j);}else{hnyod7zoxeofg1j();}})();</script>{:/nomarkdown}<a href="#" class="krzy0c-tku4yv9hvd"><span class="hskxwywgkeoou-yqwcu0jvjekj181m" data-jddlldn1="znvygb" data-d2jkwlsl="HUTQSJUT" data-rhlo8dgw6="vxuzutsgor" data-zmojq0n="myw">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.iun3rjo3amx42dn-n6ofbaj9 { display: inline-block; }</style><script>(function(){function souhzjps(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function pqduyrf0wd7xx1(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var w3f1eusxpdz=sp.getAttribute('data-mh5jed');var etrraa0nkx7=sp.getAttribute('data-idbgt2c9');var sbghohw5=sp.getAttribute('data-djwxtelc');var eiyd55klctek=sp.getAttribute('data-yqgg49b');var mailto=souhzjps(w3f1eusxpdz,spParts[0].length);var user=souhzjps(etrraa0nkx7,spParts[1].length);var domainBase=souhzjps(sbghohw5,lnkParts[0].length);var tld=souhzjps(eiyd55klctek,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function mrescw5o(){var els=document.querySelectorAll('a.pptciigwx-b105fu');var handler=function(){var sp=this.querySelector('span.iun3rjo3amx42dn-n6ofbaj9');if(sp&&!this.dataset.d){var val=pqduyrf0wd7xx1(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',mrescw5o);}else{mrescw5o();}})();</script>{:/nomarkdown}<a href="#" class="pptciigwx-b105fu"><span class="iun3rjo3amx42dn-n6ofbaj9" data-mh5jed="bpxaid" data-idbgt2c9="ZMLIKBML" data-djwxtelc="yaxcxwvjru" data-yqgg49b="ius">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -7833,14 +7833,6 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
-          
-        </li><li>
-          
-          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
-          
-        </li><li>
-          
           <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
           
         </li><li>
@@ -7849,23 +7841,7 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
-          
-        </li><li>
-          
-          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
-          
-        </li><li>
-          
-          <a href="/garden/idea-bank.html">Idea Bank</a>
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
           
         </li><li>
           
@@ -7877,19 +7853,15 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
+          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
           
         </li><li>
           
-          <a href="/garden/stories.html">Stories</a>
+          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
           
         </li><li>
           
-          <a href="/garden/ai-horses.html">Horses</a>
-          
-        </li><li>
-          
-          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          <a href="/garden/shrine/asymmetric-spaceships/lego-blacktron-renegade.html">LEGO Blacktron Renegade</a>
           
         </li><li>
           
@@ -7897,15 +7869,7 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
-          
-        </li><li>
-          
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
           
         </li><li>
           
@@ -7913,15 +7877,35 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/linkroll.html">Linkroll</a>
+          <a href="/garden/idea-bank.html">Idea Bank</a>
           
         </li><li>
           
-          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
+          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
           
         </li><li>
           
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
+          <a href="/garden/shrine/asymmetric-spaceships/alien-derelict.html">ALIEN Derelict</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
+          
+        </li><li>
+          
+          <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          
+        </li><li>
+          
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
+          
+        </li><li>
+          
+          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
           
         </li><li>
           
@@ -7929,11 +7913,27 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
+          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
           
         </li><li>
           
-          <a href="/garden/love-letter-to-early-internet.html">Love Letter to the Early Internet</a>
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
+          <a href="/garden/linkroll.html">Linkroll</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+          
+        </li><li>
+          
+          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
+          
+        </li><li>
+          
+          <a href="/garden/stories.html">Stories</a>
           
         </li></ul>
 
