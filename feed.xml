@@ -1,4 +1,417 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-22T17:23:17+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Times Can Sell; Reddit Cannot</title><link href="https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.html" rel="alternate" type="text/html" title="The Times Can Sell; Reddit Cannot" /><published>2026-08-13T00:00:00+00:00</published><updated>2026-08-16T18:27:05+00:00</updated><id>https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.html"><![CDATA[<p>On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its <a href="https://finance.yahoo.com/markets/article/reddit-stock-tumbles-the-most-on-record-as-lack-of-new-ai-deals-us-daily-users-metric-disappoints-153413759.html">steepest one-day drop since the 2024 IPO</a>. Huffman wrote that search referrals were “choppy”, and said that in AI Overviews Reddit has “still yet to find that win-win.”<sup id="fnref:cnbc-reddit"><a href="#fn:cnbc-reddit" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> In a <a href="https://www.cnbc.com/2026/07/30/reddit-ceo-says-googles-ai-overviews-cant-replace-10-blue-links-.html">same-day interview</a>: “The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact.”</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-22T22:34:21+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Gate Lodge</title><link href="https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.html" rel="alternate" type="text/html" title="The Gate Lodge" /><published>2026-08-22T00:00:00+00:00</published><updated>2026-08-22T22:33:20+00:00</updated><id>https://blog.cani.ne.jp/2026/08/22/the-gate-lodge</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.html"><![CDATA[<p>The house already had a router we liked: an Asus running <a href="https://www.asuswrt-merlin.net/">Merlin</a>, doing Wi-Fi, DHCP, and NAT for <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>, the same LAN as the <a href="/2026/01/17/all-it-took-was-broken-firmware.html">IoT isolation</a> and <a href="/2026/06/20/incidental-router.html">the OpenWrt rebuild of that isolation</a>.</p>
+
+<p>The inbound VPN was <a href="https://openvpn.net/">OpenVPN</a> on that Asus. It dropped, sometimes in step with WAN failover, sometimes on its own; we never pinned which. It was slow: it shared the router’s CPU and RAM with Wi-Fi, DHCP, and NAT. Merlin’s OpenVPN was old enough that it still wanted <a href="https://community.openvpn.net/openvpn/wiki/Compression">compression</a> after upstream had deprecated it, and newer clients struggled. The web UI was a short form. There were probably more problems we never named.</p>
+
+<p>We wanted three things. Every client connects, every time. More throughput than a process fighting the edge for RAM. Restart the VPN without restarting the house.</p>
+
+<p><a href="https://www.wireguard.com/">WireGuard</a> went on a second box, as a host on the LAN: no DHCP, no NAT, radios off. One address on the home subnet, a private range that exists only inside the tunnel (the overlay), one UDP port forwarded from the WAN, one static route back. Full tunnel: all of the client’s traffic, not just packets for the house. Phones on cellular, laptops on cafe Wi-Fi, the LAN, DNS through the existing <a href="https://pi-hole.net/">Pi-hole</a>. Reboot <code class="language-plaintext highlighter-rouge">gate-lodge</code> and the Asus keeps serving Wi-Fi.</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="gate-lodge-cabinet.jpg">
+      <img src="gate-lodge-cabinet.jpg" alt="The OpenWrt One standing in the network cabinet, Ethernet in the 2.5G jack." class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">Radios off. In the cabinet.</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p>If you want that, keep this tab open. The paste is <a href="#release-image-to-a-tunnel">Release Image to a Tunnel</a>: first boot through a working client. Everything between here and there is why that paste is picky. Skip it if you want; come back when a command looks too careful.</p>
+
+<h2 id="the-overlay-lives-behind-253">The Overlay Lives Behind .253</h2>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/8f6946a6.svg"><img src="/assets/svg/8f6946a6.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/8f6946a6-dark.svg"><img src="/assets/svg/8f6946a6-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>The public surface is one UDP port, forwarded to the VPN box. Everything inside the tunnel is private addressing. Return traffic for the overlay is a LAN static route on the edge router: <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code> lives behind <code class="language-plaintext highlighter-rouge">192.168.1.253</code>.</p>
+
+<p>That route only works if overlay packets still <em>look like</em> overlay packets when they hit the LAN. <a href="https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_%28NAT%29#Masquerading">Masquerade</a> on the VPN box would rewrite them to the box’s home address, and the route would have nothing to match. The handshake can still go green while the house stays unreachable. <a href="#masquerade-eats-the-return-path">Masquerade is the bug that looks like a fix</a>.</p>
+
+<h2 id="banana-pi-builds-it-openwrt-owns-it">Banana Pi Builds It, OpenWrt Owns It</h2>
+
+<p>The board is an <a href="https://openwrt.org/toh/openwrt/one">OpenWrt One</a>: MediaTek Filogic 820, 2.5G WAN, 1G LAN, Wi-Fi 6 we never turned on, USB-C serial on the front. Two flash chips: NAND holds the live OS, NOR holds recovery. <a href="https://docs.banana-pi.org/en/OpenWRT-One/BananaPi_OpenWRT-One.html">Banana Pi</a> manufactures and sells it; the <a href="https://openwrt.org/">OpenWrt</a> project designed it, and a slice of each sale goes to the <a href="https://sfconservancy.org/">Software Freedom Conservancy</a> earmarked for OpenWrt.</p>
+
+<h2 id="nested-then-a-host">Nested, Then a Host</h2>
+
+<p>Stock OpenWrt wants to be a router. Fresh out of the box the OpenWrt One serves <code class="language-plaintext highlighter-rouge">192.168.1.1</code> on the 1G jack, DHCP on, WAN masquerading. Plug that jack into a house that already uses <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> and you get a small religious war over who is <code class="language-plaintext highlighter-rouge">.1</code>.</p>
+
+<p>We let it be a router for a day, on purpose, on a <em>side</em> net. Home on <code class="language-plaintext highlighter-rouge">eth0</code> (the 2.5G jack) via DHCP from the Asus. A tiny LAN on <code class="language-plaintext highlighter-rouge">eth1</code> (<code class="language-plaintext highlighter-rouge">br-lan</code>) at <code class="language-plaintext highlighter-rouge">192.168.67.1/24</code>. OpenWrt calls the home-facing jack <code class="language-plaintext highlighter-rouge">wan</code> even though, from the internet’s point of view, it is just another LAN host; punching SSH from the <code class="language-plaintext highlighter-rouge">wan</code> zone is punching it from the house, not from the world. A spare laptop on the 1G jack if that punch failed. Radios off. Nested NAT on, because a nested router NATs; that masquerade is temporary and it comes off later.</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/5cff413c.svg"><img src="/assets/svg/5cff413c.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/5cff413c-dark.svg"><img src="/assets/svg/5cff413c-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>Then we converted it to a host. Static <code class="language-plaintext highlighter-rouge">192.168.1.253/24</code> on <code class="language-plaintext highlighter-rouge">eth0</code>, default via <code class="language-plaintext highlighter-rouge">192.168.1.1</code>, DNS to Pi-hole. <code class="language-plaintext highlighter-rouge">network.lan</code> proto <code class="language-plaintext highlighter-rouge">none</code>. DHCP off. The <code class="language-plaintext highlighter-rouge">lan</code> → <code class="language-plaintext highlighter-rouge">wan</code> forward deleted. WAN masquerade <strong>off</strong>. The 1G jack stays dark: no DHCP, no management net. If the OS dies, recovery is USB-C serial or the OpenWrt One’s factory/NOR path on that jack.</p>
+
+<p>Skip the nested day and you can still get there from serial, or from a laptop on the 1G jack at the factory address before you join the house. Nested is the version with a door if you brick the home-facing side. Both paths are in the paste below.</p>
+
+<p><a href="https://openwrt.org/docs/guide-user/security/dropbear.public-key.auth">Dropbear</a> is OpenWrt’s SSH server. It reads <code class="language-plaintext highlighter-rouge">/etc/dropbear/authorized_keys</code>. A modern <code class="language-plaintext highlighter-rouge">ssh-copy-id</code> will cheerfully write <code class="language-plaintext highlighter-rouge">~/.ssh/authorized_keys</code> and you will wonder why the key you just installed does nothing. Copy the line into the Dropbear file. I lost a round to that.</p>
+
+<h2 id="packagesgz-was-404">Packages.gz Was 404</h2>
+
+<p>The image on the box was a nightly SNAPSHOT: kernel <code class="language-plaintext highlighter-rouge">6.6.57</code>, identified as an OpenWrt One, no <code class="language-plaintext highlighter-rouge">kmod-wireguard</code>, no <code class="language-plaintext highlighter-rouge">tun</code>. Current snapshot <code class="language-plaintext highlighter-rouge">opkg</code> <code class="language-plaintext highlighter-rouge">Packages.gz</code> was HTTP 404. Release kernel modules are built against other kernels. <code class="language-plaintext highlighter-rouge">--force</code> would have been a way to install a module that could not load.</p>
+
+<p>We did not force it. <a href="https://openwrt.org/docs/guide-user/installation/generic.sysupgrade">Keep-settings sysupgrade</a> to official <strong>24.10.8</strong> (<code class="language-plaintext highlighter-rouge">r29233-443ec4032a</code>, kernel <code class="language-plaintext highlighter-rouge">6.6.144</code>), image <code class="language-plaintext highlighter-rouge">openwrt-24.10.8-mediatek-filogic-openwrt_one-squashfs-sysupgrade.itb</code>. No factory reflash, no vendor image, no <code class="language-plaintext highlighter-rouge">--force</code>. Hostname, <code class="language-plaintext highlighter-rouge">.253</code>, Dropbear keys, and the WAN default all survived. Then:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg update
+opkg <span class="nb">install </span>kmod-wireguard wireguard-tools luci-proto-wireguard
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">kmod-wireguard</code> came in as <code class="language-plaintext highlighter-rouge">6.6.144-r1</code>. After the first install, <code class="language-plaintext highlighter-rouge">ifup wg0</code> left netifd (OpenWrt’s network daemon) on proto <code class="language-plaintext highlighter-rouge">none</code> / <code class="language-plaintext highlighter-rouge">NO_DEVICE</code>. The proto script was new to the running daemon. <code class="language-plaintext highlighter-rouge">/etc/init.d/network restart</code> attached it. Later peer edits: <code class="language-plaintext highlighter-rouge">ifup wg0</code> is enough.</p>
+
+<p>Flash a <strong>release</strong>. Snapshots are for people who enjoy 404s on the day they need a tunnel.</p>
+
+<h2 id="192168101-was-empty">192.168.101 Was Empty</h2>
+
+<p>Overlay is <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>. Home stays <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>.</p>
+
+<p>Do not pick <code class="language-plaintext highlighter-rouge">10.8.0.0/24</code> for the overlay, even after OpenVPN is gone: it is still the default on networks you will join. A <a href="https://learn.microsoft.com/en-us/windows/wsl/networking">WSL</a> virtual net on a PC that might itself be a client is the same kind of collision. We briefly tried <code class="language-plaintext highlighter-rouge">10.72.1.0/24</code> and dropped it because <code class="language-plaintext highlighter-rouge">72.0.0.0/8</code> is public and a tired eye can lose the <code class="language-plaintext highlighter-rouge">10.</code>. Pick an overlay that is free on <em>your</em> LAN, on your VPN clients’ other nets, and in <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>.</p>
+
+<h2 id="cut-over-then-listen">Cut Over, Then Listen</h2>
+
+<p>We dumped the old OpenVPN pool, disabled OpenVPN, <em>then</em> stood up WireGuard. Two inbound VPNs is two stories about which prefix a client has today. If you still need the old VPN, invert that: stand up WireGuard first, prove a client, <em>then</em> disable OpenVPN. We were done with OpenVPN. You might not be.</p>
+
+<p>On the Asus: a LAN static route for the overlay via <code class="language-plaintext highlighter-rouge">192.168.1.253</code>, metric left empty, interface LAN. UDP forward of the listen port to <code class="language-plaintext highlighter-rouge">192.168.1.253</code>. OpenVPN off. Reboot the Asus once, because consumer firmware likes to be asked twice. The edge still does NAT, Wi-Fi, and DHCP. It gets a route and a hole. Any edge that can do a LAN static route and a UDP port forward will do; Merlin is just what this house has.</p>
+
+<p>On the VPN box, <code class="language-plaintext highlighter-rouge">wg0</code> is <code class="language-plaintext highlighter-rouge">192.168.101.1/24</code>, proto <code class="language-plaintext highlighter-rouge">wireguard</code>, listen on that same UDP port. Keys generated on the box, under <code class="language-plaintext highlighter-rouge">/etc/wireguard/</code>. Do not copy private keys into a repository, a chat, or a blog post. Firewall zone <code class="language-plaintext highlighter-rouge">vpn</code> on <code class="language-plaintext highlighter-rouge">wg0</code>, masquerade <strong>0</strong> on both <code class="language-plaintext highlighter-rouge">wan</code> and <code class="language-plaintext highlighter-rouge">vpn</code>. Forward <code class="language-plaintext highlighter-rouge">vpn</code> → <code class="language-plaintext highlighter-rouge">wan</code> and <code class="language-plaintext highlighter-rouge">wan</code> → <code class="language-plaintext highlighter-rouge">vpn</code>. A rule <code class="language-plaintext highlighter-rouge">Allow-WG</code>: UDP dest that port, source zone <code class="language-plaintext highlighter-rouge">wan</code> (the house, not the internet).</p>
+
+<p><a href="https://openwrt.org/docs/guide-user/luci/start">LuCI</a> (OpenWrt’s web UI) listened the whole time. WAN input is REJECT, and SSH was the only thing already punched, so I added <code class="language-plaintext highlighter-rouge">Allow-LuCI-from-home</code> (TCP 80/443 from <code class="language-plaintext highlighter-rouge">wan</code>) after converting to a host. The zone was the lock. The Asus is what faces the world; it forwards one UDP port and does not forward 22, 80, 443, or 53.</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="gate-lodge-luci-wg0.png">
+      <img src="gate-lodge-luci-wg0.png" alt="LuCI interface status for wg0: WireGuard VPN, IPv4 192.168.101.1/24." class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">LuCI: wg0 is up.</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<h2 id="masquerade-eats-the-return-path">Masquerade Eats the Return Path</h2>
+
+<p>A green handshake means the UDP hole works. It does not mean the inner packets have a way home.</p>
+
+<p>The wrong extra click is WAN <code class="language-plaintext highlighter-rouge">masq=1</code> “so the internet works.” That SNATs overlay sources onto <code class="language-plaintext highlighter-rouge">192.168.1.253</code>. The Asus then sees house-LAN traffic from the VPN box’s own address. The overlay route never matches. LAN replies go missing, or they go to the box and stop. You will stare at <code class="language-plaintext highlighter-rouge">wg show</code> and a pile of RX/TX and a Pi-hole that never saw the query.</p>
+
+<p>Leave <code class="language-plaintext highlighter-rouge">srcnat</code> empty. Confirm it: <code class="language-plaintext highlighter-rouge">fw4 print</code> (OpenWrt’s firewall compiler) should not masquerade <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code> onto the home IP. From a machine already on the house LAN, <code class="language-plaintext highlighter-rouge">ping 192.168.101.1</code>. Ours came back in one hop through the Asus. That ping is the overlay-return probe. If it fails, fix the edge route and the box’s default via <code class="language-plaintext highlighter-rouge">192.168.1.1</code> before you add a client.</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/c9434827.svg"><img src="/assets/svg/c9434827.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/c9434827-dark.svg"><img src="/assets/svg/c9434827-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>Do not test “am I on the VPN” by loading the edge router’s admin UI. Pick Pi-hole, or another LAN host, or a public-IP check that should show the house WAN. The edge’s own web server is a special case and a time sink.</p>
+
+<h2 id="a-peer-with-no-address-never-loads">A Peer With No Address Never Loads</h2>
+
+<p>I watched LuCI <strong>Generate configuration</strong> without <strong>Save &amp; Apply</strong> leave zero peers on a box whose UI claimed otherwise. WireGuard has no DHCP. Each device is a peer with its own keypair and a <code class="language-plaintext highlighter-rouge">/32</code> on the overlay. <code class="language-plaintext highlighter-rouge">.1</code> is the box. The rest you assign. One address per device; a phone and a laptop are two peers even if they share a human.</p>
+
+<p>Give the house WAN a DNS name. That name belongs in the <em>client</em> file as <code class="language-plaintext highlighter-rouge">Endpoint</code>, not as a peer on the server. I added it as a LuCI peer anyway. Generate configuration then used the LAN IP as the endpoint, put <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code> in <code class="language-plaintext highlighter-rouge">Address</code>, and copied the listen port onto the client. Delete that row. Peers are devices; generate keys on a <em>client</em> row. Endpoint host and port on the server stay empty: the phone’s cell IP changes, the server only listens.</p>
+
+<p>LuCI labels peer Allowed IPs optional. Leave them blank and <code class="language-plaintext highlighter-rouge">wg</code> never loads the peer; <code class="language-plaintext highlighter-rouge">wg show</code> will not list it. Set <code class="language-plaintext highlighter-rouge">192.168.101.x/32</code> and turn <strong>Route Allowed IPs</strong> on. Then <strong>Save &amp; Apply</strong>. Generate configuration <em>after</em> that.</p>
+
+<p>On the client, <code class="language-plaintext highlighter-rouge">AllowedIPs = 0.0.0.0/0, ::/0</code> is the full tunnel. Keepalive 25 for phones behind NAT. DNS is Pi-hole at <code class="language-plaintext highlighter-rouge">192.168.1.254</code>. Overlay addressing on <code class="language-plaintext highlighter-rouge">wg0</code> in this house is IPv4-only; <code class="language-plaintext highlighter-rouge">::/0</code> is leak prevention for the client’s other stacks, not an invitation to put IPv6 on the home LAN. We won’t build NAT66 until a client actually stalls on AAAA.</p>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="gate-lodge-luci-export.png">
+      <img src="gate-lodge-luci-export.png" alt="LuCI Generate configuration for a WireGuard client peer, with vpn.example.com as Endpoint and a /32 overlay address. Keys redacted." class="polaroid-image" />
+    </a>
+    <div class="polaroid-title">Generate configuration for a client. Endpoint is a hostname; Address is a /32.</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<p>Official <a href="https://www.wireguard.com/install/">WireGuard</a> apps on Windows, Mac, Linux, and iPhone. Import the same <code class="language-plaintext highlighter-rouge">.conf</code>.</p>
+
+<h2 id="pi-hole-thinks-overlay-is-foreign">Pi-hole Thinks Overlay Is Foreign</h2>
+
+<p>Handshake green, no websites: if a raw LAN IP loads and a name does not, the resolver never answered. Overlay packets arrive on the Pi-hole’s ethernet from <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>, and <a href="https://docs.pi-hole.net/ftldns/interfaces/">Pi-hole’s default listen policy</a> treats that prefix as foreign even though it shares a NIC with <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>.</p>
+
+<p>Allow <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code> (Pi-hole v6: Settings → DNS, or <code class="language-plaintext highlighter-rouge">pihole.toml</code> listen mode). Prefer an explicit CIDR. If the only control that works is “Permit all origins,” it is acceptable <strong>only</strong> while the edge does not forward TCP/UDP 53 from the WAN to the Pi-hole. Do not make a public resolver as a side effect of a VPN.</p>
+
+<p>Point overlay DNS at Pi-hole, not at the VPN box, not at the Asus. If raw IPs fail too, it is routing, not DNS. Do not “fix” either one with <code class="language-plaintext highlighter-rouge">masq=1</code>. If you do not run Pi-hole, point <code class="language-plaintext highlighter-rouge">DNS</code> in the client file at whatever resolver you want inside the tunnel, and ignore this section.</p>
+
+<h2 id="it-lives-in-the-cabinet-now">It Lives in the Cabinet Now</h2>
+
+<p>Two phones reached the LAN on foreign Wi-Fi and on cellular far from the house. A laptop that isn’t ours did too. That is the exam: away, Wi-Fi off or someone else’s, Pi-hole in the browser, a home address that answers. Then we put the box in the network cabinet and the 1G jack stayed dark. SSH to <code class="language-plaintext highlighter-rouge">.253</code> still worked.</p>
+
+<h2 id="release-image-to-a-tunnel">Release Image to a Tunnel</h2>
+
+<p>This is the tab. Numbers match this house. Change the prefixes if yours collide. Commands are <a href="https://openwrt.org/docs/guide-user/base-system/uci">UCI</a> on OpenWrt 24.10; check <code class="language-plaintext highlighter-rouge">uci show firewall</code> before you delete anything by numeric index.</p>
+
+<h3 id="what-you-need">What you need</h3>
+
+<ul>
+  <li>An existing home router you want to keep (Wi-Fi, DHCP, NAT). Ours is an Asus with Merlin. Any edge that can add a LAN static route and forward one UDP port will do.</li>
+  <li>An OpenWrt box. Two ethernet jacks make the nested-join path easy (on the OpenWrt One: 2.5G faces the house, 1G is the temporary side net). One jack plus USB-C serial also works.</li>
+  <li>Optional: Pi-hole on the home LAN.</li>
+  <li>A UDP port you will forward from the WAN. The snippets use <code class="language-plaintext highlighter-rouge">51820</code> (WireGuard’s common default). Pick yours and use it in all four places: box listen port, edge forward, client <code class="language-plaintext highlighter-rouge">Endpoint</code>, <code class="language-plaintext highlighter-rouge">Allow-WG</code>.</li>
+  <li>A DNS name pointed at the house WAN, written <code class="language-plaintext highlighter-rouge">vpn.example.com</code> below. A raw public IP works until it changes.</li>
+</ul>
+
+<h3 id="addresses-this-house">Addresses (this house)</h3>
+
+<ul>
+  <li>Home LAN <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>, edge <code class="language-plaintext highlighter-rouge">192.168.1.1</code></li>
+  <li>Pi-hole <code class="language-plaintext highlighter-rouge">192.168.1.254</code> (do not forward WAN 53 to it)</li>
+  <li>VPN box <code class="language-plaintext highlighter-rouge">192.168.1.253</code> on the 2.5G jack, hostname <code class="language-plaintext highlighter-rouge">gate-lodge</code></li>
+  <li>Overlay <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>, server <code class="language-plaintext highlighter-rouge">192.168.101.1/24</code> on <code class="language-plaintext highlighter-rouge">wg0</code></li>
+  <li>Nested side net, temporary: <code class="language-plaintext highlighter-rouge">192.168.67.1/24</code> on the 1G jack</li>
+</ul>
+
+<p>Do not pick <code class="language-plaintext highlighter-rouge">10.8.0.0/24</code> for the overlay, even if you just disabled OpenVPN.</p>
+
+<p>Release image: <a href="https://firmware-selector.openwrt.org/?version=24.10.8&amp;target=mediatek%2Ffilogic&amp;id=openwrt_one">Firmware Selector</a>, <code class="language-plaintext highlighter-rouge">openwrt_one</code> squashfs-sysupgrade. Prefer a release over a SNAPSHOT.</p>
+
+<h3 id="first-boot-nested">First boot, nested</h3>
+
+<p>Do not plug the OpenWrt One’s 1G jack into a house that already uses <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>. Connect a laptop to that 1G jack instead. Factory is <code class="language-plaintext highlighter-rouge">http://192.168.1.1</code>, user <code class="language-plaintext highlighter-rouge">root</code>, empty password. Set a password before the box can see the house.</p>
+
+<p>Readdress the side net, turn the radios off, and punch SSH from <code class="language-plaintext highlighter-rouge">wan</code> (the jack that will face the house):</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uci <span class="nb">set </span>system.@system[0].hostname<span class="o">=</span><span class="s1">'gate-lodge'</span>
+uci <span class="nb">set </span>network.lan.ipaddr<span class="o">=</span><span class="s1">'192.168.67.1'</span>
+uci <span class="nb">set </span>network.lan.netmask<span class="o">=</span><span class="s1">'255.255.255.0'</span>
+
+uci <span class="nb">set </span>wireless.radio0.disabled<span class="o">=</span><span class="s1">'1'</span>
+uci <span class="nb">set </span>wireless.radio1.disabled<span class="o">=</span><span class="s1">'1'</span>
+
+uci <span class="nb">set </span>firewall.allow_ssh<span class="o">=</span>rule
+uci <span class="nb">set </span>firewall.allow_ssh.name<span class="o">=</span><span class="s1">'Allow-SSH-from-home'</span>
+uci <span class="nb">set </span>firewall.allow_ssh.src<span class="o">=</span><span class="s1">'wan'</span>
+uci <span class="nb">set </span>firewall.allow_ssh.proto<span class="o">=</span><span class="s1">'tcp'</span>
+uci <span class="nb">set </span>firewall.allow_ssh.dest_port<span class="o">=</span><span class="s1">'22'</span>
+uci <span class="nb">set </span>firewall.allow_ssh.target<span class="o">=</span><span class="s1">'ACCEPT'</span>
+
+uci commit
+reload_config
+wifi down
+</code></pre></div></div>
+
+<p>The laptop, if it still has a lease, is now on <code class="language-plaintext highlighter-rouge">192.168.67.0/24</code>. Plug the 2.5G jack into the house. On the edge router, find the new DHCP lease. SSH to that address as root. Put your pubkey in <code class="language-plaintext highlighter-rouge">/etc/dropbear/authorized_keys</code>, not in <code class="language-plaintext highlighter-rouge">~/.ssh/authorized_keys</code>.</p>
+
+<p>Skip this whole nested day if you would rather use the USB-C serial console and set <code class="language-plaintext highlighter-rouge">192.168.1.253</code> on <code class="language-plaintext highlighter-rouge">eth0</code> directly. Same host-conversion block either way.</p>
+
+<h3 id="convert-to-host">Convert to host</h3>
+
+<p>Retire the nested LAN. The box becomes a single address on the house:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uci <span class="nb">set </span>network.wan.proto<span class="o">=</span><span class="s1">'static'</span>
+uci <span class="nb">set </span>network.wan.device<span class="o">=</span><span class="s1">'eth0'</span>
+uci <span class="nb">set </span>network.wan.ipaddr<span class="o">=</span><span class="s1">'192.168.1.253'</span>
+uci <span class="nb">set </span>network.wan.netmask<span class="o">=</span><span class="s1">'255.255.255.0'</span>
+uci <span class="nb">set </span>network.wan.gateway<span class="o">=</span><span class="s1">'192.168.1.1'</span>
+uci add_list network.wan.dns<span class="o">=</span><span class="s1">'192.168.1.254'</span>
+
+uci <span class="nb">set </span>network.lan.proto<span class="o">=</span><span class="s1">'none'</span>
+uci <span class="nt">-q</span> delete network.lan.ipaddr
+uci <span class="nt">-q</span> delete network.lan.netmask
+
+uci <span class="nb">set </span>dhcp.lan.ignore<span class="o">=</span><span class="s1">'1'</span>
+uci <span class="nb">set </span>dhcp.lan.dhcpv4<span class="o">=</span><span class="s1">'disabled'</span>
+uci <span class="nb">set </span>dhcp.lan.dhcpv6<span class="o">=</span><span class="s1">'disabled'</span>
+uci <span class="nb">set </span>dhcp.lan.ra<span class="o">=</span><span class="s1">'disabled'</span>
+
+uci <span class="nb">set </span>firewall.@zone[1].masq<span class="o">=</span><span class="s1">'0'</span>
+uci <span class="nt">-q</span> delete firewall.@forwarding[0]   <span class="c"># the stock lan → wan; check the index first</span>
+
+uci commit
+reload_config
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">uci show firewall</code> before you delete a forwarding by index. On a stock OpenWrt One, <code class="language-plaintext highlighter-rouge">wan</code> is often zone index 1; do not assume that if you have already added zones. After this, SSH to <code class="language-plaintext highlighter-rouge">192.168.1.253</code>. The 1G jack has no IPv4. Leave it that way.</p>
+
+<p>If LuCI from home is useful:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uci <span class="nb">set </span>firewall.allow_luci<span class="o">=</span>rule
+uci <span class="nb">set </span>firewall.allow_luci.name<span class="o">=</span><span class="s1">'Allow-LuCI-from-home'</span>
+uci <span class="nb">set </span>firewall.allow_luci.src<span class="o">=</span><span class="s1">'wan'</span>
+uci <span class="nb">set </span>firewall.allow_luci.proto<span class="o">=</span><span class="s1">'tcp'</span>
+uci add_list firewall.allow_luci.dest_port<span class="o">=</span><span class="s1">'80'</span>
+uci add_list firewall.allow_luci.dest_port<span class="o">=</span><span class="s1">'443'</span>
+uci <span class="nb">set </span>firewall.allow_luci.target<span class="o">=</span><span class="s1">'ACCEPT'</span>
+uci commit firewall
+fw4 reload
+</code></pre></div></div>
+
+<p>Do not forward 80 or 443 from the internet.</p>
+
+<h3 id="release-then-wireguard">Release, then WireGuard</h3>
+
+<p>If <code class="language-plaintext highlighter-rouge">opkg install kmod-wireguard</code> cannot find a package, stop. Flash the 24.10.8 <code class="language-plaintext highlighter-rouge">squashfs-sysupgrade.itb</code> rather than <code class="language-plaintext highlighter-rouge">--force</code> a module. Usual reasons are a SNAPSHOT whose feeds 404, or a kernel that does not match the release kmods; there are others. Copy the image to <code class="language-plaintext highlighter-rouge">/tmp</code> on the box and:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysupgrade <span class="nt">-v</span> /tmp/openwrt-24.10.8-mediatek-filogic-openwrt_one-squashfs-sysupgrade.itb
+</code></pre></div></div>
+
+<p>No <code class="language-plaintext highlighter-rouge">--force</code>. No factory image. Settings should keep. Then:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg update
+opkg <span class="nb">install </span>kmod-wireguard wireguard-tools luci-proto-wireguard
+
+<span class="nb">mkdir</span> <span class="nt">-p</span> /etc/wireguard
+<span class="nb">umask </span>077
+wg genkey | <span class="nb">tee</span> /etc/wireguard/server.key | wg pubkey <span class="o">&gt;</span> /etc/wireguard/server.pub
+
+uci <span class="nb">set </span>network.wg0<span class="o">=</span>interface
+uci <span class="nb">set </span>network.wg0.proto<span class="o">=</span><span class="s1">'wireguard'</span>
+uci <span class="nb">set </span>network.wg0.private_key<span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">cat</span> /etc/wireguard/server.key<span class="si">)</span><span class="s2">"</span>
+uci add_list network.wg0.addresses<span class="o">=</span><span class="s1">'192.168.101.1/24'</span>
+uci <span class="nb">set </span>network.wg0.listen_port<span class="o">=</span><span class="s1">'51820'</span>
+
+uci <span class="nb">set </span>firewall.vpn<span class="o">=</span>zone
+uci <span class="nb">set </span>firewall.vpn.name<span class="o">=</span><span class="s1">'vpn'</span>
+uci <span class="nb">set </span>firewall.vpn.input<span class="o">=</span><span class="s1">'ACCEPT'</span>
+uci <span class="nb">set </span>firewall.vpn.output<span class="o">=</span><span class="s1">'ACCEPT'</span>
+uci <span class="nb">set </span>firewall.vpn.forward<span class="o">=</span><span class="s1">'REJECT'</span>
+uci <span class="nb">set </span>firewall.vpn.masq<span class="o">=</span><span class="s1">'0'</span>
+uci add_list firewall.vpn.network<span class="o">=</span><span class="s1">'wg0'</span>
+
+uci <span class="nb">set </span>firewall.wg_fwd_out<span class="o">=</span>forwarding
+uci <span class="nb">set </span>firewall.wg_fwd_out.src<span class="o">=</span><span class="s1">'vpn'</span>
+uci <span class="nb">set </span>firewall.wg_fwd_out.dest<span class="o">=</span><span class="s1">'wan'</span>
+
+uci <span class="nb">set </span>firewall.wg_fwd_in<span class="o">=</span>forwarding
+uci <span class="nb">set </span>firewall.wg_fwd_in.src<span class="o">=</span><span class="s1">'wan'</span>
+uci <span class="nb">set </span>firewall.wg_fwd_in.dest<span class="o">=</span><span class="s1">'vpn'</span>
+
+uci <span class="nb">set </span>firewall.allow_wg<span class="o">=</span>rule
+uci <span class="nb">set </span>firewall.allow_wg.name<span class="o">=</span><span class="s1">'Allow-WG'</span>
+uci <span class="nb">set </span>firewall.allow_wg.src<span class="o">=</span><span class="s1">'wan'</span>
+uci <span class="nb">set </span>firewall.allow_wg.proto<span class="o">=</span><span class="s1">'udp'</span>
+uci <span class="nb">set </span>firewall.allow_wg.dest_port<span class="o">=</span><span class="s1">'51820'</span>
+uci <span class="nb">set </span>firewall.allow_wg.target<span class="o">=</span><span class="s1">'ACCEPT'</span>
+
+uci commit
+/etc/init.d/network restart
+</code></pre></div></div>
+
+<p>Confirm: <code class="language-plaintext highlighter-rouge">wg show</code> listens. WAN masquerade is still <code class="language-plaintext highlighter-rouge">0</code>. <code class="language-plaintext highlighter-rouge">fw4 print</code> has no srcnat of the overlay.</p>
+
+<h3 id="edge-router">Edge router</h3>
+
+<p>LAN static route for the overlay. Metric left empty, interface LAN.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Network/Host IP</th>
+      <th>Netmask</th>
+      <th>Gateway</th>
+      <th>Interface</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>192.168.101.0/24</td>
+      <td>255.255.255.0</td>
+      <td>192.168.1.253</td>
+      <td>LAN</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Forward UDP <code class="language-plaintext highlighter-rouge">51820</code> to <code class="language-plaintext highlighter-rouge">192.168.1.253:51820</code>. Disable the old VPN after a client works, unless you are also done with it and willing to cut first. Do not forward 22, 53, 80, or 443 from the internet.</p>
+
+<p>From a house machine, <code class="language-plaintext highlighter-rouge">ping 192.168.101.1</code>. That is the overlay-return probe. If it fails, do not add a client yet.</p>
+
+<h3 id="one-client">One client</h3>
+
+<p>On a trusted machine with <code class="language-plaintext highlighter-rouge">wg</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">umask </span>077
+wg genkey | <span class="nb">tee </span>client.key | wg pubkey <span class="o">&gt;</span> client.pub
+</code></pre></div></div>
+
+<p>On the box, public key only, next free <code class="language-plaintext highlighter-rouge">/32</code> (<code class="language-plaintext highlighter-rouge">.1</code> is the box; do not reuse a live one):</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uci add network wireguard_wg0
+uci <span class="nb">set </span>network.@wireguard_wg0[-1].description<span class="o">=</span><span class="s1">'example-phone'</span>
+uci <span class="nb">set </span>network.@wireguard_wg0[-1].public_key<span class="o">=</span><span class="s1">'PASTE_CLIENT_PUBKEY'</span>
+uci <span class="nb">set </span>network.@wireguard_wg0[-1].allowed_ips<span class="o">=</span><span class="s1">'192.168.101.2/32'</span>
+uci <span class="nb">set </span>network.@wireguard_wg0[-1].route_allowed_ips<span class="o">=</span><span class="s1">'1'</span>
+uci <span class="nb">set </span>network.@wireguard_wg0[-1].persistent_keepalive<span class="o">=</span><span class="s1">'25'</span>
+uci commit network
+ifup wg0
+</code></pre></div></div>
+
+<p>Client file. Private key stays on the device. <code class="language-plaintext highlighter-rouge">PublicKey</code> is the <em>server</em> pubkey from <code class="language-plaintext highlighter-rouge">/etc/wireguard/server.pub</code>. <code class="language-plaintext highlighter-rouge">vpn.example.com</code> is <code class="language-plaintext highlighter-rouge">Endpoint</code> here, not a peer on the box.</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[Interface]</span><span class="w">
+</span><span class="py">PrivateKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">CLIENT_PRIVATE_KEY</span>
+<span class="py">Address</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">192.168.101.2/32</span>
+<span class="py">DNS</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">192.168.1.254</span>
+<span class="w">
+</span><span class="nn">[Peer]</span><span class="w">
+</span><span class="py">PublicKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">SERVER_PUBLIC_KEY</span>
+<span class="py">Endpoint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">vpn.example.com:51820</span>
+<span class="py">AllowedIPs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">0.0.0.0/0, ::/0</span>
+<span class="py">PersistentKeepalive</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">25</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">wg show</code> on the box must list that public key. If it does not, Allowed IPs were empty or you skipped Save &amp; Apply. Import the file in the <a href="https://www.wireguard.com/install/">official WireGuard app</a>, connect from cellular, load <code class="language-plaintext highlighter-rouge">http://192.168.1.254</code> (or some other home address, if you have no Pi-hole). Then delete <code class="language-plaintext highlighter-rouge">client.key</code> from the trusted machine.</p>
+
+<h3 id="pi-hole">Pi-hole</h3>
+
+<p>Allow queries from <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>. Keep WAN 53 closed.</p>
+
+<h2 id="restart-the-box-not-the-house">Restart the Box, Not the House</h2>
+
+<p>Clients connect. The tunnel is not sharing the Asus CPU with Wi-Fi. <code class="language-plaintext highlighter-rouge">network restart</code> on <code class="language-plaintext highlighter-rouge">gate-lodge</code> does not bounce the LAN. Keep the edge, put WireGuard on a host, and do not masquerade the people you just let in.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="record" /><category term="ai" /><category term="dns" /><category term="home-networking" /><category term="networking" /><category term="network-security" /><category term="openwrt" /><category term="pihole" /><category term="wireguard" /><summary type="html"><![CDATA[Keep the home router. Put WireGuard on a dedicated OpenWrt box. How we commissioned ours, and a paste from first boot to a working client.]]></summary></entry><entry><title type="html">The Times Can Sell; Reddit Cannot</title><link href="https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.html" rel="alternate" type="text/html" title="The Times Can Sell; Reddit Cannot" /><published>2026-08-13T00:00:00+00:00</published><updated>2026-08-16T18:27:05+00:00</updated><id>https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.html"><![CDATA[<p>On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its <a href="https://finance.yahoo.com/markets/article/reddit-stock-tumbles-the-most-on-record-as-lack-of-new-ai-deals-us-daily-users-metric-disappoints-153413759.html">steepest one-day drop since the 2024 IPO</a>. Huffman wrote that search referrals were “choppy”, and said that in AI Overviews Reddit has “still yet to find that win-win.”<sup id="fnref:cnbc-reddit"><a href="#fn:cnbc-reddit" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> In a <a href="https://www.cnbc.com/2026/07/30/reddit-ceo-says-googles-ai-overviews-cant-replace-10-blue-links-.html">same-day interview</a>: “The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact.”</p>
 
 <p>The New York Times is <a href="https://en.wikipedia.org/wiki/The_New_York_Times_v._Microsoft_and_OpenAI">suing OpenAI</a> and has, <a href="https://gizmodo.com/major-publishers-are-reportedly-considering-a-drastic-step-to-get-their-content-out-of-googles-ai-answers-2000788873">according to the Wall Street Journal</a>, discussed pointing <code class="language-plaintext highlighter-rouge">noindex</code> at itself - a directive that tells search engines to forget you exist. Rust adopted an <a href="https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/">LLM policy</a> that treats a pull request as a contributor-formation event, not a delivery of code. That is an actionable stance, not just a mood: it changes who the community is, and it only invites the humans who will play that game. <a href="https://codeberg.org">Codeberg</a> <a href="https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html">voted 358 to 144</a> to stop hosting projects that “mostly consist of” LLM-written code.</p>
 
@@ -408,7 +821,7 @@
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260812011108/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -2428,178 +2841,4 @@ ip <span class="nt">-6</span> addr del fdXX:XXXX:XXXX::1/60 dev br-lan
       <p>“How Do Developers Review Code? An Eye-Tracking Study”, <a href="https://dl.acm.org/doi/10.1145/3643916.3644425">https://dl.acm.org/doi/10.1145/3643916.3644425</a> (<a href="https://dl.acm.org/doi/epdf/10.1145/3643916.3644425">pdf</a>) <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="code-review" /><category term="coderabbit" /><category term="software-quality" /><summary type="html"><![CDATA[The complaint that AI reviewers are nitpicky smuggles in a false premise. I went and checked the findings. They were real, the code was bad, and it was probably always bad, so why isn't that signal acted on?]]></summary></entry><entry><title type="html">The Magnificent 7 BSODs and the Hateful 8th to 11th</title><link href="https://blog.cani.ne.jp/2026/05/11/magnificent-7-bsods.html" rel="alternate" type="text/html" title="The Magnificent 7 BSODs and the Hateful 8th to 11th" /><published>2026-05-11T00:00:00+00:00</published><updated>2026-05-11T21:13:12+00:00</updated><id>https://blog.cani.ne.jp/2026/05/11/magnificent-7-bsods</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/05/11/magnificent-7-bsods.html"><![CDATA[<p>A Patch Tuesday bootloop is the kind of problem a blog post writes itself about. Mine was <a href="https://support.microsoft.com/en-us/topic/february-10-2026-kb5077181-os-builds-26200-7840-and-26100-7840-f0fa9e54-a22a-4a06-96b6-bf5b2aded506">KB5077181</a>, the February 2026 Windows 11 cumulative that was <a href="https://www.neowin.net/news/windows-11-update-kb5077181-is-causing-critical-boot-loops-for-some-users/">already in the news for doing exactly this to other people</a>. <code class="language-plaintext highlighter-rouge">HYPERVISOR_ERROR 0x20001</code>, a recovery menu that refused to roll back, the works. Case closed. Microsoft strikes again.</p>
-
-<p>That post would have been wrong.</p>
-
-<p>What actually broke my system was a Ryzen 5 3600 whose PCIe controller had been failing for some time. The patch was the first thing brave enough to notice. Even then it took eleven BSODs and seventy-four days for me to figure that out.</p>
-
-<h2 id="the-case-that-wrote-itself">The Case That Wrote Itself</h2>
-
-<p>The system was five years old. An ASRock X470 Gaming-ITX/ac, the dying 3600, 16GB of DDR4-3200 Corsair Vengeance, an RTX 3060, a Corsair SF450 to power the whole thing. Mini-ITX, lived on a desk, gamed occasionally, ran <a href="https://github.com/xmrig/xmrig">xmrig</a> in its spare cycles.</p>
-
-<p>The bootloop arrived a few days after a patch cycle. Search results matched my symptoms exactly. The case wrote itself.</p>
-
-<p>So I tried the obvious. Boot into Windows Recovery, run the rollback, get on with my life. The GUI rollback failed. <code class="language-plaintext highlighter-rouge">wusa</code>, the command-line uninstaller, doesn’t exist in <a href="https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-recovery-environment--windows-re--technical-reference">WinRE</a>. <code class="language-plaintext highlighter-rouge">dism /get-packages</code>, the next-best option, itself crashed mid-enumeration with <code class="language-plaintext highlighter-rouge">INTERNAL_POWER_ERROR</code>.</p>
-
-<p>A USB stick had <a href="https://www.hirensbootcd.org/">Hiren’s BootCD</a> on it - a portable, independent WinPE environment that touches none of the installed Windows. I booted from it, opened a command prompt, and then BSOD’d within seconds.</p>
-
-<p><img src="mag7/09-bsod-page-fault-winpe.webp" alt="Hiren's WinPE BSOD with stop code PAGE_FAULT_IN_NONPAGED_AREA" /><!-- IMG_SIZE:640: --></p>
-
-<p>An independent boot environment shouldn’t care about a Windows update.</p>
-
-<p>I noticed. I buried it under a new theory.</p>
-
-<h2 id="a-taxonomy-of-ghosts">A Taxonomy of Ghosts</h2>
-
-<p>Real life intervened. Six weeks passed. When I came back, the system had collected more clues, most of them wrong.</p>
-
-<p>The most seductive was a popup that flagged <code class="language-plaintext highlighter-rouge">iqvw64e.sys</code> - an Intel network diagnostic driver on Microsoft’s <a href="https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/microsoft-recommended-driver-block-rules">vulnerable-driver blocklist</a>. The driver name connected directly to HYPERVISOR_ERROR. The screen looked exactly like a smoking gun.</p>
-
-<p><img src="mag7/02-iqvw64e-driver-blocked.webp" alt="Program Compatibility Assistant popup: &quot;A driver cannot load on this device&quot; - iqvw64e.sys" /><!-- IMG_SIZE:640: --></p>
-
-<p>I checked the registry. <a href="https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-hvci-enablement">HVCI</a> wasn’t enabled. I checked the drivers folder. The file wasn’t even present. Windows was warning me about a ghost.</p>
-
-<p>I tried other angles. Maybe Hyper-V was loading where it didn’t need to. Maybe the Nahimic audio component throwing 0x800700C1 was poisoning the boot. Maybe an in-place repair install would replace the corrupted parts. Each theory was reasonable. Each one died before I could test it, because the system died first - I couldn’t actually stay booted long enough (when I could even boot) to test any of it - all I could do was collect more BSOD error codes.</p>
-
-<h2 id="the-magnificent-seven">The Magnificent Seven</h2>
-
-<p>By the time I stopped chasing software, I had collected seven distinct BSOD stop codes:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HYPERVISOR_ERROR              (installed Windows)
-INTERNAL_POWER_ERROR          (on-disk WinRE, mid-DISM)
-DRIVER_IRQL_NOT_LESS_OR_EQUAL (Hiren's WinPE)
-DPC_WATCHDOG_VIOLATION        (installed Windows, post-updates)
-CLOCK_WATCHDOG_TIMEOUT        (installed Windows)
-SYSTEM_THREAD_EXCEPTION       (installed Windows)
-PAGE_FAULT_IN_NONPAGED_AREA   (Hiren's WinPE)
-</code></pre></div></div>
-
-<p>Seven different ways to die in six weeks. The variety was supposed to be a clue. I treated it as noise.</p>
-
-<p>The clue arrived as an aside, almost in passing. The system had only ever crashed <em>once Windows was booted</em>. BIOS was rock solid. <a href="https://www.memtest.org/">Memtest86+</a> had run a full pass without a single error. Whatever was wrong, it appeared exclusively in environments that loaded the Windows kernel and its driver stack. WinRE counted. WinPE counted. The installed OS counted. BIOS didn’t. Memtest didn’t.</p>
-
-<p>The pattern was simpler than “Windows is broken.” This hardware broke whenever a Windows kernel drove it, and nowhere else. Or so I thought…</p>
-
-<h2 id="the-hateful-four">The Hateful Four</h2>
-
-<p>The next afternoon I started removing parts.</p>
-
-<p>The first seven happened <em>to</em> me. The next four I deliberately provoked. Each one was a piece of equipment I’d pulled or swapped, daring the system to crash and tell me whether it cared.</p>
-
-<p>NVMe SSD pulled. Booted Hiren’s. <code class="language-plaintext highlighter-rouge">IRQL_NOT_LESS_OR_EQUAL</code> within seconds. SSD wasn’t it.</p>
-
-<p>GTX 3060 out, an old GTX 750 in. <code class="language-plaintext highlighter-rouge">SYSTEM_SERVICE_EXCEPTION</code>. Two different GPUs had now died through the same slot.</p>
-
-<p>One RAM stick removed. <code class="language-plaintext highlighter-rouge">KMODE_EXCEPTION_NOT_HANDLED</code>. Swapped the remaining stick to the other slot. <code class="language-plaintext highlighter-rouge">UNEXPECTED_KERNEL_MODE_TRAP</code>. Tried the second stick alone in each slot. Same story. Both sticks failed in both slots. Neither was bad. Memtest had been right.</p>
-
-<p>Four crashes I’d caused on purpose, and each one cleared a suspect without naming a replacement. The list was getting shorter. Nothing was confessing.</p>
-
-<p>For the final OS-level bisect, I booted <a href="https://ubuntu.com/">Ubuntu 24</a> live from a USB. Different kernel, different drivers, a clean break from anything Microsoft had touched. It hung eventually too. Not even Linux could stay up on this hardware.</p>
-
-<p>Eleven stop codes between the patch and Ubuntu’s hang. None of them about the same component twice.</p>
-
-<h2 id="the-cursor-that-wouldnt-die">The Cursor That Wouldn’t Die</h2>
-
-<p>When Ubuntu froze, the mouse cursor kept moving.</p>
-
-<p>Everything else - the desktop, Firefox, the video player I’d left running - was solid. The cursor glided over the wreckage. Two different GPUs had now both failed through the same physical slot. They shared the bus underneath them, not the NVIDIA silicon above.</p>
-
-<p>On the Ryzen 3600, the x16 PCIe slot’s lanes come straight from the CPU’s integrated <a href="https://en.wikipedia.org/wiki/Root_complex">PCIe root complex</a>. Suspect’s name: the path from the CPU die, through the socket pins, through the motherboard traces, to the slot connector. Anything along that line could be to blame.</p>
-
-<p>I had one PCIe slot on this ITX board; no second slot to bisect through so I went the other way: drop the bus speed and see if the system could hold itself together.</p>
-
-<p>ASRock buries the setting under Advanced → AMD CBS → PCIe Configuration → PCIe x16 Speed, at least on my mobo. Default is Auto, which negotiates Gen3. I forced it to Gen1, dropping the signaling rate from 8 GT/s down to 2.5 GT/s. If the path was marginal at full speed, more electrical margin at lower frequency should help.</p>
-
-<p>It did. Ubuntu came up, played two cat videos side by side, and when Firefox eventually crashed it crashed <em>alone</em> - a userspace Rust panic, not a kernel BSOD. The OS survived an application death. That hadn’t happened once in the entire saga.</p>
-
-<p>Then, a few minutes later, a hard freeze. No BSOD this time. Even the mouse cursor finally died.</p>
-
-<p>Gen1 had bought margin. Not enough.</p>
-
-<blockquote>
-  <p>Only dying silicon hangs every kernel; but on dying silicon, every kernel hangs.</p>
-</blockquote>
-
-<h2 id="7-minutes-not-in-heaven">7 Minutes (not in Heaven)</h2>
-
-<p>I needed to measure the failure precisely. Cat videos weren’t repeatable. Sitting at an idle desktop was.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">START</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span><span class="si">)</span><span class="p">;</span> <span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do </span><span class="nb">echo</span> <span class="s2">"Start: </span><span class="nv">$START</span><span class="s2"> | Now: </span><span class="si">$(</span><span class="nb">date</span><span class="si">)</span><span class="s2">"</span><span class="p">;</span> <span class="nb">sleep </span>5<span class="p">;</span> <span class="k">done</span>
-</code></pre></div></div>
-
-<p>Three lines of Bash, negligible system load. Open a terminal, run the loop, leave it alone. When the screen freezes, the last timestamp is the time of death.</p>
-
-<p>Seven minutes. Exactly.</p>
-
-<p><img src="mag7/16-terminal-3600-7min-death.webp" alt="Ubuntu terminal timestamp loop ending after ~7 minutes - the Ryzen 5 3600 idle-test death" /><!-- IMG_SIZE:640: --></p>
-
-<p>Load-independent and time-based. Idle traffic was enough. Something heated up, drifted out of spec, and the bus stopped working, maybe?</p>
-
-<p>The pattern of graceful BSODs earlier had already ruled out the power supply. A dying PSU produces hard cuts and instant reboots, not categorized stop codes with sad faces. The CPU had been catching every fault, executing the bugcheck handler, writing a minidump, and rebooting cleanly. The reporting machinery worked perfectly, faithfully describing hardware that was sliding out from under it.</p>
-
-<h2 id="the-loaner">The Loaner</h2>
-
-<p>By improbable luck (and definitely not a longstanding habit of keeping all old PC parts that still work, just in case they end up useful at some far-future date), the household contained Ryzen 7 1800X from 2016 in the back of a closet. First-generation Zen, same AM4 socket, fully supported by the X470. A spare part in exactly the right shape.</p>
-
-<p>Pulling the 3600 introduced me to a tradition. The dried thermal paste had welded the heatsink to the CPU’s heat spreader so thoroughly that when I lifted the cooler, the CPU came with it. Straight out of the socket. Pins miraculously straight.</p>
-
-<p><img src="mag7/18-cpu-stuck-to-heatsink.webp" alt="Ryzen 5 3600 yanked out of the AM4 socket while still bonded to the heatsink" /><!-- IMG_SIZE:640: --></p>
-
-<p>I cleaned both surfaces with isopropyl, applied fresh paste, dropped in the 1800X, and pressed N on the <a href="https://learn.microsoft.com/en-us/windows/security/hardware-security/tpm/tpm-fundamentals">fTPM</a> reset prompt to preserve the old keys in case BitLocker was on. (It wasn’t.) Booted Ubuntu, ran the timestamp loop.</p>
-
-<p>PCIe was back at Gen3 by accident; the long power-off had reset BIOS defaults because the CMOS battery had died. I didn’t realize this at the time, so the next test happened with Gen3 still selected.</p>
-
-<p>Twenty-eight minutes idle, well past the seven-minute wall. Then Firefox refused to launch on whatever Ubuntu live state I had cobbled together, so I installed <a href="https://apps.kde.org/konqueror/">Konqueror</a> and played cat videos through it for another five minutes.</p>
-
-<p><img src="mag7/24-terminal-1800x-stable.webp" alt="Ubuntu terminal timestamp loop - 1800X test still alive past 28 minutes uptime" /><!-- IMG_SIZE:640: --></p>
-
-<p>Same board. Same slot. Same traces. Same RAM. Same PSU. Different CPU.</p>
-
-<p><strong>It worked fine.</strong></p>
-
-<p>The Ryzen 5 3600’s PCIe controller was dead.</p>
-
-<h2 id="variety-was-the-fingerprint">Variety Was the Fingerprint</h2>
-
-<p>Eleven stop codes were eleven angles on one problem - a marginal PCIe bus producing random data corruption, presented through whichever bit of kernel state happened to get corrupted at the moment of failure. <code class="language-plaintext highlighter-rouge">PAGE_FAULT_IN_NONPAGED_AREA</code> when the corruption hit a pointer. <code class="language-plaintext highlighter-rouge">CLOCK_WATCHDOG_TIMEOUT</code> when it stalled an inter-core interrupt. <code class="language-plaintext highlighter-rouge">HYPERVISOR_ERROR</code> when the hypervisor’s own pages got mangled. What I’d taken for noise was the fingerprint of one component failing under a narrow access pattern, photographed from eleven different angles.</p>
-
-<p>“Stable in BIOS and Memtest” is a narrower claim than it sounds: the hardware is fine under the specific access patterns BIOS and Memtest exercise - patterns that, in my case, didn’t include sustained PCIe Direct Memory Access from a Windows driver stack. If your crashes look like a dozen unrelated problems, look for the test environment they all share, and the one your <em>stable</em> environments don’t.</p>
-
-<h2 id="replacement">Replacement!</h2>
-
-<p>The replacement was a Ryzen 7 5700X. Same 65W TDP as the dead 3600, two more cores, the AM4 send-off chip for the cost of a respectable lunch order. Might as well upgrade when fate’s forced my hand, right?</p>
-
-<p>Buying one in 2026 turned out to be its own small ordeal. The first - Amazon Prime, next-day delivery - arrived with thermal paste residue smeared across the heat spreader, debris between the pins, and a stock cooler whose AMD branding had been masked under strips of black electrical tape. The order page had said “new.” The OPN on the chip was <code class="language-plaintext highlighter-rouge">100-000000926</code>, which is AMD’s OEM/tray SKU. Tray parts ship without retail packaging and without coolers. Someone had bundled a scavenged cooler in to dress it up as a complete product.</p>
-
-<p><img src="mag7/32-used-5700x-pin-debris.webp" alt="Pin side of the used 5700X showing debris between the pins" /><!-- IMG_SIZE:640: --></p>
-
-<p><em>To be fair, I had expected this to be too good to be true.</em> That’s one of the benefits of Prime - free shipping &amp; free returns.</p>
-
-<p>I returned it and ordered the retail boxed version (<code class="language-plaintext highlighter-rouge">100-100000926WOF</code>) from Newegg, which shipped from Hong Kong. It arrived two weeks later in a sealed blister pack with a tamper-evident sticker and a certificate of authenticity. Even <em>that</em> one had small cosmetic marks on the heat spreader - normal manufacturing artifacts from lapping and QC handling, buried under the paste anyway, but striking that neither chip looked factory fresh.</p>
-
-<p><img src="mag7/34-new-5700x-sealed.webp" alt="New retail Ryzen 7 5700X in a sealed blister pack with certificate of authenticity" /><!-- IMG_SIZE:640: --></p>
-
-<p><a href="https://en.wikipedia.org/wiki/Socket_AM5">AM5 launched in 2022</a>. By the time my 3600 died in 2026, AM4 had been the legacy platform for four years. No factory was pressing fresh 5700X boxes. The supply was inventory aging on shelves, the OEM tray channel quietly being repackaged by resellers, and the small fraction of retail boxes that had survived four years untouched. “New” had been redefined under me without anyone telling me. Read the OPN before clicking buy.</p>
-
-<h2 id="tail">Tail</h2>
-
-<p>The 5700X dropped in, the system came up, and a few minutes of <a href="https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism/what-is-dism">DISM</a>, SFC, and bcdedit theatrics cleaned up the servicing-stack damage the dying CPU had been smearing across the disk for months. xmrig benchmarks landed where they should have all along. The patch that “broke everything” had broken nothing. It had only been the first thing brave enough to notice.</p>
-
-<hr />
-
-<h2 id="starring-in-order-of-appearance">Starring, in Order of Appearance</h2>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">HYPERVISOR_ERROR</code> - installed Windows</li>
-  <li><code class="language-plaintext highlighter-rouge">INTERNAL_POWER_ERROR</code> - on-disk WinRE, mid-DISM</li>
-  <li><code class="language-plaintext highlighter-rouge">DRIVER_IRQL_NOT_LESS_OR_EQUAL</code> - Hiren’s WinPE</li>
-  <li><code class="language-plaintext highlighter-rouge">DPC_WATCHDOG_VIOLATION</code> - installed Windows, post-updates</li>
-  <li><code class="language-plaintext highlighter-rouge">CLOCK_WATCHDOG_TIMEOUT</code> - installed Windows</li>
-  <li><code class="language-plaintext highlighter-rouge">SYSTEM_THREAD_EXCEPTION_NOT_HANDLED</code> - installed Windows</li>
-  <li><code class="language-plaintext highlighter-rouge">PAGE_FAULT_IN_NONPAGED_AREA</code> - Hiren’s WinPE</li>
-  <li><code class="language-plaintext highlighter-rouge">IRQL_NOT_LESS_OR_EQUAL</code> - Hiren’s WinPE, NVMe SSD pulled</li>
-  <li><code class="language-plaintext highlighter-rouge">SYSTEM_SERVICE_EXCEPTION</code> - Hiren’s WinPE, GTX 750 in for the RTX 3060</li>
-  <li><code class="language-plaintext highlighter-rouge">KMODE_EXCEPTION_NOT_HANDLED</code> - Hiren’s WinPE, RAM slot 1 only</li>
-  <li><code class="language-plaintext highlighter-rouge">UNEXPECTED_KERNEL_MODE_TRAP</code> - Hiren’s WinPE, RAM slot 2 only</li>
-</ol>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="fable" /><category term="amd" /><category term="bsod" /><category term="debugging" /><category term="hardware" /><category term="ryzen" /><category term="windows" /><summary type="html"><![CDATA[Eleven different stop codes over seventy-four days were eleven angles on a single dying CPU. A Patch Tuesday update only took the blame - but wasn't the cause.]]></summary></entry></feed>
+</div>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="ai" /><category term="code-review" /><category term="coderabbit" /><category term="software-quality" /><summary type="html"><![CDATA[The complaint that AI reviewers are nitpicky smuggles in a false premise. I went and checked the findings. They were real, the code was bad, and it was probably always bad, so why isn't that signal acted on?]]></summary></entry></feed>
