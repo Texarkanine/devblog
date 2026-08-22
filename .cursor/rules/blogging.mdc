@@ -121,4 +121,6 @@ Obviously, use correct and proper citation format for each source; the above exa
 
 # Security
 
-Redact what would find the house on the internet or name the household: public hostnames, listen ports, client rosters, path or repo asides that leak the appliance.
+**Security Redactions:** Redact what would find the house on the internet or name the household: public hostnames, listen ports, client rosters, path or repo asides that leak facts about the authors' personal setups but have no bearing on the post's subject matter.
+
+**Privacy Redactions:** Redact personally-identifying information: names, addresses, phone numbers, and e-mail addresses and usernames where sharing them isn't explicitly the point of the post.
