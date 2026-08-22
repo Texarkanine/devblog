@@ -92,3 +92,11 @@ Add a last-updated byline on blog posts, shown only when `last_modified` is a la
     - Inspect the article-adjacent footer; this layout has two `<footer>` elements
     - Site-wide `last updated` search collides with quoted body text
 
+## 2026-08-22 - REWORK - PLACEMENT
+
+* Work completed
+    - Removed the left footer byline; kept right-aligned `last updated` after tags
+* Decisions made
+    - Final placement is option 2 (footer, bottom-right after tags)
+    - Do not link `last updated` to GitHub file history (operator, 2026-08-22)
+

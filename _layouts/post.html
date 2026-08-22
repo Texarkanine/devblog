@@ -57,10 +57,7 @@ layout: default
   {% assign published_day = page.date | date: "%Y-%m-%d" %}
   {% assign updated_day = page.last_modified | date: "%Y-%m-%d" %}
   {% if updated_day > published_day %}
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <p>last updated {{ page.last_modified | date: site.theme_config.date_format | default: "%Y-%m-%d" }}</p>
-    <p>last updated {{ page.last_modified | date: site.theme_config.date_format | default: "%Y-%m-%d" }}</p>
-  </div>
+  <p style="text-align: right;">last updated {{ page.last_modified | date: site.theme_config.date_format | default: "%Y-%m-%d" }}</p>
   {% endif %}
   {% endif %}
 </footer>
