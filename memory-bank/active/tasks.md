@@ -82,4 +82,14 @@ No new technology - validation not required
 - [x] Pre-Mortem complete
 - [x] Preflight
 - [x] Build
-- [ ] QA
+- [x] QA
+
+## QA Results
+
+**Result:** PASS
+
+- Implementation is the planned ten-line Liquid addition in `_layouts/post.html` only. Calendar-day ISO compare, dual after-tags bylines, header unchanged, garden and `collection_dates.rb` untouched. Does not block.
+- Independent `_site` inspect: Mechanicus has two footer `last updated 2026-08-22` lines; seven-weeks / elgato-alias / not-a-nitpick have none; garden keeps Planted / Last tended. Corpus 37/46 dual byline, 9 none. Does not block.
+- Earlier-day, missing `last_modified`, and untagged pages have no live fixtures; Liquid guards match the plan. Advisory, not blocking.
+- Dual identical notices and unset `timezone` are known, in-scope-as-specified decisions. Do not block.
+- One post body quotes "Last updated:" (`love-when-useful-things-get-cheaper`); inspect the post footer, not a site-wide needle. Advisory on verification, not a product defect.

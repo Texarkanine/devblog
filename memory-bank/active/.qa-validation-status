@@ -1,0 +1,21 @@
+PASS
+
+KISS: PASS. Ten Liquid lines in `_layouts/post.html`; no plugin, filter, or new abstraction. Flex row copies the existing header.
+
+DRY: PASS (advisory). Left and right `<p>` repeat the same date filter. The plan asked for two copies of the same text; assigning a label once would be a nicety, not a required change.
+
+YAGNI: PASS. No `last_modified_at`, no test framework, no garden or generator edits.
+
+Completeness: PASS. Later-day fixture (Mechanicus) shows two footer bylines `last updated 2026-08-22`. Same-day fixtures (seven-weeks, elgato-alias, not-a-nitpick) show none. Header `post-meta` remains the publish day. Garden pages still show Planted / Last tended and never the posts wording. Corpus: 37 of 46 dated posts have exactly two footer bylines; 9 have none. Earlier-day, missing `last_modified`, and untagged pages have no live fixtures (0 untagged posts); the Liquid guards match the plan (`{% if page.last_modified %}`, `updated_day > published_day`, sibling after tags `{% endif %}`).
+
+Regression: PASS. Only `_layouts/post.html` changed in the build. `_layouts/garden.html` and `_plugins/collection_dates.rb` untouched.
+
+Integrity: PASS. No hardcoded dates, placeholders, or debug leftovers. Format uses `site.theme_config.date_format` with the same `"%Y-%m-%d"` default as the header.
+
+Documentation: PASS. Plan scoped notes to `memory-bank/active/*`. productContext and systemPatterns do not need a feature bullet.
+
+Advisory — verification needle: `love-when-useful-things-get-cheaper` quotes "Last updated: about an hour ago" in the article body. Site-wide search for `last updated` is not a clean fixture check; inspect the article-adjacent `<footer>`.
+
+Advisory — timezone still unset in `_config.yaml` (preflight). Out of plan scope.
+
+Advisory — dual identical notices are an explicit operator request, not leftover duplication.

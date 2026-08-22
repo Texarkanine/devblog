@@ -68,3 +68,16 @@ Add a last-updated byline on blog posts, shown only when `last_modified` is a la
     - Liquid ISO-date string `>` works for `%Y-%m-%d` on this Jekyll/Liquid
     - Site-level `<footer>` in `default.html` is a second footer; inspect the post footer after `</article>`
 
+## 2026-08-22 - QA - COMPLETE (PASS)
+
+* Work completed
+    - Semantic review of `_layouts/post.html` against the brief and plan (KISS, DRY, YAGNI, completeness, regression, integrity, documentation)
+    - Independent HTML inspect of later-day, same-day, and garden fixtures plus the full 46-post dated corpus
+    - Wrote `memory-bank/active/.qa-validation-status` (`PASS`)
+* Decisions made
+    - Accept the implementation as-is; advisories do not require a rebuild
+    - Did not edit the layout under review
+* Insights
+    - `love-when-useful-things-get-cheaper` quotes "Last updated:" in the body, so a site-wide `last updated` search is not a reliable presence check
+    - Untagged / earlier-day / missing-`last_modified` pages still do not exist in the live corpus; those behaviors remain Liquid-guard reviews
+
