@@ -40,3 +40,18 @@ Add a last-updated byline on blog posts, shown only when `last_modified` is a la
     - Ship both left and right `last updated` notices in the footer so the operator can see both
     - Do not introduce Minitest or any test framework
     - Keep calendar-day compare and existing `last_modified` source
+
+## 2026-08-22 - PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+
+* Work completed
+    - Validated the plan against `_layouts/post.html`, `_layouts/garden.html`, `collection_dates.rb`, and `_config.yaml`
+    - Confirmed TDD encoding (inspect-red before production; suite waived), conventions, dependencies, conflicts, and requirement coverage
+    - Wrote `memory-bank/active/.preflight-status` with first line `PASS WITH ADVISORY`
+* Decisions made
+    - Plan is acceptable as-is; advisories do not require a re-plan
+    - Did not edit Implementation Plan units
+* Insights
+    - Named fixtures are valid this run (seven-weeks same day; mechanicus later day). Untagged / earlier-day / missing-`last_modified` pages do not exist in the live corpus
+    - No `timezone` in config; calendar-day compare is environment-dependent
+    - `jekyll-seo-tag` / `jekyll-sitemap` still only see publish date unless `last_modified_at` is set (advisory, not in plan)
+

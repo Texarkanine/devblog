@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: post-last-updated-byline
-**Phase:** PLAN - COMPLETE
+**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
 
 ## What Was Done
 - Plan revised after operator answers.
@@ -11,4 +11,4 @@
 - Comparison: calendar day (`%Y-%m-%d`), not timestamps.
 
 ## Next Step
-- Preflight validation.
+- Build: inspect-red, then add the dual footer byline in `_layouts/post.html`.
