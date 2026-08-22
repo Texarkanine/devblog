@@ -36,7 +36,7 @@ Inspect fixtures:
 - `blog/guide/_posts/2026-03-14-adeptus-mechanicus-bootcamp-gentle-seduction.md` — both `2026-08-22` → byline still `last updated 2026-08-22`
 - `blog/diary/_posts/2026-03-13-seven-weeks.md` / `elgato-alias` — still no byline
 - `_garden/1900s-computer-gaming.md` — last-commit `2026-03-10`, last-body `2025-12-02` → Last tended **`2025-12-02`**, still shown
-- A garden page whose body day equals Planted → Last tended still present (same-day OK)
+- `_garden/stories.md` — body day equals Planted; Last tended still present (same-day OK). Does not move.
 
 Do not site-wide search for `last updated` (`love-when-useful-things-get-cheaper` quotes the phrase). Inspect the post footer after `</article>`, not `default.html`'s site footer.
 

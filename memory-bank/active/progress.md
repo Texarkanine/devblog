@@ -1,6 +1,6 @@
 # Progress
 
-Compute post `last_modified` from the last git commit that changed the post **body**, not from the file's last commit, so the footer byline does not fire on front-matter / tag / summary-only edits.
+Compute `last_modified` from the last git commit that changed the document **body**, for posts and garden, so last-updated / last-tended do not fire on front-matter-only git commits.
 
 **Complexity:** Level 2
 
@@ -37,3 +37,16 @@ Compute post `last_modified` from the last git commit that changed the post **bo
     - No test harness; inspect only
 * Insights
     - Display policy is layout-level, not date-source-level: one generator, two Liquid contracts
+
+## 2026-08-22 - PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+
+* Work completed
+    - Validated the body-only `last_modified` plan against `collection_dates.rb`, both layouts, collection config, and named inspect fixtures
+    - Wrote `memory-bank/active/.preflight-status` with first line `PASS WITH ADVISORY`
+* Decisions made
+    - Inspect-red before write-code satisfies TDD encoding given the operator's no-suite constraint; did not invent a harness
+    - No in-phase TDD swap or change-detector strike
+* Insights
+    - Named fixtures match git history. Garden same-day inspect has four unnamed candidates; none of the four date-moving garden pages are same-day-as-planted
+    - `last_modified_at` is still unset for SEO/sitemap — same deferred gap as the prior byline task
+    - Named garden same-day inspect: `_garden/stories.md`
