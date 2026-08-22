@@ -1,5 +1,6 @@
 ---
 alwaysApply: false
+description: Editorial revision patterns for blog posts
 ---
 
 # Revision Patterns
@@ -27,6 +28,28 @@ When *introducing* a tool or product to the reader, link to its product/landing 
 
 Details should serve the post's chosen shape. An interesting anecdote that isn't part of the fable's cascade, the essay's argument, or the record's factual account should probably cut - unless it has a high value of its own. If a detail just happened to happen concurrently but wasn't caused by or required for anything in the narrative's chain, it's a tangent.
 
+A prior-post thread that does not create a step for this reader is one incidental link, or a cut. "If you already did X, do nothing" is not a step. Repeating it does not make it load-bearing.
+
+## Promise and Payoff
+
+If the draft offers a tab, a recipe, or "I will get back to that," later cuts cannot leave the other half unpaid. Strike both, or deliver both.
+
+## Housemate Knowledge
+
+Assumed knowledge is for a stranger. A house nickname ("the Asus") needs a first intro. A lecture that only a housemate needed ("do not call this one the Pi") is a cut.
+
+## Don't Write the Bug as the Recipe
+
+A footgun in the imperative reads as steps. 
+
+> Point a DNS name at the house WAN. Do not add that name as a WireGuard peer. Delete that row
+
+is a procedure a stranger will follow, including the mistake. Instead, label the mistake in the first person (e.g. "I added it as a LuCI peer anyway"), then give the instruction they should actually run.
+
+## Cuts Move Jobs
+
+When you delete a lecture, check whether a later sentence was still using it. A cut that explained `wan` means house will make `Allow-WG` from `wan` look like an internet hole. The job has to land somewhere: a short gloss on the sentence that needs it, not a second copy of the lecture.
+
 ## Name the Concrete Difference
 
 When the draft says one thing differs from another - newer, faster, exempt, unaffected, better - name the part, the version, the date, or the mechanism that makes the difference real. If you can't name what makes the difference, you can't claim the difference exists.
@@ -37,6 +60,8 @@ When the draft says one thing differs from another - newer, faster, exempt, unaf
 ## Sentence Rhythm
 
 Read the draft aloud. When three sentences in a row land at nearly the same length, the prose has flattened toward the uniform mid-length cadence that long machine-written passages drift into. Break the run: cut one line to a fragment, or fold two into a single longer analytical sentence. Hand-written sections vary their rhythm without trying; agent-assisted drafts lose it over distance, so treat this as a revision check rather than a drafting concern.
+
+When rythm changes, attention is drawn - you can use this to your advantage to highlight key points. If you overuse it, the impact is lost.
 
 ## Repeated Section Templates
 
