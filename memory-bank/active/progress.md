@@ -62,3 +62,14 @@ Compute `last_modified` from the last git commit that changed the document **bod
     - Kept `git_last_commit_date` as fallback after the body walk
 * Insights
     - This build: 28/46 dated posts show `last updated` (was 37). Garden 1900s Last tended moved to 2025-12-02; stories still shows same-day Last tended.
+
+## 2026-08-22 - QA - COMPLETE (PASS)
+
+* Work completed
+    - Semantic review of `_plugins/collection_dates.rb` against the plan and brief
+    - Independently replayed the named fixtures' git walks; last-body days match the plan
+    - Wrote `memory-bank/active/.qa-validation-status` (`PASS`)
+* Decisions made
+    - PASS with advisories only; no build rework
+* Insights
+    - The plan's YAML regex is stricter than Jekyll's; some older revisions of the fixtures do not match and are compared as whole-file bodies, but the named last-body days still land correctly

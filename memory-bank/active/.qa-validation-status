@@ -1,0 +1,8 @@
+PASS
+
+Semantic review of last-updated-body-only against the Level 2 plan. Implementation is acceptable as-is.
+
+Advisories (non-blocking):
+1. YAML_FRONT_MATTER is the plan's regex, stricter than Jekyll's (no `...` closer; requires a newline after the closing fence). Some historical revisions of named fixtures do not match; those revs treat the whole file as body. Named fixtures still land on the planned last-body days.
+2. `index.zero?` is the log-line index, not the first successful `git show`. A missing HEAD blob returns nil and falls back to last-commit.
+3. `last_modified_at` remains unset (preflight advisory; out of scope).

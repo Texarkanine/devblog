@@ -100,4 +100,20 @@ No new technology - validation not required. Feasibility shown by the in-tree pr
 - [x] Pre-Mortem complete
 - [x] Preflight
 - [x] Build
-- [ ] QA
+- [x] QA
+
+## QA Results
+
+✅ PASS
+
+Implementation matches the plan: body-aware `last_modified` in `_plugins/collection_dates.rb` only; layouts unchanged; override and fallback chain kept.
+
+- **KISS** — Walk is the specified newest-first `git show` loop. No extra types or helpers. Does not block.
+- **DRY** — Path-escape / `.git` guard is copied from the existing git helpers rather than extracted. Pre-existing pattern, not new duplication worth a rewrite. Does not block.
+- **YAGNI** — No `--follow`, no harness, no `last_modified_at`, no layout edits. Does not block.
+- **Completeness** — `extract_markdown_body` and `git_last_body_commit_date` are implemented; `generate` uses `git_last_body_commit_date || git_last_commit_date || File.mtime`. Independent git replay of the named fixtures matches the planned last-body days (`you-cant-hide` 2025-12-07, `stop-doing-agents` 2026-02-24, Mechanicus 2026-08-22, 1900s 2025-12-02, stories same-day Last tended still applicable). Does not block.
+- **Regression** — Date assignment and both Liquid contracts untouched. Does not block.
+- **Integrity** — No TODOs, placeholders, or debug leftovers. Does not block.
+- **Documentation** — Class/method comments updated as planned. `systemPatterns.md` / `techContext.md` are not factually wrong. Does not block.
+
+Advisories (non-blocking): historical revs that miss the plan's YAML regex are compared as whole-file bodies; `index.zero?` is log-line index; `last_modified_at` still unset.
