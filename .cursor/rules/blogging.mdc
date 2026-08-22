@@ -33,13 +33,12 @@ If you have a lesson but worry about seeming preachy, write the Fable anyway. Re
 
 # Style
 
-1. **Classical style:** Use classical style as mentioned by Steven Pinker and according to Thomas Turner's "Clear and Simple as the Truth," using plain English.
-2. **Clever and concise tone:** Use a clever and concise, educated tone akin to Paul Graham and Martin Fowler.
+1. **Clever and concise tone:** Use a clever and concise, educated tone akin to Paul Graham and Martin Fowler.
     * Titles should match this style - being short, simple, sweet and if possible with a hint of wit.
-3. **First person:** Write in the first person.
+2. **First person:** Write in the first person.
     * Decide whether the post would benefit from *direct address* of the reader. Maintain this choice consistently throughout the post.
-4. **No emdashes:** Use hyphens instead.
-5. **Avoid "it's not X, it's Y":** Don't use this construction.
+3. **No emdashes:** Use hyphens instead.
+4. **Avoid "it's not X, it's Y":** Don't use this construction.
 6. **Show, don't tell:** Avoid meta-commentary about your own process. If you document solving six test failures, don't add a section saying "I systematically debugged each failure." The reader just watched you do it.
 7. **Avoid self-congratulation:** Sections that describe "how well the work was done" are usually redundant. The quality speaks through the documented results.
 8. **Earn the drama in a heading:** A little theater is welcome - "The Clock Broke" beats "Performance Improvements." But the drama has to be paid for by *this* post and no other. The tell was never drama, it's the template: a heading you could paste onto someone else's article unchanged ("The Hidden Cost of X", "Why Y Changes Everything", "Broader Implications") wastes readers' time. Test each heading by asking whether it could sit on a stranger's post without editing. If it could, it's decoration; make it name something only your section delivers. This applies to the post title (see tone, above) and to conclusion titles (see below) as much as to section headings.
