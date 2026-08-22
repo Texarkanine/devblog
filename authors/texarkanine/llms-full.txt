@@ -2655,7 +2655,7 @@ SQLite's [TH3 test suite is proprietary](https://sqlite.org/th3.html). The reimp
 
 #### The Artisan's Ambient Loop
 
-In [Desire Makes Artists](/2026/01/01/desire-makes-artists-even-with-genai.html), I wrote about how pre-industrial artisans produced goods with art infused during the process, because that's what happens when humans make things by hand. The craftsperson's quality wasn't exclusively from intentional specification - it was also emergent from proximity. You're in there, hands on every surface, spending an hour doing minute scrollwork on the side of a flintlock rifle, say. If you notice that one of the plates is a little loose, you fix it - that'll take a minute or two and you're already locked in for an hour. And the whole project has been a days-long undertaking and you don't want your beautiful thing to be a piece of garbage - of *course* you'll fix it. Rinse and repeat. The ornamentation was a signature of the real value: hours of incidental contact during which the artisan was continuously, unconsciously matching intended behavior against actual behavior. The constant contact let the creators discover and fix problems that were never formally specified, and so the customers never had to overthink the specification.
+In [Desire Makes Artists](/2026/01/01/desire-makes-artists-even-with-genai.html), we wrote about how pre-industrial artisans produced goods with art infused during the process, because that's what happens when humans make things by hand. The craftsperson's quality wasn't exclusively from intentional specification - it was also emergent from proximity. You're in there, hands on every surface, spending an hour doing minute scrollwork on the side of a flintlock rifle, say. If you notice that one of the plates is a little loose, you fix it - that'll take a minute or two and you're already locked in for an hour. And the whole project has been a days-long undertaking and you don't want your beautiful thing to be a piece of garbage - of *course* you'll fix it. Rinse and repeat. The ornamentation was a signature of the real value: hours of incidental contact during which the artisan was continuously, unconsciously matching intended behavior against actual behavior. The constant contact let the creators discover and fix problems that were never formally specified, and so the customers never had to overthink the specification.
 
 Industrialization didn't just remove the decoration; it removed that ambient inspection loop. Now you get exactly what you specified, and everything unspecified is up in the air. The factory worker doesn't have your context and isn't spending but a passing moment in contact with the widget - whose intended behavior they may not even know.
 
@@ -2832,7 +2832,9 @@ But the models can't do what got me here, yet. The questioning: knowing what sho
 
 Those are engineering judgment. Those are the skills that let me get as far as Principal Engineer in the first place. And if you still can't get these tools to work for you, consider the view from the street: the Model Ts are *everywhere.* Ford has been cranking them out day after day, week after week. You can see the cars. You can see the factory. You walked in off the street, tried to use one of the machines, failed, and concluded that assembly lines don't work, while the streets fill with cars. The code *is* shipping. If you can't get the machines to work, that is definitely a you problem. *Skill issue.*
 
-The skill is management. Programmers, historically, do not have strong management chops. The ones who do tend to go *into* management. The ones who've been writing code for a decade or two often explicitly opted out of that track. The field just showed up at their desks and told them their job is management now. No wonder they're struggling. But the fastest way to learn management is to not realize you're learning it.
+> The skill is management.
+
+Programmers, historically, do not have strong management chops. The ones who do tend to go *into* management. The ones who've been writing code for a decade or two often explicitly opted out of that track. The field just showed up at their desks and told them their job is management now. No wonder they're struggling. But the fastest way to learn management is to not realize you're learning it.
 
 Nothing can escape the event horizon, so you might as well learn the skills that let you thrive on this side of it.
 
@@ -2923,7 +2925,7 @@ Niko only comes up for air to ask *you* a question if there's an issue that can'
 
 #### 🔁 Resilience
 
-The command structure itself is a disciplined loop. Close the window, open a new one, run the next command. If an attempt fails, the memory bank has the record of what was tried and what went wrong. [Niko's `/refresh` command](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/skills/refresh/SKILL.md) performs a systematic re-diagnosis of implementation struggles: discard previous assumptions, map the system, hypothesize broadly, investigate with evidence, then fix. You're never truly stuck because you're never more than one clean context window away from a fresh start with full history.
+The command structure itself is a disciplined loop. Close the window, open a new one, run the next command. If an attempt fails, the memory bank has the record of what was tried and what went wrong. [Niko's `/nk-refresh` command](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/skills/nk-refresh/SKILL.md) performs a systematic re-diagnosis of implementation struggles: discard previous assumptions, map the system, hypothesize broadly, investigate with evidence, then fix. You're never truly stuck because you're never more than one clean context window away from a fresh start with full history.
 
 #### 🧠 Archival
 
@@ -2971,7 +2973,7 @@ You can drop to Cursor's "Auto" model for `/niko-archive`, at the end.
 
 **Manual cleanup after Level 1.** Level 1 tasks (quick fixes) don't have a reflect or archive phase, so the `memory-bank/active/` directory doesn't get cleaned up automatically. Once you're satisfied with the work, delete it yourself. There's no slash-command for this because it would be wasteful to make you type `/niko-cleanup` to get an AI agent to run `rm -rf memory-bank/active` when you could just delete the folder yourself.
 
-**When things go sideways.** `/refresh` is for troubleshooting implementation. If Niko just can't figure out how to get something right... that's a `/refresh` situation. `/refresh` is special in that you usually want to use it IN the existing context, so that the full specifics of what *didn't* work are available to the troubleshooting process.
+**When things go sideways.** `/nk-refresh` is for troubleshooting implementation. If Niko just can't figure out how to get something right... that's a `/nk-refresh` situation. `/nk-refresh` is special in that you usually want to use it IN the existing context, so that the full specifics of what *didn't* work are available to the troubleshooting process.
 
 `/niko-creative` is for exploring solution spaces. Usually this will happen automatically as part of the planning phase, but you might need it later if something unforeseen crops up. You can also use it ad-hoc, outside a workflow, as a brainstorm buddy.
 
