@@ -15,21 +15,23 @@ tags:
   - wireguard
 ---
 
-The house already had a router we liked: an Asus running [Merlin](https://www.asuswrt-merlin.net/), doing Wi-Fi, DHCP, and NAT for `192.168.1.0/24`. Same LAN as the [IoT isolation]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}) and [the OpenWrt rebuild of that isolation]({% post_url blog/record/2026-06-20-incidental-router %}). What it did not have was an inbound VPN we still wanted to live on.
+The house already had a router we liked: an Asus running [Merlin](https://www.asuswrt-merlin.net/), doing Wi-Fi, DHCP, and NAT for `192.168.1.0/24`. Same LAN as the [IoT isolation]({% post_url blog/record/2026-01-17-all-it-took-was-broken-firmware %}) and [the OpenWrt rebuild of that isolation]({% post_url blog/record/2026-06-20-incidental-router %}).
 
-The old one was [OpenVPN](https://openvpn.net/) on that Asus. It worked. It was also one more service on the box that already did everything else, speaking a protocol that has been "fine" for a decade in the same way a spare tire is fine. We wanted a full tunnel home (all of the client's traffic, not just packets for the house): phones on cellular, laptops on cafe Wi-Fi, DNS through the existing [Pi-hole](https://pi-hole.net/), reachability into the LAN (and, same as any host on that LAN, into the IoT subnet those posts built). Latency over throughput. One UDP hole in the firewall, not a personality transplant for the edge.
+The inbound VPN was [OpenVPN](https://openvpn.net/) on that Asus. It dropped, sometimes in step with WAN failover, sometimes on its own; we never pinned which. It was slow: it shared the router's CPU and RAM with Wi-Fi, DHCP, and NAT. Merlin's OpenVPN was old enough that it still wanted [compression](https://community.openvpn.net/openvpn/wiki/Compression) after upstream had deprecated it, and newer clients struggled. The web UI was a short form. There were probably more problems we never named.
 
-So we added a second box and refused to promote it. It does not DHCP or NAT the house. Radios stay off. It is a [WireGuard](https://www.wireguard.com/) endpoint on the LAN: one address on the home subnet, a private address range that exists only inside the tunnel (the overlay), one forwarded UDP port, one static route back. Visitors check in at the lodge. The manor keeps the keys to the kitchen.
+We wanted three things. Every client connects, every time. More throughput than a process fighting the edge for RAM. Restart the VPN without restarting the house.
+
+[WireGuard](https://www.wireguard.com/) went on a second box, as a host on the LAN: no DHCP, no NAT, radios off. One address on the home subnet, a private range that exists only inside the tunnel (the overlay), one UDP port forwarded from the WAN, one static route back. Full tunnel: all of the client's traffic, not just packets for the house. Phones on cellular, laptops on cafe Wi-Fi, DNS through the existing [Pi-hole](https://pi-hole.net/), the LAN, and the IoT subnet those posts built. Reboot `gate-lodge` and the Asus keeps serving Wi-Fi.
 
 {% comment %}
 TODO(photo): polaroid of the OpenWrt One in the network cabinet.
 File: gate-lodge-cabinet.jpg
-Caption: Radios off. One cable into the 2.5G jack. Furniture.
+Caption: Radios off. One cable into the 2.5G jack.
 {% endcomment %}
 
-If that already sounds like the thing you wanted, keep this tab open. The paste is [Release Image to a Tunnel](#release-image-to-a-tunnel): first boot through a working client, written so you do not have to live here. Everything between here and there is why that paste is picky. Read it, or skip it and come back when a command looks strangely conservative.
+If you want that, keep this tab open. The paste is [Release Image to a Tunnel](#release-image-to-a-tunnel): first boot through a working client. Everything between here and there is why that paste is picky. Skip it if you want; come back when a command looks too careful.
 
-## Visitors Use the Lodge
+## The Overlay Lives Behind .253
 
 ```mermaid
 flowchart LR
@@ -56,13 +58,13 @@ That route only works if overlay packets still *look like* overlay packets when 
 
 ## Banana Pi Builds It, OpenWrt Owns It
 
-The board is an [OpenWrt One](https://openwrt.org/toh/openwrt/one): MediaTek Filogic 820, 2.5G WAN, 1G LAN, Wi-Fi 6 we never turned on, USB-C serial on the front. Two flash chips: NAND holds the live OS, NOR is recovery for when you have been unwise. [Banana Pi](https://docs.banana-pi.org/en/OpenWRT-One/BananaPi_OpenWRT-One.html) manufactures and sells it; the [OpenWrt](https://openwrt.org/) project designed it, and a slice of each sale goes to the [Software Freedom Conservancy](https://sfconservancy.org/) earmarked for OpenWrt.
+The board is an [OpenWrt One](https://openwrt.org/toh/openwrt/one): MediaTek Filogic 820, 2.5G WAN, 1G LAN, Wi-Fi 6 we never turned on, USB-C serial on the front. Two flash chips: NAND holds the live OS, NOR holds recovery. [Banana Pi](https://docs.banana-pi.org/en/OpenWRT-One/BananaPi_OpenWRT-One.html) manufactures and sells it; the [OpenWrt](https://openwrt.org/) project designed it, and a slice of each sale goes to the [Software Freedom Conservancy](https://sfconservancy.org/) earmarked for OpenWrt.
 
-Banana Pi built it. In this house "the Pi" already means the Raspberry Pi that runs Pi-hole, at `192.168.1.254`. We number infrastructure from the top of `192.168.1.0/24`, so the DNS box is `.254` and the VPN box is `.253`. Hostname `gate-lodge`. Call yours whatever you want. Do not call this one "the Pi." One of these devices will come out of your mouth under stress, and it will be the wrong one.
+Banana Pi built it. In this house "the Pi" already means the Raspberry Pi that runs Pi-hole, at `192.168.1.254`. We number infrastructure from the top of `192.168.1.0/24`, so the DNS box is `.254` and the VPN box is `.253`. Hostname `gate-lodge`. Do not call this one "the Pi." One of these devices will come out of your mouth under stress, and it will be the wrong one.
 
 The edge router is configured in its own web UI. The OpenWrt box is configured over SSH as [UCI](https://openwrt.org/docs/guide-user/base-system/uci) text. The running box outranks both. I already learned that last part on [the IoT rebuild]({% post_url blog/record/2026-06-20-incidental-router %}).
 
-## Nested, Then Lonely
+## Nested, Then a Host
 
 Stock OpenWrt wants to be a router. Fresh out of the box the OpenWrt One serves `192.168.1.1` on the 1G jack, DHCP on, WAN masquerading. Plug that jack into a house that already uses `192.168.1.0/24` and you get a small religious war over who is `.1`.
 
@@ -75,9 +77,9 @@ flowchart LR
   LAN --> Spare["spare laptop"]
 ```
 
-Then we converted it to a host. Static `192.168.1.253/24` on `eth0`, default via `192.168.1.1`, DNS to Pi-hole. `network.lan` proto `none`. DHCP off. The `lan` → `wan` forward deleted. WAN masquerade **off**. The 1G jack stays dead: not a management DHCP port, not a second personality. Recovery, if the OS ever dies, is USB-C serial or the OpenWrt One's factory/NOR path on that jack, not a service we leave running.
+Then we converted it to a host. Static `192.168.1.253/24` on `eth0`, default via `192.168.1.1`, DNS to Pi-hole. `network.lan` proto `none`. DHCP off. The `lan` → `wan` forward deleted. WAN masquerade **off**. The 1G jack stays dark: no DHCP, no management net. If the OS dies, recovery is USB-C serial or the OpenWrt One's factory/NOR path on that jack.
 
-The box is lonely once it is only a host. If you skip the nested day you can still get there from the serial console, or from a laptop on the 1G jack at the factory address before you join the house. The nested join is the version where you still have a door if you brick the home-facing side. Both paths are in the paste below.
+Skip the nested day and you can still get there from serial, or from a laptop on the 1G jack at the factory address before you join the house. Nested is the version with a door if you brick the home-facing side. Both paths are in the paste below.
 
 [Dropbear](https://openwrt.org/docs/guide-user/security/dropbear.public-key.auth) is OpenWrt's SSH server. It reads `/etc/dropbear/authorized_keys`. A modern `ssh-copy-id` will cheerfully write `~/.ssh/authorized_keys` and you will wonder why the key you just installed does nothing. Copy the line into the Dropbear file. I lost a round to that.
 
@@ -92,7 +94,7 @@ opkg update
 opkg install kmod-wireguard wireguard-tools luci-proto-wireguard
 ```
 
-`kmod-wireguard` came in as `6.6.144-r1`. After the first install, `ifup wg0` left netifd (OpenWrt's network daemon) on proto `none` / `NO_DEVICE`. The proto script was new to the running daemon. `/etc/init.d/network restart` attached it. Later peer edits: `ifup wg0` is enough. Do not reboot as a personality.
+`kmod-wireguard` came in as `6.6.144-r1`. After the first install, `ifup wg0` left netifd (OpenWrt's network daemon) on proto `none` / `NO_DEVICE`. The proto script was new to the running daemon. `/etc/init.d/network restart` attached it. Later peer edits: `ifup wg0` is enough. That restart is the VPN box, not the house.
 
 Flash a **release**. Snapshots are for people who enjoy 404s on the day they need a tunnel.
 
@@ -108,9 +110,9 @@ If you also isolated IoT the way those posts did, treat overlay clients as home:
 
 ## Cut Over, Then Listen
 
-No shadow period, for us: dump the old OpenVPN pool, disable OpenVPN, *then* stand up WireGuard. Two inbound VPNs is two stories about which prefix a client has today. If you still need the old VPN, invert that: stand up WireGuard first, prove a client, *then* disable OpenVPN. We were done with OpenVPN. You might not be.
+We dumped the old OpenVPN pool, disabled OpenVPN, *then* stood up WireGuard. Two inbound VPNs is two stories about which prefix a client has today. If you still need the old VPN, invert that: stand up WireGuard first, prove a client, *then* disable OpenVPN. We were done with OpenVPN. You might not be.
 
-On the Asus: a LAN static route for the overlay via `192.168.1.253`, metric left empty, interface LAN. UDP forward of the listen port to `192.168.1.253`. OpenVPN off. Reboot the Asus once, because consumer firmware likes to be asked twice. The edge does not stop doing NAT, Wi-Fi, or DHCP. You are not replacing it. You are giving it a route and a hole. Any edge that can do a LAN static route and a UDP port forward will do; Merlin is just what this house has.
+On the Asus: a LAN static route for the overlay via `192.168.1.253`, metric left empty, interface LAN. UDP forward of the listen port to `192.168.1.253`. OpenVPN off. Reboot the Asus once, because consumer firmware likes to be asked twice. The edge still does NAT, Wi-Fi, and DHCP. It gets a route and a hole. Any edge that can do a LAN static route and a UDP port forward will do; Merlin is just what this house has.
 
 On the VPN box, `wg0` is `192.168.101.1/24`, proto `wireguard`, listen on that same UDP port. Keys generated on the box, under `/etc/wireguard/`. Do not copy private keys into a repository, a chat, or a blog post. Firewall zone `vpn` on `wg0`, masquerade **0** on both `wan` and `vpn`. Forward `vpn` → `wan` and `wan` → `vpn`. A rule `Allow-WG`: UDP dest that port, source zone `wan`.
 
@@ -380,6 +382,6 @@ PersistentKeepalive = 25
 
 Allow queries from `192.168.101.0/24`. Keep WAN 53 closed. If you isolated IoT already, leave that isolation as it was.
 
-## Furniture
+## Restart the Box, Not the House
 
-The lodge is boring on purpose. It has one job, it sits on one cable, and it does not get an opinion about the rest of the house. That is the part worth stealing even if you never touch our prefixes: keep the edge, give visitors a host, and do not masquerade the people you just let in.
+Clients connect. The tunnel is not sharing the Asus CPU with Wi-Fi. `network restart` on `gate-lodge` does not bounce the LAN. Keep the edge, put WireGuard on a host, and do not masquerade the people you just let in.
