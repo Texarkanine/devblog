@@ -138,6 +138,8 @@ DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
+BAR_WIDTH=15
+
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
 
@@ -160,7 +162,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
   local bar=""
@@ -197,7 +198,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── Rate limit bars: red and purple gradients ──
@@ -273,6 +278,8 @@ DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
+BAR_WIDTH=15
+
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
 
@@ -341,7 +348,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int
   pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
@@ -381,7 +387,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── First-party (auto/composer) + third-party (API) bars ──
@@ -439,6 +449,8 @@ MAGENTA='\033[35m'
 DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
+
+BAR_WIDTH=15
 
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
@@ -522,7 +534,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int
   pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
@@ -562,7 +573,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── First-party (auto/composer) + third-party (API) bars ──
