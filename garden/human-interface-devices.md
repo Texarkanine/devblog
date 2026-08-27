@@ -22,7 +22,7 @@ Jump to...
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260827220610/https://steelseries.com/gaming-keyboards/apex-7" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

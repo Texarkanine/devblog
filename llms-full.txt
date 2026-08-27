@@ -188,6 +188,8 @@ DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
+BAR_WIDTH=15
+
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
 
@@ -210,7 +212,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
   local bar=""
@@ -247,7 +248,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── Rate limit bars: red and purple gradients ──
@@ -323,6 +328,8 @@ DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
+BAR_WIDTH=15
+
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
 
@@ -391,7 +398,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int
   pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
@@ -431,7 +437,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── First-party (auto/composer) + third-party (API) bars ──
@@ -489,6 +499,8 @@ MAGENTA='\033[35m'
 DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
+
+BAR_WIDTH=15
 
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
@@ -572,7 +584,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int
   pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
@@ -612,7 +623,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── First-party (auto/composer) + third-party (API) bars ──
@@ -7850,7 +7865,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.xo3i0-jfjv { display: inline-block; }</style><script>(function(){function j3giu2udcmon(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function gsefaiwvp756b(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var f38doy4=sp.getAttribute('data-fovn81llpmcb');var qoexyd95hcak=sp.getAttribute('data-gcdbwjt3jmg');var oz60woz=sp.getAttribute('data-lwu43xupf');var ywqidzbiu=sp.getAttribute('data-towu4abrhnm');var mailto=j3giu2udcmon(f38doy4,spParts[0].length);var user=j3giu2udcmon(qoexyd95hcak,spParts[1].length);var domainBase=j3giu2udcmon(oz60woz,lnkParts[0].length);var tld=j3giu2udcmon(ywqidzbiu,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function plpghi7e(){var els=document.querySelectorAll('a.jhfnxjtjmoz5yorf-pettunhdxot');var handler=function(){var sp=this.querySelector('span.xo3i0-jfjv');if(sp&&!this.dataset.d){var val=gsefaiwvp756b(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',plpghi7e);}else{plpghi7e();}})();</script>{:/nomarkdown}<a href="#" class="jhfnxjtjmoz5yorf-pettunhdxot"><span class="xo3i0-jfjv" data-fovn81llpmcb="rfnqyt" data-gcdbwjt3jmg="VIHEGXIH" data-lwu43xupf="fhejedcqyb" data-towu4abrhnm="nzx">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.vzqr9x07r-zrzzsbvw90l { display: inline-block; }</style><script>(function(){function s5lky73lp(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function d5mdidysysvyyfx(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var mxpzwq0=sp.getAttribute('data-ydixz3d');var r8aszaztqvgv=sp.getAttribute('data-sd54eh9');var mc0h43idk7or=sp.getAttribute('data-ughjav');var yvbaev5=sp.getAttribute('data-pni1wggfg');var mailto=s5lky73lp(mxpzwq0,spParts[0].length);var user=s5lky73lp(r8aszaztqvgv,spParts[1].length);var domainBase=s5lky73lp(mc0h43idk7or,lnkParts[0].length);var tld=s5lky73lp(yvbaev5,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function mrdccaeq(){var els=document.querySelectorAll('a.euzhpz6r-myfhbwb6gwi');var handler=function(){var sp=this.querySelector('span.vzqr9x07r-zrzzsbvw90l');if(sp&&!this.dataset.d){var val=d5mdidysysvyyfx(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',mrdccaeq);}else{mrdccaeq();}})();</script>{:/nomarkdown}<a href="#" class="euzhpz6r-myfhbwb6gwi"><span class="vzqr9x07r-zrzzsbvw90l" data-ydixz3d="vjrucx" data-sd54eh9="CPOLNEPO" data-ughjav="xzwbwvuiqt" data-pni1wggfg="nzx">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -8899,31 +8914,23 @@ Timeless treasures and curios collected from the internet and presented for your
 
 <ul><li>
           
-          <a href="/garden/stories.html">Stories</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/index.html">Shrines</a>
-          
-        </li><li>
-          
-          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
-          
-        </li><li>
-          
-          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
-          
-        </li><li>
-          
-          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
-          
-        </li><li>
-          
-          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
-          
-        </li><li>
-          
           <a href="/garden/unexpected-chris-foss.html">Unexpected Chris Foss</a>
+          
+        </li><li>
+          
+          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          
+        </li><li>
+          
+          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
+          
+        </li><li>
+          
+          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
           
         </li><li>
           
@@ -8931,7 +8938,7 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/short-stories.html">Short Stories</a>
+          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
           
         </li><li>
           
@@ -8939,7 +8946,39 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
+          <a href="/garden/general-purpose-industry-refining-tool.html">A General-Purpose Industry-Refining Tool</a>
+          
+        </li><li>
+          
+          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
+          
+        </li><li>
+          
+          <a href="/garden/ai-horses.html">Horses</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
+          
+        </li><li>
+          
           <a href="/garden/shrine/asymmetric-spaceships/index.html">Asymmetric Spaceships</a>
+          
+        </li><li>
+          
+          <a href="/garden/shrine/index.html">Shrines</a>
+          
+        </li><li>
+          
+          <a href="/garden/linkroll.html">Linkroll</a>
+          
+        </li><li>
+          
+          <a href="/garden/stories.html">Stories</a>
+          
+        </li><li>
+          
+          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
           
         </li><li>
           
@@ -8951,27 +8990,15 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/the-waluigi-effect.html">The Waluigi Effect</a>
+          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
           
         </li><li>
           
-          <a href="/garden/what-is-a-digital-garden.html">What is a Digital Garden?</a>
+          <a href="/garden/a-history-of-the-ls-command.html">A History of the 'ls' command</a>
           
         </li><li>
           
-          <a href="/garden/linkroll.html">Linkroll</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.html">Pulp Sci-Fi Book Covers</a>
-          
-        </li><li>
-          
-          <a href="/garden/how-i-learned-to-stop-coding-and-love-the-machine.html">How I Learned to Stop Coding and Love the Machine</a>
-          
-        </li><li>
-          
-          <a href="/garden/idea-bank.html">Idea Bank</a>
+          <a href="/garden/do-llms-understand-for-each.html">Do LLMs Understand "For Each"?</a>
           
         </li><li>
           
@@ -8979,27 +9006,15 @@ Timeless treasures and curios collected from the internet and presented for your
           
         </li><li>
           
-          <a href="/garden/human-interface-devices.html">Human Interface Devices</a>
+          <a href="/garden/short-stories.html">Short Stories</a>
           
         </li><li>
           
-          <a href="/garden/ai-horses.html">Horses</a>
+          <a href="/garden/favicon-websites.html">Websites for Making .ico Files</a>
           
         </li><li>
           
-          <a href="/garden/fomenting-the-butlerian-jihad.html">Fomenting the Butlerian Jihad</a>
-          
-        </li><li>
-          
-          <a href="/garden/1900s-computer-gaming.html">Play Classic Computer Games from the 1900s</a>
-          
-        </li><li>
-          
-          <a href="/garden/browse-the-early-internet.html">Browse The Vintage, Early Internet</a>
-          
-        </li><li>
-          
-          <a href="/garden/shrine/asymmetric-spaceships/millennium-falcon.html">Millennium Falcon</a>
+          <a href="/garden/idea-bank.html">Idea Bank</a>
           
         </li></ul>
 
@@ -10738,7 +10753,7 @@ Jump to...
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260827220610/https://steelseries.com/gaming-keyboards/apex-7" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

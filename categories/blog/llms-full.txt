@@ -188,6 +188,8 @@ DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
+BAR_WIDTH=15
+
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
 
@@ -210,7 +212,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
   local bar=""
@@ -247,7 +248,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── Rate limit bars: red and purple gradients ──
@@ -323,6 +328,8 @@ DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
+BAR_WIDTH=15
+
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
 
@@ -391,7 +398,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int
   pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
@@ -431,7 +437,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── First-party (auto/composer) + third-party (API) bars ──
@@ -489,6 +499,8 @@ MAGENTA='\033[35m'
 DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
+
+BAR_WIDTH=15
 
 # ── Truecolor helper ──
 rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
@@ -572,7 +584,6 @@ fi
 # ── Bar drawing helper ──
 draw_bar() {
   local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
-  local BAR_WIDTH=15
   local pct_int
   pct_int=$(printf '%.0f' "$pct")
   local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
@@ -612,7 +623,11 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
 fi
 
 # ── First-party (auto/composer) + third-party (API) bars ──
@@ -7850,7 +7865,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.xo3i0-jfjv { display: inline-block; }</style><script>(function(){function j3giu2udcmon(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function wpbt82ttlijn(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var lag7z41eh1=sp.getAttribute('data-fovn81llpmcb');var q8tt2h=sp.getAttribute('data-gcdbwjt3jmg');var qorgu3bp=sp.getAttribute('data-lwu43xupf');var alh59cytkm3i=sp.getAttribute('data-towu4abrhnm');var mailto=j3giu2udcmon(lag7z41eh1,spParts[0].length);var user=j3giu2udcmon(q8tt2h,spParts[1].length);var domainBase=j3giu2udcmon(qorgu3bp,lnkParts[0].length);var tld=j3giu2udcmon(alh59cytkm3i,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function jrawr1nqqgyfiii(){var els=document.querySelectorAll('a.jhfnxjtjmoz5yorf-pettunhdxot');var handler=function(){var sp=this.querySelector('span.xo3i0-jfjv');if(sp&&!this.dataset.d){var val=wpbt82ttlijn(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',jrawr1nqqgyfiii);}else{jrawr1nqqgyfiii();}})();</script>{:/nomarkdown}<a href="#" class="jhfnxjtjmoz5yorf-pettunhdxot"><span class="xo3i0-jfjv" data-fovn81llpmcb="rfnqyt" data-gcdbwjt3jmg="VIHEGXIH" data-lwu43xupf="fhejedcqyb" data-towu4abrhnm="nzx">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.vzqr9x07r-zrzzsbvw90l { display: inline-block; }</style><script>(function(){function s5lky73lp(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function rvl5elrev7lzitf(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var j3nk0oq1wrs=sp.getAttribute('data-ydixz3d');var gjbuu5l=sp.getAttribute('data-sd54eh9');var hgcyyu8=sp.getAttribute('data-ughjav');var hr00d8wa3tp=sp.getAttribute('data-pni1wggfg');var mailto=s5lky73lp(j3nk0oq1wrs,spParts[0].length);var user=s5lky73lp(gjbuu5l,spParts[1].length);var domainBase=s5lky73lp(hgcyyu8,lnkParts[0].length);var tld=s5lky73lp(hr00d8wa3tp,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function ydd7rwbu(){var els=document.querySelectorAll('a.euzhpz6r-myfhbwb6gwi');var handler=function(){var sp=this.querySelector('span.vzqr9x07r-zrzzsbvw90l');if(sp&&!this.dataset.d){var val=rvl5elrev7lzitf(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',ydd7rwbu);}else{ydd7rwbu();}})();</script>{:/nomarkdown}<a href="#" class="euzhpz6r-myfhbwb6gwi"><span class="vzqr9x07r-zrzzsbvw90l" data-ydixz3d="vjrucx" data-sd54eh9="CPOLNEPO" data-ughjav="xzwbwvuiqt" data-pni1wggfg="nzx">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
