@@ -1,5 +1,7 @@
 <ul>
 
+  <li>2026-08-27 <a href="/2026/08/27/steal-these-status-lines.html">Steal These Status Lines</a></li>
+
   <li>2026-08-22 <a href="/2026/08/22/the-gate-lodge.html">The Gate Lodge</a></li>
 
   <li>2026-08-13 <a href="/2026/08/13/the-times-can-sell-reddit-cannot.html">The Times Can Sell; Reddit Cannot</a></li>

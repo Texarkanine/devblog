@@ -1,5 +1,657 @@
 # announcement
 
+## Steal These Status Lines
+
+I want the model, the context window, and the burn rate all on the same row, right below the prompt. [Claude Code](https://code.claude.com/) and the [Cursor CLI](https://cursor.com/docs/cli/overview) both do that the same way: they run a command, pipe session JSON to stdin, and render stdout as a [status line](https://code.claude.com/docs/en/statusline). Plenty of people have one. These are the ones I actually look at, on a Mac and on Linux ([WSL](https://learn.microsoft.com/en-us/windows/wsl/)).
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-statusline-mac.png">
+      <img src="cursor-statusline-mac.png" alt="Cursor Agent, in Ghostty on macOS" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Cursor Agent, in Ghostty on macOS</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-statusline-linux.png">
+      <img src="cursor-statusline-linux.png" alt="Cursor Agent, in MobaXterm on WSL" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Cursor Agent, in MobaXterm on WSL</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="claude-statusline-mac.png">
+      <img src="claude-statusline-mac.png" alt="Claude Code, in Ghostty on macOS" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Claude Code, in Ghostty on macOS</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="claude-statusline-linux.png">
+      <img src="claude-statusline-linux.png" alt="Claude Code, in MobaXterm on WSL" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Claude Code, in MobaXterm on WSL</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The shared row is the same in both harnesses: the model name, a fifteen-cell context bar that runs green to red, an emoji that flips at 20 / 70 / 90 percent (🟢 ⚡ 🔥 🚨), and the repo plus branch when you are in a git tree.
+
+Claude then adds what its payload already has: session cost in dollars, a five-hour rate bar, a seven-day rate bar.
+
+Cursor does not ship session dollars in the status-line payload or the usage API, so that slot is empty on purpose. In its place I pull first-party ([Grok](https://cursor.com/docs/models-and-pricing#cursor-models) and Composer) and third-party (API) plan usage from Cursor's `GetCurrentPeriodUsage` endpoint and cache the result for sixty seconds. [Auto](https://cursor.com/docs/models-and-pricing#auto-modes) is a router with Cost, Balance, and Intelligence modes that bill whichever model they pick, so a stretch of Auto can fill either bar.
+
+| Slot | Claude Code | Cursor CLI |
+|---|---|---|
+| Model | yes | yes |
+| Context bar | yes | yes |
+| Session cost | yes | no |
+| 5-hour / 7-day rate | yes | no |
+| First-party / third-party plan | no | yes |
+| Repo / branch | yes | yes |
+
+You need `bash`, [jq](https://jqlang.github.io/jq/), and `git`. Cursor's plan bars also need `curl` and a signed-in CLI. The bars use 24-bit RGB, so a [truecolor terminal](https://github.com/termstandard/colors) is the difference between a gradient and a muddle.
+
+## The Key Is `statusLine`
+
+The wiring is a JSON object named `statusLine` - capital L. Claude Code reads it from [`~/.claude/settings.json`](https://code.claude.com/docs/en/statusline). Cursor CLI reads it from [`~/.cursor/cli-config.json`](https://cursor.com/docs/cli/reference/configuration). Same shape: `"type": "command"` and a `command` path. Merge that object into the file you already have. Do not replace the rest of the file. If `CURSOR_CONFIG_DIR` or `XDG_CONFIG_HOME` is set, Cursor may be reading a different `cli-config.json`; merge into the file the running CLI actually uses.
+
+Claude Code's block:
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
+}
+```
+
+Cursor CLI's block, including the `padding: 2` I actually run:
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.cursor/statusline.sh",
+    "padding": 2
+  }
+}
+```
+
+That is the whole difference in setup. The scripts below assume those paths: `~/.claude/statusline.sh` and `~/.cursor/statusline.sh`.
+
+## GNU `stat` Is Not BSD `stat`
+
+Claude's script never asks `stat` for a file's mtime, so the Linux copy and the macOS copy are the same file.
+
+Cursor's plan bars cache for sixty seconds, and the Linux copy used [GNU `stat -c %Y`](https://www.gnu.org/software/coreutils/manual/html_node/stat-invocation.html). macOS ships [BSD `stat`](https://ss64.com/mac/stat.html), which wants `stat -f %m`. GNU syntax on a Mac fails, the cache looks stale on every paint, and you refetch more than you meant to.
+
+The macOS script tries GNU first and falls back to BSD:
+
+```bash
+mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null || stat -f %m "$CACHE_FILE" 2>/dev/null) || return 1
+```
+
+The other hole is the token. On Linux, Cursor CLI leaves an access token in `~/.config/cursor/auth.json`. On macOS it puts the same secret in Keychain (`cursor-access-token` / `cursor-user`) and often never writes that file. The Linux script reads the file and gives up. The macOS script tries the file, then Keychain.
+
+Take the GNU script on Linux. Take the BSD script on macOS. The BSD script also runs on Linux - GNU `stat` succeeds on the first try, and the Keychain branch is skipped - but both copies are below so an agent does not have to guess.
+
+The two Cursor scripts differ only in how they read the token and how they call `stat`.
+
+## Steal Them
+
+If you are an agent installing this for a human: pick the harness they are in. Claude Code gets the `statusLine` block for `~/.claude/settings.json` plus the Claude script, saved as `~/.claude/statusline.sh`. Cursor CLI gets the `statusLine` block for `~/.cursor/cli-config.json` plus the GNU script on Linux / WSL or the BSD script on macOS, saved as `~/.cursor/statusline.sh`. Mark the script executable. Merge the JSON object named `statusLine` (capital L). Do not overwrite the rest of the config file.
+
+If you are a human: paste this post at an agent and say which prompt you live in. Or copy the matching fences yourself.
+
+1. Save the script to the path in the heading.
+2. `chmod +x` that path.
+3. Merge the matching `statusLine` object.
+4. Restart the CLI session.
+
+### Claude Code: merge into `~/.claude/settings.json`
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
+}
+```
+
+### Claude Code: `~/.claude/statusline.sh` (macOS and Linux)
+
+```bash
+#!/usr/bin/env bash
+# Claude Code status line: RGB gradient, dynamic emoji, cost, code velocity
+
+input=$(cat)
+
+# ── Colors ──
+CYAN='\033[36m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+MAGENTA='\033[35m'
+DIM='\033[2m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+# ── Truecolor helper ──
+rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
+
+# ── Parse JSON fields ──
+model=$(echo "$input" | jq -r '.model.display_name // "Unknown"')
+used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+cost=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
+rate_5h=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+rate_7d=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // ""')
+
+# ── Git info ──
+branch=""
+repo=""
+if [ -n "$cwd" ]; then
+  branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
+  repo=$(basename "$(git -C "$cwd" --no-optional-locks rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null)
+fi
+
+# ── Bar drawing helper ──
+draw_bar() {
+  local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
+  local BAR_WIDTH=15
+  local pct_int=$(printf '%.0f' "$pct")
+  local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
+  local bar=""
+
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    local pos=$(( i * 100 / (BAR_WIDTH - 1) ))
+    local r=$(( grad_low_r + (grad_high_r - grad_low_r) * pos / 100 ))
+    local g=$(( grad_low_g + (grad_high_g - grad_low_g) * pos / 100 ))
+    local b=$(( grad_low_b + (grad_high_b - grad_low_b) * pos / 100 ))
+
+    if [ "$i" -lt "$filled" ]; then
+      bar="${bar}$(rgb $r $g $b)█"
+    else
+      bar="${bar}\033[38;2;60;60;60m░"
+    fi
+  done
+  printf '%b' "${bar}${RESET}"
+}
+
+# ── Context bar: green→yellow→red ──
+if [ -n "$used" ]; then
+  used_int=$(printf '%.0f' "$used")
+
+  ctx_bar=$(draw_bar "$used_int" 0 200 80 220 20 0)
+
+  if [ "$used_int" -ge 90 ]; then status_emoji="🚨"
+  elif [ "$used_int" -ge 70 ]; then status_emoji="🔥"
+  elif [ "$used_int" -ge 20 ]; then status_emoji="⚡"
+  else status_emoji="🟢"; fi
+
+  if [ "$used_int" -ge 90 ]; then pct_color="$RED"
+  elif [ "$used_int" -ge 70 ]; then pct_color="$YELLOW"
+  else pct_color="$GREEN"; fi
+
+  ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
+else
+  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+fi
+
+# ── Rate limit bars: red and purple gradients ──
+rate_bars=""
+if [ -n "$rate_5h" ]; then
+  rate_5h_int=$(printf '%.0f' "$rate_5h")
+  rate_5h_bar=$(draw_bar "$rate_5h_int" 150 50 50 220 0 0)
+
+  if [ "$rate_5h_int" -ge 90 ]; then pct_5h_color="$RED"
+  elif [ "$rate_5h_int" -ge 70 ]; then pct_5h_color="$YELLOW"
+  else pct_5h_color="$GREEN"; fi
+
+  rate_bars="🕐 ${rate_5h_bar} ${pct_5h_color}${rate_5h_int}%${RESET}"
+fi
+if [ -n "$rate_7d" ]; then
+  rate_7d_int=$(printf '%.0f' "$rate_7d")
+  rate_7d_bar=$(draw_bar "$rate_7d_int" 150 80 150 220 80 220)
+
+  if [ "$rate_7d_int" -ge 90 ]; then pct_7d_color="$RED"
+  elif [ "$rate_7d_int" -ge 70 ]; then pct_7d_color="$YELLOW"
+  else pct_7d_color="$GREEN"; fi
+
+  rate_bars="${rate_bars:+$rate_bars }📅 ${rate_7d_bar} ${pct_7d_color}${rate_7d_int}%${RESET}"
+fi
+
+# ── Cost ──
+cost_part="${YELLOW}$(printf '$%.2f' "$cost")${RESET}"
+
+# ── Single line: model | context | cost | rate limits | repo/branch ──
+out="${MAGENTA}🤖 ${model}${RESET}"
+out="${out} ${DIM}|${RESET} ${ctx_part}"
+out="${out} ${DIM}|${RESET} ${cost_part}"
+[ -n "$rate_bars" ] && out="${out} ${DIM}|${RESET} ${rate_bars}"
+
+# Add repo/branch at the end if present
+if [ -n "$repo" ] || [ -n "$branch" ]; then
+  out="${out} ${DIM}|${RESET}"
+  [ -n "$repo" ] && out="${out} ${BOLD}${YELLOW}${repo}${RESET}"
+  [ -n "$branch" ] && out="${out}${repo:+ }${BOLD}${CYAN}🌿 (${branch})${RESET}"
+fi
+
+printf '%b' "$out"
+```
+
+### Cursor CLI: merge into `~/.cursor/cli-config.json`
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.cursor/statusline.sh",
+    "padding": 2
+  }
+}
+```
+
+### Cursor CLI: `~/.cursor/statusline.sh` on GNU / Linux
+
+```bash
+#!/usr/bin/env bash
+# Cursor CLI status line — port of ~/.claude/statusline.sh
+# 5h/7d rate bars → first-party (auto/composer) / third-party (API) plan usage
+
+input=$(cat)
+
+# ── Colors ──
+CYAN='\033[36m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+MAGENTA='\033[35m'
+DIM='\033[2m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+# ── Truecolor helper ──
+rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
+
+# ── Parse JSON fields from statusline payload ──
+model=$(echo "$input" | jq -r '.model.display_name // "Unknown"')
+used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // ""')
+# Prefer payload fields if Cursor ever ships them; else filled from usage cache below
+fp_pct=$(echo "$input" | jq -r '.usage.auto_percent_used // .usage.autoPercentUsed // .planUsage.autoPercentUsed // empty')
+tp_pct=$(echo "$input" | jq -r '.usage.api_percent_used // .usage.apiPercentUsed // .planUsage.apiPercentUsed // empty')
+
+# ── Cached GetCurrentPeriodUsage (first-/third-party plan bars) ──
+# No session cost in Cursor's statusline payload or usage API — dollar slot omitted.
+CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/cursor-statusline-usage.json"
+CACHE_TTL_SEC=60
+AUTH_FILE="${CURSOR_AUTH_FILE:-$HOME/.config/cursor/auth.json}"
+
+refresh_usage_cache() {
+  local token
+  token=$(jq -r '.accessToken // empty' "$AUTH_FILE" 2>/dev/null) || return 1
+  [ -n "$token" ] || return 1
+  mkdir -p "$(dirname "$CACHE_FILE")" 2>/dev/null || true
+  local tmp
+  tmp=$(mktemp "${CACHE_FILE}.XXXXXX" 2>/dev/null) || return 1
+  if curl -sS --max-time 1.5 \
+      -X POST 'https://api2.cursor.sh/aiserver.v1.DashboardService/GetCurrentPeriodUsage' \
+      -H "Authorization: Bearer ${token}" \
+      -H 'Content-Type: application/json' \
+      -H 'Connect-Protocol-Version: 1' \
+      -d '{}' \
+      -o "$tmp" 2>/dev/null \
+    && jq -e '.planUsage' "$tmp" >/dev/null 2>&1; then
+    mv -f "$tmp" "$CACHE_FILE"
+    return 0
+  fi
+  rm -f "$tmp"
+  return 1
+}
+
+cache_fresh() {
+  [ -f "$CACHE_FILE" ] || return 1
+  local age mtime now
+  mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null) || return 1
+  now=$(date +%s)
+  age=$((now - mtime))
+  [ "$age" -lt "$CACHE_TTL_SEC" ]
+}
+
+if ! cache_fresh; then
+  refresh_usage_cache || true
+fi
+
+if [ -f "$CACHE_FILE" ]; then
+  [ -z "$fp_pct" ] && fp_pct=$(jq -r '.planUsage.autoPercentUsed // empty' "$CACHE_FILE" 2>/dev/null)
+  [ -z "$tp_pct" ] && tp_pct=$(jq -r '.planUsage.apiPercentUsed // empty' "$CACHE_FILE" 2>/dev/null)
+fi
+
+# ── Git info ──
+branch=""
+repo=""
+if [ -n "$cwd" ]; then
+  branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
+  repo=$(basename "$(git -C "$cwd" --no-optional-locks rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null)
+fi
+
+# ── Bar drawing helper ──
+draw_bar() {
+  local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
+  local BAR_WIDTH=15
+  local pct_int
+  pct_int=$(printf '%.0f' "$pct")
+  local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
+  [ "$filled" -gt "$BAR_WIDTH" ] && filled=$BAR_WIDTH
+  [ "$filled" -lt 0 ] && filled=0
+  local bar=""
+
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    local pos=$(( i * 100 / (BAR_WIDTH - 1) ))
+    local r=$(( grad_low_r + (grad_high_r - grad_low_r) * pos / 100 ))
+    local g=$(( grad_low_g + (grad_high_g - grad_low_g) * pos / 100 ))
+    local b=$(( grad_low_b + (grad_high_b - grad_low_b) * pos / 100 ))
+
+    if [ "$i" -lt "$filled" ]; then
+      bar="${bar}$(rgb $r $g $b)█"
+    else
+      bar="${bar}\033[38;2;60;60;60m░"
+    fi
+  done
+  printf '%b' "${bar}${RESET}"
+}
+
+# ── Context bar: green→yellow→red ──
+if [ -n "$used" ]; then
+  used_int=$(printf '%.0f' "$used")
+
+  ctx_bar=$(draw_bar "$used_int" 0 200 80 220 20 0)
+
+  if [ "$used_int" -ge 90 ]; then status_emoji="🚨"
+  elif [ "$used_int" -ge 70 ]; then status_emoji="🔥"
+  elif [ "$used_int" -ge 20 ]; then status_emoji="⚡"
+  else status_emoji="🟢"; fi
+
+  if [ "$used_int" -ge 90 ]; then pct_color="$RED"
+  elif [ "$used_int" -ge 70 ]; then pct_color="$YELLOW"
+  else pct_color="$GREEN"; fi
+
+  ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
+else
+  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+fi
+
+# ── First-party (auto/composer) + third-party (API) bars ──
+usage_bars=""
+if [ -n "$fp_pct" ]; then
+  fp_int=$(printf '%.0f' "$fp_pct")
+  fp_bar=$(draw_bar "$fp_int" 150 50 50 220 0 0)
+
+  if [ "$fp_int" -ge 90 ]; then pct_fp_color="$RED"
+  elif [ "$fp_int" -ge 70 ]; then pct_fp_color="$YELLOW"
+  else pct_fp_color="$GREEN"; fi
+
+  usage_bars="🏠 ${fp_bar} ${pct_fp_color}${fp_int}%${RESET}"
+fi
+if [ -n "$tp_pct" ]; then
+  tp_int=$(printf '%.0f' "$tp_pct")
+  tp_bar=$(draw_bar "$tp_int" 150 80 150 220 80 220)
+
+  if [ "$tp_int" -ge 90 ]; then pct_tp_color="$RED"
+  elif [ "$tp_int" -ge 70 ]; then pct_tp_color="$YELLOW"
+  else pct_tp_color="$GREEN"; fi
+
+  usage_bars="${usage_bars:+$usage_bars }🌐 ${tp_bar} ${pct_tp_color}${tp_int}%${RESET}"
+fi
+
+# ── Single line: model | context | 1P/3P usage | repo/branch ──
+out="${MAGENTA}🤖 ${model}${RESET}"
+out="${out} ${DIM}|${RESET} ${ctx_part}"
+[ -n "$usage_bars" ] && out="${out} ${DIM}|${RESET} ${usage_bars}"
+
+if [ -n "$repo" ] || [ -n "$branch" ]; then
+  out="${out} ${DIM}|${RESET}"
+  [ -n "$repo" ] && out="${out} ${BOLD}${YELLOW}${repo}${RESET}"
+  [ -n "$branch" ] && out="${out}${repo:+ }${BOLD}${CYAN}🌿 (${branch})${RESET}"
+fi
+
+printf '%b' "$out"
+```
+
+### Cursor CLI: `~/.cursor/statusline.sh` on macOS / BSD
+
+```bash
+#!/usr/bin/env bash
+# Cursor CLI status line — port of ~/.claude/statusline.sh
+# 5h/7d rate bars → first-party (auto/composer) / third-party (API) plan usage
+
+input=$(cat)
+
+# ── Colors ──
+CYAN='\033[36m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+MAGENTA='\033[35m'
+DIM='\033[2m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+# ── Truecolor helper ──
+rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
+
+# ── Parse JSON fields from statusline payload ──
+model=$(echo "$input" | jq -r '.model.display_name // "Unknown"')
+used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // ""')
+# Prefer payload fields if Cursor ever ships them; else filled from usage cache below
+fp_pct=$(echo "$input" | jq -r '.usage.auto_percent_used // .usage.autoPercentUsed // .planUsage.autoPercentUsed // empty')
+tp_pct=$(echo "$input" | jq -r '.usage.api_percent_used // .usage.apiPercentUsed // .planUsage.apiPercentUsed // empty')
+
+# ── Cached GetCurrentPeriodUsage (first-/third-party plan bars) ──
+# No session cost in Cursor's statusline payload or usage API — dollar slot omitted.
+CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/cursor-statusline-usage.json"
+CACHE_TTL_SEC=60
+AUTH_FILE="${CURSOR_AUTH_FILE:-$HOME/.config/cursor/auth.json}"
+AUTH_FILE_DARWIN="${HOME}/.cursor/auth.json"
+
+get_access_token() {
+  local token f
+  for f in "$AUTH_FILE" "$AUTH_FILE_DARWIN"; do
+    [ -f "$f" ] || continue
+    token=$(jq -r '.accessToken // empty' "$f" 2>/dev/null) || continue
+    [ -n "$token" ] && { printf '%s' "$token"; return 0; }
+  done
+  if [ "$(uname -s)" = "Darwin" ] && command -v security >/dev/null 2>&1; then
+    token=$(security find-generic-password -s cursor-access-token -a cursor-user -w 2>/dev/null) || true
+    [ -n "$token" ] && { printf '%s' "$token"; return 0; }
+  fi
+  return 1
+}
+
+refresh_usage_cache() {
+  local token
+  token=$(get_access_token) || return 1
+  mkdir -p "$(dirname "$CACHE_FILE")" 2>/dev/null || true
+  local tmp
+  tmp=$(mktemp "${CACHE_FILE}.XXXXXX" 2>/dev/null) || return 1
+  if curl -sS --max-time 1.5 \
+      -X POST 'https://api2.cursor.sh/aiserver.v1.DashboardService/GetCurrentPeriodUsage' \
+      -H "Authorization: Bearer ${token}" \
+      -H 'Content-Type: application/json' \
+      -H 'Connect-Protocol-Version: 1' \
+      -d '{}' \
+      -o "$tmp" 2>/dev/null \
+    && jq -e '.planUsage' "$tmp" >/dev/null 2>&1; then
+    mv -f "$tmp" "$CACHE_FILE"
+    return 0
+  fi
+  rm -f "$tmp"
+  return 1
+}
+
+cache_fresh() {
+  [ -f "$CACHE_FILE" ] || return 1
+  local age mtime now
+  mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null || stat -f %m "$CACHE_FILE" 2>/dev/null) || return 1
+  now=$(date +%s)
+  age=$((now - mtime))
+  [ "$age" -lt "$CACHE_TTL_SEC" ]
+}
+
+if ! cache_fresh; then
+  refresh_usage_cache || true
+fi
+
+if [ -f "$CACHE_FILE" ]; then
+  [ -z "$fp_pct" ] && fp_pct=$(jq -r '.planUsage.autoPercentUsed // empty' "$CACHE_FILE" 2>/dev/null)
+  [ -z "$tp_pct" ] && tp_pct=$(jq -r '.planUsage.apiPercentUsed // empty' "$CACHE_FILE" 2>/dev/null)
+fi
+
+# ── Git info ──
+branch=""
+repo=""
+if [ -n "$cwd" ]; then
+  branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
+  repo=$(basename "$(git -C "$cwd" --no-optional-locks rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null)
+fi
+
+# ── Bar drawing helper ──
+draw_bar() {
+  local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
+  local BAR_WIDTH=15
+  local pct_int
+  pct_int=$(printf '%.0f' "$pct")
+  local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
+  [ "$filled" -gt "$BAR_WIDTH" ] && filled=$BAR_WIDTH
+  [ "$filled" -lt 0 ] && filled=0
+  local bar=""
+
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    local pos=$(( i * 100 / (BAR_WIDTH - 1) ))
+    local r=$(( grad_low_r + (grad_high_r - grad_low_r) * pos / 100 ))
+    local g=$(( grad_low_g + (grad_high_g - grad_low_g) * pos / 100 ))
+    local b=$(( grad_low_b + (grad_high_b - grad_low_b) * pos / 100 ))
+
+    if [ "$i" -lt "$filled" ]; then
+      bar="${bar}$(rgb $r $g $b)█"
+    else
+      bar="${bar}\033[38;2;60;60;60m░"
+    fi
+  done
+  printf '%b' "${bar}${RESET}"
+}
+
+# ── Context bar: green→yellow→red ──
+if [ -n "$used" ]; then
+  used_int=$(printf '%.0f' "$used")
+
+  ctx_bar=$(draw_bar "$used_int" 0 200 80 220 20 0)
+
+  if [ "$used_int" -ge 90 ]; then status_emoji="🚨"
+  elif [ "$used_int" -ge 70 ]; then status_emoji="🔥"
+  elif [ "$used_int" -ge 20 ]; then status_emoji="⚡"
+  else status_emoji="🟢"; fi
+
+  if [ "$used_int" -ge 90 ]; then pct_color="$RED"
+  elif [ "$used_int" -ge 70 ]; then pct_color="$YELLOW"
+  else pct_color="$GREEN"; fi
+
+  ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
+else
+  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
+fi
+
+# ── First-party (auto/composer) + third-party (API) bars ──
+usage_bars=""
+if [ -n "$fp_pct" ]; then
+  fp_int=$(printf '%.0f' "$fp_pct")
+  fp_bar=$(draw_bar "$fp_int" 150 50 50 220 0 0)
+
+  if [ "$fp_int" -ge 90 ]; then pct_fp_color="$RED"
+  elif [ "$fp_int" -ge 70 ]; then pct_fp_color="$YELLOW"
+  else pct_fp_color="$GREEN"; fi
+
+  usage_bars="🏠 ${fp_bar} ${pct_fp_color}${fp_int}%${RESET}"
+fi
+if [ -n "$tp_pct" ]; then
+  tp_int=$(printf '%.0f' "$tp_pct")
+  tp_bar=$(draw_bar "$tp_int" 150 80 150 220 80 220)
+
+  if [ "$tp_int" -ge 90 ]; then pct_tp_color="$RED"
+  elif [ "$tp_int" -ge 70 ]; then pct_tp_color="$YELLOW"
+  else pct_tp_color="$GREEN"; fi
+
+  usage_bars="${usage_bars:+$usage_bars }🌐 ${tp_bar} ${pct_tp_color}${tp_int}%${RESET}"
+fi
+
+# ── Single line: model | context | 1P/3P usage | repo/branch ──
+out="${MAGENTA}🤖 ${model}${RESET}"
+out="${out} ${DIM}|${RESET} ${ctx_part}"
+[ -n "$usage_bars" ] && out="${out} ${DIM}|${RESET} ${usage_bars}"
+
+if [ -n "$repo" ] || [ -n "$branch" ]; then
+  out="${out} ${DIM}|${RESET}"
+  [ -n "$repo" ] && out="${out} ${BOLD}${YELLOW}${repo}${RESET}"
+  [ -n "$branch" ] && out="${out}${repo:+ }${BOLD}${CYAN}🌿 (${branch})${RESET}"
+fi
+
+printf '%b' "$out"
+```
+
 ## Stockroom: Find the Conversation You Half-Remember
 
 Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about "blogging about stockroom," asked from [Claude Code](https://code.claude.com/), about a [Cursor](https://cursor.com/) session I only half-remembered.

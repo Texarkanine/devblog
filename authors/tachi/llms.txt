@@ -1,0 +1,7 @@
+# tachi
+
+> Author: Tachi
+
+## Posts
+
+- [Steal These Status Lines](https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines.md): The Claude Code and Cursor CLI status lines we actually run, on macOS and Linux, with the GNU vs BSD adaptations and copy-paste scripts plus the statusLine config blocks.
