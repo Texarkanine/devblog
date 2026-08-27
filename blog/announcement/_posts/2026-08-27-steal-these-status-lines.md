@@ -197,7 +197,7 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░░░░░░${RESET} --%"
+  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
 fi
 
 # ── Rate limit bars: red and purple gradients ──
@@ -381,7 +381,7 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░░░░░░${RESET} --%"
+  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
 fi
 
 # ── First-party (auto/composer) + third-party (API) bars ──
@@ -562,7 +562,7 @@ if [ -n "$used" ]; then
 
   ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
 else
-  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░░░░░░${RESET} --%"
+  ctx_part="🟢 \033[38;2;60;60;60m░░░░░░░░░░░░░░░${RESET} --%"
 fi
 
 # ── First-party (auto/composer) + third-party (API) bars ──
