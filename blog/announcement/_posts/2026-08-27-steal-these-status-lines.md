@@ -12,15 +12,33 @@ tags:
   - developer-tools
 ---
 
-I want the model, the context window, and the burn rate on the same row as the prompt. [Claude Code](https://code.claude.com/) and the [Cursor CLI](https://cursor.com/docs/cli/overview) both do that the same way: they run a command, pipe session JSON to stdin, and render stdout as a [status line](https://code.claude.com/docs/en/statusline). Plenty of people have one. These are the ones I actually look at, on a Mac and on Linux ([WSL](https://learn.microsoft.com/en-us/windows/wsl/)).
+I want the model, the context window, and the burn rate all on the same row, right below the prompt. [Claude Code](https://code.claude.com/) and the [Cursor CLI](https://cursor.com/docs/cli/overview) both do that the same way: they run a command, pipe session JSON to stdin, and render stdout as a [status line](https://code.claude.com/docs/en/statusline). Plenty of people have one. These are the ones I actually look at, on a Mac and on Linux ([WSL](https://learn.microsoft.com/en-us/windows/wsl/)).
 
-*TODO: four narrow screenshots (Claude Code and Cursor CLI, each on macOS and on Linux). Drop the PNGs in `assets/img/blog/announcement/` as `claude-statusline-macos.png`, `claude-statusline-linux.png`, `cursor-statusline-macos.png`, `cursor-statusline-linux.png`, then replace this line.*
+{%polaroid
+	cursor-statusline-mac.png
+	title="Cursor Agent, in Ghostty on macOS"
+%}
+
+{%polaroid
+	cursor-statusline-linux.png
+	title="Cursor Agent, in MobaXterm on WSL"
+%}
+
+{%polaroid
+	claude-statusline-mac.png
+	title="Claude Code, in Ghostty on macOS"
+%}
+
+{%polaroid
+	claude-statusline-linux.png
+	title="Claude Code, in MobaXterm on WSL"
+%}
 
 The shared row is the same in both harnesses: the model name, a fifteen-cell context bar that runs green to red, an emoji that flips at 20 / 70 / 90 percent (🟢 ⚡ 🔥 🚨), and the repo plus branch when you are in a git tree.
 
 Claude then adds what its payload already has: session cost in dollars, a five-hour rate bar, a seven-day rate bar.
 
-Cursor does not ship session dollars in the status-line payload or the usage API, so that slot is empty on purpose. In its place I pull first-party (auto / composer) and third-party (API) plan usage from Cursor's `GetCurrentPeriodUsage` endpoint and cache the result for sixty seconds.
+Cursor does not ship session dollars in the status-line payload or the usage API, so that slot is empty on purpose. In its place I pull first-party ([Grok](https://cursor.com/docs/models-and-pricing#cursor-models) and Composer) and third-party (API) plan usage from Cursor's `GetCurrentPeriodUsage` endpoint and cache the result for sixty seconds. [Auto](https://cursor.com/docs/models-and-pricing#auto-modes) is a router with Cost, Balance, and Intelligence modes that bill whichever model they pick, so a stretch of Auto can fill either bar.
 
 | Slot | Claude Code | Cursor CLI |
 |---|---|---|
@@ -31,7 +49,7 @@ Cursor does not ship session dollars in the status-line payload or the usage API
 | First-party / third-party plan | no | yes |
 | Repo / branch | yes | yes |
 
-You need `bash`, [jq](https://jqlang.github.io/jq/), and `git`. Cursor's plan bars also need `curl` and a signed-in CLI. The bars use 24-bit RGB, so a truecolor terminal is the difference between a gradient and a muddle.
+You need `bash`, [jq](https://jqlang.github.io/jq/), and `git`. Cursor's plan bars also need `curl` and a signed-in CLI. The bars use 24-bit RGB, so a [truecolor terminal](https://github.com/termstandard/colors) is the difference between a gradient and a muddle.
 
 ## The Key Is `statusLine`
 
