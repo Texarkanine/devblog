@@ -378,3 +378,5 @@ Allow queries from `192.168.101.0/24`. Keep WAN 53 closed.
 ## Restart the Box, Not the House
 
 Clients connect. The tunnel is not sharing the Asus CPU with Wi-Fi. `network restart` on `gate-lodge` does not bounce the LAN. Keep the edge, put WireGuard on a host, and do not masquerade the people you just let in.
+
+Sitting down on a cafe that already uses `192.168.1.0/24` is [Oh My DNS]({% post_url blog/record/2026-09-05-oh-my-dns %}).
