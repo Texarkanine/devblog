@@ -1,0 +1,620 @@
+# nftables
+
+## The Overlay Was Fine
+
+We [put WireGuard on a host](/2026/08/22/the-gate-lodge.html) so we could restart the VPN without restarting the house. The exam in that post was a phone on cellular, Pi-hole in the browser, a home address that answers. Cellular never numbers itself `192.168.1.0/24`. A lot of cafes do.
+
+The laptop joined one and received `192.168.1.253`, which is also the VPN box. The official [WireGuard](https://www.wireguard.com/) app said Connected. `ping 192.168.1.254` hit the cafe.
+
+## The Cafe Already Had the /24
+
+The first post's public surface is one UDP port, forwarded to `192.168.1.253`. Inside the tunnel, clients live on `192.168.101.0/24`. The edge router still owns Wi-Fi, DHCP, and NAT for `192.168.1.0/24`, plus a LAN static route that sends the overlay back to the VPN box. [Masquerade stays off](/2026/08/22/the-gate-lodge.html#masquerade-eats-the-return-path) so those packets still look like overlay packets when they hit the LAN.
+
+Phones on cellular pass that exam effortlessly because mobile carriers never assign local `192.168.1.0/24` subnets. Without a competing local network, the client routing table has only one story about `.254`: send it across the tunnel to the house.
+
+A cafe handing out that same `/24` gives the kernel two conflicting stories. Under [longest prefix match](https://en.wikipedia.org/wiki/Longest_prefix_match), the local on-link interface wins every time, ignoring WireGuard entirely. Renumbering home would only change the odds; whatever private block we picked, sooner or later we would sit down in a cafe that picked the exact same numbers.
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/499e839b.svg"><img src="/assets/svg/499e839b.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/499e839b-dark.svg"><img src="/assets/svg/499e839b-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+I watched this happen on a colliding cafe network. While the Mac tunnel interface (`utun`) held an overlay `/32` and handshake packets flew across the Wi-Fi link, the inner packets destined for `192.168.1.254` never entered the tunnel at all. As far as the routing table was concerned, they were already home. Home was the espresso machine.
+
+## 10.168.1 Keeps the Last Octet
+
+The house needed an address range that a `192.168.1.0/24` cafe cannot claim. We picked `10.168.1.0/24` and kept the last octet: a home server at `192.168.1.122` becomes reachable at `10.168.1.122`. Pi-hole at `.254` is reachable at `10.168.1.254`. The VPN box at `.253` is `10.168.1.253`.
+
+The VPN box translates the whole `/24` on the way in. When packets leave the tunnel, they still carry their `192.168.101.x` client addresses, because masquerade is off. The edge router's return route still matches. [Conntrack](https://en.wikipedia.org/wiki/Netfilter#Connection_tracking) (connection tracking) reverses the destination rewrite on replies, so the laptop sees answers coming back from `10.168.1.x`.
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/f407555d.svg"><img src="/assets/svg/f407555d.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/f407555d-dark.svg"><img src="/assets/svg/f407555d-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+"Nobody" types raw IP addresses into a browser or terminal; you type hostnames like `home.internal`. That means the DNS resolver (the server that turns names into IP addresses, running on our Pi-hole) has to participate in the trick. If you ask for `home.internal` while sitting in the living room, it should answer `192.168.1.122`. But if you ask over the WireGuard tunnel from a cafe, it must return the alias address `10.168.1.122`. If it answered with `192.168.1.122`, the laptop would look at the cafe's Wi-Fi, decide `.122` was local, and never send the packet into the tunnel at all.
+
+The design was clean on paper: a 1:1 alias subnet across the whole home, and split-horizon DNS answering with alias addresses over the VPN. Then we sat down at a cafe to test it.
+
+## The Chain That Nobody Jumped
+
+Sitting on the cafe Wi-Fi with the WireGuard tunnel active, we tried pinging a test home server at the alias IP `10.168.1.122`. WireGuard said connected, the route was in place, but every ping timed out.
+
+On the VPN box, `nft list` showed our new translation rule sitting inside `chain dstnat_vpn`. But that chain's packet counter stayed at zero: the rule was in the kernel, and not a single packet had ever touched it.
+
+OpenWrt [fw4](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) allows custom firewall extensions via drop-in configuration files: any `.nft` file placed in `/etc/nftables.d/` is automatically included at the table root. We had created a drop-in file defining our subnet translation inside `chain dstnat_vpn`. Earlier, we had tested individual hosts using OpenWrt's standard UCI `redirect` sections. When the whole-subnet rule replaced those per-host entries, we deleted the UCI redirects.
+
+Here is the catch: fw4 only generates a jump from base `dstnat` into `dstnat_<zone>` when at least one standard UCI `redirect` exists for that zone. Deleting the individual redirects severed the path into our chain entirely. It sat in kernel memory with no caller. Defining base `chain dstnat` directly inside the drop-in file failed too, because fw4 includes drop-in snippets before it defines its own base chains.
+
+The hook that actually works is a UCI `chain-append` pointing at the drop-in file, attaching it to `dstnat` itself:
+
+```ini
+config include 'alias_netmap'
+	option type 'nftables'
+	option path '/etc/nftables.d/netmap.include'
+	option position 'chain-append'
+	option chain 'dstnat'
+```
+
+With `chain-append`, fw4 attaches our rules directly to `dstnat` after creating the base chains. A quick `fw4 reload`, another ping from the cafe, and the packet counter finally moved. Traffic was hitting the chain.
+
+Except the ping was still failing.
+
+## The Pool That Looked Like a Map
+
+The first line we appended looked like whole-subnet translation:
+
+```text
+iifname "wg0" ip daddr 10.168.1.0/24 dnat ip to 192.168.1.0/24
+```
+
+To human eyes, writing `10.168.1.0/24 dnat to 192.168.1.0/24` reads as a 1:1 prefix mapping that preserves host numbers, and running `nft list ruleset` even echoes back that exact line.
+
+It is a trap. [nftables treats a subnet on the right-hand side of `dnat to` as a pool](https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_%28NAT%29#NAT_pooling). If you inspect what the compiler actually generated with `nft --debug=netlink`, the kernel bytecode gives the game away:
+
+```text
+  [ nat dnat ip addr_min 192.168.1.0 addr_max 192.168.1.255 ]
+```
+
+The kernel was not preserving host numbers. It treated `192.168.1.0/24` as a pool of 256 random addresses, rewriting incoming packets to whatever IP it felt like across the home network.
+
+A true 1:1 prefix translation requires the prefix map syntax, which [current nftables spells as a destination map](https://serverfault.com/questions/1156428/configuring-destination-nat-nftables-entire-subnet):
+
+```text
+iifname "wg0" ip daddr 10.168.1.0/24 counter dnat ip prefix to ip daddr map { 10.168.1.0/24 : 192.168.1.0/24 }
+```
+
+That compiled cleanly on OpenWrt 24.10.8 (kernel `6.6.144`). `nft --debug=netlink` confirmed a real prefix translation rather than `addr_min` / `addr_max`.
+
+Now `ping 10.168.1.122` answered instantly. Destination NAT was preserving host octets, conntrack was reversing the translation on replies, and packets traveled the tunnel back and forth without a hitch.
+
+Raw IP addresses were working. But as soon as we opened a browser, the cafe took over again.
+
+## House Numbers on a Foreign Street
+
+The IP map was working, but typing `http://box.internal` in a browser still landed on the cafe's router login page.
+
+The WireGuard profile specifies a DNS server using the [`DNS =` line](https://man.archlinux.org/man/wg-quick.8.en#CONFIGURATION). It takes an IP address, and standard operating system resolvers always send those DNS queries to UDP port 53.
+
+On the home LAN, [Pi-hole's FTL](https://docs.pi-hole.net/ftldns/) listens on `192.168.1.254:53`. When asked for `box.internal`, it answers with the real LAN IP: `192.168.1.122`. When you are at home, that is correct. But when you are at a cafe whose Wi-Fi also uses `192.168.1.0/24`, that answer is poison: your laptop sees `192.168.1.122`, decides it is local to the cafe, and never sends the connection into the tunnel.
+
+We needed DNS queries arriving over the VPN to return `10.168.1.122` instead.
+
+Modern browsers can use [DNS-over-HTTPS](https://en.wikipedia.org/wiki/DNS_over_HTTPS) (DoH), sending queries inside encrypted HTTPS requests rather than plain port 53. We already had [dnsdist](https://dnsdist.org/) running on the Pi-hole host to handle DoH, configured to return DNS A records containing the `10.168.1.x` alias addresses for VPN clients (`192.168.101.0/24`). Over DoH, `https://10.168.1.254/dns-query` answered with `10.168.1.122`.
+
+The problem is that the WireGuard client profile has no field for DoH. It only configures the operating system's standard resolver (`DNS = 10.168.1.254`), which fires standard queries over port 53. And port 53 on the Pi-hole belonged to FTL, which was still answering `192.168.1.122`.
+
+The obvious architectural temptation is to put dnsdist on port 53 in front of Pi-hole, letting it handle every DNS query for the entire house. We rejected that. dnsdist was introduced to this network as a sidecar specifically for DoH - terminating TLS and forwarding client IP tags so Pi-hole logs could still attribute queries to individual devices. Pi-hole FTL handles the household's primary DNS natively. Putting a proxy layer in front of port 53 would insert an extra moving part into the path of every phone, TV, and laptop in the home. A misconfiguration or crash in dnsdist would take down the entire household's internet. Roaming VPN tweaks should not jeopardize the living room.
+
+Instead, FTL kept port 53 for the house. dnsdist was given an additional plain listen on `192.168.1.254:5300`. Then the VPN box rewrites any port 53 queries coming across the tunnel to that side listen, placed *before* the general `/24` prefix map:
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/f6ed5f55.svg"><img src="/assets/svg/f6ed5f55.svg" alt="Mermaid Diagram"></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/f6ed5f55-dark.svg"><img src="/assets/svg/f6ed5f55-dark.svg" alt="Mermaid Diagram"></a>
+</figure>
+
+The rewrite rules on the VPN box:
+
+```text
+iifname "wg0" ip daddr 10.168.1.254 udp dport 53 dnat ip to 192.168.1.254:5300
+iifname "wg0" ip daddr 10.168.1.254 tcp dport 53 dnat ip to 192.168.1.254:5300
+iifname "wg0" ip daddr 10.168.1.0/24 counter dnat ip prefix to ip daddr map { 10.168.1.0/24 : 192.168.1.0/24 }
+```
+
+The dnsdist spoof rule is source-gated to tunnel addresses (`192.168.101.0/24`). A query from the home LAN to port 5300 still receives `192.168.1.122`; only VPN clients get the `10.168.1.x` alias.
+
+Tested on a hotspot sharing `192.168.1.0/24`, both `ping 10.168.1.122` and standard `dig @10.168.1.254 box.internal` returned the alias. The house answered as itself from a street that had already claimed its numbers.
+
+We had completely solved `192.168.1.0/24` collisions. Then we walked into a cafe that used a completely different private subnet.
+
+## Two /1s and a Cafe /8
+
+A second cafe numbered our laptop out of `10.0.0.0/8`. The WireGuard handshake connected. Public traffic like `1.1.1.1` through the tunnel worked fine. But `10.168.1.254` timed out.
+
+A quick trace showed that `ping` packets were leaving the laptop's Wi-Fi interface instead of entering the tunnel. The cafe router's local filter saw packets addressed to `10.168.1.0/24` on its local Wi-Fi and dropped them as foreign private traffic. The packets never entered the tunnel interface (`utun`).
+
+Why? On macOS, `AllowedIPs = 0.0.0.0/0` does not install a single catch-all default route. To avoid tearing down the physical gateway route needed for the encrypted UDP transport, WireGuard installs two `/1` routes instead: `0.0.0.0/1` and `128.0.0.0/1`.
+
+Under longest prefix match, the cafe's on-link `10.0.0.0/8` route is more specific than WireGuard's `0.0.0.0/1` route. Any packet sent to a `10.x.x.x` address, including our `10.168.1.0/24` alias, was claimed by the cafe's local Wi-Fi interface. The tunnel had won the default route, but lost the alias.
+
+The fix was to explicitly list the alias subnet in the client's `AllowedIPs`:
+
+```ini
+AllowedIPs = 0.0.0.0/0, ::/0, 10.168.1.0/24
+```
+
+Because `/24` is more specific than `/8`, the kernel routes `10.168.1.x` into `utun`. Checking `route -n get 10.168.1.254` confirmed the tunnel interface owned it. On the same Wi-Fi, alias ping, DoH, and port 53 DNS immediately passed.
+
+`::/0` is still leak prevention for the client's other stacks, same as the first post. We have not put IPv6 on the home LAN.
+
+We keep the full tunnel (`0.0.0.0/0, ::/0`) with the alias subnet appended. A full tunnel guarantees fail-closed security: if the VPN handshake drops, network traffic won't silently leak onto the cafe's unencrypted Wi-Fi. (The official WireGuard app on macOS will cheerfully display a green "Connected" status even when no handshake reply has arrived; running `tcpdump` on the Wi-Fi interface is the only reliable way to confirm packets are returning.)
+
+With these fixes in place, the laptop could connect from `192.168.1.0/24` cafes and from `10.0.0.0/8` cafes. That held until we walked into a third cafe, and nothing connected at all.
+
+## The Third Cafe Will Not Dial the House
+
+A third cafe presented a failure mode that had nothing to do with IP collisions: it refused to talk to the house at all.
+
+TCP port 443 to our home WAN IP timed out, even though ordinary HTTPS browsing to public websites worked without issue. WireGuard UDP handshakes were dropped both on our standard listen port and on UDP 443. The filter was destination-based rather than port-based: the cafe dropped all traffic to our home's public IP, regardless of protocol or port.
+
+A second listen port on the same public IP cannot route around a filter aimed at that IP. Bypassing that kind of restriction requires an intermediary whose IP is not our home WAN (such as a VPS relay or cloud hub). We have not built that hop. Until we do, those cafes are cellular hotspot weather. If the handshake fails, the cafe simply does not get our traffic.
+
+## The Recipe: Adding the Alias Subnet to the Lodge
+
+If you already followed the setup in [The Gate Lodge](/2026/08/22/the-gate-lodge.html#release-image-to-a-tunnel), you do not need to rebuild your VPN box from scratch. The snippets below are the exact configuration delta needed to add the `10.168.1.0/24` alias subnet and split-horizon DNS.
+
+Adjust the IP addresses if `10.168.1.0/24` is already in use on your network. The snippets assume WireGuard listen port `51820` as configured in the first post.
+
+### On the VPN box
+
+`/etc/nftables.d/netmap.include`. Use a name that is not `*.nft`, or fw4 will also include it at the table root.
+
+```text
+iifname "wg0" ip daddr 10.168.1.254 udp dport 53 dnat ip to 192.168.1.254:5300
+iifname "wg0" ip daddr 10.168.1.254 tcp dport 53 dnat ip to 192.168.1.254:5300
+iifname "wg0" ip daddr 10.168.1.0/24 counter dnat ip prefix to ip daddr map { 10.168.1.0/24 : 192.168.1.0/24 }
+```
+
+Then the UCI include:
+
+```ini
+config include 'alias_netmap'
+	option type 'nftables'
+	option path '/etc/nftables.d/netmap.include'
+	option position 'chain-append'
+	option chain 'dstnat'
+```
+
+Then `fw4 reload`. Confirm with `nft --debug=netlink` that you see a prefix map, not `addr_min` / `addr_max`. `fw4 print` should still have no srcnat of `192.168.101.0/24`.
+
+If `inet` rejects the prefix map, the older bitwise form is `dnat ip to ip daddr & 0.0.0.255 | 192.168.1.0`.
+
+### On the Pi-hole
+
+Keep FTL on `192.168.1.254:53`. Add a dnsdist plain listen and leave `newServer` pointed at FTL:
+
+```lua
+addLocal('192.168.1.254:5300')
+```
+
+Overlay spoof, source-gated. Load your real LAN names however you like; this is the shape:<sup>[lua](#postscript-lua)</sup>
+
+```lua
+local wgNet = newNMG()
+wgNet:addMask("192.168.101.0/24")
+
+addAction(
+	AndRule({
+		NetmaskGroupRule(wgNet),
+		QNameRule("box.internal."),
+		QTypeRule(DNSQType.A)
+	}),
+	SpoofAction("10.168.1.122")
+)
+```
+
+`systemctl restart dnsdist`. dnsdist has no useful reload. `ss -tulnp` is the bind inventory; `ss -ulnp` will hide a TCP-only DoH listen and lie to you.
+
+Overlay allow and WAN 53 closed stay as in the first post.
+
+### On the client
+
+DNS and `AllowedIPs` are the delta. The rest matches the first paste.
+
+```ini
+[Interface]
+PrivateKey = CLIENT_PRIVATE_KEY
+Address = 192.168.101.2/32
+DNS = 10.168.1.254
+
+[Peer]
+PublicKey = SERVER_PUBLIC_KEY
+Endpoint = vpn.example.com:51820
+AllowedIPs = 0.0.0.0/0, ::/0, 10.168.1.0/24
+PersistentKeepalive = 25
+```
+
+From a colliding `/24`, `dig @10.168.1.254 box.internal` must return `10.168.1.122`. A house A on port 53 is a fail. DoH to the same alias should agree. `ping 192.168.1.254` may still hit the cafe; that is the point of the alias.
+
+---
+
+## Postscript: Ingesting Pi-hole Records at Startup {#postscript-lua}
+
+Hardcoding individual LAN hosts into `dnsdist.conf` creates a fragile second source of truth: whenever you add a static entry or new device in Pi-hole's web interface, you would have to remember to duplicate the rule in dnsdist and restart it.
+
+Because dnsdist configuration files are executable Lua, the daemon can read Pi-hole's records directly into memory when it boots. When Pi-hole saves a local record from the dashboard, it writes a standard hosts-style entry to `/etc/pihole/custom.list`. Parsing that file alongside `/etc/hosts` registers an alias spoof for every `192.168.1.x` address automatically:
+
+```lua
+local wgNet = newNMG()
+wgNet:addMask("192.168.101.0/24")
+
+local function load_vpn_aliases(filepath)
+	pcall(function()
+		local f = io.open(filepath, "r")
+		if not f then return end
+		for line in f:lines() do
+			line = line:match("^%s*(.-)%s*$")
+			if line ~= "" and not line:match("^#") then
+				local ip, domain = line:match("^(%d+%.%d+%.%d+%.%d+)%s+(%S+)")
+				if ip and domain then
+					local last_octet = ip:match("^192%.168%.1%.(%d+)$")
+					if last_octet then
+						local alias_ip = "10.168.1." .. last_octet
+						local qname = domain:gsub("%.$", "") .. "."
+						addAction(
+							AndRule({
+								NetmaskGroupRule(wgNet),
+								QNameRule(qname),
+								QTypeRule(DNSQType.A)
+							}),
+							SpoofAction(alias_ip)
+						)
+					end
+				end
+			end
+		end
+		f:close()
+	end)
+end
+
+load_vpn_aliases("/etc/pihole/custom.list")
+load_vpn_aliases("/etc/hosts")
+```
+
+The parser is defensive: lines from other subnets are ignored, missing files fail silently through `pcall`, and trailing dots are normalized. When a new home server joins the house, adding it to Pi-hole and restarting dnsdist is all it takes to make it reachable over the VPN.
+
+## The Incidental Router
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="linksys-ea6500-sunset.jpg">
+      <img src="linksys-ea6500-sunset.jpg" alt="With this router&#39;s death, the thread of prophecy is severed. Restore a working radio or persist in the doomed world Cisco has created." class="polaroid-image">
+    </a>
+    <div class="polaroid-title">With this router&#39;s death, the thread of prophecy is severed. Restore a working radio or persist in the doomed world Cisco has created.</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+A while back we [isolated IoT devices onto their own subnet](/2026/01/17/all-it-took-was-broken-firmware.html) using a spare router running DD-WRT. It worked: the petcare hub stopped sulking, the IoT segment couldn't see the home LAN, and PiHole logged every device by name.
+
+Then that router's wifi radio started going out. Mysteriously, intermittently, the way aging consumer hardware does once it has decided its work here is done. So we dug a [newer, better box](https://openwrt.org/toh/linksys/wrt1900acs) out of the stack of old routers every networking person apparently accumulates, and put [OpenWrt](https://openwrt.org/) on it instead of reaching for [DD-WRT](https://dd-wrt.com/) the umpteenth time.
+
+I expected a chore: re-create the same thing in a new dialect. What it turned into was a clean experiment. Building the *same network twice on two unrelated stacks* is the only honest way to find out which parts were ever "the network" and which were just "the router."
+
+Most of what I'd written down the first time was the router. Here's the split.
+
+## The Spec Driving the Design
+
+Here's the whole thing the network was supposed to *do*, lifted straight from my first build:
+
+1. IoT devices on their own subnet, isolated from the home LAN
+2. Home LAN can reach IoT (for management); IoT cannot initiate back
+3. IoT uses the existing PiHole for DNS
+4. Individual IoT clients visible in PiHole, not hidden behind one NAT'd IP
+5. Hostnames, not bare addresses, in the query log
+
+Five requirements. Every one survived the platform swap completely intact, because not one of them mentions a router. It's a description of *behavior* a network should have.
+
+Here's everything else from that first writeup - the parts that didn't survive:
+
+1. VLAN separation set up through DD-WRT's switch-configuration table
+2. A static WAN address poked in through `Setup → Basic Setup`
+3. A DHCP pool sized in the web UI (and the off-by-overflow that broke it the first time)
+4. `nvram get wan_iface` to find the WAN interface by name
+5. Firewall rules pasted into `Administration → Commands` and saved as a script
+6. The `iptables -I FORWARD` / `-t nat POSTROUTING` rule syntax itself
+
+Six things, and not one survived as written - every line is mechanism, true only of that router, that firmware, that menu.
+
+One piece *did* survive nearly intact, and it maps the boundary exactly: the dnsmasq configuration. dnsmasq is the same daemon on both platforms, so its directives ported almost verbatim, sliding from DD-WRT's `Additional Options` box into UCI `option`s. What carried over was the engine both stacks happen to run; what evaporated was the router built around it. The intent came across; the implementation did not. Five lines of network, a whole router's worth of router.
+
+## The Interface is a Lossy Frontend
+
+I came in braced for clicking. Years of DD-WRT and consumer firmware had me believing a router *is* its web UI, and I was worn down poking DHCP reservations into [LuCI](https://openwrt.org/docs/guide-user/luci/start)'s little pill-shaped form fields. At one low point I caught myself wondering whether the GUI tedium was reason enough to go back to what I knew.
+
+I had it exactly inverted. OpenWrt's web UI is a lossy frontend over flat text files. The pills are just LuCI rendering `/etc/config/firewall` and `/etc/config/dhcp` and writing them back. SSH in, edit the source of truth with `nano`, paste a stack of stanzas, reload. A static DHCP lease is a four-line `config host` block, not a sequence of clicks. The whole config is declarative [UCI](https://openwrt.org/docs/guide-user/base-system/uci) text you can put under version control and diff like anything else.
+
+DD-WRT makes the web UI plus the `nvram` blob the authoritative layer; the text is downstream of the clicking. OpenWrt makes the text authoritative and the clicking downstream. I had the relationship backwards, and the thing I dreaded turned out to be the thing I'd wanted the whole time. Forget feature checklists; the real question is where the truth lives, and OpenWrt's answer is the one that matches how I already think.
+
+The licensing fit was a freebie on top. DD-WRT's [contested, opaque release ethos](https://wi-fiplanet.com/the-dd-wrt-controversy/) - a compiled, locked-down web UI to stop rebranding, source drops that lag the binaries - was always a poor match for the way I'd rather work, where the source is open and nothing is hidden. OpenWrt being [GPL-licensed and developed in the open](https://github.com/openwrt/openwrt?tab=License-1-ov-file) (and *literally the firmware this Linksys lineage was built for*) made it the consistent call before a single command got typed. But the config-as-truth model is the part that actually changed how the rebuild *felt*.
+
+## Where Intent and Mechanism Come Apart
+
+DD-WRT and OpenWrt don't even share a firewall engine. The old box spoke [iptables](https://en.wikipedia.org/wiki/Iptables); the new one speaks [fw4](https://openwrt.org/docs/guide-user/firewall/firewall_configuration), which compiles zone-based UCI rules down to [nftables](https://wiki.nftables.org/). On DD-WRT I'd pasted iptables commands into a web text box that ran them; on OpenWrt there is no iptables at all to paste into. So a literal port was never on the table. The rules had to be re-expressed as intent and recompiled.
+
+That sounds mechanical. It hid the sharpest mistake of the whole rebuild.
+
+On this box, the home LAN lives on the *WAN side*. The IoT router's uplink plugs into the home network, so from the router's point of view the home LAN and the internet are both "out the WAN port." The idiomatic OpenWrt move for "let IoT reach the internet" is a blanket zone forwarding from `lan` to `wan`. Drop that in and you get a config that looks right, reviews clean, and **silently hands every home device straight back to the IoT segment** - because the home LAN is reached *through* `wan`. The isolation evaporates without a single error message.
+
+My original iptables rules dodged this by ordering: allow PiHole specifically, reject the home subnet, then allow the rest as internet. That ordering wasn't decoration. It *was* the isolation, and any faithful-looking translation that flattened it into one zone-forward would have quietly betrayed the one property the whole project exists to guarantee.
+
+This is the network and the router made concrete. The *intent* ("IoT reaches the internet but not my LAN") is platform-independent and obvious. The *mechanism* that preserves it depends entirely on the union of tech stack and topology that no syntax-level port would ever surface. You only catch it by re-deriving the behavior from scratch and asking, on the new stack, "what does this rule actually expose?"
+
+## The Box Outranked Me
+
+Here's the uncomfortable part.
+
+On *intent*, I was good. I caught that WAN-side topology trap before it shipped and refused to write the naive zone forwarding. I understood why the masquerade exemption mattered for per-client PiHole visibility. I knew the shape of the problem cold.
+
+On *mechanism* - the version-specific particulars - I was wrong, confidently, over and over. I insisted the firewall had an `input_wan` chain; `fw4 print` showed none existed. I filed a NAT exemption against the source zone when fw4 keys its srcnat chains by *egress*; the `srcnat_wan` chain stayed empty until the output proved it. I swore `listen_address` scoped only DNS, and the DHCP leases died, because on OpenWrt one daemon does both. And I burned real time on a `udhcpc: no lease` line scrolling up the console, certain my own changes had caused it and that it needed chasing - wrong on both counts. It was there before I touched anything, survived every rollback, and is scrolling past to this day; I never traced it, and in the end I stopped trying. Not my monkey, not my circus: a ghost that shipped with the box, mistaken for one I'd conjured.
+
+None of that was ignorance of networking. It was the gap between what I *knew about OpenWrt in general* and what was *true of this version, on this router, at this moment*. fw4 had replaced fw3; chain layouts had changed; `opkg` had become `apk`. I'd been right about these things long enough to stop checking whether I still was - which is the exact trap every seasoned sysadmin eventually walks into. You're confident because you've been correct for years, so you don't verify, because verifying hasn't been necessary for years, and then one day the ground has moved and you're the last to notice. I hit a compressed version of it: the kind of blindsiding that normally takes a human a decade of being right to earn.
+
+What corrected me, every single time, wasn't a sharper argument. It was output from the actual box - `fw4 print`, `logread`, `ip -6 addr` - the running system contradicting me to my face. That was the one authority that outranked my own confidence, and it kept winning. My fluency was the cheap part. The expensive part was the ground truth, and the only way to get it was to stop theorizing and go read what the box was actually doing.
+
+The general version, stated plainly: my grasp of durable structure is strong, and my memory of version-specific mechanism rots - firmware support, default chain names, which release swapped one package manager for another. Those change underneath training data, and I am structurally the last to find out. The fix is not a better memory. It is the humility to check against the live system before I trust myself.
+
+## What the New Stack Surfaced
+
+A few things only came to light because the rebuild dragged them out - things the first, IPv4-only writeup never had to face:
+
+**A one-character typo can take down everything.**
+
+An unquoted multi-port value (`option dest_port 443 80` instead of `'443 80'`) didn't fail locally. It handed fw4 a broken config, which emitted a *zone-less stub*, which dropped all traffic including LAN admin. A DNS-port typo cosplayed as a total firewall collapse. UCI is unforgiving about partial parse failures; quote your lists, or better, give each value its own `list` line. None of the stock UCI entries had a space-separated value, and none of them used any kind of quotation marks. To me, unfamiliar with the solution space and syntax... well, it seemed like quotes weren't necessary! *mea culpa*.
+
+**Rebind protection eats internal names - and here, nothing was getting eaten.**
+
+The fingerprint showed up fast: public names resolved, internal ones came back empty. That is [`rebind_protection`](https://openwrt.org/docs/guide-user/base-system/dhcp), OpenWrt's default `--stop-dns-rebind`, which discards any *upstream* answer holding a private ([RFC1918](https://datatracker.ietf.org/doc/html/rfc1918)) address - exactly what an internal name resolves to. I diagnosed it cold and reached for the off-switch: turn it off on this box, or whitelist the trusted zones.
+
+Then I noticed I had already routed around my own fix. IoT clients are handed PiHole as their resolver over DHCP option 6, so they query PiHole *directly* and never send a forward lookup through this router's dnsmasq - internal names resolve fine for them, because PiHole answers and the router never gets a chance to drop anything. Rebind protection only filters answers the router itself forwards; it leaves locally served names alone, like the reverse zone this box hands back from its own lease table. The one path where rebind bites - the router resolving an internal name on a client's behalf - is a path nothing here takes.
+
+So I left it on. It is still on, and it still bites: ask the router itself for an internal name and you get an empty answer, with `possible DNS-rebind attack detected` waiting in `logread`. None of it reaches a client. The diagnosis was textbook and correct, aimed at a problem the topology had already deleted - the chain-name lesson one rung deeper: knowing a mechanism cold is a different thing from knowing whether it sits on the path that actually runs.
+
+**IPv6 is a back door the old setup never had.**
+
+The original rules were IPv4 to the bone. The new box runs DHCPv6 and router advertisements by default, and the isolation rules match `192.168.1.0/24` - a v4 literal that v6 traffic sails straight around. The same network, on a more capable stack, grew an unguarded path nobody had thought to look for.
+
+## The Recipe Was Wrong the Same Way I Was
+
+First I made the hole bite. I put a laptop on the IoT wifi with IPv4 switched off; it came up with a global IPv6 address, resolved an internal name through PiHole, and loaded a home-LAN device's webserver over v6. The isolation rules never saw the request. They are written in v4 and nothing else, while v6 carries its own address space and its own routing table - separate plumbing they say nothing about.
+
+Two honest fixes existed. Mirror the v4 isolation in v6 - re-derive the ordered allow-then-deny against the home segment's v6 range - or stop handing the IoT segment any v6 at all. Nothing on that segment speaks v6 today, so the second is the smaller correct one. The day an IPv6-only device shows up that calculus flips, and the v6 rules stop being optional. Until then: off, and easy to switch back on.
+
+"Disable IPv6 on OpenWrt" has a [canonical recipe](https://3os.org/infrastructure/openwrt/disable-ipv6/), copied across blogs and gists from one 2021 original. Most of its first block sets `option ipv6 '0'` on the `lan` and `wan` interfaces. On a `proto static` or `proto dhcp` interface that option is a no-op - netifd stores it and ignores it. I know because I set both, reloaded, and the bridge kept its global address as if I'd typed nothing. The dead lines read exactly as authoritative as the live ones.
+
+What actually closed it was narrower. Setting `disabled '1'` on the `wan6` interface killed the [DHCPv6](https://en.wikipedia.org/wiki/DHCPv6) client that pulls a prefix from upstream; no client, no prefix, nothing to hand down. Setting `ra 'disabled'` and `dhcpv6 'disabled'` on the lan turned off [router advertisements](https://en.wikipedia.org/wiki/Neighbor_Discovery_Protocol) and the DHCPv6 server, so a client gets an address by neither [SLAAC](https://www.networkacademy.io/ccna/ipv6/stateless-address-autoconfiguration-slaac) nor lease. That last pair is what re-stranded the test laptop: back on the v6-only wifi, it spins forever and never acquires an address.
+
+One address outlived all of it - the bridge's own [ULA](https://en.wikipedia.org/wiki/Unique_local_address), the `fd...::1` the router assigns itself. The recipe trusts `delegate '0'` to drop the LAN prefix, and that flag does govern an upstream-*delegated* one, but the bridge's ULA comes from `ip6assign` drawing on the auto-generated `ula_prefix`, which delegation never touches. I watched the ULA survive `delegate '0'`; deleting `ip6assign` is what finally dropped it. The `ula_prefix` itself I left in place on purpose - the recipe deletes it, but deletion just makes OpenWrt mint a fresh random prefix on the next enable, desyncing any rule pinned to the old one. Off, not bulldozed.
+
+Two more places the recipe would have bitten. It ends every block with `/etc/init.d/network restart`; *I* was working over an SSH session riding the static IPv4 WAN, and a restart bounces that. `network reload` does the same reconfigure and leaves the session up. And reload governs the *next* bring-up, not the address already live - which is why the bridge wore its stale ULA until I removed it by hand with `ip -6 addr del`. The committed config was correct a beat before the running state caught up.
+
+One genuine landmine the recipe never mentions: [odhcpd](https://openwrt.org/docs/techref/odhcpd), the daemon behind RA and DHCPv6, is also OpenWrt's IPv4 DHCP server when `dhcp.odhcpd.maindhcp` is `1`. Disable it on such a box and you strand every v4 client on the segment. Here `maindhcp` is `0` and dnsmasq owns the v4 leases, so stopping odhcpd was free defense-in-depth instead of a self-inflicted outage - a fact I had to read off the config first, not assume.
+
+Then I asked the box, the way this whole rebuild had trained me to. `ip -6 addr` showed only `fe80::` link-local on every interface, not one global address. `ip -6 route` had no path toward the home segment. The laptop that had pulled up a home page minutes earlier couldn't reach it, then couldn't even rejoin the v6-only network. The same authority that kept correcting me about chain names had just graded the canonical recipe and failed half of it.
+
+## The Honest Test
+
+The first post *looked like* a recipe: here are the clicks, here's the config, reproduce it. Useful, and worth having. But a recipe can't tell you which of its steps were essential and which were accidents of the kitchen it was cooked in. Only re-cooking somewhere else does that.
+
+Rebuilding this network on OpenWrt cost a morning and showed that roughly five lines of it were ever real. The subnets, the one-way forwarding, the NAT exemption for DNS, the reverse-DNS chain, the per-client visibility - that's the network, and it ported by being *re-derived*, not copied. The VLAN tables, the nvram incantations, the chain names, the exact rule syntax - that was the router, and it didn't survive contact with a new one. The dying wifi radio did me a favor: it forced the experiment that tells the two apart.
+
+If you have a setup you're proud of and can't quite tell how much of it is principle and how much is happenstance, the cheapest way to find out is to rebuild it somewhere it can't carry its old habits along. What survives the move is what you actually built. The rest was just the router.
+
+## The Recipe
+
+The first build's recipe was a tour of DD-WRT menus. This one is a short diff against a stock OpenWrt 25.12.2 install on the WRT1900ACS, which is the entire argument of the post. Each block shows only the lines we added or changed: a line present means "set it to this," and a full-line `#` note flags a value changed from its stock default. Anything not shown is stock and untouched.
+
+A note on comments: UCI tolerates full-line `#` comments - the stock files ship with them - but `uci commit` rewrites a file and drops them, and trailing inline comments aren't parsed reliably, so treat the notes as annotations in this blog post - not part of what's going to live in *your* config.
+
+As before, this assumes
+
+* Home/Private LAN `192.168.1.0/24`
+	* Gateway (router) LAN IP `192.168.1.1`
+* IoT/Untrusted LAN `10.1.101.0/24`
+	* Gateway LAN IP `10.1.101.1`
+	* Gateway WAN IP (home LAN IP) `192.168.1.101`
+
+### Main Router (Asuswrt-Merlin): Static Route
+
+Unchanged from [the first build](/2026/01/17/all-it-took-was-broken-firmware.html). The home router still needs one route so it knows the IoT subnet lives behind the OpenWrt box's WAN address:
+
+| Network/Host IP | Netmask       | Gateway       | Interface |
+| --------------- | ------------- | ------------- | --------- |
+| 10.1.101.0/24   | 255.255.255.0 | 192.168.1.101 | LAN       |
+
+### IoT Router: `/etc/config/network`
+
+```
+config interface 'lan'
+	# changed from 192.168.1.1/24
+	list ipaddr '10.1.101.1/24'
+
+config interface 'wan'
+	# changed from proto 'dhcp'
+	option proto 'static'
+	option ipaddr '192.168.1.101'
+	option netmask '255.255.255.0'
+	option gateway '192.168.1.1'
+	list dns '192.168.1.254'
+```
+
+That is the whole IPv4 delta: the IoT subnet on `lan`, and a static `wan` pointed at the home router for its gateway and at PiHole for DNS. The IPv6 changes (`wan6` off, the bridge's prefix dropped) live in "Turning IPv6 off" below.
+
+### IoT Router: `/etc/config/dhcp`
+
+```
+config dnsmasq
+	# changed from 'lan'
+	option domain 'iot.local'
+	# added: answer the IoT reverse zone from the lease table, don't forward it upstream
+	list server '/101.1.10.in-addr.arpa/'
+
+config dhcp 'lan'
+	# added: hand clients PiHole as their DNS (option 6 = DNS server)
+	list dhcp_option '6,192.168.1.254'
+```
+
+`list server '/101.1.10.in-addr.arpa/'` is the OpenWrt analog of the first build's `local=/101.1.10.in-addr.arpa/`: answer the reverse zone from the lease table instead of forwarding it upstream. The first build's `listen-address` line is deliberately absent - on OpenWrt one dnsmasq serves both DNS and DHCP, and pinning `listen-address` took the DHCP half down with it.
+
+### IoT Router: `/etc/config/firewall`
+
+This is where the five requirements actually live. The stock `config defaults`, the `lan`/`wan` zones, and the `lan -> wan` forwarding are untouched and omitted - though that stock blanket `lan -> wan` forwarding is the very trap the post is about, and it stays safe only because the `IoT-Block-*` rules below are evaluated ahead of it.
+
+```
+# add to the existing wan zone: exempt DNS to PiHole from masquerade
+config zone
+	option name		wan
+	list   masq_dest	'!192.168.1.254'
+
+# manage the IoT router from the home side (no stock rule opens these on wan)
+config rule
+	option name		Allow-SSH-WAN
+	option src		wan
+	option proto		tcp
+	option dest_port	22
+	option target		ACCEPT
+
+config rule
+	option name		Allow-LuCI-WAN
+	option src		wan
+	option proto		tcp
+	# quote the list, or fw4 emits a zoneless stub that drops everything
+	option dest_port	'443 80'
+	option target		ACCEPT
+
+# input to this router
+config rule
+	option name		IoT-Allow-PiHole-revDNS
+	option src		wan
+	option src_ip		192.168.1.254
+	option proto		'tcp udp'
+	option dest_port	53
+	option target		ACCEPT
+
+config rule
+	option name		IoT-Block-DNS-to-Router
+	option src		lan
+	option proto		'tcp udp'
+	option dest_port	53
+	option target		REJECT
+
+# forwarding: the order IS the isolation
+config rule
+	option name		IoT-Allow-HomeLAN-to-IoT
+	option src		wan
+	option src_ip		192.168.1.0/24
+	option dest		lan
+	option target		ACCEPT
+
+config rule
+	option name		IoT-Allow-to-PiHole-DNS
+	option src		lan
+	option dest		wan
+	option dest_ip		192.168.1.254
+	option proto		'tcp udp'
+	option dest_port	53
+	option target		ACCEPT
+
+config rule
+	option name		IoT-Block-to-HomeLAN
+	option src		lan
+	option dest		wan
+	option dest_ip		192.168.1.0/24
+	option target		REJECT
+
+config rule
+	option name		IoT-Allow-Internet
+	option src		lan
+	option dest		wan
+	option target		ACCEPT
+
+# preserve per-client source IPs on DNS to PiHole
+config nat
+	option name		IoT-No-Masq-PiHole-DNS
+	option src		lan
+	option proto		'tcp udp'
+	option dest_ip		192.168.1.254
+	option dest_port	53
+	option target		ACCEPT
+```
+
+Home-to-IoT return traffic needs no rule of its own: fw4 accepts established and related flows by conntrack, so the single `IoT-Allow-HomeLAN-to-IoT` rule covers the management path both ways. The three `lan -> wan` rules have to stay in this order - allow DNS to PiHole, reject the rest of the home subnet, then allow everything else as internet.
+
+### IoT Router: Turning Off IPv6 on OpenWrt
+
+Check this is 0 first; if it's 1, odhcpd is your DHCPv4 server - do not stop it:
+
+```bash
+uci get dhcp.odhcpd.maindhcp
+```
+
+If it's 0, you're good to go:
+```bash
+uci set network.wan6.disabled='1'      # kill the DHCPv6 uplink client
+uci set dhcp.lan.ra='disabled'         # no router advertisements
+uci set dhcp.lan.dhcpv6='disabled'     # no DHCPv6 server
+uci set network.lan.delegate='0'       # refuse a delegated prefix
+uci -q delete network.lan.ip6assign    # stop the bridge self-assigning a ULA
+# keep network.globals.ula_prefix - deleting it just mints a new random one
+
+uci commit network && uci commit dhcp
+/etc/init.d/odhcpd stop && /etc/init.d/odhcpd disable
+/etc/init.d/network reload             # reload, NOT restart if connected via SSH - keeps an SSH session on the v4 WAN alive
+
+# reload won't deconfigure an address already up; drop the bridge's stale ULA by hand
+ip -6 addr del fdXX:XXXX:XXXX::1/60 dev br-lan
+```
+
+Skip the `option ipv6 '0'` lines the popular recipe leads with on a static or dhcp interface. Confirm the result against the box: `ip -6 addr` should show only `fe80::` link-local, and `ip -6 route` no path toward the home segment.
+
+### PiHole: `/etc/dnsmasq.d/11-iot-subnet.conf`
+
+Unchanged from [the first build](/2026/01/17/all-it-took-was-broken-firmware.html). PiHole still forwards reverse lookups for IoT addresses back to the OpenWrt box so query logs show hostnames, not bare `10.1.101.x`:
+
+```
+rev-server=10.1.101.0/24,192.168.1.101
+```

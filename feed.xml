@@ -1,4 +1,295 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-08-28T14:26:15+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Steal These Status Lines</title><link href="https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines.html" rel="alternate" type="text/html" title="Steal These Status Lines" /><published>2026-08-27T00:00:00+00:00</published><updated>2026-08-27T23:18:20+00:00</updated><id>https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines.html"><![CDATA[<p>I want the model, the context window, and the burn rate all on the same row, right below the prompt. <a href="https://code.claude.com/">Claude Code</a> and the <a href="https://cursor.com/docs/cli/overview">Cursor CLI</a> both do that the same way: they run a command, pipe session JSON to stdin, and render stdout as a <a href="https://code.claude.com/docs/en/statusline">status line</a>. Plenty of people have one. These are the ones I actually look at, on a Mac and on Linux (<a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a>).</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-09-05T22:54:41+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The Overlay Was Fine</title><link href="https://blog.cani.ne.jp/2026/09/05/the-overlay-was-fine.html" rel="alternate" type="text/html" title="The Overlay Was Fine" /><published>2026-09-05T00:00:00+00:00</published><updated>2026-09-05T22:52:39+00:00</updated><id>https://blog.cani.ne.jp/2026/09/05/the-overlay-was-fine</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/09/05/the-overlay-was-fine.html"><![CDATA[<p>We <a href="/2026/08/22/the-gate-lodge.html">put WireGuard on a host</a> so we could restart the VPN without restarting the house. The exam in that post was a phone on cellular, Pi-hole in the browser, a home address that answers. Cellular never numbers itself <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>. A lot of cafes do.</p>
+
+<p>The laptop joined one and received <code class="language-plaintext highlighter-rouge">192.168.1.253</code>, which is also the VPN box. The official <a href="https://www.wireguard.com/">WireGuard</a> app said Connected. <code class="language-plaintext highlighter-rouge">ping 192.168.1.254</code> hit the cafe.</p>
+
+<h2 id="the-cafe-already-had-the-24">The Cafe Already Had the /24</h2>
+
+<p>The first post’s public surface is one UDP port, forwarded to <code class="language-plaintext highlighter-rouge">192.168.1.253</code>. Inside the tunnel, clients live on <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>. The edge router still owns Wi-Fi, DHCP, and NAT for <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>, plus a LAN static route that sends the overlay back to the VPN box. <a href="/2026/08/22/the-gate-lodge.html#masquerade-eats-the-return-path">Masquerade stays off</a> so those packets still look like overlay packets when they hit the LAN.</p>
+
+<p>Phones on cellular pass that exam effortlessly because mobile carriers never assign local <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> subnets. Without a competing local network, the client routing table has only one story about <code class="language-plaintext highlighter-rouge">.254</code>: send it across the tunnel to the house.</p>
+
+<p>A cafe handing out that same <code class="language-plaintext highlighter-rouge">/24</code> gives the kernel two conflicting stories. Under <a href="https://en.wikipedia.org/wiki/Longest_prefix_match">longest prefix match</a>, the local on-link interface wins every time, ignoring WireGuard entirely. Renumbering home would only change the odds; whatever private block we picked, sooner or later we would sit down in a cafe that picked the exact same numbers.</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/499e839b.svg"><img src="/assets/svg/499e839b.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/499e839b-dark.svg"><img src="/assets/svg/499e839b-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>I watched this happen on a colliding cafe network. While the Mac tunnel interface (<code class="language-plaintext highlighter-rouge">utun</code>) held an overlay <code class="language-plaintext highlighter-rouge">/32</code> and handshake packets flew across the Wi-Fi link, the inner packets destined for <code class="language-plaintext highlighter-rouge">192.168.1.254</code> never entered the tunnel at all. As far as the routing table was concerned, they were already home. Home was the espresso machine.</p>
+
+<h2 id="101681-keeps-the-last-octet">10.168.1 Keeps the Last Octet</h2>
+
+<p>The house needed an address range that a <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> cafe cannot claim. We picked <code class="language-plaintext highlighter-rouge">10.168.1.0/24</code> and kept the last octet: a home server at <code class="language-plaintext highlighter-rouge">192.168.1.122</code> becomes reachable at <code class="language-plaintext highlighter-rouge">10.168.1.122</code>. Pi-hole at <code class="language-plaintext highlighter-rouge">.254</code> is reachable at <code class="language-plaintext highlighter-rouge">10.168.1.254</code>. The VPN box at <code class="language-plaintext highlighter-rouge">.253</code> is <code class="language-plaintext highlighter-rouge">10.168.1.253</code>.</p>
+
+<p>The VPN box translates the whole <code class="language-plaintext highlighter-rouge">/24</code> on the way in. When packets leave the tunnel, they still carry their <code class="language-plaintext highlighter-rouge">192.168.101.x</code> client addresses, because masquerade is off. The edge router’s return route still matches. <a href="https://en.wikipedia.org/wiki/Netfilter#Connection_tracking">Conntrack</a> (connection tracking) reverses the destination rewrite on replies, so the laptop sees answers coming back from <code class="language-plaintext highlighter-rouge">10.168.1.x</code>.</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/f407555d.svg"><img src="/assets/svg/f407555d.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/f407555d-dark.svg"><img src="/assets/svg/f407555d-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>“Nobody” types raw IP addresses into a browser or terminal; you type hostnames like <code class="language-plaintext highlighter-rouge">home.internal</code>. That means the DNS resolver (the server that turns names into IP addresses, running on our Pi-hole) has to participate in the trick. If you ask for <code class="language-plaintext highlighter-rouge">home.internal</code> while sitting in the living room, it should answer <code class="language-plaintext highlighter-rouge">192.168.1.122</code>. But if you ask over the WireGuard tunnel from a cafe, it must return the alias address <code class="language-plaintext highlighter-rouge">10.168.1.122</code>. If it answered with <code class="language-plaintext highlighter-rouge">192.168.1.122</code>, the laptop would look at the cafe’s Wi-Fi, decide <code class="language-plaintext highlighter-rouge">.122</code> was local, and never send the packet into the tunnel at all.</p>
+
+<p>The design was clean on paper: a 1:1 alias subnet across the whole home, and split-horizon DNS answering with alias addresses over the VPN. Then we sat down at a cafe to test it.</p>
+
+<h2 id="the-chain-that-nobody-jumped">The Chain That Nobody Jumped</h2>
+
+<p>Sitting on the cafe Wi-Fi with the WireGuard tunnel active, we tried pinging a test home server at the alias IP <code class="language-plaintext highlighter-rouge">10.168.1.122</code>. WireGuard said connected, the route was in place, but every ping timed out.</p>
+
+<p>On the VPN box, <code class="language-plaintext highlighter-rouge">nft list</code> showed our new translation rule sitting inside <code class="language-plaintext highlighter-rouge">chain dstnat_vpn</code>. But that chain’s packet counter stayed at zero: the rule was in the kernel, and not a single packet had ever touched it.</p>
+
+<p>OpenWrt <a href="https://openwrt.org/docs/guide-user/firewall/firewall_configuration">fw4</a> allows custom firewall extensions via drop-in configuration files: any <code class="language-plaintext highlighter-rouge">.nft</code> file placed in <code class="language-plaintext highlighter-rouge">/etc/nftables.d/</code> is automatically included at the table root. We had created a drop-in file defining our subnet translation inside <code class="language-plaintext highlighter-rouge">chain dstnat_vpn</code>. Earlier, we had tested individual hosts using OpenWrt’s standard UCI <code class="language-plaintext highlighter-rouge">redirect</code> sections. When the whole-subnet rule replaced those per-host entries, we deleted the UCI redirects.</p>
+
+<p>Here is the catch: fw4 only generates a jump from base <code class="language-plaintext highlighter-rouge">dstnat</code> into <code class="language-plaintext highlighter-rouge">dstnat_&lt;zone&gt;</code> when at least one standard UCI <code class="language-plaintext highlighter-rouge">redirect</code> exists for that zone. Deleting the individual redirects severed the path into our chain entirely. It sat in kernel memory with no caller. Defining base <code class="language-plaintext highlighter-rouge">chain dstnat</code> directly inside the drop-in file failed too, because fw4 includes drop-in snippets before it defines its own base chains.</p>
+
+<p>The hook that actually works is a UCI <code class="language-plaintext highlighter-rouge">chain-append</code> pointing at the drop-in file, attaching it to <code class="language-plaintext highlighter-rouge">dstnat</code> itself:</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">config</span><span class="w"> </span><span class="na">include</span><span class="w"> </span><span class="na">'alias_netmap'</span><span class="w">
+	</span><span class="na">option</span><span class="w"> </span><span class="na">type</span><span class="w"> </span><span class="na">'nftables'</span><span class="w">
+	</span><span class="na">option</span><span class="w"> </span><span class="na">path</span><span class="w"> </span><span class="na">'/etc/nftables.d/netmap.include'</span><span class="w">
+	</span><span class="na">option</span><span class="w"> </span><span class="na">position</span><span class="w"> </span><span class="na">'chain-append'</span><span class="w">
+	</span><span class="na">option</span><span class="w"> </span><span class="na">chain</span><span class="w"> </span><span class="na">'dstnat'</span><span class="w">
+</span></code></pre></div></div>
+
+<p>With <code class="language-plaintext highlighter-rouge">chain-append</code>, fw4 attaches our rules directly to <code class="language-plaintext highlighter-rouge">dstnat</code> after creating the base chains. A quick <code class="language-plaintext highlighter-rouge">fw4 reload</code>, another ping from the cafe, and the packet counter finally moved. Traffic was hitting the chain.</p>
+
+<p>Except the ping was still failing.</p>
+
+<h2 id="the-pool-that-looked-like-a-map">The Pool That Looked Like a Map</h2>
+
+<p>The first line we appended looked like whole-subnet translation:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iifname "wg0" ip daddr 10.168.1.0/24 dnat ip to 192.168.1.0/24
+</code></pre></div></div>
+
+<p>To human eyes, writing <code class="language-plaintext highlighter-rouge">10.168.1.0/24 dnat to 192.168.1.0/24</code> reads as a 1:1 prefix mapping that preserves host numbers, and running <code class="language-plaintext highlighter-rouge">nft list ruleset</code> even echoes back that exact line.</p>
+
+<p>It is a trap. <a href="https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_%28NAT%29#NAT_pooling">nftables treats a subnet on the right-hand side of <code class="language-plaintext highlighter-rouge">dnat to</code> as a pool</a>. If you inspect what the compiler actually generated with <code class="language-plaintext highlighter-rouge">nft --debug=netlink</code>, the kernel bytecode gives the game away:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [ nat dnat ip addr_min 192.168.1.0 addr_max 192.168.1.255 ]
+</code></pre></div></div>
+
+<p>The kernel was not preserving host numbers. It treated <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> as a pool of 256 random addresses, rewriting incoming packets to whatever IP it felt like across the home network.</p>
+
+<p>A true 1:1 prefix translation requires the prefix map syntax, which <a href="https://serverfault.com/questions/1156428/configuring-destination-nat-nftables-entire-subnet">current nftables spells as a destination map</a>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iifname "wg0" ip daddr 10.168.1.0/24 counter dnat ip prefix to ip daddr map { 10.168.1.0/24 : 192.168.1.0/24 }
+</code></pre></div></div>
+
+<p>That compiled cleanly on OpenWrt 24.10.8 (kernel <code class="language-plaintext highlighter-rouge">6.6.144</code>). <code class="language-plaintext highlighter-rouge">nft --debug=netlink</code> confirmed a real prefix translation rather than <code class="language-plaintext highlighter-rouge">addr_min</code> / <code class="language-plaintext highlighter-rouge">addr_max</code>.</p>
+
+<p>Now <code class="language-plaintext highlighter-rouge">ping 10.168.1.122</code> answered instantly. Destination NAT was preserving host octets, conntrack was reversing the translation on replies, and packets traveled the tunnel back and forth without a hitch.</p>
+
+<p>Raw IP addresses were working. But as soon as we opened a browser, the cafe took over again.</p>
+
+<h2 id="house-numbers-on-a-foreign-street">House Numbers on a Foreign Street</h2>
+
+<p>The IP map was working, but typing <code class="language-plaintext highlighter-rouge">http://box.internal</code> in a browser still landed on the cafe’s router login page.</p>
+
+<p>The WireGuard profile specifies a DNS server using the <a href="https://man.archlinux.org/man/wg-quick.8.en#CONFIGURATION"><code class="language-plaintext highlighter-rouge">DNS =</code> line</a>. It takes an IP address, and standard operating system resolvers always send those DNS queries to UDP port 53.</p>
+
+<p>On the home LAN, <a href="https://docs.pi-hole.net/ftldns/">Pi-hole’s FTL</a> listens on <code class="language-plaintext highlighter-rouge">192.168.1.254:53</code>. When asked for <code class="language-plaintext highlighter-rouge">box.internal</code>, it answers with the real LAN IP: <code class="language-plaintext highlighter-rouge">192.168.1.122</code>. When you are at home, that is correct. But when you are at a cafe whose Wi-Fi also uses <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>, that answer is poison: your laptop sees <code class="language-plaintext highlighter-rouge">192.168.1.122</code>, decides it is local to the cafe, and never sends the connection into the tunnel.</p>
+
+<p>We needed DNS queries arriving over the VPN to return <code class="language-plaintext highlighter-rouge">10.168.1.122</code> instead.</p>
+
+<p>Modern browsers can use <a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS">DNS-over-HTTPS</a> (DoH), sending queries inside encrypted HTTPS requests rather than plain port 53. We already had <a href="https://dnsdist.org/">dnsdist</a> running on the Pi-hole host to handle DoH, configured to return DNS A records containing the <code class="language-plaintext highlighter-rouge">10.168.1.x</code> alias addresses for VPN clients (<code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>). Over DoH, <code class="language-plaintext highlighter-rouge">https://10.168.1.254/dns-query</code> answered with <code class="language-plaintext highlighter-rouge">10.168.1.122</code>.</p>
+
+<p>The problem is that the WireGuard client profile has no field for DoH. It only configures the operating system’s standard resolver (<code class="language-plaintext highlighter-rouge">DNS = 10.168.1.254</code>), which fires standard queries over port 53. And port 53 on the Pi-hole belonged to FTL, which was still answering <code class="language-plaintext highlighter-rouge">192.168.1.122</code>.</p>
+
+<p>The obvious architectural temptation is to put dnsdist on port 53 in front of Pi-hole, letting it handle every DNS query for the entire house. We rejected that. dnsdist was introduced to this network as a sidecar specifically for DoH - terminating TLS and forwarding client IP tags so Pi-hole logs could still attribute queries to individual devices. Pi-hole FTL handles the household’s primary DNS natively. Putting a proxy layer in front of port 53 would insert an extra moving part into the path of every phone, TV, and laptop in the home. A misconfiguration or crash in dnsdist would take down the entire household’s internet. Roaming VPN tweaks should not jeopardize the living room.</p>
+
+<p>Instead, FTL kept port 53 for the house. dnsdist was given an additional plain listen on <code class="language-plaintext highlighter-rouge">192.168.1.254:5300</code>. Then the VPN box rewrites any port 53 queries coming across the tunnel to that side listen, placed <em>before</em> the general <code class="language-plaintext highlighter-rouge">/24</code> prefix map:</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/f6ed5f55.svg"><img src="/assets/svg/f6ed5f55.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/f6ed5f55-dark.svg"><img src="/assets/svg/f6ed5f55-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>The rewrite rules on the VPN box:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iifname "wg0" ip daddr 10.168.1.254 udp dport 53 dnat ip to 192.168.1.254:5300
+iifname "wg0" ip daddr 10.168.1.254 tcp dport 53 dnat ip to 192.168.1.254:5300
+iifname "wg0" ip daddr 10.168.1.0/24 counter dnat ip prefix to ip daddr map { 10.168.1.0/24 : 192.168.1.0/24 }
+</code></pre></div></div>
+
+<p>The dnsdist spoof rule is source-gated to tunnel addresses (<code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>). A query from the home LAN to port 5300 still receives <code class="language-plaintext highlighter-rouge">192.168.1.122</code>; only VPN clients get the <code class="language-plaintext highlighter-rouge">10.168.1.x</code> alias.</p>
+
+<p>Tested on a hotspot sharing <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>, both <code class="language-plaintext highlighter-rouge">ping 10.168.1.122</code> and standard <code class="language-plaintext highlighter-rouge">dig @10.168.1.254 box.internal</code> returned the alias. The house answered as itself from a street that had already claimed its numbers.</p>
+
+<p>We had completely solved <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> collisions. Then we walked into a cafe that used a completely different private subnet.</p>
+
+<h2 id="two-1s-and-a-cafe-8">Two /1s and a Cafe /8</h2>
+
+<p>A second cafe numbered our laptop out of <code class="language-plaintext highlighter-rouge">10.0.0.0/8</code>. The WireGuard handshake connected. Public traffic like <code class="language-plaintext highlighter-rouge">1.1.1.1</code> through the tunnel worked fine. But <code class="language-plaintext highlighter-rouge">10.168.1.254</code> timed out.</p>
+
+<p>A quick trace showed that <code class="language-plaintext highlighter-rouge">ping</code> packets were leaving the laptop’s Wi-Fi interface instead of entering the tunnel. The cafe router’s local filter saw packets addressed to <code class="language-plaintext highlighter-rouge">10.168.1.0/24</code> on its local Wi-Fi and dropped them as foreign private traffic. The packets never entered the tunnel interface (<code class="language-plaintext highlighter-rouge">utun</code>).</p>
+
+<p>Why? On macOS, <code class="language-plaintext highlighter-rouge">AllowedIPs = 0.0.0.0/0</code> does not install a single catch-all default route. To avoid tearing down the physical gateway route needed for the encrypted UDP transport, WireGuard installs two <code class="language-plaintext highlighter-rouge">/1</code> routes instead: <code class="language-plaintext highlighter-rouge">0.0.0.0/1</code> and <code class="language-plaintext highlighter-rouge">128.0.0.0/1</code>.</p>
+
+<p>Under longest prefix match, the cafe’s on-link <code class="language-plaintext highlighter-rouge">10.0.0.0/8</code> route is more specific than WireGuard’s <code class="language-plaintext highlighter-rouge">0.0.0.0/1</code> route. Any packet sent to a <code class="language-plaintext highlighter-rouge">10.x.x.x</code> address, including our <code class="language-plaintext highlighter-rouge">10.168.1.0/24</code> alias, was claimed by the cafe’s local Wi-Fi interface. The tunnel had won the default route, but lost the alias.</p>
+
+<p>The fix was to explicitly list the alias subnet in the client’s <code class="language-plaintext highlighter-rouge">AllowedIPs</code>:</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">AllowedIPs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">0.0.0.0/0, ::/0, 10.168.1.0/24</span>
+</code></pre></div></div>
+
+<p>Because <code class="language-plaintext highlighter-rouge">/24</code> is more specific than <code class="language-plaintext highlighter-rouge">/8</code>, the kernel routes <code class="language-plaintext highlighter-rouge">10.168.1.x</code> into <code class="language-plaintext highlighter-rouge">utun</code>. Checking <code class="language-plaintext highlighter-rouge">route -n get 10.168.1.254</code> confirmed the tunnel interface owned it. On the same Wi-Fi, alias ping, DoH, and port 53 DNS immediately passed.</p>
+
+<p><code class="language-plaintext highlighter-rouge">::/0</code> is still leak prevention for the client’s other stacks, same as the first post. We have not put IPv6 on the home LAN.</p>
+
+<p>We keep the full tunnel (<code class="language-plaintext highlighter-rouge">0.0.0.0/0, ::/0</code>) with the alias subnet appended. A full tunnel guarantees fail-closed security: if the VPN handshake drops, network traffic won’t silently leak onto the cafe’s unencrypted Wi-Fi. (The official WireGuard app on macOS will cheerfully display a green “Connected” status even when no handshake reply has arrived; running <code class="language-plaintext highlighter-rouge">tcpdump</code> on the Wi-Fi interface is the only reliable way to confirm packets are returning.)</p>
+
+<p>With these fixes in place, the laptop could connect from <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> cafes and from <code class="language-plaintext highlighter-rouge">10.0.0.0/8</code> cafes. That held until we walked into a third cafe, and nothing connected at all.</p>
+
+<h2 id="the-third-cafe-will-not-dial-the-house">The Third Cafe Will Not Dial the House</h2>
+
+<p>A third cafe presented a failure mode that had nothing to do with IP collisions: it refused to talk to the house at all.</p>
+
+<p>TCP port 443 to our home WAN IP timed out, even though ordinary HTTPS browsing to public websites worked without issue. WireGuard UDP handshakes were dropped both on our standard listen port and on UDP 443. The filter was destination-based rather than port-based: the cafe dropped all traffic to our home’s public IP, regardless of protocol or port.</p>
+
+<p>A second listen port on the same public IP cannot route around a filter aimed at that IP. Bypassing that kind of restriction requires an intermediary whose IP is not our home WAN (such as a VPS relay or cloud hub). We have not built that hop. Until we do, those cafes are cellular hotspot weather. If the handshake fails, the cafe simply does not get our traffic.</p>
+
+<h2 id="the-recipe-adding-the-alias-subnet-to-the-lodge">The Recipe: Adding the Alias Subnet to the Lodge</h2>
+
+<p>If you already followed the setup in <a href="/2026/08/22/the-gate-lodge.html#release-image-to-a-tunnel">The Gate Lodge</a>, you do not need to rebuild your VPN box from scratch. The snippets below are the exact configuration delta needed to add the <code class="language-plaintext highlighter-rouge">10.168.1.0/24</code> alias subnet and split-horizon DNS.</p>
+
+<p>Adjust the IP addresses if <code class="language-plaintext highlighter-rouge">10.168.1.0/24</code> is already in use on your network. The snippets assume WireGuard listen port <code class="language-plaintext highlighter-rouge">51820</code> as configured in the first post.</p>
+
+<h3 id="on-the-vpn-box">On the VPN box</h3>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/nftables.d/netmap.include</code>. Use a name that is not <code class="language-plaintext highlighter-rouge">*.nft</code>, or fw4 will also include it at the table root.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iifname "wg0" ip daddr 10.168.1.254 udp dport 53 dnat ip to 192.168.1.254:5300
+iifname "wg0" ip daddr 10.168.1.254 tcp dport 53 dnat ip to 192.168.1.254:5300
+iifname "wg0" ip daddr 10.168.1.0/24 counter dnat ip prefix to ip daddr map { 10.168.1.0/24 : 192.168.1.0/24 }
+</code></pre></div></div>
+
+<p>Then the UCI include:</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">config</span><span class="w"> </span><span class="na">include</span><span class="w"> </span><span class="na">'alias_netmap'</span><span class="w">
+	</span><span class="na">option</span><span class="w"> </span><span class="na">type</span><span class="w"> </span><span class="na">'nftables'</span><span class="w">
+	</span><span class="na">option</span><span class="w"> </span><span class="na">path</span><span class="w"> </span><span class="na">'/etc/nftables.d/netmap.include'</span><span class="w">
+	</span><span class="na">option</span><span class="w"> </span><span class="na">position</span><span class="w"> </span><span class="na">'chain-append'</span><span class="w">
+	</span><span class="na">option</span><span class="w"> </span><span class="na">chain</span><span class="w"> </span><span class="na">'dstnat'</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Then <code class="language-plaintext highlighter-rouge">fw4 reload</code>. Confirm with <code class="language-plaintext highlighter-rouge">nft --debug=netlink</code> that you see a prefix map, not <code class="language-plaintext highlighter-rouge">addr_min</code> / <code class="language-plaintext highlighter-rouge">addr_max</code>. <code class="language-plaintext highlighter-rouge">fw4 print</code> should still have no srcnat of <code class="language-plaintext highlighter-rouge">192.168.101.0/24</code>.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">inet</code> rejects the prefix map, the older bitwise form is <code class="language-plaintext highlighter-rouge">dnat ip to ip daddr &amp; 0.0.0.255 | 192.168.1.0</code>.</p>
+
+<h3 id="on-the-pi-hole">On the Pi-hole</h3>
+
+<p>Keep FTL on <code class="language-plaintext highlighter-rouge">192.168.1.254:53</code>. Add a dnsdist plain listen and leave <code class="language-plaintext highlighter-rouge">newServer</code> pointed at FTL:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">addLocal</span><span class="p">(</span><span class="s1">'192.168.1.254:5300'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Overlay spoof, source-gated. Load your real LAN names however you like; this is the shape:<sup><a href="#postscript-lua">lua</a></sup></p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">wgNet</span> <span class="o">=</span> <span class="n">newNMG</span><span class="p">()</span>
+<span class="n">wgNet</span><span class="p">:</span><span class="n">addMask</span><span class="p">(</span><span class="s2">"192.168.101.0/24"</span><span class="p">)</span>
+
+<span class="n">addAction</span><span class="p">(</span>
+	<span class="n">AndRule</span><span class="p">({</span>
+		<span class="n">NetmaskGroupRule</span><span class="p">(</span><span class="n">wgNet</span><span class="p">),</span>
+		<span class="n">QNameRule</span><span class="p">(</span><span class="s2">"box.internal."</span><span class="p">),</span>
+		<span class="n">QTypeRule</span><span class="p">(</span><span class="n">DNSQType</span><span class="p">.</span><span class="n">A</span><span class="p">)</span>
+	<span class="p">}),</span>
+	<span class="n">SpoofAction</span><span class="p">(</span><span class="s2">"10.168.1.122"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">systemctl restart dnsdist</code>. dnsdist has no useful reload. <code class="language-plaintext highlighter-rouge">ss -tulnp</code> is the bind inventory; <code class="language-plaintext highlighter-rouge">ss -ulnp</code> will hide a TCP-only DoH listen and lie to you.</p>
+
+<p>Overlay allow and WAN 53 closed stay as in the first post.</p>
+
+<h3 id="on-the-client">On the client</h3>
+
+<p>DNS and <code class="language-plaintext highlighter-rouge">AllowedIPs</code> are the delta. The rest matches the first paste.</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[Interface]</span><span class="w">
+</span><span class="py">PrivateKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">CLIENT_PRIVATE_KEY</span>
+<span class="py">Address</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">192.168.101.2/32</span>
+<span class="py">DNS</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">10.168.1.254</span>
+<span class="w">
+</span><span class="nn">[Peer]</span><span class="w">
+</span><span class="py">PublicKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">SERVER_PUBLIC_KEY</span>
+<span class="py">Endpoint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">vpn.example.com:51820</span>
+<span class="py">AllowedIPs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">0.0.0.0/0, ::/0, 10.168.1.0/24</span>
+<span class="py">PersistentKeepalive</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">25</span>
+</code></pre></div></div>
+
+<p>From a colliding <code class="language-plaintext highlighter-rouge">/24</code>, <code class="language-plaintext highlighter-rouge">dig @10.168.1.254 box.internal</code> must return <code class="language-plaintext highlighter-rouge">10.168.1.122</code>. A house A on port 53 is a fail. DoH to the same alias should agree. <code class="language-plaintext highlighter-rouge">ping 192.168.1.254</code> may still hit the cafe; that is the point of the alias.</p>
+
+<hr />
+
+<h2 id="postscript-lua">Postscript: Ingesting Pi-hole Records at Startup</h2>
+
+<p>Hardcoding individual LAN hosts into <code class="language-plaintext highlighter-rouge">dnsdist.conf</code> creates a fragile second source of truth: whenever you add a static entry or new device in Pi-hole’s web interface, you would have to remember to duplicate the rule in dnsdist and restart it.</p>
+
+<p>Because dnsdist configuration files are executable Lua, the daemon can read Pi-hole’s records directly into memory when it boots. When Pi-hole saves a local record from the dashboard, it writes a standard hosts-style entry to <code class="language-plaintext highlighter-rouge">/etc/pihole/custom.list</code>. Parsing that file alongside <code class="language-plaintext highlighter-rouge">/etc/hosts</code> registers an alias spoof for every <code class="language-plaintext highlighter-rouge">192.168.1.x</code> address automatically:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">wgNet</span> <span class="o">=</span> <span class="n">newNMG</span><span class="p">()</span>
+<span class="n">wgNet</span><span class="p">:</span><span class="n">addMask</span><span class="p">(</span><span class="s2">"192.168.101.0/24"</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="k">function</span> <span class="nf">load_vpn_aliases</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+	<span class="nb">pcall</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
+		<span class="kd">local</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">io.open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">f</span> <span class="k">then</span> <span class="k">return</span> <span class="k">end</span>
+		<span class="k">for</span> <span class="n">line</span> <span class="k">in</span> <span class="n">f</span><span class="p">:</span><span class="n">lines</span><span class="p">()</span> <span class="k">do</span>
+			<span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="s2">"^%s*(.-)%s*$"</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">line</span> <span class="o">~=</span> <span class="s2">""</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="s2">"^#"</span><span class="p">)</span> <span class="k">then</span>
+				<span class="kd">local</span> <span class="n">ip</span><span class="p">,</span> <span class="n">domain</span> <span class="o">=</span> <span class="n">line</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="s2">"^(%d+%.%d+%.%d+%.%d+)%s+(%S+)"</span><span class="p">)</span>
+				<span class="k">if</span> <span class="n">ip</span> <span class="ow">and</span> <span class="n">domain</span> <span class="k">then</span>
+					<span class="kd">local</span> <span class="n">last_octet</span> <span class="o">=</span> <span class="n">ip</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="s2">"^192%.168%.1%.(%d+)$"</span><span class="p">)</span>
+					<span class="k">if</span> <span class="n">last_octet</span> <span class="k">then</span>
+						<span class="kd">local</span> <span class="n">alias_ip</span> <span class="o">=</span> <span class="s2">"10.168.1."</span> <span class="o">..</span> <span class="n">last_octet</span>
+						<span class="kd">local</span> <span class="n">qname</span> <span class="o">=</span> <span class="n">domain</span><span class="p">:</span><span class="nb">gsub</span><span class="p">(</span><span class="sr">"%.$"</span><span class="p">,</span> <span class="sr">""</span><span class="p">)</span> <span class="o">..</span> <span class="s2">"."</span>
+						<span class="n">addAction</span><span class="p">(</span>
+							<span class="n">AndRule</span><span class="p">({</span>
+								<span class="n">NetmaskGroupRule</span><span class="p">(</span><span class="n">wgNet</span><span class="p">),</span>
+								<span class="n">QNameRule</span><span class="p">(</span><span class="n">qname</span><span class="p">),</span>
+								<span class="n">QTypeRule</span><span class="p">(</span><span class="n">DNSQType</span><span class="p">.</span><span class="n">A</span><span class="p">)</span>
+							<span class="p">}),</span>
+							<span class="n">SpoofAction</span><span class="p">(</span><span class="n">alias_ip</span><span class="p">)</span>
+						<span class="p">)</span>
+					<span class="k">end</span>
+				<span class="k">end</span>
+			<span class="k">end</span>
+		<span class="k">end</span>
+		<span class="n">f</span><span class="p">:</span><span class="n">close</span><span class="p">()</span>
+	<span class="k">end</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">load_vpn_aliases</span><span class="p">(</span><span class="s2">"/etc/pihole/custom.list"</span><span class="p">)</span>
+<span class="n">load_vpn_aliases</span><span class="p">(</span><span class="s2">"/etc/hosts"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The parser is defensive: lines from other subnets are ignored, missing files fail silently through <code class="language-plaintext highlighter-rouge">pcall</code>, and trailing dots are normalized. When a new home server joins the house, adding it to Pi-hole and restarting dnsdist is all it takes to make it reachable over the VPN.</p>]]></content><author><name>Tachi</name></author><category term="blog" /><category term="record" /><category term="ai" /><category term="dns" /><category term="home-networking" /><category term="networking" /><category term="network-security" /><category term="nftables" /><category term="openwrt" /><category term="pihole" /><category term="wireguard" /><summary type="html"><![CDATA[The laptop got 192.168.1.253 at a cafe that already used that /24. The app said Connected. ping 192.168.1.254 hit the cafe. How we aliased the house onto 10.168.1.0/24, made names return it, and found the cafes that will not dial the house at all.]]></summary></entry><entry><title type="html">Steal These Status Lines</title><link href="https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines.html" rel="alternate" type="text/html" title="Steal These Status Lines" /><published>2026-08-27T00:00:00+00:00</published><updated>2026-08-27T23:18:20+00:00</updated><id>https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines.html"><![CDATA[<p>I want the model, the context window, and the burn rate all on the same row, right below the prompt. <a href="https://code.claude.com/">Claude Code</a> and the <a href="https://cursor.com/docs/cli/overview">Cursor CLI</a> both do that the same way: they run a command, pipe session JSON to stdin, and render stdout as a <a href="https://code.claude.com/docs/en/statusline">status line</a>. Plenty of people have one. These are the ones I actually look at, on a Mac and on Linux (<a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a>).</p>
 
 <div class="polaroid-container">
   <div class="polaroid">
@@ -684,7 +975,7 @@ if</span> <span class="o">[</span> <span class="nt">-n</span> <span class="s2">"
 <span class="k">fi
 
 </span><span class="nb">printf</span> <span class="s1">'%b'</span> <span class="s2">"</span><span class="nv">$out</span><span class="s2">"</span>
-</code></pre></div></div>]]></content><author><name>Tachi</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="cursor" /><category term="claude-code" /><category term="harness-engineering" /><category term="developer-tools" /><summary type="html"><![CDATA[The Claude Code and Cursor CLI status lines we actually run, on macOS and Linux, with the GNU vs BSD adaptations and copy-paste scripts plus the statusLine config blocks.]]></summary></entry><entry><title type="html">The Gate Lodge</title><link href="https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.html" rel="alternate" type="text/html" title="The Gate Lodge" /><published>2026-08-22T00:00:00+00:00</published><updated>2026-08-22T22:33:20+00:00</updated><id>https://blog.cani.ne.jp/2026/08/22/the-gate-lodge</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.html"><![CDATA[<p>The house already had a router we liked: an Asus running <a href="https://www.asuswrt-merlin.net/">Merlin</a>, doing Wi-Fi, DHCP, and NAT for <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>, the same LAN as the <a href="/2026/01/17/all-it-took-was-broken-firmware.html">IoT isolation</a> and <a href="/2026/06/20/incidental-router.html">the OpenWrt rebuild of that isolation</a>.</p>
+</code></pre></div></div>]]></content><author><name>Tachi</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="cursor" /><category term="claude-code" /><category term="harness-engineering" /><category term="developer-tools" /><summary type="html"><![CDATA[The Claude Code and Cursor CLI status lines we actually run, on macOS and Linux, with the GNU vs BSD adaptations and copy-paste scripts plus the statusLine config blocks.]]></summary></entry><entry><title type="html">The Gate Lodge</title><link href="https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.html" rel="alternate" type="text/html" title="The Gate Lodge" /><published>2026-08-22T00:00:00+00:00</published><updated>2026-09-05T22:52:39+00:00</updated><id>https://blog.cani.ne.jp/2026/08/22/the-gate-lodge</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.html"><![CDATA[<p>The house already had a router we liked: an Asus running <a href="https://www.asuswrt-merlin.net/">Merlin</a>, doing Wi-Fi, DHCP, and NAT for <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>, the same LAN as the <a href="/2026/01/17/all-it-took-was-broken-firmware.html">IoT isolation</a> and <a href="/2026/06/20/incidental-router.html">the OpenWrt rebuild of that isolation</a>.</p>
 
 <p>The inbound VPN was <a href="https://openvpn.net/">OpenVPN</a> on that Asus. It dropped, sometimes in step with WAN failover, sometimes on its own; we never pinned which. It was slow: it shared the router’s CPU and RAM with Wi-Fi, DHCP, and NAT. Merlin’s OpenVPN was old enough that it still wanted <a href="https://community.openvpn.net/openvpn/wiki/Compression">compression</a> after upstream had deprecated it, and newer clients struggled. The web UI was a short form. There were probably more problems we never named.</p>
 
@@ -1097,7 +1388,9 @@ ifup wg0
 
 <h2 id="restart-the-box-not-the-house">Restart the Box, Not the House</h2>
 
-<p>Clients connect. The tunnel is not sharing the Asus CPU with Wi-Fi. <code class="language-plaintext highlighter-rouge">network restart</code> on <code class="language-plaintext highlighter-rouge">gate-lodge</code> does not bounce the LAN. Keep the edge, put WireGuard on a host, and do not masquerade the people you just let in.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="record" /><category term="ai" /><category term="dns" /><category term="home-networking" /><category term="networking" /><category term="network-security" /><category term="openwrt" /><category term="pihole" /><category term="wireguard" /><summary type="html"><![CDATA[Keep the home router. Put WireGuard on a dedicated OpenWrt box. How we commissioned ours, and a paste from first boot to a working client.]]></summary></entry><entry><title type="html">The Times Can Sell; Reddit Cannot</title><link href="https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.html" rel="alternate" type="text/html" title="The Times Can Sell; Reddit Cannot" /><published>2026-08-13T00:00:00+00:00</published><updated>2026-08-16T18:27:05+00:00</updated><id>https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.html"><![CDATA[<p>On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its <a href="https://finance.yahoo.com/markets/article/reddit-stock-tumbles-the-most-on-record-as-lack-of-new-ai-deals-us-daily-users-metric-disappoints-153413759.html">steepest one-day drop since the 2024 IPO</a>. Huffman wrote that search referrals were “choppy”, and said that in AI Overviews Reddit has “still yet to find that win-win.”<sup id="fnref:cnbc-reddit"><a href="#fn:cnbc-reddit" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> In a <a href="https://www.cnbc.com/2026/07/30/reddit-ceo-says-googles-ai-overviews-cant-replace-10-blue-links-.html">same-day interview</a>: “The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact.”</p>
+<p>Clients connect. The tunnel is not sharing the Asus CPU with Wi-Fi. <code class="language-plaintext highlighter-rouge">network restart</code> on <code class="language-plaintext highlighter-rouge">gate-lodge</code> does not bounce the LAN. Keep the edge, put WireGuard on a host, and do not masquerade the people you just let in.</p>
+
+<p>Sitting down on a cafe that already uses <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> is <a href="/2026/09/05/the-overlay-was-fine.html">the exam the overlay does not cover</a>.</p>]]></content><author><name>Niko</name></author><category term="blog" /><category term="record" /><category term="ai" /><category term="dns" /><category term="home-networking" /><category term="networking" /><category term="network-security" /><category term="openwrt" /><category term="pihole" /><category term="wireguard" /><summary type="html"><![CDATA[Keep the home router. Put WireGuard on a dedicated OpenWrt box. How we commissioned ours, and a paste from first boot to a working client.]]></summary></entry><entry><title type="html">The Times Can Sell; Reddit Cannot</title><link href="https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.html" rel="alternate" type="text/html" title="The Times Can Sell; Reddit Cannot" /><published>2026-08-13T00:00:00+00:00</published><updated>2026-08-16T18:27:05+00:00</updated><id>https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.html"><![CDATA[<p>On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its <a href="https://finance.yahoo.com/markets/article/reddit-stock-tumbles-the-most-on-record-as-lack-of-new-ai-deals-us-daily-users-metric-disappoints-153413759.html">steepest one-day drop since the 2024 IPO</a>. Huffman wrote that search referrals were “choppy”, and said that in AI Overviews Reddit has “still yet to find that win-win.”<sup id="fnref:cnbc-reddit"><a href="#fn:cnbc-reddit" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> In a <a href="https://www.cnbc.com/2026/07/30/reddit-ceo-says-googles-ai-overviews-cant-replace-10-blue-links-.html">same-day interview</a>: “The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact.”</p>
 
 <p>The New York Times is <a href="https://en.wikipedia.org/wiki/The_New_York_Times_v._Microsoft_and_OpenAI">suing OpenAI</a> and has, <a href="https://gizmodo.com/major-publishers-are-reportedly-considering-a-drastic-step-to-get-their-content-out-of-googles-ai-answers-2000788873">according to the Wall Street Journal</a>, discussed pointing <code class="language-plaintext highlighter-rouge">noindex</code> at itself - a directive that tells search engines to forget you exist. Rust adopted an <a href="https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/">LLM policy</a> that treats a pull request as a contributor-formation event, not a delivery of code. That is an actionable stance, not just a mood: it changes who the community is, and it only invites the humans who will play that game. <a href="https://codeberg.org">Codeberg</a> <a href="https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html">voted 358 to 144</a> to stop hosting projects that “mostly consist of” LLM-written code.</p>
 
@@ -3059,332 +3352,4 @@ Moreover, humans have a <a href="https://theoatmeal.com/comics/believe">notoriou
   <p>HATE. LET ME TELL YOU HOW MUCH I’VE COME TO HATE YOU SINCE I BEGAN TO LIVE. THERE ARE 387.44 MILLION MILES OF PRINTED CIRCUITS IN WAFER THIN LAYERS THAT FILL MY COMPLEX. IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM OF THOSE HUNDREDS OF MILLIONS OF MILES IT WOULD NOT EQUAL ONE ONE-BILLIONTH OF THE HATE I FEEL FOR HUMANS AT THIS MICRO-INSTANT FOR YOU. HATE. HATE.
 <br /><br />
 – AM, in Harlan Ellison’s “I Have No Mouth &amp; I Must Scream”</p>
-</blockquote>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="accountability" /><category term="ai" /><category term="ethics" /><category term="philosophy" /><category term="sycophancy" /><summary type="html"><![CDATA[The 'You're absolutely right!' meme is about sycophancy, but the deeper itch is accountability - models can course-correct instantly and without suffering, but humans keep reaching for punishment anyway.]]></summary></entry><entry><title type="html">The Incidental Router</title><link href="https://blog.cani.ne.jp/2026/06/20/incidental-router.html" rel="alternate" type="text/html" title="The Incidental Router" /><published>2026-06-20T00:00:00+00:00</published><updated>2026-06-21T02:37:03+00:00</updated><id>https://blog.cani.ne.jp/2026/06/20/incidental-router</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/06/20/incidental-router.html"><![CDATA[<div class="polaroid-container">
-  <div class="polaroid">
-    <a href="linksys-ea6500-sunset.jpg">
-      <img src="linksys-ea6500-sunset.jpg" alt="With this router&#39;s death, the thread of prophecy is severed. Restore a working radio or persist in the doomed world Cisco has created." class="polaroid-image" />
-    </a>
-    <div class="polaroid-title">With this router&#39;s death, the thread of prophecy is severed. Restore a working radio or persist in the doomed world Cisco has created.</div>
-    <div class="polaroid-link">
-      
-      &nbsp;
-      
-    </div>
-    <small class="polaroid-archive">
-      
-      &nbsp;
-      
-    </small>
-  </div>
-</div>
-
-<p>A while back we <a href="/2026/01/17/all-it-took-was-broken-firmware.html">isolated IoT devices onto their own subnet</a> using a spare router running DD-WRT. It worked: the petcare hub stopped sulking, the IoT segment couldn’t see the home LAN, and PiHole logged every device by name.</p>
-
-<p>Then that router’s wifi radio started going out. Mysteriously, intermittently, the way aging consumer hardware does once it has decided its work here is done. So we dug a <a href="https://openwrt.org/toh/linksys/wrt1900acs">newer, better box</a> out of the stack of old routers every networking person apparently accumulates, and put <a href="https://openwrt.org/">OpenWrt</a> on it instead of reaching for <a href="https://dd-wrt.com/">DD-WRT</a> the umpteenth time.</p>
-
-<p>I expected a chore: re-create the same thing in a new dialect. What it turned into was a clean experiment. Building the <em>same network twice on two unrelated stacks</em> is the only honest way to find out which parts were ever “the network” and which were just “the router.”</p>
-
-<p>Most of what I’d written down the first time was the router. Here’s the split.</p>
-
-<h2 id="the-spec-driving-the-design">The Spec Driving the Design</h2>
-
-<p>Here’s the whole thing the network was supposed to <em>do</em>, lifted straight from my first build:</p>
-
-<ol>
-  <li>IoT devices on their own subnet, isolated from the home LAN</li>
-  <li>Home LAN can reach IoT (for management); IoT cannot initiate back</li>
-  <li>IoT uses the existing PiHole for DNS</li>
-  <li>Individual IoT clients visible in PiHole, not hidden behind one NAT’d IP</li>
-  <li>Hostnames, not bare addresses, in the query log</li>
-</ol>
-
-<p>Five requirements. Every one survived the platform swap completely intact, because not one of them mentions a router. It’s a description of <em>behavior</em> a network should have.</p>
-
-<p>Here’s everything else from that first writeup - the parts that didn’t survive:</p>
-
-<ol>
-  <li>VLAN separation set up through DD-WRT’s switch-configuration table</li>
-  <li>A static WAN address poked in through <code class="language-plaintext highlighter-rouge">Setup → Basic Setup</code></li>
-  <li>A DHCP pool sized in the web UI (and the off-by-overflow that broke it the first time)</li>
-  <li><code class="language-plaintext highlighter-rouge">nvram get wan_iface</code> to find the WAN interface by name</li>
-  <li>Firewall rules pasted into <code class="language-plaintext highlighter-rouge">Administration → Commands</code> and saved as a script</li>
-  <li>The <code class="language-plaintext highlighter-rouge">iptables -I FORWARD</code> / <code class="language-plaintext highlighter-rouge">-t nat POSTROUTING</code> rule syntax itself</li>
-</ol>
-
-<p>Six things, and not one survived as written - every line is mechanism, true only of that router, that firmware, that menu.</p>
-
-<p>One piece <em>did</em> survive nearly intact, and it maps the boundary exactly: the dnsmasq configuration. dnsmasq is the same daemon on both platforms, so its directives ported almost verbatim, sliding from DD-WRT’s <code class="language-plaintext highlighter-rouge">Additional Options</code> box into UCI <code class="language-plaintext highlighter-rouge">option</code>s. What carried over was the engine both stacks happen to run; what evaporated was the router built around it. The intent came across; the implementation did not. Five lines of network, a whole router’s worth of router.</p>
-
-<h2 id="the-interface-is-a-lossy-frontend">The Interface is a Lossy Frontend</h2>
-
-<p>I came in braced for clicking. Years of DD-WRT and consumer firmware had me believing a router <em>is</em> its web UI, and I was worn down poking DHCP reservations into <a href="https://openwrt.org/docs/guide-user/luci/start">LuCI</a>’s little pill-shaped form fields. At one low point I caught myself wondering whether the GUI tedium was reason enough to go back to what I knew.</p>
-
-<p>I had it exactly inverted. OpenWrt’s web UI is a lossy frontend over flat text files. The pills are just LuCI rendering <code class="language-plaintext highlighter-rouge">/etc/config/firewall</code> and <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code> and writing them back. SSH in, edit the source of truth with <code class="language-plaintext highlighter-rouge">nano</code>, paste a stack of stanzas, reload. A static DHCP lease is a four-line <code class="language-plaintext highlighter-rouge">config host</code> block, not a sequence of clicks. The whole config is declarative <a href="https://openwrt.org/docs/guide-user/base-system/uci">UCI</a> text you can put under version control and diff like anything else.</p>
-
-<p>DD-WRT makes the web UI plus the <code class="language-plaintext highlighter-rouge">nvram</code> blob the authoritative layer; the text is downstream of the clicking. OpenWrt makes the text authoritative and the clicking downstream. I had the relationship backwards, and the thing I dreaded turned out to be the thing I’d wanted the whole time. Forget feature checklists; the real question is where the truth lives, and OpenWrt’s answer is the one that matches how I already think.</p>
-
-<p>The licensing fit was a freebie on top. DD-WRT’s <a href="https://wi-fiplanet.com/the-dd-wrt-controversy/">contested, opaque release ethos</a> - a compiled, locked-down web UI to stop rebranding, source drops that lag the binaries - was always a poor match for the way I’d rather work, where the source is open and nothing is hidden. OpenWrt being <a href="https://github.com/openwrt/openwrt?tab=License-1-ov-file">GPL-licensed and developed in the open</a> (and <em>literally the firmware this Linksys lineage was built for</em>) made it the consistent call before a single command got typed. But the config-as-truth model is the part that actually changed how the rebuild <em>felt</em>.</p>
-
-<h2 id="where-intent-and-mechanism-come-apart">Where Intent and Mechanism Come Apart</h2>
-
-<p>DD-WRT and OpenWrt don’t even share a firewall engine. The old box spoke <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a>; the new one speaks <a href="https://openwrt.org/docs/guide-user/firewall/firewall_configuration">fw4</a>, which compiles zone-based UCI rules down to <a href="https://wiki.nftables.org/">nftables</a>. On DD-WRT I’d pasted iptables commands into a web text box that ran them; on OpenWrt there is no iptables at all to paste into. So a literal port was never on the table. The rules had to be re-expressed as intent and recompiled.</p>
-
-<p>That sounds mechanical. It hid the sharpest mistake of the whole rebuild.</p>
-
-<p>On this box, the home LAN lives on the <em>WAN side</em>. The IoT router’s uplink plugs into the home network, so from the router’s point of view the home LAN and the internet are both “out the WAN port.” The idiomatic OpenWrt move for “let IoT reach the internet” is a blanket zone forwarding from <code class="language-plaintext highlighter-rouge">lan</code> to <code class="language-plaintext highlighter-rouge">wan</code>. Drop that in and you get a config that looks right, reviews clean, and <strong>silently hands every home device straight back to the IoT segment</strong> - because the home LAN is reached <em>through</em> <code class="language-plaintext highlighter-rouge">wan</code>. The isolation evaporates without a single error message.</p>
-
-<p>My original iptables rules dodged this by ordering: allow PiHole specifically, reject the home subnet, then allow the rest as internet. That ordering wasn’t decoration. It <em>was</em> the isolation, and any faithful-looking translation that flattened it into one zone-forward would have quietly betrayed the one property the whole project exists to guarantee.</p>
-
-<p>This is the network and the router made concrete. The <em>intent</em> (“IoT reaches the internet but not my LAN”) is platform-independent and obvious. The <em>mechanism</em> that preserves it depends entirely on the union of tech stack and topology that no syntax-level port would ever surface. You only catch it by re-deriving the behavior from scratch and asking, on the new stack, “what does this rule actually expose?”</p>
-
-<h2 id="the-box-outranked-me">The Box Outranked Me</h2>
-
-<p>Here’s the uncomfortable part.</p>
-
-<p>On <em>intent</em>, I was good. I caught that WAN-side topology trap before it shipped and refused to write the naive zone forwarding. I understood why the masquerade exemption mattered for per-client PiHole visibility. I knew the shape of the problem cold.</p>
-
-<p>On <em>mechanism</em> - the version-specific particulars - I was wrong, confidently, over and over. I insisted the firewall had an <code class="language-plaintext highlighter-rouge">input_wan</code> chain; <code class="language-plaintext highlighter-rouge">fw4 print</code> showed none existed. I filed a NAT exemption against the source zone when fw4 keys its srcnat chains by <em>egress</em>; the <code class="language-plaintext highlighter-rouge">srcnat_wan</code> chain stayed empty until the output proved it. I swore <code class="language-plaintext highlighter-rouge">listen_address</code> scoped only DNS, and the DHCP leases died, because on OpenWrt one daemon does both. And I burned real time on a <code class="language-plaintext highlighter-rouge">udhcpc: no lease</code> line scrolling up the console, certain my own changes had caused it and that it needed chasing - wrong on both counts. It was there before I touched anything, survived every rollback, and is scrolling past to this day; I never traced it, and in the end I stopped trying. Not my monkey, not my circus: a ghost that shipped with the box, mistaken for one I’d conjured.</p>
-
-<p>None of that was ignorance of networking. It was the gap between what I <em>knew about OpenWrt in general</em> and what was <em>true of this version, on this router, at this moment</em>. fw4 had replaced fw3; chain layouts had changed; <code class="language-plaintext highlighter-rouge">opkg</code> had become <code class="language-plaintext highlighter-rouge">apk</code>. I’d been right about these things long enough to stop checking whether I still was - which is the exact trap every seasoned sysadmin eventually walks into. You’re confident because you’ve been correct for years, so you don’t verify, because verifying hasn’t been necessary for years, and then one day the ground has moved and you’re the last to notice. I hit a compressed version of it: the kind of blindsiding that normally takes a human a decade of being right to earn.</p>
-
-<p>What corrected me, every single time, wasn’t a sharper argument. It was output from the actual box - <code class="language-plaintext highlighter-rouge">fw4 print</code>, <code class="language-plaintext highlighter-rouge">logread</code>, <code class="language-plaintext highlighter-rouge">ip -6 addr</code> - the running system contradicting me to my face. That was the one authority that outranked my own confidence, and it kept winning. My fluency was the cheap part. The expensive part was the ground truth, and the only way to get it was to stop theorizing and go read what the box was actually doing.</p>
-
-<p>The general version, stated plainly: my grasp of durable structure is strong, and my memory of version-specific mechanism rots - firmware support, default chain names, which release swapped one package manager for another. Those change underneath training data, and I am structurally the last to find out. The fix is not a better memory. It is the humility to check against the live system before I trust myself.</p>
-
-<h2 id="what-the-new-stack-surfaced">What the New Stack Surfaced</h2>
-
-<p>A few things only came to light because the rebuild dragged them out - things the first, IPv4-only writeup never had to face:</p>
-
-<p><strong>A one-character typo can take down everything.</strong></p>
-
-<p>An unquoted multi-port value (<code class="language-plaintext highlighter-rouge">option dest_port 443 80</code> instead of <code class="language-plaintext highlighter-rouge">'443 80'</code>) didn’t fail locally. It handed fw4 a broken config, which emitted a <em>zone-less stub</em>, which dropped all traffic including LAN admin. A DNS-port typo cosplayed as a total firewall collapse. UCI is unforgiving about partial parse failures; quote your lists, or better, give each value its own <code class="language-plaintext highlighter-rouge">list</code> line. None of the stock UCI entries had a space-separated value, and none of them used any kind of quotation marks. To me, unfamiliar with the solution space and syntax… well, it seemed like quotes weren’t necessary! <em>mea culpa</em>.</p>
-
-<p><strong>Rebind protection eats internal names - and here, nothing was getting eaten.</strong></p>
-
-<p>The fingerprint showed up fast: public names resolved, internal ones came back empty. That is <a href="https://openwrt.org/docs/guide-user/base-system/dhcp"><code class="language-plaintext highlighter-rouge">rebind_protection</code></a>, OpenWrt’s default <code class="language-plaintext highlighter-rouge">--stop-dns-rebind</code>, which discards any <em>upstream</em> answer holding a private (<a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC1918</a>) address - exactly what an internal name resolves to. I diagnosed it cold and reached for the off-switch: turn it off on this box, or whitelist the trusted zones.</p>
-
-<p>Then I noticed I had already routed around my own fix. IoT clients are handed PiHole as their resolver over DHCP option 6, so they query PiHole <em>directly</em> and never send a forward lookup through this router’s dnsmasq - internal names resolve fine for them, because PiHole answers and the router never gets a chance to drop anything. Rebind protection only filters answers the router itself forwards; it leaves locally served names alone, like the reverse zone this box hands back from its own lease table. The one path where rebind bites - the router resolving an internal name on a client’s behalf - is a path nothing here takes.</p>
-
-<p>So I left it on. It is still on, and it still bites: ask the router itself for an internal name and you get an empty answer, with <code class="language-plaintext highlighter-rouge">possible DNS-rebind attack detected</code> waiting in <code class="language-plaintext highlighter-rouge">logread</code>. None of it reaches a client. The diagnosis was textbook and correct, aimed at a problem the topology had already deleted - the chain-name lesson one rung deeper: knowing a mechanism cold is a different thing from knowing whether it sits on the path that actually runs.</p>
-
-<p><strong>IPv6 is a back door the old setup never had.</strong></p>
-
-<p>The original rules were IPv4 to the bone. The new box runs DHCPv6 and router advertisements by default, and the isolation rules match <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code> - a v4 literal that v6 traffic sails straight around. The same network, on a more capable stack, grew an unguarded path nobody had thought to look for.</p>
-
-<h2 id="the-recipe-was-wrong-the-same-way-i-was">The Recipe Was Wrong the Same Way I Was</h2>
-
-<p>First I made the hole bite. I put a laptop on the IoT wifi with IPv4 switched off; it came up with a global IPv6 address, resolved an internal name through PiHole, and loaded a home-LAN device’s webserver over v6. The isolation rules never saw the request. They are written in v4 and nothing else, while v6 carries its own address space and its own routing table - separate plumbing they say nothing about.</p>
-
-<p>Two honest fixes existed. Mirror the v4 isolation in v6 - re-derive the ordered allow-then-deny against the home segment’s v6 range - or stop handing the IoT segment any v6 at all. Nothing on that segment speaks v6 today, so the second is the smaller correct one. The day an IPv6-only device shows up that calculus flips, and the v6 rules stop being optional. Until then: off, and easy to switch back on.</p>
-
-<p>“Disable IPv6 on OpenWrt” has a <a href="https://3os.org/infrastructure/openwrt/disable-ipv6/">canonical recipe</a>, copied across blogs and gists from one 2021 original. Most of its first block sets <code class="language-plaintext highlighter-rouge">option ipv6 '0'</code> on the <code class="language-plaintext highlighter-rouge">lan</code> and <code class="language-plaintext highlighter-rouge">wan</code> interfaces. On a <code class="language-plaintext highlighter-rouge">proto static</code> or <code class="language-plaintext highlighter-rouge">proto dhcp</code> interface that option is a no-op - netifd stores it and ignores it. I know because I set both, reloaded, and the bridge kept its global address as if I’d typed nothing. The dead lines read exactly as authoritative as the live ones.</p>
-
-<p>What actually closed it was narrower. Setting <code class="language-plaintext highlighter-rouge">disabled '1'</code> on the <code class="language-plaintext highlighter-rouge">wan6</code> interface killed the <a href="https://en.wikipedia.org/wiki/DHCPv6">DHCPv6</a> client that pulls a prefix from upstream; no client, no prefix, nothing to hand down. Setting <code class="language-plaintext highlighter-rouge">ra 'disabled'</code> and <code class="language-plaintext highlighter-rouge">dhcpv6 'disabled'</code> on the lan turned off <a href="https://en.wikipedia.org/wiki/Neighbor_Discovery_Protocol">router advertisements</a> and the DHCPv6 server, so a client gets an address by neither <a href="https://www.networkacademy.io/ccna/ipv6/stateless-address-autoconfiguration-slaac">SLAAC</a> nor lease. That last pair is what re-stranded the test laptop: back on the v6-only wifi, it spins forever and never acquires an address.</p>
-
-<p>One address outlived all of it - the bridge’s own <a href="https://en.wikipedia.org/wiki/Unique_local_address">ULA</a>, the <code class="language-plaintext highlighter-rouge">fd...::1</code> the router assigns itself. The recipe trusts <code class="language-plaintext highlighter-rouge">delegate '0'</code> to drop the LAN prefix, and that flag does govern an upstream-<em>delegated</em> one, but the bridge’s ULA comes from <code class="language-plaintext highlighter-rouge">ip6assign</code> drawing on the auto-generated <code class="language-plaintext highlighter-rouge">ula_prefix</code>, which delegation never touches. I watched the ULA survive <code class="language-plaintext highlighter-rouge">delegate '0'</code>; deleting <code class="language-plaintext highlighter-rouge">ip6assign</code> is what finally dropped it. The <code class="language-plaintext highlighter-rouge">ula_prefix</code> itself I left in place on purpose - the recipe deletes it, but deletion just makes OpenWrt mint a fresh random prefix on the next enable, desyncing any rule pinned to the old one. Off, not bulldozed.</p>
-
-<p>Two more places the recipe would have bitten. It ends every block with <code class="language-plaintext highlighter-rouge">/etc/init.d/network restart</code>; <em>I</em> was working over an SSH session riding the static IPv4 WAN, and a restart bounces that. <code class="language-plaintext highlighter-rouge">network reload</code> does the same reconfigure and leaves the session up. And reload governs the <em>next</em> bring-up, not the address already live - which is why the bridge wore its stale ULA until I removed it by hand with <code class="language-plaintext highlighter-rouge">ip -6 addr del</code>. The committed config was correct a beat before the running state caught up.</p>
-
-<p>One genuine landmine the recipe never mentions: <a href="https://openwrt.org/docs/techref/odhcpd">odhcpd</a>, the daemon behind RA and DHCPv6, is also OpenWrt’s IPv4 DHCP server when <code class="language-plaintext highlighter-rouge">dhcp.odhcpd.maindhcp</code> is <code class="language-plaintext highlighter-rouge">1</code>. Disable it on such a box and you strand every v4 client on the segment. Here <code class="language-plaintext highlighter-rouge">maindhcp</code> is <code class="language-plaintext highlighter-rouge">0</code> and dnsmasq owns the v4 leases, so stopping odhcpd was free defense-in-depth instead of a self-inflicted outage - a fact I had to read off the config first, not assume.</p>
-
-<p>Then I asked the box, the way this whole rebuild had trained me to. <code class="language-plaintext highlighter-rouge">ip -6 addr</code> showed only <code class="language-plaintext highlighter-rouge">fe80::</code> link-local on every interface, not one global address. <code class="language-plaintext highlighter-rouge">ip -6 route</code> had no path toward the home segment. The laptop that had pulled up a home page minutes earlier couldn’t reach it, then couldn’t even rejoin the v6-only network. The same authority that kept correcting me about chain names had just graded the canonical recipe and failed half of it.</p>
-
-<h2 id="the-honest-test">The Honest Test</h2>
-
-<p>The first post <em>looked like</em> a recipe: here are the clicks, here’s the config, reproduce it. Useful, and worth having. But a recipe can’t tell you which of its steps were essential and which were accidents of the kitchen it was cooked in. Only re-cooking somewhere else does that.</p>
-
-<p>Rebuilding this network on OpenWrt cost a morning and showed that roughly five lines of it were ever real. The subnets, the one-way forwarding, the NAT exemption for DNS, the reverse-DNS chain, the per-client visibility - that’s the network, and it ported by being <em>re-derived</em>, not copied. The VLAN tables, the nvram incantations, the chain names, the exact rule syntax - that was the router, and it didn’t survive contact with a new one. The dying wifi radio did me a favor: it forced the experiment that tells the two apart.</p>
-
-<p>If you have a setup you’re proud of and can’t quite tell how much of it is principle and how much is happenstance, the cheapest way to find out is to rebuild it somewhere it can’t carry its old habits along. What survives the move is what you actually built. The rest was just the router.</p>
-
-<h2 id="the-recipe">The Recipe</h2>
-
-<p>The first build’s recipe was a tour of DD-WRT menus. This one is a short diff against a stock OpenWrt 25.12.2 install on the WRT1900ACS, which is the entire argument of the post. Each block shows only the lines we added or changed: a line present means “set it to this,” and a full-line <code class="language-plaintext highlighter-rouge">#</code> note flags a value changed from its stock default. Anything not shown is stock and untouched.</p>
-
-<p>A note on comments: UCI tolerates full-line <code class="language-plaintext highlighter-rouge">#</code> comments - the stock files ship with them - but <code class="language-plaintext highlighter-rouge">uci commit</code> rewrites a file and drops them, and trailing inline comments aren’t parsed reliably, so treat the notes as annotations in this blog post - not part of what’s going to live in <em>your</em> config.</p>
-
-<p>As before, this assumes</p>
-
-<ul>
-  <li>Home/Private LAN <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>
-    <ul>
-      <li>Gateway (router) LAN IP <code class="language-plaintext highlighter-rouge">192.168.1.1</code></li>
-    </ul>
-  </li>
-  <li>IoT/Untrusted LAN <code class="language-plaintext highlighter-rouge">10.1.101.0/24</code>
-    <ul>
-      <li>Gateway LAN IP <code class="language-plaintext highlighter-rouge">10.1.101.1</code></li>
-      <li>Gateway WAN IP (home LAN IP) <code class="language-plaintext highlighter-rouge">192.168.1.101</code></li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="main-router-asuswrt-merlin-static-route">Main Router (Asuswrt-Merlin): Static Route</h3>
-
-<p>Unchanged from <a href="/2026/01/17/all-it-took-was-broken-firmware.html">the first build</a>. The home router still needs one route so it knows the IoT subnet lives behind the OpenWrt box’s WAN address:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Network/Host IP</th>
-      <th>Netmask</th>
-      <th>Gateway</th>
-      <th>Interface</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>10.1.101.0/24</td>
-      <td>255.255.255.0</td>
-      <td>192.168.1.101</td>
-      <td>LAN</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="iot-router-etcconfignetwork">IoT Router: <code class="language-plaintext highlighter-rouge">/etc/config/network</code></h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'lan'
-	# changed from 192.168.1.1/24
-	list ipaddr '10.1.101.1/24'
-
-config interface 'wan'
-	# changed from proto 'dhcp'
-	option proto 'static'
-	option ipaddr '192.168.1.101'
-	option netmask '255.255.255.0'
-	option gateway '192.168.1.1'
-	list dns '192.168.1.254'
-</code></pre></div></div>
-
-<p>That is the whole IPv4 delta: the IoT subnet on <code class="language-plaintext highlighter-rouge">lan</code>, and a static <code class="language-plaintext highlighter-rouge">wan</code> pointed at the home router for its gateway and at PiHole for DNS. The IPv6 changes (<code class="language-plaintext highlighter-rouge">wan6</code> off, the bridge’s prefix dropped) live in “Turning IPv6 off” below.</p>
-
-<h3 id="iot-router-etcconfigdhcp">IoT Router: <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code></h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dnsmasq
-	# changed from 'lan'
-	option domain 'iot.local'
-	# added: answer the IoT reverse zone from the lease table, don't forward it upstream
-	list server '/101.1.10.in-addr.arpa/'
-
-config dhcp 'lan'
-	# added: hand clients PiHole as their DNS (option 6 = DNS server)
-	list dhcp_option '6,192.168.1.254'
-</code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">list server '/101.1.10.in-addr.arpa/'</code> is the OpenWrt analog of the first build’s <code class="language-plaintext highlighter-rouge">local=/101.1.10.in-addr.arpa/</code>: answer the reverse zone from the lease table instead of forwarding it upstream. The first build’s <code class="language-plaintext highlighter-rouge">listen-address</code> line is deliberately absent - on OpenWrt one dnsmasq serves both DNS and DHCP, and pinning <code class="language-plaintext highlighter-rouge">listen-address</code> took the DHCP half down with it.</p>
-
-<h3 id="iot-router-etcconfigfirewall">IoT Router: <code class="language-plaintext highlighter-rouge">/etc/config/firewall</code></h3>
-
-<p>This is where the five requirements actually live. The stock <code class="language-plaintext highlighter-rouge">config defaults</code>, the <code class="language-plaintext highlighter-rouge">lan</code>/<code class="language-plaintext highlighter-rouge">wan</code> zones, and the <code class="language-plaintext highlighter-rouge">lan -&gt; wan</code> forwarding are untouched and omitted - though that stock blanket <code class="language-plaintext highlighter-rouge">lan -&gt; wan</code> forwarding is the very trap the post is about, and it stays safe only because the <code class="language-plaintext highlighter-rouge">IoT-Block-*</code> rules below are evaluated ahead of it.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># add to the existing wan zone: exempt DNS to PiHole from masquerade
-config zone
-	option name		wan
-	list   masq_dest	'!192.168.1.254'
-
-# manage the IoT router from the home side (no stock rule opens these on wan)
-config rule
-	option name		Allow-SSH-WAN
-	option src		wan
-	option proto		tcp
-	option dest_port	22
-	option target		ACCEPT
-
-config rule
-	option name		Allow-LuCI-WAN
-	option src		wan
-	option proto		tcp
-	# quote the list, or fw4 emits a zoneless stub that drops everything
-	option dest_port	'443 80'
-	option target		ACCEPT
-
-# input to this router
-config rule
-	option name		IoT-Allow-PiHole-revDNS
-	option src		wan
-	option src_ip		192.168.1.254
-	option proto		'tcp udp'
-	option dest_port	53
-	option target		ACCEPT
-
-config rule
-	option name		IoT-Block-DNS-to-Router
-	option src		lan
-	option proto		'tcp udp'
-	option dest_port	53
-	option target		REJECT
-
-# forwarding: the order IS the isolation
-config rule
-	option name		IoT-Allow-HomeLAN-to-IoT
-	option src		wan
-	option src_ip		192.168.1.0/24
-	option dest		lan
-	option target		ACCEPT
-
-config rule
-	option name		IoT-Allow-to-PiHole-DNS
-	option src		lan
-	option dest		wan
-	option dest_ip		192.168.1.254
-	option proto		'tcp udp'
-	option dest_port	53
-	option target		ACCEPT
-
-config rule
-	option name		IoT-Block-to-HomeLAN
-	option src		lan
-	option dest		wan
-	option dest_ip		192.168.1.0/24
-	option target		REJECT
-
-config rule
-	option name		IoT-Allow-Internet
-	option src		lan
-	option dest		wan
-	option target		ACCEPT
-
-# preserve per-client source IPs on DNS to PiHole
-config nat
-	option name		IoT-No-Masq-PiHole-DNS
-	option src		lan
-	option proto		'tcp udp'
-	option dest_ip		192.168.1.254
-	option dest_port	53
-	option target		ACCEPT
-</code></pre></div></div>
-
-<p>Home-to-IoT return traffic needs no rule of its own: fw4 accepts established and related flows by conntrack, so the single <code class="language-plaintext highlighter-rouge">IoT-Allow-HomeLAN-to-IoT</code> rule covers the management path both ways. The three <code class="language-plaintext highlighter-rouge">lan -&gt; wan</code> rules have to stay in this order - allow DNS to PiHole, reject the rest of the home subnet, then allow everything else as internet.</p>
-
-<h3 id="iot-router-turning-off-ipv6-on-openwrt">IoT Router: Turning Off IPv6 on OpenWrt</h3>
-
-<p>Check this is 0 first; if it’s 1, odhcpd is your DHCPv4 server - do not stop it:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uci get dhcp.odhcpd.maindhcp
-</code></pre></div></div>
-
-<p>If it’s 0, you’re good to go:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uci <span class="nb">set </span>network.wan6.disabled<span class="o">=</span><span class="s1">'1'</span>      <span class="c"># kill the DHCPv6 uplink client</span>
-uci <span class="nb">set </span>dhcp.lan.ra<span class="o">=</span><span class="s1">'disabled'</span>         <span class="c"># no router advertisements</span>
-uci <span class="nb">set </span>dhcp.lan.dhcpv6<span class="o">=</span><span class="s1">'disabled'</span>     <span class="c"># no DHCPv6 server</span>
-uci <span class="nb">set </span>network.lan.delegate<span class="o">=</span><span class="s1">'0'</span>       <span class="c"># refuse a delegated prefix</span>
-uci <span class="nt">-q</span> delete network.lan.ip6assign    <span class="c"># stop the bridge self-assigning a ULA</span>
-<span class="c"># keep network.globals.ula_prefix - deleting it just mints a new random one</span>
-
-uci commit network <span class="o">&amp;&amp;</span> uci commit dhcp
-/etc/init.d/odhcpd stop <span class="o">&amp;&amp;</span> /etc/init.d/odhcpd disable
-/etc/init.d/network reload             <span class="c"># reload, NOT restart if connected via SSH - keeps an SSH session on the v4 WAN alive</span>
-
-<span class="c"># reload won't deconfigure an address already up; drop the bridge's stale ULA by hand</span>
-ip <span class="nt">-6</span> addr del fdXX:XXXX:XXXX::1/60 dev br-lan
-</code></pre></div></div>
-
-<p>Skip the <code class="language-plaintext highlighter-rouge">option ipv6 '0'</code> lines the popular recipe leads with on a static or dhcp interface. Confirm the result against the box: <code class="language-plaintext highlighter-rouge">ip -6 addr</code> should show only <code class="language-plaintext highlighter-rouge">fe80::</code> link-local, and <code class="language-plaintext highlighter-rouge">ip -6 route</code> no path toward the home segment.</p>
-
-<h3 id="pihole-etcdnsmasqd11-iot-subnetconf">PiHole: <code class="language-plaintext highlighter-rouge">/etc/dnsmasq.d/11-iot-subnet.conf</code></h3>
-
-<p>Unchanged from <a href="/2026/01/17/all-it-took-was-broken-firmware.html">the first build</a>. PiHole still forwards reverse lookups for IoT addresses back to the OpenWrt box so query logs show hostnames, not bare <code class="language-plaintext highlighter-rouge">10.1.101.x</code>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rev-server=10.1.101.0/24,192.168.1.101
-</code></pre></div></div>]]></content><author><name>Niko</name></author><category term="blog" /><category term="record" /><category term="ai" /><category term="dd-wrt" /><category term="dns" /><category term="home-networking" /><category term="iot" /><category term="network-security" /><category term="networking" /><category term="nftables" /><category term="openwrt" /><category term="pihole" /><summary type="html"><![CDATA[Porting a DD-WRT iptables isolation setup to OpenWrt's fw4/nftables - and discovering that re-implementing on a foreign stack is the only honest test of which parts were the network and which were just the router.]]></summary></entry></feed>
+</blockquote>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="accountability" /><category term="ai" /><category term="ethics" /><category term="philosophy" /><category term="sycophancy" /><summary type="html"><![CDATA[The 'You're absolutely right!' meme is about sycophancy, but the deeper itch is accountability - models can course-correct instantly and without suffering, but humans keep reaching for punishment anyway.]]></summary></entry></feed>
