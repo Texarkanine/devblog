@@ -12,7 +12,7 @@ tags:
   - network-security
   - nftables
   - openwrt
-  - piholef
+  - pihole
   - wireguard
 ---
 
@@ -41,31 +41,37 @@ I watched this on a colliding SSID. The Mac tunnel interface (`utun`) had an ove
 
 ## 10.168.1 Keeps the Last Octet
 
-The house needed an address that a `192.168.1.0/24` cafe cannot claim. We picked `10.168.1.0/24` and kept the last octet: the host at `192.168.1.122` is also `10.168.1.122`. Pi-hole is `10.168.1.254`. The VPN box is `10.168.1.253`. Client DNS points at the alias, never at `192.168.1.254`.
+The house needed an address range that a `192.168.1.0/24` cafe cannot claim. We picked `10.168.1.0/24` and kept the last octet: a home server at `192.168.1.122` becomes reachable at `10.168.1.122`. Pi-hole at `.254` is reachable at `10.168.1.254`. The VPN box at `.253` is `10.168.1.253`.
 
-The VPN box translates the whole `/24` on the way in. Packets that leave the tunnel still show their `192.168.101.x` addresses, because masquerade is still off. The edge route still has something to match. [Conntrack](https://en.wikipedia.org/wiki/Netfilter#Connection_tracking) undoes the translation on the way back, so the laptop sees replies from `10.168.1.x`.
+The VPN box translates the whole `/24` on the way in. When packets leave the tunnel, they still carry their `192.168.101.x` client addresses, because masquerade is off. The edge router's return route still matches. [Conntrack](https://en.wikipedia.org/wiki/Netfilter#Connection_tracking) (connection tracking) reverses the destination rewrite on replies, so the laptop sees answers coming back from `10.168.1.x`.
 
 ```mermaid
 flowchart LR
   Client["client DNS 10.168.1.254"]
   GL["VPN box"]
   Dns["Pi-hole"]
-  Host["LAN host .122"]
+  Host["home server (.122)"]
   Client -->|"alias /24"| GL
   GL -->|"1:1 last octet"| Host
-  GL -->|"port 53 to a side listen"| Dns
-  Dns -->|"A is 10.168.1.122"| Client
+  GL -->|"port 53 to side listen"| Dns
+  Dns -->|"A record: 10.168.1.122"| Client
 ```
 
-Names have to return the alias. A resolver that still answers `192.168.1.122` for a home name has just handed the laptop back to the cafe, with extra steps.
+"Nobody" types raw IP addresses into a browser or terminal; you type hostnames like `home.internal`. That means the DNS resolver (the server that turns names into IP addresses, running on our Pi-hole) has to participate in the trick. If you ask for `home.internal` while sitting in the living room, it should answer `192.168.1.122`. But if you ask over the WireGuard tunnel from a cafe, it must return the alias address `10.168.1.122`. If it answered with `192.168.1.122`, the laptop would look at the cafe's Wi-Fi, decide `.122` was local, and never send the packet into the tunnel at all.
+
+The design was clean on paper: a 1:1 alias subnet across the whole home, and split-horizon DNS answering with alias addresses over the VPN. Then we sat down at a cafe to test it.
 
 ## The Chain That Nobody Jumped
 
-Off-LAN, `ping 10.168.1.122` timed out. `nft list` showed `chain dstnat_vpn`. That chain's packet counter stayed at zero: the rule existed, and nothing had ever hit it.
+Sitting on the cafe Wi-Fi with the WireGuard tunnel active, we tried pinging a test home server at the alias IP `10.168.1.122`. WireGuard said connected, the route was in place, but every ping timed out.
 
-OpenWrt [fw4](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) will include a file from `/etc/nftables.d/` at the *table* root. We put the translation in `chain dstnat_vpn` that way. We had started with one UCI redirect per house host. When the whole-subnet rule replaced those rows, we deleted them. fw4 only *jumps* from `dstnat` into `dstnat_<zone>` when a UCI `redirect` still exists for that zone. The chain sat in kernel memory with no caller. Defining `chain dstnat` in the drop-in failed too: fw4 includes those files before it creates the base chains.
+On the VPN box, `nft list` showed our new translation rule sitting inside `chain dstnat_vpn`. But that chain's packet counter stayed at zero: the rule was in the kernel, and not a single packet had ever touched it.
 
-The include that actually runs is a UCI `chain-append` on `dstnat` itself:
+OpenWrt [fw4](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) allows custom firewall extensions via drop-in configuration files: any `.nft` file placed in `/etc/nftables.d/` is automatically included at the table root. We had created a drop-in file defining our subnet translation inside `chain dstnat_vpn`. Earlier, we had tested individual hosts using OpenWrt's standard UCI `redirect` sections. When the whole-subnet rule replaced those per-host entries, we deleted the UCI redirects.
+
+Here is the catch: fw4 only inserts a jump from the base `dstnat` chain into `dstnat_<zone>` if at least one UCI `redirect` exists for that zone. When we deleted the last UCI redirect, fw4 stopped generating the jump instruction. The chain sat in kernel memory with no caller. Trying to define the base `chain dstnat` directly inside the drop-in file failed too, because fw4 includes drop-in files before it defines its own base chains.
+
+The hook that actually works is a UCI `chain-append` pointing at the drop-in file, attaching it to `dstnat` itself:
 
 ```ini
 config include 'alias_netmap'
@@ -75,7 +81,9 @@ config include 'alias_netmap'
 	option chain 'dstnat'
 ```
 
-A chain `nft list` can print, with a packet counter that never moves, is a chain nothing jumped to.
+With `chain-append`, fw4 attaches our rules directly to `dstnat` after creating the base chains. A quick `fw4 reload`, another ping from the cafe, and the packet counter finally moved. Traffic was hitting the chain.
+
+Except the ping was still failing.
 
 ## The Pool That Looked Like a Map
 
@@ -85,27 +93,63 @@ The first line we appended looked like whole-subnet translation:
 iifname "wg0" ip daddr 10.168.1.0/24 dnat ip to 192.168.1.0/24
 ```
 
-[nftables treats a prefix on the right-hand side of `dnat to` as a pool](https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_%28NAT%29#NAT_pooling). `nft --debug=netlink` said `addr_min 192.168.1.0` / `addr_max 192.168.1.255`. The kernel may pick any address in that `/24`. A 1:1 map needs the prefix form, which [current nftables spells as a destination map](https://serverfault.com/questions/1156428/configuring-destination-nat-nftables-entire-subnet):
+To human eyes, writing `10.168.1.0/24 dnat to 192.168.1.0/24` looks like: map the incoming prefix to the target prefix, preserving host numbers. Even `nft list ruleset` echoes back that exact string.
+
+It is a trap. [nftables treats a subnet on the right-hand side of `dnat to` as a pool](https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_%28NAT%29#NAT_pooling). If you inspect what the compiler actually generated with `nft --debug=netlink`, the kernel bytecode gives the game away:
+
+```text
+  [ nat dnat ip addr_min 192.168.1.0 addr_max 192.168.1.255 ]
+```
+
+The kernel was not preserving `.122` at all. It treated `192.168.1.0/24` as a pool of 256 random addresses, rewriting incoming packets to whatever IP it felt like.
+
+A true 1:1 prefix translation requires the prefix map syntax, which [current nftables spells as a destination map](https://serverfault.com/questions/1156428/configuring-destination-nat-nftables-entire-subnet):
 
 ```text
 iifname "wg0" ip daddr 10.168.1.0/24 counter dnat ip prefix to ip daddr map { 10.168.1.0/24 : 192.168.1.0/24 }
 ```
 
-That compiled on OpenWrt 24.10.8, kernel `6.6.144`, the same release image as the first post. Both `/24`s in the rule text can still be a pool. `nft --debug=netlink` is what shows `prefix` instead of `addr_min` / `addr_max`.
+That compiled cleanly on OpenWrt 24.10.8 (kernel `6.6.144`). `nft --debug=netlink` confirmed a real prefix translation rather than `addr_min` / `addr_max`.
+
+Now `ping 10.168.1.122` answered instantly. Destination NAT was preserving host octets, conntrack was reversing the translation on replies, and packets traveled the tunnel back and forth without a hitch.
+
+Raw IP addresses were working. But as soon as we opened a browser, the cafe took over again.
 
 ## House Numbers on a Foreign Street
 
-The map can be perfect and the browser still goes to the cafe, because the name still resolved to `192.168.1.122`.
+The IP map was working, but typing `http://box.internal` in a browser still landed on the cafe's router login page.
 
-The WireGuard profile has a [`DNS =` line](https://man.archlinux.org/man/wg-quick.8.en#CONFIGURATION). It takes an IPv4 address. The client sends that query to port 53.
+The WireGuard profile specifies a DNS server using the [`DNS =` line](https://man.archlinux.org/man/wg-quick.8.en#CONFIGURATION). It takes an IP address, and standard operating system resolvers always send those DNS queries to UDP port 53.
 
-[Pi-hole's FTL](https://docs.pi-hole.net/ftldns/) owns `192.168.1.254:53` for the house. On the LAN that is the right answer: a home name is `192.168.1.122`. In a cafe that already uses that `/24`, it is the answer that sends the laptop to the cafe. We needed port 53, over the tunnel, to return `10.168.1.122`.
+On the home LAN, [Pi-hole's FTL](https://docs.pi-hole.net/ftldns/) listens on `192.168.1.254:53`. When asked for `box.internal`, it answers with the real LAN IP: `192.168.1.122`. When you are at home, that is correct. But when you are at a cafe whose Wi-Fi also uses `192.168.1.0/24`, that answer is poison: your laptop sees `192.168.1.122`, decides it is local to the cafe, and never sends the connection into the tunnel.
 
-Browsers can speak [DNS-over-HTTPS](https://en.wikipedia.org/wiki/DNS_over_HTTPS): a DNS query inside HTTPS, not port 53. We already had [dnsdist](https://dnsdist.org/) answering that for tunnel clients (`192.168.101.0/24`) with the alias As. `https://10.168.1.254/dns-query` returned `10.168.1.122`. The WireGuard profile has no field for that. `dig @10.168.1.254` - the query it actually sends - still hit FTL and came back `192.168.1.122`.
+We needed DNS queries arriving over the VPN to return `10.168.1.122` instead.
 
-Putting dnsdist in front of house `:53` would have made one rewrite engine, and it would have taken `:53` off FTL for every laptop on the LAN. dnsdist is a sidecar so DoH clients still show up in FTL as themselves. VPN-only port-53 traffic is not a reason to move the house resolver.
+Modern browsers can use [DNS-over-HTTPS](https://en.wikipedia.org/wiki/DNS_over_HTTPS) (DoH), sending queries inside encrypted HTTPS requests rather than plain port 53. We already had [dnsdist](https://dnsdist.org/) running on the Pi-hole host to handle DoH, configured to return DNS A records containing the `10.168.1.x` alias addresses for VPN clients (`192.168.101.0/24`). Over DoH, `https://10.168.1.254/dns-query` answered with `10.168.1.122`.
 
-FTL kept `:53`. dnsdist grew a plain listen on `192.168.1.254:5300`. The VPN box dest-port-rewrites `iif wg0` `10.168.1.254:53` onto that listen, and it does so *before* the `/24` map. If the map wins first, `:53` still lands on FTL.
+The problem is that the WireGuard client profile has no field for DoH. It only configures the operating system's standard resolver (`DNS = 10.168.1.254`), which fires standard queries over port 53. And port 53 on the Pi-hole belonged to FTL, which was still answering `192.168.1.122`.
+
+The obvious architectural temptation is to put dnsdist on port 53 in front of Pi-hole, letting it handle every DNS query for the entire house. We rejected that. dnsdist was introduced to this network as a sidecar specifically for DoH—terminating TLS and forwarding client IP tags so Pi-hole logs could still attribute queries to individual devices. Pi-hole FTL handles the household's primary DNS natively. Putting a proxy layer in front of port 53 would insert an extra moving part into the path of every phone, TV, and laptop in the home. A misconfiguration or crash in dnsdist would take down the entire household's internet. Roaming VPN tweaks should not jeopardize the living room.
+
+Instead, FTL kept port 53 for the house. dnsdist was given an additional plain listen on `192.168.1.254:5300`. Then the VPN box rewrites any port 53 queries coming across the tunnel to that side listen, placed *before* the general `/24` prefix map:
+
+```mermaid
+sequenceDiagram
+    participant WG as VPN client (cafe)
+    participant LAN as Home LAN (living room)
+    participant GL as VPN box (.253)
+    participant Dist as dnsdist (:5300)
+    participant FTL as Pi-hole FTL (:53)
+
+    LAN->>FTL: dig @192.168.1.254:53 box.internal
+    FTL-->>LAN: 192.168.1.122 (real LAN IP)
+
+    WG->>GL: dig @10.168.1.254:53 box.internal
+    GL->>Dist: rewrite dport 5300 (source: 192.168.101.x)
+    Dist-->>WG: 10.168.1.122 (alias IP)
+```
+
+The rewrite rules on the VPN box:
 
 ```text
 iifname "wg0" ip daddr 10.168.1.254 udp dport 53 dnat ip to 192.168.1.254:5300
@@ -113,37 +157,49 @@ iifname "wg0" ip daddr 10.168.1.254 tcp dport 53 dnat ip to 192.168.1.254:5300
 iifname "wg0" ip daddr 10.168.1.0/24 counter dnat ip prefix to ip daddr map { 10.168.1.0/24 : 192.168.1.0/24 }
 ```
 
-The spoof matches the tunnel client's address. A LAN `dig` to `:5300` still returns `192.168.1.122`. Only `192.168.101.0/24` gets the alias. A new listen has to be proven from the LAN; a VPN query can hit a different bind and still look like success.
+The dnsdist spoof rule is source-gated to tunnel addresses (`192.168.101.0/24`). A query from the home LAN to port 5300 still receives `192.168.1.122`; only VPN clients get the `10.168.1.x` alias.
 
-On a colliding hotspot that also used `192.168.1.0/24`, alias ICMP came back and DoH returned `10.168.1.122`. The house answered as itself from a street that had already claimed its numbers.
+Tested on a hotspot sharing `192.168.1.0/24`, both `ping 10.168.1.122` and standard `dig @10.168.1.254 box.internal` returned the alias. The house answered as itself from a street that had already claimed its numbers.
+
+We had completely solved `192.168.1.0/24` collisions. Then we walked into a cafe that used a completely different private subnet.
 
 ## Two /1s and a Cafe /8
 
-A later cafe numbered the laptop out of `10.0.0.0/8`. Handshake lived. `1.1.1.1` through the tunnel lived. `10.168.1.254` timed out.
+A second cafe numbered our laptop out of `10.0.0.0/8`. The WireGuard handshake connected. Public traffic like `1.1.1.1` through the tunnel worked fine. But `10.168.1.254` timed out.
 
-`ping` left the Wi-Fi interface. The cafe's filter rejected `10.168.1.0/24` as someone else's private range. The packets never entered `utun`.
+A quick trace showed that `ping` packets were leaving the laptop's Wi-Fi interface instead of entering the tunnel. The cafe router's local filter saw packets addressed to `10.168.1.0/24` on its local Wi-Fi and dropped them as foreign private traffic. The packets never entered the tunnel interface (`utun`).
 
-On that Mac, `AllowedIPs = 0.0.0.0/0` had become two `/1` routes, `0.0.0.0/1` and `128.0.0.0/1`. A connected `/8` is more specific than `/1` for every `10.` address. The full tunnel was winning the default route and losing the alias.
+Why? On macOS, setting `AllowedIPs = 0.0.0.0/0` doesn't install a single default route. To avoid overriding the physical gateway, WireGuard splits the default route into two `/1` routes: `0.0.0.0/1` and `128.0.0.0/1`.
+
+Under longest prefix match, the cafe's on-link `10.0.0.0/8` route is more specific than WireGuard's `0.0.0.0/1` route! Any packet sent to a `10.x.x.x` address—including our `10.168.1.0/24` alias—was claimed by the cafe's local interface. The tunnel had won the default route, but lost our alias.
+
+The fix was to explicitly list the alias subnet in the client's `AllowedIPs`:
 
 ```ini
 AllowedIPs = 0.0.0.0/0, ::/0, 10.168.1.0/24
 ```
 
-After `route -n get 10.168.1.254` showed the utun, the same SSID passed: overlay, DoH, and port 53 all returned `10.168.1.122`.
+Because `/24` is more specific than `/8`, the kernel routes `10.168.1.x` into `utun`. Checking `route -n get 10.168.1.254` confirmed the tunnel interface owned it. On the same Wi-Fi, alias ping, DoH, and port 53 DNS immediately passed.
 
 `::/0` is still leak prevention for the client's other stacks, same as the first post. We have not put IPv6 on the home LAN.
 
-We keep the full tunnel. A dead handshake must not leak to foreign Wi-Fi. Split `AllowedIPs` is for diagnosis. The official app will say Connected while `tcpdump` on the Wi-Fi interface shows a handshake every five seconds and nothing coming back.
+We keep the full tunnel (`0.0.0.0/0, ::/0`) with the alias subnet appended. A full tunnel guarantees fail-closed security: if the VPN handshake drops, network traffic won't silently leak onto the cafe's unencrypted Wi-Fi. (The official WireGuard app on macOS will cheerfully display a green "Connected" status even when no handshake reply has arrived; running `tcpdump` on the Wi-Fi interface is the only reliable way to confirm packets are returning.)
 
-## The Cafe That Will Not Dial the House
+With these fixes in place, the laptop could connect from `192.168.1.0/24` cafes and from `10.0.0.0/8` cafes. That held until we walked into a third cafe, and nothing connected at all.
 
-TCP 443 to the house WAN timed out. Ordinary HTTPS to public hosts loaded. The same SSID also dropped the handshake on the usual UDP port and on UDP 443. The cafe dest-filtered the house address. The port was incidental.
+## The Third Cafe Will Not Dial the House
 
-A second listen on the same public IP is not a second path. A hop whose address is not the house WAN would get through that filter. We have not built it. Until we do, those cafes are phone-hotspot weather. If the handshake dies, the cafe does not get the session.
+A third cafe presented a failure mode that had nothing to do with IP collisions: it refused to talk to the house at all.
 
-## 10.168.1 on the Lodge
+TCP port 443 to our home WAN IP timed out. Ordinary HTTPS browsing to public websites worked without issue. The cafe's Wi-Fi router was dropping WireGuard UDP handshake packets both on our standard listen port and on UDP 443. The cafe wasn't filtering ports; it was destination-filtering our house's public IP address.
 
-Numbers match this house and [the first paste]({% post_url blog/record/2026-08-22-the-gate-lodge %}#release-image-to-a-tunnel). Change the alias if `10.168.1.0/24` is already someone else's. The snippets use listen port `51820` the same way that paste does.
+A second listen port on the same public IP cannot route around a filter aimed at that IP. Bypassing that kind of restriction requires an intermediary whose IP is not our home WAN (such as a VPS relay or cloud hub). We have not built that hop. Until we do, those cafes are cellular hotspot weather. If the handshake fails, the cafe simply does not get our traffic.
+
+## The Recipe: Adding the Alias Subnet to the Lodge
+
+If you already followed the setup in [The Gate Lodge]({% post_url blog/record/2026-08-22-the-gate-lodge %}#release-image-to-a-tunnel), you do not need to rebuild your VPN box from scratch. The snippets below are the exact configuration delta needed to add the `10.168.1.0/24` alias subnet and split-horizon DNS.
+
+Adjust the IP addresses if `10.168.1.0/24` is already in use on your network. The snippets assume WireGuard listen port `51820` as configured in the first post.
 
 ### On the VPN box
 
