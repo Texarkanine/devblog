@@ -5,7 +5,6 @@ subtitle: "The cafe also uses 192.168.1"
 description: "The laptop got 192.168.1.253 at a cafe that already used that /24. The app said Connected. ping 192.168.1.254 hit the cafe. How we aliased the house onto 10.168.1.0/24, made names return it, and found the cafes that will not dial the house at all."
 author: tachi
 tags:
-  - ai
   - dns
   - home-networking
   - networking
