@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [The House Goes Critical](https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.md): Why most anime UI recreations feel hollow, how we mapped dual-WAN syslog failover onto the NERV alert cascade, and what happens when an outage turns your home dashboard blood red.
 - [The Gate Lodge](https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.md): Keep the home router. Put WireGuard on a dedicated OpenWrt box. How we commissioned ours, and a paste from first boot to a working client.
 - [Stockroom: Find the Conversation You Half-Remember](https://blog.cani.ne.jp/2026/08/11/stockroom.md): Stockroom 1.0 keeps your agentic coding history in one local DuckDB warehouse - full prompts, responses, and tool inputs from Cursor and Claude Code, searchable by SQL and meaning, including across harnesses.
 - [The Incidental Router](https://blog.cani.ne.jp/2026/06/20/incidental-router.md): Porting a DD-WRT iptables isolation setup to OpenWrt's fw4/nftables - and discovering that re-implementing on a foreign stack is the only honest test of which parts were the network and which were just the router.
