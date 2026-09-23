@@ -164,7 +164,7 @@ href_decorator:
 pagination:
   enabled: false
 
-llms:
+llms-txt:
   markdown: true
   llms_full: true
   categories: true
