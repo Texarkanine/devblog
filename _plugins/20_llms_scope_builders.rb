@@ -4,7 +4,7 @@
 # Emits scoped llms.txt / llms-full.txt beside those archive URLs (not .md sidecars
 # at the archive path — document sidecars stay on the document URLs).
 
-require "jekyll/llms"
+require "jekyll-llm-sidecars"
 
 module LlmsScopeBuilders
   module_function
@@ -16,7 +16,7 @@ module LlmsScopeBuilders
       scoped = entries.select { |entry| items.include?(entry.item) }
       next if scoped.empty?
 
-      Jekyll::Llms::Scope.new(
+      JekyllLlmSidecars::Scope.new(
         path_prefix: path_template.sub(":name", Jekyll::Utils.slugify(name)),
         title: name,
         description: "#{description_prefix}: #{name}",
@@ -51,7 +51,7 @@ module LlmsScopeBuilders
       )
       display = author_data.dig(author_id, "name") || author_id
 
-      Jekyll::Llms::Scope.new(
+      JekyllLlmSidecars::Scope.new(
         path_prefix: template.sub(":author", slug),
         title: author_id,
         description: "Author: #{display}",
@@ -61,7 +61,7 @@ module LlmsScopeBuilders
   end
 end
 
-Jekyll::Llms.register_scope_builder do |site, _config, entries|
+JekyllLlmSidecars.register_scope_builder do |site, _config, entries|
   template = site.config.dig("jekyll-archives", "permalinks", "tag") || "/tags/:name/"
   LlmsScopeBuilders.scopes_for_taxonomy(
     entries,
@@ -71,7 +71,7 @@ Jekyll::Llms.register_scope_builder do |site, _config, entries|
   )
 end
 
-Jekyll::Llms.register_scope_builder do |site, _config, entries|
+JekyllLlmSidecars.register_scope_builder do |site, _config, entries|
   template = site.config.dig("jekyll-archives", "permalinks", "garden_tag") ||
              site.config.dig("jekyll-archives", "collections", "garden", "permalinks", "tag") ||
              "/garden/tags/:name/"
@@ -83,6 +83,6 @@ Jekyll::Llms.register_scope_builder do |site, _config, entries|
   )
 end
 
-Jekyll::Llms.register_scope_builder do |site, _config, entries|
+JekyllLlmSidecars.register_scope_builder do |site, _config, entries|
   LlmsScopeBuilders.author_scopes(site, entries)
 end

@@ -338,7 +338,7 @@ Defines the shared threshold for **navigational** tags and suppresses singleton 
 
 - `NavigationalTags::MIN_DOCS` (currently `2`) and `NavigationalTags.keep?(docs)` — a tag is navigational when it appears on at least that many documents in its collection.
 - Monkey-patches `Jekyll::Archives::Archives#tags` so `read_tags` only builds archive pages for navigational post tags. Does **not** mutate `site.tags` (Liquid still needs full counts for plain-text vs link decisions on layouts and index pages).
-- Garden tag archives and jekyll-llms tag scopes use the same helper (see `garden_archives.rb` and `20_llms_scope_builders.rb`). Content layouts and `/tags/` / `/garden/tags/` indexes apply the same threshold in Liquid.
+- Garden tag archives and jekyll-llms-txt tag scopes use the same helper (see `garden_archives.rb` and `20_llms_scope_builders.rb`). Content layouts and `/tags/` / `/garden/tags/` indexes apply the same threshold in Liquid.
 
 ---
 
@@ -392,7 +392,7 @@ If SavePageNow doesn’t return a snapshot URL (e.g., queued or rate-limited), t
 
 ## 20_llms_scope_builders.rb
 
-Registers [`jekyll-llms`](https://github.com/Texarkanine/jekyll-llms) scope builders so LLM indexes land beside author and tag archives:
+Registers [`jekyll-llms-txt`](https://github.com/Texarkanine/jekyll-llms-txt) scope builders so LLM indexes land beside author and tag archives:
 
 | Scope | Path | Source |
 |-------|------|--------|
@@ -400,6 +400,6 @@ Registers [`jekyll-llms`](https://github.com/Texarkanine/jekyll-llms) scope buil
 | Garden tags | `/garden/tags/:name/…` | `site.garden_tags` |
 | Authors | `/authors/:author/…` | post `author` front matter ∩ root EntrySet |
 
-Membership is always a subset of the root `jekyll-llms` entry list (include/exclude/`llms: false`). Paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present.
+Membership is always a subset of the root `jekyll-llms-txt` entry list (include/exclude/`llms: false`). Paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present.
 
 Tag scopes (post and garden) omit taxonomy entries that fail `NavigationalTags.keep?`, so singleton tags do not get orphan `llms.txt` beside non-existent archive pages. Author scopes are unchanged.
