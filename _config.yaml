@@ -60,6 +60,7 @@ plugins:
   - jekyll-auto-thumbnails
   - jekyll-feed
   - jekyll-highlight-cards
+  - jekyll-llm-sidecars
   - jekyll-loading-lazy
   - jekyll-paginate-v2
   - jekyll-redirect-from
@@ -164,16 +165,16 @@ href_decorator:
 pagination:
   enabled: false
 
-llms:
-  markdown: true
-  llms_full: true
-  categories: true
-  collections: true
-  include:
+llm_sidecars:
+  create_markdown: true
+  create_llms_full: true
+  include_categories: true
+  include_collections: true
+  include_paths:
     - posts
     - pages
     - garden
-  exclude:
+  exclude_paths:
     - /*.xml # sitemap, feed - these already list all content
     - /assets/**/*
     - /authors/**/*
