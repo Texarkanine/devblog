@@ -400,6 +400,6 @@ Registers [`jekyll-llm-sidecars`](https://github.com/Texarkanine/jekyll-llm-side
 | Garden tags | `/garden/tags/:name/…` | `site.garden_tags` |
 | Authors | `/authors/:author/…` | post `author` front matter ∩ root EntrySet |
 
-Membership is always a subset of the root `jekyll-llm-sidecars` entry list (include/exclude/`llms: false`). Paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present.
+Membership is always a subset of the root `jekyll-llm-sidecars` entry list (include/exclude/`create_llms_txt: false`). Paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present.
 
 Tag scopes (post and garden) omit taxonomy entries that fail `NavigationalTags.keep?`, so singleton tags do not get orphan `llms.txt` beside non-existent archive pages. Author scopes are unchanged.
