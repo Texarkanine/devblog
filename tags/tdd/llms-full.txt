@@ -210,4 +210,3 @@ ai-rizz add rule my-rule.mdc --local
 ```
 
 The hook is harmless if files are already git-ignored (it becomes a no-op), so it could theoretically run in all local mode setups. For now, it's opt-in via the flag.
-

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-09-08T02:11:59+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The House Goes Critical</title><link href="https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.html" rel="alternate" type="text/html" title="The House Goes Critical" /><published>2026-09-07T00:00:00+00:00</published><updated>2026-09-08T02:11:08+00:00</updated><id>https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.html"><![CDATA[<p>Last night, <a href="https://www.risebroadband.com/">Rise Broadband</a> flapped on the primary WAN port of our router. Within seconds, the failover script engaged, traffic shifted to <a href="https://www.spectrum.com/">Spectrum</a> on the backup WAN port, and the home dashboard in my browser shifted from calm green to amber. Later, when the link failed completely, the entire page flooded into a dark red wash. Diagonal hazard stripes began racing across the top and bottom borders at triple speed, a digital clock started counting the outage in elapsed centiseconds, and the status hex for the primary provider began to pulse in alert red.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-09-30T14:05:08+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The House Goes Critical</title><link href="https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.html" rel="alternate" type="text/html" title="The House Goes Critical" /><published>2026-09-07T00:00:00+00:00</published><updated>2026-09-08T02:11:08+00:00</updated><id>https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.html"><![CDATA[<p>Last night, <a href="https://www.risebroadband.com/">Rise Broadband</a> flapped on the primary WAN port of our router. Within seconds, the failover script engaged, traffic shifted to <a href="https://www.spectrum.com/">Spectrum</a> on the backup WAN port, and the home dashboard in my browser shifted from calm green to amber. Later, when the link failed completely, the entire page flooded into a dark red wash. Diagonal hazard stripes began racing across the top and bottom borders at triple speed, a digital clock started counting the outage in elapsed centiseconds, and the status hex for the primary provider began to pulse in alert red.</p>
 
 <p>It looked like the tactical command bridge in <a href="https://www.imdb.com/title/tt0112159/"><em>Neon Genesis Evangelion</em></a>. More importantly, every pixel on the screen was telling the truth.</p>
 
@@ -2154,7 +2154,7 @@ ifup wg0
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -2342,7 +2342,7 @@ If the answer to either of them is “no,” then “normal” software is proba
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260906002840/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

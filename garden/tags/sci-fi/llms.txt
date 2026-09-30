@@ -4,7 +4,7 @@
 
 ## Garden
 
-- [Short Stories](https://blog.cani.ne.jp/garden/short-stories.md): A collection of short stories, mostly sci-fi.
+- [Pulp Sci-Fi Book Covers](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.md): {%include webring.html %}
+- [Unexpected Chris Foss](https://blog.cani.ne.jp/garden/unexpected-chris-foss.md): ## ALIEN Trading Card
 - [Asymmetric Spaceships](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/index.md): A shrine to ships that violate symmetry on one - or better yet, multiple - axes.
-- [Pulp Sci-Fi Book Covers](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/pulp-scifi-book-covers.md)
-- [Unexpected Chris Foss](https://blog.cani.ne.jp/garden/unexpected-chris-foss.md)
+- [Short Stories](https://blog.cani.ne.jp/garden/short-stories.md): A collection of short stories, mostly sci-fi.

@@ -32,127 +32,168 @@ Some flywheels also pay producers in *each other*: Social dues. Community. "You'
 
 The New York Times is the clean picture: readers give attention and money, get articles. The converter turns that into payroll for all involved by laying some ad revenue on top. Writers with editors, fact-checking pipelines, and a voice they spent a career on, supply the articles that draw the next readers.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/dac8851e.svg"><img src="/assets/svg/dac8851e.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/dac8851e-dark.svg"><img src="/assets/svg/dac8851e-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers -->|Attention| NYT
+    NYT -->|Content| Readers
+
+    NYT["New York Times"]
+```
 
 Reddit and Stack Overflow are the same topology with a different producer currency. The converter skims ads and premium platform service fees and API deals. Posters get reputation.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f106dbd2.svg"><img src="/assets/svg/f106dbd2.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f106dbd2-dark.svg"><img src="/assets/svg/f106dbd2-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Information| Consumers
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+```
 
 Reddit and Stack Overflow are a shape of *many* social answer or social information platforms. I submit them as two high-profile examples but they aren't unique.
 
 Rust pays a small set of contributors in reputation and community, and pays consumers in a language that works. The project's job is to make that conversion run: attention into reputation, contributions into software that draws more attention. The project skims brand.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/85d2c4a5.svg"><img src="/assets/svg/85d2c4a5.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/85d2c4a5-dark.svg"><img src="/assets/svg/85d2c4a5-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    Producers["Code Contributors"]
+    Consumers["Programmers"]
+```
 
 Codeberg is Rust pulled up a level. The producers are *projects*, not PR authors. A living project pays a software catalog *and* community attention into the forge. Catalog alone is not enough. Developers still clone; that leech path is fine. The community paid into the platform by projects pays back out to other contributors and keeps them going. The converter's skim is donations, membership, identity - reputation rent, which they were already allocating disk by via [quotas keyed on standing][codeberg-quota], well before they ever voted on LLMs.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8caaddfa.svg"><img src="/assets/svg/8caaddfa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8caaddfa-dark.svg"><img src="/assets/svg/8caaddfa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
 
 ### How They Break
 
 The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indices came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loop closes on the LLM and the platform is hit by a solitary consumer that sends nothing back.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/93276aa5.svg"><img src="/assets/svg/93276aa5.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/93276aa5-dark.svg"><img src="/assets/svg/93276aa5-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 Reddit is the same geometry: readers take their questions to the aggregator and the thick, juicy attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator its posters' content while its posters starve.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/29830072.svg"><img src="/assets/svg/29830072.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/29830072-dark.svg"><img src="/assets/svg/29830072-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
 
 Rust breaks on the producer side. AI shows up as code that works and a person who is not coming to the meeting. Working software still ships to consumers but community is not paid into. Converter capacity is finite: it [can only turn so much code into appreciated reputation](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). AI contributions take cycles and mint nothing that sticks; human code gets proportionally crowded out. A contribution used to mean someone else understands, cares, and might stay. AI can open one PR or a hundred with no intent to return.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/48e0eabc.svg"><img src="/assets/svg/48e0eabc.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/48e0eabc-dark.svg"><img src="/assets/svg/48e0eabc-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention<br>Code| Converter
+
+    Producers -->|Code| Platform
+    Platform -.->|Reputation| Producers
+
+    ProducersAI ==>|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Humans"]
+    ProducersAI["AI"]
+    end
+    Consumers["Programmers"]
+```
 
 Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still has to pay the electric. More open up, and the *living* become an ever-thinner slice of the roster. Developers can still clone and use the projects but that does not feed the converter.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8a191176.svg"><img src="/assets/svg/8a191176.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8a191176-dark.svg"><img src="/assets/svg/8a191176-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -.->|Resources<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -.->|Software Catalog<br>Community Attention| Platform
+    Platform -.->|Resources<br>Reputation| Producers
+
+    Ghosts ==>|Ghost Projects| Platform
+    Platform ==>|Resources| Ghosts
+    Platform -.-x|Reputation| Ghosts
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    subgraph Hosted
+    Producers["Human Projects"]
+    Ghosts["Ghost Factories"]
+    end
+    Consumers["Developers"]
+```
 
 ## What They Tried
 
@@ -160,18 +201,23 @@ Codeberg gets the same failure one level up: the producers are *projects*, so a 
 
 Cutting off the aggregator is an attempt to cut the "content" line feeding into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer for a worse experience just because a publisher asked them to. [Piracy was almost always a service problem](http://www.escapistmagazine.com/news/view/114391-Valves-Gabe-Newell-Says-Piracy-Is-a-Service-Problem); this is that same shape of problem.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f4535093.svg"><img src="/assets/svg/f4535093.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f4535093-dark.svg"><img src="/assets/svg/f4535093-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -.->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -.-x|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 The dead content line is the lawsuit and the `noindex` threat. The thick attention line did not move. The current posture is a miss.
 
@@ -179,18 +225,26 @@ The dead content line is the lawsuit and the `noindex` threat. The thick attenti
 
 That deal with Google to let them train on content was a neat idea, but... see if you can spot the problem: the thick new line is money from the aggregator back to Reddit. Follow it. It arrives at the platform. It **does not continue to the posters**.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/b5254dc1.svg"><img src="/assets/svg/b5254dc1.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/b5254dc1-dark.svg"><img src="/assets/svg/b5254dc1-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+    AI ==>|Money| Platform
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
 
 Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while but it cannot pay the people who were the reason the corpus was worth buying.
 
@@ -204,18 +258,27 @@ Rust wants the world to use Rust, but also a community that still forms contribu
 
 Those loops no longer match. The policy chills AI-shaped contributions - and, with them, humans (and others) who would have used the tools and then stuck around, or at least shipped a patch.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/3d9930ab.svg"><img src="/assets/svg/3d9930ab.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/3d9930ab-dark.svg"><img src="/assets/svg/3d9930ab-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    ProducersAI -.-x|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Human Code Contrib"]
+    ProducersAI["AI Code Contrib"]
+    end
+    Consumers["Programmers"]
+```
 
 The consumer loop is still the whole market. The producer loop just got smaller, including some of the humans. They are not only cutting off rogue bots: they are cutting off *users*, too. That is a baby-and-bathwater move in a system like this.
 
@@ -239,18 +302,21 @@ I might grant a generous interpretation of their stance as more [literally Luddi
 
 Codeberg looks like Rust one level up until you check the loops. Rust filters producers and still sells to everyone. Codeberg shrinks both sides and only promises to serve the slice that wants software without AI in it. Ghost projects out; human catalog plus community in. The chart looks like the healthy one on purpose. The Total Addressable Market just got smaller.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8caaddfa.svg"><img src="/assets/svg/8caaddfa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8caaddfa-dark.svg"><img src="/assets/svg/8caaddfa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
 
 *(Hey, that's the same graph as before!)*
 
@@ -295,18 +361,23 @@ That is *exactly* the kind of thing traditional media outlets are built to produ
 
 Readers still want the Times's reputation; they do **not** want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many more zeroes than their dwindling subscriber base. The public can still see the information (if not the whole piece) later. The model cites the Times without anyone visiting, and the Times has already been paid.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/371b1764.svg"><img src="/assets/svg/371b1764.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/371b1764-dark.svg"><img src="/assets/svg/371b1764-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+    AI ==>|Money| NYT
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 The thick line from the aggregator is the new customer. The writers are still on payroll.
 

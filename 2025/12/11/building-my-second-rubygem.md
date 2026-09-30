@@ -170,7 +170,7 @@ The original image is 818KB. The thumbnail served is 115KB (86% reduction). The 
 
 The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:
 
-![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 ## Final Stats
 

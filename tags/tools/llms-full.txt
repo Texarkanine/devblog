@@ -68,18 +68,16 @@ In most home networks, DNS is an invisible detail handed down by an ISP's DHCP s
 
 Those telemetry inputs feed into a deterministic state machine that drives the NERV alert cascade:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/df5d698a.svg"><img src="/assets/svg/df5d698a.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/df5d698a-dark.svg"><img src="/assets/svg/df5d698a-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+stateDiagram-v2
+  [*] --> Nominal
+  Nominal --> Active: Backup path active
+  Nominal --> Alert: One provider down
+  Active --> Alert: One provider down
+  Alert --> Critical: Both down or DNS dead
+  Active --> Caution: Telemetry silent
+  Nominal --> Caution: Telemetry silent
+```
 
 Each step up the ladder changes the ambiance tokens on the document root:
 
@@ -279,18 +277,53 @@ Software testing has been one of my nitpicky passions for over a decade: every c
 
 So, what does an AI need in order to clean up a test suite?
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/041ce441.svg"><img src="/assets/svg/041ce441.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/041ce441-dark.svg"><img src="/assets/svg/041ce441-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+    subgraph Goals
+        direction TD
+        find("Find bad tests")
+        design("Design better tests")
+        fix("Safely modify the test suite")
+    end
+
+    knowbad["Know what bad tests look like"]
+    knowgood["Know what good tests look like"]
+    knowwhere["Know where to put fixed tests"]
+    readall["`Read **all** the tests`"]
+        shard["Sharded reads"]
+    
+    find --> readall
+    readall --> bigcontext
+    readall --> shard
+    shard --> how2search
+    
+    find --> knowbad
+    knowbad --> smartmodel
+
+    design --> knowgood
+    design --> knowwhere
+    knowgood --> smartmodel
+    
+    fix --> how2refactor
+    knowgood --> principles
+    knowbad --> taxonomy
+
+    subgraph Requirements
+        subgraph "System Requirements"
+            direction TD
+            how2refactor[/"📃Well-defined Workflow for refactoring"/]
+            how2search[/"📃 Well-defined workflow for scouring test suite"/]
+            principles[/"📚 Principles of good tests"/]
+            taxonomy[/"📚 Taxonomy of test smells"/]
+        end
+
+        subgraph "User Requirements"
+            direction LR
+            bigcontext["Big context windows"]
+            smartmodel["Frontier reasoning"]
+        end
+    end
+```
 
 So we're going to need users to have access to
 

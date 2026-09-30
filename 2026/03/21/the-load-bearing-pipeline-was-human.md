@@ -39,33 +39,40 @@ There's a wrinkle, though: things like [DO-178C](https://en.wikipedia.org/wiki/D
 
 We've been doing **this** for decades:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/2ce09c92.svg"><img src="/assets/svg/2ce09c92.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/2ce09c92-dark.svg"><img src="/assets/svg/2ce09c92-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		space space space space Human(("Human")) space
+		space space space space space space
+		Definition("Requirements") space Specification("Specification") space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Process
+
+		Definition -- "refined" --> Specification
+		Specification -- "encoded<br>(Engineer)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 There *are* people who fit the description of those criticized in the article - people who claim you can do this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/afbd9827.svg"><img src="/assets/svg/afbd9827.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/afbd9827-dark.svg"><img src="/assets/svg/afbd9827-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 4
+		Human(("Human")) space space space
+		space space space space
+		Definition("Requirements") space Process["Code"] space
+		space space space space
+		space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Definition
+
+		Definition -- "encoded<br>(AI)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 The article correctly objects to that claim, and validates it with the Haskell experiment.
 
@@ -79,32 +86,40 @@ These stages won't always be visible. As the tools mature, the [pipeline will ge
 
 So, to do "spec-driven development" with AI agents, try this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/fd404c89.svg"><img src="/assets/svg/fd404c89.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/fd404c89-dark.svg"><img src="/assets/svg/fd404c89-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		space space Human(("Human")) space space space
+		space space space space space space
+		Definition("Requirements") space Specification("Specification") space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Specification
+
+		Definition -- "refined" --> Specification
+		Specification -- "encoded<br>(AI Agent)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 Or even this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/0c09088d.svg"><img src="/assets/svg/0c09088d.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/0c09088d-dark.svg"><img src="/assets/svg/0c09088d-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		Human(("Human")) space space space space space
+		space space space space space space
+		Definition("Requirements") space Specification["Specification"] space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Definition
+
+		Definition -- "refined<br>(AI Agent A)" --> Specification
+		Specification -- "encoded<br>(AI Agent B)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 And I wager [you may have a lot more success](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html)!

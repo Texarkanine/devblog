@@ -139,7 +139,7 @@ If you were to compare these "cryptocurrencies" on price:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -158,18 +158,12 @@ Monero is a tool for transacting privately.
 
 Rewinding back to the book - *The Bitcoin Standard* - the author offers a flowchart to help you figure out if whatever you're thinking of needs a blockchain:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/6e3efefa.svg"><img src="/assets/svg/6e3efefa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/6e3efefa-dark.svg"><img src="/assets/svg/6e3efefa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TD
+    Need("Do you need digital cash?")
+    Need -->|"No"| No("You don't need a blockchain")
+    Need -->|"Yes"| Yes("Use bitcoin: the only blockchain that works")
+```
 
 A few pages later, Ammous offers a more-rigorous test to quickly assess whether a given use-case is a candidate for a blockchain. Given on page 260, paraphrased:
 

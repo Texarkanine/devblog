@@ -1,4 +1,4 @@
-![Look at this dog](thisdog.jpg)<!-- IMG_SIZE::400 -->
+![Look at this dog](thisdog.jpg =x400)
 
 ---
 

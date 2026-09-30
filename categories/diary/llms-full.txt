@@ -465,33 +465,49 @@ CodeRabbit [is awesome](/garden/how-i-learned-to-stop-coding-and-love-the-machin
 
 So, my high-level workflow will be
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/6c25a9b6.svg"><img src="/assets/svg/6c25a9b6.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/6c25a9b6-dark.svg"><img src="/assets/svg/6c25a9b6-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant Human
+    participant GitHub
+    participant CodeRabbit
+
+    Human->>GitHub: Push code (PR)
+    GitHub->>CodeRabbit: Notify PR update
+    CodeRabbit->>GitHub: Post review feedback
+    GitHub->>Human: Show feedback
+    Human->>GitHub: Push fixes (repeat)
+```
 
 But there are actually quite a few more decision points, because when you push a commit you might hit the rate limit warning instead of getting immediate feedback, and then you have to wait out *that* timer and come back and make a PR comment to get the ball rolling again:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/999b5b5a.svg"><img src="/assets/svg/999b5b5a.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/999b5b5a-dark.svg"><img src="/assets/svg/999b5b5a-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant Human
+    participant GitHub
+    participant CodeRabbit
+
+    Human->>Human: Make changes
+    Human->>GitHub: Push to PR
+    GitHub->>CodeRabbit: Notify of new PR/commit
+    Note over CodeRabbit: Wait ~5 minutes
+    CodeRabbit->>GitHub: Review code and post feedback
+    GitHub->>Human: Display CodeRabbit feedback
+
+    loop Address feedback
+        Human->>Human: Address feedback (do not push yet)
+        Human->>GitHub: Push changes
+        Note over CodeRabbit: Repeat review process
+        Note right of Human: (cycle resumes)
+        alt Rate limit hit
+            Human->>Human: Wait 2-25 minutes
+            Human->>GitHub: Comment "@coderabbitai review"
+            GitHub->>CodeRabbit: Notify CodeRabbit via comment
+            CodeRabbit->>GitHub: Trigger new review
+            GitHub->>Human: Display new feedback
+            Note right of Human: (cycle resumes)
+        end
+    end 
+```
 
 ## You Didn't Read That, Did You?
 
@@ -687,18 +703,13 @@ If a cached SVG somehow disappeared, `FileUtils.cp` would crash the build. [Adde
 
 The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/272764fe.svg"><img src="/assets/svg/272764fe.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/272764fe-dark.svg"><img src="/assets/svg/272764fe-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  A[Markdown] --> B[Jekyll Build]
+  B --> C[mmdc]
+  C --> D[SVG File]
+  D --> E[Static Site]
+```
 
 The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.
 
@@ -903,7 +914,7 @@ The original image is 818KB. The thumbnail served is 115KB (86% reduction). The 
 
 The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:
 
-![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 ## Final Stats
 
@@ -1141,7 +1152,7 @@ Here's what the gem actually produces:
 
 **Markdown image sizing** - the same photo, but smaller using extended Markdown syntax:
 
-![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 All three features working together in this post. The linkcard shows the styled link block. The polaroid displays with the classic photo frame aesthetic. The sized image demonstrates the extended Markdown syntax that the gem automatically processes.
 
@@ -1400,6 +1411,7 @@ And that meant that
 
 While I was stewing over how to possibly make this work, I had an epiphany: **I don't have a use-case for Cursor Commands, anway!**
 You can go read about why, [here](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html).
+
 ## I Built a Logging Server to Log a Serverless Site
 
 I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But [DigitalOcean's static site hosting](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform), elegant in its simplicity, doesn't generate them. To get visibility into who visits my blog, I'd need to build my own logging infrastructure.

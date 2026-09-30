@@ -14,18 +14,14 @@ Phones on cellular pass that exam effortlessly because mobile carriers never ass
 
 A cafe handing out that same `/24` gives the kernel two conflicting stories. Under [longest prefix match](https://en.wikipedia.org/wiki/Longest_prefix_match), the local on-link interface wins every time, ignoring WireGuard entirely. Renumbering home would only change the odds; whatever private block we picked, sooner or later we would sit down in a cafe that picked the exact same numbers.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/499e839b.svg"><img src="/assets/svg/499e839b.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/499e839b-dark.svg"><img src="/assets/svg/499e839b-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Laptop["laptop on cafe Wi-Fi"]
+  Cafe["cafe .254"]
+  House["house Pi-hole .254"]
+  Laptop -->|"192.168.1.254 is on-link"| Cafe
+  Laptop -.->|"tunnel ignored"| House
+```
 
 I watched this happen on a colliding cafe network. While the Mac tunnel interface (`utun`) held an overlay `/32` and handshake packets flew across the Wi-Fi link, the inner packets destined for `192.168.1.254` never entered the tunnel at all. As far as the routing table was concerned, they were already home. Home was the espresso machine.
 
@@ -35,18 +31,17 @@ The house needed an address range that a `192.168.1.0/24` cafe cannot claim. We 
 
 The VPN box translates the whole `/24` on the way in. When packets leave the tunnel, they still carry their `192.168.101.x` client addresses, because masquerade is off. The edge router's return route still matches. [Conntrack](https://en.wikipedia.org/wiki/Netfilter#Connection_tracking) (connection tracking) reverses the destination rewrite on replies, so the laptop sees answers coming back from `10.168.1.x`.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f407555d.svg"><img src="/assets/svg/f407555d.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f407555d-dark.svg"><img src="/assets/svg/f407555d-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Client["client DNS 10.168.1.254"]
+  GL["VPN box"]
+  Dns["Pi-hole"]
+  Host["home server (.122)"]
+  Client -->|"alias /24"| GL
+  GL -->|"1:1 last octet"| Host
+  GL -->|"port 53 to side listen"| Dns
+  Dns -->|"A record: 10.168.1.122"| Client
+```
 
 "Nobody" types raw IP addresses into a browser or terminal; you type hostnames like `home.internal`. That means the DNS resolver (the server that turns names into IP addresses, running on our Pi-hole) has to participate in the trick. If you ask for `home.internal` while sitting in the living room, it should answer `192.168.1.122`. But if you ask over the WireGuard tunnel from a cafe, it must return the alias address `10.168.1.122`. If it answered with `192.168.1.122`, the laptop would look at the cafe's Wi-Fi, decide `.122` was local, and never send the packet into the tunnel at all.
 
@@ -124,18 +119,21 @@ The obvious architectural temptation is to put dnsdist on port 53 in front of Pi
 
 Instead, FTL kept port 53 for the house. dnsdist was given an additional plain listen on `192.168.1.254:5300`. Then the VPN box rewrites any port 53 queries coming across the tunnel to that side listen, placed *before* the general `/24` prefix map:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f6ed5f55.svg"><img src="/assets/svg/f6ed5f55.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f6ed5f55-dark.svg"><img src="/assets/svg/f6ed5f55-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant WG as VPN client (cafe)
+    participant LAN as Home LAN (living room)
+    participant GL as VPN box (.253)
+    participant Dist as dnsdist (:5300)
+    participant FTL as Pi-hole FTL (:53)
+
+    LAN->>FTL: dig @192.168.1.254:53 box.internal
+    FTL-->>LAN: 192.168.1.122 (real LAN IP)
+
+    WG->>GL: dig @10.168.1.254:53 box.internal
+    GL->>Dist: rewrite dport 5300 (source: 192.168.101.x)
+    Dist-->>WG: 10.168.1.122 (alias IP)
+```
 
 The rewrite rules on the VPN box:
 

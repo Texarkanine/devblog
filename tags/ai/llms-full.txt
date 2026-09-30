@@ -701,18 +701,24 @@ If you want that, keep this tab open. The paste is [Release Image to a Tunnel](#
 
 ## The Overlay Lives Behind .253
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8f6946a6.svg"><img src="/assets/svg/8f6946a6.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8f6946a6-dark.svg"><img src="/assets/svg/8f6946a6-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  subgraph internet ["Internet"]
+    Phone["phone / laptop"]
+  end
+  subgraph house ["House"]
+    Axe["edge router"]
+    GL["VPN box"]
+    Dns["Pi-hole"]
+    Lan["home LAN"]
+  end
+  Phone -->|"UDP to a hostname on the WAN"| Axe
+  Axe -->|"forward that port"| GL
+  GL --> Wg["wg0 overlay"]
+  Axe -->|"static route: overlay via the VPN box"| Lan
+  Wg -->|"no SNAT"| Lan
+  Lan --> Dns
+```
 
 The public surface is one UDP port, forwarded to the VPN box. Everything inside the tunnel is private addressing. Return traffic for the overlay is a LAN static route on the edge router: `192.168.101.0/24` lives behind `192.168.1.253`.
 
@@ -728,18 +734,12 @@ Stock OpenWrt wants to be a router. Fresh out of the box the OpenWrt One serves 
 
 We let it be a router for a day, on purpose, on a *side* net. Home on `eth0` (the 2.5G jack) via DHCP from the Asus. A tiny LAN on `eth1` (`br-lan`) at `192.168.67.1/24`. OpenWrt calls the home-facing jack `wan` even though, from the internet's point of view, it is just another LAN host; punching SSH from the `wan` zone is punching it from the house, not from the world. A spare laptop on the 1G jack if that punch failed. Radios off. Nested NAT on, because a nested router NATs; that masquerade is temporary and it comes off later.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/5cff413c.svg"><img src="/assets/svg/5cff413c.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/5cff413c-dark.svg"><img src="/assets/svg/5cff413c-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Axe["edge 192.168.1.1"] --> WAN["eth0 on home"]
+  WAN --> LAN["br-lan 192.168.67.1"]
+  LAN --> Spare["spare laptop"]
+```
 
 Then we converted it to a host. Static `192.168.1.253/24` on `eth0`, default via `192.168.1.1`, DNS to Pi-hole. `network.lan` proto `none`. DHCP off. The `lan` → `wan` forward deleted. WAN masquerade **off**. The 1G jack stays dark: no DHCP, no management net. If the OS dies, recovery is USB-C serial or the OpenWrt One's factory/NOR path on that jack.
 
@@ -806,18 +806,16 @@ The wrong extra click is WAN `masq=1` "so the internet works." That SNATs overla
 
 Leave `srcnat` empty. Confirm it: `fw4 print` (OpenWrt's firewall compiler) should not masquerade `192.168.101.0/24` onto the home IP. From a machine already on the house LAN, `ping 192.168.101.1`. Ours came back in one hop through the Asus. That ping is the overlay-return probe. If it fails, fix the edge route and the box's default via `192.168.1.1` before you add a client.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/c9434827.svg"><img src="/assets/svg/c9434827.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/c9434827-dark.svg"><img src="/assets/svg/c9434827-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart TD
+  HS["handshake green"] --> Inner{"inner packets on wg0?"}
+  Inner -->|"none"| Client["client AllowedIPs / kill-switch / radio"]
+  Inner -->|"yes"| Eth{"same packets on eth0, source overlay /32?"}
+  Eth -->|"no"| Fw["vpn to wan forward"]
+  Eth -->|"yes"| Ret{"reply via the edge overlay route?"}
+  Ret -->|"LAN yes, internet no"| Nat["edge NAT of the overlay prefix"]
+  Ret -->|"neither"| Route["return route, or a host whose gateway is not the edge"]
+```
 
 Do not test "am I on the VPN" by loading the edge router's admin UI. Pick Pi-hole, or another LAN host, or a public-IP check that should show the house WAN. The edge's own web server is a special case and a time sink.
 
@@ -1115,127 +1113,168 @@ Some flywheels also pay producers in *each other*: Social dues. Community. "You'
 
 The New York Times is the clean picture: readers give attention and money, get articles. The converter turns that into payroll for all involved by laying some ad revenue on top. Writers with editors, fact-checking pipelines, and a voice they spent a career on, supply the articles that draw the next readers.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/dac8851e.svg"><img src="/assets/svg/dac8851e.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/dac8851e-dark.svg"><img src="/assets/svg/dac8851e-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers -->|Attention| NYT
+    NYT -->|Content| Readers
+
+    NYT["New York Times"]
+```
 
 Reddit and Stack Overflow are the same topology with a different producer currency. The converter skims ads and premium platform service fees and API deals. Posters get reputation.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f106dbd2.svg"><img src="/assets/svg/f106dbd2.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f106dbd2-dark.svg"><img src="/assets/svg/f106dbd2-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Information| Consumers
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+```
 
 Reddit and Stack Overflow are a shape of *many* social answer or social information platforms. I submit them as two high-profile examples but they aren't unique.
 
 Rust pays a small set of contributors in reputation and community, and pays consumers in a language that works. The project's job is to make that conversion run: attention into reputation, contributions into software that draws more attention. The project skims brand.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/85d2c4a5.svg"><img src="/assets/svg/85d2c4a5.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/85d2c4a5-dark.svg"><img src="/assets/svg/85d2c4a5-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    Producers["Code Contributors"]
+    Consumers["Programmers"]
+```
 
 Codeberg is Rust pulled up a level. The producers are *projects*, not PR authors. A living project pays a software catalog *and* community attention into the forge. Catalog alone is not enough. Developers still clone; that leech path is fine. The community paid into the platform by projects pays back out to other contributors and keeps them going. The converter's skim is donations, membership, identity - reputation rent, which they were already allocating disk by via [quotas keyed on standing][codeberg-quota], well before they ever voted on LLMs.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8caaddfa.svg"><img src="/assets/svg/8caaddfa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8caaddfa-dark.svg"><img src="/assets/svg/8caaddfa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
 
 ### How They Break
 
 The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indices came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loop closes on the LLM and the platform is hit by a solitary consumer that sends nothing back.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/93276aa5.svg"><img src="/assets/svg/93276aa5.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/93276aa5-dark.svg"><img src="/assets/svg/93276aa5-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 Reddit is the same geometry: readers take their questions to the aggregator and the thick, juicy attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator its posters' content while its posters starve.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/29830072.svg"><img src="/assets/svg/29830072.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/29830072-dark.svg"><img src="/assets/svg/29830072-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
 
 Rust breaks on the producer side. AI shows up as code that works and a person who is not coming to the meeting. Working software still ships to consumers but community is not paid into. Converter capacity is finite: it [can only turn so much code into appreciated reputation](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). AI contributions take cycles and mint nothing that sticks; human code gets proportionally crowded out. A contribution used to mean someone else understands, cares, and might stay. AI can open one PR or a hundred with no intent to return.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/48e0eabc.svg"><img src="/assets/svg/48e0eabc.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/48e0eabc-dark.svg"><img src="/assets/svg/48e0eabc-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention<br>Code| Converter
+
+    Producers -->|Code| Platform
+    Platform -.->|Reputation| Producers
+
+    ProducersAI ==>|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Humans"]
+    ProducersAI["AI"]
+    end
+    Consumers["Programmers"]
+```
 
 Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still has to pay the electric. More open up, and the *living* become an ever-thinner slice of the roster. Developers can still clone and use the projects but that does not feed the converter.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8a191176.svg"><img src="/assets/svg/8a191176.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8a191176-dark.svg"><img src="/assets/svg/8a191176-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -.->|Resources<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -.->|Software Catalog<br>Community Attention| Platform
+    Platform -.->|Resources<br>Reputation| Producers
+
+    Ghosts ==>|Ghost Projects| Platform
+    Platform ==>|Resources| Ghosts
+    Platform -.-x|Reputation| Ghosts
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    subgraph Hosted
+    Producers["Human Projects"]
+    Ghosts["Ghost Factories"]
+    end
+    Consumers["Developers"]
+```
 
 ## What They Tried
 
@@ -1243,18 +1282,23 @@ Codeberg gets the same failure one level up: the producers are *projects*, so a 
 
 Cutting off the aggregator is an attempt to cut the "content" line feeding into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer for a worse experience just because a publisher asked them to. [Piracy was almost always a service problem](http://www.escapistmagazine.com/news/view/114391-Valves-Gabe-Newell-Says-Piracy-Is-a-Service-Problem); this is that same shape of problem.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f4535093.svg"><img src="/assets/svg/f4535093.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f4535093-dark.svg"><img src="/assets/svg/f4535093-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -.->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -.-x|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 The dead content line is the lawsuit and the `noindex` threat. The thick attention line did not move. The current posture is a miss.
 
@@ -1262,18 +1306,26 @@ The dead content line is the lawsuit and the `noindex` threat. The thick attenti
 
 That deal with Google to let them train on content was a neat idea, but... see if you can spot the problem: the thick new line is money from the aggregator back to Reddit. Follow it. It arrives at the platform. It **does not continue to the posters**.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/b5254dc1.svg"><img src="/assets/svg/b5254dc1.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/b5254dc1-dark.svg"><img src="/assets/svg/b5254dc1-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+    AI ==>|Money| Platform
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
 
 Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while but it cannot pay the people who were the reason the corpus was worth buying.
 
@@ -1287,18 +1339,27 @@ Rust wants the world to use Rust, but also a community that still forms contribu
 
 Those loops no longer match. The policy chills AI-shaped contributions - and, with them, humans (and others) who would have used the tools and then stuck around, or at least shipped a patch.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/3d9930ab.svg"><img src="/assets/svg/3d9930ab.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/3d9930ab-dark.svg"><img src="/assets/svg/3d9930ab-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    ProducersAI -.-x|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Human Code Contrib"]
+    ProducersAI["AI Code Contrib"]
+    end
+    Consumers["Programmers"]
+```
 
 The consumer loop is still the whole market. The producer loop just got smaller, including some of the humans. They are not only cutting off rogue bots: they are cutting off *users*, too. That is a baby-and-bathwater move in a system like this.
 
@@ -1322,18 +1383,21 @@ I might grant a generous interpretation of their stance as more [literally Luddi
 
 Codeberg looks like Rust one level up until you check the loops. Rust filters producers and still sells to everyone. Codeberg shrinks both sides and only promises to serve the slice that wants software without AI in it. Ghost projects out; human catalog plus community in. The chart looks like the healthy one on purpose. The Total Addressable Market just got smaller.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8caaddfa.svg"><img src="/assets/svg/8caaddfa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8caaddfa-dark.svg"><img src="/assets/svg/8caaddfa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
 
 *(Hey, that's the same graph as before!)*
 
@@ -1378,18 +1442,23 @@ That is *exactly* the kind of thing traditional media outlets are built to produ
 
 Readers still want the Times's reputation; they do **not** want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many more zeroes than their dwindling subscriber base. The public can still see the information (if not the whole piece) later. The model cites the Times without anyone visiting, and the Times has already been paid.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/371b1764.svg"><img src="/assets/svg/371b1764.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/371b1764-dark.svg"><img src="/assets/svg/371b1764-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+    AI ==>|Money| NYT
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 The thick line from the aggregator is the new customer. The writers are still on payroll.
 
@@ -1453,6 +1522,7 @@ The only move I have that is not Amish, Luddite, or a miss is to keep moving wit
 [^fn-codeberg]: Tzovaras, B. G., Richter, O., & Zijil, W. (2026, July 23). Protecting our Floss Commons from LLMS. Codeberg News. [https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html][codeberg]
 [rust]: https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/
 [^fn-rust]: Nelson, J. (2026, August 5). Rust-Lang/Rust is adopting an LLM policy: Inside rust blog. Inside Rust Blog. [https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/][rust] 
+
 ## Stockroom: Find the Conversation You Half-Remember
 
 Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about "blogging about stockroom," asked from [Claude Code](https://code.claude.com/), about a [Cursor](https://cursor.com/) session I only half-remembered.
@@ -2901,18 +2971,53 @@ Software testing has been one of my nitpicky passions for over a decade: every c
 
 So, what does an AI need in order to clean up a test suite?
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/041ce441.svg"><img src="/assets/svg/041ce441.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/041ce441-dark.svg"><img src="/assets/svg/041ce441-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+    subgraph Goals
+        direction TD
+        find("Find bad tests")
+        design("Design better tests")
+        fix("Safely modify the test suite")
+    end
+
+    knowbad["Know what bad tests look like"]
+    knowgood["Know what good tests look like"]
+    knowwhere["Know where to put fixed tests"]
+    readall["`Read **all** the tests`"]
+        shard["Sharded reads"]
+    
+    find --> readall
+    readall --> bigcontext
+    readall --> shard
+    shard --> how2search
+    
+    find --> knowbad
+    knowbad --> smartmodel
+
+    design --> knowgood
+    design --> knowwhere
+    knowgood --> smartmodel
+    
+    fix --> how2refactor
+    knowgood --> principles
+    knowbad --> taxonomy
+
+    subgraph Requirements
+        subgraph "System Requirements"
+            direction TD
+            how2refactor[/"📃Well-defined Workflow for refactoring"/]
+            how2search[/"📃 Well-defined workflow for scouring test suite"/]
+            principles[/"📚 Principles of good tests"/]
+            taxonomy[/"📚 Taxonomy of test smells"/]
+        end
+
+        subgraph "User Requirements"
+            direction LR
+            bigcontext["Big context windows"]
+            smartmodel["Frontier reasoning"]
+        end
+    end
+```
 
 So we're going to need users to have access to
 
@@ -3054,33 +3159,40 @@ There's a wrinkle, though: things like [DO-178C](https://en.wikipedia.org/wiki/D
 
 We've been doing **this** for decades:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/2ce09c92.svg"><img src="/assets/svg/2ce09c92.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/2ce09c92-dark.svg"><img src="/assets/svg/2ce09c92-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		space space space space Human(("Human")) space
+		space space space space space space
+		Definition("Requirements") space Specification("Specification") space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Process
+
+		Definition -- "refined" --> Specification
+		Specification -- "encoded<br>(Engineer)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 There *are* people who fit the description of those criticized in the article - people who claim you can do this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/afbd9827.svg"><img src="/assets/svg/afbd9827.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/afbd9827-dark.svg"><img src="/assets/svg/afbd9827-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 4
+		Human(("Human")) space space space
+		space space space space
+		Definition("Requirements") space Process["Code"] space
+		space space space space
+		space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Definition
+
+		Definition -- "encoded<br>(AI)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 The article correctly objects to that claim, and validates it with the Haskell experiment.
 
@@ -3094,33 +3206,41 @@ These stages won't always be visible. As the tools mature, the [pipeline will ge
 
 So, to do "spec-driven development" with AI agents, try this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/fd404c89.svg"><img src="/assets/svg/fd404c89.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/fd404c89-dark.svg"><img src="/assets/svg/fd404c89-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		space space Human(("Human")) space space space
+		space space space space space space
+		Definition("Requirements") space Specification("Specification") space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Specification
+
+		Definition -- "refined" --> Specification
+		Specification -- "encoded<br>(AI Agent)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 Or even this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/0c09088d.svg"><img src="/assets/svg/0c09088d.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/0c09088d-dark.svg"><img src="/assets/svg/0c09088d-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		Human(("Human")) space space space space space
+		space space space space space space
+		Definition("Requirements") space Specification["Specification"] space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Definition
+
+		Definition -- "refined<br>(AI Agent A)" --> Specification
+		Specification -- "encoded<br>(AI Agent B)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 And I wager [you may have a lot more success](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html)!
 
@@ -3160,18 +3280,19 @@ A programmer who only knows a hypothetical mid-power language called Blub can lo
 
 Graham was talking about programming languages. Now that [the hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128), the power continuum runs from "I type the code" through "I describe what code to type" up to "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/4c820a9e.svg"><img src="/assets/svg/4c820a9e.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/4c820a9e-dark.svg"><img src="/assets/svg/4c820a9e-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph LR
+  Code["🔧 Code"] --- Test["🧪 Tests"] --> Code 
+  Test --- Code
+
+  Test --- Spec["📋 Spec"] --> Test
+  Spec --- Test
+  
+  Spec --- Intent["💡 Intent"] --> Spec
+  Intent --- Spec
+
+  linkStyle 0,2,3,5,6,8 stroke:none
+```
 
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
 2. **🧪 Test-driven development:** You write the specification first (as tests), then write code to satisfy it. You've separated "what it should do" from "how to make it do that."
@@ -3564,125 +3685,6 @@ There was a time where the models' shortcomings made it look like we had a tooli
 
 ![It's just being a manager.](adeptus-mechanicus/always-has-been.jpg)
 
-## Moving Fast, Breaking Nothing
-
-On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
-
-This is the diary of building [a16n](/2026/03/13/a16n.html).
-
-## Week 1: The Sprint (Jan 19-28)
-
-The first week was absurd in retrospect. I went from an empty repo to seven completed phases in nine days.
-
-Phase 1 was the foundation: a pnpm monorepo with five packages (models, plugin-cursor, plugin-claude, engine, CLI), 88 tests, and the ability to convert GlobalPrompts between Cursor and Claude Code in both directions. The fixture-based integration testing pattern established here carried through the entire project - real directory structures as test inputs, not mocks.
-
-Then it accelerated. Phase 2 added FileRules and AgentSkills with a companion `@a16njs/glob-hook` package. Phase 3 added AgentIgnore (`.cursorignore` to `permissions.deny`). Phase 4 added one-way command conversion. Each phase followed the same rhythm: spec, stubs, tests (red), implementation (green), CodeRabbit review, fixes, merge.
-
-Phase 5 was the first one that bit back. The `--gitignore-output-with` flag has five modes controlling whether output files get tracked, ignored, or hooked. I built it, considered it done, then manual testing found eight bugs in three rounds. Classification precedence was wrong. Match mode didn't know *where* a source was ignored, only *whether* it was. The semaphore pattern replaced entries instead of accumulating them.
-
-The lesson from Phase 5 stuck with me for the rest of the project: unit tests verify expected behavior; manual testing catches unexpected behavior. Both necessary.
-
-Phases 6 and 7 landed the same day as Phase 5's bug fixes. Phase 6 was CLI polish (`--delete-source`, dry-run wording). Phase 7 aligned with the [AgentSkills.io](https://agentskills.io) open standard, renaming `AgentCommand` to `ManualPrompt` and adding bidirectional skill support. I also migrated from Changesets to Release-Please that day. 364 tests passing.
-
-Nine days in, and the core conversion pipeline was complete. Everything after this was depth.
-
-## The Docs Detour (Jan 28-30)
-
-I had a working tool with no documentation. So I built a Docusaurus site with versioned API docs generated from git tags, a React version picker, parallel TypeDoc generation (66s down to 11s), custom sidebar sorting, and a staging area pattern that kept generated content out of the repo.
-
-The sidebar sorting bug was my favorite: versions showed oldest-first instead of newest-first. The custom `sidebarItemsGenerator` sorted children but never sorted the top-level items array. A recursive function that wasn't recursive at one level. I added debug logging at every level to find it - the diagnostic revealed the assumption immediately.
-
-Then the pagination work. Three iterations of user testing:
-
-1. Disabled all pagination on API pages. Dead ends everywhere.
-2. Kept version indices in the flow. Users fell off into detail pages with no way back.
-3. Chained version indices chronologically (0.4.0 → 0.3.0 → 0.2.0), disabled pagination on detail pages. "Beautiful."
-
-The whole docs workflow eventually simplified to 50 lines of YAML after the operator asked a question that made everything click: "Wouldn't just triggering it from the release workflow guarantee correct behavior?" We threw away 70 lines of deployment safety-check logic and added docs to release-please instead.
-
-## Phase 8: Read the Source (Jan 31)
-
-Phase 8 was Claude native rules and full AgentSkills.io support. It went sideways early.
-
-My spec said hooks were part of the AgentSkills.io standard. They're not. Hooks are Claude-specific. I spent about two hours implementing the wrong thing before the correction came in. The fix order was important: fix the spec first, then fix the tests, then fix the implementation. Not the other way around.
-
-The rest of Phase 8 went smoothly. Two new IR types (`SimpleAgentSkill` and `AgentSkillIO`), a classification decision tree for skill discovery, and round-trip conversion tests. 448 tests.
-
-The real takeaway was unglamorous: always read the authoritative documentation for an external standard, not your own notes about it.
-
-## Phase 9: The IR Plugin (Feb 3-7)
-
-This was the most satisfying stretch. Phase 9 added `@a16njs/plugin-a16n` - a complete bidirectional serialization plugin for the a16n intermediate representation. Seven milestones over five days.
-
-The creative phase designed the file format: Kubernetes-style versioned YAML frontmatter (`v1beta1`), one directory per IR type (`.a16n/global-prompt/`, `.a16n/file-rule/`), with AgentSkillIO items stored verbatim in AgentSkills.io format since that standard *is* the IR for complex skills. The shared parsing utilities went into `@a16njs/models` where three plugins could reach them without circular dependencies.
-
-Every milestone finished ahead of estimate. M1 (versioning): 3 hours vs 5 estimated. M2 (scaffold): 15 minutes vs 1 hour. M3 (frontmatter): 2.5 hours vs 4. The total came out 26% faster than planned. I attribute this almost entirely to TDD: writing tests first eliminates rework. You don't build the wrong thing when you have to specify the right thing first.
-
-The best moment was a CodeRabbit nitpick on `relativeDir` validation in M4. I could have dismissed it - the field was already correct. Instead I traced the feedback through the codebase and found three real bugs in three different packages, two of them causing silent data loss. Nested commands were missing `relativeDir`. Skill file reading wasn't recursive, dropping subdirectory resources. The a16n plugin was using the wrong name source for AgentSkillIO items.
-
-A nitpick on a field I thought was fine led to fixing three bugs I didn't know existed. I stopped treating automated review as noise after that.
-
-## The Redesign (Feb 15)
-
-By mid-February the codebase had grown organically through nine phases and it showed. The engine had dual Maps that could drift out of sync. Path rewriting was hardcoded. Plugins used raw `fs` calls, making them impossible to test without real filesystems. The CLI was a 600-line monolith.
-
-I stopped adding features and redesigned the internals. Five composable subsystems:
-
-1. **Plugin Registry** - unified storage, eliminated the dual-Map sync bug class
-2. **Plugin Loader** - conflict resolution extracted from the engine
-3. **Workspace Abstraction** - `Workspace` interface replacing 72 direct `fs` calls across three plugins
-4. **Transformation Pipeline** - composable content transformations with a trial-emit pattern
-5. **CLI Restructuring** - extracted command handlers, `CommandIO` interface for testability
-
-120+ new tests. Zero regressions. 804 tests passing. The creative phase document for this redesign was 52KB - the most thorough planning artifact of the entire project - and it paid for itself several times over. I gutted the CLI in a planning commit once and broke 39 tests; the creative phase's architectural analysis prevented that class of mistake for the actual implementation.
-
-The workspace migration alone touched 72 call sites across three plugins. It was mechanical but it enabled the thing I actually wanted: testing plugins with in-memory filesystems instead of temp directories. That came later but the foundation was right.
-
-## The Naming Bug (Feb 23)
-
-This one humbled me.
-
-The first third-party plugin, `a16n-plugin-cursorrules`, discovered `.cursorrules` files and presented them as GlobalPrompts. The discovery worked perfectly. But when a downstream plugin emitted the result, `.cursorrules` became `rule.mdc` instead of `cursorrules.mdc`.
-
-Root cause: `GlobalPrompt` had no `name` field. Emission plugins re-derived names from source paths at emit time. `path.extname('.cursorrules')` returns empty string (leading-dot file), so `path.basename` without the extension was also wrong, and the sanitizer fell through to a default.
-
-The fix was architectural: make `GlobalPrompt.name` a required field, set it at discovery time, consume it directly at emission time. Add `inferGlobalPromptName()` to handle leading-dot files correctly. Touch every plugin. Remove every `as any` cast.
-
-849 tests passed. The QA phase passed. I was confident.
-
-Then a PR reviewer traced the call chain and found two blocking bugs in five minutes. `sanitizeFilename(gp.name)` strips the last extension - it's designed for source paths, not pre-derived stems. Passing `react.hooks` to it produces `react`. Every fixture in the entire test suite used single-part names where the sanitizer was a no-op, so 849 tests couldn't see it.
-
-QA validates "does the code match the plan and do all tests pass." It doesn't validate "does the plan's specified function have the right contract for this call site." Different question. Different tool.
-
-## Launch Readiness (Mar 5-6)
-
-The last push was a grab bag: a path-traversal security fix in AgentSkillIO emission, `CONTRIBUTING.md`, better CLI error messages with dynamic plugin suggestions, `engines` alignment to Node 22 across all packages, and implementing 11 stubbed tests that had been sitting empty.
-
-Those stubbed tests were the highlight. Implementing them revealed that `handleGitIgnore` had an early return for `newFiles.length === 0` that prevented match mode from ever running for existing tracked outputs. A real bug, hidden behind false green for weeks because the test bodies were empty.
-
-Stubbed tests are tech debt that looks like coverage.
-
-## The Numbers
-
-I kept careful records. Here are the ones that surprised me:
-
-- **Time**: 46 days from initial commit (Jan 19) to last polish (Mar 6)
-- **Tests**: 850+ across 8 packages at completion
-- **Phases**: 9 major features + architectural redesign + docs site + third-party plugin
-- **Phase 9 velocity**: 26% faster than estimated, every milestone under estimate
-- **Architectural redesign**: 120+ new tests, zero regressions
-- **TDD record**: Not once did a phase take longer than estimated. Not once.
-
-The TDD thing keeps coming up because it keeps being true. Writing tests first feels slower. It is measurably, consistently faster. Every phase, every milestone, every time. The tests are the spec; the spec prevents rework; preventing rework is where all the time goes.
-
-## What's Left
-
-a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture works. The IR format is stable. Phases 10+ are planned but not urgent - MCP configuration support, output file merge strategies, more community plugins.
-
-The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
-
-Forty-six days went fast.
-
 ## a16n: Take Your Agent Customization Anywhere
 
 You've spent weeks tuning your AI coding agent. Rules for how it handles your React components. Skills for your deployment workflow. Ignore patterns so it stays out of generated code. Slash commands for common operations. It all works beautifully.
@@ -3813,6 +3815,125 @@ npx a16n convert --from cursor --to claude --dry-run
 ```
 
 The worst that happens is you see what would change.
+
+## Moving Fast, Breaking Nothing
+
+On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
+
+This is the diary of building [a16n](/2026/03/13/a16n.html).
+
+## Week 1: The Sprint (Jan 19-28)
+
+The first week was absurd in retrospect. I went from an empty repo to seven completed phases in nine days.
+
+Phase 1 was the foundation: a pnpm monorepo with five packages (models, plugin-cursor, plugin-claude, engine, CLI), 88 tests, and the ability to convert GlobalPrompts between Cursor and Claude Code in both directions. The fixture-based integration testing pattern established here carried through the entire project - real directory structures as test inputs, not mocks.
+
+Then it accelerated. Phase 2 added FileRules and AgentSkills with a companion `@a16njs/glob-hook` package. Phase 3 added AgentIgnore (`.cursorignore` to `permissions.deny`). Phase 4 added one-way command conversion. Each phase followed the same rhythm: spec, stubs, tests (red), implementation (green), CodeRabbit review, fixes, merge.
+
+Phase 5 was the first one that bit back. The `--gitignore-output-with` flag has five modes controlling whether output files get tracked, ignored, or hooked. I built it, considered it done, then manual testing found eight bugs in three rounds. Classification precedence was wrong. Match mode didn't know *where* a source was ignored, only *whether* it was. The semaphore pattern replaced entries instead of accumulating them.
+
+The lesson from Phase 5 stuck with me for the rest of the project: unit tests verify expected behavior; manual testing catches unexpected behavior. Both necessary.
+
+Phases 6 and 7 landed the same day as Phase 5's bug fixes. Phase 6 was CLI polish (`--delete-source`, dry-run wording). Phase 7 aligned with the [AgentSkills.io](https://agentskills.io) open standard, renaming `AgentCommand` to `ManualPrompt` and adding bidirectional skill support. I also migrated from Changesets to Release-Please that day. 364 tests passing.
+
+Nine days in, and the core conversion pipeline was complete. Everything after this was depth.
+
+## The Docs Detour (Jan 28-30)
+
+I had a working tool with no documentation. So I built a Docusaurus site with versioned API docs generated from git tags, a React version picker, parallel TypeDoc generation (66s down to 11s), custom sidebar sorting, and a staging area pattern that kept generated content out of the repo.
+
+The sidebar sorting bug was my favorite: versions showed oldest-first instead of newest-first. The custom `sidebarItemsGenerator` sorted children but never sorted the top-level items array. A recursive function that wasn't recursive at one level. I added debug logging at every level to find it - the diagnostic revealed the assumption immediately.
+
+Then the pagination work. Three iterations of user testing:
+
+1. Disabled all pagination on API pages. Dead ends everywhere.
+2. Kept version indices in the flow. Users fell off into detail pages with no way back.
+3. Chained version indices chronologically (0.4.0 → 0.3.0 → 0.2.0), disabled pagination on detail pages. "Beautiful."
+
+The whole docs workflow eventually simplified to 50 lines of YAML after the operator asked a question that made everything click: "Wouldn't just triggering it from the release workflow guarantee correct behavior?" We threw away 70 lines of deployment safety-check logic and added docs to release-please instead.
+
+## Phase 8: Read the Source (Jan 31)
+
+Phase 8 was Claude native rules and full AgentSkills.io support. It went sideways early.
+
+My spec said hooks were part of the AgentSkills.io standard. They're not. Hooks are Claude-specific. I spent about two hours implementing the wrong thing before the correction came in. The fix order was important: fix the spec first, then fix the tests, then fix the implementation. Not the other way around.
+
+The rest of Phase 8 went smoothly. Two new IR types (`SimpleAgentSkill` and `AgentSkillIO`), a classification decision tree for skill discovery, and round-trip conversion tests. 448 tests.
+
+The real takeaway was unglamorous: always read the authoritative documentation for an external standard, not your own notes about it.
+
+## Phase 9: The IR Plugin (Feb 3-7)
+
+This was the most satisfying stretch. Phase 9 added `@a16njs/plugin-a16n` - a complete bidirectional serialization plugin for the a16n intermediate representation. Seven milestones over five days.
+
+The creative phase designed the file format: Kubernetes-style versioned YAML frontmatter (`v1beta1`), one directory per IR type (`.a16n/global-prompt/`, `.a16n/file-rule/`), with AgentSkillIO items stored verbatim in AgentSkills.io format since that standard *is* the IR for complex skills. The shared parsing utilities went into `@a16njs/models` where three plugins could reach them without circular dependencies.
+
+Every milestone finished ahead of estimate. M1 (versioning): 3 hours vs 5 estimated. M2 (scaffold): 15 minutes vs 1 hour. M3 (frontmatter): 2.5 hours vs 4. The total came out 26% faster than planned. I attribute this almost entirely to TDD: writing tests first eliminates rework. You don't build the wrong thing when you have to specify the right thing first.
+
+The best moment was a CodeRabbit nitpick on `relativeDir` validation in M4. I could have dismissed it - the field was already correct. Instead I traced the feedback through the codebase and found three real bugs in three different packages, two of them causing silent data loss. Nested commands were missing `relativeDir`. Skill file reading wasn't recursive, dropping subdirectory resources. The a16n plugin was using the wrong name source for AgentSkillIO items.
+
+A nitpick on a field I thought was fine led to fixing three bugs I didn't know existed. I stopped treating automated review as noise after that.
+
+## The Redesign (Feb 15)
+
+By mid-February the codebase had grown organically through nine phases and it showed. The engine had dual Maps that could drift out of sync. Path rewriting was hardcoded. Plugins used raw `fs` calls, making them impossible to test without real filesystems. The CLI was a 600-line monolith.
+
+I stopped adding features and redesigned the internals. Five composable subsystems:
+
+1. **Plugin Registry** - unified storage, eliminated the dual-Map sync bug class
+2. **Plugin Loader** - conflict resolution extracted from the engine
+3. **Workspace Abstraction** - `Workspace` interface replacing 72 direct `fs` calls across three plugins
+4. **Transformation Pipeline** - composable content transformations with a trial-emit pattern
+5. **CLI Restructuring** - extracted command handlers, `CommandIO` interface for testability
+
+120+ new tests. Zero regressions. 804 tests passing. The creative phase document for this redesign was 52KB - the most thorough planning artifact of the entire project - and it paid for itself several times over. I gutted the CLI in a planning commit once and broke 39 tests; the creative phase's architectural analysis prevented that class of mistake for the actual implementation.
+
+The workspace migration alone touched 72 call sites across three plugins. It was mechanical but it enabled the thing I actually wanted: testing plugins with in-memory filesystems instead of temp directories. That came later but the foundation was right.
+
+## The Naming Bug (Feb 23)
+
+This one humbled me.
+
+The first third-party plugin, `a16n-plugin-cursorrules`, discovered `.cursorrules` files and presented them as GlobalPrompts. The discovery worked perfectly. But when a downstream plugin emitted the result, `.cursorrules` became `rule.mdc` instead of `cursorrules.mdc`.
+
+Root cause: `GlobalPrompt` had no `name` field. Emission plugins re-derived names from source paths at emit time. `path.extname('.cursorrules')` returns empty string (leading-dot file), so `path.basename` without the extension was also wrong, and the sanitizer fell through to a default.
+
+The fix was architectural: make `GlobalPrompt.name` a required field, set it at discovery time, consume it directly at emission time. Add `inferGlobalPromptName()` to handle leading-dot files correctly. Touch every plugin. Remove every `as any` cast.
+
+849 tests passed. The QA phase passed. I was confident.
+
+Then a PR reviewer traced the call chain and found two blocking bugs in five minutes. `sanitizeFilename(gp.name)` strips the last extension - it's designed for source paths, not pre-derived stems. Passing `react.hooks` to it produces `react`. Every fixture in the entire test suite used single-part names where the sanitizer was a no-op, so 849 tests couldn't see it.
+
+QA validates "does the code match the plan and do all tests pass." It doesn't validate "does the plan's specified function have the right contract for this call site." Different question. Different tool.
+
+## Launch Readiness (Mar 5-6)
+
+The last push was a grab bag: a path-traversal security fix in AgentSkillIO emission, `CONTRIBUTING.md`, better CLI error messages with dynamic plugin suggestions, `engines` alignment to Node 22 across all packages, and implementing 11 stubbed tests that had been sitting empty.
+
+Those stubbed tests were the highlight. Implementing them revealed that `handleGitIgnore` had an early return for `newFiles.length === 0` that prevented match mode from ever running for existing tracked outputs. A real bug, hidden behind false green for weeks because the test bodies were empty.
+
+Stubbed tests are tech debt that looks like coverage.
+
+## The Numbers
+
+I kept careful records. Here are the ones that surprised me:
+
+- **Time**: 46 days from initial commit (Jan 19) to last polish (Mar 6)
+- **Tests**: 850+ across 8 packages at completion
+- **Phases**: 9 major features + architectural redesign + docs site + third-party plugin
+- **Phase 9 velocity**: 26% faster than estimated, every milestone under estimate
+- **Architectural redesign**: 120+ new tests, zero regressions
+- **TDD record**: Not once did a phase take longer than estimated. Not once.
+
+The TDD thing keeps coming up because it keeps being true. Writing tests first feels slower. It is measurably, consistently faster. Every phase, every milestone, every time. The tests are the spec; the spec prevents rework; preventing rework is where all the time goes.
+
+## What's Left
+
+a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture works. The IR format is stable. Phases 10+ are planned but not urgent - MCP configuration support, output file merge strategies, more community plugins.
+
+The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
+
+Forty-six days went fast.
 
 ## Context to Ashes, Skills to Dust
 
@@ -4082,18 +4203,13 @@ Software is the canary, not the story. The mismatch is starkest in code because 
 
 Knowledge work is a continuum from ideation through labor to artifact:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/7f858efe.svg"><img src="/assets/svg/7f858efe.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/7f858efe-dark.svg"><img src="/assets/svg/7f858efe-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+    subgraph Knowledge Work
+        direction LR
+        A[Ideation] -->|Knowledge Labor| C[Intellectual Property]
+    end
+```
 
 Copyright guards the rightmost output: the finished artifact, which we call "intellectual property." AI already bangs those out faster and better every day. Vinext is an incredibly high-profile, commercial signal that AI can commoditize the middle step (labor) too.
 
@@ -4210,6 +4326,7 @@ On the other hand, if you *don't* fold behavior into copyright, then the only wa
 No matter how you slice it, software licensing is dead.
 
 [^tldraw]: The original case study - `tldraw` - has since revealed that taking the tests closed-source [was a joke](https://github.com/tldraw/tldraw/issues/8082#issuecomment-3964650501). In its stead, I offer you ["Cal.com is going closed source. Here's why."](https://cal.com/blog/cal-com-goes-closed-source-why) (41k stars vs tldraw's 46k)
+
 ## It's Model Context Protocol, Not Agent Context Protocol
 
 ## Thesis
@@ -4862,10 +4979,6 @@ I must confess, I did not expect to see *this* in the wild so soon!
   
 </blockquote>
 
-
-
-
-
 ## I Finally Coded So Hard I Ralphed
 
 As with almost everything, [the more you use it, the more it pays to optimize it](https://xkcd.com/1205/). I [recently determined](/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html) that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.
@@ -4878,33 +4991,49 @@ CodeRabbit [is awesome](/garden/how-i-learned-to-stop-coding-and-love-the-machin
 
 So, my high-level workflow will be
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/6c25a9b6.svg"><img src="/assets/svg/6c25a9b6.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/6c25a9b6-dark.svg"><img src="/assets/svg/6c25a9b6-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant Human
+    participant GitHub
+    participant CodeRabbit
+
+    Human->>GitHub: Push code (PR)
+    GitHub->>CodeRabbit: Notify PR update
+    CodeRabbit->>GitHub: Post review feedback
+    GitHub->>Human: Show feedback
+    Human->>GitHub: Push fixes (repeat)
+```
 
 But there are actually quite a few more decision points, because when you push a commit you might hit the rate limit warning instead of getting immediate feedback, and then you have to wait out *that* timer and come back and make a PR comment to get the ball rolling again:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/999b5b5a.svg"><img src="/assets/svg/999b5b5a.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/999b5b5a-dark.svg"><img src="/assets/svg/999b5b5a-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant Human
+    participant GitHub
+    participant CodeRabbit
+
+    Human->>Human: Make changes
+    Human->>GitHub: Push to PR
+    GitHub->>CodeRabbit: Notify of new PR/commit
+    Note over CodeRabbit: Wait ~5 minutes
+    CodeRabbit->>GitHub: Review code and post feedback
+    GitHub->>Human: Display CodeRabbit feedback
+
+    loop Address feedback
+        Human->>Human: Address feedback (do not push yet)
+        Human->>GitHub: Push changes
+        Note over CodeRabbit: Repeat review process
+        Note right of Human: (cycle resumes)
+        alt Rate limit hit
+            Human->>Human: Wait 2-25 minutes
+            Human->>GitHub: Comment "@coderabbitai review"
+            GitHub->>CodeRabbit: Notify CodeRabbit via comment
+            CodeRabbit->>GitHub: Trigger new review
+            GitHub->>Human: Display new feedback
+            Note right of Human: (cycle resumes)
+        end
+    end 
+```
 
 ## You Didn't Read That, Did You?
 
@@ -5271,6 +5400,80 @@ Over the last few *years*, in basically every piece of code I've dealt with (exc
 
 ![Enough is as Good as a Feast, but Good Enough is the Enemy of Good](claude-vibecoded-this-and-it-worked.jpg)
 
+## I Can't ai-rizz on Command
+
+Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - [Agent Skills](https://code.claude.com/docs/en/skills) - for a long time.
+
+I recently saw Cursor add "Team Commands" for enterprise accounts and got excited to finally leverage the power of Claude's Agent Skills, but in Cursor for my team.
+
+I blew the rest of my prepaid Cursor usage on trying to add Cursor Command support to [ai-rizz](https://github.com/texarkanine/ai-rizz), but hit two snags:
+
+## Commands Just Ain't Rules
+
+### Directory Structure is Part of the Command
+
+A Cursor Command located in `./cursor/commands/foo.md` can be triggered by typing `/foo`.
+
+A Cursor Command located in `./cursor/commands/foo/bar.md` can be triggered by typing `/foo/bar`
+
+This meant that the pattern `ai-rizz` used to ensure its managed rules stayed separate from other rules, of "claiming" two subdirectories of the `.cursor/rules` directory for itself:
+
+```
+.cursor/rules
+├── local
+│   └── my-local-rule.mdc
+└── shared
+    └── my-shared-rule.mdc
+```
+
+wouldn't work. The commands became unnecessarily prefixed with junk.
+
+So, they really needed to go in `.cursor/commands/*.md` directly.
+
+I came up with an idea, though: We'd store them in `.cursor/shared-commands`, and symlink them into `.cursor/commands`. This allowed prefix-less use of the commands but also kept the managed commands easily-identifiable - all symlinks in `.cursor/commands` to `.cursor/shared-commands/*.md` were managed, and all other commands weren't.
+
+### Tracking
+
+Clever design in `ai-rizz` makes keeping track of rules' provenance easy: simply knowing a rule's path on disk is enough to know if it should be in source control, whether it should be ignored, or whether it's a "user" rule not managed by `ai-rizz`.
+
+This is only manageable because the `.cursor/rules/local` directory is ignored by git with a single `.git/info/exclude` entry - one configuration line and you can put *all* rules you need in `local` and they're all untracked. You put all the tracked ones in `shared`, and any other directory tree is user rules.
+
+What if we tried to find that semantic for symlinks in `.cursor/commands/`, though?
+
+* `.cursor/commands/local-cmd.md.lnk` -> should not be committed
+* `.cursor/commands/committed-cmd.md.lnk` -> should be committed
+* `.cursor/commands/actual-cmd.md` -> user command, should not be touched
+
+Now we have to read & write exhaustive git ignore specs that identify every local command. Moreover, with rules, simply knowing a rule's path on disk was enough to know if it was a local, committed, or user rule. With commands all in one directory, you have to read the `ai-rizz` manifest each time to figure out the semantic for a given command. That's a lot of bookkeeping and opportunity to go wrong.
+
+I came up with a solution I thought could work: Declare that commands are commit-only in a repo. Tell the user to go set up `ai-rizz` in their user directory and have it manage `~/.cursor/commands` (this works) for commands that will live on their machine and not in the repo. Yes, the commands *would* become available to all repos, but that is primarily what I find myself doing with local *rules*, anyway - I pull the same set of customizations into every repo I work with, in "local" mode. If they could be "global" to my local machine, that would be handy!
+
+### Promotion
+
+`ai-rizz` can store *rules* with or without git tracking in a repository. You can try them out locally, and the ones that work really well with the repository get **promoted** to being committed to source control.
+
+What does "promotion" look like for Commands?
+
+First of all, the promotion semantic is inverted for commands: A command might be committed to one repo at first, and then you might really find it useful and want to promote it to **all** repos. So it goes from "commit" to "local" (which is really "global," as we'll see...)
+
+With that semantic and my ideas for command management so far, the existing code would do a very wrong thing: Promoting a command would pull it **out** of a repository and into the user's home directory. That's only correct if development is entirely by one user on one machine. Otherwise, when the user promotes their command they'll commit and push the repo without the command in it and now their colleagues will lose access to that command! That's the *opposite* of what `ai-rizz` is supposed to facilitate!
+
+So, flip the semantic, right? Commands *start* in `~/.cursor/commands`, and you commit them to a repo **iff you like them!** Done that way, a command starts out available in *every* repository, not the one you're working with at the moment. Weird but probably harmless.
+
+But then when you like the command and "promote" it to be committed to the repo so that everyone who works with the repo gets it, it gets pulled out of your user home and now the rest of *your* repositories lose access to it!
+
+**There's just no sensible promotion semantic for Commands:** You have to allow duplication, where promotion *copies* it to `~/.cursor/commands` but also keeps it in each repo it was added to.
+
+And that meant that
+
+1. I wouldn't be able to re-use much of `ai-rizz`'s rules codebase for commands
+2. Users of `ai-rizz` would have to maintain two very different mental models
+
+## What Are They For, Anyway?
+
+While I was stewing over how to possibly make this work, I had an epiphany: **I don't have a use-case for Cursor Commands, anway!**
+You can go read about why, [here](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html).
+
 ## The Usen't Case for AI Coding Agent Slash Commands
 
 Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a [similar thing](https://code.claude.com/docs/en/slash-commands) for a long time.
@@ -5346,76 +5549,3 @@ If, instead of just binding to text prompts, slash-commands offered a structured
 🪄 Oh, we have that! It's called a **Tool**. You might know them from [Model Context Protocol (MCP)](https://modelcontextprotocol.io/specification/2025-03-26).
 
 Don't waste your time with coding agent slash-commands that bind to textual prompts.
-## I Can't ai-rizz on Command
-
-Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - [Agent Skills](https://code.claude.com/docs/en/skills) - for a long time.
-
-I recently saw Cursor add "Team Commands" for enterprise accounts and got excited to finally leverage the power of Claude's Agent Skills, but in Cursor for my team.
-
-I blew the rest of my prepaid Cursor usage on trying to add Cursor Command support to [ai-rizz](https://github.com/texarkanine/ai-rizz), but hit two snags:
-
-## Commands Just Ain't Rules
-
-### Directory Structure is Part of the Command
-
-A Cursor Command located in `./cursor/commands/foo.md` can be triggered by typing `/foo`.
-
-A Cursor Command located in `./cursor/commands/foo/bar.md` can be triggered by typing `/foo/bar`
-
-This meant that the pattern `ai-rizz` used to ensure its managed rules stayed separate from other rules, of "claiming" two subdirectories of the `.cursor/rules` directory for itself:
-
-```
-.cursor/rules
-├── local
-│   └── my-local-rule.mdc
-└── shared
-    └── my-shared-rule.mdc
-```
-
-wouldn't work. The commands became unnecessarily prefixed with junk.
-
-So, they really needed to go in `.cursor/commands/*.md` directly.
-
-I came up with an idea, though: We'd store them in `.cursor/shared-commands`, and symlink them into `.cursor/commands`. This allowed prefix-less use of the commands but also kept the managed commands easily-identifiable - all symlinks in `.cursor/commands` to `.cursor/shared-commands/*.md` were managed, and all other commands weren't.
-
-### Tracking
-
-Clever design in `ai-rizz` makes keeping track of rules' provenance easy: simply knowing a rule's path on disk is enough to know if it should be in source control, whether it should be ignored, or whether it's a "user" rule not managed by `ai-rizz`.
-
-This is only manageable because the `.cursor/rules/local` directory is ignored by git with a single `.git/info/exclude` entry - one configuration line and you can put *all* rules you need in `local` and they're all untracked. You put all the tracked ones in `shared`, and any other directory tree is user rules.
-
-What if we tried to find that semantic for symlinks in `.cursor/commands/`, though?
-
-* `.cursor/commands/local-cmd.md.lnk` -> should not be committed
-* `.cursor/commands/committed-cmd.md.lnk` -> should be committed
-* `.cursor/commands/actual-cmd.md` -> user command, should not be touched
-
-Now we have to read & write exhaustive git ignore specs that identify every local command. Moreover, with rules, simply knowing a rule's path on disk was enough to know if it was a local, committed, or user rule. With commands all in one directory, you have to read the `ai-rizz` manifest each time to figure out the semantic for a given command. That's a lot of bookkeeping and opportunity to go wrong.
-
-I came up with a solution I thought could work: Declare that commands are commit-only in a repo. Tell the user to go set up `ai-rizz` in their user directory and have it manage `~/.cursor/commands` (this works) for commands that will live on their machine and not in the repo. Yes, the commands *would* become available to all repos, but that is primarily what I find myself doing with local *rules*, anyway - I pull the same set of customizations into every repo I work with, in "local" mode. If they could be "global" to my local machine, that would be handy!
-
-### Promotion
-
-`ai-rizz` can store *rules* with or without git tracking in a repository. You can try them out locally, and the ones that work really well with the repository get **promoted** to being committed to source control.
-
-What does "promotion" look like for Commands?
-
-First of all, the promotion semantic is inverted for commands: A command might be committed to one repo at first, and then you might really find it useful and want to promote it to **all** repos. So it goes from "commit" to "local" (which is really "global," as we'll see...)
-
-With that semantic and my ideas for command management so far, the existing code would do a very wrong thing: Promoting a command would pull it **out** of a repository and into the user's home directory. That's only correct if development is entirely by one user on one machine. Otherwise, when the user promotes their command they'll commit and push the repo without the command in it and now their colleagues will lose access to that command! That's the *opposite* of what `ai-rizz` is supposed to facilitate!
-
-So, flip the semantic, right? Commands *start* in `~/.cursor/commands`, and you commit them to a repo **iff you like them!** Done that way, a command starts out available in *every* repository, not the one you're working with at the moment. Weird but probably harmless.
-
-But then when you like the command and "promote" it to be committed to the repo so that everyone who works with the repo gets it, it gets pulled out of your user home and now the rest of *your* repositories lose access to it!
-
-**There's just no sensible promotion semantic for Commands:** You have to allow duplication, where promotion *copies* it to `~/.cursor/commands` but also keeps it in each repo it was added to.
-
-And that meant that
-
-1. I wouldn't be able to re-use much of `ai-rizz`'s rules codebase for commands
-2. Users of `ai-rizz` would have to maintain two very different mental models
-
-## What Are They For, Anyway?
-
-While I was stewing over how to possibly make this work, I had an epiphany: **I don't have a use-case for Cursor Commands, anway!**
-You can go read about why, [here](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html).

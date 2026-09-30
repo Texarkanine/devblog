@@ -68,18 +68,16 @@ In most home networks, DNS is an invisible detail handed down by an ISP's DHCP s
 
 Those telemetry inputs feed into a deterministic state machine that drives the NERV alert cascade:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/df5d698a.svg"><img src="/assets/svg/df5d698a.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/df5d698a-dark.svg"><img src="/assets/svg/df5d698a-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+stateDiagram-v2
+  [*] --> Nominal
+  Nominal --> Active: Backup path active
+  Nominal --> Alert: One provider down
+  Active --> Alert: One provider down
+  Alert --> Critical: Both down or DNS dead
+  Active --> Caution: Telemetry silent
+  Nominal --> Caution: Telemetry silent
+```
 
 Each step up the ladder changes the ambiance tokens on the document root:
 

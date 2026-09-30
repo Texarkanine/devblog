@@ -8,33 +8,49 @@ CodeRabbit [is awesome](/garden/how-i-learned-to-stop-coding-and-love-the-machin
 
 So, my high-level workflow will be
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/6c25a9b6.svg"><img src="/assets/svg/6c25a9b6.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/6c25a9b6-dark.svg"><img src="/assets/svg/6c25a9b6-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant Human
+    participant GitHub
+    participant CodeRabbit
+
+    Human->>GitHub: Push code (PR)
+    GitHub->>CodeRabbit: Notify PR update
+    CodeRabbit->>GitHub: Post review feedback
+    GitHub->>Human: Show feedback
+    Human->>GitHub: Push fixes (repeat)
+```
 
 But there are actually quite a few more decision points, because when you push a commit you might hit the rate limit warning instead of getting immediate feedback, and then you have to wait out *that* timer and come back and make a PR comment to get the ball rolling again:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/999b5b5a.svg"><img src="/assets/svg/999b5b5a.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/999b5b5a-dark.svg"><img src="/assets/svg/999b5b5a-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant Human
+    participant GitHub
+    participant CodeRabbit
+
+    Human->>Human: Make changes
+    Human->>GitHub: Push to PR
+    GitHub->>CodeRabbit: Notify of new PR/commit
+    Note over CodeRabbit: Wait ~5 minutes
+    CodeRabbit->>GitHub: Review code and post feedback
+    GitHub->>Human: Display CodeRabbit feedback
+
+    loop Address feedback
+        Human->>Human: Address feedback (do not push yet)
+        Human->>GitHub: Push changes
+        Note over CodeRabbit: Repeat review process
+        Note right of Human: (cycle resumes)
+        alt Rate limit hit
+            Human->>Human: Wait 2-25 minutes
+            Human->>GitHub: Comment "@coderabbitai review"
+            GitHub->>CodeRabbit: Notify CodeRabbit via comment
+            CodeRabbit->>GitHub: Trigger new review
+            GitHub->>Human: Display new feedback
+            Note right of Human: (cycle resumes)
+        end
+    end 
+```
 
 ## You Didn't Read That, Did You?
 

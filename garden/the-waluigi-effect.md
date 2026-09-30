@@ -13,7 +13,7 @@
 
 
 
-![Waluigi](waluigi-attractive-render.png)<!-- IMG_SIZE::200 -->
+![Waluigi](waluigi-attractive-render.png =x200)
 
 The "Waluigi Effect" is a hypothesized phenomenon in modern LLMs that suggests a mechanism for how they can "go rogue."
 

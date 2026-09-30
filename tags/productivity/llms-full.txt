@@ -266,18 +266,19 @@ A programmer who only knows a hypothetical mid-power language called Blub can lo
 
 Graham was talking about programming languages. Now that [the hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128), the power continuum runs from "I type the code" through "I describe what code to type" up to "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/4c820a9e.svg"><img src="/assets/svg/4c820a9e.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/4c820a9e-dark.svg"><img src="/assets/svg/4c820a9e-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph LR
+  Code["🔧 Code"] --- Test["🧪 Tests"] --> Code 
+  Test --- Code
+
+  Test --- Spec["📋 Spec"] --> Test
+  Spec --- Test
+  
+  Spec --- Intent["💡 Intent"] --> Spec
+  Intent --- Spec
+
+  linkStyle 0,2,3,5,6,8 stroke:none
+```
 
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
 2. **🧪 Test-driven development:** You write the specification first (as tests), then write code to satisfy it. You've separated "what it should do" from "how to make it do that."
@@ -811,7 +812,3 @@ I must confess, I did not expect to see *this* in the wild so soon!
   </small>
   
 </blockquote>
-
-
-
-

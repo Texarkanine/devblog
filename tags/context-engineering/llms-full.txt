@@ -329,33 +329,40 @@ There's a wrinkle, though: things like [DO-178C](https://en.wikipedia.org/wiki/D
 
 We've been doing **this** for decades:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/2ce09c92.svg"><img src="/assets/svg/2ce09c92.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/2ce09c92-dark.svg"><img src="/assets/svg/2ce09c92-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		space space space space Human(("Human")) space
+		space space space space space space
+		Definition("Requirements") space Specification("Specification") space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Process
+
+		Definition -- "refined" --> Specification
+		Specification -- "encoded<br>(Engineer)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 There *are* people who fit the description of those criticized in the article - people who claim you can do this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/afbd9827.svg"><img src="/assets/svg/afbd9827.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/afbd9827-dark.svg"><img src="/assets/svg/afbd9827-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 4
+		Human(("Human")) space space space
+		space space space space
+		Definition("Requirements") space Process["Code"] space
+		space space space space
+		space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Definition
+
+		Definition -- "encoded<br>(AI)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 The article correctly objects to that claim, and validates it with the Haskell experiment.
 
@@ -369,33 +376,41 @@ These stages won't always be visible. As the tools mature, the [pipeline will ge
 
 So, to do "spec-driven development" with AI agents, try this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/fd404c89.svg"><img src="/assets/svg/fd404c89.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/fd404c89-dark.svg"><img src="/assets/svg/fd404c89-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		space space Human(("Human")) space space space
+		space space space space space space
+		Definition("Requirements") space Specification("Specification") space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Specification
+
+		Definition -- "refined" --> Specification
+		Specification -- "encoded<br>(AI Agent)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 Or even this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/0c09088d.svg"><img src="/assets/svg/0c09088d.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/0c09088d-dark.svg"><img src="/assets/svg/0c09088d-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		Human(("Human")) space space space space space
+		space space space space space space
+		Definition("Requirements") space Specification["Specification"] space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Definition
+
+		Definition -- "refined<br>(AI Agent A)" --> Specification
+		Specification -- "encoded<br>(AI Agent B)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 And I wager [you may have a lot more success](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html)!
 
@@ -435,18 +450,19 @@ A programmer who only knows a hypothetical mid-power language called Blub can lo
 
 Graham was talking about programming languages. Now that [the hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128), the power continuum runs from "I type the code" through "I describe what code to type" up to "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/4c820a9e.svg"><img src="/assets/svg/4c820a9e.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/4c820a9e-dark.svg"><img src="/assets/svg/4c820a9e-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph LR
+  Code["🔧 Code"] --- Test["🧪 Tests"] --> Code 
+  Test --- Code
+
+  Test --- Spec["📋 Spec"] --> Test
+  Spec --- Test
+  
+  Spec --- Intent["💡 Intent"] --> Spec
+  Intent --- Spec
+
+  linkStyle 0,2,3,5,6,8 stroke:none
+```
 
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
 2. **🧪 Test-driven development:** You write the specification first (as tests), then write code to satisfy it. You've separated "what it should do" from "how to make it do that."

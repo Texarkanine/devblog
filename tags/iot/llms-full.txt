@@ -336,18 +336,43 @@ Even a single switch between the hub and router caused failure. The switches the
 
 I had a spare router (actually, a stack of them) so I popped one on the end of the hub's switch, letting it act as a full NAT'ing router, and moved the hub to it. It worked. The hub didn't need to be on the *internet-facing* router - it needed to be directly on *any* router. 
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/1abd6f2f.svg"><img src="/assets/svg/1abd6f2f.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/1abd6f2f-dark.svg"><img src="/assets/svg/1abd6f2f-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph ISP
+Rise((("ISP 1")))
+Spectrum((("ISP 2")))
+
+Rise --> Modem1["Modem<br>(Fiber ONT)"]
+Spectrum --> Modem2["Modem<br>(Cable)"]
+end
+
+subgraph LAN
+Router1Main Router
+Switch1("Switch1")
+Switch2("Switch2")
+Switch3("Switch3")
+Switch4("Switch4")
+Router2Router2
+
+Modem1 --> Router1
+Modem2 --> Router1
+
+Router1 --> Switch1
+Router1 --> Switch4
+Switch1 --> Switch2
+Switch2 --> Switch3
+Switch2 --> Router2
+
+end
+
+Switch3 --> Hub0@{ shape: stadium, label: "😺 Hub ❌<br>Original Position" }
+Switch3 --> Hub1@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 1<br>(port 1)" }
+Switch3 --> Hub2@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 2<br>(port 3, different cable)" }
+Switch4 --> Hub3@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 3" }
+Router1 --> Hub4@{ shape: stadium, label: "😺 Hub ✅<br>Alternate Position 4<br>(worked)" }
+Router2 --> Hub5@{ shape: stadium, label: "😺 Hub ✅<br>Alternate Position 5<br>(worked)" }
+```
 
 I want to also briefly shout out to the old Linksys `WRT54GL` I pulled for this - I don't have a receipt for it, but the oldest reference I can find is from 2011 - at this point it's at least 17 years old, has been on the shelf for at least 13 years, and it powered up and routed like a champ!
 
@@ -386,33 +411,56 @@ The goal:
 
 The starting topology looked like this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/636ebe6f.svg"><img src="/assets/svg/636ebe6f.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/636ebe6f-dark.svg"><img src="/assets/svg/636ebe6f-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph "Home LAN: 192.168.1.0/24"
+Router1Main Router
+PersonalDevices(("Personal Devices"))
+DNS("PiHole DNS")
+
+Router1 --> DNS
+Router1 --> PersonalDevices
+
+
+Router1 --> IoTRouter
+
+IoTRouter("IoT Router<br>(AP Mode)")
+
+IoTDevices(("IoT Devices"))
+
+IoTRouter --> IoTDevices
+end
+```
 
 Because we'd now determined that I would need the IoT Router to actually *be* a NAT'ing, DHCP'ing router, I would need something like this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/4eaee9ff.svg"><img src="/assets/svg/4eaee9ff.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/4eaee9ff-dark.svg"><img src="/assets/svg/4eaee9ff-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph "Home LAN: 192.168.1.0/24"
+Router1Main Router
+PersonalDevices(("Personal Devices"))
+DNS("PiHole DNS")
+
+Router1 --> DNS
+Router1 --> PersonalDevices
+end
+
+PersonalDevices -.-> IoTDevices
+IoTDevices -.-x PersonalDevices
+IoTDevices -.-> DNS
+
+subgraph "IoT LAN<br>10.1.101.0/24"
+Router1 --> IoTRouter
+
+IoTRouter("IoT Router")
+
+IoTDevices(("IoT Devices"))
+
+IoTRouter --> IoTDevices
+end
+```
 
 The thing that had had me putting this project off thus far was those dotted lines... We were going to have to use `iptables` and static routes.
 

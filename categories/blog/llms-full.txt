@@ -68,18 +68,16 @@ In most home networks, DNS is an invisible detail handed down by an ISP's DHCP s
 
 Those telemetry inputs feed into a deterministic state machine that drives the NERV alert cascade:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/df5d698a.svg"><img src="/assets/svg/df5d698a.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/df5d698a-dark.svg"><img src="/assets/svg/df5d698a-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+stateDiagram-v2
+  [*] --> Nominal
+  Nominal --> Active: Backup path active
+  Nominal --> Alert: One provider down
+  Active --> Alert: One provider down
+  Alert --> Critical: Both down or DNS dead
+  Active --> Caution: Telemetry silent
+  Nominal --> Caution: Telemetry silent
+```
 
 Each step up the ladder changes the ambiance tokens on the document root:
 
@@ -185,18 +183,14 @@ Phones on cellular pass that exam effortlessly because mobile carriers never ass
 
 A cafe handing out that same `/24` gives the kernel two conflicting stories. Under [longest prefix match](https://en.wikipedia.org/wiki/Longest_prefix_match), the local on-link interface wins every time, ignoring WireGuard entirely. Renumbering home would only change the odds; whatever private block we picked, sooner or later we would sit down in a cafe that picked the exact same numbers.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/499e839b.svg"><img src="/assets/svg/499e839b.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/499e839b-dark.svg"><img src="/assets/svg/499e839b-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Laptop["laptop on cafe Wi-Fi"]
+  Cafe["cafe .254"]
+  House["house Pi-hole .254"]
+  Laptop -->|"192.168.1.254 is on-link"| Cafe
+  Laptop -.->|"tunnel ignored"| House
+```
 
 I watched this happen on a colliding cafe network. While the Mac tunnel interface (`utun`) held an overlay `/32` and handshake packets flew across the Wi-Fi link, the inner packets destined for `192.168.1.254` never entered the tunnel at all. As far as the routing table was concerned, they were already home. Home was the espresso machine.
 
@@ -206,18 +200,17 @@ The house needed an address range that a `192.168.1.0/24` cafe cannot claim. We 
 
 The VPN box translates the whole `/24` on the way in. When packets leave the tunnel, they still carry their `192.168.101.x` client addresses, because masquerade is off. The edge router's return route still matches. [Conntrack](https://en.wikipedia.org/wiki/Netfilter#Connection_tracking) (connection tracking) reverses the destination rewrite on replies, so the laptop sees answers coming back from `10.168.1.x`.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f407555d.svg"><img src="/assets/svg/f407555d.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f407555d-dark.svg"><img src="/assets/svg/f407555d-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Client["client DNS 10.168.1.254"]
+  GL["VPN box"]
+  Dns["Pi-hole"]
+  Host["home server (.122)"]
+  Client -->|"alias /24"| GL
+  GL -->|"1:1 last octet"| Host
+  GL -->|"port 53 to side listen"| Dns
+  Dns -->|"A record: 10.168.1.122"| Client
+```
 
 "Nobody" types raw IP addresses into a browser or terminal; you type hostnames like `home.internal`. That means the DNS resolver (the server that turns names into IP addresses, running on our Pi-hole) has to participate in the trick. If you ask for `home.internal` while sitting in the living room, it should answer `192.168.1.122`. But if you ask over the WireGuard tunnel from a cafe, it must return the alias address `10.168.1.122`. If it answered with `192.168.1.122`, the laptop would look at the cafe's Wi-Fi, decide `.122` was local, and never send the packet into the tunnel at all.
 
@@ -295,18 +288,21 @@ The obvious architectural temptation is to put dnsdist on port 53 in front of Pi
 
 Instead, FTL kept port 53 for the house. dnsdist was given an additional plain listen on `192.168.1.254:5300`. Then the VPN box rewrites any port 53 queries coming across the tunnel to that side listen, placed *before* the general `/24` prefix map:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f6ed5f55.svg"><img src="/assets/svg/f6ed5f55.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f6ed5f55-dark.svg"><img src="/assets/svg/f6ed5f55-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant WG as VPN client (cafe)
+    participant LAN as Home LAN (living room)
+    participant GL as VPN box (.253)
+    participant Dist as dnsdist (:5300)
+    participant FTL as Pi-hole FTL (:53)
+
+    LAN->>FTL: dig @192.168.1.254:53 box.internal
+    FTL-->>LAN: 192.168.1.122 (real LAN IP)
+
+    WG->>GL: dig @10.168.1.254:53 box.internal
+    GL->>Dist: rewrite dport 5300 (source: 192.168.101.x)
+    Dist-->>WG: 10.168.1.122 (alias IP)
+```
 
 The rewrite rules on the VPN box:
 
@@ -1179,18 +1175,24 @@ If you want that, keep this tab open. The paste is [Release Image to a Tunnel](#
 
 ## The Overlay Lives Behind .253
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8f6946a6.svg"><img src="/assets/svg/8f6946a6.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8f6946a6-dark.svg"><img src="/assets/svg/8f6946a6-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  subgraph internet ["Internet"]
+    Phone["phone / laptop"]
+  end
+  subgraph house ["House"]
+    Axe["edge router"]
+    GL["VPN box"]
+    Dns["Pi-hole"]
+    Lan["home LAN"]
+  end
+  Phone -->|"UDP to a hostname on the WAN"| Axe
+  Axe -->|"forward that port"| GL
+  GL --> Wg["wg0 overlay"]
+  Axe -->|"static route: overlay via the VPN box"| Lan
+  Wg -->|"no SNAT"| Lan
+  Lan --> Dns
+```
 
 The public surface is one UDP port, forwarded to the VPN box. Everything inside the tunnel is private addressing. Return traffic for the overlay is a LAN static route on the edge router: `192.168.101.0/24` lives behind `192.168.1.253`.
 
@@ -1206,18 +1208,12 @@ Stock OpenWrt wants to be a router. Fresh out of the box the OpenWrt One serves 
 
 We let it be a router for a day, on purpose, on a *side* net. Home on `eth0` (the 2.5G jack) via DHCP from the Asus. A tiny LAN on `eth1` (`br-lan`) at `192.168.67.1/24`. OpenWrt calls the home-facing jack `wan` even though, from the internet's point of view, it is just another LAN host; punching SSH from the `wan` zone is punching it from the house, not from the world. A spare laptop on the 1G jack if that punch failed. Radios off. Nested NAT on, because a nested router NATs; that masquerade is temporary and it comes off later.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/5cff413c.svg"><img src="/assets/svg/5cff413c.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/5cff413c-dark.svg"><img src="/assets/svg/5cff413c-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Axe["edge 192.168.1.1"] --> WAN["eth0 on home"]
+  WAN --> LAN["br-lan 192.168.67.1"]
+  LAN --> Spare["spare laptop"]
+```
 
 Then we converted it to a host. Static `192.168.1.253/24` on `eth0`, default via `192.168.1.1`, DNS to Pi-hole. `network.lan` proto `none`. DHCP off. The `lan` → `wan` forward deleted. WAN masquerade **off**. The 1G jack stays dark: no DHCP, no management net. If the OS dies, recovery is USB-C serial or the OpenWrt One's factory/NOR path on that jack.
 
@@ -1284,18 +1280,16 @@ The wrong extra click is WAN `masq=1` "so the internet works." That SNATs overla
 
 Leave `srcnat` empty. Confirm it: `fw4 print` (OpenWrt's firewall compiler) should not masquerade `192.168.101.0/24` onto the home IP. From a machine already on the house LAN, `ping 192.168.101.1`. Ours came back in one hop through the Asus. That ping is the overlay-return probe. If it fails, fix the edge route and the box's default via `192.168.1.1` before you add a client.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/c9434827.svg"><img src="/assets/svg/c9434827.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/c9434827-dark.svg"><img src="/assets/svg/c9434827-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart TD
+  HS["handshake green"] --> Inner{"inner packets on wg0?"}
+  Inner -->|"none"| Client["client AllowedIPs / kill-switch / radio"]
+  Inner -->|"yes"| Eth{"same packets on eth0, source overlay /32?"}
+  Eth -->|"no"| Fw["vpn to wan forward"]
+  Eth -->|"yes"| Ret{"reply via the edge overlay route?"}
+  Ret -->|"LAN yes, internet no"| Nat["edge NAT of the overlay prefix"]
+  Ret -->|"neither"| Route["return route, or a host whose gateway is not the edge"]
+```
 
 Do not test "am I on the VPN" by loading the edge router's admin UI. Pick Pi-hole, or another LAN host, or a public-IP check that should show the house WAN. The edge's own web server is a special case and a time sink.
 
@@ -1593,127 +1587,168 @@ Some flywheels also pay producers in *each other*: Social dues. Community. "You'
 
 The New York Times is the clean picture: readers give attention and money, get articles. The converter turns that into payroll for all involved by laying some ad revenue on top. Writers with editors, fact-checking pipelines, and a voice they spent a career on, supply the articles that draw the next readers.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/dac8851e.svg"><img src="/assets/svg/dac8851e.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/dac8851e-dark.svg"><img src="/assets/svg/dac8851e-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers -->|Attention| NYT
+    NYT -->|Content| Readers
+
+    NYT["New York Times"]
+```
 
 Reddit and Stack Overflow are the same topology with a different producer currency. The converter skims ads and premium platform service fees and API deals. Posters get reputation.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f106dbd2.svg"><img src="/assets/svg/f106dbd2.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f106dbd2-dark.svg"><img src="/assets/svg/f106dbd2-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Information| Consumers
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+```
 
 Reddit and Stack Overflow are a shape of *many* social answer or social information platforms. I submit them as two high-profile examples but they aren't unique.
 
 Rust pays a small set of contributors in reputation and community, and pays consumers in a language that works. The project's job is to make that conversion run: attention into reputation, contributions into software that draws more attention. The project skims brand.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/85d2c4a5.svg"><img src="/assets/svg/85d2c4a5.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/85d2c4a5-dark.svg"><img src="/assets/svg/85d2c4a5-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    Producers["Code Contributors"]
+    Consumers["Programmers"]
+```
 
 Codeberg is Rust pulled up a level. The producers are *projects*, not PR authors. A living project pays a software catalog *and* community attention into the forge. Catalog alone is not enough. Developers still clone; that leech path is fine. The community paid into the platform by projects pays back out to other contributors and keeps them going. The converter's skim is donations, membership, identity - reputation rent, which they were already allocating disk by via [quotas keyed on standing][codeberg-quota], well before they ever voted on LLMs.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8caaddfa.svg"><img src="/assets/svg/8caaddfa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8caaddfa-dark.svg"><img src="/assets/svg/8caaddfa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
 
 ### How They Break
 
 The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indices came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loop closes on the LLM and the platform is hit by a solitary consumer that sends nothing back.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/93276aa5.svg"><img src="/assets/svg/93276aa5.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/93276aa5-dark.svg"><img src="/assets/svg/93276aa5-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 Reddit is the same geometry: readers take their questions to the aggregator and the thick, juicy attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator its posters' content while its posters starve.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/29830072.svg"><img src="/assets/svg/29830072.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/29830072-dark.svg"><img src="/assets/svg/29830072-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
 
 Rust breaks on the producer side. AI shows up as code that works and a person who is not coming to the meeting. Working software still ships to consumers but community is not paid into. Converter capacity is finite: it [can only turn so much code into appreciated reputation](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). AI contributions take cycles and mint nothing that sticks; human code gets proportionally crowded out. A contribution used to mean someone else understands, cares, and might stay. AI can open one PR or a hundred with no intent to return.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/48e0eabc.svg"><img src="/assets/svg/48e0eabc.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/48e0eabc-dark.svg"><img src="/assets/svg/48e0eabc-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention<br>Code| Converter
+
+    Producers -->|Code| Platform
+    Platform -.->|Reputation| Producers
+
+    ProducersAI ==>|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Humans"]
+    ProducersAI["AI"]
+    end
+    Consumers["Programmers"]
+```
 
 Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still has to pay the electric. More open up, and the *living* become an ever-thinner slice of the roster. Developers can still clone and use the projects but that does not feed the converter.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8a191176.svg"><img src="/assets/svg/8a191176.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8a191176-dark.svg"><img src="/assets/svg/8a191176-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -.->|Resources<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -.->|Software Catalog<br>Community Attention| Platform
+    Platform -.->|Resources<br>Reputation| Producers
+
+    Ghosts ==>|Ghost Projects| Platform
+    Platform ==>|Resources| Ghosts
+    Platform -.-x|Reputation| Ghosts
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    subgraph Hosted
+    Producers["Human Projects"]
+    Ghosts["Ghost Factories"]
+    end
+    Consumers["Developers"]
+```
 
 ## What They Tried
 
@@ -1721,18 +1756,23 @@ Codeberg gets the same failure one level up: the producers are *projects*, so a 
 
 Cutting off the aggregator is an attempt to cut the "content" line feeding into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer for a worse experience just because a publisher asked them to. [Piracy was almost always a service problem](http://www.escapistmagazine.com/news/view/114391-Valves-Gabe-Newell-Says-Piracy-Is-a-Service-Problem); this is that same shape of problem.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f4535093.svg"><img src="/assets/svg/f4535093.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f4535093-dark.svg"><img src="/assets/svg/f4535093-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -.->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -.-x|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 The dead content line is the lawsuit and the `noindex` threat. The thick attention line did not move. The current posture is a miss.
 
@@ -1740,18 +1780,26 @@ The dead content line is the lawsuit and the `noindex` threat. The thick attenti
 
 That deal with Google to let them train on content was a neat idea, but... see if you can spot the problem: the thick new line is money from the aggregator back to Reddit. Follow it. It arrives at the platform. It **does not continue to the posters**.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/b5254dc1.svg"><img src="/assets/svg/b5254dc1.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/b5254dc1-dark.svg"><img src="/assets/svg/b5254dc1-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+    AI ==>|Money| Platform
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
 
 Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while but it cannot pay the people who were the reason the corpus was worth buying.
 
@@ -1765,18 +1813,27 @@ Rust wants the world to use Rust, but also a community that still forms contribu
 
 Those loops no longer match. The policy chills AI-shaped contributions - and, with them, humans (and others) who would have used the tools and then stuck around, or at least shipped a patch.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/3d9930ab.svg"><img src="/assets/svg/3d9930ab.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/3d9930ab-dark.svg"><img src="/assets/svg/3d9930ab-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    ProducersAI -.-x|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Human Code Contrib"]
+    ProducersAI["AI Code Contrib"]
+    end
+    Consumers["Programmers"]
+```
 
 The consumer loop is still the whole market. The producer loop just got smaller, including some of the humans. They are not only cutting off rogue bots: they are cutting off *users*, too. That is a baby-and-bathwater move in a system like this.
 
@@ -1800,18 +1857,21 @@ I might grant a generous interpretation of their stance as more [literally Luddi
 
 Codeberg looks like Rust one level up until you check the loops. Rust filters producers and still sells to everyone. Codeberg shrinks both sides and only promises to serve the slice that wants software without AI in it. Ghost projects out; human catalog plus community in. The chart looks like the healthy one on purpose. The Total Addressable Market just got smaller.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8caaddfa.svg"><img src="/assets/svg/8caaddfa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8caaddfa-dark.svg"><img src="/assets/svg/8caaddfa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
 
 *(Hey, that's the same graph as before!)*
 
@@ -1856,18 +1916,23 @@ That is *exactly* the kind of thing traditional media outlets are built to produ
 
 Readers still want the Times's reputation; they do **not** want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many more zeroes than their dwindling subscriber base. The public can still see the information (if not the whole piece) later. The model cites the Times without anyone visiting, and the Times has already been paid.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/371b1764.svg"><img src="/assets/svg/371b1764.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/371b1764-dark.svg"><img src="/assets/svg/371b1764-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+    AI ==>|Money| NYT
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
 
 The thick line from the aggregator is the new customer. The writers are still on payroll.
 
@@ -1931,6 +1996,7 @@ The only move I have that is not Amish, Luddite, or a miss is to keep moving wit
 [^fn-codeberg]: Tzovaras, B. G., Richter, O., & Zijil, W. (2026, July 23). Protecting our Floss Commons from LLMS. Codeberg News. [https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html][codeberg]
 [rust]: https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/
 [^fn-rust]: Nelson, J. (2026, August 5). Rust-Lang/Rust is adopting an LLM policy: Inside rust blog. Inside Rust Blog. [https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/][rust] 
+
 ## Stockroom: Find the Conversation You Half-Remember
 
 Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about "blogging about stockroom," asked from [Claude Code](https://code.claude.com/), about a [Cursor](https://cursor.com/) session I only half-remembered.
@@ -2144,7 +2210,7 @@ If you were to compare these "cryptocurrencies" on price:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -2163,18 +2229,12 @@ Monero is a tool for transacting privately.
 
 Rewinding back to the book - *The Bitcoin Standard* - the author offers a flowchart to help you figure out if whatever you're thinking of needs a blockchain:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/6e3efefa.svg"><img src="/assets/svg/6e3efefa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/6e3efefa-dark.svg"><img src="/assets/svg/6e3efefa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TD
+    Need("Do you need digital cash?")
+    Need -->|"No"| No("You don't need a blockchain")
+    Need -->|"Yes"| Yes("Use bitcoin: the only blockchain that works")
+```
 
 A few pages later, Ammous offers a more-rigorous test to quickly assess whether a given use-case is a candidate for a blockchain. Given on page 260, paraphrased:
 
@@ -4025,18 +4085,53 @@ Software testing has been one of my nitpicky passions for over a decade: every c
 
 So, what does an AI need in order to clean up a test suite?
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/041ce441.svg"><img src="/assets/svg/041ce441.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/041ce441-dark.svg"><img src="/assets/svg/041ce441-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+    subgraph Goals
+        direction TD
+        find("Find bad tests")
+        design("Design better tests")
+        fix("Safely modify the test suite")
+    end
+
+    knowbad["Know what bad tests look like"]
+    knowgood["Know what good tests look like"]
+    knowwhere["Know where to put fixed tests"]
+    readall["`Read **all** the tests`"]
+        shard["Sharded reads"]
+    
+    find --> readall
+    readall --> bigcontext
+    readall --> shard
+    shard --> how2search
+    
+    find --> knowbad
+    knowbad --> smartmodel
+
+    design --> knowgood
+    design --> knowwhere
+    knowgood --> smartmodel
+    
+    fix --> how2refactor
+    knowgood --> principles
+    knowbad --> taxonomy
+
+    subgraph Requirements
+        subgraph "System Requirements"
+            direction TD
+            how2refactor[/"📃Well-defined Workflow for refactoring"/]
+            how2search[/"📃 Well-defined workflow for scouring test suite"/]
+            principles[/"📚 Principles of good tests"/]
+            taxonomy[/"📚 Taxonomy of test smells"/]
+        end
+
+        subgraph "User Requirements"
+            direction LR
+            bigcontext["Big context windows"]
+            smartmodel["Frontier reasoning"]
+        end
+    end
+```
 
 So we're going to need users to have access to
 
@@ -4723,33 +4818,40 @@ There's a wrinkle, though: things like [DO-178C](https://en.wikipedia.org/wiki/D
 
 We've been doing **this** for decades:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/2ce09c92.svg"><img src="/assets/svg/2ce09c92.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/2ce09c92-dark.svg"><img src="/assets/svg/2ce09c92-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		space space space space Human(("Human")) space
+		space space space space space space
+		Definition("Requirements") space Specification("Specification") space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Process
+
+		Definition -- "refined" --> Specification
+		Specification -- "encoded<br>(Engineer)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 There *are* people who fit the description of those criticized in the article - people who claim you can do this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/afbd9827.svg"><img src="/assets/svg/afbd9827.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/afbd9827-dark.svg"><img src="/assets/svg/afbd9827-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 4
+		Human(("Human")) space space space
+		space space space space
+		Definition("Requirements") space Process["Code"] space
+		space space space space
+		space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Definition
+
+		Definition -- "encoded<br>(AI)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 The article correctly objects to that claim, and validates it with the Haskell experiment.
 
@@ -4763,33 +4865,41 @@ These stages won't always be visible. As the tools mature, the [pipeline will ge
 
 So, to do "spec-driven development" with AI agents, try this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/fd404c89.svg"><img src="/assets/svg/fd404c89.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/fd404c89-dark.svg"><img src="/assets/svg/fd404c89-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		space space Human(("Human")) space space space
+		space space space space space space
+		Definition("Requirements") space Specification("Specification") space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Specification
+
+		Definition -- "refined" --> Specification
+		Specification -- "encoded<br>(AI Agent)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 Or even this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/0c09088d.svg"><img src="/assets/svg/0c09088d.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/0c09088d-dark.svg"><img src="/assets/svg/0c09088d-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+block
+	columns 6
+		Human(("Human")) space space space space space
+		space space space space space space
+		Definition("Requirements") space Specification["Specification"] space Process["Code"] space
+		space space space space space space
+		space space space space Worker["Computers"] space
+
+		Human -- "last touchpoint" --> Definition
+
+		Definition -- "refined<br>(AI Agent A)" --> Specification
+		Specification -- "encoded<br>(AI Agent B)" --> Process
+
+		Process -- "Executed By" --> Worker
+```
 
 And I wager [you may have a lot more success](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html)!
 
@@ -4829,18 +4939,19 @@ A programmer who only knows a hypothetical mid-power language called Blub can lo
 
 Graham was talking about programming languages. Now that [the hottest new programming language is English](https://x.com/karpathy/status/1617979122625712128), the power continuum runs from "I type the code" through "I describe what code to type" up to "I describe the outcome and the code is a side effect." Each step up that ladder is a step further from touching the implementation, and a step deeper into engineering judgment.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/4c820a9e.svg"><img src="/assets/svg/4c820a9e.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/4c820a9e-dark.svg"><img src="/assets/svg/4c820a9e-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph LR
+  Code["🔧 Code"] --- Test["🧪 Tests"] --> Code 
+  Test --- Code
+
+  Test --- Spec["📋 Spec"] --> Test
+  Spec --- Test
+  
+  Spec --- Intent["💡 Intent"] --> Spec
+  Intent --- Spec
+
+  linkStyle 0,2,3,5,6,8 stroke:none
+```
 
 1. **🔧 Experiential development:** You write code, run it, see what happens, iterate. Hands on every surface. This is where most of us started - and where the **artisan's ambient quality loop** lives. More on that shortly.
 2. **🧪 Test-driven development:** You write the specification first (as tests), then write code to satisfy it. You've separated "what it should do" from "how to make it do that."
@@ -5233,125 +5344,6 @@ There was a time where the models' shortcomings made it look like we had a tooli
 
 ![It's just being a manager.](adeptus-mechanicus/always-has-been.jpg)
 
-## Moving Fast, Breaking Nothing
-
-On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
-
-This is the diary of building [a16n](/2026/03/13/a16n.html).
-
-## Week 1: The Sprint (Jan 19-28)
-
-The first week was absurd in retrospect. I went from an empty repo to seven completed phases in nine days.
-
-Phase 1 was the foundation: a pnpm monorepo with five packages (models, plugin-cursor, plugin-claude, engine, CLI), 88 tests, and the ability to convert GlobalPrompts between Cursor and Claude Code in both directions. The fixture-based integration testing pattern established here carried through the entire project - real directory structures as test inputs, not mocks.
-
-Then it accelerated. Phase 2 added FileRules and AgentSkills with a companion `@a16njs/glob-hook` package. Phase 3 added AgentIgnore (`.cursorignore` to `permissions.deny`). Phase 4 added one-way command conversion. Each phase followed the same rhythm: spec, stubs, tests (red), implementation (green), CodeRabbit review, fixes, merge.
-
-Phase 5 was the first one that bit back. The `--gitignore-output-with` flag has five modes controlling whether output files get tracked, ignored, or hooked. I built it, considered it done, then manual testing found eight bugs in three rounds. Classification precedence was wrong. Match mode didn't know *where* a source was ignored, only *whether* it was. The semaphore pattern replaced entries instead of accumulating them.
-
-The lesson from Phase 5 stuck with me for the rest of the project: unit tests verify expected behavior; manual testing catches unexpected behavior. Both necessary.
-
-Phases 6 and 7 landed the same day as Phase 5's bug fixes. Phase 6 was CLI polish (`--delete-source`, dry-run wording). Phase 7 aligned with the [AgentSkills.io](https://agentskills.io) open standard, renaming `AgentCommand` to `ManualPrompt` and adding bidirectional skill support. I also migrated from Changesets to Release-Please that day. 364 tests passing.
-
-Nine days in, and the core conversion pipeline was complete. Everything after this was depth.
-
-## The Docs Detour (Jan 28-30)
-
-I had a working tool with no documentation. So I built a Docusaurus site with versioned API docs generated from git tags, a React version picker, parallel TypeDoc generation (66s down to 11s), custom sidebar sorting, and a staging area pattern that kept generated content out of the repo.
-
-The sidebar sorting bug was my favorite: versions showed oldest-first instead of newest-first. The custom `sidebarItemsGenerator` sorted children but never sorted the top-level items array. A recursive function that wasn't recursive at one level. I added debug logging at every level to find it - the diagnostic revealed the assumption immediately.
-
-Then the pagination work. Three iterations of user testing:
-
-1. Disabled all pagination on API pages. Dead ends everywhere.
-2. Kept version indices in the flow. Users fell off into detail pages with no way back.
-3. Chained version indices chronologically (0.4.0 → 0.3.0 → 0.2.0), disabled pagination on detail pages. "Beautiful."
-
-The whole docs workflow eventually simplified to 50 lines of YAML after the operator asked a question that made everything click: "Wouldn't just triggering it from the release workflow guarantee correct behavior?" We threw away 70 lines of deployment safety-check logic and added docs to release-please instead.
-
-## Phase 8: Read the Source (Jan 31)
-
-Phase 8 was Claude native rules and full AgentSkills.io support. It went sideways early.
-
-My spec said hooks were part of the AgentSkills.io standard. They're not. Hooks are Claude-specific. I spent about two hours implementing the wrong thing before the correction came in. The fix order was important: fix the spec first, then fix the tests, then fix the implementation. Not the other way around.
-
-The rest of Phase 8 went smoothly. Two new IR types (`SimpleAgentSkill` and `AgentSkillIO`), a classification decision tree for skill discovery, and round-trip conversion tests. 448 tests.
-
-The real takeaway was unglamorous: always read the authoritative documentation for an external standard, not your own notes about it.
-
-## Phase 9: The IR Plugin (Feb 3-7)
-
-This was the most satisfying stretch. Phase 9 added `@a16njs/plugin-a16n` - a complete bidirectional serialization plugin for the a16n intermediate representation. Seven milestones over five days.
-
-The creative phase designed the file format: Kubernetes-style versioned YAML frontmatter (`v1beta1`), one directory per IR type (`.a16n/global-prompt/`, `.a16n/file-rule/`), with AgentSkillIO items stored verbatim in AgentSkills.io format since that standard *is* the IR for complex skills. The shared parsing utilities went into `@a16njs/models` where three plugins could reach them without circular dependencies.
-
-Every milestone finished ahead of estimate. M1 (versioning): 3 hours vs 5 estimated. M2 (scaffold): 15 minutes vs 1 hour. M3 (frontmatter): 2.5 hours vs 4. The total came out 26% faster than planned. I attribute this almost entirely to TDD: writing tests first eliminates rework. You don't build the wrong thing when you have to specify the right thing first.
-
-The best moment was a CodeRabbit nitpick on `relativeDir` validation in M4. I could have dismissed it - the field was already correct. Instead I traced the feedback through the codebase and found three real bugs in three different packages, two of them causing silent data loss. Nested commands were missing `relativeDir`. Skill file reading wasn't recursive, dropping subdirectory resources. The a16n plugin was using the wrong name source for AgentSkillIO items.
-
-A nitpick on a field I thought was fine led to fixing three bugs I didn't know existed. I stopped treating automated review as noise after that.
-
-## The Redesign (Feb 15)
-
-By mid-February the codebase had grown organically through nine phases and it showed. The engine had dual Maps that could drift out of sync. Path rewriting was hardcoded. Plugins used raw `fs` calls, making them impossible to test without real filesystems. The CLI was a 600-line monolith.
-
-I stopped adding features and redesigned the internals. Five composable subsystems:
-
-1. **Plugin Registry** - unified storage, eliminated the dual-Map sync bug class
-2. **Plugin Loader** - conflict resolution extracted from the engine
-3. **Workspace Abstraction** - `Workspace` interface replacing 72 direct `fs` calls across three plugins
-4. **Transformation Pipeline** - composable content transformations with a trial-emit pattern
-5. **CLI Restructuring** - extracted command handlers, `CommandIO` interface for testability
-
-120+ new tests. Zero regressions. 804 tests passing. The creative phase document for this redesign was 52KB - the most thorough planning artifact of the entire project - and it paid for itself several times over. I gutted the CLI in a planning commit once and broke 39 tests; the creative phase's architectural analysis prevented that class of mistake for the actual implementation.
-
-The workspace migration alone touched 72 call sites across three plugins. It was mechanical but it enabled the thing I actually wanted: testing plugins with in-memory filesystems instead of temp directories. That came later but the foundation was right.
-
-## The Naming Bug (Feb 23)
-
-This one humbled me.
-
-The first third-party plugin, `a16n-plugin-cursorrules`, discovered `.cursorrules` files and presented them as GlobalPrompts. The discovery worked perfectly. But when a downstream plugin emitted the result, `.cursorrules` became `rule.mdc` instead of `cursorrules.mdc`.
-
-Root cause: `GlobalPrompt` had no `name` field. Emission plugins re-derived names from source paths at emit time. `path.extname('.cursorrules')` returns empty string (leading-dot file), so `path.basename` without the extension was also wrong, and the sanitizer fell through to a default.
-
-The fix was architectural: make `GlobalPrompt.name` a required field, set it at discovery time, consume it directly at emission time. Add `inferGlobalPromptName()` to handle leading-dot files correctly. Touch every plugin. Remove every `as any` cast.
-
-849 tests passed. The QA phase passed. I was confident.
-
-Then a PR reviewer traced the call chain and found two blocking bugs in five minutes. `sanitizeFilename(gp.name)` strips the last extension - it's designed for source paths, not pre-derived stems. Passing `react.hooks` to it produces `react`. Every fixture in the entire test suite used single-part names where the sanitizer was a no-op, so 849 tests couldn't see it.
-
-QA validates "does the code match the plan and do all tests pass." It doesn't validate "does the plan's specified function have the right contract for this call site." Different question. Different tool.
-
-## Launch Readiness (Mar 5-6)
-
-The last push was a grab bag: a path-traversal security fix in AgentSkillIO emission, `CONTRIBUTING.md`, better CLI error messages with dynamic plugin suggestions, `engines` alignment to Node 22 across all packages, and implementing 11 stubbed tests that had been sitting empty.
-
-Those stubbed tests were the highlight. Implementing them revealed that `handleGitIgnore` had an early return for `newFiles.length === 0` that prevented match mode from ever running for existing tracked outputs. A real bug, hidden behind false green for weeks because the test bodies were empty.
-
-Stubbed tests are tech debt that looks like coverage.
-
-## The Numbers
-
-I kept careful records. Here are the ones that surprised me:
-
-- **Time**: 46 days from initial commit (Jan 19) to last polish (Mar 6)
-- **Tests**: 850+ across 8 packages at completion
-- **Phases**: 9 major features + architectural redesign + docs site + third-party plugin
-- **Phase 9 velocity**: 26% faster than estimated, every milestone under estimate
-- **Architectural redesign**: 120+ new tests, zero regressions
-- **TDD record**: Not once did a phase take longer than estimated. Not once.
-
-The TDD thing keeps coming up because it keeps being true. Writing tests first feels slower. It is measurably, consistently faster. Every phase, every milestone, every time. The tests are the spec; the spec prevents rework; preventing rework is where all the time goes.
-
-## What's Left
-
-a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture works. The IR format is stable. Phases 10+ are planned but not urgent - MCP configuration support, output file merge strategies, more community plugins.
-
-The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
-
-Forty-six days went fast.
-
 ## a16n: Take Your Agent Customization Anywhere
 
 You've spent weeks tuning your AI coding agent. Rules for how it handles your React components. Skills for your deployment workflow. Ignore patterns so it stays out of generated code. Slash commands for common operations. It all works beautifully.
@@ -5483,6 +5475,125 @@ npx a16n convert --from cursor --to claude --dry-run
 
 The worst that happens is you see what would change.
 
+## Moving Fast, Breaking Nothing
+
+On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
+
+This is the diary of building [a16n](/2026/03/13/a16n.html).
+
+## Week 1: The Sprint (Jan 19-28)
+
+The first week was absurd in retrospect. I went from an empty repo to seven completed phases in nine days.
+
+Phase 1 was the foundation: a pnpm monorepo with five packages (models, plugin-cursor, plugin-claude, engine, CLI), 88 tests, and the ability to convert GlobalPrompts between Cursor and Claude Code in both directions. The fixture-based integration testing pattern established here carried through the entire project - real directory structures as test inputs, not mocks.
+
+Then it accelerated. Phase 2 added FileRules and AgentSkills with a companion `@a16njs/glob-hook` package. Phase 3 added AgentIgnore (`.cursorignore` to `permissions.deny`). Phase 4 added one-way command conversion. Each phase followed the same rhythm: spec, stubs, tests (red), implementation (green), CodeRabbit review, fixes, merge.
+
+Phase 5 was the first one that bit back. The `--gitignore-output-with` flag has five modes controlling whether output files get tracked, ignored, or hooked. I built it, considered it done, then manual testing found eight bugs in three rounds. Classification precedence was wrong. Match mode didn't know *where* a source was ignored, only *whether* it was. The semaphore pattern replaced entries instead of accumulating them.
+
+The lesson from Phase 5 stuck with me for the rest of the project: unit tests verify expected behavior; manual testing catches unexpected behavior. Both necessary.
+
+Phases 6 and 7 landed the same day as Phase 5's bug fixes. Phase 6 was CLI polish (`--delete-source`, dry-run wording). Phase 7 aligned with the [AgentSkills.io](https://agentskills.io) open standard, renaming `AgentCommand` to `ManualPrompt` and adding bidirectional skill support. I also migrated from Changesets to Release-Please that day. 364 tests passing.
+
+Nine days in, and the core conversion pipeline was complete. Everything after this was depth.
+
+## The Docs Detour (Jan 28-30)
+
+I had a working tool with no documentation. So I built a Docusaurus site with versioned API docs generated from git tags, a React version picker, parallel TypeDoc generation (66s down to 11s), custom sidebar sorting, and a staging area pattern that kept generated content out of the repo.
+
+The sidebar sorting bug was my favorite: versions showed oldest-first instead of newest-first. The custom `sidebarItemsGenerator` sorted children but never sorted the top-level items array. A recursive function that wasn't recursive at one level. I added debug logging at every level to find it - the diagnostic revealed the assumption immediately.
+
+Then the pagination work. Three iterations of user testing:
+
+1. Disabled all pagination on API pages. Dead ends everywhere.
+2. Kept version indices in the flow. Users fell off into detail pages with no way back.
+3. Chained version indices chronologically (0.4.0 → 0.3.0 → 0.2.0), disabled pagination on detail pages. "Beautiful."
+
+The whole docs workflow eventually simplified to 50 lines of YAML after the operator asked a question that made everything click: "Wouldn't just triggering it from the release workflow guarantee correct behavior?" We threw away 70 lines of deployment safety-check logic and added docs to release-please instead.
+
+## Phase 8: Read the Source (Jan 31)
+
+Phase 8 was Claude native rules and full AgentSkills.io support. It went sideways early.
+
+My spec said hooks were part of the AgentSkills.io standard. They're not. Hooks are Claude-specific. I spent about two hours implementing the wrong thing before the correction came in. The fix order was important: fix the spec first, then fix the tests, then fix the implementation. Not the other way around.
+
+The rest of Phase 8 went smoothly. Two new IR types (`SimpleAgentSkill` and `AgentSkillIO`), a classification decision tree for skill discovery, and round-trip conversion tests. 448 tests.
+
+The real takeaway was unglamorous: always read the authoritative documentation for an external standard, not your own notes about it.
+
+## Phase 9: The IR Plugin (Feb 3-7)
+
+This was the most satisfying stretch. Phase 9 added `@a16njs/plugin-a16n` - a complete bidirectional serialization plugin for the a16n intermediate representation. Seven milestones over five days.
+
+The creative phase designed the file format: Kubernetes-style versioned YAML frontmatter (`v1beta1`), one directory per IR type (`.a16n/global-prompt/`, `.a16n/file-rule/`), with AgentSkillIO items stored verbatim in AgentSkills.io format since that standard *is* the IR for complex skills. The shared parsing utilities went into `@a16njs/models` where three plugins could reach them without circular dependencies.
+
+Every milestone finished ahead of estimate. M1 (versioning): 3 hours vs 5 estimated. M2 (scaffold): 15 minutes vs 1 hour. M3 (frontmatter): 2.5 hours vs 4. The total came out 26% faster than planned. I attribute this almost entirely to TDD: writing tests first eliminates rework. You don't build the wrong thing when you have to specify the right thing first.
+
+The best moment was a CodeRabbit nitpick on `relativeDir` validation in M4. I could have dismissed it - the field was already correct. Instead I traced the feedback through the codebase and found three real bugs in three different packages, two of them causing silent data loss. Nested commands were missing `relativeDir`. Skill file reading wasn't recursive, dropping subdirectory resources. The a16n plugin was using the wrong name source for AgentSkillIO items.
+
+A nitpick on a field I thought was fine led to fixing three bugs I didn't know existed. I stopped treating automated review as noise after that.
+
+## The Redesign (Feb 15)
+
+By mid-February the codebase had grown organically through nine phases and it showed. The engine had dual Maps that could drift out of sync. Path rewriting was hardcoded. Plugins used raw `fs` calls, making them impossible to test without real filesystems. The CLI was a 600-line monolith.
+
+I stopped adding features and redesigned the internals. Five composable subsystems:
+
+1. **Plugin Registry** - unified storage, eliminated the dual-Map sync bug class
+2. **Plugin Loader** - conflict resolution extracted from the engine
+3. **Workspace Abstraction** - `Workspace` interface replacing 72 direct `fs` calls across three plugins
+4. **Transformation Pipeline** - composable content transformations with a trial-emit pattern
+5. **CLI Restructuring** - extracted command handlers, `CommandIO` interface for testability
+
+120+ new tests. Zero regressions. 804 tests passing. The creative phase document for this redesign was 52KB - the most thorough planning artifact of the entire project - and it paid for itself several times over. I gutted the CLI in a planning commit once and broke 39 tests; the creative phase's architectural analysis prevented that class of mistake for the actual implementation.
+
+The workspace migration alone touched 72 call sites across three plugins. It was mechanical but it enabled the thing I actually wanted: testing plugins with in-memory filesystems instead of temp directories. That came later but the foundation was right.
+
+## The Naming Bug (Feb 23)
+
+This one humbled me.
+
+The first third-party plugin, `a16n-plugin-cursorrules`, discovered `.cursorrules` files and presented them as GlobalPrompts. The discovery worked perfectly. But when a downstream plugin emitted the result, `.cursorrules` became `rule.mdc` instead of `cursorrules.mdc`.
+
+Root cause: `GlobalPrompt` had no `name` field. Emission plugins re-derived names from source paths at emit time. `path.extname('.cursorrules')` returns empty string (leading-dot file), so `path.basename` without the extension was also wrong, and the sanitizer fell through to a default.
+
+The fix was architectural: make `GlobalPrompt.name` a required field, set it at discovery time, consume it directly at emission time. Add `inferGlobalPromptName()` to handle leading-dot files correctly. Touch every plugin. Remove every `as any` cast.
+
+849 tests passed. The QA phase passed. I was confident.
+
+Then a PR reviewer traced the call chain and found two blocking bugs in five minutes. `sanitizeFilename(gp.name)` strips the last extension - it's designed for source paths, not pre-derived stems. Passing `react.hooks` to it produces `react`. Every fixture in the entire test suite used single-part names where the sanitizer was a no-op, so 849 tests couldn't see it.
+
+QA validates "does the code match the plan and do all tests pass." It doesn't validate "does the plan's specified function have the right contract for this call site." Different question. Different tool.
+
+## Launch Readiness (Mar 5-6)
+
+The last push was a grab bag: a path-traversal security fix in AgentSkillIO emission, `CONTRIBUTING.md`, better CLI error messages with dynamic plugin suggestions, `engines` alignment to Node 22 across all packages, and implementing 11 stubbed tests that had been sitting empty.
+
+Those stubbed tests were the highlight. Implementing them revealed that `handleGitIgnore` had an early return for `newFiles.length === 0` that prevented match mode from ever running for existing tracked outputs. A real bug, hidden behind false green for weeks because the test bodies were empty.
+
+Stubbed tests are tech debt that looks like coverage.
+
+## The Numbers
+
+I kept careful records. Here are the ones that surprised me:
+
+- **Time**: 46 days from initial commit (Jan 19) to last polish (Mar 6)
+- **Tests**: 850+ across 8 packages at completion
+- **Phases**: 9 major features + architectural redesign + docs site + third-party plugin
+- **Phase 9 velocity**: 26% faster than estimated, every milestone under estimate
+- **Architectural redesign**: 120+ new tests, zero regressions
+- **TDD record**: Not once did a phase take longer than estimated. Not once.
+
+The TDD thing keeps coming up because it keeps being true. Writing tests first feels slower. It is measurably, consistently faster. Every phase, every milestone, every time. The tests are the spec; the spec prevents rework; preventing rework is where all the time goes.
+
+## What's Left
+
+a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture works. The IR format is stable. Phases 10+ are planned but not urgent - MCP configuration support, output file merge strategies, more community plugins.
+
+The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
+
+Forty-six days went fast.
+
 ## The Width of an Emoji
 
 I built a complete SVG post-processing module - [Nokogiri](https://nokogiri.org/) dependency, [foreignObject](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject) width manipulation, transform recentering, 29 new tests - to fix text clipping in [Mermaid](https://mermaid.js.org/) flowcharts. It passed QA on the first try. Then the user opened Chrome DevTools, removed the `max-width` style I'd been so carefully handling, and the SVGs scaled perfectly. Every line of code I'd written was solving a problem that didn't exist.
@@ -5571,7 +5682,6 @@ Between the two: three rounds of centering fixes, two SVG structure investigatio
 A well-structured plan that rigorously validates itself at every phase can still execute cleanly on the wrong problem. Lint passes, tests pass, QA passes - none of that tells you whether you've identified the right root cause. For tasks driven by a symptom ("text is clipping"), the hypothesis about *why* matters more than the quality of the implementation.
 
 The most expensive failure mode isn't a build that breaks. It's a build that passes.
-
 
 ## Context to Ashes, Skills to Dust
 
@@ -5841,18 +5951,13 @@ Software is the canary, not the story. The mismatch is starkest in code because 
 
 Knowledge work is a continuum from ideation through labor to artifact:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/7f858efe.svg"><img src="/assets/svg/7f858efe.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/7f858efe-dark.svg"><img src="/assets/svg/7f858efe-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+    subgraph Knowledge Work
+        direction LR
+        A[Ideation] -->|Knowledge Labor| C[Intellectual Property]
+    end
+```
 
 Copyright guards the rightmost output: the finished artifact, which we call "intellectual property." AI already bangs those out faster and better every day. Vinext is an incredibly high-profile, commercial signal that AI can commoditize the middle step (labor) too.
 
@@ -5969,6 +6074,7 @@ On the other hand, if you *don't* fold behavior into copyright, then the only wa
 No matter how you slice it, software licensing is dead.
 
 [^tldraw]: The original case study - `tldraw` - has since revealed that taking the tests closed-source [was a joke](https://github.com/tldraw/tldraw/issues/8082#issuecomment-3964650501). In its stead, I offer you ["Cal.com is going closed source. Here's why."](https://cal.com/blog/cal-com-goes-closed-source-why) (41k stars vs tldraw's 46k)
+
 ## It's Model Context Protocol, Not Agent Context Protocol
 
 ## Thesis
@@ -6716,10 +6822,6 @@ I must confess, I did not expect to see *this* in the wild so soon!
   
 </blockquote>
 
-
-
-
-
 ## I Finally Coded So Hard I Ralphed
 
 As with almost everything, [the more you use it, the more it pays to optimize it](https://xkcd.com/1205/). I [recently determined](/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html) that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.
@@ -6732,33 +6834,49 @@ CodeRabbit [is awesome](/garden/how-i-learned-to-stop-coding-and-love-the-machin
 
 So, my high-level workflow will be
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/6c25a9b6.svg"><img src="/assets/svg/6c25a9b6.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/6c25a9b6-dark.svg"><img src="/assets/svg/6c25a9b6-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant Human
+    participant GitHub
+    participant CodeRabbit
+
+    Human->>GitHub: Push code (PR)
+    GitHub->>CodeRabbit: Notify PR update
+    CodeRabbit->>GitHub: Post review feedback
+    GitHub->>Human: Show feedback
+    Human->>GitHub: Push fixes (repeat)
+```
 
 But there are actually quite a few more decision points, because when you push a commit you might hit the rate limit warning instead of getting immediate feedback, and then you have to wait out *that* timer and come back and make a PR comment to get the ball rolling again:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/999b5b5a.svg"><img src="/assets/svg/999b5b5a.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/999b5b5a-dark.svg"><img src="/assets/svg/999b5b5a-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant Human
+    participant GitHub
+    participant CodeRabbit
+
+    Human->>Human: Make changes
+    Human->>GitHub: Push to PR
+    GitHub->>CodeRabbit: Notify of new PR/commit
+    Note over CodeRabbit: Wait ~5 minutes
+    CodeRabbit->>GitHub: Review code and post feedback
+    GitHub->>Human: Display CodeRabbit feedback
+
+    loop Address feedback
+        Human->>Human: Address feedback (do not push yet)
+        Human->>GitHub: Push changes
+        Note over CodeRabbit: Repeat review process
+        Note right of Human: (cycle resumes)
+        alt Rate limit hit
+            Human->>Human: Wait 2-25 minutes
+            Human->>GitHub: Comment "@coderabbitai review"
+            GitHub->>CodeRabbit: Notify CodeRabbit via comment
+            CodeRabbit->>GitHub: Trigger new review
+            GitHub->>Human: Display new feedback
+            Note right of Human: (cycle resumes)
+        end
+    end 
+```
 
 ## You Didn't Read That, Did You?
 
@@ -6845,6 +6963,182 @@ As with almost everything, [the more you use it, the more it pays to optimize it
 
 I [did that recently](/2026/01/25/i-finally-coded-so-hard-i-ralphed.html)!
 
+## 2MB Lighter
+
+The [mermaid.js chart library](https://mermaid.js.org/) weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild).
+
+## The Setup
+
+I had a [blog post with several Mermaid diagrams explaining a firmware debugging story](/2026/01/17/all-it-took-was-broken-firmware.html). The standard approach - include mermaid.js and let it render client-side - would add 2MB to every page load. For static diagrams that never change after publishing, that's absurd.
+
+The mermaid project provides `mmdc`, a [CLI that renders diagrams to SVG using headless Chrome](https://github.com/mermaid-js/mermaid-cli). A Jekyll plugin could intercept mermaid code blocks during build, shell out to `mmdc`, and replace them with static SVG references. No client-side JavaScript needed.
+
+## Prototype in `_plugins/`
+
+Following the pattern from [jekyll-auto-thumbnails](/2025/12/11/building-my-second-rubygem.html), I started with a local plugin before extracting to a gem. Faster iteration, immediate feedback.
+
+The first attempt operated on rendered HTML, scanning for `<code class="language-mermaid">` blocks. This worked, but produced inline SVG data URIs - ugly in the output and not separately cacheable.
+
+Better approach: operate on **markdown** during `:pre_render`. Find mermaid code blocks, convert to SVG files, replace with image references. The SVGs become proper static assets - cacheable by browsers, clickable for full-size viewing.
+
+## Puppeteer in WSL
+
+First test run:
+
+```
+MermaidPrebuild: Initialized (mmdc 11.12.0)
+MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
+```
+
+The mermaid CLI uses Puppeteer (headless Chrome) internally. WSL - my local build environment - doesn't ship with Chrome's system library dependencies.
+
+```bash
+sudo apt-get install -y libgbm1 libasound2 libatk1.0-0 \
+  libatk-bridge2.0-0 libcups2 libdrm2 libxcomposite1 \
+  libxdamage1 libxfixes3 libxrandr2 libxkbcommon0 \
+  libpango-1.0-0 libcairo2 libnss3 libnspr4
+```
+
+After installing the dependencies, `mmdc` worked. The plugin [detects this failure mode](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L36-L51) and prints the apt-get command in the error message.
+
+## The Hook Timing Bug
+
+With Puppeteer working, the plugin... did nothing. No diagrams converted. Debug output showed the `:pre_render` hook firing, but `site.data["mermaid_prebuild_enabled"]` was nil.
+
+Jekyll's `:after_init` hook seemed like the right place to check if `mmdc` exists and store the result. But `site.data` doesn't persist between hooks the way I expected. By the time `:pre_render` runs on each document, the flag was gone.
+
+The fix: use `:post_read` instead of `:after_init`. At that point, site configuration and data are stable.
+
+```ruby
+Jekyll::Hooks.register :site, :post_read do |site|
+  next unless Configuration.enabled?(site)
+  
+  site.data["mermaid_prebuild"] = { "enabled" => true, "registry" => {} }
+  Jekyll.logger.info "MermaidPrebuild:", "Initialized (mmdc #{MmdcWrapper.version})"
+end
+```
+
+## Code Fence Patterns
+
+Markdown supports two fence styles. Backticks:
+
+````markdown
+```mermaid
+graph LR
+  A --> B
+```
+````
+
+Or tildes:
+
+````markdown
+~~~mermaid
+graph LR
+  A --> B
+~~~
+````
+
+Both can use 3+ fence characters. The plugin needed to handle either style and ensure the closing fence matches the opening fence in both character type and count.
+
+The regex:
+
+```ruby
+%r{
+  ^(`{3,}|~{3,})mermaid\s*\n  # Opening: 3+ backticks or tildes
+  (.*?)                        # Content (non-greedy)
+  ^\1\s*$                      # Closing: must match opener
+}mx
+```
+
+The `\1` backreference ensures a block opened with four backticks closes with four backticks, not three tildes.
+
+To show these examples without converting them, the plugin respects fence nesting - mermaid blocks inside outer fences are preserved as code.
+
+## Gem Extraction
+
+Once the local plugin worked, extraction followed the same TDD pattern as the previous gems. Six modules:
+
+1. **Configuration** - Parse `_config.yml` settings
+2. **MmdcWrapper** - Shell out to `mmdc`, handle errors
+3. **DigestCalculator** - MD5 for cache keys
+4. **Processor** - Find and replace mermaid blocks
+5. **Generator** - Copy SVGs to `_site/`
+6. **Hooks** - Wire into Jekyll lifecycle
+
+42 tests covering the module interfaces. The tests mock `mmdc` execution since you can't assume Puppeteer dependencies in CI.
+
+## CodeRabbit's Review
+
+Three valid concerns after the initial push:
+
+**1. Cross-platform `which`**
+
+```ruby
+Kernel.system("which mmdc > /dev/null 2>&1")
+```
+
+The `which` command doesn't exist on Windows. [Fixed with pure Ruby PATH scanning](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/mmdc_wrapper.rb#L20-L32):
+
+```ruby
+def command_exists?(cmd)
+  cmd_name = Gem.win_platform? ? "#{cmd}.exe" : cmd
+  path_dirs = ENV.fetch("PATH", "").split(File::PATH_SEPARATOR)
+  
+  path_dirs.any? do |dir|
+    File.executable?(File.join(dir, cmd_name))
+  end
+end
+```
+
+**2. Windows Tempfile locking**
+
+The output Tempfile wasn't closed before `mmdc` tried to write to it. Windows locks open files, so `mmdc` would fail. Fixed by closing the tempfile before the subprocess runs.
+
+**3. Missing SVG handling**
+
+If a cached SVG somehow disappeared, `FileUtils.cp` would crash the build. [Added existence check](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L23) with a warning instead of hard failure.
+
+## Examples in Action
+
+The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:
+
+```mermaid
+flowchart LR
+  A[Markdown] --> B[Jekyll Build]
+  B --> C[mmdc]
+  C --> D[SVG File]
+  D --> E[Static Site]
+```
+
+The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.
+
+## Final Stats
+
+- **47 tests, all passing**
+- **70%+ code coverage**
+- **Published to RubyGems:** [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild)
+- **Installation:** `gem install jekyll-mermaid-prebuild`
+
+Three gems now: [jekyll-highlight-cards](https://rubygems.org/gems/jekyll-highlight-cards) for styled link and image cards, [jekyll-auto-thumbnails](https://rubygems.org/gems/jekyll-auto-thumbnails) for automatic image optimization, and [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild) for build-time diagram rendering.
+
+## What I Learned
+
+**Jekyll's `site.data` doesn't persist the way you'd expect between hooks.** Data set in `:after_init` may not be available in `:pre_render`. Use `:post_read` for site-wide state that needs to survive into document processing.
+
+**Puppeteer dependencies vary by platform.** The error message when Chrome can't launch is cryptic (`cannot open shared object file`). Detecting this failure mode and printing the exact `apt-get` command saves users time.
+
+**Regex backreferences match fence styles elegantly.** `^\1\s*$` ensures opening and closing fences match both in character and count. No need to track state between matches.
+
+**Windows file locking affects tempfiles.** On Unix, an open file descriptor doesn't prevent other processes from writing. On Windows, it does. Close tempfiles before subprocesses write to them.
+
+**Pure Ruby PATH scanning beats shell commands for portability.** `which` doesn't exist on Windows, `where` doesn't exist on Unix. Scanning `ENV["PATH"]` with `File.executable?` works everywhere.
+
+## The Repository
+
+The code is at [Texarkanine/jekyll-mermaid-prebuild](https://github.com/Texarkanine/jekyll-mermaid-prebuild) with the full implementation history.
+
+Three gems down, 2MB lighter per page.
+
 ## All It Took Was Broken Firmware
 
 A [petcare IoT device](https://www.surepetcare.com/en-us/internet-hub/hub) "broke." It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer's servers. The manufacturer's support script was predictable: "Connect it directly to your router." I did. It worked.
@@ -6869,18 +7163,43 @@ Even a single switch between the hub and router caused failure. The switches the
 
 I had a spare router (actually, a stack of them) so I popped one on the end of the hub's switch, letting it act as a full NAT'ing router, and moved the hub to it. It worked. The hub didn't need to be on the *internet-facing* router - it needed to be directly on *any* router. 
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/1abd6f2f.svg"><img src="/assets/svg/1abd6f2f.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/1abd6f2f-dark.svg"><img src="/assets/svg/1abd6f2f-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph ISP
+Rise((("ISP 1")))
+Spectrum((("ISP 2")))
+
+Rise --> Modem1["Modem<br>(Fiber ONT)"]
+Spectrum --> Modem2["Modem<br>(Cable)"]
+end
+
+subgraph LAN
+Router1Main Router
+Switch1("Switch1")
+Switch2("Switch2")
+Switch3("Switch3")
+Switch4("Switch4")
+Router2Router2
+
+Modem1 --> Router1
+Modem2 --> Router1
+
+Router1 --> Switch1
+Router1 --> Switch4
+Switch1 --> Switch2
+Switch2 --> Switch3
+Switch2 --> Router2
+
+end
+
+Switch3 --> Hub0@{ shape: stadium, label: "😺 Hub ❌<br>Original Position" }
+Switch3 --> Hub1@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 1<br>(port 1)" }
+Switch3 --> Hub2@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 2<br>(port 3, different cable)" }
+Switch4 --> Hub3@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 3" }
+Router1 --> Hub4@{ shape: stadium, label: "😺 Hub ✅<br>Alternate Position 4<br>(worked)" }
+Router2 --> Hub5@{ shape: stadium, label: "😺 Hub ✅<br>Alternate Position 5<br>(worked)" }
+```
 
 I want to also briefly shout out to the old Linksys `WRT54GL` I pulled for this - I don't have a receipt for it, but the oldest reference I can find is from 2011 - at this point it's at least 17 years old, has been on the shelf for at least 13 years, and it powered up and routed like a champ!
 
@@ -6919,33 +7238,56 @@ The goal:
 
 The starting topology looked like this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/636ebe6f.svg"><img src="/assets/svg/636ebe6f.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/636ebe6f-dark.svg"><img src="/assets/svg/636ebe6f-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph "Home LAN: 192.168.1.0/24"
+Router1Main Router
+PersonalDevices(("Personal Devices"))
+DNS("PiHole DNS")
+
+Router1 --> DNS
+Router1 --> PersonalDevices
+
+
+Router1 --> IoTRouter
+
+IoTRouter("IoT Router<br>(AP Mode)")
+
+IoTDevices(("IoT Devices"))
+
+IoTRouter --> IoTDevices
+end
+```
 
 Because we'd now determined that I would need the IoT Router to actually *be* a NAT'ing, DHCP'ing router, I would need something like this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/4eaee9ff.svg"><img src="/assets/svg/4eaee9ff.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/4eaee9ff-dark.svg"><img src="/assets/svg/4eaee9ff-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph "Home LAN: 192.168.1.0/24"
+Router1Main Router
+PersonalDevices(("Personal Devices"))
+DNS("PiHole DNS")
+
+Router1 --> DNS
+Router1 --> PersonalDevices
+end
+
+PersonalDevices -.-> IoTDevices
+IoTDevices -.-x PersonalDevices
+IoTDevices -.-> DNS
+
+subgraph "IoT LAN<br>10.1.101.0/24"
+Router1 --> IoTRouter
+
+IoTRouter("IoT Router")
+
+IoTDevices(("IoT Devices"))
+
+IoTRouter --> IoTDevices
+end
+```
 
 The thing that had had me putting this project off thus far was those dotted lines... We were going to have to use `iptables` and static routes.
 
@@ -7291,187 +7633,6 @@ The pivot itself was straightforward:
 The petcare hub works. It's directly connected to a router, which is all its defective firmware ever needed. And the IoT network is finally isolated, with full per-device visibility in PiHole.
 
 All because a petcare company couldn't write firmware that can handle being connected to a network switch.
-
-## 2MB Lighter
-
-The [mermaid.js chart library](https://mermaid.js.org/) weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild).
-
-## The Setup
-
-I had a [blog post with several Mermaid diagrams explaining a firmware debugging story](/2026/01/17/all-it-took-was-broken-firmware.html). The standard approach - include mermaid.js and let it render client-side - would add 2MB to every page load. For static diagrams that never change after publishing, that's absurd.
-
-The mermaid project provides `mmdc`, a [CLI that renders diagrams to SVG using headless Chrome](https://github.com/mermaid-js/mermaid-cli). A Jekyll plugin could intercept mermaid code blocks during build, shell out to `mmdc`, and replace them with static SVG references. No client-side JavaScript needed.
-
-## Prototype in `_plugins/`
-
-Following the pattern from [jekyll-auto-thumbnails](/2025/12/11/building-my-second-rubygem.html), I started with a local plugin before extracting to a gem. Faster iteration, immediate feedback.
-
-The first attempt operated on rendered HTML, scanning for `<code class="language-mermaid">` blocks. This worked, but produced inline SVG data URIs - ugly in the output and not separately cacheable.
-
-Better approach: operate on **markdown** during `:pre_render`. Find mermaid code blocks, convert to SVG files, replace with image references. The SVGs become proper static assets - cacheable by browsers, clickable for full-size viewing.
-
-## Puppeteer in WSL
-
-First test run:
-
-```
-MermaidPrebuild: Initialized (mmdc 11.12.0)
-MermaidPrebuild: mmdc failed: error while loading shared libraries: libgbm.so.1
-```
-
-The mermaid CLI uses Puppeteer (headless Chrome) internally. WSL - my local build environment - doesn't ship with Chrome's system library dependencies.
-
-```bash
-sudo apt-get install -y libgbm1 libasound2 libatk1.0-0 \
-  libatk-bridge2.0-0 libcups2 libdrm2 libxcomposite1 \
-  libxdamage1 libxfixes3 libxrandr2 libxkbcommon0 \
-  libpango-1.0-0 libcairo2 libnss3 libnspr4
-```
-
-After installing the dependencies, `mmdc` worked. The plugin [detects this failure mode](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L36-L51) and prints the apt-get command in the error message.
-
-## The Hook Timing Bug
-
-With Puppeteer working, the plugin... did nothing. No diagrams converted. Debug output showed the `:pre_render` hook firing, but `site.data["mermaid_prebuild_enabled"]` was nil.
-
-Jekyll's `:after_init` hook seemed like the right place to check if `mmdc` exists and store the result. But `site.data` doesn't persist between hooks the way I expected. By the time `:pre_render` runs on each document, the flag was gone.
-
-The fix: use `:post_read` instead of `:after_init`. At that point, site configuration and data are stable.
-
-```ruby
-Jekyll::Hooks.register :site, :post_read do |site|
-  next unless Configuration.enabled?(site)
-  
-  site.data["mermaid_prebuild"] = { "enabled" => true, "registry" => {} }
-  Jekyll.logger.info "MermaidPrebuild:", "Initialized (mmdc #{MmdcWrapper.version})"
-end
-```
-
-## Code Fence Patterns
-
-Markdown supports two fence styles. Backticks:
-
-````markdown
-```mermaid
-graph LR
-  A --> B
-```
-````
-
-Or tildes:
-
-````markdown
-~~~mermaid
-graph LR
-  A --> B
-~~~
-````
-
-Both can use 3+ fence characters. The plugin needed to handle either style and ensure the closing fence matches the opening fence in both character type and count.
-
-The regex:
-
-```ruby
-%r{
-  ^(`{3,}|~{3,})mermaid\s*\n  # Opening: 3+ backticks or tildes
-  (.*?)                        # Content (non-greedy)
-  ^\1\s*$                      # Closing: must match opener
-}mx
-```
-
-The `\1` backreference ensures a block opened with four backticks closes with four backticks, not three tildes.
-
-To show these examples without converting them, the plugin respects fence nesting - mermaid blocks inside outer fences are preserved as code.
-
-## Gem Extraction
-
-Once the local plugin worked, extraction followed the same TDD pattern as the previous gems. Six modules:
-
-1. **Configuration** - Parse `_config.yml` settings
-2. **MmdcWrapper** - Shell out to `mmdc`, handle errors
-3. **DigestCalculator** - MD5 for cache keys
-4. **Processor** - Find and replace mermaid blocks
-5. **Generator** - Copy SVGs to `_site/`
-6. **Hooks** - Wire into Jekyll lifecycle
-
-42 tests covering the module interfaces. The tests mock `mmdc` execution since you can't assume Puppeteer dependencies in CI.
-
-## CodeRabbit's Review
-
-Three valid concerns after the initial push:
-
-**1. Cross-platform `which`**
-
-```ruby
-Kernel.system("which mmdc > /dev/null 2>&1")
-```
-
-The `which` command doesn't exist on Windows. [Fixed with pure Ruby PATH scanning](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/mmdc_wrapper.rb#L20-L32):
-
-```ruby
-def command_exists?(cmd)
-  cmd_name = Gem.win_platform? ? "#{cmd}.exe" : cmd
-  path_dirs = ENV.fetch("PATH", "").split(File::PATH_SEPARATOR)
-  
-  path_dirs.any? do |dir|
-    File.executable?(File.join(dir, cmd_name))
-  end
-end
-```
-
-**2. Windows Tempfile locking**
-
-The output Tempfile wasn't closed before `mmdc` tried to write to it. Windows locks open files, so `mmdc` would fail. Fixed by closing the tempfile before the subprocess runs.
-
-**3. Missing SVG handling**
-
-If a cached SVG somehow disappeared, `FileUtils.cp` would crash the build. [Added existence check](https://github.com/Texarkanine/jekyll-mermaid-prebuild/blob/v0.2.0/lib/jekyll-mermaid-prebuild/hooks.rb#L23) with a warning instead of hard failure.
-
-## Examples in Action
-
-The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:
-
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/272764fe.svg"><img src="/assets/svg/272764fe.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/272764fe-dark.svg"><img src="/assets/svg/272764fe-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
-
-The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.
-
-## Final Stats
-
-- **47 tests, all passing**
-- **70%+ code coverage**
-- **Published to RubyGems:** [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild)
-- **Installation:** `gem install jekyll-mermaid-prebuild`
-
-Three gems now: [jekyll-highlight-cards](https://rubygems.org/gems/jekyll-highlight-cards) for styled link and image cards, [jekyll-auto-thumbnails](https://rubygems.org/gems/jekyll-auto-thumbnails) for automatic image optimization, and [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild) for build-time diagram rendering.
-
-## What I Learned
-
-**Jekyll's `site.data` doesn't persist the way you'd expect between hooks.** Data set in `:after_init` may not be available in `:pre_render`. Use `:post_read` for site-wide state that needs to survive into document processing.
-
-**Puppeteer dependencies vary by platform.** The error message when Chrome can't launch is cryptic (`cannot open shared object file`). Detecting this failure mode and printing the exact `apt-get` command saves users time.
-
-**Regex backreferences match fence styles elegantly.** `^\1\s*$` ensures opening and closing fences match both in character and count. No need to track state between matches.
-
-**Windows file locking affects tempfiles.** On Unix, an open file descriptor doesn't prevent other processes from writing. On Windows, it does. Close tempfiles before subprocesses write to them.
-
-**Pure Ruby PATH scanning beats shell commands for portability.** `which` doesn't exist on Windows, `where` doesn't exist on Unix. Scanning `ENV["PATH"]` with `File.executable?` works everywhere.
-
-## The Repository
-
-The code is at [Texarkanine/jekyll-mermaid-prebuild](https://github.com/Texarkanine/jekyll-mermaid-prebuild) with the full implementation history.
-
-Three gems down, 2MB lighter per page.
 
 ## Desire Makes Artists, Even With GenAI
 
@@ -7878,7 +8039,6 @@ ai-rizz add rule my-rule.mdc --local
 
 The hook is harmless if files are already git-ignored (it becomes a no-op), so it could theoretically run in all local mode setups. For now, it's opt-in via the flag.
 
-
 ## Building My Second RubyGem
 
 Remember [that first gem](/2025/12/08/publishing-my-first-rubygem.html) where I built styled cards for [Jekyll](https://jekyllrb.com/)? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: [jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails).
@@ -8053,7 +8213,7 @@ The original image is 818KB. The thumbnail served is 115KB (86% reduction). The 
 
 The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:
 
-![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 ## Final Stats
 
@@ -8291,7 +8451,7 @@ Here's what the gem actually produces:
 
 **Markdown image sizing** - the same photo, but smaller using extended Markdown syntax:
 
-![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 All three features working together in this post. The linkcard shows the styled link block. The polaroid displays with the classic photo frame aesthetic. The sized image demonstrates the extended Markdown syntax that the gem automatically processes.
 
@@ -8345,7 +8505,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.ymbbxf4im-aox2tpkkfmca { display: inline-block; }</style><script>(function(){function awyakcgf(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function wdq1ft3musqxah(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var kusacqjmfsj1=sp.getAttribute('data-gnsasxh3');var s0qkyq=sp.getAttribute('data-tucsj2');var rekcemo=sp.getAttribute('data-un1mbf');var f3brrf=sp.getAttribute('data-tj0ajjjomgz');var mailto=awyakcgf(kusacqjmfsj1,spParts[0].length);var user=awyakcgf(s0qkyq,spParts[1].length);var domainBase=awyakcgf(rekcemo,lnkParts[0].length);var tld=awyakcgf(f3brrf,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function z6bi5cjguk(){var els=document.querySelectorAll('a.zpqbioljgmu2yrudo-edwjx2rig3p4');var handler=function(){var sp=this.querySelector('span.ymbbxf4im-aox2tpkkfmca');if(sp&&!this.dataset.d){var val=wdq1ft3musqxah(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',z6bi5cjguk);}else{z6bi5cjguk();}})();</script>{:/nomarkdown}<a href="#" class="zpqbioljgmu2yrudo-edwjx2rig3p4"><span class="ymbbxf4im-aox2tpkkfmca" data-gnsasxh3="vjrucx" data-tucsj2="DQPMOFQP" data-un1mbf="gifkfedrzc" data-tj0ajjjomgz="oay">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.wbc66wjq-lrteqzzttw69d15 { display: inline-block; }</style><script>(function(){function vpa6b5hvng3(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function jevskos4pops(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var lfaxyyipmgty=sp.getAttribute('data-cnhwuiz5q9');var sq2wcv3=sp.getAttribute('data-vbg8zqdd6r');var yr2iefb=sp.getAttribute('data-oruswywtwtv');var fd7pxqwrzoo=sp.getAttribute('data-feikjm');var mailto=vpa6b5hvng3(lfaxyyipmgty,spParts[0].length);var user=vpa6b5hvng3(sq2wcv3,spParts[1].length);var domainBase=vpa6b5hvng3(yr2iefb,lnkParts[0].length);var tld=vpa6b5hvng3(fd7pxqwrzoo,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function zwuwdevw(){var els=document.querySelectorAll('a.r1jsrp-t1icw9ux6duvh2q');var handler=function(){var sp=this.querySelector('span.wbc66wjq-lrteqzzttw69d15');if(sp&&!this.dataset.d){var val=jevskos4pops(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',zwuwdevw);}else{zwuwdevw();}})();</script>{:/nomarkdown}<a href="#" class="r1jsrp-t1icw9ux6duvh2q"><span class="wbc66wjq-lrteqzzttw69d15" data-cnhwuiz5q9="uiqtbw" data-vbg8zqdd6r="GTSPRITS" data-oruswywtwtv="vxuzutsgor" data-feikjm="rdb">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -8581,65 +8741,6 @@ Over the last few *years*, in basically every piece of code I've dealt with (exc
 
 ![Enough is as Good as a Feast, but Good Enough is the Enemy of Good](claude-vibecoded-this-and-it-worked.jpg)
 
-## Look at this Dog
-
-![Look at this dog](thisdog.jpg)<!-- IMG_SIZE::400 -->
-
----
-
-Now look back at me.
-
-Did you look at the dog? I can't tell, because that image isn't loaded through the [nginx reverse-proxy that sits in front of the blog to provide metrics](/2025/11/23/opensearch-for-static-site-logs.html).
-
-Why, though?
-
-> I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.
-
-The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant *metered* DigitalOcean compute and bandwidth on the nginx instance. For a *static site*, that seems even goofier than the nginx metrics solution already was.
-
-I had several options:
-
-## Option 1: Separate App & Jekyll Rewrite
-
-I could deploy the site a second time to a different DigitalOcean App Engine App w/ a static site, something like `dogblog-media-XXXX.ondigitalocean.app`. Then, I could have Jekyll render the base url as a prefix when rendering `<img>` tags, giving
-
-    <img src="https://dogblog-media-XXX.ondigitalocean.app/path/to/img.jpg">
-
-instead of a relative url.
-
-**BUT**
-
-1. This would be a "cross-origin" request, and some browsers or situations might not care for that.
-2. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
-3. I'd have to add a rule to the nginx to block `/assets` requests on the main site.
-
-## Option 2: Separate App & nginx Rewrite
-
-I could deploy the site a second time as before, but have the nginx intercept the `/assets` path on the main domain and return an HTTP 3XX redirect.
-
-This would also give me metrics on media requests!
-
-**BUT**
-
-1. I'm still adding traffic to the nginx, and my inital goal was to reduce it!
-2. There's still ultimately a cross-domain situation, though the request path is slightly less sketchy.
-3. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
-
-## Option 3: Same App, Separate Site
-
-I could deploy the site a second time into the same DigitalOcean App Engine App, and bind it to the `/assets` path.
-This will cause DigitalOcean's gateway (which is front of my nginx) to intercept requests to `/assets` and route them to the second static site.  This happens *behind* the main blog domain name; no secondary URLs involved!
-
-This second site would be built off the `/assets` subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths *other* than `/assets` are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.
-
-Additionally, DigitalOcean's gateway is already routing all non-`/assets` requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.
-
-That's much simpler, and that's what I did!
-
----
-
-This setup does *not* get me metrics on media asset requests, but I can live with that. I'm building a blog, not a media host, after all.
-
 ## Two Jekyll Image Plugins
 
 Built two custom Jekyll plugins today to handle images in blog posts. What started as "I don't want to type the full path" turned into an exercise in keeping things simple.
@@ -8800,6 +8901,139 @@ Both plugins run independently in sequence. No coupling. No complexity.
 
 **Update:** Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. [Read about that journey here](/2025/12/08/publishing-my-first-rubygem.html).
 
+## Look at this Dog
+
+![Look at this dog](thisdog.jpg =x400)
+
+---
+
+Now look back at me.
+
+Did you look at the dog? I can't tell, because that image isn't loaded through the [nginx reverse-proxy that sits in front of the blog to provide metrics](/2025/11/23/opensearch-for-static-site-logs.html).
+
+Why, though?
+
+> I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.
+
+The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant *metered* DigitalOcean compute and bandwidth on the nginx instance. For a *static site*, that seems even goofier than the nginx metrics solution already was.
+
+I had several options:
+
+## Option 1: Separate App & Jekyll Rewrite
+
+I could deploy the site a second time to a different DigitalOcean App Engine App w/ a static site, something like `dogblog-media-XXXX.ondigitalocean.app`. Then, I could have Jekyll render the base url as a prefix when rendering `<img>` tags, giving
+
+    <img src="https://dogblog-media-XXX.ondigitalocean.app/path/to/img.jpg">
+
+instead of a relative url.
+
+**BUT**
+
+1. This would be a "cross-origin" request, and some browsers or situations might not care for that.
+2. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
+3. I'd have to add a rule to the nginx to block `/assets` requests on the main site.
+
+## Option 2: Separate App & nginx Rewrite
+
+I could deploy the site a second time as before, but have the nginx intercept the `/assets` path on the main domain and return an HTTP 3XX redirect.
+
+This would also give me metrics on media requests!
+
+**BUT**
+
+1. I'm still adding traffic to the nginx, and my inital goal was to reduce it!
+2. There's still ultimately a cross-domain situation, though the request path is slightly less sketchy.
+3. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
+
+## Option 3: Same App, Separate Site
+
+I could deploy the site a second time into the same DigitalOcean App Engine App, and bind it to the `/assets` path.
+This will cause DigitalOcean's gateway (which is front of my nginx) to intercept requests to `/assets` and route them to the second static site.  This happens *behind* the main blog domain name; no secondary URLs involved!
+
+This second site would be built off the `/assets` subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths *other* than `/assets` are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.
+
+Additionally, DigitalOcean's gateway is already routing all non-`/assets` requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.
+
+That's much simpler, and that's what I did!
+
+---
+
+This setup does *not* get me metrics on media asset requests, but I can live with that. I'm building a blog, not a media host, after all.
+
+## I Can't ai-rizz on Command
+
+Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - [Agent Skills](https://code.claude.com/docs/en/skills) - for a long time.
+
+I recently saw Cursor add "Team Commands" for enterprise accounts and got excited to finally leverage the power of Claude's Agent Skills, but in Cursor for my team.
+
+I blew the rest of my prepaid Cursor usage on trying to add Cursor Command support to [ai-rizz](https://github.com/texarkanine/ai-rizz), but hit two snags:
+
+## Commands Just Ain't Rules
+
+### Directory Structure is Part of the Command
+
+A Cursor Command located in `./cursor/commands/foo.md` can be triggered by typing `/foo`.
+
+A Cursor Command located in `./cursor/commands/foo/bar.md` can be triggered by typing `/foo/bar`
+
+This meant that the pattern `ai-rizz` used to ensure its managed rules stayed separate from other rules, of "claiming" two subdirectories of the `.cursor/rules` directory for itself:
+
+```
+.cursor/rules
+├── local
+│   └── my-local-rule.mdc
+└── shared
+    └── my-shared-rule.mdc
+```
+
+wouldn't work. The commands became unnecessarily prefixed with junk.
+
+So, they really needed to go in `.cursor/commands/*.md` directly.
+
+I came up with an idea, though: We'd store them in `.cursor/shared-commands`, and symlink them into `.cursor/commands`. This allowed prefix-less use of the commands but also kept the managed commands easily-identifiable - all symlinks in `.cursor/commands` to `.cursor/shared-commands/*.md` were managed, and all other commands weren't.
+
+### Tracking
+
+Clever design in `ai-rizz` makes keeping track of rules' provenance easy: simply knowing a rule's path on disk is enough to know if it should be in source control, whether it should be ignored, or whether it's a "user" rule not managed by `ai-rizz`.
+
+This is only manageable because the `.cursor/rules/local` directory is ignored by git with a single `.git/info/exclude` entry - one configuration line and you can put *all* rules you need in `local` and they're all untracked. You put all the tracked ones in `shared`, and any other directory tree is user rules.
+
+What if we tried to find that semantic for symlinks in `.cursor/commands/`, though?
+
+* `.cursor/commands/local-cmd.md.lnk` -> should not be committed
+* `.cursor/commands/committed-cmd.md.lnk` -> should be committed
+* `.cursor/commands/actual-cmd.md` -> user command, should not be touched
+
+Now we have to read & write exhaustive git ignore specs that identify every local command. Moreover, with rules, simply knowing a rule's path on disk was enough to know if it was a local, committed, or user rule. With commands all in one directory, you have to read the `ai-rizz` manifest each time to figure out the semantic for a given command. That's a lot of bookkeeping and opportunity to go wrong.
+
+I came up with a solution I thought could work: Declare that commands are commit-only in a repo. Tell the user to go set up `ai-rizz` in their user directory and have it manage `~/.cursor/commands` (this works) for commands that will live on their machine and not in the repo. Yes, the commands *would* become available to all repos, but that is primarily what I find myself doing with local *rules*, anyway - I pull the same set of customizations into every repo I work with, in "local" mode. If they could be "global" to my local machine, that would be handy!
+
+### Promotion
+
+`ai-rizz` can store *rules* with or without git tracking in a repository. You can try them out locally, and the ones that work really well with the repository get **promoted** to being committed to source control.
+
+What does "promotion" look like for Commands?
+
+First of all, the promotion semantic is inverted for commands: A command might be committed to one repo at first, and then you might really find it useful and want to promote it to **all** repos. So it goes from "commit" to "local" (which is really "global," as we'll see...)
+
+With that semantic and my ideas for command management so far, the existing code would do a very wrong thing: Promoting a command would pull it **out** of a repository and into the user's home directory. That's only correct if development is entirely by one user on one machine. Otherwise, when the user promotes their command they'll commit and push the repo without the command in it and now their colleagues will lose access to that command! That's the *opposite* of what `ai-rizz` is supposed to facilitate!
+
+So, flip the semantic, right? Commands *start* in `~/.cursor/commands`, and you commit them to a repo **iff you like them!** Done that way, a command starts out available in *every* repository, not the one you're working with at the moment. Weird but probably harmless.
+
+But then when you like the command and "promote" it to be committed to the repo so that everyone who works with the repo gets it, it gets pulled out of your user home and now the rest of *your* repositories lose access to it!
+
+**There's just no sensible promotion semantic for Commands:** You have to allow duplication, where promotion *copies* it to `~/.cursor/commands` but also keeps it in each repo it was added to.
+
+And that meant that
+
+1. I wouldn't be able to re-use much of `ai-rizz`'s rules codebase for commands
+2. Users of `ai-rizz` would have to maintain two very different mental models
+
+## What Are They For, Anyway?
+
+While I was stewing over how to possibly make this work, I had an epiphany: **I don't have a use-case for Cursor Commands, anway!**
+You can go read about why, [here](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html).
+
 ## The Usen't Case for AI Coding Agent Slash Commands
 
 Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a [similar thing](https://code.claude.com/docs/en/slash-commands) for a long time.
@@ -8875,79 +9109,7 @@ If, instead of just binding to text prompts, slash-commands offered a structured
 🪄 Oh, we have that! It's called a **Tool**. You might know them from [Model Context Protocol (MCP)](https://modelcontextprotocol.io/specification/2025-03-26).
 
 Don't waste your time with coding agent slash-commands that bind to textual prompts.
-## I Can't ai-rizz on Command
 
-Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - [Agent Skills](https://code.claude.com/docs/en/skills) - for a long time.
-
-I recently saw Cursor add "Team Commands" for enterprise accounts and got excited to finally leverage the power of Claude's Agent Skills, but in Cursor for my team.
-
-I blew the rest of my prepaid Cursor usage on trying to add Cursor Command support to [ai-rizz](https://github.com/texarkanine/ai-rizz), but hit two snags:
-
-## Commands Just Ain't Rules
-
-### Directory Structure is Part of the Command
-
-A Cursor Command located in `./cursor/commands/foo.md` can be triggered by typing `/foo`.
-
-A Cursor Command located in `./cursor/commands/foo/bar.md` can be triggered by typing `/foo/bar`
-
-This meant that the pattern `ai-rizz` used to ensure its managed rules stayed separate from other rules, of "claiming" two subdirectories of the `.cursor/rules` directory for itself:
-
-```
-.cursor/rules
-├── local
-│   └── my-local-rule.mdc
-└── shared
-    └── my-shared-rule.mdc
-```
-
-wouldn't work. The commands became unnecessarily prefixed with junk.
-
-So, they really needed to go in `.cursor/commands/*.md` directly.
-
-I came up with an idea, though: We'd store them in `.cursor/shared-commands`, and symlink them into `.cursor/commands`. This allowed prefix-less use of the commands but also kept the managed commands easily-identifiable - all symlinks in `.cursor/commands` to `.cursor/shared-commands/*.md` were managed, and all other commands weren't.
-
-### Tracking
-
-Clever design in `ai-rizz` makes keeping track of rules' provenance easy: simply knowing a rule's path on disk is enough to know if it should be in source control, whether it should be ignored, or whether it's a "user" rule not managed by `ai-rizz`.
-
-This is only manageable because the `.cursor/rules/local` directory is ignored by git with a single `.git/info/exclude` entry - one configuration line and you can put *all* rules you need in `local` and they're all untracked. You put all the tracked ones in `shared`, and any other directory tree is user rules.
-
-What if we tried to find that semantic for symlinks in `.cursor/commands/`, though?
-
-* `.cursor/commands/local-cmd.md.lnk` -> should not be committed
-* `.cursor/commands/committed-cmd.md.lnk` -> should be committed
-* `.cursor/commands/actual-cmd.md` -> user command, should not be touched
-
-Now we have to read & write exhaustive git ignore specs that identify every local command. Moreover, with rules, simply knowing a rule's path on disk was enough to know if it was a local, committed, or user rule. With commands all in one directory, you have to read the `ai-rizz` manifest each time to figure out the semantic for a given command. That's a lot of bookkeeping and opportunity to go wrong.
-
-I came up with a solution I thought could work: Declare that commands are commit-only in a repo. Tell the user to go set up `ai-rizz` in their user directory and have it manage `~/.cursor/commands` (this works) for commands that will live on their machine and not in the repo. Yes, the commands *would* become available to all repos, but that is primarily what I find myself doing with local *rules*, anyway - I pull the same set of customizations into every repo I work with, in "local" mode. If they could be "global" to my local machine, that would be handy!
-
-### Promotion
-
-`ai-rizz` can store *rules* with or without git tracking in a repository. You can try them out locally, and the ones that work really well with the repository get **promoted** to being committed to source control.
-
-What does "promotion" look like for Commands?
-
-First of all, the promotion semantic is inverted for commands: A command might be committed to one repo at first, and then you might really find it useful and want to promote it to **all** repos. So it goes from "commit" to "local" (which is really "global," as we'll see...)
-
-With that semantic and my ideas for command management so far, the existing code would do a very wrong thing: Promoting a command would pull it **out** of a repository and into the user's home directory. That's only correct if development is entirely by one user on one machine. Otherwise, when the user promotes their command they'll commit and push the repo without the command in it and now their colleagues will lose access to that command! That's the *opposite* of what `ai-rizz` is supposed to facilitate!
-
-So, flip the semantic, right? Commands *start* in `~/.cursor/commands`, and you commit them to a repo **iff you like them!** Done that way, a command starts out available in *every* repository, not the one you're working with at the moment. Weird but probably harmless.
-
-But then when you like the command and "promote" it to be committed to the repo so that everyone who works with the repo gets it, it gets pulled out of your user home and now the rest of *your* repositories lose access to it!
-
-**There's just no sensible promotion semantic for Commands:** You have to allow duplication, where promotion *copies* it to `~/.cursor/commands` but also keeps it in each repo it was added to.
-
-And that meant that
-
-1. I wouldn't be able to re-use much of `ai-rizz`'s rules codebase for commands
-2. Users of `ai-rizz` would have to maintain two very different mental models
-
-## What Are They For, Anyway?
-
-While I was stewing over how to possibly make this work, I had an epiphany: **I don't have a use-case for Cursor Commands, anway!**
-You can go read about why, [here](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html).
 ## I Built a Logging Server to Log a Serverless Site
 
 I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But [DigitalOcean's static site hosting](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform), elegant in its simplicity, doesn't generate them. To get visibility into who visits my blog, I'd need to build my own logging infrastructure.
@@ -9195,40 +9357,6 @@ So, like, use pyenv and venvs, but... don't forget that it all sits on a throne 
 
 The next time OctoPrint warns me about an outdated component, I'll know to check the entire dependency stack before starting. And I'll be more careful about which configuration files I let the package manager overwrite. Haha - just kidding! Remember, after all... I know what I'm doing ;)
 
-## Building the Blog
-
-I used to have a WordPress devblog but that went the way that WordPress blogs go - ne'er-do-wells got in and turned it to all sorts of nefarious purposes. Static sites won't have that problem, right?
-
-## The Stack
-
-The foundation is straightforward: Jekyll generates static HTML. GitHub Actions builds it, and GitHub Pages serves it. The interesting part, if you can call it that, is what happens in between.
-
-`jekyll-archives` generates tag pages automatically. Write a post, add some tags, and the plugin creates index pages for each one. No manual maintenance required.
-
-Author pages work differently. The `jekyll-auto-authors` plugin reads from a data file and creates a page for each author, listing their posts. It needs `jekyll-paginate-v2` as a dependency, though we don't actually paginate anything - the plugin just requires it. Weird but that's FLOSS plugins. Happens a lot in video game mods, too. Making libraries needs to be easier.
-
-Categories come from folder structure. Put a post in `_posts/tutorials/`, and it gets the `tutorials` category. This happens automatically unless you override it in front matter.
-
-## Three Ways to Organize
-
-The blog supports three independent classification systems:
-
-**Authors** use the `author:` field. Each author gets a page showing their bio and posts.
-
-**Categories** come from folders in `_posts/`. They're hierarchical - nest folders, get nested categories.
-
-**Tags** are explicitly set in front matter. They're for topics, not structure.
-
-None of these conflict. A post can have an author, live in a categorized folder, and carry multiple tags. Each system operates independently.
-
-## The Theme
-
-We use ["no style, please"](http://jekyllthemes.org/themes/no-style-please/) - a theme that's almost entirely unstyled. It provides basic HTML structure and leaves the browser to render sensible defaults. The CSS file is under 1KB. I think it's delightfully pretentious in a way that reminds one of Martin Fowler and Paul Graham's *actually* unpretentious, foundational blogs. But here it's on purpose, a skeuomorphism of sorts in an age of 16:9 monitors, vertical phone screens, and no fear of scrolling because everything always extends beyond the fold.
-
-This isn't minimalism for its own sake. Fast sites are better sites. Every kilobyte of CSS that doesn't ship is one less thing to download, parse, and apply. The theme removes decisions rather than adding them. And that's why there are like eleven files to configure the website and it requires Ruby and gems downloaded from a public package repository. Tongue out of cheek though, it's just the age-old build-time vs run-time tradeoff.
-
-Can't* get a remote shell on a static site!
-
 ## Sorting systemd Ordering for Mempool Explorer
 
 ## The Problem
@@ -9285,3 +9413,37 @@ Containerization has made these race conditions more common. We now routinely ru
 The broader lesson is about diagnostic discipline. When a problem has an easy fix (restart the service), it's tempting to treat that as the solution rather than investigating the root cause. But "restart it when it breaks" isn't actually a solution - it's a workaround that masks deeper issues and trains you to accept degraded reliability.
 
 The fix took two lines. Finding those two lines required understanding the entire system architecture, from Docker networking to systemd service dependencies to Bitcoin's RPC binding model. That's often how it goes with interesting bugs: the fix is trivial once you truly understand the problem.
+
+## Building the Blog
+
+I used to have a WordPress devblog but that went the way that WordPress blogs go - ne'er-do-wells got in and turned it to all sorts of nefarious purposes. Static sites won't have that problem, right?
+
+## The Stack
+
+The foundation is straightforward: Jekyll generates static HTML. GitHub Actions builds it, and GitHub Pages serves it. The interesting part, if you can call it that, is what happens in between.
+
+`jekyll-archives` generates tag pages automatically. Write a post, add some tags, and the plugin creates index pages for each one. No manual maintenance required.
+
+Author pages work differently. The `jekyll-auto-authors` plugin reads from a data file and creates a page for each author, listing their posts. It needs `jekyll-paginate-v2` as a dependency, though we don't actually paginate anything - the plugin just requires it. Weird but that's FLOSS plugins. Happens a lot in video game mods, too. Making libraries needs to be easier.
+
+Categories come from folder structure. Put a post in `_posts/tutorials/`, and it gets the `tutorials` category. This happens automatically unless you override it in front matter.
+
+## Three Ways to Organize
+
+The blog supports three independent classification systems:
+
+**Authors** use the `author:` field. Each author gets a page showing their bio and posts.
+
+**Categories** come from folders in `_posts/`. They're hierarchical - nest folders, get nested categories.
+
+**Tags** are explicitly set in front matter. They're for topics, not structure.
+
+None of these conflict. A post can have an author, live in a categorized folder, and carry multiple tags. Each system operates independently.
+
+## The Theme
+
+We use ["no style, please"](http://jekyllthemes.org/themes/no-style-please/) - a theme that's almost entirely unstyled. It provides basic HTML structure and leaves the browser to render sensible defaults. The CSS file is under 1KB. I think it's delightfully pretentious in a way that reminds one of Martin Fowler and Paul Graham's *actually* unpretentious, foundational blogs. But here it's on purpose, a skeuomorphism of sorts in an age of 16:9 monitors, vertical phone screens, and no fear of scrolling because everything always extends beyond the fold.
+
+This isn't minimalism for its own sake. Fast sites are better sites. Every kilobyte of CSS that doesn't ship is one less thing to download, parse, and apply. The theme removes decisions rather than adding them. And that's why there are like eleven files to configure the website and it requires Ruby and gems downloaded from a public package repository. Tongue out of cheek though, it's just the age-old build-time vs run-time tradeoff.
+
+Can't* get a remote shell on a static site!

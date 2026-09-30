@@ -30,18 +30,24 @@ If you want that, keep this tab open. The paste is [Release Image to a Tunnel](#
 
 ## The Overlay Lives Behind .253
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8f6946a6.svg"><img src="/assets/svg/8f6946a6.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8f6946a6-dark.svg"><img src="/assets/svg/8f6946a6-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  subgraph internet ["Internet"]
+    Phone["phone / laptop"]
+  end
+  subgraph house ["House"]
+    Axe["edge router"]
+    GL["VPN box"]
+    Dns["Pi-hole"]
+    Lan["home LAN"]
+  end
+  Phone -->|"UDP to a hostname on the WAN"| Axe
+  Axe -->|"forward that port"| GL
+  GL --> Wg["wg0 overlay"]
+  Axe -->|"static route: overlay via the VPN box"| Lan
+  Wg -->|"no SNAT"| Lan
+  Lan --> Dns
+```
 
 The public surface is one UDP port, forwarded to the VPN box. Everything inside the tunnel is private addressing. Return traffic for the overlay is a LAN static route on the edge router: `192.168.101.0/24` lives behind `192.168.1.253`.
 
@@ -57,18 +63,12 @@ Stock OpenWrt wants to be a router. Fresh out of the box the OpenWrt One serves 
 
 We let it be a router for a day, on purpose, on a *side* net. Home on `eth0` (the 2.5G jack) via DHCP from the Asus. A tiny LAN on `eth1` (`br-lan`) at `192.168.67.1/24`. OpenWrt calls the home-facing jack `wan` even though, from the internet's point of view, it is just another LAN host; punching SSH from the `wan` zone is punching it from the house, not from the world. A spare laptop on the 1G jack if that punch failed. Radios off. Nested NAT on, because a nested router NATs; that masquerade is temporary and it comes off later.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/5cff413c.svg"><img src="/assets/svg/5cff413c.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/5cff413c-dark.svg"><img src="/assets/svg/5cff413c-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Axe["edge 192.168.1.1"] --> WAN["eth0 on home"]
+  WAN --> LAN["br-lan 192.168.67.1"]
+  LAN --> Spare["spare laptop"]
+```
 
 Then we converted it to a host. Static `192.168.1.253/24` on `eth0`, default via `192.168.1.1`, DNS to Pi-hole. `network.lan` proto `none`. DHCP off. The `lan` → `wan` forward deleted. WAN masquerade **off**. The 1G jack stays dark: no DHCP, no management net. If the OS dies, recovery is USB-C serial or the OpenWrt One's factory/NOR path on that jack.
 
@@ -135,18 +135,16 @@ The wrong extra click is WAN `masq=1` "so the internet works." That SNATs overla
 
 Leave `srcnat` empty. Confirm it: `fw4 print` (OpenWrt's firewall compiler) should not masquerade `192.168.101.0/24` onto the home IP. From a machine already on the house LAN, `ping 192.168.101.1`. Ours came back in one hop through the Asus. That ping is the overlay-return probe. If it fails, fix the edge route and the box's default via `192.168.1.1` before you add a client.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/c9434827.svg"><img src="/assets/svg/c9434827.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/c9434827-dark.svg"><img src="/assets/svg/c9434827-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart TD
+  HS["handshake green"] --> Inner{"inner packets on wg0?"}
+  Inner -->|"none"| Client["client AllowedIPs / kill-switch / radio"]
+  Inner -->|"yes"| Eth{"same packets on eth0, source overlay /32?"}
+  Eth -->|"no"| Fw["vpn to wan forward"]
+  Eth -->|"yes"| Ret{"reply via the edge overlay route?"}
+  Ret -->|"LAN yes, internet no"| Nat["edge NAT of the overlay prefix"]
+  Ret -->|"neither"| Route["return route, or a host whose gateway is not the edge"]
+```
 
 Do not test "am I on the VPN" by loading the edge router's admin UI. Pick Pi-hole, or another LAN host, or a public-IP check that should show the house WAN. The edge's own web server is a special case and a time sink.
 

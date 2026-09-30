@@ -34,7 +34,7 @@ Retro and classic [DOS-era](https://en.wikipedia.org/wiki/DOS) games for console
 
 ## Flash
 
-![Macromedia Flash 8 Logo](./macromedia-flash-8-icon.png)<!-- IMG_SIZE:88: -->
+![Macromedia Flash 8 Logo](./macromedia-flash-8-icon.png =88x)
 
 Flash **technically started** in the 1900s with [Flash 1 in 1996](https://en.wikipedia.org/wiki/Adobe_Flash#Macromedia), and though it lasted through to 2020 it was being phased out long before that. Its heyday was really more of a 2000s thing. I built a ton of stuff on Macromedia Flash 5.
 

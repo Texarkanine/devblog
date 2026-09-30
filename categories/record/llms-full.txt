@@ -68,18 +68,16 @@ In most home networks, DNS is an invisible detail handed down by an ISP's DHCP s
 
 Those telemetry inputs feed into a deterministic state machine that drives the NERV alert cascade:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/df5d698a.svg"><img src="/assets/svg/df5d698a.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/df5d698a-dark.svg"><img src="/assets/svg/df5d698a-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+stateDiagram-v2
+  [*] --> Nominal
+  Nominal --> Active: Backup path active
+  Nominal --> Alert: One provider down
+  Active --> Alert: One provider down
+  Alert --> Critical: Both down or DNS dead
+  Active --> Caution: Telemetry silent
+  Nominal --> Caution: Telemetry silent
+```
 
 Each step up the ladder changes the ambiance tokens on the document root:
 
@@ -185,18 +183,14 @@ Phones on cellular pass that exam effortlessly because mobile carriers never ass
 
 A cafe handing out that same `/24` gives the kernel two conflicting stories. Under [longest prefix match](https://en.wikipedia.org/wiki/Longest_prefix_match), the local on-link interface wins every time, ignoring WireGuard entirely. Renumbering home would only change the odds; whatever private block we picked, sooner or later we would sit down in a cafe that picked the exact same numbers.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/499e839b.svg"><img src="/assets/svg/499e839b.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/499e839b-dark.svg"><img src="/assets/svg/499e839b-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Laptop["laptop on cafe Wi-Fi"]
+  Cafe["cafe .254"]
+  House["house Pi-hole .254"]
+  Laptop -->|"192.168.1.254 is on-link"| Cafe
+  Laptop -.->|"tunnel ignored"| House
+```
 
 I watched this happen on a colliding cafe network. While the Mac tunnel interface (`utun`) held an overlay `/32` and handshake packets flew across the Wi-Fi link, the inner packets destined for `192.168.1.254` never entered the tunnel at all. As far as the routing table was concerned, they were already home. Home was the espresso machine.
 
@@ -206,18 +200,17 @@ The house needed an address range that a `192.168.1.0/24` cafe cannot claim. We 
 
 The VPN box translates the whole `/24` on the way in. When packets leave the tunnel, they still carry their `192.168.101.x` client addresses, because masquerade is off. The edge router's return route still matches. [Conntrack](https://en.wikipedia.org/wiki/Netfilter#Connection_tracking) (connection tracking) reverses the destination rewrite on replies, so the laptop sees answers coming back from `10.168.1.x`.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f407555d.svg"><img src="/assets/svg/f407555d.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f407555d-dark.svg"><img src="/assets/svg/f407555d-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Client["client DNS 10.168.1.254"]
+  GL["VPN box"]
+  Dns["Pi-hole"]
+  Host["home server (.122)"]
+  Client -->|"alias /24"| GL
+  GL -->|"1:1 last octet"| Host
+  GL -->|"port 53 to side listen"| Dns
+  Dns -->|"A record: 10.168.1.122"| Client
+```
 
 "Nobody" types raw IP addresses into a browser or terminal; you type hostnames like `home.internal`. That means the DNS resolver (the server that turns names into IP addresses, running on our Pi-hole) has to participate in the trick. If you ask for `home.internal` while sitting in the living room, it should answer `192.168.1.122`. But if you ask over the WireGuard tunnel from a cafe, it must return the alias address `10.168.1.122`. If it answered with `192.168.1.122`, the laptop would look at the cafe's Wi-Fi, decide `.122` was local, and never send the packet into the tunnel at all.
 
@@ -295,18 +288,21 @@ The obvious architectural temptation is to put dnsdist on port 53 in front of Pi
 
 Instead, FTL kept port 53 for the house. dnsdist was given an additional plain listen on `192.168.1.254:5300`. Then the VPN box rewrites any port 53 queries coming across the tunnel to that side listen, placed *before* the general `/24` prefix map:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/f6ed5f55.svg"><img src="/assets/svg/f6ed5f55.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/f6ed5f55-dark.svg"><img src="/assets/svg/f6ed5f55-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+sequenceDiagram
+    participant WG as VPN client (cafe)
+    participant LAN as Home LAN (living room)
+    participant GL as VPN box (.253)
+    participant Dist as dnsdist (:5300)
+    participant FTL as Pi-hole FTL (:53)
+
+    LAN->>FTL: dig @192.168.1.254:53 box.internal
+    FTL-->>LAN: 192.168.1.122 (real LAN IP)
+
+    WG->>GL: dig @10.168.1.254:53 box.internal
+    GL->>Dist: rewrite dport 5300 (source: 192.168.101.x)
+    Dist-->>WG: 10.168.1.122 (alias IP)
+```
 
 The rewrite rules on the VPN box:
 
@@ -512,18 +508,24 @@ If you want that, keep this tab open. The paste is [Release Image to a Tunnel](#
 
 ## The Overlay Lives Behind .253
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/8f6946a6.svg"><img src="/assets/svg/8f6946a6.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/8f6946a6-dark.svg"><img src="/assets/svg/8f6946a6-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  subgraph internet ["Internet"]
+    Phone["phone / laptop"]
+  end
+  subgraph house ["House"]
+    Axe["edge router"]
+    GL["VPN box"]
+    Dns["Pi-hole"]
+    Lan["home LAN"]
+  end
+  Phone -->|"UDP to a hostname on the WAN"| Axe
+  Axe -->|"forward that port"| GL
+  GL --> Wg["wg0 overlay"]
+  Axe -->|"static route: overlay via the VPN box"| Lan
+  Wg -->|"no SNAT"| Lan
+  Lan --> Dns
+```
 
 The public surface is one UDP port, forwarded to the VPN box. Everything inside the tunnel is private addressing. Return traffic for the overlay is a LAN static route on the edge router: `192.168.101.0/24` lives behind `192.168.1.253`.
 
@@ -539,18 +541,12 @@ Stock OpenWrt wants to be a router. Fresh out of the box the OpenWrt One serves 
 
 We let it be a router for a day, on purpose, on a *side* net. Home on `eth0` (the 2.5G jack) via DHCP from the Asus. A tiny LAN on `eth1` (`br-lan`) at `192.168.67.1/24`. OpenWrt calls the home-facing jack `wan` even though, from the internet's point of view, it is just another LAN host; punching SSH from the `wan` zone is punching it from the house, not from the world. A spare laptop on the 1G jack if that punch failed. Radios off. Nested NAT on, because a nested router NATs; that masquerade is temporary and it comes off later.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/5cff413c.svg"><img src="/assets/svg/5cff413c.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/5cff413c-dark.svg"><img src="/assets/svg/5cff413c-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  Axe["edge 192.168.1.1"] --> WAN["eth0 on home"]
+  WAN --> LAN["br-lan 192.168.67.1"]
+  LAN --> Spare["spare laptop"]
+```
 
 Then we converted it to a host. Static `192.168.1.253/24` on `eth0`, default via `192.168.1.1`, DNS to Pi-hole. `network.lan` proto `none`. DHCP off. The `lan` → `wan` forward deleted. WAN masquerade **off**. The 1G jack stays dark: no DHCP, no management net. If the OS dies, recovery is USB-C serial or the OpenWrt One's factory/NOR path on that jack.
 
@@ -617,18 +613,16 @@ The wrong extra click is WAN `masq=1` "so the internet works." That SNATs overla
 
 Leave `srcnat` empty. Confirm it: `fw4 print` (OpenWrt's firewall compiler) should not masquerade `192.168.101.0/24` onto the home IP. From a machine already on the house LAN, `ping 192.168.101.1`. Ours came back in one hop through the Asus. That ping is the overlay-return probe. If it fails, fix the edge route and the box's default via `192.168.1.1` before you add a client.
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/c9434827.svg"><img src="/assets/svg/c9434827.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/c9434827-dark.svg"><img src="/assets/svg/c9434827-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart TD
+  HS["handshake green"] --> Inner{"inner packets on wg0?"}
+  Inner -->|"none"| Client["client AllowedIPs / kill-switch / radio"]
+  Inner -->|"yes"| Eth{"same packets on eth0, source overlay /32?"}
+  Eth -->|"no"| Fw["vpn to wan forward"]
+  Eth -->|"yes"| Ret{"reply via the edge overlay route?"}
+  Ret -->|"LAN yes, internet no"| Nat["edge NAT of the overlay prefix"]
+  Ret -->|"neither"| Route["return route, or a host whose gateway is not the edge"]
+```
 
 Do not test "am I on the VPN" by loading the edge router's admin UI. Pick Pi-hole, or another LAN host, or a public-IP check that should show the house WAN. The edge's own web server is a special case and a time sink.
 
@@ -1226,18 +1220,43 @@ Even a single switch between the hub and router caused failure. The switches the
 
 I had a spare router (actually, a stack of them) so I popped one on the end of the hub's switch, letting it act as a full NAT'ing router, and moved the hub to it. It worked. The hub didn't need to be on the *internet-facing* router - it needed to be directly on *any* router. 
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/1abd6f2f.svg"><img src="/assets/svg/1abd6f2f.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/1abd6f2f-dark.svg"><img src="/assets/svg/1abd6f2f-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph ISP
+Rise((("ISP 1")))
+Spectrum((("ISP 2")))
+
+Rise --> Modem1["Modem<br>(Fiber ONT)"]
+Spectrum --> Modem2["Modem<br>(Cable)"]
+end
+
+subgraph LAN
+Router1Main Router
+Switch1("Switch1")
+Switch2("Switch2")
+Switch3("Switch3")
+Switch4("Switch4")
+Router2Router2
+
+Modem1 --> Router1
+Modem2 --> Router1
+
+Router1 --> Switch1
+Router1 --> Switch4
+Switch1 --> Switch2
+Switch2 --> Switch3
+Switch2 --> Router2
+
+end
+
+Switch3 --> Hub0@{ shape: stadium, label: "😺 Hub ❌<br>Original Position" }
+Switch3 --> Hub1@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 1<br>(port 1)" }
+Switch3 --> Hub2@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 2<br>(port 3, different cable)" }
+Switch4 --> Hub3@{ shape: stadium, label: "😺 Hub ❌<br>Alternate Position 3" }
+Router1 --> Hub4@{ shape: stadium, label: "😺 Hub ✅<br>Alternate Position 4<br>(worked)" }
+Router2 --> Hub5@{ shape: stadium, label: "😺 Hub ✅<br>Alternate Position 5<br>(worked)" }
+```
 
 I want to also briefly shout out to the old Linksys `WRT54GL` I pulled for this - I don't have a receipt for it, but the oldest reference I can find is from 2011 - at this point it's at least 17 years old, has been on the shelf for at least 13 years, and it powered up and routed like a champ!
 
@@ -1276,33 +1295,56 @@ The goal:
 
 The starting topology looked like this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/636ebe6f.svg"><img src="/assets/svg/636ebe6f.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/636ebe6f-dark.svg"><img src="/assets/svg/636ebe6f-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph "Home LAN: 192.168.1.0/24"
+Router1Main Router
+PersonalDevices(("Personal Devices"))
+DNS("PiHole DNS")
+
+Router1 --> DNS
+Router1 --> PersonalDevices
+
+
+Router1 --> IoTRouter
+
+IoTRouter("IoT Router<br>(AP Mode)")
+
+IoTDevices(("IoT Devices"))
+
+IoTRouter --> IoTDevices
+end
+```
 
 Because we'd now determined that I would need the IoT Router to actually *be* a NAT'ing, DHCP'ing router, I would need something like this:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/4eaee9ff.svg"><img src="/assets/svg/4eaee9ff.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/4eaee9ff-dark.svg"><img src="/assets/svg/4eaee9ff-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+
+subgraph "Home LAN: 192.168.1.0/24"
+Router1Main Router
+PersonalDevices(("Personal Devices"))
+DNS("PiHole DNS")
+
+Router1 --> DNS
+Router1 --> PersonalDevices
+end
+
+PersonalDevices -.-> IoTDevices
+IoTDevices -.-x PersonalDevices
+IoTDevices -.-> DNS
+
+subgraph "IoT LAN<br>10.1.101.0/24"
+Router1 --> IoTRouter
+
+IoTRouter("IoT Router")
+
+IoTDevices(("IoT Devices"))
+
+IoTRouter --> IoTDevices
+end
+```
 
 The thing that had had me putting this project off thus far was those dotted lines... We were going to have to use `iptables` and static routes.
 
@@ -1741,10 +1783,9 @@ ai-rizz add rule my-rule.mdc --local
 
 The hook is harmless if files are already git-ignored (it becomes a no-op), so it could theoretically run in all local mode setups. For now, it's opt-in via the flag.
 
-
 ## Look at this Dog
 
-![Look at this dog](thisdog.jpg)<!-- IMG_SIZE::400 -->
+![Look at this dog](thisdog.jpg =x400)
 
 ---
 

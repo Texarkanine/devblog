@@ -135,18 +135,13 @@ If a cached SVG somehow disappeared, `FileUtils.cp` would crash the build. [Adde
 
 The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/272764fe.svg"><img src="/assets/svg/272764fe.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/272764fe-dark.svg"><img src="/assets/svg/272764fe-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  A[Markdown] --> B[Jekyll Build]
+  B --> C[mmdc]
+  C --> D[SVG File]
+  D --> E[Static Site]
+```
 
 The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.
 

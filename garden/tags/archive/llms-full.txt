@@ -1,5 +1,29 @@
 # archive
 
+## The Great Pyramid of Giza was a Plutonium Mill
+
+<blockquote class="link-card">
+  
+  <h1>The Great Pyramid at Giza (was a Plutonium Mill)</h1>
+  
+  <a href="https://nuclearpyramid.com/great_pyramid.php" target="_blank" rel="noopener">nuclearpyramid.com/great_pyramid.php</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20170513025806/http://nuclearpyramid.com/great_pyramid.php" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+This appears to have been a personal website for a collection of related ideas by the same author.
+
+The Pyramid papers were originally published in the [Meta Research Bulletin](https://www.metaresearch.org/bulletin/), a publication of [Meta Research, Inc.](https://www.metaresearch.org/):
+
+1. Great Pyramid at Giza (E. Miller & S. Sloan & G. Wilson) - [Meta Research Bulletin, Volume 10, Number 3, September 15, 2001](https://www.metaresearch.org/publications/bulletin/meta-research-bulletin-index-of-past-issues-1#10)
+2. The Other Two Pyramids at Giza (G. Wilson) - [Meta Research Bulletin, Volume 12, Number 1, March 15, 2003](https://www.metaresearch.org/publications/bulletin/meta-research-bulletin-index-of-past-issues-1#12)
+
 ## Play Classic Computer Games from the 1900s
 
 <blockquote class="link-card">
@@ -38,7 +62,7 @@ Retro and classic [DOS-era](https://en.wikipedia.org/wiki/DOS) games for console
 
 ## Flash
 
-![Macromedia Flash 8 Logo](./macromedia-flash-8-icon.png)<!-- IMG_SIZE:88: -->
+![Macromedia Flash 8 Logo](./macromedia-flash-8-icon.png =88x)
 
 Flash **technically started** in the 1900s with [Flash 1 in 1996](https://en.wikipedia.org/wiki/Adobe_Flash#Macromedia), and though it lasted through to 2020 it was being phased out long before that. Its heyday was really more of a 2000s thing. I built a ton of stuff on Macromedia Flash 5.
 
@@ -192,28 +216,3 @@ From [The Eric Experiment](https://ericexperiment.com/post/11-09-2021-oldavista)
 > The Wiby search engine is building a web of pages as it was in the earlier days of the internet.
 
 Wiby seems to be good at finding currently-online pages that feel like they're from the early web even if their last update was this year. Some of them, though, truly are relics that somehow happen to be online and intact!
-
-## The Great Pyramid of Giza was a Plutonium Mill
-
-<blockquote class="link-card">
-  
-  <h1>The Great Pyramid at Giza (was a Plutonium Mill)</h1>
-  
-  <a href="https://nuclearpyramid.com/great_pyramid.php" target="_blank" rel="noopener">nuclearpyramid.com/great_pyramid.php</a>
-  
-  <small class="link-card-archive">
-    (<a href="https://web.archive.org/web/20170513025806/http://nuclearpyramid.com/great_pyramid.php" target="_blank" rel="noopener">archive</a>)
-  </small>
-  
-</blockquote>
-
-
-
-
-This appears to have been a personal website for a collection of related ideas by the same author.
-
-The Pyramid papers were originally published in the [Meta Research Bulletin](https://www.metaresearch.org/bulletin/), a publication of [Meta Research, Inc.](https://www.metaresearch.org/):
-
-1. Great Pyramid at Giza (E. Miller & S. Sloan & G. Wilson) - [Meta Research Bulletin, Volume 10, Number 3, September 15, 2001](https://www.metaresearch.org/publications/bulletin/meta-research-bulletin-index-of-past-issues-1#10)
-2. The Other Two Pyramids at Giza (G. Wilson) - [Meta Research Bulletin, Volume 12, Number 1, March 15, 2003](https://www.metaresearch.org/publications/bulletin/meta-research-bulletin-index-of-past-issues-1#12)
-

@@ -152,7 +152,6 @@ A well-structured plan that rigorously validates itself at every phase can still
 
 The most expensive failure mode isn't a build that breaks. It's a build that passes.
 
-
 ## 2MB Lighter
 
 The [mermaid.js chart library](https://mermaid.js.org/) weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild).
@@ -292,18 +291,13 @@ If a cached SVG somehow disappeared, `FileUtils.cp` would crash the build. [Adde
 
 The diagrams in my firmware debugging post now render as static SVGs. A flowchart that would have required 2MB of JavaScript:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/272764fe.svg"><img src="/assets/svg/272764fe.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/272764fe-dark.svg"><img src="/assets/svg/272764fe-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+flowchart LR
+  A[Markdown] --> B[Jekyll Build]
+  B --> C[mmdc]
+  C --> D[SVG File]
+  D --> E[Static Site]
+```
 
 The generated SVG is ~12KB. Wrapped in a link to itself for full-size viewing on complex diagrams.
 
@@ -508,7 +502,7 @@ The original image is 818KB. The thumbnail served is 115KB (86% reduction). The 
 
 The same image used elsewhere at a different size would share that thumbnail if the dimensions are smaller, or trigger a larger thumbnail generation if bigger. Like this:
 
-![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 ## Final Stats
 
@@ -746,7 +740,7 @@ Here's what the gem actually produces:
 
 **Markdown image sizing** - the same photo, but smaller using extended Markdown syntax:
 
-![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 All three features working together in this post. The linkcard shows the styled link block. The polaroid displays with the classic photo frame aesthetic. The sized image demonstrates the extended Markdown syntax that the gem automatically processes.
 
@@ -800,7 +794,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.ymbbxf4im-aox2tpkkfmca { display: inline-block; }</style><script>(function(){function awyakcgf(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function hfx5pjm5(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var dxroaxufq=sp.getAttribute('data-gnsasxh3');var a1coo5pii6hx=sp.getAttribute('data-tucsj2');var skic6flt7a=sp.getAttribute('data-un1mbf');var uqbv5rzq6rkj=sp.getAttribute('data-tj0ajjjomgz');var mailto=awyakcgf(dxroaxufq,spParts[0].length);var user=awyakcgf(a1coo5pii6hx,spParts[1].length);var domainBase=awyakcgf(skic6flt7a,lnkParts[0].length);var tld=awyakcgf(uqbv5rzq6rkj,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function qvb4dtohrwbeoz(){var els=document.querySelectorAll('a.zpqbioljgmu2yrudo-edwjx2rig3p4');var handler=function(){var sp=this.querySelector('span.ymbbxf4im-aox2tpkkfmca');if(sp&&!this.dataset.d){var val=hfx5pjm5(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',qvb4dtohrwbeoz);}else{qvb4dtohrwbeoz();}})();</script>{:/nomarkdown}<a href="#" class="zpqbioljgmu2yrudo-edwjx2rig3p4"><span class="ymbbxf4im-aox2tpkkfmca" data-gnsasxh3="vjrucx" data-tucsj2="DQPMOFQP" data-un1mbf="gifkfedrzc" data-tj0ajjjomgz="oay">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.wbc66wjq-lrteqzzttw69d15 { display: inline-block; }</style><script>(function(){function vpa6b5hvng3(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function jevskos4pops(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var lfaxyyipmgty=sp.getAttribute('data-cnhwuiz5q9');var sq2wcv3=sp.getAttribute('data-vbg8zqdd6r');var yr2iefb=sp.getAttribute('data-oruswywtwtv');var fd7pxqwrzoo=sp.getAttribute('data-feikjm');var mailto=vpa6b5hvng3(lfaxyyipmgty,spParts[0].length);var user=vpa6b5hvng3(sq2wcv3,spParts[1].length);var domainBase=vpa6b5hvng3(yr2iefb,lnkParts[0].length);var tld=vpa6b5hvng3(fd7pxqwrzoo,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function zwuwdevw(){var els=document.querySelectorAll('a.r1jsrp-t1icw9ux6duvh2q');var handler=function(){var sp=this.querySelector('span.wbc66wjq-lrteqzzttw69d15');if(sp&&!this.dataset.d){var val=jevskos4pops(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',zwuwdevw);}else{zwuwdevw();}})();</script>{:/nomarkdown}<a href="#" class="r1jsrp-t1icw9ux6duvh2q"><span class="wbc66wjq-lrteqzzttw69d15" data-cnhwuiz5q9="uiqtbw" data-vbg8zqdd6r="GTSPRITS" data-oruswywtwtv="vxuzutsgor" data-feikjm="rdb">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
@@ -825,65 +819,6 @@ The [sophisticated obfuscator](https://github.com/Texarkanine/devblog/blob/d7d9d
 Security engineering is about matching defenses to threats, not building the most impressive barrier possible. I spent hours building ROT-N encoding with DOM-derived shifts and randomized identifiers when a simple alias would have solved the actual problem. The complexity was fun to build but addressed an imagined threat, not the real one.
 
 The lesson: **You cannot hide what you want people to see. Design for your actual adversary, not the adversary you imagine.** Bulk scrapers are cheap, stupid, and everywhere. LLMs are expensive, smart, and rare. Build for the former. Accept the latter. Use an alias.
-
-## Look at this Dog
-
-![Look at this dog](thisdog.jpg)<!-- IMG_SIZE::400 -->
-
----
-
-Now look back at me.
-
-Did you look at the dog? I can't tell, because that image isn't loaded through the [nginx reverse-proxy that sits in front of the blog to provide metrics](/2025/11/23/opensearch-for-static-site-logs.html).
-
-Why, though?
-
-> I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.
-
-The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant *metered* DigitalOcean compute and bandwidth on the nginx instance. For a *static site*, that seems even goofier than the nginx metrics solution already was.
-
-I had several options:
-
-## Option 1: Separate App & Jekyll Rewrite
-
-I could deploy the site a second time to a different DigitalOcean App Engine App w/ a static site, something like `dogblog-media-XXXX.ondigitalocean.app`. Then, I could have Jekyll render the base url as a prefix when rendering `<img>` tags, giving
-
-    <img src="https://dogblog-media-XXX.ondigitalocean.app/path/to/img.jpg">
-
-instead of a relative url.
-
-**BUT**
-
-1. This would be a "cross-origin" request, and some browsers or situations might not care for that.
-2. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
-3. I'd have to add a rule to the nginx to block `/assets` requests on the main site.
-
-## Option 2: Separate App & nginx Rewrite
-
-I could deploy the site a second time as before, but have the nginx intercept the `/assets` path on the main domain and return an HTTP 3XX redirect.
-
-This would also give me metrics on media requests!
-
-**BUT**
-
-1. I'm still adding traffic to the nginx, and my inital goal was to reduce it!
-2. There's still ultimately a cross-domain situation, though the request path is slightly less sketchy.
-3. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
-
-## Option 3: Same App, Separate Site
-
-I could deploy the site a second time into the same DigitalOcean App Engine App, and bind it to the `/assets` path.
-This will cause DigitalOcean's gateway (which is front of my nginx) to intercept requests to `/assets` and route them to the second static site.  This happens *behind* the main blog domain name; no secondary URLs involved!
-
-This second site would be built off the `/assets` subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths *other* than `/assets` are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.
-
-Additionally, DigitalOcean's gateway is already routing all non-`/assets` requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.
-
-That's much simpler, and that's what I did!
-
----
-
-This setup does *not* get me metrics on media asset requests, but I can live with that. I'm building a blog, not a media host, after all.
 
 ## Two Jekyll Image Plugins
 
@@ -1044,6 +979,65 @@ Both plugins run independently in sequence. No coupling. No complexity.
 ~~Now back to writing actual blog posts instead of building infrastructure for them...~~
 
 **Update:** Turns out something WAS next. I packaged these into a proper RubyGem and added a polaroid-style image card feature. [Read about that journey here](/2025/12/08/publishing-my-first-rubygem.html).
+
+## Look at this Dog
+
+![Look at this dog](thisdog.jpg =x400)
+
+---
+
+Now look back at me.
+
+Did you look at the dog? I can't tell, because that image isn't loaded through the [nginx reverse-proxy that sits in front of the blog to provide metrics](/2025/11/23/opensearch-for-static-site-logs.html).
+
+Why, though?
+
+> I want to minimize the usage of resource-constrained and metered cloud resources involved in serving a page.
+
+The metrics-enabling nginx reverse-proxy was built before there were any images or other media posted here; it only had to serve text. However, adding media and doing nothing else could now potentially take up significant *metered* DigitalOcean compute and bandwidth on the nginx instance. For a *static site*, that seems even goofier than the nginx metrics solution already was.
+
+I had several options:
+
+## Option 1: Separate App & Jekyll Rewrite
+
+I could deploy the site a second time to a different DigitalOcean App Engine App w/ a static site, something like `dogblog-media-XXXX.ondigitalocean.app`. Then, I could have Jekyll render the base url as a prefix when rendering `<img>` tags, giving
+
+    <img src="https://dogblog-media-XXX.ondigitalocean.app/path/to/img.jpg">
+
+instead of a relative url.
+
+**BUT**
+
+1. This would be a "cross-origin" request, and some browsers or situations might not care for that.
+2. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
+3. I'd have to add a rule to the nginx to block `/assets` requests on the main site.
+
+## Option 2: Separate App & nginx Rewrite
+
+I could deploy the site a second time as before, but have the nginx intercept the `/assets` path on the main domain and return an HTTP 3XX redirect.
+
+This would also give me metrics on media requests!
+
+**BUT**
+
+1. I'm still adding traffic to the nginx, and my inital goal was to reduce it!
+2. There's still ultimately a cross-domain situation, though the request path is slightly less sketchy.
+3. If I ever changed the image host URL, cached versions of the site (or others' links to the images) could break.
+
+## Option 3: Same App, Separate Site
+
+I could deploy the site a second time into the same DigitalOcean App Engine App, and bind it to the `/assets` path.
+This will cause DigitalOcean's gateway (which is front of my nginx) to intercept requests to `/assets` and route them to the second static site.  This happens *behind* the main blog domain name; no secondary URLs involved!
+
+This second site would be built off the `/assets` subdirectory so it could not possibly serve normal pages. Additional protection against serving normal pages comes from it being part of the main blog App: all paths *other* than `/assets` are routed by DigitalOcean to my nginx, which serves normal pages from their proper place.
+
+Additionally, DigitalOcean's gateway is already routing all non-`/assets` requests to my nginx - thus saving me from having to add an explicit rule preventing the secondary domain from incorrectly serving them without metrics.
+
+That's much simpler, and that's what I did!
+
+---
+
+This setup does *not* get me metrics on media asset requests, but I can live with that. I'm building a blog, not a media host, after all.
 
 ## Building the Blog
 

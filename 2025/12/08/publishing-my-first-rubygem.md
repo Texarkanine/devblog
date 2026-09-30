@@ -200,7 +200,7 @@ Here's what the gem actually produces:
 
 **Markdown image sizing** - the same photo, but smaller using extended Markdown syntax:
 
-![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg)<!-- IMG_SIZE:200: -->
+![Trip to Japan](/assets/img/blog/diary/gemini-trip-to-japan.jpg =200x)
 
 All three features working together in this post. The linkcard shows the styled link block. The polaroid displays with the classic photo frame aesthetic. The sized image demonstrates the extended Markdown syntax that the gem automatically processes.
 

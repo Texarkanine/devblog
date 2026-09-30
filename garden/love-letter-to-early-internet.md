@@ -196,7 +196,7 @@ If you were webmastering on the early web, you probably know these two dimension
 
 These were often displayed on their own sites accompanied by a `<textarea>` HTML element with copy/paste-able HTML code for the button, so people could more-easily add it.
 
-[![Dog with a Dev Blog](./early-web/dogblog-88x31.gif)<!-- IMG_SIZE:88:31 -->](https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html)
+[![Dog with a Dev Blog](./early-web/dogblog-88x31.gif =88x31)](https://blog.cani.ne.jp/garden/love-letter-to-early-internet.html)
 
 <div style="text-align:center;">
 <textarea>
@@ -233,7 +233,7 @@ And of course, an updated dogblog button from 20**25**:
 
 `468x60` was the standard size for a *banner ad*. If you were making something this big and it was actually being shown on other sites, you were hot stuff! These puppies were often animated! It wasn't likely that someone would take one of these and *choose* to link back to you with it - in the days of `1024x768` displays, that `468x60` was a big chunk!
 
-![468x60 Banner Ad](./early-web/dogblog-468x60.gif)<!-- IMG_SIZE::60 -->
+![468x60 Banner Ad](./early-web/dogblog-468x60.gif =x60)
 
 Unlike today, where ads squeeze themselves into every shape and size they can, these were kind of the big two form factors for website promotion, and so people would need to make one of each, but usually only these two!
 

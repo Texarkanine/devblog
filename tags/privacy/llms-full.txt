@@ -139,7 +139,7 @@ If you were to compare these "cryptocurrencies" on price:
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260810005805/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
+      (<a href="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -158,18 +158,12 @@ Monero is a tool for transacting privately.
 
 Rewinding back to the book - *The Bitcoin Standard* - the author offers a flowchart to help you figure out if whatever you're thinking of needs a blockchain:
 
-<figure class="mermaid-diagram">
-<style>
-.mermaid-diagram__light { display: inline; }
-.mermaid-diagram__dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .mermaid-diagram__light { display: none; }
-  .mermaid-diagram__dark { display: inline; }
-}
-</style>
-<a class="mermaid-diagram__light" href="/assets/svg/6e3efefa.svg"><img src="/assets/svg/6e3efefa.svg" alt="Mermaid Diagram"></a>
-<a class="mermaid-diagram__dark" href="/assets/svg/6e3efefa-dark.svg"><img src="/assets/svg/6e3efefa-dark.svg" alt="Mermaid Diagram"></a>
-</figure>
+```mermaid
+graph TD
+    Need("Do you need digital cash?")
+    Need -->|"No"| No("You don't need a blockchain")
+    Need -->|"Yes"| Yes("Use bitcoin: the only blockchain that works")
+```
 
 A few pages later, Ammous offers a more-rigorous test to quickly assess whether a given use-case is a candidate for a blockchain. Given on page 260, paraphrased:
 
@@ -406,7 +400,7 @@ Strip out obvious markers. No `@` or `:` in data attributes - add them in the as
 
 The link displays asterisks until mouseover. The href is `#` until decoded. No email exists in the HTML source.
 
-Like this: {::nomarkdown}<style>span.ymbbxf4im-aox2tpkkfmca { display: inline-block; }</style><script>(function(){function awyakcgf(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function nvxme80iuds(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var kwd39sxwlf=sp.getAttribute('data-gnsasxh3');var kg0jubjzw6v=sp.getAttribute('data-tucsj2');var in3tmutbqgpy=sp.getAttribute('data-un1mbf');var pouvhmfzz6rl=sp.getAttribute('data-tj0ajjjomgz');var mailto=awyakcgf(kwd39sxwlf,spParts[0].length);var user=awyakcgf(kg0jubjzw6v,spParts[1].length);var domainBase=awyakcgf(in3tmutbqgpy,lnkParts[0].length);var tld=awyakcgf(pouvhmfzz6rl,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function irbposkf(){var els=document.querySelectorAll('a.zpqbioljgmu2yrudo-edwjx2rig3p4');var handler=function(){var sp=this.querySelector('span.ymbbxf4im-aox2tpkkfmca');if(sp&&!this.dataset.d){var val=nvxme80iuds(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',irbposkf);}else{irbposkf();}})();</script>{:/nomarkdown}<a href="#" class="zpqbioljgmu2yrudo-edwjx2rig3p4"><span class="ymbbxf4im-aox2tpkkfmca" data-gnsasxh3="vjrucx" data-tucsj2="DQPMOFQP" data-un1mbf="gifkfedrzc" data-tj0ajjjomgz="oay">XXXXXXXXXXXXXXXX</span></a>
+Like this: {::nomarkdown}<style>span.wbc66wjq-lrteqzzttw69d15 { display: inline-block; }</style><script>(function(){function vpa6b5hvng3(s,n){var r='';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c>=65&&c<=90){r+=String.fromCharCode((c-65-n+26)%26+65);}else if(c>=97&&c<=122){r+=String.fromCharCode((c-97-n+26)%26+97);}else r+=s[i];}return r;}function jevskos4pops(sp,lnk){var spParts=sp.className.split('-');var lnkParts=lnk.className.split('-');var lfaxyyipmgty=sp.getAttribute('data-cnhwuiz5q9');var sq2wcv3=sp.getAttribute('data-vbg8zqdd6r');var yr2iefb=sp.getAttribute('data-oruswywtwtv');var fd7pxqwrzoo=sp.getAttribute('data-feikjm');var mailto=vpa6b5hvng3(lfaxyyipmgty,spParts[0].length);var user=vpa6b5hvng3(sq2wcv3,spParts[1].length);var domainBase=vpa6b5hvng3(yr2iefb,lnkParts[0].length);var tld=vpa6b5hvng3(fd7pxqwrzoo,lnkParts[1].length);return mailto+':'+user+'@'+domainBase+'.'+tld;}function zwuwdevw(){var els=document.querySelectorAll('a.r1jsrp-t1icw9ux6duvh2q');var handler=function(){var sp=this.querySelector('span.wbc66wjq-lrteqzzttw69d15');if(sp&&!this.dataset.d){var val=jevskos4pops(sp,this);this.href=val;sp.textContent=val.replace('mailto:','');this.dataset.d='1';}};for(var i=0;i<els.length;i++){els[i].addEventListener('mouseover',handler);els[i].addEventListener('focus',handler);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',zwuwdevw);}else{zwuwdevw();}})();</script>{:/nomarkdown}<a href="#" class="r1jsrp-t1icw9ux6duvh2q"><span class="wbc66wjq-lrteqzzttw69d15" data-cnhwuiz5q9="uiqtbw" data-vbg8zqdd6r="GTSPRITS" data-oruswywtwtv="vxuzutsgor" data-feikjm="rdb">XXXXXXXXXXXXXXXX</span></a>
 
 Gemini explained the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) calculation, showed the shift derivation from class name lengths, decoded both test emails. Took longer than before, but still automatic.
 
