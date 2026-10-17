@@ -1,0 +1,177 @@
+---
+layout: post
+title: "Worktrees, Baby"
+subtitle: "A second checkout without a second clone, at a path you don't have to think about"
+description: "Three commands on top of git worktree: make the checkout, remove the folder, and sweep the pile."
+author: texarkanine
+tags:
+  - git
+  - ai
+  - cursor
+  - claude-code
+  - developer-tools
+  - harness-engineering
+---
+
+Git's known how to do this for *years*!
+
+## The Object Database Is the Whole Trick
+
+Linus Torvalds's [first README](https://github.com/git/git/blob/e83c5163316f89bfbde7d9ab23ca2e25604af290/README), April 2005, splits Git into two abstractions.
+
+> There are two object abstractions: the "object database", and the "current directory cache".
+
+Under the heading for the database, the same file says:
+
+> The object database is literally just a content-addressable collection of objects.
+
+The cache is the checkout you are looking at: names, permissions, and blobs. History lives in the database. Another folder can point at the same database, hold a different cache, and show a different branch. Both folders read the same objects.
+
+```mermaid
+graph TD
+    classDef store fill:#f3e5f5,stroke:#7b1fa2,color:#000
+    classDef tree fill:#e1f5fe,stroke:#01579b,color:#000
+    Store["Object database"]:::store --> Main["Main checkout"]:::tree
+    Store --> Fix["Checkout for fix-login"]:::tree
+    Store --> Agent["Checkout for an agent"]:::tree
+```
+
+The second folder took longer than the idea.
+
+In March 2007 Julian Phillips checked in `contrib/workdir/git-new-workdir`, a script that symlinks `objects`, `refs`, and `config` into a new directory. He was writing down a habit Junio Hamano already had. The [commit message](https://github.com/git/git/commit/4f01748d51b530c297eeb5a0ece9af923d5db937) carries Junio's caveat whole:
+
+> This risks confusion for an uninitiated if you update a ref that is checked out in another working tree, but modulo that caveat it works reasonably well.
+
+One branch, two directories, and a shared `refs`. Move the branch in one directory and the other directory is standing on a ref that just left.
+
+[Git 2.5.0](https://github.blog/open-source/git/git-2-5-including-multiple-worktrees-and-triangular-workflows/), released 29 July 2015, gave the second checkout its command. Linked worktrees were already in Git by then, doing the job of that symlink script. Nguyễn Thái Ngọc Duy introduced `git worktree` and Eric Sunshine added `git worktree add`, which gives a linked worktree its own `HEAD` and its own index.[^revnews] Git refuses to check out a branch that another worktree already has.[^worktree] The release announcement still called the feature experimental, and `git worktree add` still wanted a path of your choosing. Removing the worktree meant remembering that path. I stayed in one checkout. The agent stayed there with me.
+
+## The Path Was the Tax
+
+`git worktree` will make the second checkout, and then it will ask you where to put it. I built `git wt` so I would stop answering. It lives in [git-aliases](https://github.com/Texarkanine/git-aliases), my collection of small Git utilities.
+
+`gt wt go` is the way in, and it is idempotent. You name a branch and land in a worktree whose path comes from the repository and that branch. Name the branch again and you get the same folder. The second run changes nothing.
+
+```
+~/worktrees/<owner>/<repo>/<repo>-<branch>
+```
+
+`git@github.com:octocat/Hello-World.git` on `fix-login` is `~/worktrees/octocat/Hello-World/Hello-World-fix-login`. A slash in the branch name adds a directory level, so `feature/login` becomes `Hello-World-feature/login`. A branch that does not exist yet is created from the commit you are on.
+
+`git wt done` is the way out. The folder is deleted. The branch and the commits stay, so you can throw the directory away. Uncommitted work stops the command. Ignored files go with the directory: a `.env` you never committed, and `node_modules`, leave with the folder. The main checkout, the clone you already had, stays.
+
+`git wt cleanup` is the pile. Every worktree `go` made for this repository, one list, one question: delete it?. Clean ones go. Dirty ones stay. This means you don't have to check every one by hand to see if there's any real work left there.
+
+Because they're *worktrees*, deleting the folder of a clean branch just means you can `git switch ...` to it later, because it's still in your clone's database - just not at that path on disk anymore.
+
+By default it only cleans up *this repository's* worktrees, but `--all` lets you run that sweep for every repository under `~/worktrees`, from any directory.
+
+The rest of the contract is in the [README](https://github.com/Texarkanine/git-aliases/blob/c7cd053/subcommands/git-wt/README.md#where-worktrees-go).
+
+`git wt go` prints a path and leaves your shell where it is. You've still got to `cd` - no process can do that for you.
+
+Well, there is one process that can - your shell! The `git-aliases` have optional shell support, which, when installed with `make shell`, installs a `wt` function for bash and zsh that wraps the helper and changes directory for you. Now you just `wt go <branch>` or `wt done` and it works. Scripts can call `git wt` and `cd` (or perform other necessary operations) on the printed path.
+
+## Cursor's Clock
+
+`git wt cleanup` sees the worktrees you made with `git wt go`. Cursor makes its own worktrees, and it deletes them on another schedule.
+
+Ask in the [IDE](https://cursor.com/docs/configuration/worktrees) with `/worktree`, or on the [command line](https://cursor.com/docs/cli/using) with `agent --worktree`, and the checkout lands under `~/.cursor/worktrees`. Since Cursor 3.5 the editor deletes older entries once the machine passes a documented cap of 25.[^cursorcap]
+
+![Is 25 worktrees a lot?](is-25-worktrees-a-lot.jpg)
+
+So *depending* on the situation, you might want to clean up Cursor's worktrees much sooner than Cursor would get around to it. You'd need to enumerate them all, check to see if each one had any uncommitted work left in it, and... hey, that sounds a lot like what we just built above!
+
+`git wt cleanup +cursor` lumps Cursor's worktrees in with yours. Now you can easily clean up these potentially-languishing folders of potentially-large size!
+
+## Type This
+
+You need `git`, `bash`, and `~/.local/bin` on your `PATH`.
+
+```bash
+git clone https://github.com/Texarkanine/git-aliases.git
+cd git-aliases
+make
+make shell
+```
+
+Open a new shell so the function is loaded.
+
+```bash
+cd /path/to/your/repo
+wt go fix-login
+```
+
+That puts you in the new folder, on `fix-login`. If the branch did not exist, it does now, forked from whatever you had checked out. Edit, commit, and push the way you already do.
+
+```bash
+wt done
+git branch
+```
+
+You are back in the main checkout. `fix-login` is still in that list. `wt go fix-login` brings the folder back.
+
+When a few of them have piled up:
+
+```bash
+wt cleanup --list
+wt cleanup
+wt cleanup +cursor --list
+```
+
+Read the list. Then answer the one question.
+
+## A Lock Is a Lock
+
+`+cursor` had a pile I could find, so I wanted a `+claude` beside it. Same sweep, one more token.
+
+[Claude Code](https://code.claude.com/docs/en/worktrees) will make the worktree for you. `claude --worktree feature-auth` puts it inside the repository, at `.claude/worktrees/feature-auth/`, on a branch named `worktree-feature-auth`. 
+
+> The docs tell you to gitignore that directory, so those files stay out of `git status` in the main checkout.
+
+Whaaat? Doesn't that sound like a colossal, looming footgun?
+
+The location is a real limit. `cleanup --all` finds repositories by reading `~/worktrees`, and with `+cursor` by reading `~/.cursor/worktrees`. Claude's folders sit inside whichever clone you launched from. Once you are in that clone, `git worktree list` shows them. Finding **every clone on a machine** is a whole different ballgame. I could have shipped a flag that works only when you are already there - just don't support `--all` with `+claude`.
+
+The lock is where that plan stopped.
+
+While a session is running, Claude holds `git worktree lock` on the worktree, and `git worktree remove` will not remove a lock. A live session asked the directory to stay. <!-- stopped here -->  An interactive exit already cleans up after itself: a clean unnamed session disappears, and a named session, or one that still has work, asks you before it deletes anything. The directories I wanted the flag to take are the ones with nobody left to ask. A `claude -p --worktree` run has no prompt. It leaves the directory and the lock until a later session's sweep releases locks whose process has already exited. A `--worktree` session you never backgrounded stays at any age. Claude's own sweep covers subagent and background-session worktrees, and it skips any that still hold changes or unpushed commits.
+
+Git does not record a process. The lock is a reason, and the reason is free text in a file. Claude currently writes a sentence with a process id in it. One that showed up in the wild was `claude agent agent- (pid 197259)`, for a process that was already gone.[^lockreason] A Mac can ask whether that process still exists. Linux can ask the same question. A Mac has no `/proc`, and it does not need one. Claude's own sweep, since v2.1.210, releases its lock when the process has exited, and that sweep runs on the Mac build.[^claudesweep]
+
+The sentence is not a field. Claude can reword it. A reason you typed yourself is the same file. A sweeper that guesses which free-text reasons are a dead Claude, and which are a person, will unlock the wrong directory. I closed the flag. The notes are in [git-aliases issue 13](https://github.com/Texarkanine/git-aliases/issues/13).
+
+What remains are worktrees you told Claude to keep, or worktrees that still contain work. `git worktree remove` on one path already handles those, and it stops if the lock is held. `git worktree unlock` is the sentence that means "I have decided this process is gone."
+
+Claude can still sit in a worktree the sweep can see. Make the worktree yourself, and start Claude in that directory:
+
+```bash
+wt go feature-auth
+claude
+```
+
+You are already in `~/worktrees/.../feature-auth`. Claude's sweep covers `.claude/worktrees/`. This folder is under `~/worktrees`, and `wt done` removes it once the work is committed. `--worktree` would make another checkout inside the repository, on a `worktree-*` branch, with a lock. You already have a checkout.
+
+## I Used to Clone Into /tmp
+
+You are on a branch, and the work is unfinished. A second task shows up, and it does not belong on this branch. Checking out the other branch means putting this one down: a stash, a commit you are not ready to make, or waiting until the first task is done.
+
+I cloned the repository a second time. The clone often went in `/tmp`. The second task had a folder. Each clone carried its own copy of the objects, and I had to remember which folder I was allowed to throw away.
+
+A worktree is that second folder without the second clone. The first branch stays checked out, dirty, where you left it. The second task gets its own checkout and its own branch. A third task gets a third. Six, if you have six tasks. They share one object database. Git refuses to check the same branch out in two of them, so each task sits on a branch of its own.[^worktree]
+
+`wt go` is how you take that checkout without inventing a path. When the task is finished, `wt done` removes the folder and leaves the branch. The name is still there when you run `git branch`. The moment to notice is the itch to wait, or to clone into `/tmp`. That itch is a worktree.
+
+Once you have opened the second checkout yourself, you can tell an agent to take one instead of editing the branch you are standing on. Cursor's `/worktree` is that ask. So is `wt go`, and then Claude in the folder it printed. Claude's own `--worktree` builds the other pile, the one the sweep does not claim.
+
+[Just try the thing]({% post_url blog/essay/2026-08-01-just-try-the-thing %}). This one prints its path, and the branch survives the folder.
+
+---
+
+## References
+
+[^revnews]: Git Rev News, Edition 5, 8 July 2015. The linked-worktree facility had already landed, more than half a year earlier, to replace `contrib/git-new-workdir`. The same edition names Nguyễn Thái Ngọc Duy for the `git worktree` command and Eric Sunshine for `git worktree add`. Git 2.5.0 shipped on 29 July 2015. <https://git.github.io/rev_news/2015/07/08/edition-5/>
+[^worktree]: Git documentation, git-worktree. Adding a worktree refuses a branch that is already checked out in another worktree. <https://git-scm.com/docs/git-worktree>
+[^lockreason]: A locked Claude Code agent worktree whose reason string was `claude agent agent- (pid 197259)`, for a process that was no longer running. <https://github.com/anthropics/claude-code/issues/57765>
+[^claudesweep]: Claude Code documentation, "Run parallel sessions with worktrees." Since v2.1.210 the sweep releases a lock Claude set for a session whose process has exited. <https://code.claude.com/docs/en/worktrees>
+[^cursorcap]: Cursor documentation, "Worktrees," section "Worktrees cleanup," describing Cursor 3.5 and later. The default `cursor.worktreeMaxCount` is 25 per machine. The settings example sets `cursor.worktreeCleanupIntervalHours` to 6. <https://cursor.com/docs/configuration/worktrees>
