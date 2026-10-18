@@ -87,7 +87,7 @@ So *depending* on the situation, you might want to clean up Cursor's worktrees m
 
 ## Type This
 
-You need `git`, `bash`, and `~/.local/bin` on your `PATH`.
+You need `git`, `bash`, and `~/.local/bin` on your `PATH`. `make` helps with the installation but isn't used to actually do the thing.
 
 ```bash
 git clone https://github.com/Texarkanine/git-aliases.git
@@ -118,6 +118,7 @@ When a few of them have piled up:
 wt cleanup --list
 wt cleanup
 wt cleanup +cursor --list
+wt cleanup +cursor
 ```
 
 Read the list... then answer the one question!
