@@ -51,7 +51,7 @@ One branch, two directories, and a shared `refs`. Move the branch in one directo
 
 `git worktree` will make the second checkout, and then it will ask you where to put it. I built `git wt` so I would stop answering. It lives in [git-aliases](https://github.com/Texarkanine/git-aliases), my collection of small Git utilities.
 
-`gt wt go` is the way in, and it is idempotent. You name a branch and land in a worktree whose path comes from the repository and that branch. Name the branch again and you get the same folder. The second run changes nothing.
+`git wt go` is the way in, and it is idempotent. You name a branch and land in a worktree whose path comes from the repository and that branch. Name the branch again and you get the same folder. The second run changes nothing.
 
 ```
 ~/worktrees/<owner>/<repo>/<repo>-<branch>
