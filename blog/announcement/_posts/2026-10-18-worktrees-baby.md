@@ -5,12 +5,13 @@ subtitle: "A second checkout without a second clone, at a path you don't have to
 description: "Three commands on top of git worktree: make the checkout, remove the folder, and sweep the pile."
 author: texarkanine
 tags:
-  - git
   - ai
-  - cursor
   - claude-code
+  - cursor
   - developer-tools
+  - git
   - harness-engineering
+  - worktrees
 ---
 
 Git's known how to do this for *years*!
@@ -119,13 +120,15 @@ wt cleanup
 wt cleanup +cursor --list
 ```
 
-Read the list. Then answer the one question.
+Read the list... then answer the one question!
 
 ## A Lock Is a Lock
 
 `+cursor` had a pile I could find, so I wanted a `+claude` beside it. Same sweep, one more token.
 
-[Claude Code](https://code.claude.com/docs/en/worktrees) will make the worktree for you. `claude --worktree feature-auth` puts it inside the repository, at `.claude/worktrees/feature-auth/`, on a branch named `worktree-feature-auth`. 
+The reason why that didn't work is instructive in reinforcing the reason to use `git wt` *instead* of either harness' own built-in worktree management!
+
+[Claude Code](https://code.claude.com/docs/en/worktrees) can make the worktree for you. `claude --worktree feature-auth` puts it inside the repository, at `.claude/worktrees/feature-auth/`, on a branch named `worktree-feature-auth`. 
 
 > The docs tell you to gitignore that directory, so those files stay out of `git status` in the main checkout.
 
@@ -135,36 +138,52 @@ The location is a real limit. `cleanup --all` finds repositories by reading `~/w
 
 The lock is where that plan stopped.
 
-While a session is running, Claude holds `git worktree lock` on the worktree, and `git worktree remove` will not remove a lock. A live session asked the directory to stay. <!-- stopped here -->  An interactive exit already cleans up after itself: a clean unnamed session disappears, and a named session, or one that still has work, asks you before it deletes anything. The directories I wanted the flag to take are the ones with nobody left to ask. A `claude -p --worktree` run has no prompt. It leaves the directory and the lock until a later session's sweep releases locks whose process has already exited. A `--worktree` session you never backgrounded stays at any age. Claude's own sweep covers subagent and background-session worktrees, and it skips any that still hold changes or unpushed commits.
+While a session is running, Claude holds `git worktree lock` on the worktree, and `git worktree remove` will not remove a lock. A live session asked the directory to stay.
 
-Git does not record a process. The lock is a reason, and the reason is free text in a file. Claude currently writes a sentence with a process id in it. One that showed up in the wild was `claude agent agent- (pid 197259)`, for a process that was already gone.[^lockreason] A Mac can ask whether that process still exists. Linux can ask the same question. A Mac has no `/proc`, and it does not need one. Claude's own sweep, since v2.1.210, releases its lock when the process has exited, and that sweep runs on the Mac build.[^claudesweep]
+An interactive session's exit already cleans the worktree up after itself. An unnamed session with no changes is also cleaned up. A named session, or one that still has (uncommitted) work, asks you before it deletes anything. The worktrees that survive are ones that you *chose* to keep.
 
-The sentence is not a field. Claude can reword it. A reason you typed yourself is the same file. A sweeper that guesses which free-text reasons are a dead Claude, and which are a person, will unlock the wrong directory. I closed the flag. The notes are in [git-aliases issue 13](https://github.com/Texarkanine/git-aliases/issues/13).
+At least in the moment.
 
-What remains are worktrees you told Claude to keep, or worktrees that still contain work. `git worktree remove` on one path already handles those, and it stops if the lock is held. `git worktree unlock` is the sentence that means "I have decided this process is gone."
+There are two ways that a Claude Code worktree might linger after you want it to:
 
-Claude can still sit in a worktree the sweep can see. Make the worktree yourself, and start Claude in that directory:
+1. a noninteractive session with a worktree - `claude -p --worktree` - that was ungracefully killed.
+2. an interactive session you chose to keep, but have since changed your mind and forgotten about.
+
+And, on disk, those will look indistinguishable from
+
+1. a noninteractive session's worktree whose session is currently running.
+2. an interactive session you chose to keep, *and still want*
+
+We can't tell them apart, so we can't unlock and delete them.
+
+Technically, Cursor would have the same issue in a different flavor with its managed worktrees.
+
+In both cases, the answer is simple: Make the worktree yourself, and launch your harness in that directory:
 
 ```bash
 wt go feature-auth
 claude
 ```
 
-You are already in `~/worktrees/.../feature-auth`. Claude's sweep covers `.claude/worktrees/`. This folder is under `~/worktrees`, and `wt done` removes it once the work is committed. `--worktree` would make another checkout inside the repository, on a `worktree-*` branch, with a lock. You already have a checkout.
+You are already in `~/worktrees/.../feature-auth`.
+
+Now your harness "doesn't even" know it's using a worktree - at least, it certainly doesn't think it's supposed to manage them. You're using one tool to manage them both, and so if *you* `git wt done` when you're done, then you know that anything lingering is something you kept on purpose.
+
+And if you're changing your mind and want to abandon some, `git wt cleanup --list --all` can list *all* of them, so you can decide which, if any, should be kept.
 
 ## I Used to Clone Into /tmp
 
 You are on a branch, and the work is unfinished. A second task shows up, and it does not belong on this branch. Checking out the other branch means putting this one down: a stash, a commit you are not ready to make, or waiting until the first task is done.
 
-I cloned the repository a second time. The clone often went in `/tmp`. The second task had a folder. Each clone carried its own copy of the objects, and I had to remember which folder I was allowed to throw away.
+I cloned the repository a second time. The clone often went in `/tmp`. Now the second task had a folder but each clone carried its own copy of the objects, and I had to remember which folder(s) I was allowed to throw away. And where they were!
 
-A worktree is that second folder without the second clone. The first branch stays checked out, dirty, where you left it. The second task gets its own checkout and its own branch. A third task gets a third. Six, if you have six tasks. They share one object database. Git refuses to check the same branch out in two of them, so each task sits on a branch of its own.[^worktree]
+A worktree from `git wt go` is that second folder without the second clone or detective work. The first branch stays checked out, dirty, where you left it. The second task gets its own checkout and its own branch. A third task gets a third. Six, if you have six tasks. They share one object database. Git refuses to check the same branch out in two of them, so each task sits on a branch of its own[^worktree]... you can't mess it up!
 
-`wt go` is how you take that checkout without inventing a path. When the task is finished, `wt done` removes the folder and leaves the branch. The name is still there when you run `git branch`. The moment to notice is the itch to wait, or to clone into `/tmp`. That itch is a worktree.
+When the task is finished, `wt done` removes the folder and leaves the branch. The name is still there when you run `git branch`. The moment to notice is the itch to wait, or to clone into `/tmp`. That itch is a worktree waiting to sprout.
 
-Once you have opened the second checkout yourself, you can tell an agent to take one instead of editing the branch you are standing on. Cursor's `/worktree` is that ask. So is `wt go`, and then Claude in the folder it printed. Claude's own `--worktree` builds the other pile, the one the sweep does not claim.
+Once you have opened the second checkout yourself, you can tell an agent to take one instead of editing the branch you are standing on. Cursor's `/worktree` is that ask, as is Claude's own `--worktree`... resist the temptation! `git wt go` keeps your extra disk usage all in one discoverable place.
 
-[Just try the thing]({% post_url blog/essay/2026-08-01-just-try-the-thing %}). This one prints its path, and the branch survives the folder.
+Worktrees. [Just try the thing!]({% post_url blog/essay/2026-08-01-just-try-the-thing %}).
 
 ---
 
