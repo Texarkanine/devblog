@@ -165,7 +165,7 @@ wt go feature-auth
 claude
 ```
 
-You are already in `~/worktrees/.../feature-auth`.
+You are already in `~/worktrees/.../<repo>-feature-auth`.
 
 Now your harness "doesn't even" know it's using a worktree - at least, it certainly doesn't think it's supposed to manage them. You're using one tool to manage them both, and so if *you* `git wt done` when you're done, then you know that anything lingering is something you kept on purpose.
 
