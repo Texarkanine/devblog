@@ -1,5 +1,7 @@
 <ul>
 
+  <li>2026-10-18 <a href="/2026/10/18/worktrees-baby.html">Worktrees, Baby</a></li>
+
   <li>2026-09-07 <a href="/2026/09/07/the-house-goes-critical.html">The House Goes Critical</a></li>
 
   <li>2026-09-05 <a href="/2026/09/05/the-overlay-was-fine.html">The Overlay Was Fine</a></li>

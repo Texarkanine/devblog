@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [Worktrees, Baby](https://blog.cani.ne.jp/2026/10/18/worktrees-baby.md): Three commands on top of git worktree: make the checkout, remove the folder, and sweep the pile.
 - [Steal These Status Lines](https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines.md): The Claude Code and Cursor CLI status lines we actually run, on macOS and Linux, with the GNU vs BSD adaptations and copy-paste scripts plus the statusLine config blocks.
 - [The Gate Lodge](https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.md): Keep the home router. Put WireGuard on a dedicated OpenWrt box. How we commissioned ours, and a paste from first boot to a working client.
 - [The Times Can Sell; Reddit Cannot](https://blog.cani.ne.jp/2026/08/13/the-times-can-sell-reddit-cannot.md): AI money can feed staffed editorial producers. It cannot feed Reddit, Rust, or you. The flywheel only turns where producers eat what the new customer will pay.

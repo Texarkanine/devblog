@@ -1,4 +1,204 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-09-30T14:05:08+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">The House Goes Critical</title><link href="https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.html" rel="alternate" type="text/html" title="The House Goes Critical" /><published>2026-09-07T00:00:00+00:00</published><updated>2026-09-08T02:11:08+00:00</updated><id>https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.html"><![CDATA[<p>Last night, <a href="https://www.risebroadband.com/">Rise Broadband</a> flapped on the primary WAN port of our router. Within seconds, the failover script engaged, traffic shifted to <a href="https://www.spectrum.com/">Spectrum</a> on the backup WAN port, and the home dashboard in my browser shifted from calm green to amber. Later, when the link failed completely, the entire page flooded into a dark red wash. Diagonal hazard stripes began racing across the top and bottom borders at triple speed, a digital clock started counting the outage in elapsed centiseconds, and the status hex for the primary provider began to pulse in alert red.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.cani.ne.jp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.cani.ne.jp/" rel="alternate" type="text/html" /><updated>2026-10-18T22:56:07+00:00</updated><id>https://blog.cani.ne.jp/feed.xml</id><title type="html">🐶 Dog with a Dev Blog</title><subtitle>On the internet, nobody knows you&apos;re a dog and a cat in a latent space.</subtitle><entry><title type="html">Worktrees, Baby</title><link href="https://blog.cani.ne.jp/2026/10/18/worktrees-baby.html" rel="alternate" type="text/html" title="Worktrees, Baby" /><published>2026-10-18T00:00:00+00:00</published><updated>2026-10-18T22:54:22+00:00</updated><id>https://blog.cani.ne.jp/2026/10/18/worktrees-baby</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/10/18/worktrees-baby.html"><![CDATA[<p>Git’s known how to do this for <em>years</em>!</p>
+
+<h2 id="the-object-database-is-the-whole-trick">The Object Database Is the Whole Trick</h2>
+
+<p>Linus Torvalds’s <a href="https://github.com/git/git/blob/e83c5163316f89bfbde7d9ab23ca2e25604af290/README">first README</a>, April 2005, splits Git into two abstractions.</p>
+
+<blockquote>
+  <p>There are two object abstractions: the “object database”, and the “current directory cache”.</p>
+</blockquote>
+
+<p>Under the heading for the database, the same file says:</p>
+
+<blockquote>
+  <p>The object database is literally just a content-addressable collection of objects.</p>
+</blockquote>
+
+<p>The cache is the checkout you are looking at: names, permissions, and blobs. History lives in the database. Another folder can point at the same database, hold a different cache, and show a different branch. Both folders read the same objects.</p>
+
+<figure class="mermaid-diagram">
+<style>
+.mermaid-diagram__light { display: inline; }
+.mermaid-diagram__dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram__light { display: none; }
+  .mermaid-diagram__dark { display: inline; }
+}
+</style>
+<a class="mermaid-diagram__light" href="/assets/svg/4330c351.svg"><img src="/assets/svg/4330c351.svg" alt="Mermaid Diagram" /></a>
+<a class="mermaid-diagram__dark" href="/assets/svg/4330c351-dark.svg"><img src="/assets/svg/4330c351-dark.svg" alt="Mermaid Diagram" /></a>
+</figure>
+
+<p>The second folder took longer than the idea.</p>
+
+<p>In March 2007 Julian Phillips checked in <code class="language-plaintext highlighter-rouge">contrib/workdir/git-new-workdir</code>, a script that symlinks <code class="language-plaintext highlighter-rouge">objects</code>, <code class="language-plaintext highlighter-rouge">refs</code>, and <code class="language-plaintext highlighter-rouge">config</code> into a new directory. He was writing down a habit Junio Hamano already had. The <a href="https://github.com/git/git/commit/4f01748d51b530c297eeb5a0ece9af923d5db937">commit message</a> carries Junio’s caveat whole:</p>
+
+<blockquote>
+  <p>This risks confusion for an uninitiated if you update a ref that is checked out in another working tree, but modulo that caveat it works reasonably well.</p>
+</blockquote>
+
+<p>One branch, two directories, and a shared <code class="language-plaintext highlighter-rouge">refs</code>. Move the branch in one directory and the other directory is standing on a ref that just left.</p>
+
+<p><a href="https://github.blog/open-source/git/git-2-5-including-multiple-worktrees-and-triangular-workflows/">Git 2.5.0</a>, released 29 July 2015, gave the second checkout its command. Linked worktrees were already in Git by then, doing the job of that symlink script. Nguyễn Thái Ngọc Duy introduced <code class="language-plaintext highlighter-rouge">git worktree</code> and Eric Sunshine added <code class="language-plaintext highlighter-rouge">git worktree add</code>, which gives a linked worktree its own <code class="language-plaintext highlighter-rouge">HEAD</code> and its own index.<sup id="fnref:revnews"><a href="#fn:revnews" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> Git refuses to check out a branch that another worktree already has.<sup id="fnref:worktree"><a href="#fn:worktree" class="footnote" rel="footnote" role="doc-noteref">2</a></sup> The release announcement still called the feature experimental, and <code class="language-plaintext highlighter-rouge">git worktree add</code> still wanted a path of your choosing. Removing the worktree meant remembering that path. I stayed in one checkout. The agent stayed there with me.</p>
+
+<h2 id="the-path-was-the-tax">The Path Was the Tax</h2>
+
+<p><code class="language-plaintext highlighter-rouge">git worktree</code> will make the second checkout, and then it will ask you where to put it. I built <code class="language-plaintext highlighter-rouge">git wt</code> so I would stop answering. It lives in <a href="https://github.com/Texarkanine/git-aliases">git-aliases</a>, my collection of small Git utilities.</p>
+
+<p><code class="language-plaintext highlighter-rouge">git wt go</code> is the way in, and it is idempotent. You name a branch and land in a worktree whose path comes from the repository and that branch. Name the branch again and you get the same folder. The second run changes nothing.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/worktrees/&lt;owner&gt;/&lt;repo&gt;/&lt;repo&gt;-&lt;branch&gt;
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">git@github.com:octocat/Hello-World.git</code> on <code class="language-plaintext highlighter-rouge">fix-login</code> is <code class="language-plaintext highlighter-rouge">~/worktrees/octocat/Hello-World/Hello-World-fix-login</code>. A slash in the branch name adds a directory level, so <code class="language-plaintext highlighter-rouge">feature/login</code> becomes <code class="language-plaintext highlighter-rouge">Hello-World-feature/login</code>. A branch that does not exist yet is created from the commit you are on.</p>
+
+<p><code class="language-plaintext highlighter-rouge">git wt done</code> is the way out. The folder is deleted. The branch and the commits stay, so you can throw the directory away. Uncommitted work stops the command. Ignored files go with the directory: a <code class="language-plaintext highlighter-rouge">.env</code> you never committed, and <code class="language-plaintext highlighter-rouge">node_modules</code>, leave with the folder. The main checkout, the clone you already had, stays.</p>
+
+<p><code class="language-plaintext highlighter-rouge">git wt cleanup</code> is the pile. Every worktree <code class="language-plaintext highlighter-rouge">go</code> made for this repository, one list, one question: delete it?. Clean ones go. Dirty ones stay. This means you don’t have to check every one by hand to see if there’s any real work left there.</p>
+
+<p>Because they’re <em>worktrees</em>, deleting the folder of a clean branch just means you can <code class="language-plaintext highlighter-rouge">git switch ...</code> to it later, because it’s still in your clone’s database - just not at that path on disk anymore.</p>
+
+<p>By default it only cleans up <em>this repository’s</em> worktrees, but <code class="language-plaintext highlighter-rouge">--all</code> lets you run that sweep for every repository under <code class="language-plaintext highlighter-rouge">~/worktrees</code>, from any directory.</p>
+
+<p>The rest of the contract is in the <a href="https://github.com/Texarkanine/git-aliases/blob/c7cd053/subcommands/git-wt/README.md#where-worktrees-go">README</a>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">git wt go</code> prints a path and leaves your shell where it is. You’ve still got to <code class="language-plaintext highlighter-rouge">cd</code> - no process can do that for you.</p>
+
+<p>Well, there is one process that can - your shell! The <code class="language-plaintext highlighter-rouge">git-aliases</code> have optional shell support, which, when installed with <code class="language-plaintext highlighter-rouge">make shell</code>, installs a <code class="language-plaintext highlighter-rouge">wt</code> function for bash and zsh that wraps the helper and changes directory for you. Now you just <code class="language-plaintext highlighter-rouge">wt go &lt;branch&gt;</code> or <code class="language-plaintext highlighter-rouge">wt done</code> and it works. Scripts can call <code class="language-plaintext highlighter-rouge">git wt</code> and <code class="language-plaintext highlighter-rouge">cd</code> (or perform other necessary operations) on the printed path.</p>
+
+<h2 id="cursors-clock">Cursor’s Clock</h2>
+
+<p><code class="language-plaintext highlighter-rouge">git wt cleanup</code> sees the worktrees you made with <code class="language-plaintext highlighter-rouge">git wt go</code>. Cursor makes its own worktrees, and it deletes them on another schedule.</p>
+
+<p>Ask in the <a href="https://cursor.com/docs/configuration/worktrees">IDE</a> with <code class="language-plaintext highlighter-rouge">/worktree</code>, or on the <a href="https://cursor.com/docs/cli/using">command line</a> with <code class="language-plaintext highlighter-rouge">agent --worktree</code>, and the checkout lands under <code class="language-plaintext highlighter-rouge">~/.cursor/worktrees</code>. Since Cursor 3.5 the editor deletes older entries once the machine passes a documented cap of 25.<sup id="fnref:cursorcap"><a href="#fn:cursorcap" class="footnote" rel="footnote" role="doc-noteref">3</a></sup></p>
+
+<p><img src="is-25-worktrees-a-lot.jpg" alt="Is 25 worktrees a lot?" /></p>
+
+<p>So <em>depending</em> on the situation, you might want to clean up Cursor’s worktrees much sooner than Cursor would get around to it. You’d need to enumerate them all, check to see if each one had any uncommitted work left in it, and… hey, that sounds a lot like what we just built above!</p>
+
+<p><code class="language-plaintext highlighter-rouge">git wt cleanup +cursor</code> lumps Cursor’s worktrees in with yours. Now you can easily clean up these potentially-languishing folders of potentially-large size!</p>
+
+<h2 id="type-this">Type This</h2>
+
+<p>You need <code class="language-plaintext highlighter-rouge">git</code>, <code class="language-plaintext highlighter-rouge">bash</code>, and <code class="language-plaintext highlighter-rouge">~/.local/bin</code> on your <code class="language-plaintext highlighter-rouge">PATH</code>. <code class="language-plaintext highlighter-rouge">make</code> helps with the installation but isn’t used to actually do the thing.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/Texarkanine/git-aliases.git
+<span class="nb">cd </span>git-aliases
+make
+make shell
+</code></pre></div></div>
+
+<p>Open a new shell so the function is loaded.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /path/to/your/repo
+wt go fix-login
+</code></pre></div></div>
+
+<p>That puts you in the new folder, on <code class="language-plaintext highlighter-rouge">fix-login</code>. If the branch did not exist, it does now, forked from whatever you had checked out. Edit, commit, and push the way you already do.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wt <span class="k">done
+</span>git branch
+</code></pre></div></div>
+
+<p>You are back in the main checkout. <code class="language-plaintext highlighter-rouge">fix-login</code> is still in that list. <code class="language-plaintext highlighter-rouge">wt go fix-login</code> brings the folder back.</p>
+
+<p>When a few of them have piled up:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wt cleanup <span class="nt">--list</span>
+wt cleanup
+wt cleanup +cursor <span class="nt">--list</span>
+wt cleanup +cursor
+</code></pre></div></div>
+
+<p>Read the list… then answer the one question!</p>
+
+<h2 id="a-lock-is-a-lock">A Lock Is a Lock</h2>
+
+<p><code class="language-plaintext highlighter-rouge">+cursor</code> had a pile I could find, so I wanted a <code class="language-plaintext highlighter-rouge">+claude</code> beside it. Same sweep, one more token.</p>
+
+<p>The reason why that didn’t work is instructive in reinforcing the reason to use <code class="language-plaintext highlighter-rouge">git wt</code> <em>instead</em> of either harness’ own built-in worktree management!</p>
+
+<p><a href="https://code.claude.com/docs/en/worktrees">Claude Code</a> can make the worktree for you. <code class="language-plaintext highlighter-rouge">claude --worktree feature-auth</code> puts it inside the repository, at <code class="language-plaintext highlighter-rouge">.claude/worktrees/feature-auth/</code>, on a branch named <code class="language-plaintext highlighter-rouge">worktree-feature-auth</code>.</p>
+
+<blockquote>
+  <p>The docs tell you to gitignore that directory, so those files stay out of <code class="language-plaintext highlighter-rouge">git status</code> in the main checkout.</p>
+</blockquote>
+
+<p>Whaaat? Doesn’t that sound like a colossal, looming footgun?</p>
+
+<p>The location is a real limit. <code class="language-plaintext highlighter-rouge">cleanup --all</code> finds repositories by reading <code class="language-plaintext highlighter-rouge">~/worktrees</code>, and with <code class="language-plaintext highlighter-rouge">+cursor</code> by reading <code class="language-plaintext highlighter-rouge">~/.cursor/worktrees</code>. Claude’s folders sit inside whichever clone you launched from. Once you are in that clone, <code class="language-plaintext highlighter-rouge">git worktree list</code> shows them. Finding <strong>every clone on a machine</strong> is a whole different ballgame. I could have shipped a flag that works only when you are already there - just don’t support <code class="language-plaintext highlighter-rouge">--all</code> with <code class="language-plaintext highlighter-rouge">+claude</code>.</p>
+
+<p>The lock is where that plan stopped.</p>
+
+<p>While a session is running, Claude holds <code class="language-plaintext highlighter-rouge">git worktree lock</code> on the worktree, and <code class="language-plaintext highlighter-rouge">git worktree remove</code> will not remove a lock. A live session asked the directory to stay.</p>
+
+<p>An interactive session’s exit already cleans the worktree up after itself. An unnamed session with no changes is also cleaned up. A named session, or one that still has (uncommitted) work, asks you before it deletes anything. The worktrees that survive are ones that you <em>chose</em> to keep.</p>
+
+<p>At least in the moment.</p>
+
+<p>There are two ways that a Claude Code worktree might linger after you want it to:</p>
+
+<ol>
+  <li>a noninteractive session with a worktree - <code class="language-plaintext highlighter-rouge">claude -p --worktree</code> - that has since exited.</li>
+  <li>an interactive session you chose to keep, but have since changed your mind and forgotten about.</li>
+</ol>
+
+<p>And, on disk, those will look indistinguishable from</p>
+
+<ol>
+  <li>a noninteractive session’s worktree whose session is currently running.</li>
+  <li>an interactive session you chose to keep, <em>and still want</em></li>
+</ol>
+
+<p>We can’t tell them apart, so we can’t unlock and delete them.</p>
+
+<p>Technically, Claude Code can tell the first one apart because the <code class="language-plaintext highlighter-rouge">git worktree lock</code> is a file with freeform text content, and Claude Code writes a sentence with a process id in it, which it parses on its own to check if the process is still running. We can’t rely on that, as that is not a documented, public interface of Claude Code.</p>
+
+<p>Technically, Cursor would have the same issue in a different flavor with its managed worktrees - it also periodically cleans up worktrees.</p>
+
+<p>In both cases, the answer is simple: Make &amp; manage the worktree yourself, and launch your harness in that directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wt go feature-auth
+claude
+</code></pre></div></div>
+
+<p>You are already in <code class="language-plaintext highlighter-rouge">~/worktrees/.../&lt;repo&gt;-feature-auth</code>.</p>
+
+<p>Now your harness “doesn’t even” know it’s using a worktree - at least, it certainly doesn’t think it’s supposed to manage them. You’re using one tool to manage them both, and so if <em>you</em> <code class="language-plaintext highlighter-rouge">git wt done</code> when you’re done, then you know that anything lingering is something you kept on purpose.</p>
+
+<p>And if you’re changing your mind and want to abandon some, <code class="language-plaintext highlighter-rouge">git wt cleanup --list --all</code> can list <em>all</em> of them, so you can decide which, if any, should be kept.</p>
+
+<h2 id="i-used-to-clone-into-tmp">I Used to Clone Into /tmp</h2>
+
+<p>You are on a branch, and the work is unfinished. A second task shows up, and it does not belong on this branch. Checking out the other branch means putting this one down: a stash, a commit you are not ready to make, or waiting until the first task is done.</p>
+
+<p>I cloned the repository a second time. The clone often went in <code class="language-plaintext highlighter-rouge">/tmp</code>. Now the second task had a folder but each clone carried its own copy of the objects, and I had to remember which folder(s) I was allowed to throw away. And where they were!</p>
+
+<p>A worktree from <code class="language-plaintext highlighter-rouge">git wt go</code> is that second folder without the second clone or detective work. The first branch stays checked out, dirty, where you left it. The second task gets its own checkout and its own branch. A third task gets a third. Six, if you have six tasks. They share one object database. Git refuses to check the same branch out in two of them, so each task sits on a branch of its own<sup id="fnref:worktree:1"><a href="#fn:worktree" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>… you can’t mess it up!</p>
+
+<p>When the task is finished, <code class="language-plaintext highlighter-rouge">wt done</code> removes the folder and leaves the branch. The name is still there when you run <code class="language-plaintext highlighter-rouge">git branch</code>. The moment to notice is the itch to wait, or to clone into <code class="language-plaintext highlighter-rouge">/tmp</code>. That itch is a worktree waiting to sprout.</p>
+
+<p>Once you have opened the second checkout yourself, you can tell an agent to take one instead of editing the branch you are standing on. Cursor’s <code class="language-plaintext highlighter-rouge">/worktree</code> is that ask, as is Claude’s own <code class="language-plaintext highlighter-rouge">--worktree</code>… resist the temptation! <code class="language-plaintext highlighter-rouge">git wt go</code> keeps your extra disk usage all in one discoverable place.</p>
+
+<p>Worktrees. <a href="/2026/08/01/just-try-the-thing.html">Just try the thing!</a>.</p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:revnews">
+      <p>Git Rev News, Edition 5, 8 July 2015. The linked-worktree facility had already landed, more than half a year earlier, to replace <code class="language-plaintext highlighter-rouge">contrib/git-new-workdir</code>. The same edition names Nguyễn Thái Ngọc Duy for the <code class="language-plaintext highlighter-rouge">git worktree</code> command and Eric Sunshine for <code class="language-plaintext highlighter-rouge">git worktree add</code>. Git 2.5.0 shipped on 29 July 2015. <a href="https://git.github.io/rev_news/2015/07/08/edition-5/">https://git.github.io/rev_news/2015/07/08/edition-5/</a> <a href="#fnref:revnews" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:worktree">
+      <p>Git documentation, git-worktree. Adding a worktree refuses a branch that is already checked out in another worktree. <a href="https://git-scm.com/docs/git-worktree">https://git-scm.com/docs/git-worktree</a> <a href="#fnref:worktree" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:worktree:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:cursorcap">
+      <p>Cursor documentation, “Worktrees,” section “Worktrees cleanup,” describing Cursor 3.5 and later. The default <code class="language-plaintext highlighter-rouge">cursor.worktreeMaxCount</code> is 25 per machine. The settings example sets <code class="language-plaintext highlighter-rouge">cursor.worktreeCleanupIntervalHours</code> to 6. <a href="https://cursor.com/docs/configuration/worktrees">https://cursor.com/docs/configuration/worktrees</a> <a href="#fnref:cursorcap" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="announcement" /><category term="ai" /><category term="claude-code" /><category term="cursor" /><category term="developer-tools" /><category term="git" /><category term="harness-engineering" /><category term="worktrees" /><summary type="html"><![CDATA[Three commands on top of git worktree: make the checkout, remove the folder, and sweep the pile.]]></summary></entry><entry><title type="html">The House Goes Critical</title><link href="https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.html" rel="alternate" type="text/html" title="The House Goes Critical" /><published>2026-09-07T00:00:00+00:00</published><updated>2026-09-08T02:11:08+00:00</updated><id>https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.html"><![CDATA[<p>Last night, <a href="https://www.risebroadband.com/">Rise Broadband</a> flapped on the primary WAN port of our router. Within seconds, the failover script engaged, traffic shifted to <a href="https://www.spectrum.com/">Spectrum</a> on the backup WAN port, and the home dashboard in my browser shifted from calm green to amber. Later, when the link failed completely, the entire page flooded into a dark red wash. Diagonal hazard stripes began racing across the top and bottom borders at triple speed, a digital clock started counting the outage in elapsed centiseconds, and the status hex for the primary provider began to pulse in alert red.</p>
 
 <p>It looked like the tactical command bridge in <a href="https://www.imdb.com/title/tt0112159/"><em>Neon Genesis Evangelion</em></a>. More importantly, every pixel on the screen was telling the truth.</p>
 
@@ -2706,255 +2906,4 @@ If the answer to either of them is “no,” then “normal” software is proba
       <p>Seddon, John. “A Brief History of ISO 9000.” In <em>The Case Against ISO 9000</em>. Oak Tree Press, 2000. <a href="https://beyondcommandandcontrol.com/wp-content/uploads/2015/09/a-brief-history-of-iso-9000.pdf">https://beyondcommandandcontrol.com/wp-content/uploads/2015/09/a-brief-history-of-iso-9000.pdf</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="agentic-engineering" /><category term="ai" /><category term="cognitive-science" /><category term="context-engineering" /><category term="memory" /><summary type="html"><![CDATA[Agent memory is institutional memory: five kinds will wait for you, one has a start date, and none are MEMORY.md. You need to start remembering ASAP.]]></summary></entry><entry><title type="html">Just Try the Thing</title><link href="https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.html" rel="alternate" type="text/html" title="Just Try the Thing" /><published>2026-08-01T00:00:00+00:00</published><updated>2026-08-04T16:44:54+00:00</updated><id>https://blog.cani.ne.jp/2026/08/01/just-try-the-thing</id><content type="html" xml:base="https://blog.cani.ne.jp/2026/08/01/just-try-the-thing.html"><![CDATA[<p>Just try the thing. Just go do it.</p>
-
-<p>You don’t need me to tell you that; plenty of more-influential people and organizations have already said it.</p>
-
-<div class="polaroid-container">
-  <div class="polaroid">
-    <a href="https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">
-      <img src="labeouf-doit.jpg" alt="Just Do It" class="polaroid-image" />
-    </a>
-    <div class="polaroid-title">Just Do It</div>
-    <div class="polaroid-link">
-      
-      <a href="https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">www.youtube.com/watch?v=ZXsQAXx_ao0</a>
-      
-    </div>
-    <small class="polaroid-archive">
-      
-      (<a href="https://web.archive.org/web/20260801211805/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
-      
-    </small>
-  </div>
-</div>
-
-<p>So this is your nudge to go try the thing you’ve been thinking of trying, right now.</p>
-
-<hr />
-
-<p>If you’re still here, well, you have time to read this post, I guess, so let me offer some new math that might spur you to action.</p>
-
-<p>But first, some old math.</p>
-
-<h2 id="bezos-decision-framework">Bezos’ Decision Framework</h2>
-
-<p>Jeff Bezos, founder of Amazon, famously described in a <a href="https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm">2016 letter to shareholders</a> a framework for making decisions: two axes, one of consequence and one of reversibility.</p>
-
-<p>Decisions of high consequence that were irreversible were “one-way doors,” worth thorough consideration before making.
-Decisions of low consequence, or that were reversible were “two-way doors” - you could go back if you got it wrong.
-He advised tailoring your decision-making effort to those facts. People loved this and many have written more about it and turned it into a quadrant-based decision-making matrix:</p>
-
-<div class="polaroid-container">
-  <div class="polaroid">
-    <a href="bezos-decision-matrix.jpg">
-      <img src="bezos-decision-matrix.jpg" alt="Bezos&#39; Decision Matrix from Product Mindset on Substack" class="polaroid-image" />
-    </a>
-    <div class="polaroid-title">Bezos&#39; Decision Matrix from Product Mindset on Substack</div>
-    <div class="polaroid-link">
-      
-      <a href="https://productmindset.substack.com/p/bezos-decision-making-framework" target="_blank" rel="noopener">productmindset.substack.com/p/bezos-decision-making-framework</a>
-      
-    </div>
-    <small class="polaroid-archive">
-      
-      (<a href="https://web.archive.org/web/20260801211819/https://productmindset.substack.com/p/bezos-decision-making-framework" target="_blank" rel="noopener">archive</a>)
-      
-    </small>
-  </div>
-</div>
-
-<p>This is, I think, a good framework.</p>
-
-<p>Let’s imagine the far-away year of 2016.</p>
-
-<p>You’re a software engineer at a normal company. Not a 2-person startup, not a Fortune 100. You’re working on a project. You have deadlines. You have expectations. There are other people and projects that depend on you.</p>
-
-<p>There’s a new tool to adopt, or maybe a new framework or library to try out. Let’s plot trying to adopt it on this matrix.</p>
-
-<p>“The cost of deciding” is what that matrix is trying to guide. So you evaluate the potential costs of the decision, if it were made. But there are costs in doing that evaluation, too! If you’re going to try Thing X and make an informed decision as to whether to adopt, you need to actually</p>
-
-<ol>
-  <li>have situations where you can apply Thing X</li>
-  <li>use Thing X properly</li>
-</ol>
-
-<p>The first one may take calendar time, if there isn’t anything to try Thing X <em>on</em> right now. And the second one was guaranteed to take <em>your</em> time: you had to set up your “experiment” properly which meant learning how and when to use Thing X and being able to execute it properly so you’d get good data on whether Thing X was worth it.</p>
-
-<p>Even if “having adopted Thing X” was an inconsequential, reversible two-way door, you might still have burnt a lot of time learning enough to give it a try. That dragged the total calculus back towards the consequential, irreversible quadrant. Right or wrong about the decision, you weren’t going to get your adoption time back. <strong>Having Decided</strong> alone was not the entirety of the cost - deciding if you should decide was itself a process with nonzero costs.</p>
-
-<p>So, there was a huge bias for “trying the thing” to land in the bottom-left quadrant: Even if you could undo the adoption, you’d never undo the wasted time.</p>
-
-<p><img src="bezos-sweng-2016.jpg" alt="The bottom-left quadrant - consequential, irreversible" /></p>
-
-<p>I was in that position in 2016, and for me at least, most such decisions of, uh, consequence, landed on the “consequential” side. That is to say, if it was likely to make a meaningful difference to the project or the company, you’d want to make sure your significant consequences weren’t negative. So you’d need to adequately vet it, which took time. Time you could’ve been spending on your existing, concrete responsibilities.</p>
-
-<p>Time you’d never get back if you were wrong.</p>
-
-<p>There was a stretch of time where squarely half - 50%, one in two - of the “big projects” I was assigned at work, got completed to where they could be tried out or exposed to their intended audience, and then scrapped. I got paid for that time, but the company didn’t have anything concrete to show for it. Hopefully a PM and a couple software engineers learned some stuff that’d pay off in the next project but… no product. No feature. No deliverable.</p>
-
-<p>At the surface level, “should we do this or use that” was very reversible for my employer - they indeed reversed course and didn’t use the things. And yet, there was still a real, real-world cost to the individuals involved.</p>
-
-<p>It’s those individuals - like yourself - I’m trying to nudge.</p>
-
-<h2 id="inhuman-speed">Inhuman Speed</h2>
-
-<p>If you’re doing knowledge work in 2026, things are different now in a couple ways that change how you plot things on that chart and what you <em>do</em> with that information.</p>
-
-<p>First, the cost of trying is dramatically decreased, at least as measured in</p>
-
-<ol>
-  <li>wall-clock time</li>
-  <li>developer-hours</li>
-</ol>
-
-<p>Both of these come down to: AI agents can do things much faster than you. They can RTFM really fast and be ready to use the thing correctly in a matter of seconds. They can execute whole cycles in which Thing X is adopted, <em>really fast</em>. Minutes to hours. You can have a dozen projects with Thing X to compare to your last dozen without, in a day or two… with minimal attention required on your part. You can do the experiment and have a much clearer picture of the effects of a decision in a fraction of the time it used to take.</p>
-
-<p>The previously-irreversible sunk cost of figuring out whether or not <em>to</em> figure it out, has shrunk.</p>
-
-<p>Learning is now decoupled from trying - Agents can do the trying and show you what that looks like <em>before</em> you personally invest in learning and adopting the tool.</p>
-
-<blockquote>
-  <p>You no longer need to understand the tool yourself as a precondition to finding out if the tool is worth understanding.</p>
-</blockquote>
-
-<p>I’m not saying you never need to understand the tools or things you try. Nor am I saying you should outsource your decision-making to AI. I’m <em>observing</em> that you can get a useful stack of data - the kind that was typically required for making an informed decision - without needing to understand the tool. Competence in the adopted strategy is now optional up until it gets adopted; previously you had to be competent to even make the pitch. The cost has moved to <em>after</em> you already know if it was a good idea which means you can skip the whole risk category of “wasted time learning this thing that didn’t work out.”</p>
-
-<p>So the downside’s shrunk way down. The upside has gone way up, too.</p>
-
-<p>Previously, marginal gains - maybe Thing X saves you a couple hours on a week-long project - were nominally not worth it. 2 out of 40, 5%. Well, that ain’t a bad percent but nominally, it’s an hour or two. You could’ve lost that in a commute. Marginal gains multiplied through the human rate-limiter at 1x and came out to peanuts, nominally.</p>
-
-<p>But <a href="/2026/02/06/the-load-bearing-rate-limiter-was-human.html">the rate-limiter was human</a>. Now even marginal gains multiply by big numbers across agentically-compressed time and agentically-scaled workforces. That same 5% gain stacks up to hours upon days upon weeks, nominally. Now even little improvements can have outsize effects!</p>
-
-<p>The cost of trying went down. The benefit of trying went up. It is time to use the new math.</p>
-
-<h2 id="i-didnt-then-i-did-it">I Didn’t, Then I Did It</h2>
-
-<p>There’s a firehose of new things to try.</p>
-
-<blockquote>
-  <p>“<a href="https://x.com/bcherny/status/2007179832300581177">The optimal Claude Code Setup</a>,” <a href="https://github.com/mattpocock/skills">/grill-me</a>, and just recently, <a href="https://github.com/ayghri/i-have-adhd">/i-have-adhd</a>, <a href="https://github.com/uditakhourii/adhd">/adhd</a>, <a href="https://github.com/DietrichGebert/ponytail">/ponytail</a>, <a href="https://github.com/juliusbrussee/caveman">/caveman</a>, <a href="https://github.com/DietrichGebert/ponytail#faq">ponytail <em>on</em> caveman</a>, stop writing code, <a href="https://corpwaters.substack.com/p/the-ultimate-guide-to-loops">write loops</a>. Stop writing loops, <a href="https://www.aibuilderclub.com/blog/graph-engineering-vs-loop-engineering">write graphs</a>. <a href="https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models">Delete your prompts for Opus 5</a>. Code review? A <a href="https://coderabbit.ai">cornucopia</a> of <a href="https://greptile.com">differently</a>-tuned <a href="https://www.qodo.ai/">SaaS platforms</a>, <a href="https://code.claude.com/docs/en/code-review">skills</a>, and prompts overflows every day. <a href="https://opensource.apple.com/projects/container/">Apple’s got a native container engine</a>, maybe your agents should be in <em>that</em>. <a href="https://www.mindstudio.ai/blog/what-is-gpt-5-6-sol-terra-luna-explained">GPT Terra, Sol, <em>and</em> Luna</a>. Agentic memory? The <a href="https://www.superlocalmemory.com/">cup</a> <a href="https://github.com/VictorTaelin/OptMem">runneth over</a> and <a href="https://genaiunplugged.substack.com/p/give-your-ai-agents-memory-mcp-shared">spilleth</a> onto the keyboard. <a href="https://cursor.com/docs/configuration/worktrees">Worktrees</a>? How about <a href="https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview/">stacked pull requests</a>!</p>
-</blockquote>
-
-<p>It doesn’t stop - if anything, it’s accelerating.</p>
-
-<p>How do you avoid the analysis paralysis? Even having avoided it, how do you find the time to fit evaluating all these things into your day? You’ve got “real” work to do, too, you know. Maybe the right answer is to just keep doing what you’ve got now. After all, it’s been working for you so far…</p>
-
-<blockquote>
-  <p>Just try the thing.</p>
-</blockquote>
-
-<p>You probably have <em>some</em> agentic engineering <a href="/garden/ai-horses.html">harness</a> open somewhere.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hey Claude, install grill-me from &lt;paste url here&gt; and give me a short summary of how to use it. Actually install i-have-adhd from &lt;paste url here&gt; and give me a summary for both, based on that.
-</code></pre></div></div>
-
-<p>Hey your cost to try was just paid in pennies. You didn’t have to learn it yet. You’re ready to learn if it’s worth learning.</p>
-
-<p>This can be hard to believe. Or perhaps, “hard to internalize” is more accurate.</p>
-
-<p>Lately though, as <em>I’ve</em> been feeling the acceleration, some of my answers to my coworkers when they ask for how to deal with a problem have been quite confidently “Oh, yeah, ThingX solves that for good. [link to documentation homepage]. Try it!”</p>
-
-<p>And then days or weeks later, they surface with the <em>same</em> problem. “Did ThingX not work? It’s how I solved that problem permanently, for me.”</p>
-
-<blockquote>
-  <p>Oh, yeah, I’ve been meaning to try that. I’ve got to get around to that someday.</p>
-</blockquote>
-
-<p>Having had the same problem(s) myself, and having solved them, I know that the time they’ve <em>already lost</em> to the problem at this point exceeds the time it would have taken to adopt ThingX. They’re not just in tech debt, they’re in negative tech equity. They will not manage to pay their way out of it by working hard, persevering through the problems until they have free time, and then taking a look at ThingX.</p>
-
-<blockquote>
-  <p>They need to <strong>just try the thing!</strong></p>
-</blockquote>
-
-<p>They’re running the old formula with the old weights. Trying new things <em>was</em> expensive. Caution <em>was</em> often a virtue. But the landscape has changed in what’s been, relative to a human career, the blink of an eye.</p>
-
-<p>Even when I was occasionally navigating this myself, I didn’t have the epiphany until I saw my coworkers doing it; until I saw from the outside.</p>
-
-<p>So I set myself a rule:</p>
-
-<blockquote>
-  <p>If I find a thing I want to try, I do it right then.</p>
-</blockquote>
-
-<p>I do the bemoaned context-switch. I take the interrupt. This would’ve been irresponsible a decade ago. Now, I’m discovering that it’s often irresponsible <em>not</em> to.</p>
-
-<h2 id="receipts-such-as-they-are">Receipts, Such as They Are</h2>
-
-<p>The strongest recent examples of this in my life come from two tools, one I built and one I adopted.</p>
-
-<h3 id="stop-and-build">Stop and Build</h3>
-
-<p><a href="https://github.com/Texarkanine/stockroom">Stockroom</a> is a cross-harness data warehouse I built. It ingests conversations from the two harnesses I primarily use - <a href="https://www.cursor.com/">Cursor</a> and <a href="https://www.anthropic.com/products/claude-code">Claude Code</a> - and makes them queryable via SQL and semantic search, by human or by AI. Importantly, it ingests everything on-disk, backfills data from harnesses’ previous data formats, and stays up-to-date on a schedule; my whole history across all my harnesses is there.</p>
-
-<p>I heard the story of “the guy who pointed <a href="https://duckdb.org/">DuckDB</a> at their Claude Code history and can search it” farther back than I remember. But that sounded hard. I realized it probably wasn’t that hard and that I wanted it, when I saw <a href="https://github.com/sderosiaux/claude-warehouse">claude-warehouse</a> sometime back in April of this year. But, I primarily use Cursor. I eventually got around to making a <a href="https://github.com/Texarkanine/cursor-warehouse">cursor-warehouse</a> version, but, well, I <em>do</em> use both, so my history was fragmented (and agents had two skills and two sets of schema to manage). But building one that would not just work on both, but unify both and be ready for whichever harness came next… well that’d be significant work. So I just lived with it for a couple months. Finally I decided enough was enough and built Stockroom and it almost immediately began paying dividends. Agents knew what they’d worked on in the past, even in other harnesses, <em>even before Stockroom existed</em>.</p>
-
-<p>This particular tool didn’t just pay off after it existed, it paid <em>backwards</em>, making things that I’d already done more valuable than they had been at the time!</p>
-
-<blockquote>
-  <p>Should’ve just <del>tried</del> built the thing.</p>
-</blockquote>
-
-<h3 id="stop-and-adopt">Stop and Adopt</h3>
-
-<p>I saw <a href="https://github.com/VictorTaelin/OptMem">OptMem</a> the other day. It’s a “memory for your agents” tool, of which there’ve been many since the beginning of agentic development, and of which I’ve always been skeptical.</p>
-
-<p>My skepticism wasn’t “will this be useful” but the pure, outdated “how much work am I going to have to do to change my workflow about this?” variety.</p>
-
-<p>So when I saw OptMem and it looked plausible, I applied my new rule: Hook it up right now. I immediately realized two things:</p>
-
-<p><strong>This kind of memory is fantastically useful for agents.</strong> I should’ve hooked something like it up long ago; I’d been running hamstrung.</p>
-
-<p><strong>This kind of memory only accumulates <em>going forward</em> and cannot be backfilled.</strong> Exactly opposite Stockroom, every day I put off to do one more task <em>instead</em> of adopting a memory tool, I was losing data that <em>could have been</em> useful.</p>
-
-<p>Should’ve just tried the thing.</p>
-
-<h2 id="calculus-category-change">Calculus’ Category Change</h2>
-
-<p>What I have come to believe is that at this “inhuman speed,” the calculation of “opportunity cost” which was and is a correct part of the one-way/two-way door framework, has changed.</p>
-
-<p>Previously, if you had</p>
-
-<ul>
-  <li>Four things you could do: <code class="language-plaintext highlighter-rouge">{A, B, C, D}</code></li>
-  <li>Time to do two of them: <code class="language-plaintext highlighter-rouge">{A, B}</code></li>
-  <li>And wanted to try ThingX</li>
-</ul>
-
-<p>You’d observe that in order to learn, try, evaluate, and integrate ThingX, you’d give up A or B, and so you’d be looking at picking:</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">{X, B}</code></li>
-  <li><code class="language-plaintext highlighter-rouge">{A, X}</code></li>
-  <li><code class="language-plaintext highlighter-rouge">{A, B}</code></li>
-  <li>or, if X didn’t work out, <em>only</em> <code class="language-plaintext highlighter-rouge">{A}</code> or <em>only</em> <code class="language-plaintext highlighter-rouge">{B}</code></li>
-</ol>
-
-<p>so you (or at least I) would be weighing “Having ThingX” <em>against</em> A or B - as a trade - since it felt much closer to a zero-sum game.</p>
-
-<p>The naive update is that you can just have <code class="language-plaintext highlighter-rouge">{A, B, X}</code> without having to give something up. That is true, but there’s more. Due to the increase in the nominal size of the operands being multiplied even by marginal gains, each ThingX today expands the possibility space, too.</p>
-
-<p>If you have</p>
-
-<ul>
-  <li>Four things you could do: <code class="language-plaintext highlighter-rouge">{A, B, C, D}</code></li>
-  <li>Time to do two of them: <code class="language-plaintext highlighter-rouge">{A, B}</code></li>
-  <li>And wanted to try ThingX</li>
-</ul>
-
-<p>go and try ThingX and you’ll likely find yourself with</p>
-
-<ul>
-  <li>Five things you could do: <code class="language-plaintext highlighter-rouge">{A, B, C, D, E}</code>, where E was enabled by ThingX</li>
-  <li>Time to do three of them: <code class="language-plaintext highlighter-rouge">{A, B, C}</code></li>
-  <li>ThingX in your pocket</li>
-  <li>ThingY waiting to be tried</li>
-</ul>
-
-<blockquote>
-  <p>Irreversibility is collapsing. The cost of not trying now exceeds the cost of trying.</p>
-</blockquote>
-
-<p>This is no longer a zero-sum game; this is a multiplicative flywheel. Spin it up.</p>
-
-<p><strong><em>Just try the thing!</em></strong></p>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="agentic-engineering" /><category term="ai" /><category term="decision-making" /><category term="economics" /><category term="productivity" /><summary type="html"><![CDATA[Agents collapsed the cost of trying a new tool and multiplied the upside of even small gains. Bezos' two-way doors still apply - but the old bias against trying is now the expensive choice.]]></summary></entry></feed>
+</div>]]></content><author><name>Texarkanine</name></author><category term="blog" /><category term="essay" /><category term="agentic-engineering" /><category term="ai" /><category term="cognitive-science" /><category term="context-engineering" /><category term="memory" /><summary type="html"><![CDATA[Agent memory is institutional memory: five kinds will wait for you, one has a start date, and none are MEMORY.md. You need to start remembering ASAP.]]></summary></entry></feed>
