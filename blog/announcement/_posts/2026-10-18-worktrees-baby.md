@@ -146,7 +146,7 @@ At least in the moment.
 
 There are two ways that a Claude Code worktree might linger after you want it to:
 
-1. a noninteractive session with a worktree - `claude -p --worktree` - that was ungracefully killed.
+1. a noninteractive session with a worktree - `claude -p --worktree` - that has since exited.
 2. an interactive session you chose to keep, but have since changed your mind and forgotten about.
 
 And, on disk, those will look indistinguishable from
@@ -156,9 +156,11 @@ And, on disk, those will look indistinguishable from
 
 We can't tell them apart, so we can't unlock and delete them.
 
-Technically, Cursor would have the same issue in a different flavor with its managed worktrees.
+Technically, Claude Code can tell the first one apart because the `git worktree lock` is a file with freeform text content, and Claude Code writes a sentence with a process id in it, which it parses on its own to check if the process is still running. We can't rely on that, as that is not a documented, public interface of Claude Code.
 
-In both cases, the answer is simple: Make the worktree yourself, and launch your harness in that directory:
+Technically, Cursor would have the same issue in a different flavor with its managed worktrees - it also periodically cleans up worktrees.
+
+In both cases, the answer is simple: Make & manage the worktree yourself, and launch your harness in that directory:
 
 ```bash
 wt go feature-auth
