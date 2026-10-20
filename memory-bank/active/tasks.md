@@ -117,6 +117,31 @@ From preflight (PASS WITH ADVISORY, `memory-bank/active/.preflight-status`). Eac
 - **Step 3.3 (verification):** replace the fixed-list quote check with one that extracts every quoted string from each draft and searches the transcripts, the Oct 20 tail dump, and this task's chat (for "Friction!", "We are half AI", "are you a lintel"); read anything still unmatched by eye. Read 3d-models files from `origin/main` (the local checkout is behind). Build with `--future` or dates no later than today. Add image alt text and captions to the privacy sweep.
 - **Accuracy:** "two he made years ago" overstates the rattlinator (2025-03-30); give both dates instead.
 
+## QA Findings To Fix In Build
+
+QA run 1 (2026-10-20): FAIL (fixable). Build reruns to fix the two blocking findings; fold the advisories into the same pass if the editor agrees.
+
+### Blocking
+
+- **Post 2, recipe step 8 breaks the reader's first deploy.** It says "Leave `cults_creation_id` out." On 3d-models `origin/main`, the deploy's "Record the Cults creation id on main" step runs `tools/cults_publish.py --set-creation-id`, and `set_creation_id` only rewrites an existing `cults_creation_id:` line; when the line is absent it raises `ValueError("cults_creation_id is missing")`. A stranger who follows the recipe gets a listing on Cults and then a failed deploy, and every later deploy fails at the same step, so step 10's "commits the creation id to `main`" never happens. Fix: tell the reader to include `cults_creation_id:` with no value (this matches the repo's `AGENTS.md`, and every model's first `publish.yaml` had it empty). The linked jerry can record carries a real id, so say to blank it if they copy that file.
+- **Post 1 version 1, the heading "Curl Is Still Curl" is never paid off.** The line is mine from the Oct 15 Thingiverse session ("Cloudflare decides this from the client. Curl is still curl. Another token does not change that."), but the section never says it and never mentions curl, so a reader can't decode the heading (blogging rule 7, earn the heading; acceptance criterion 4). Fix: put the line into the second-attempt paragraph, where it was said, or retitle. Version 2 has no such heading.
+
+### Advisory
+
+- **Post 1 version 1, "That one gets its own section below."** The "1in len" story is one paragraph inside "Half AI", not a section. Reword, for example "That one comes back below."
+- **Both Post 1 versions, "failed the build on it."** It was a QA review that returned FAIL (fixable); no build failed. Say it failed the review.
+- **Both Post 1 versions, "fourteen reviewer copies on the H7 cover alone."** `research-index.md` counts 7 preflight and 7 QA launches on Oct 13 (from stockroom), `research-h7-iteration.md` counts six and six, and one QA launch hit a session limit and reviewed nothing. Defensible from the index, not settled; consider "a dozen-odd" or re-count in stockroom.
+- **Post 1 version 1 print table and both versions' cap paragraph.** "the thing flops loose" was about the H11 connector cap, but the table row says "First prong covers"; "Okay! Those both work!" was the verdict on the H7 and H11 caps together, and the prose places it after the H11 cap alone. Clarify that both caps worked.
+- **Out of scope (3d-models, a non-goal here):** `AGENTS.md` step 5 says `license_code` and `category_id` stay empty until the first publish, but the publisher refuses to run without them. Post 2 already tells readers the right thing. For the operator to fix in 3d-models if he wants.
+
+### Verified In QA
+
+- Quote check re-run: 0 missing across all three drafts. Privacy sweep re-run: clean (text and image metadata).
+- `bundle exec jekyll build --unpublished` exit 0; all three pages render, cross-links resolve to `/2026/10/20/lintel.html` and `/2026/10/20/do-i-need-to-reprint.html`, Post 2's flowchart is an SVG, five polaroids in version 1 and four in version 2 resolve, no leftover Liquid or Markdown.
+- Against 3d-models `origin/main`: thirteen release tags; eleven default changelog sections; `HELPER_APP_ID`, `HELPER_APP_PRIVATE_KEY`, `CULTS3D_API_KEY`; app permissions (contents, issues, pull requests); deploy environment URL; `USER_AGENT`; `cults_nick` and `made_with_ai`; rattlinator 1.0.0 tag with blank `license_code` and `category_id`; H7 1.0.4 clip rename, 1.1.0 caps on both bulb models, and the 1.0.2 entry naming the rattlinator; the publisher's required `publish.yaml` fields.
+- Against transcripts: 4:16 PM Oct 19 to 10:20 AM Oct 20 (local); "day four" (Oct 15, local) and "first evening" (Oct 12, 5:42 PM local); the Printables H11 opener; the "lintel" apology; Bugbot on PR #9; the 0.8 mm plate limit; Solid Edge Community as the free tier; the release-please correction four days later; the original repo's print tags.
+- Style: no em or en dashes, none of the banned connectors, no "it's not X, it's Y"; version 2 has `published: false` and its own slug.
+
 ## Technology Validation
 
 No new technology - validation not required. (The Mermaid prebuild and polaroid tag are existing site features.)
@@ -152,3 +177,6 @@ No new technology - validation not required. (The Mermaid prebuild and polaroid 
     - [x] Step 2.4-2.5: Post 1 version 2 (five stand-ins + ledger, 2,269 words), `blog/fable/_posts/2026-10-20-lintel-five-stand-ins.md`, `published: false`, own slug so the two never share a URL
     - [x] Step 3: cross-links resolve; tags chosen (no new descriptions); quote check 0 missing (`.scratch/3d-research/scripts/check-draft-quotes.py`); privacy sweep clean (`privacy-sweep.sh`, canary-tested); `jekyll build --unpublished` and a normal build both clean (normal build omits version 2); pages and flowchart checked in a browser
 - [ ] QA
+    - [x] Run 1: FAIL (fixable), two blocking findings (Post 2 recipe step 8; Post 1 version 1 "Curl Is Still Curl" heading); see "QA Findings To Fix In Build". Build reruns.
+    - [x] Build rework: both blocking findings and all four advisories fixed (step 8 now says to include an empty `cults_creation_id:` and to blank the copied example's id; "Curl is still curl" quoted where it was said; "comes back below"; "failed the review"; "more than a dozen reviewer copies"; print-table rows and cap paragraphs name the H7 and H11 caps). Quote check 0 missing, privacy sweep clean, both builds exit 0, normal build omits version 2, render check clean.
+    - [ ] Run 2

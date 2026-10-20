@@ -1,7 +1,8 @@
 # Active Context
 
 - **Current Task:** 3D modelling blog posts (two Niko-authored posts chosen by the operator from the slate)
-- **Phase:** BUILD - COMPLETE; QA next
+- **Phase:** BUILD - COMPLETE (rework after QA run 1); QA run 2 next
+- **QA run 1 rework:** fixed Post 2 recipe step 8 (keep an empty `cults_creation_id:` line; the deploy's write-back fails without it) and paid off Post 1's "Curl Is Still Curl" heading with the line itself; advisories folded in (wording of the "1in len" pointer, "failed the review", "more than a dozen reviewer copies", which caps "Those both work!" covers). The out-of-scope 3d-models `AGENTS.md` mismatch (`license_code`/`category_id` "stay empty until the first publish") is left for the operator.
 - **Files created:**
     - `blog/record/_posts/2026-10-20-do-i-need-to-reprint.md` (Post 2, Record + Guide recipe, 2,985 words)
     - `blog/fable/_posts/2026-10-20-lintel.md` (Post 1 version 1, eight sections, 3,208 words)
@@ -19,4 +20,4 @@
     - Beat-sheet facts corrected in drafting: the forum post was three days before our first Thingiverse try (not "nine days earlier"); the first price failure never sent a price (my `0`-is-paid theory was untested); the rattlinator's wait is a year and a half, not "years".
     - Post 1 version 1's OctoPrint sentence (paragraph 2) changed under me mid-edit to wording I didn't write ("a Python upgrade on the Raspberry Pi that runs it"). It is accurate, so it was kept; confirm with the operator.
 - **Verification results:** quote check 0 missing across all three drafts (corpus: transcripts, the jerry can tail, this task's operator messages, the editor's recorded decision, the author bio, 3d-models `origin/main`); privacy sweep clean (text, alt text, captions, image metadata); `jekyll build --unpublished` exit 0 and a normal build exit 0 that omits version 2; rendered-page check found no broken links or leaked Markdown; flowchart, trap table and Post 1 images checked in a browser.
-- **Next Step:** QA subagent (`/niko-qa`), then reflect. The editor then picks one Post 1 version before merge.
+- **Next Step:** QA subagent run 2 (`/niko-qa`), then reflect. The editor then picks one Post 1 version before merge.

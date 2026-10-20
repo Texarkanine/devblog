@@ -91,3 +91,27 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
     - Mermaid SVGs on this site scale to the column width: a six-box LR row is unreadable and a six-box TD chain is huge; two LR subgraph rows linked subgraph-to-subgraph read well
     - ImageMagick renders Mermaid SVGs blank (no foreignObject text), so only a browser check proves a diagram
     - The beat sheets carried three small factual drifts (forum timing, price-bug sequence, rattlinator's wait); drafting against the transcripts, not the digests, caught them
+
+## 2026-10-20 - QA - COMPLETE (FAIL)
+
+* Work completed
+    - Semantic review of all three drafts and the five images against the plan, the final beat sheets, the blog rules, 3d-models `origin/main`, and the transcripts
+    - Re-ran the quote check (0 missing), the privacy sweep (clean) and `jekyll build --unpublished` (exit 0; pages, cross-links, flowchart SVG and polaroids all render)
+    - Findings recorded in `tasks.md` under "QA Findings To Fix In Build"
+* Decisions made
+    - FAIL (fixable), so Build reruns. Blocking: Post 2's recipe step 8 ("Leave `cults_creation_id` out") makes the deploy's write-back raise `cults_creation_id is missing`; Post 1 version 1's heading "Curl Is Still Curl" names a line the section never says
+    - Four advisories: "its own section" for the "1in len" beat, "failed the build" for a QA failure, the unsettled count of fourteen reviewer copies, and which caps "Those both work!" covers
+* Insights
+    - The quote script proves a string exists in a source, not that the post attributes or places it correctly; attribution needs a read of the context
+    - `AGENTS.md` says `cults_creation_id` "stays empty"; the recipe turned that into "leave it out", and only the publisher's code shows that an absent key and an empty one behave differently
+
+## 2026-10-20 - BUILD - COMPLETE (rework after QA run 1)
+
+* Work completed
+    - Verified both blocking findings against the source (`set_creation_id` raises when the key is absent; "Curl is still curl" is in the Oct 15 Thingiverse transcript) and fixed them, plus all four advisories
+    - Re-ran the quote check (0 missing), privacy sweep (clean), `jekyll build --unpublished` and a normal build (both exit 0; normal build omits version 2), and the render check (clean)
+* Decisions made
+    - Reviewer count softened to "more than a dozen" (launch counts differ between digests, and one QA launch reviewed nothing)
+    - The 3d-models `AGENTS.md` mismatch stays out of scope (non-goal); raise with the operator
+* Insights
+    - A recipe line that paraphrases a repo's docs needs checking against the code that reads the file, not just the docs
