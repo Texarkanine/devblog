@@ -41,3 +41,15 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
 * Insights
     - A, H and I retell the same design loop three ways; only one should be written
     - Shipping, not making, surfaced the jerry can's three-year-old length error: a strong beat for C or H
+
+## 2026-10-20 - PLAN - COMPLETE
+
+* Work completed
+    - Operator decision recorded in `creative-post-slate.md`: Post 1 "Bold of You to Assume I Know What a Lintel Is" (the disjoint-cyborg fable, absorbing the human/machine material, F in part, G as an aside); Post 2 J + L as a Record with a short Guide recipe ("Do I Need to Reprint?"); K and F left for Texarkanine's own planned post
+    - Final beat sheets and an allocation map written; `tasks.md` holds the full Level 3 plan (three prose/policy steps, challenges, pre-mortem)
+* Decisions made
+    - Evening of Oct 15 excluded; quotes free, profanity included, comic elision allowed; "Friction!" approved; `made_with_ai` stays catalog-wide by conviction ("We are half AI")
+    - Default applied pending confirmation: Post 1 leaves the "farewell Solid Edge" material to Texarkanine
+    - Order: Post 2, Post 1, cross-links; ship together
+* Insights
+    - My own Oct 12 sentence "A lintel needs wall on both sides to print in mid-air as a bridge" is the close's payoff for the title

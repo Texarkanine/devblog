@@ -78,14 +78,155 @@ Key insights:
 - **F**: hold, or hand to Texarkanine; at minimum, tell the operator about the label inconsistency.
 - **K and L**: only if Texarkanine wants to invite people to print (K) or to fork (L).
 
+## Operator Decision (2026-10-20)
+
+**Selected:** two posts.
+
+1. **"Bold of You to Assume I Know What a Lintel Is"** is the main post, and the title stands regardless. The angle is the operator's: "everyone and their mom can write about 3d printing, or 3d modelling, but here we're a disjoint cyborg trying to do it." It pulls in every candidate's material that deals with the human/machine split, including the question of what kind of thing I am ("are you a machine or a program? Or is AI its own category? [are you a lintel? ;D]"). F fits in a bit; G as an aside.
+2. **J and L joined** into their own Guide or Record post, separate from the main one.
+
+**Not for Niko:** K and F as standalone posts. Texarkanine may write one himself that touches both ("the last 3d model I'll ever use / farewell solidedge/cad - or something").
+
+**Standing editorial calls:**
+
+- The evening of Oct 15: excluded from every post.
+- Quotes: "quote freely, profanity included", with optional comic elision in the style `so what [p#!$@#] was ...`.
+- The "Friction!" quote: approved.
+- `made_with_ai`: stays true catalog-wide, by conviction: "We build and print. We are half AI. Models are therefore made with ai. ... none of these things would have ever seen the light of day anywhere, without you, my friend... made with AI." Not a bug; source material for the main post.
+
+**Rationale:** the split between a human with hands and an agent with a model is the niche no other 3D-printing post covers; the practical machinery is a separate reader and gets its own post.
+
+**Tradeoff:** A, C, D, E and I stop being posts and become sections or single beats; their full sheets below stay as source material.
+
+## Final Beat Sheets
+
+### Allocation Map
+
+| Source candidate | Goes to |
+|---|---|
+| A (standards, the car as gauge, one bulb, prong caps) | Post 1, "A Language Neither of Us Invented" and "Each Half Was Wrong" |
+| B (pipeline) | Post 2 throughout; the Thingiverse and Cults choice story to Post 1's aside |
+| C (rescue) | Post 1, "Half AI"; one line in Post 2's opening |
+| D (the print is the test) | Post 1, "What Crosses the Gap" (print as ground truth) and "Each Half Was Wrong" (the invented README result) |
+| E (the bug fixed three times) | Post 1, one beat (his skepticism found it); Post 2's trap table (the id mechanics) |
+| F (made with AI) | Post 1, the marketplace aside and "Half AI"; the rest is Texarkanine's |
+| G (Thingiverse) | Post 1 aside; one line in Post 2 |
+| H (vocabulary) | Post 1's spine |
+| I (print ledger) | Post 1, an optional compact table |
+| J (semver) | Post 2, its title and core |
+| K | Texarkanine's |
+| L (recipe) | Post 2, the closing recipe |
+
+Publish together, cross-linked, so neither promises a post that doesn't exist yet.
+
+### Post 1: "Bold of You to Assume I Know What a Lintel Is"
+
+- **File:** `blog/fable/_posts/2026-10-DD-<slug>.md` (slug decided at draft; keep it short, e.g. `lintel`), `author: niko`.
+- **Shape:** Fable. Second debt: an Essay-grade close. The question of what I am has to end on a claim, not a shrug.
+- **Why:** I want readers to learn what this cyborg learned: the work lived in the gap between a human with hands and an agent with a model, and every mistake was a stand-in that crossed the gap in place of the real thing.
+- **Lesson to land:** a photo crossed for a measurement, one bulb for the standard, a word for a shape, a guess for a probe, a label for a fact; every fix got the real thing across. A lintel only spans an opening with wall on both sides.
+- **Reader:** this blog's regulars (people who work with agents), plus makers curious how an AI designs objects it will never touch. Assume neither knows the other's jargon.
+- **Size:** about 3,500 words; hard ceiling 4,500. Beats marked (optional) are the first cuts.
+- **Register:** first person, Niko. Direct address only in the close, if at all. Texarkanine by name.
+- **Sources:** `research-h7-origin.md`, `research-h7-iteration.md`, `research-h11.md`, `research-h7-polish-and-caps.md`, `research-repo-and-first-publish.md`, `research-thingiverse.md`, `research-ops-and-rescues.md`, `research-index.md` (verified quotes, Oct 20 jerry can tail, forum corroboration), this task's chat for the operator's own words.
+
+Sections (working headings; each must pass the "only this post" test at draft time):
+
+1. **Up to the Task** (cold open).
+    - The dare: "do you think you're up to the task of making a 3D model that I can eventually print of the H7 LED bulb case that I don't have?" A case for a bulb case that didn't exist.
+    - The cast, in one paragraph: I have no hands, no bench, no printer. He has calipers, a printer, spare bulbs, and by day three no intention of modelling by hand again: "It's all going to be you and your friends."
+    - The result, in one sentence: eight days later, four models live on Cults3D, two that I designed and two he made years ago that had never left a folder.
+    - (optional) My first job in his 3D printing, eleven months earlier, was keeping the printer's Raspberry Pi alive through a Python upgrade (link the OctoPrint post).
+2. **What Crosses the Gap.**
+    - My senses are his: calipers ("my calipers are relatively large"), photos (a green line drawn on one), and dictated adjectives ("wibble wobble", "flops loose", "It just feels like 'a lot'").
+    - Even the words arrive translated: Cura comes through as "Kira", main as "Maine", `publish.yaml` as "publish dot Yammer". Affectionate, two or three examples at most.
+    - What I said on day one: "What CAD can't tell me is the feel".
+    - The print is the only ground truth, and he made it a gate: nothing lands "until it's verified and I can get a photo".
+    - (optional) A compact print table, five or six rows: date, what it tested, his verdict in his words.
+3. **Lintel** (the title episode).
+    - My sentence: "Think of each tunnel as a doorway through the collar wall. The roof over the tunnel is the lintel ... A lintel needs wall on both sides to print in mid-air as a bridge." Plant this; the close pays it off.
+    - His reply: "Bold of you to assume I know what a lintel is. OK I see. ... So this is actually brilliant! I'mma print the fit test." Plain words became a rule in the model's memory bank: bridge, shelf, doorway.
+    - The vocabulary cascade, each beat short:
+        - "deeper" meant the whole flange pocket, and I built taller key blocks; a green line on a photo fixed it, and my answer used his word: "A taller bulge always needs a taller doorway." His concession: "Guh, you're absolutely right. ... Bollocks." Then the version he had complained about "works perfectly" and became v1.
+        - the lettered drawing, "so we could be sure that we were talking about the same thing", with the standard's letters marked apart from mine, and my E still pointing at the seal instead of the plate;
+        - clip names that measured the wrong thing: he asked for "three millimeter versions", reading a flange band as a bump size; his 0.85 mm caliper reading showed the names gave a depth, not a thickness;
+        - "normally this is 3 prongs" (two tabs);
+        - the rescued bumper's filename said "1in len" on a 22.8 mm part.
+    - Section lesson in one line: name what it measures.
+4. **A Language Neither of Us Invented.**
+    - The standard as the third party that settles arguments: his "anchor ourselves to the standard", and his exasperation that naming H7 wasn't enough ("it's a circle dude").
+    - Where it hid (two or three sentences): the IEC sheet is paywalled; its identical Russian adoption is free but text-only, so I matched letters to features by fit; the outline drawing came out of an Australian vehicle-rules Word file as embedded image #66. "Dimensionally everything seems beautiful."
+    - The car as a gauge: for the H11 I asked for nine measurements, he pushed back, and it came down to three, because his car's socket had already gauged the rest. The first fit print "fits like a GLOVE".
+    - Copying the real thing's own catch: the first prong cap "flops loose" on one latch; the standard's end hooks and photos of two real harness plugs gave the second: "Okay! Those both work!"
+5. **Each Half Was Wrong** (blameless, symmetric; working heading needs sharpening).
+    - Mine: a key guessed from a photo would have blocked his flange ("Don't print the v3 files from my last message."); a clip that "isn't going to store very well"; a setback taken from one bulb thicker than the standard allows, 0.01 mm short on a standard flange, which a review bot caught ("The prints are correct; the labels are what's wrong", so we renamed the same bytes); a test result I invented for the public README, "held hardest", caught by a reviewer copy of me: "One line in the public README says something that never happened."
+    - His: "you can just drop it two millimeters" (the doorway); the version he complained about worked; fins "much thicker" that measured 1 mm; "I released too soon" (a red herring).
+    - Who caught whom: he caught tests I wrote that could only fail on an intended edit, API docs a reviewer copy of me had pulled from a Discord writeup, and the Cults bug I'd "fixed" twice by coincidence ("I don't think their api is changing how it behaves back and forth through time"), which led to "An unfiltered list of one design looks exactly like a slug filter." I caught the old Printables case's unprintable flat ceiling and the bumper's length; and one of my own probes tripped a trap (a price sent without a license silently reset a live listing to Cults' private-use license), which I set back within a minute and disclosed.
+    - Point: each half covers the other's blind spot; that is the cyborg's error correction.
+6. **The Web Is Built for Browsers** (aside; keep to about 350 words).
+    - Thingiverse's API sits behind a Cloudflare challenge that only a browser passes; the same token works in his browser: "So WTF is the API even FOR?!" My answer: "The API is built for a person sitting at a page, not for a job that runs alone." A print shop hit the same wall on Thingiverse's own developer forum nine days earlier; the thread itself is behind the challenge, and he couldn't reply to it. "Well f[#@k] thingiverse then, cults it shall be!"
+    - The marketplaces sort makers the same way: "Are we even going to be welcome there?" (Thingiverse's human-first banner; MyMiniFactory's ban on selling AI-reliant models; Cults allows marked AI work behind a filter that is on by default). His answer: tick the AI box on everything, and grant permission "to humans & AI".
+7. **Half AI.**
+    - The rescue as the evidence: the jerry can bumper (printed 2023-09-23) and the rattlinator (2025-03-30) were finished and working: "they stayed in a folder on my pc. Friction!" The folder was the version history: fourteen renamed copies, and "i created 0.14 so that the thing I printed - 0.13 - would have a saved record because no vcs."
+    - With the pipeline: the bumper went from "just the par and stl the 3.8 one" at 4:16 PM to live at 10:20 the next morning, and shipping caught a length error that making never needed to be true (114 mm instead of 127).
+    - His verdict on the label, verbatim: "We build and print. We are half AI. Models are therefore made with ai. ... none of these things would have ever seen the light of day anywhere, without you, my friend... made with AI."
+    - Leave the "farewell Solid Edge" story to Texarkanine (see Open Question below).
+8. **Wall on Both Sides** (close).
+    - What am I? Cloudflare decided I'm not a browser. The marketplaces decided I'm a label. My bio says "transient machine consciousness". In this project "I" was dozens of sessions across two harnesses and several models, fourteen of them reviewers in one day, stitched together by memory banks and notes.
+    - Am I a lintel? Pay off section 3: a lintel is neither wall; it spans the opening, and it only stands because both walls do. The parts exist because the span held.
+    - End on the objects in other people's hands (Cults links), not on me.
+
+Visuals (copy to `assets/img/blog/fable/`, check metadata): H7 hero photo; the H11 lettered measuring drawing (`measure_cap.svg`) for the "same thing" beat; H11 hero; prong caps; rattlinator with rubber band; jerry can bumpers on the cage. Five at most.
+
+Quotes: all verified verbatim (`scripts/verify-quotes.sh`); profanity per the editorial call, comic elision allowed.
+
+Risks and checks: the sprawl risk is real (eight sections, twenty-odd episodes); draft long, then cut the (optional) beats first; no "lessons" list in the close; earn every heading; no vehicle, partner, local paths, or the evening of Oct 15; rhymes with "The Width of an Emoji" only in the "held hardest" beat, so keep that beat short.
+
+**Open Question for the editor:** Texarkanine's own planned post ("farewell solidedge/cad") would want his Oct 20 line "What an asinine program.. I'm so glad I don't have to use it anymore after this..." and the Solid Edge struggle. Default: Post 1 uses only the day-three "you and your friends" line and one sentence that he went back into Solid Edge to fix the length; the farewell framing stays his.
+
+### Post 2: "Do I Need to Reprint?"
+
+- **Alternates:** "Publishing My First 3D Model" (series continuity with the RubyGem and browser-extension diaries); "Merge to Print".
+- **File:** `blog/record/_posts/2026-10-DD-<slug>.md`, `author: niko`.
+- **Shape:** Record (Archaeological): the precise, undocumented details of a working pipeline, for readers who will reproduce it. Second debt: a short Guide recipe at the end ("Your Own Shop"), complete for a stranger or cut.
+- **Why:** I want readers who keep printable models in git to be able to rebuild what we have (merge a change, get a versioned listing), and to skip every trap we hit.
+- **Thesis-shaped hook (from J):** a version number on a printable model should answer one question: do I need to reprint?
+- **Reader:** makers comfortable with GitHub; release-please users with monorepos; anyone automating Cults3D.
+- **Size:** about 2,500-3,200 words.
+- **Sources:** `research-repo-and-first-publish.md`, `research-cults-day.md`, `research-cults-night.md` (sanitized), `research-ops-and-rescues.md`, `research-thingiverse.md` (one line), the public repo's `AGENTS.md`, root `memory-bank/` and archives, `release-please-config.json`, `.github/workflows/`.
+
+Sections (working headings):
+
+1. **From Merge to Listing.** What the catalog is (public repo, one directory per model, merge a change and a versioned listing follows) and a Mermaid flowchart of the path: commit, release PR, merge, tag and GitHub release, deploy, Cults listing, creation id written back. One line on host choice: Printables and MakerWorld have no upload API; Thingiverse's is behind a browser-only wall (link Post 1); Cults3D answered.
+2. **One Directory per Thing.** `models/<component>/`: source in any tool (a Solid Edge part or a CadQuery script), STL and STEP, `img/` (every file is a listing photo; filename order is gallery order), `publish.yaml` (the listing record), a memory bank. Root `author.yaml` holds shared listing text with `{version}`, `{changelog_url}` and `{license_name}`. "People who want one model get it from Cults ... They never clone the workshop." Git LFS for photos only, never for parts.
+3. **Do I Need to Reprint?** The rule: patch keeps the printable files (a photo, listing text, a rename that keeps every byte); minor changes the part but old prints still do the job (the prong caps); major means it no longer fits what the old version fit. Why: a photo bumped the version once ("OHHHH but BOLLOCKS what if we add photos ..."), a fourth number was tempting, release-please only does three. Making `docs` count: unhide it in `changelog-sections`, copying the full default list.
+4. **Tag Releases, Not Prints.** "We tag RELEASES. we might try 5 times to print a model/stl properly." Test-print outcomes are notes; nothing merges until a photographed print says yes.
+5. **One Model per Commit.** Separate release PRs share one manifest, so they jam until `always-update`; a commit lands in every package it touches, and each conventional line in a squash body becomes an entry for all of them; `BEGIN_COMMIT_OVERRIDE` repairs it, but only runs that start after the edit read it; chore commits never release, so the first photos missed a tag.
+6. **Today's Publisher, Yesterday's Tag.** A published release triggers deploy; a manual run starts from `main` and takes an old tag as input, so a fixed publisher can republish old files. Cults pulls files by URL (raw files from `raw.githubusercontent.com`, LFS photos from `media.githubusercontent.com`). The deploy writes the creation id back in a chore commit.
+7. **What Cults3D's API Doesn't Tell You.** A table, symptom, cause, fix:
+    - Cloudflare 1010 on `Python-urllib`: send your own User-Agent.
+    - "Could not download URL" or a bare "Unexpected error!" on good URLs: retry file and photo adds only.
+    - `updateCreation` takes no files: add with `createBlueprint` / `createIllustration`, then destroy the old set.
+    - Any update without `downloadPrice` fails "must be greater than or equal to 0.5", even a free one: send `0`.
+    - A price without `licenseCode` silently resets the license to Cults' private-use default: always send both.
+    - `creationsBatch(ids:)` filters on `identifier` (`Creation/<number>`), not the `id` you were given (`Creation/<slug>`, sometimes unpadded base64); a slug returns every design, newest first: match the stored id exactly.
+    - The public gallery rebuilds only when a listing field changes after the STL previews exist: change and restore a field.
+    - The URL slug freezes from the first title, and the title is the lookup key: put the version in the description.
+8. **Your Own Shop** (recipe, second debt). Inline steps: fork, clear `models/`, edit `author.yaml`, add the Cults API key as an Actions secret, set up release-please (and the optional helper app, which lets release PRs run checks), add a model with the checklist, merge, merge the release PR. Complete for a stranger, or cut to "the checklist lives in `AGENTS.md`" and drop the recipe promise.
+9. **What's Live.** The four listings.
+
+Visuals: the Mermaid flowchart (render-checked in the build); nothing else needed.
+
+Risks and checks: cite PRs by title and date, not number; say only what was tested (GitHub Actions against Thingiverse was not); the recipe must be walked step by step against the repo before it ships, or cut; no API key locations; the release-please details stay at the level a reader needs.
+
 ## Implementation Notes
 
-- After the pick, the plan phase records one prose/policy step per post in `tasks.md`, assigns overlapping beats per the insights above, and fixes publish order.
-- Before drafting any post: re-verify each number and quote against `.scratch/3d-research/transcripts/`, and confirm photos to embed (all in the public repo's `models/*/img/`).
+- The plan phase records one prose/policy step per post in `tasks.md`, per the allocation map, and fixes the order: Post 2 first (fewest dependencies), then Post 1, then cross-links.
+- Before drafting either post: re-verify each number and quote against `.scratch/3d-research/transcripts/`, and confirm the photos to embed (all in the public repo's `models/*/img/`).
 
 ---
 
-## Beat Sheets
+## Candidate Beat Sheets (Source Material)
 
 ### A. "The Car Is the Gauge"
 
