@@ -115,3 +115,17 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
     - The 3d-models `AGENTS.md` mismatch stays out of scope (non-goal); raise with the operator
 * Insights
     - A recipe line that paraphrases a repo's docs needs checking against the code that reads the file, not just the docs
+
+## 2026-10-20 - QA - COMPLETE (PASS)
+
+* Work completed
+    - QA run 2: re-reviewed all three drafts and the images; verified both run 1 fixes against 3d-models `origin/main` (fetched) and the transcripts
+    - Re-ran the quote check (0 missing), the privacy sweep (clean), `jekyll build --unpublished` and a normal build (both exit 0; version 2 absent from the normal build), and the render check (clean)
+    - Results recorded in `tasks.md` under "QA Run 2 Results" and in `.qa-validation-status`
+* Decisions made
+    - PASS: nothing must change before acceptance. Two advisories: Post 2's "That decides the Git LFS line" merges two separate reasons from the source; the word counts in the memory bank predate the rework
+* Insights
+    - The quote script strips inline code, so error messages quoted in backticks need a separate check; all of them were in the transcripts
+* After QA (by the build agent)
+    - Took QA advisory 1: Post 2's "That decides the Git LFS line" became "Git LFS splits the files by kind", stating the stub reason on its own. One sentence; no facts changed; not re-reviewed by QA
+    - Took QA advisory 2: word counts refreshed (Post 2 3,016; Post 1 version 1 3,247; version 2 2,283)

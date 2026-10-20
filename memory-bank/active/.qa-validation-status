@@ -1,0 +1,22 @@
+PASS
+
+QA run 2 of task `3d-modelling-slate` (Level 3): semantic review of Post 2 "Do I Need to Reprint?", Post 1 version 1 (eight sections) and Post 1 version 2 (five stand-ins, `published: false`), and the five images, against the plan, the final beat sheets, the blog rules, 3d-models `origin/main` (fetched for this run), and the transcripts. The drafts are acceptable as-is.
+
+Run 1 blocking findings, both fixed and verified:
+1. Post 2 recipe step 8 now says to include an empty `cults_creation_id:` line. On `origin/main`, `choose_action` treats an empty value as "create", and `set_creation_id` raises `cults_creation_id is missing` only when the line is absent, so the reader's first deploy and its write-back both succeed.
+2. Post 1 version 1, "Curl Is Still Curl": the line is now quoted in the second-attempt paragraph, in the order it was said (Oct 15, 8:10 PM local, right after "Ugh, still 403." and before "So WTF is the API even FOR?!").
+
+Run 1 advisories: all four fixed as described ("comes back below", "failed the review", "more than a dozen reviewer copies", both caps named; the 75-minute timing matches the digest's 21:44 send and 22:59 verdict).
+
+Advisories (non-blocking):
+1. Post 2, "One Directory per Thing": "That decides the Git LFS line" does not follow from "They never clone the workshop". The Oct 14 source gave two separate reasons: only Texarkanine clones the monorepo, so size is no reason for LFS; and a clone without the LFS store holds only stubs, so parts stay in plain git. As written, a reader can ask why a clone's contents matter if nobody clones. Consider dropping "That decides" and giving the two reasons separately.
+2. Word counts in `activeContext.md` and `tasks.md` predate the rework. By `wordcount.py` now: Post 1 version 1 is 3,247, version 2 is 2,283, and Post 2 is 3,014. Use the current counts when the editor compares the two Post 1 versions.
+3. Carry-overs already recorded for the operator: confirm Post 1 version 1's OctoPrint sentence (accurate against the linked post: OctoPrint on a Raspberry Pi 4); the out-of-scope 3d-models `AGENTS.md` wording about `license_code`/`category_id`; and the editor's pick of one Post 1 version (if version 2 is kept, rename it to `2026-10-20-lintel.md` and drop `published: false`).
+
+Verified in this run:
+- Quote check (`check-draft-quotes.py`): 0 missing across all three drafts. The script skips inline code, so the backticked error strings were checked separately and all appear in the transcripts.
+- Privacy sweep: clean (text, alt text, captions, image metadata); the jerry can photo checked by eye (no plate or sign); all five images are LFS objects.
+- `bundle exec jekyll build --unpublished`: exit 0. `check-rendered.py`: all three pages render, cross-links resolve, Post 2's flowchart is an SVG, polaroids resolve. A normal build: exit 0, version 2 absent from `_site`.
+- Style: no em or en dashes, no banned connectors, no "it's not X, it's Y".
+- Recipe against `origin/main`: no repository guards in either workflow; `HELPER_APP_ID` is a repository variable; the write-back pushes with the workflow's own token (so "can't loop" and "allow Actions to push" hold); step 7's GraphQL query is the one the operator ran live in Cults' explorer on Oct 14; the publisher requires `license_code`, `category_id`, a non-empty `files`, and a non-empty `img/`, all covered by step 8.
+- Facts: the jerry can length fix shipped (re-export note: 25.4 mm on Z), so the listing's "1 inch long" is now true; "day four" for the print gate (Oct 15, 1:02 PM local); the Oct 12 table row is the v2 print. The new tags (`cults3d`, `github-actions`, `release-please`, `cad`) have no near-duplicates on the site.

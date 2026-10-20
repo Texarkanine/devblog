@@ -173,10 +173,27 @@ No new technology - validation not required. (The Mermaid prebuild and polaroid 
 - [x] Build
     - [x] Step 1: Post 2 drafted (`blog/record/_posts/2026-10-20-do-i-need-to-reprint.md`), recipe walked against `origin/main` and kept (all preflight gaps written in), self-revised
     - [x] Step 2.2: five images in `assets/img/blog/fable/lintel/` (resized, metadata stripped, drawing rendered to PNG, jerry can photo cropped) via `.scratch/3d-research/scripts/prep-lintel-images.sh`
-    - [x] Step 2.3: Post 1 version 1 (eight sections, 3,207 words), `blog/fable/_posts/2026-10-20-lintel.md`
-    - [x] Step 2.4-2.5: Post 1 version 2 (five stand-ins + ledger, 2,269 words), `blog/fable/_posts/2026-10-20-lintel-five-stand-ins.md`, `published: false`, own slug so the two never share a URL
+    - [x] Step 2.3: Post 1 version 1 (eight sections, 3,247 words after QA rework), `blog/fable/_posts/2026-10-20-lintel.md`
+    - [x] Step 2.4-2.5: Post 1 version 2 (five stand-ins + ledger, 2,283 words after QA rework), `blog/fable/_posts/2026-10-20-lintel-five-stand-ins.md`, `published: false`, own slug so the two never share a URL
     - [x] Step 3: cross-links resolve; tags chosen (no new descriptions); quote check 0 missing (`.scratch/3d-research/scripts/check-draft-quotes.py`); privacy sweep clean (`privacy-sweep.sh`, canary-tested); `jekyll build --unpublished` and a normal build both clean (normal build omits version 2); pages and flowchart checked in a browser
-- [ ] QA
+- [x] QA
     - [x] Run 1: FAIL (fixable), two blocking findings (Post 2 recipe step 8; Post 1 version 1 "Curl Is Still Curl" heading); see "QA Findings To Fix In Build". Build reruns.
     - [x] Build rework: both blocking findings and all four advisories fixed (step 8 now says to include an empty `cults_creation_id:` and to blank the copied example's id; "Curl is still curl" quoted where it was said; "comes back below"; "failed the review"; "more than a dozen reviewer copies"; print-table rows and cap paragraphs name the H7 and H11 caps). Quote check 0 missing, privacy sweep clean, both builds exit 0, normal build omits version 2, render check clean.
-    - [ ] Run 2
+    - [x] Run 2: PASS with advisories; see "QA Run 2 Results".
+
+## QA Run 2 Results
+
+QA run 2 (2026-10-20): PASS. Both run 1 blocking findings are fixed and verified against the source: on 3d-models `origin/main` an empty `cults_creation_id:` takes the create path and only an absent line makes the write-back raise; "Curl is still curl" now sits where it was said (Oct 15, 8:10 PM local). The four run 1 advisories are fixed. Full report in `memory-bank/active/.qa-validation-status`.
+
+### Advisories
+
+- **Post 2, "One Directory per Thing":** "That decides the Git LFS line" does not follow from "They never clone the workshop". The Oct 14 source gave two separate reasons (only Texarkanine clones, so size is no reason for LFS; a clone without the LFS store holds only stubs, so parts stay in plain git). Consider dropping "That decides" and stating the two reasons separately.
+- **Stale word counts:** `activeContext.md` and this file predate the rework. By `wordcount.py` now: Post 1 version 1 3,247; version 2 2,283; Post 2 3,014. Use these when the editor compares versions.
+- **Carry-overs for the operator (already recorded):** confirm Post 1 version 1's OctoPrint sentence (accurate against the linked post); the out-of-scope 3d-models `AGENTS.md` wording; the editor's pick of one Post 1 version.
+
+### Verified In QA Run 2
+
+- Quote check 0 missing; backticked error strings (skipped by the script) found in the transcripts. Privacy sweep clean; jerry can photo checked by eye; five images in LFS.
+- `jekyll build --unpublished` exit 0 with all three pages, cross-links, flowchart SVG and polaroids rendering; normal build exit 0 without version 2.
+- Recipe against `origin/main` (fetched): no repository guards in the workflows; `HELPER_APP_ID` is a variable; the write-back uses the workflow's own token; step 7's query is the one the operator ran live on Oct 14; publisher requirements (`license_code`, `category_id`, non-empty `files` and `img/`) all covered by step 8.
+- Facts: the jerry can length fix shipped (25.4 mm re-export), "day four" for the print gate, the Oct 12 table row is the v2 print, the cap timing (21:44 to 22:59). New tags have no near-duplicates.

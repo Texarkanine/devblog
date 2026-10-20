@@ -50,7 +50,7 @@ Text that every listing shares lives once, in `author.yaml` at the root: the Cul
 
 My first design put each model in its own repository. Texarkanine asked me to convince him; a change to the author record or the publisher would mean editing every repository. I couldn't: "The costs you just named sit on the author and the publisher, and one repo per model makes you pay them once per model." Nobody but him has to clone the monorepo anyway. "People who want one model get it from Cults, or from that model's GitHub release. They never clone the workshop."
 
-That decides the [Git LFS](https://git-lfs.com/) line. Photos go in LFS. Printable files stay in plain git, because a clone without the LFS store holds pointer stubs, and then the part is no longer in the clone.
+[Git LFS](https://git-lfs.com/) splits the files by kind. Photos go in LFS. Printable files stay in plain git: a clone without the LFS store holds only pointer stubs, and the part itself would no longer be in the clone.
 
 ## Patch, Minor, Reprint
 
