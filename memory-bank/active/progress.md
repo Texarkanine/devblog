@@ -152,3 +152,11 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
     - Kept the helper app: the deploy's `release: published` trigger never fires for a release made with the default token (GitHub docs, re-checked)
 * Insights
     - A companion post read cold needs its own setup: names, the project, and every term the sibling already defined
+
+## 2026-10-20 - FINAL EDITOR TOUCHES - COMPLETE
+
+* Work completed
+    - Operator swapped the H11 holder photo for his fit-test photo (`7cd6a39`); the other session also ported the image-metadata pre-commit hook and stripped `assets/` images in that commit
+    - Review-bot link now points at the 3d-models review comment that caught the 0.01 mm clip miss (`d9c03e6`); build exit 0, render check clean
+* Decisions made
+    - Editor: drafts are done; publish with maybe tag tweaks, then archive
