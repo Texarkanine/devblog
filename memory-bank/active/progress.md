@@ -29,3 +29,15 @@ Fix the five pull-request 122 review items: a durable pre-commit install, a comm
     - Install docs name `uv tool install pre-commit` or `pipx install pre-commit`, then `pre-commit install`
 * Insights
     - A test that the workflow file contains the unittest command would be a change-detector, so that step has no test of its own
+
+## 2026-10-20 - PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+
+* Work completed
+    - Validated the plan against codebase reality: prerequisites, TDD plan encoding, convention compliance, dependency impact, conflict detection, completeness
+    - Confirmed both .pyc files are tracked, no SVGs are tracked, the only two `uvx pre-commit install` references are the ones the plan names, and `pr-check.yaml` already runs pip without setup-python
+* Decisions made
+    - First line of `.preflight-status`: PASS WITH ADVISORY — the plan is buildable as-is; five advisories recorded
+    - No plan edits were needed: the one executable unit already orders tests before code, and no change-detector steps were scheduled
+* Insights
+    - `/home/mobaxterm/git/3d-models` ships a byte-identical stripper and hook config, and the reprint post tells readers to copy those files from there — the fix will not reach readers unless it is ported (advisory 2, and the radical-innovation sketch in advisory 4)
+    - Acceptance criterion 4 says `python -m unittest` while the plan runs `python3 -m unittest`; the deviation is deliberate and documented, flagged for conscious acceptance (advisory 1)
