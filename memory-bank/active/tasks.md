@@ -26,7 +26,7 @@ Five review corrections on the open pull request: stop baking a cache interprete
 
 ## Implementation Plan
 
-### 1. Stop tracking bytecode — prose/policy
+### 1. Stop tracking bytecode — prose/policy [x]
 
 - Files: `.gitignore`, `tests/__pycache__/test_strip_svg_metadata.cpython-311.pyc`, `tools/__pycache__/strip_svg_metadata.cpython-311.pyc`
 - No tests: prose/policy artifact
@@ -34,7 +34,7 @@ Five review corrections on the open pull request: stop baking a cache interprete
 1. Add `__pycache__/` and `*.pyc` to `.gitignore`.
 2. `git rm` the two tracked bytecode files so later test runs cannot refresh them in the index.
 
-### 2. Comment-safe stripper — executable
+### 2. Comment-safe stripper — executable [x]
 
 - Files: `tests/test_strip_svg_metadata.py`, `tools/strip_svg_metadata.py`
 
@@ -43,7 +43,7 @@ Five review corrections on the open pull request: stop baking a cache interprete
 3. Write tests and run red: assert the four behaviors above against the current regex.
 4. Write code and run green: `strip` raises `ValueError` when `_parses` is false, masks complete `<!-- -->` spans before the element and attribute substitutions, restores those spans, then keeps the existing "result would not parse" refusal. `main` already turns `ValueError` into exit 1 and skips the write.
 
-### 3. Durable install instructions — prose/policy
+### 3. Durable install instructions — prose/policy [x]
 
 - Files: `README.md`, `memory-bank/techContext.md`
 - No tests: prose/policy artifact
@@ -51,14 +51,14 @@ Five review corrections on the open pull request: stop baking a cache interprete
 1. Replace `uvx pre-commit install` with `uv tool install pre-commit` once per machine (or `pipx install pre-commit`), then `pre-commit install` once per clone.
 2. Keep the Perl and `cpan` requirement and the "stage the rewritten files and commit again" note. State the suite command as `python3 -m unittest discover -s tests` as well as `python`, since the workflow will call `python3`.
 
-### 4. Pull-request CI runs the suite — prose/policy
+### 4. Pull-request CI runs the suite — prose/policy [x]
 
 - Files: `.github/workflows/pr-check.yaml`
 - No tests: prose/policy artifact
 
 1. After checkout, run `python3 -m unittest discover -s tests`. No `setup-python`: the tests use the standard library, and `python3` is on the hosted runner. A test that the workflow file contains this string would only fail when someone edits that string.
 
-### 5. Reprint post hook sentence — prose/policy
+### 5. Reprint post hook sentence — prose/policy [x]
 
 - Files: `blog/record/_posts/2026-10-20-do-i-need-to-reprint.md`
 - No tests: prose/policy artifact
@@ -101,5 +101,5 @@ No new technology - validation not required
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
 - [x] Preflight
-- [ ] Build
+- [x] Build
 - [ ] QA

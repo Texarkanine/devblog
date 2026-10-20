@@ -16,7 +16,7 @@ https://blog.cani.ne.jp/
 1. Install Git LFS once per machine: `git lfs install`
 2. Add large images under `assets/img/**` so they are tracked automatically by `.gitattributes`
 3. Directory hierarchy under `assets/img` should match the path to the post that references the image.
-4. Run `uvx pre-commit install` once per clone. The pre-commit hook strips metadata from staged images (ExifTool for raster formats, `tools/strip_svg_metadata.py` for SVG). ExifTool is built from CPAN on first use, so Perl and `cpan` must be on `PATH`. If a commit stops because the hook rewrote files, stage them and commit again.
+4. Run `uv tool install pre-commit` once per machine (or `pipx install pre-commit`), then `pre-commit install` once per clone. The pre-commit hook strips metadata from staged images (ExifTool for raster formats, `tools/strip_svg_metadata.py` for SVG). ExifTool is built from CPAN on first use, so Perl and `cpan` must be on `PATH`. If a commit stops because the hook rewrote files, stage them and commit again.
 
 ## License
 

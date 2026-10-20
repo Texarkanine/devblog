@@ -41,3 +41,19 @@ Fix the five pull-request 122 review items: a durable pre-commit install, a comm
 * Insights
     - `/home/mobaxterm/git/3d-models` ships a byte-identical stripper and hook config, and the reprint post tells readers to copy those files from there — the fix will not reach readers unless it is ported (advisory 2, and the radical-innovation sketch in advisory 4)
     - Acceptance criterion 4 says `python -m unittest` while the plan runs `python3 -m unittest`; the deviation is deliberate and documented, flagged for conscious acceptance (advisory 1)
+
+## 2026-10-20 - BUILD - COMPLETE
+
+* Work completed
+    - Untracked the two `.pyc` files and ignored `__pycache__/` and `*.pyc`
+    - Made `strip` refuse unparsed input and mask `<!-- -->` spans; 12 tests pass
+    - Replaced `uvx pre-commit install` in the README and tech context
+    - Added `python3 -m unittest discover -s tests` to `pr-check.yaml`
+    - Claude Opus 5.5 replaced the reprint post's hook sentence; parent did not edit that file
+    - `bundle exec jekyll build` succeeded
+* Decisions made
+    - Accepted advisory 1: CI calls `python3`
+    - Left the 3d-models stripper port (advisories 2 and 4) and the README refusal clause (advisory 3) out of this task
+    - Kept the subagent's link to pre-commit.com on the first mention of the tool
+* Insights
+    - The comment-only fixture was already green: the old regex needs a closing tag, so a mention with no closer was never eaten

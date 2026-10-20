@@ -135,7 +135,7 @@ Everything above is in [the repository](https://github.com/Texarkanine/3d-models
    cp ../3d-models/tools/cults_publish.py tools/
    ```
 
-   To strip photo metadata before each commit, also copy `.pre-commit-config.yaml` and `tools/strip_svg_metadata.py`.
+   The [pre-commit](https://pre-commit.com/) hook that strips photo metadata before each commit is optional. You want it if you photograph your prints with a camera that records personal information, such as your phone. To add it, copy `.pre-commit-config.yaml` and `tools/strip_svg_metadata.py` from `../3d-models`, run `pre-commit install`, and have Perl and `cpan` on your `PATH`. Copying alone strips nothing: the hook runs only after `pre-commit install`, and photos go through ExifTool, which is built from CPAN on first use.
 5. **Make it yours.** Empty the `packages` object in `release-please-config.json`, and set `.release-please-manifest.json` to `{}`. In `author.yaml`, set `cults_nick` to your Cults nickname, set `made_with_ai` to what is true of your models, and rewrite the closing description block. In `.github/workflows/deploy.yaml`, point the environment URL at your Cults profile. In `tools/cults_publish.py`, set `USER_AGENT` to a string of your own; Cloudflare bans Python's default.
 6. **Look up your codes.** Open [Cults' GraphQL explorer](https://cults3d.com/graphiql), sign in with your nickname as the user and the key as the password, and run:
 
