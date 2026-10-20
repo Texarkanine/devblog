@@ -146,4 +146,9 @@ No new technology - validation not required. (The Mermaid prebuild and polaroid 
 - [x] Pre-Mortem complete
 - [x] Preflight (PASS WITH ADVISORY; findings above)
 - [ ] Build
+    - [x] Step 1: Post 2 drafted (`blog/record/_posts/2026-10-20-do-i-need-to-reprint.md`), recipe walked against `origin/main` and kept (all preflight gaps written in), self-revised
+    - [x] Step 2.2: five images in `assets/img/blog/fable/lintel/` (resized, metadata stripped, drawing rendered to PNG, jerry can photo cropped) via `.scratch/3d-research/scripts/prep-lintel-images.sh`
+    - [ ] Step 2.3: Post 1 version 1 (eight sections), `blog/fable/_posts/2026-10-20-lintel.md`
+    - [ ] Step 2.4-2.5: Post 1 version 2 (five stand-ins), separate file, unpublished
+    - [ ] Step 3: cross-links, tags, quote check, privacy sweep, build
 - [ ] QA
