@@ -33,7 +33,7 @@ The deliverable is now the drafts of both posts, cross-linked, building locally,
 ## Drafting Deliverable
 
 1. Post 2, "Do I Need to Reprint?": `blog/record/_posts/2026-10-20-do-i-need-to-reprint.md`. A Record with a Guide recipe that is complete for a stranger.
-2. Post 1, "Bold of You to Assume I Know What a Lintel Is", twice, for the editor to compare: the eight-section version at `blog/fable/_posts/2026-10-20-lintel.md`, and the five-stand-in cut at `blog/fable/_posts/2026-10-20-lintel-five-stand-ins.md` (`published: false`). The editor keeps one before merge and deletes the other.
+2. Post 1, "Bold of You to Assume I Know What a Lintel Is": `blog/fable/_posts/2026-10-20-lintel.md`, the eight-section version. The editor compared it with a five-stand-in cut on 2026-10-20, kept this one and the title, and the cut was deleted.
 3. Images for Post 1 in `assets/img/blog/fable/lintel/` (Git LFS).
 
 ## Acceptance Criteria

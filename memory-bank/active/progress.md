@@ -139,3 +139,16 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
     - Next is the operator: pick one Post 1 version, then `/niko-archive`
 * Insights
     - QA run 1's recipe bug was the unfixed sibling of a preflight finding in the same file and the same `AGENTS.md` sentence: fix the class, not the instance
+
+## 2026-10-20 - EDITOR REVISIONS - COMPLETE
+
+* Work completed
+    - Editor kept `lintel.md` and its title; the five-stand-in cut was deleted
+    - Lintel: punchline block quote ("Bold of you...") and a script-drawn lintel-versus-shelf diagram
+    - Post 2: intro defines the catalog and its four models; charitable Cults3D line; concept ramps before use (squash messages, the override, the October 19 incident, `updateCreation`, STL previews, "creation"); Cults API docs and explorer linked; recipe rebuilt around a new repository and a `cp` of the machinery; helper-app step explains why; closer explains what "still on version 1" means
+    - Index order set with `date:` times (lintel 12:00, reprint 09:00, both -0500)
+    - Re-verified: quote check 0 missing; privacy sweep clean apart from one by-eye-approved hit (the neutral photo-metadata hook in the recipe); both builds exit 0; render check clean; index lists lintel first
+* Decisions made
+    - Kept the helper app: the deploy's `release: published` trigger never fires for a release made with the default token (GitHub docs, re-checked)
+* Insights
+    - A companion post read cold needs its own setup: names, the project, and every term the sibling already defined
