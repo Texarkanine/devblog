@@ -57,3 +57,14 @@ Fix the five pull-request 122 review items: a durable pre-commit install, a comm
     - Kept the subagent's link to pre-commit.com on the first mention of the tool
 * Insights
     - The comment-only fixture was already green: the old regex needs a closing tag, so a mention with no closer was never eaten
+
+## 2026-10-20 - QA - COMPLETE (PASS)
+
+* Work completed
+    - Semantically reviewed the build diff against the plan: all five units judged on KISS, DRY, YAGNI, completeness, regression, integrity, and documentation
+    - Independently re-ran the suite (12 tests OK) and confirmed no tracked bytecode and no surviving `uvx pre-commit install` instructions
+* Decisions made
+    - PASS — no blocking findings; two non-blocking advisories recorded in `.qa-validation-status`
+* Insights
+    - The comment-masking token is collision-free by construction: input is validated as parseable XML before masking, and XML forbids NUL
+    - The 3d-models stripper port (preflight advisories 2 and 4) remains an open cross-repo follow-up outside this task's scope

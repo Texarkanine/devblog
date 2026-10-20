@@ -1,0 +1,19 @@
+PASS
+
+QA run for pr-122-review-fixes, 2026-10-20. Reviewer: kimi-k3 subagent, no authorship stake in the implementation. Baseline: the Level 2 plan in tasks.md and the preflight record; reviewed the diff 43485c2..HEAD (build phase), judged only — no edits to the work under review.
+
+Unit 1 — bytecode (pass). .gitignore gains exactly __pycache__/ and *.pyc; both tracked .pyc files are deleted; git ls-files shows no tracked bytecode remains. Complete, no debris.
+
+Unit 2 — comment-safe stripper (pass). All four planned behaviors are implemented and pinned by the four planned tests; the suite is 12/12 green on an independent re-run. Refusal runs before any substitution, so unparsed and empty input are never written; masking covers complete <!-- --> spans only, so the CDATA refusal test stays green. The \x00COMMENT{n}END\x00 token cannot collide with file text by construction — input is validated as parseable XML before masking and XML forbids NUL — and restore replaces in index order with count 1, so index prefixes (1 vs 10) cannot mismatch. KISS/DRY/YAGNI clean: two small helpers, no speculation, no duplication. Naming matches the module's conventions, docstrings state the new contract, and strip/main signatures are unchanged. No TODOs, debug output, or placeholders.
+
+Unit 3 — durable install docs (pass). README.md line 19 and memory-bank/techContext.md line 8 both give uv tool install / pipx then pre-commit install, and keep the Perl/cpan and stage-and-recommit notes; techContext line 18 states both the python and python3 suite spellings. git grep confirms no uvx pre-commit install survives in tracked prose (remaining uvx hits are memory-bank history and coincidental bytes in two binary images).
+
+Unit 4 — CI runs the suite (pass). pr-check.yaml runs python3 -m unittest discover -s tests immediately after checkout with no setup-python, exactly as planned. The acceptance criterion's literal python spelling was a documented, consciously accepted deviation (preflight advisory 1).
+
+Unit 5 — reprint hook sentence (pass). The diff to 2026-10-20-do-i-need-to-reprint.md is one sentence, written by the Claude Opus 5.5 subagent with the parent not touching the file. It carries every required fact: the hook is optional, it matters when print photos come from a camera that records personal information such as a phone, adoption is copy both files then pre-commit install with Perl and cpan on PATH, and copying alone strips nothing.
+
+Documentation (pass). README, techContext, module and function docstrings, and the post were all updated with the code. Preflight advisory 3's README refusal clause was a documented build-phase deferral, not debris.
+
+Advisory 1 — open cross-repo follow-up (non-blocking). Preflight advisories 2 and 4 stand: /home/mobaxterm/git/3d-models still ships the unfixed stripper and hook config that the reprint post tells readers to copy. Out of this task's scope by constraint 2; re-surfaced so reflect/archive does not lose it.
+
+Advisory 2 — test idiom nit (non-blocking). test_metadata_mentioned_in_a_comment_stays_in_the_comment opens with a bare ET.fromstring fixture-validity check instead of an assertion; harmless, not worth a build rerun.
