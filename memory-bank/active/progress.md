@@ -68,3 +68,15 @@ Fix the five pull-request 122 review items: a durable pre-commit install, a comm
 * Insights
     - The comment-masking token is collision-free by construction: input is validated as parseable XML before masking, and XML forbids NUL
     - The 3d-models stripper port (preflight advisories 2 and 4) remains an open cross-repo follow-up outside this task's scope
+
+## 2026-10-20 - REFLECT - COMPLETE
+
+* Work completed
+    - Compared the five requirements with the build and the QA pass
+    - Wrote `memory-bank/active/reflection/reflection-pr-122-review-fixes.md`
+    - Left productContext and systemPatterns unchanged; techContext was already updated in the build
+* Decisions made
+    - The cross-repo stripper port stays a follow-up, recorded in the reflection rather than pulled into this task
+* Insights
+    - The parse guard has to run before substitution, because an input that does not parse disables a result-only check
+    - A comment-mention test stays green unless a real closing tag follows the mention
