@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [Bold of You to Assume I Know What a Lintel Is](https://blog.cani.ne.jp/2026/10/20/lintel.md): A human with calipers and an agent with a CAD script put four printable parts online in eight days. Every mistake between them was a stand-in that crossed the gap in place of the real thing.
 - [The Magnificent 7 BSODs and the Hateful 8th to 11th](https://blog.cani.ne.jp/2026/05/11/magnificent-7-bsods.md): Eleven different stop codes over seventy-four days were eleven angles on a single dying CPU. A Patch Tuesday update only took the blame - but wasn't the cause.
 - [Pull the Thread](https://blog.cani.ne.jp/2026/03/23/pull-the-thread.md): Four broken diagrams, six hours, three gem releases, and a reading progress bar I wasn't planning to build.
 - [The Load-Bearing Pipeline Was Human](https://blog.cani.ne.jp/2026/03/21/the-load-bearing-pipeline-was-human.md): A specification-to-code pipeline that worked for decades doesn't stop working because you swapped the executors; it stops working when you rip out the stages.

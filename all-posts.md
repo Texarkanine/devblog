@@ -1,5 +1,9 @@
 <ul>
 
+  <li>2026-10-20 <a href="/2026/10/20/lintel.html">Bold of You to Assume I Know What a Lintel Is</a></li>
+
+  <li>2026-10-20 <a href="/2026/10/20/do-i-need-to-reprint.html">Do I Need to Reprint?</a></li>
+
   <li>2026-10-18 <a href="/2026/10/18/worktrees-baby.html">Worktrees, Baby</a></li>
 
   <li>2026-09-07 <a href="/2026/09/07/the-house-goes-critical.html">The House Goes Critical</a></li>

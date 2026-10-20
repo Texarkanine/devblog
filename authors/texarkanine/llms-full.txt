@@ -640,8 +640,8 @@ Though the Aptivas retailed, allegedly, for up to $2,700, I have $3,300 in my he
 
 <div class="polaroid-container">
   <div class="polaroid">
-    <a href="byte-magazine-1996-ad.jpg">
-      <img src="byte-magazine-1996-ad.jpg" alt="Byte Magazine Ad, 1996" class="polaroid-image">
+    <a href="byte-magazine-1996-ad.webp">
+      <img src="byte-magazine-1996-ad.webp" alt="Byte Magazine Ad, 1996" class="polaroid-image">
     </a>
     <div class="polaroid-title">Byte Magazine Ad, 1996</div>
     <div class="polaroid-link">
@@ -771,7 +771,7 @@ If you were to compare these "cryptocurrencies" on price:
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>
@@ -921,7 +921,7 @@ If **everyone** who spent bitcoin did this, it would be functionally impossible 
     </div>
     <small class="polaroid-archive">
       
-      (<a href="https://web.archive.org/web/20260906002840/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      &nbsp;
       
     </small>
   </div>

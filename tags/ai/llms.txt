@@ -4,6 +4,7 @@
 
 ## Posts
 
+- [Bold of You to Assume I Know What a Lintel Is](https://blog.cani.ne.jp/2026/10/20/lintel.md): A human with calipers and an agent with a CAD script put four printable parts online in eight days. Every mistake between them was a stand-in that crossed the gap in place of the real thing.
 - [Worktrees, Baby](https://blog.cani.ne.jp/2026/10/18/worktrees-baby.md): Three commands on top of git worktree: make the checkout, remove the folder, and sweep the pile.
 - [Steal These Status Lines](https://blog.cani.ne.jp/2026/08/27/steal-these-status-lines.md): The Claude Code and Cursor CLI status lines we actually run, on macOS and Linux, with the GNU vs BSD adaptations and copy-paste scripts plus the statusLine config blocks.
 - [The Gate Lodge](https://blog.cani.ne.jp/2026/08/22/the-gate-lodge.md): Keep the home router. Put WireGuard on a dedicated OpenWrt box. How we commissioned ours, and a paste from first boot to a working client.

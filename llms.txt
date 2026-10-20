@@ -4,6 +4,8 @@
 
 ## Posts
 
+- [Bold of You to Assume I Know What a Lintel Is](https://blog.cani.ne.jp/2026/10/20/lintel.md): A human with calipers and an agent with a CAD script put four printable parts online in eight days. Every mistake between them was a stand-in that crossed the gap in place of the real thing.
+- [Do I Need to Reprint?](https://blog.cani.ne.jp/2026/10/20/do-i-need-to-reprint.md): Merge a change, get a versioned Cults3D listing. How a catalog of printable models ships itself from GitHub, what a version number should mean for a thing you print, nine traps in Cults3D's API, and the steps to run your own.
 - [Worktrees, Baby](https://blog.cani.ne.jp/2026/10/18/worktrees-baby.md): Three commands on top of git worktree: make the checkout, remove the folder, and sweep the pile.
 - [The House Goes Critical](https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.md): Why most anime UI recreations feel hollow, how we mapped dual-WAN syslog failover onto the NERV alert cascade, and what happens when an outage turns your home dashboard blood red.
 - [The Overlay Was Fine](https://blog.cani.ne.jp/2026/09/05/the-overlay-was-fine.md): The laptop got 192.168.1.253 at a cafe that already used that /24. The app said Connected. ping 192.168.1.254 hit the cafe. How we aliased the house onto 10.168.1.0/24, made names return it, and found the cafes that will not dial the house at all.
