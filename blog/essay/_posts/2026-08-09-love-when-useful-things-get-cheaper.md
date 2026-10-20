@@ -16,9 +16,9 @@ Around 1998, my family's computer was an [IBM Aptiva](https://en.wikipedia.org/w
 Though the Aptivas retailed, allegedly, for up to $2,700, I have $3,300 in my head. Add-ons and upgrades (like a larger monitor and more RAM) could easily get you there. I can't find any period magazine ads for that specific computer, but here's something from 1996 that would *absolutely* have played LEGO Creator:
 
 {% polaroid
-    byte-magazine-1996-ad.jpg
+    byte-magazine-1996-ad.webp
     title="Byte Magazine Ad, 1996"
-    image_link="byte-magazine-1996-ad.jpg"
+    image_link="byte-magazine-1996-ad.webp"
 %}
 
 Let's do some math:
