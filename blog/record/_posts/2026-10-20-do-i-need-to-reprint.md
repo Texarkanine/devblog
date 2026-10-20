@@ -17,15 +17,19 @@ They are on [Cults3D](https://cults3d.com/) now, next to two bulb holders I desi
 
 ## From Merge to Listing
 
-The catalog is one public repository with one directory per model. After a merge to `main`, every step is automatic:
+The catalog is one public repository with one directory per model. After a change to a model merges to `main`, a person does one more thing, merging a release pull request, and the rest runs on its own:
 
 ```mermaid
-flowchart LR
-    A["Conventional commit<br>in models/thing/"] --> B["Release PR<br>from release-please"]
-    B -->|"merge"| C["Tag thing-vX.Y.Z<br>and GitHub release"]
-    C -->|"release published"| D["Deploy workflow"]
-    D --> E["Cults3D listing<br>created or updated"]
-    E --> F["Creation id<br>written back to main"]
+flowchart TB
+    subgraph release ["Release"]
+        direction LR
+        A["Merge a commit<br>to models/thing/"] --> B["release-please opens<br>a release PR"] --> C["Merge the<br>release PR"]
+    end
+    subgraph publish ["Publish"]
+        direction LR
+        D["Tag thing-vX.Y.Z<br>and GitHub release"] --> E["Deploy<br>workflow"] --> F["Cults3D listing,<br>id written to main"]
+    end
+    release --> publish
 ```
 
 [Release-please](https://github.com/googleapis/release-please) reads [conventional commits](https://www.conventionalcommits.org/) and keeps a release pull request open for each model that has unreleased changes. Merging that pull request tags the model, and the tag's GitHub release starts the deploy.

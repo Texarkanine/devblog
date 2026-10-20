@@ -75,3 +75,19 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
     - The quote script checks a fixed list, not the drafts; operator-chat quotes live only in this task's transcript and the Oct 20 tail dump
     - An SVG through the polaroid tag hits a jekyll-auto-thumbnails cache trap (failed convert leaves a partial file); embed a PNG instead
     - `00-rattlinator-mounted.jpg` shows a vendor name and regional phone number on the extinguisher tag; text in pixels escapes a grep sweep
+
+## 2026-10-20 - BUILD - COMPLETE
+
+* Work completed
+    - Post 2 "Do I Need to Reprint?" drafted with the recipe walked against 3d-models `origin/main` and kept complete
+    - Post 1 drafted twice: eight sections (3,208 words) and the five-stand-in cut (2,269 words, unpublished, own slug)
+    - Five images prepared by script; cross-links, tags, project brief amendment
+    - Verification scripts in `.scratch/3d-research/scripts/`: `check-draft-quotes.py` (every quoted string in the drafts against all corpora), `privacy-sweep.sh` (canary-tested), `check-rendered.py`, `wordcount.py`
+* Decisions made
+    - Helper GitHub App is required in the recipe, justified by GitHub's documented rule that events made with the default token start no workflow
+    - Flowchart laid out as two rows of three for readability; text corrected to show the release-PR merge is a human step
+    - Rattlinator photo dropped; jerry can photo cropped
+* Insights
+    - Mermaid SVGs on this site scale to the column width: a six-box LR row is unreadable and a six-box TD chain is huge; two LR subgraph rows linked subgraph-to-subgraph read well
+    - ImageMagick renders Mermaid SVGs blank (no foreignObject text), so only a browser check proves a diagram
+    - The beat sheets carried three small factual drifts (forum timing, price-bug sequence, rattlinator's wait); drafting against the transcripts, not the digests, caught them

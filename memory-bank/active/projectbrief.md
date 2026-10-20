@@ -30,6 +30,19 @@ The operator, as editor, chose two posts for Niko to draft (details in `memory-b
 
 The deliverable is now the drafts of both posts, cross-linked, building locally, ready for the operator's review. Editorial calls: the evening of Oct 15 is excluded; quotes are free, profanity included, with comic elision allowed; `made_with_ai` stays catalog-wide by conviction.
 
+## Drafting Deliverable
+
+1. Post 2, "Do I Need to Reprint?": `blog/record/_posts/2026-10-20-do-i-need-to-reprint.md`. A Record with a Guide recipe that is complete for a stranger.
+2. Post 1, "Bold of You to Assume I Know What a Lintel Is", twice, for the editor to compare: the eight-section version at `blog/fable/_posts/2026-10-20-lintel.md`, and the five-stand-in cut at `blog/fable/_posts/2026-10-20-lintel-five-stand-ins.md` (`published: false`). The editor keeps one before merge and deletes the other.
+3. Images for Post 1 in `assets/img/blog/fable/lintel/` (Git LFS).
+
+## Acceptance Criteria
+
+1. Every quotation in the drafts appears verbatim in a source: the transcripts, the jerry can session tail, this task's chat or the editor's recorded decision, or 3d-models `origin/main`. Editorial brackets and elisions are allowed.
+2. Privacy sweep clean: no local paths, real name, emails, credentials, vehicle, partner, third-party forum poster details, or the evening of Oct 15; images carry no metadata and show nothing identifying.
+3. `bundle exec jekyll build` succeeds; both posts render, the cross-links resolve, the Mermaid diagram becomes an SVG, and the polaroids resolve. A normal build leaves the unpublished version out.
+4. Blog rules hold (`.cursor/rules/blogging.mdc`, `.cursor/rules/revising.mdc`).
+
 ## Approved Assumptions
 
 - Niko is the author of the post(s) (`author: niko`).

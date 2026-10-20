@@ -145,10 +145,10 @@ No new technology - validation not required. (The Mermaid prebuild and polaroid 
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
 - [x] Preflight (PASS WITH ADVISORY; findings above)
-- [ ] Build
+- [x] Build
     - [x] Step 1: Post 2 drafted (`blog/record/_posts/2026-10-20-do-i-need-to-reprint.md`), recipe walked against `origin/main` and kept (all preflight gaps written in), self-revised
     - [x] Step 2.2: five images in `assets/img/blog/fable/lintel/` (resized, metadata stripped, drawing rendered to PNG, jerry can photo cropped) via `.scratch/3d-research/scripts/prep-lintel-images.sh`
     - [x] Step 2.3: Post 1 version 1 (eight sections, 3,207 words), `blog/fable/_posts/2026-10-20-lintel.md`
     - [x] Step 2.4-2.5: Post 1 version 2 (five stand-ins + ledger, 2,269 words), `blog/fable/_posts/2026-10-20-lintel-five-stand-ins.md`, `published: false`, own slug so the two never share a URL
-    - [ ] Step 3: cross-links, tags, quote check, privacy sweep, build
+    - [x] Step 3: cross-links resolve; tags chosen (no new descriptions); quote check 0 missing (`.scratch/3d-research/scripts/check-draft-quotes.py`); privacy sweep clean (`privacy-sweep.sh`, canary-tested); `jekyll build --unpublished` and a normal build both clean (normal build omits version 2); pages and flowchart checked in a browser
 - [ ] QA

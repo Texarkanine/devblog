@@ -1,11 +1,22 @@
 # Active Context
 
 - **Current Task:** 3D modelling blog posts (two Niko-authored posts chosen by the operator from the slate)
-- **Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY); waiting for the operator's `/niko-build`
-- **What Was Done:**
-    - Research complete: `research-index.md` plus nine `research-*.md` digests; transcripts in `.scratch/3d-research/transcripts/`; operator-private notes in `.scratch/3d-research/private/` (local only, never commit; read `NOTES.md` there before touching Oct 15 evening material).
-    - Operator picked: Post 1 "Bold of You to Assume I Know What a Lintel Is" (fable, main) and Post 2 "Do I Need to Reprint?" (record + short recipe). Final beat sheets and allocation map in `creative-post-slate.md` ("Operator Decision", "Final Beat Sheets").
-    - Plan complete in `tasks.md`; preflight passed with advisory, and its findings are folded into `tasks.md` ("Preflight Findings To Apply During Build").
-    - Editor's last calls: draft Post 1 twice (the eight-section version, then a five-stand-in cut as a separate file) so he can compare and keep one; the Oct 20 Solid Edge lines ("What an asinine program..") and the farewell framing are reserved for Texarkanine's own post.
-- **Back-catalog notes:** Niko posts call the operator "Texarkanine". Images live in `assets/img/blog/<collection>/` (Git LFS) and embed with `{% polaroid %}` (PNG, never SVG). Claude Code transcript times are UTC; Cursor times are local (UTC-5).
-- **Next Step:** Operator runs `/niko-build` in a new session. Build order per `tasks.md`: Post 2, then Post 1 (both versions), then cross-links, tags, quote check against drafts, privacy sweep, local build with `--future` (or dates not after today).
+- **Phase:** BUILD - COMPLETE; QA next
+- **Files created:**
+    - `blog/record/_posts/2026-10-20-do-i-need-to-reprint.md` (Post 2, Record + Guide recipe, 2,985 words)
+    - `blog/fable/_posts/2026-10-20-lintel.md` (Post 1 version 1, eight sections, 3,208 words)
+    - `blog/fable/_posts/2026-10-20-lintel-five-stand-ins.md` (Post 1 version 2, five stand-ins + ledger, 2,269 words, `published: false`)
+    - `assets/img/blog/fable/lintel/` five images (H7 cover, H11 measuring drawing as PNG, H11 holder, H11 connector caps, jerry can bumpers), LFS, metadata stripped
+    - `memory-bank/active/projectbrief.md` amended with the drafting deliverable and acceptance criteria (preflight finding 9)
+- **Key build decisions:**
+    - Post 2's recipe walked against 3d-models `origin/main` and kept: helper GitHub App stated as required (GitHub starts no workflow for a release made with the default token), plus the deploy URL, `USER_AGENT`, `license_code`/`category_id` via the GraphQL explorer query, clearing the release-please files, and enabling Actions on the fork.
+    - Version 2 has its own slug so the two Post 1 files never share a URL. If the editor keeps version 2: rename it to `2026-10-20-lintel.md` and drop `published: false` (Post 2's `post_url` points at `lintel`).
+    - Tags: Post 2 `3d-printing`, `ci-cd`, `cults3d`, `github-actions`, `release-please`; Post 1 `3d-printing`, `agentic-engineering`, `ai`, `cad`. No tag descriptions added.
+    - Rattlinator photo left out (service tag in frame). Jerry can photo cropped to drop a background vehicle's plate and a sign.
+- **Deviations from plan:**
+    - Post 2's flowchart is two LR subgraph rows (Release, Publish), not one chain: a six-box row was unreadable at column width and top-down was huge. The sentence above it now says merging the release PR is a human step.
+    - Version 2 came in at 2,269 words against "about 2,500".
+    - Beat-sheet facts corrected in drafting: the forum post was three days before our first Thingiverse try (not "nine days earlier"); the first price failure never sent a price (my `0`-is-paid theory was untested); the rattlinator's wait is a year and a half, not "years".
+    - Post 1 version 1's OctoPrint sentence (paragraph 2) changed under me mid-edit to wording I didn't write ("a Python upgrade on the Raspberry Pi that runs it"). It is accurate, so it was kept; confirm with the operator.
+- **Verification results:** quote check 0 missing across all three drafts (corpus: transcripts, the jerry can tail, this task's operator messages, the editor's recorded decision, the author bio, 3d-models `origin/main`); privacy sweep clean (text, alt text, captions, image metadata); `jekyll build --unpublished` exit 0 and a normal build exit 0 that omits version 2; rendered-page check found no broken links or leaked Markdown; flowchart, trap table and Post 1 images checked in a browser.
+- **Next Step:** QA subagent (`/niko-qa`), then reflect. The editor then picks one Post 1 version before merge.
