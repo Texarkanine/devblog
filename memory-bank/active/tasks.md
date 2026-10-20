@@ -106,6 +106,15 @@ No new executable behavior. Both deliverables are prose. Verification is editori
 2. Choose tags from existing ones where possible; add a description only for a new tag that needs one.
 3. Run the fact-check script, the privacy sweep, and `bundle exec jekyll build`; look at both rendered posts.
 
+## Preflight Findings To Apply During Build
+
+From preflight (PASS WITH ADVISORY, `memory-bank/active/.preflight-status`). Each lands inside an existing step:
+
+- **Step 1.2 (recipe walk):** the helper GitHub App is required, not optional (the default `GITHUB_TOKEN` cannot trigger the deploy from a release). A stranger also has to change the deploy workflow's hardcoded Cults page and the publisher's User-Agent string, fill `license_code` and `category_id` before the first publish (the repo's `AGENTS.md` says to leave them empty until then, so the recipe must say where to get them), clear the release-please config and manifest entries along with `models/`, and enable Actions on the fork. Write all of that, or cut the recipe to a pointer.
+- **Step 2.2 (images):** embed a PNG render of the measuring drawing, never the SVG (the thumbnail plugin fails on SVG and caches a broken file). The committed drawing is the corrected one, so its caption can't claim it shows E at the seal. For the rattlinator, use `02-rattlinator.jpg` or crop `00-rattlinator-mounted.jpg`; the service tag in the latter shows a vendor and a regional phone number.
+- **Step 3.3 (verification):** replace the fixed-list quote check with one that extracts every quoted string from each draft and searches the transcripts, the Oct 20 tail dump, and this task's chat (for "Friction!", "We are half AI", "are you a lintel"); read anything still unmatched by eye. Read 3d-models files from `origin/main` (the local checkout is behind). Build with `--future` or dates no later than today. Add image alt text and captions to the privacy sweep.
+- **Accuracy:** "two he made years ago" overstates the rattlinator (2025-03-30); give both dates instead.
+
 ## Technology Validation
 
 No new technology - validation not required. (The Mermaid prebuild and polaroid tag are existing site features.)
@@ -133,6 +142,6 @@ No new technology - validation not required. (The Mermaid prebuild and polaroid 
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
-- [ ] Preflight
+- [x] Preflight (PASS WITH ADVISORY; findings above)
 - [ ] Build
 - [ ] QA

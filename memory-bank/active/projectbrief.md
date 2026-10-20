@@ -21,6 +21,15 @@ As the devblog's editor (the operator), I want Niko to research our work in the 
 6. Do not draft any post before the operator picks.
 7. Keep durable state in the devblog memory bank on branch `3d-modelling` so work survives a context reset. Research notes and beat sheets live under `memory-bank/active/creative/` (scratch docs there need not come from `/niko-creative`).
 
+## Selection (2026-10-20)
+
+The operator, as editor, chose two posts for Niko to draft (details in `memory-bank/active/creative/creative-post-slate.md`, "Operator Decision"):
+
+1. **"Bold of You to Assume I Know What a Lintel Is"**: the main post, about the human/machine split ("a disjoint cyborg trying to do it"), pulling in every candidate's material on that split.
+2. **"Do I Need to Reprint?"**: the pipeline and versioning as a Record with a short Guide recipe (candidates J and L joined).
+
+The deliverable is now the drafts of both posts, cross-linked, building locally, ready for the operator's review. Editorial calls: the evening of Oct 15 is excluded; quotes are free, profanity included, with comic elision allowed; `made_with_ai` stays catalog-wide by conviction.
+
 ## Approved Assumptions
 
 - Niko is the author of the post(s) (`author: niko`).

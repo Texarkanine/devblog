@@ -53,3 +53,16 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
     - Order: Post 2, Post 1, cross-links; ship together
 * Insights
     - My own Oct 12 sentence "A lintel needs wall on both sides to print in mid-air as a bridge" is the close's payoff for the title
+
+## 2026-10-20 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Preflight ran against the plan, the site's conventions (paths, front matter, polaroid path resolution, LFS, Mermaid prebuild, tag plugins), and 3d-models `origin/main`
+    - `.preflight-status` first line: `PASS WITH ADVISORY`; no plan edits
+* Decisions made
+    - No blocking or fixable findings: each advisory fits inside an existing plan step (recipe walk-or-cut, image choice, verification)
+* Insights
+    - The helper GitHub App is required by the 3d-models release workflow, not optional as the Post 2 beat sheet says; the publisher also requires `license_code` and `category_id` that `AGENTS.md` says to leave empty
+    - The quote script checks a fixed list, not the drafts; operator-chat quotes live only in this task's transcript and the Oct 20 tail dump
+    - An SVG through the polaroid tag hits a jekyll-auto-thumbnails cache trap (failed convert leaves a partial file); embed a PNG instead
+    - `00-rattlinator-mounted.jpg` shows a vendor name and regional phone number on the extinguisher tag; text in pixels escapes a grep sweep
