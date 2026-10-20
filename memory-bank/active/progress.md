@@ -15,3 +15,17 @@ Fix the five pull-request 122 review items: a durable pre-commit install, a comm
     - The reprint post is edited only by a Claude Opus 5.5 subagent, which keeps its own memory
 * Insights
     - The stripper's existing guard only fires when the original file parses, so `&nbsp;` plus a `<metadata>` mention inside a comment is written back with exit 0
+
+## 2026-10-20 - PLAN - COMPLETE
+
+* Work completed
+    - Wrote the Level 2 plan in `memory-bank/active/tasks.md`
+    - Mapped new stripper behaviors onto `tests/test_strip_svg_metadata.py`
+    - Assigned the reprint sentence to a Claude Opus 5.5 subagent
+* Decisions made
+    - `strip` refuses when the original does not parse, before any substitution
+    - Comments are masked only as complete `<!-- -->` spans, so the CDATA refusal stays
+    - CI calls `python3 -m unittest discover -s tests` because `python` is not guaranteed on the hosted runner
+    - Install docs name `uv tool install pre-commit` or `pipx install pre-commit`, then `pre-commit install`
+* Insights
+    - A test that the workflow file contains the unittest command would be a change-detector, so that step has no test of its own
