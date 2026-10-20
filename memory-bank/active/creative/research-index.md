@@ -15,9 +15,11 @@ Durable map of the source material. Read this first after a context reset.
 - Semantic search failed at first (`ModuleNotFoundError: No module named 'torch'`); the operator fixed it with `stockroom shim ensure-env` and had an issue filed asking stockroom to print that remedy. Both checks agree the session set is complete: keyword SQL (every Thingiverse mention is in a known session) and an 8-query semantic sweep (`scripts/semantic-sweep.sh`; every new hit was an unrelated project: lite-rpg, a16n, slobac, stockroom, a Wayback site).
 - Cursor sessions carry no `ts`/`title`; dates come from `<timestamp>` tags.
 
-## Timeline Skeleton (all 2026, times local UTC-5)
+## Timeline Skeleton (all 2026)
 
-- **Oct 12 14:18** Claude Code session in the operator's local `3D Printer/.../h11 bulb case` folder: "The STL here is from Printables (H11 bulb case) - it works. BUT I need one for an H7 form factor." Origin of the H7 design. Same session discussed whether models can live in public repos and publish to print hosts (Thingiverse research begins).
+Clock caveat: Claude Code transcript stamps (and the Claude session times below) are UTC; Cursor `<timestamp>` tags are local (UTC-5). Subtract five hours from Claude times for local: the H7 request was about 09:18 local on Oct 12, and the H11 "fits like a GLOVE" report was 14:54 local on Oct 15.
+
+- **Oct 12 14:18 UTC** Claude Code session in the operator's local `3D Printer/.../h11 bulb case` folder: "The STL here is from Printables (H11 bulb case) - it works. BUT I need one for an H7 form factor." Origin of the H7 design. Same session discussed whether models can live in public repos and publish to print hosts (Thingiverse research begins).
 - **Oct 13-14** H7 design iterations in Claude Code (`/nk-chat`): test print fitment, barbs, clip tab thickness, flange pocket depth. Many small subagent sessions (reviewers) not dumped.
 - **Oct 14 10:17** Cursor in the H7 folder: publishing research resumes ("I had to go make a Thingiverse account and provision an app...").
 - **Oct 14** 3d-models repo created; first commits put the two models in (rattlinator + h7) with release-please; SumMem; Git LFS for images; Cults3D publishing set up via `/niko` (L3 archive `20261014-cults-deploy-upload`).
