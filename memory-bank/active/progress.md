@@ -129,3 +129,13 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
 * After QA (by the build agent)
     - Took QA advisory 1: Post 2's "That decides the Git LFS line" became "Git LFS splits the files by kind", stating the stub reason on its own. One sentence; no facts changed; not re-reviewed by QA
     - Took QA advisory 2: word counts refreshed (Post 2 3,016; Post 1 version 1 3,247; version 2 2,283)
+
+## 2026-10-20 - REFLECT - COMPLETE
+
+* Work completed
+    - Reflection written: `memory-bank/active/reflection/reflection-3d-modelling-slate.md`
+    - Persistent files reconciled: productContext, systemPatterns and techContext unchanged (two posts change no product, pattern or tooling contract)
+* Decisions made
+    - Next is the operator: pick one Post 1 version, then `/niko-archive`
+* Insights
+    - QA run 1's recipe bug was the unfixed sibling of a preflight finding in the same file and the same `AGENTS.md` sentence: fix the class, not the instance

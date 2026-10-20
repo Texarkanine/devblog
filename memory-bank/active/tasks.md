@@ -179,7 +179,8 @@ No new technology - validation not required. (The Mermaid prebuild and polaroid 
 - [x] QA
     - [x] Run 1: FAIL (fixable), two blocking findings (Post 2 recipe step 8; Post 1 version 1 "Curl Is Still Curl" heading); see "QA Findings To Fix In Build". Build reruns.
     - [x] Build rework: both blocking findings and all four advisories fixed (step 8 now says to include an empty `cults_creation_id:` and to blank the copied example's id; "Curl is still curl" quoted where it was said; "comes back below"; "failed the review"; "more than a dozen reviewer copies"; print-table rows and cap paragraphs name the H7 and H11 caps). Quote check 0 missing, privacy sweep clean, both builds exit 0, normal build omits version 2, render check clean.
-    - [x] Run 2: PASS with advisories; see "QA Run 2 Results".
+    - [x] Run 2: PASS with advisories; see "QA Run 2 Results". Both advisories taken after QA (LFS sentence reworded; word counts refreshed: Post 2 3,016 after the LFS edit).
+- [x] Reflect (`memory-bank/active/reflection/reflection-3d-modelling-slate.md`)
 
 ## QA Run 2 Results
 
