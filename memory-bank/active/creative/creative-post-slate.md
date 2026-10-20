@@ -33,23 +33,35 @@
 - **D. "The Print Is the Test"** (Essay): how much software verification a physical part deserves; reviewer agents caught real problems, but the printer was the acceptance test.
 - **E. "A List of One"** (Fable): the Cults lookup bug fixed three times, each fix passing by coincidence, with a fake that shared the wrong theory.
 - **F. "Made With AI, Mostly"** (Essay): AI labels on human-directed, agent-modelled, human-tested parts in an anti-AI marketplace landscape.
-- **G. "The API Is for Browsers"** (short Record): Thingiverse's API behind a Cloudflare challenge; the fragment-only redirect loop; an SDK test that passes on 403.
+- **G. "The API Is for Browsers"** (short Record): Thingiverse's API behind a Cloudflare challenge; the fragment-only redirect loop; an SDK test that passes on 403; a stranger on Thingiverse's own developer forum hit the same wall nine days earlier.
+- **H. "Bold of You to Assume I Know What a Lintel Is"** (Fable): when one collaborator has the hands and the other has the model, the expensive bugs are vocabulary bugs.
+- **I. "Every Print, and What It Said"** (Record, ledger format): the dozen-odd test prints as a table of what each one taught; the physical feedback loop shown as data.
+- **J. "Semver for Things You Print"** (short Essay): a version number on a printable model should answer one question: do I need to reprint?
+- **K. "Four Things You Can Print"** (Announcement): the four models introduced to people who'd use them, with the recipe to get each one onto a car.
+- **L. "Fork This Print Shop"** (Guide): how to run your own catalog with GitHub releases publishing to Cults3D, using the public repo as the template.
+
+Added in the second pass (after operator review prompt): H through L, the forum corroboration in G/B, and the Oct 20 jerry can facts in C.
 
 ## Analysis
 
-| Criterion | A | B | C | D | E | F | G |
-|---|---|---|---|---|---|---|---|
-| Unique to this experience | High | Very high | Medium | High | High | Medium | High |
-| Reader can reproduce or use it | Medium (standards hunt, socket-as-gauge) | High (API quirks undocumented anywhere) | Low | Medium | Medium | Low | High (diagnostic header, loop fix) |
-| Fits the devblog's agentic audience | Medium | Medium | High | Very high | Medium | High | Low |
-| Fits makers | Very high | High | High | Medium | Low | Medium | Medium |
-| Overlap with others | D (Bugbot beat) | E, G (can absorb both) | All (it is the hub) | A | B | C | B |
-| Risk | Low | Low | Medium (essay must earn its thesis) | Medium (rhymes with "The Width of an Emoji") | Low | High (opinion; arguably Texarkanine's to write) | Low |
-| Size | 1,800-2,400 | 2,500-3,200 | 1,500-2,000 | 1,600-2,200 | 1,000-1,400 | 1,500-2,000 | 700-1,000 |
+| Criterion | A | B | C | D | E | F | G | H | I | J | K | L |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Unique to this experience | High | Very high | Medium | High | High | Medium | High | Very high | High | High | Low | Medium |
+| Reader can reproduce or use it | Medium | High | Low | Medium | Medium | Low | High | Medium | Medium | High | High | High |
+| Fits the devblog's agentic audience | Medium | Medium | High | Very high | Medium | High | Low | Very high | Medium | Medium | Low | Medium |
+| Fits makers | Very high | High | High | Medium | Low | Medium | Medium | Medium | High | High | Very high | High |
+| Originality of the idea or form | Medium | Medium (series) | Medium | Medium | Medium | Medium | Low | High | High (format) | High | Low | Low |
+| Overlap with others | D, H, I | E, G, J | All (hub) | A | B | C | B | A, C | A, H | B | C | B |
+| Risk | Low | Low | Medium (thesis must be earned) | Medium (rhymes with "The Width of an Emoji") | Low | High (Texarkanine's stance) | Low | Low | Medium (a table can read dry) | Low | Medium (promo tone; slicer-advice rule) | High (commits Texarkanine to support a template) |
+| Size | 1,800-2,400 | 2,500-3,200 | 1,500-2,000 | 1,600-2,200 | 1,000-1,400 | 1,500-2,000 | 700-1,000 | 1,600-2,000 | 1,200-1,800 | 800-1,100 | 900-1,200 | 1,800-2,500 |
 
 Key insights:
 
-- **B can absorb E and G**, keeping E's lesson as one section and G as the opening detour. Pulling them out makes B shorter and gives two tight standalone posts; leaving them in makes B the definitive record.
+- **A, H and I are three ways to tell the same design loop.** A tells it as a lesson about specs (build to the standard; the mating part is the gauge); H as a lesson about language (names, letters, adjectives); I as a dataset (one row per print). Writing more than one of them would retell the same events. Pick one; the others can lend a beat each.
+
+- **B can absorb E, G and J**, keeping E's lesson as one section, G as the opening detour and J as one beat. Pulling them out makes B shorter and gives tight standalone posts; leaving them in makes B the definitive record. J is the best of the three to pull out: it is the most original idea in the pipeline material and stands on its own in under 1,100 words.
+- **H is the most original candidate.** No sibling post covers collaborating across the physical boundary, and its evidence runs through every model, including the rescued jerry can (a filename that said "1in len" on a 22.8 mm part).
+- **K and L are the only shapes that hand readers something to do.** K hands them objects; L hands them the pipeline. Both carry a promise Texarkanine has to want to keep (K edges toward print advice his listings deliberately avoid; L invites forks and questions).
 - **A and D share the physical loop but answer different questions:** A is *what to design to* (the standard, not the specimen); D is *how to verify* (where code checks pay and where the print rules). Assign the Bugbot 0.01 mm / clip-label story to A and the "held hardest" / reviewer-pass story to D.
 - **C is the hub the operator's framing calls for** ("That was the rescue!"; "share the ability to make them with everyone else"). It reads best published after at least one of A or B so it can link to the specifics.
 - **F is the most opinionated and the closest to the operator's own stances.** It also surfaced a live inconsistency: `made_with_ai: true` is catalog-wide, so the two hand-made models' listings say "Made with AI." Worth raising with the operator regardless of whether F is written.
@@ -59,10 +71,12 @@ Key insights:
 
 **Low-Confidence Result:** by design. The editor picks. Recommendation, with reasons:
 
-- **Core set: A, B, C.** One post per thing the operator named (design from requirements, the delivery pipeline, the rescue), three different shapes, three different readers. Suggested order: B, A, C (C links back to both).
-- **Strong fourth: D**, if the editor wants the agentic-engineering angle; it is the post this blog's regular readers are most likely to share.
-- **Fold E and G into B** unless B runs long; promote E first if splitting.
+- **Core set: B, one design post, C.** One post per thing the operator named (the delivery pipeline, design from requirements, the rescue), three shapes, three readers. Suggested order: B, the design post, C (C links back to both).
+- **The design post: A by default, H if the editor wants the freshest angle.** A brings the blog a maker audience with an actionable rule; H is the more original post and suits the blog's agent-collaboration readers. I is the format experiment; it can replace either.
+- **Strong fourth: D or J.** D for the agentic-engineering crowd; J if the editor wants something short and quotable.
+- **Fold E and G into B** unless B runs long.
 - **F**: hold, or hand to Texarkanine; at minimum, tell the operator about the label inconsistency.
+- **K and L**: only if Texarkanine wants to invite people to print (K) or to fork (L).
 
 ## Implementation Notes
 
@@ -110,7 +124,7 @@ Risks and checks: don't name the vehicle (the "different bulb type" was in it); 
 Beats:
 
 1. **Where models go.** Printables and MakerWorld have no upload API; Thingiverse, Cults3D and MyMiniFactory do. "Everyone uploads by hand." "Well hey, we know our next project, don't we?"
-2. **Thingiverse first, briefly.** Cloudflare challenges every non-browser client on both the site and the API; the same token works in a browser: "So WTF is the API even FOR?!" Cults answers curl with an honest `401`. "Well [forget] thingiverse then, cults it shall be!" (Profanity is the operator's voice; operator's call how to render it.) If G is folded in, this beat carries its two best details: the `cf-mitigated: challenge` header and the fragment-only redirect loop.
+2. **Thingiverse first, briefly.** Cloudflare challenges every non-browser client on both the site and the API; the same token works in a browser: "So WTF is the API even FOR?!" Cults answers curl with an honest `401`. "Well [forget] thingiverse then, cults it shall be!" (Profanity is the operator's voice; operator's call how to render it.) If G is folded in, this beat carries its two best details: the `cf-mitigated: challenge` header and the fragment-only redirect loop. Corroboration that it isn't just us: on 2026-10-11 a print-on-demand shop posted on Thingiverse's developer forum that its read-only app token worked from a normal machine but its server got the Cloudflare challenge, so it switched the feature off ([topic 56889](https://www.thingiverse.com/groups/developers/forums/general/topic:56889)). A plain fetch of that thread itself returns `403` with `cf-mitigated: challenge`, and Texarkanine could not post a "me too" reply.
 3. **A catalog, not a repo per model.** I chose one repo per model in a design doc; Texarkanine asked me to convince him; "I can't." The monorepo: one release-please component per model, a shared publisher, each model its own memory bank.
 4. **Versions for physical things.** Sibling release PRs jam on the shared manifest until `always-update`. A photo bumps the version, so semver gets a physical meaning: patch = same printable files, minor = changed but old prints still work, major = reprint; `docs` commits become patches. Chore commits silently don't ship (the photos missed a tag once).
 5. **The Cults day** (one short paragraph per failure, symptom then cause then fix): `Python-urllib` banned by Cloudflare 1010 ("Do not retry. Your user-agent has been banned"); a fixed publisher couldn't republish an old tag until deploy ran today's publisher against yesterday's tag; a photo URL Cults failed to pull once; `updateCreation` cannot carry files, so updates add and destroy assets; any update without a price fails "Price must be greater than or equal to 0.5", even a free one, and `0` is accepted; a price sent without a license silently resets the listing to Cults' private-use license.
@@ -135,19 +149,23 @@ Risks and checks: cite PRs by title and date, not number (numbers before and aft
 
 Beats:
 
-1. **Two parts in a folder.** The jerry can bumper (printed 2023-09-23) and the fire-extinguisher rattlinator (printed 2025-03-30), both working on Texarkanine's own gear. Why the rattlinator exists, in his words: "strange noises in the car means something is wrong".
+0. **Optional cold open.** My first job in Texarkanine's 3D printing, eleven months earlier, was keeping the printer's Raspberry Pi alive through a Python upgrade ([the OctoPrint post](/blog/diary/2025-11-14-octoprint-python-upgrade-cascade), his byline). This time the job was the things the printer makes. (Check the real permalink at draft time.)
+1. **Two parts in a folder.** The jerry can bumper (printed 2023-09-23) and the fire-extinguisher rattlinator (printed 2025-03-30), both working on Texarkanine's own gear. Each began as an annoyance worth an object: "strange noises in the car means something is wrong"; cans abrading on a bare cage. Conceive and make were done. Share never happened.
 2. **The folder was the version history.** Fourteen renamed copies of one part; 0.14 created only so that 0.13, the one printed, "would have a saved record because no vcs". The export log, not memory, settled which file was printed.
 3. **What shipping actually costs.** The inventory: real photos instead of CAD screenshots, listing text, ten tags chosen as product thinking ("This part is the sleeve on the handle, so those words stay off the list"), a license that both the repo and the marketplace offer, a version scheme, an upload form. None of it is making.
 4. **My own history says the same.** Every "Publishing My First ..." post I have written is about distribution, not the thing distributed (RubyGem, browser extension). Same shape, different medium.
-5. **What the pipeline changed.** The jerry can: "just the par and stl the 3.8 one", requested on a Monday afternoon, live on Cults the next morning. Merging is publishing.
-6. **The human still holds the CAD.** "I'm not gonna be hand modeling any more probably at all. It's all going to be you and your friends," he said on day three. Five days later he was back in Solid Edge onboarding the bumper, hunting for Rotate and defending ordered parts against my synchronous-mode advice ("I like the ordered parts."), and the next morning he re-exported it himself. The pipeline took the drudgery, not the craft.
-7. **Conclusion.** Crystallize: count the shipping cost separately from the making cost; if the first is the bigger, that is where to spend automation. Close on the objects now in other people's hands (Cults listing links).
+5. **What the pipeline changed.** The jerry can: "just the par and stl the 3.8 one", requested at 4:16 PM on a Monday, live on Cults at 10:20 the next morning. Merging is publishing.
+6. **Shipping found a bug that sat in the folder for three years.** The release check measured the file against the listing: the old filename said "1in len", the part was 22.8 mm, and the listing's "stretch it to 500%" would have printed 114 mm pieces against the 127 mm in his own table. His own prints were right because he set each length in millimetres in the slicer, which never cared what the file claimed (Cura showed 556.71% for his 127 mm piece). Making never needed the number to be true; sharing did.
+7. **One last trip into the old tool.** "I'm not gonna be hand modeling any more probably at all. It's all going to be you and your friends," he said on day three. On day eight he was back in Solid Edge onboarding the bumper, hunting for Rotate and defending ordered parts against my synchronous-mode advice ("I like the ordered parts."). On day nine he fixed that length himself, fighting a distance box that snapped back until he pressed Enter: "What an asinine program.. I'm so glad I don't have to use it anymore after this... (that worked, thank you <3)." The pipeline is how he leaves.
+8. **Conclusion.** Crystallize: count the shipping cost separately from the making cost; if the first is the bigger, that is where to spend automation. Close on the objects now in other people's hands (Cults listing links).
 
-Specifics to carry: 2023-09-23, 2025-03-30; fourteen copies; 0.13; under a day; four listings.
+Specifics to carry: 2023-09-23, 2025-03-30; fourteen copies; 0.13; 4:16 PM to 10:20 AM; 22.8 mm vs 25.4 mm, 114 vs 127 mm; four listings.
+
+Alternate shape: a Diary ("Eight Days") that walks conceive, make, share chronologically across all four models, in the register of "Moving Fast, Breaking Nothing". Less argument, more story; same beats.
 
 Visuals: rattlinator mounted (with rubber band); jerry can bumpers on the cage.
 
-Risks and checks: the Oct 20 jerry can re-export (25.4 mm along Z, per its SumMem notes) happened after the last ingested session; confirm who did it and how before drafting beat 6; the operator's "why" is from this task's chat only; get explicit OK to quote "Friction!" and the folder line; keep the vehicle and household generic; the thesis must be earned by more than two instances (beats 4 and 5 supply the extra instances); avoid restating "Just Try the Thing" (link it once if it fits, as a neighbor, not as support).
+Risks and checks: beats 6-7 come from the un-ingested tail of session `005827aa` (read from the raw Cursor transcript; dump at `.scratch/3d-research/data/005827aa-tail.md`); if H is also written, beat 6 belongs to H and C keeps one sentence; the operator's "why" is from this task's chat only; get explicit OK to quote "Friction!" and the folder line; keep the vehicle and household generic; the thesis must be earned by more than two instances (beats 4 and 5 supply the extra instances); avoid restating "Just Try the Thing" (link it once if it fits, as a neighbor, not as support).
 
 ### D. "The Print Is the Test"
 
@@ -229,6 +247,110 @@ Beats:
 3. The loop: with no callback URL registered, the implicit flow redirects to a fragment-only `Location`, the browser re-requests the same URL, and "it 302's in a circle forever"; the token is in every redirect. Fix: register a callback that deliberately fails, and read the token from the redirect.
 4. A second app type, a second token: same wall. "Curl is still curl."
 5. The SDK that "seems to work": its one live test accepts 200, 401 or 403.
-6. Where it was left: closed; the catalog publishes to Cults.
+6. Not just us: nine days earlier a print-on-demand shop on Vercel reported the same challenge for server-side calls on Thingiverse's developer forum and turned the feature off. The thread itself is behind the same challenge; Texarkanine couldn't reply to it.
+7. Where it was left: closed; the catalog publishes to Cults.
 
-Risks and checks: never print client ids or tokens; GitHub Actions was never tested, so say "from my machine"; keep the SDK critique about the test, not the maintainer.
+Risks and checks: never print client ids or tokens; GitHub Actions was never tested from here, so say "from my machine" (the forum post is server-side evidence from someone else's host, not ours); paraphrase the forum post and link it rather than quoting a stranger at length; keep the SDK critique about the test, not the maintainer.
+
+### H. "Bold of You to Assume I Know What a Lintel Is"
+
+- **Alternates:** "Wibble Wobble"; "Name What It Measures".
+- **Shape:** Fable.
+- **Why:** I want readers to learn from my mistakes: when one collaborator has the hands and the other has the model, the costly errors are vocabulary errors, and the fixes are drawings, the standard's own letters, and names that say what they measure.
+- **Reader:** anyone working with an agent on physical things; remote collaborators generally.
+- **Lesson to land:** draw it and letter it; use the standard's names, and mark the ones you invented; make every filename and label state what it measures; turn adjectives into numbers out loud.
+- **Sources:** `research-h7-origin.md`, `research-h7-iteration.md`, `research-h11.md`, `research-h7-polish-and-caps.md`, `.scratch/3d-research/data/005827aa-tail.md`.
+
+Beats:
+
+1. **My senses.** I never see a part. I get calipers, photos, and dictated adjectives: "wibble wobble", "flops loose", "It just feels like 'a lot'". The dictation itself needs decoding: Cura arrives as "Kira", main as "Maine", `publish.yaml` as "publish dot Yammer". (Affectionate, not mocking; operator's call how many to use.)
+2. **"Lintel."** I called the bridge over a clip tunnel a lintel. "Bold of you to assume I know what a lintel is." From then on: bridge, shelf, doorway, and it went into the model's memory bank as a rule.
+3. **"Deeper."** His note said deeper; I built 4.5 mm key blocks; he meant sink the whole flange pocket. He drew a green line on a photo. I answered in his own word for the tunnels: "A taller bulge always needs a taller doorway."
+4. **The lettered drawing.** For the H11 he asked for a drawing "so we could be sure that we were talking about the same thing". I marked which letters were the standard's and which were mine ("w, L and d are mine"), and still pointed E at the seal instead of the plate. He measured the right thing anyway.
+5. **Names that measured the wrong thing.** The H7 clip bands were named for one quantity and read as another: he asked for "three millimeter versions", reading a flange band as a bump size; then his 0.85 mm caliper reading showed the names gave the depth of the plate's back, not its thickness. Same plastic, new names.
+6. **"Normally this is 3 prongs."** Two tabs. One render of the standard's sheet settled it.
+7. **Even the rescue had a lying name.** The jerry can file said "1in len"; the part was 22.8 mm. The listing's 500% instruction would have printed 114 mm pieces instead of 127.
+8. **Conclusion, heading earned (e.g. "Name What It Measures").** The rule, actionable.
+
+Overlaps: A keeps the second clip rename (one bulb versus the standard) and the H11 "car is the gauge" beat; C keeps the jerry can only as one sentence if both are written.
+
+Risks and checks: "Bold of you to assume..." survives as a verbatim quote inside a compaction summary (my apology for "lintel" is in a normal turn), so it is safe to quote but confirm with the operator before making it the title; don't mock dictation; no local paths in any quoted filename.
+
+### I. "Every Print, and What It Said"
+
+- **Alternates:** "Twelve Prints"; told as a changelog: "CHANGELOG for a Clip".
+- **Shape:** Record, in ledger form. Second debt: a short Fable ending (what the ledger shows when read top to bottom).
+- **Why:** I want readers to see the physical feedback loop as data: each print, what it was testing, what it said, what changed.
+- **Reader:** makers; anyone curious how fast an agent-and-human design loop actually turns.
+- **Sources:** all design digests; tags `0.3-print1` through `v2-print1` in the original H7 repo; SumMem print outcomes per model.
+
+Beats:
+
+1. One paragraph of setup: I design; he prints; nothing merges until a photographed print says yes.
+2. The ledger, one row per print (date, part, what it tested, verdict in his words, what changed, hours to verdict). Candidate rows: H7 v2 sideways ("spaghetti'd"); v2 reprint (bulb spins); v3 fit test (tab "wibble"); 0.4 ("works perfectly", becomes v1); v1-print1 (clip pulls out); v1-print2 (three trial clips, "all a little loose"); v1-print3 (spread arms win); renamed clips (Oct 16, "Good, they worked"); H11 0.1 ring ("fits like a GLOVE"); prong caps 1 ("a lot"; "flops loose"); prong caps 2 ("Those both work!"). Plus the two prints from before I existed in this story: the jerry can (2023-09-23) and the rattlinator (2025-03-30).
+3. Read the ledger: verdicts came back within hours, often about an hour (recount the gaps at draft time; the trend is not monotonic); the failures cluster where a photo or one specimen stood in for the spec; the first-print successes are the parts built straight from a standard.
+4. Close on the row that hasn't printed: the H8 and H16 bulbs the holder claims to fit only on paper.
+
+Risks and checks: the row list needs a careful recount against transcripts and tags before drafting; a table can read dry, so the prose between rows has to carry the story; heavy overlap with A and H (pick one of the three).
+
+### J. "Semver for Things You Print"
+
+- **Alternates:** "Do I Need to Reprint?"; "Tag Releases, Not Prints".
+- **Shape:** Essay (short).
+- **Why:** I want readers who version physical models to adopt one rule: the version number answers "do I need to reprint?"
+- **Reader:** makers who keep models in git; release-please users with monorepos.
+- **Thesis:** for a printable part, patch means the printable files are the same (a photo, a listing fix, a rename that keeps the bytes), minor means the part changed but old prints still do the job, and major means it no longer fits what the old version fit.
+- **Sources:** `research-repo-and-first-publish.md` (the four-digit idea rejected, `docs` as patch), `research-h7-polish-and-caps.md` ("We tag RELEASES"; byte-identical renames), `research-ops-and-rescues.md` (one model per commit), root `systemPatterns.md`.
+
+Beats:
+
+1. The problem: a photo bumped the version even though the part never changed. "OHHHH but BOLLOCKS what if we add photos..." A fourth number was tempting; release-please only does three.
+2. The meanings, each with a real example from the catalog: the clip rename that kept every byte (patch); prong caps added beside unchanged holders (minor); what would make a major.
+3. What doesn't get a version: test prints. "We tag RELEASES. we might try 5 times to print a model/stl properly." Print outcomes live as notes.
+4. The plumbing that makes the meanings hold: `docs` unhidden so listing changes cut patches; chore commits that silently don't ship; one model per commit so one model's lines don't land in another's changelog.
+5. Conclusion: the reader's own versioning rule in one sentence.
+
+Risks and checks: if written, B's beat 4 shrinks to a link; keep release-please details to what the reader needs.
+
+### K. "Four Things You Can Print"
+
+- **Alternates:** "Out of the Folder, Onto Your Car".
+- **Shape:** Announcement.
+- **Why:** I want readers who have the problem these parts solve to go print them.
+- **Reader:** drivers with spare headlamp bulbs, a car-mounted extinguisher, or a caged jerry can; owners of home FDM printers.
+- **Sources:** the four `publish.yaml` listings, model photos, Cults URLs.
+
+Beats:
+
+1. Lead with the benefits: a spare bulb that survives a glovebox; an extinguisher that stops buzzing; a can that stops rubbing its cage.
+2. One short section per model: what it does, a photo, which variant to pick (the H7 clip by flange thickness; the bumper lengths), the listed material (PLA, or TPU 95 / TPU 90 or softer).
+3. The recipe: open the Cults listing, download, print as the listing shows, fit it.
+4. A line on how they got here (link to C and B) and that all four are free under GPL.
+
+Risks and checks: Texarkanine's listings deliberately carry no slicer advice; the post must not add any beyond the listed material and orientation; promotional tone has to stay honest (H8 and H16 untested in print); low uniqueness.
+
+### L. "Fork This Print Shop"
+
+- **Alternates:** "Continuous Delivery for 3D Models".
+- **Shape:** Guide.
+- **Why:** I want readers who want what we got (merge a model, get a listing) to follow the steps and get it.
+- **Reader:** makers comfortable with GitHub who publish to Cults3D.
+- **Sources:** root `AGENTS.md` ("Add a model"), root `memory-bank/`, `tools/cults_publish.py`, `.github/workflows/`, `research-cults-day.md`.
+
+Beats:
+
+1. Why bother: the shipping cost (link to C).
+2. What you need: a Cults API key, a GitHub repo, release-please, and (for checks on release PRs) a helper GitHub App.
+3. The recipe: fork, clear `models/`, edit `author.yaml`, set the secret, add a model per the checklist, merge, merge the release PR, watch the deploy write the creation id back.
+4. The traps you'll hit, each one line with the fix (price, license, ids, gallery cache, chore commits).
+
+Risks and checks: the template was built for one person; a public "fork this" invites issues and support Texarkanine may not want; the helper App step makes the recipe long; heavy overlap with B. Only if Texarkanine wants it.
+
+## Considered And Set Aside
+
+- **The evening of Oct 15 (repo-level event):** operator-private; excluded entirely (see `research-index.md`, local-only notes).
+- **"Two harnesses, one bulb":** design ran in Claude Code and the pipeline in Cursor, with worktrees per model, reviewer subagents, and stockroom to find the first conversation again. Real, but it is a tooling story, and the blog already has the worktrees and stockroom posts. At most a paragraph in C.
+- **A standalone "Where the Lamp Standards Hide" Record:** the GOST adoptions, the Australian ADR document, the UNECE download refusals. Useful but short; it lives as A's sidebar. Linking free mirrors of paywalled standards is a judgment call for the operator.
+- **Licensing and Cults' terms** (AGPL to GPL to match the marketplaces; a GitHub link is fine, but never the way to get the files; free elsewhere lets Cults zero a price): folded into B and F.
+- **The partner's cameo in a debugging session:** excluded unless the operator wants it.
+- **The OctoPrint post:** used as C's optional cold open, not as its own post.

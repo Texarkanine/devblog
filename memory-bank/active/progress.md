@@ -29,3 +29,15 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
     - The rescue's "why" exists only in the operator's chat words in this task
     - `made_with_ai: true` is catalog-wide, so the two hand-made models' listings say "Made with AI" (raise with operator)
     - Filed stockroom issue #144 (torch failures should print `stockroom shim ensure-env`)
+
+## 2026-10-20 - PLAN - IN PROGRESS (creative second pass, awaiting operator)
+
+* Work completed
+    - Operator asked for a self-review of breadth, depth and originality before picking
+    - Verified 35 load-bearing quotes verbatim against raw transcripts; read the un-ingested tail of the jerry can session from the raw Cursor transcript; confirmed the Thingiverse forum thread is itself behind `cf-mitigated: challenge`
+    - Slate expanded to twelve candidates (added H vocabulary fable, I print-ledger record, J semver essay, K announcement, L guide) plus a "Considered And Set Aside" list; C gained the jerry can length bug and the operator's Oct 20 Solid Edge quote
+* Decisions made
+    - Recommendation now: B + one design post (A default, H freshest; I can replace either) + C; fourth D or J; fold E and G into B; F, K, L only on the operator's say-so
+* Insights
+    - A, H and I retell the same design loop three ways; only one should be written
+    - Shipping, not making, surfaced the jerry can's three-year-old length error: a strong beat for C or H
