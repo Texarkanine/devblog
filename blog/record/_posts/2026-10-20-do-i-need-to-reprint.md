@@ -35,7 +35,7 @@ flowchart TB
 
 [Release-please](https://github.com/googleapis/release-please) reads [conventional commits](https://www.conventionalcommits.org/) and keeps a release pull request open for each model that has unreleased changes. Merging that pull request tags the model, and the tag's GitHub release starts the deploy.
 
-Cults3D wasn't the first place we looked, but it was the one that worked. [Printables](https://www.printables.com/) and [MakerWorld](https://makerworld.com/) have no upload API. [Thingiverse](https://www.thingiverse.com/) has one, but a Cloudflare check turns away anything that isn't a browser, with or without a valid token; the companion post has that story. Cults3D's [GraphQL API](https://cults3d.com/en/pages/graphql) answered a bare `curl` with `401 HTTP Basic: Access denied.`, which is an API that is listening, and Cults3D accepts AI-assisted designs as long as they are marked.
+Cults3D wasn't the first place we looked, but it was the **only** one that actually worked. [Printables](https://www.printables.com/) and [MakerWorld](https://makerworld.com/) have no upload API. [Thingiverse](https://www.thingiverse.com/) has one, but a Cloudflare check turns away anything that isn't a browser, with or without a valid token; the companion post has that story. Cults3D's [GraphQL API](https://cults3d.com/en/pages/graphql) answered a bare `curl` with `401 HTTP Basic: Access denied.`, which is an API that is listening, and Cults3D accepts AI-assisted designs as long as they are marked.
 
 ## One Directory per Thing
 
@@ -45,7 +45,7 @@ Each model lives in `models/<name>/`, and release-please uses `<name>` as the mo
 - **The printable files**: [STL](https://en.wikipedia.org/wiki/STL_(file_format)), and [STEP](https://en.wikipedia.org/wiki/ISO_10303-21) where there is one.
 - **`img/`**, where every file is a listing photo. Sorted filename order is gallery order. When a slicer screenshot became the first picture on the H7 listing, the fix was a `00-` prefix on a photo: "The filename sort is the whole control."
 - **`publish.yaml`**, the listing record: title, description, print notes, tags, license code, category ids, the printable files to ship, and, once the listing exists, its creation id. Cults calls a listing a "creation".
-- **A memory bank**: notes for the AI agents that work on the model. The publisher never reads it.
+- **A [memory bank](https://github.com/Texarkanine/.cursor-rules/blob/main/rulesets/niko/README.md#nikos-memory-bank)**: notes for the AI agents that work on the model. The publisher never reads it.
 
 Text that every listing shares lives once, in `author.yaml` at the root: the Cults nickname, the locale, the made-with-AI flag, and a closing block for every description. Publishing fills `{version}`, `{changelog_url}` and `{license_name}` in that block and in each model's own text, so every listing states its version and links its changelog without anyone typing either.
 

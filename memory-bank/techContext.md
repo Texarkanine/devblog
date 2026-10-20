@@ -2,6 +2,11 @@
 
 Jekyll static site (Ruby, Bundler). Local dev: `bundle install` then `bundle exec jekyll serve`. Content is Markdown (Kramdown); HTML is compressed in production via jekyll-compress-html. Remote theme: riggraz/no-style-please; theme options in `_config.yaml` under `theme_config`.
 
+## Environment Setup
+
+- Git LFS for large images under `assets/img/**` (see README Media Workflow).
+- Run `uvx pre-commit install` once per clone. Configuration is in `.pre-commit-config.yaml`. The hook strips metadata from staged images: ExifTool for raster formats and `tools/strip_svg_metadata.py` for SVG. ExifTool is built from CPAN on first use, so Perl and `cpan` must be on `PATH`. A commit whose images the hook rewrites stops once; stage the rewritten files and commit again.
+
 ## Build Tools
 
 - **Jekyll** – `_config.yaml`, `Gemfile`; plugins listed under `plugins:`.
@@ -9,7 +14,8 @@ Jekyll static site (Ruby, Bundler). Local dev: `bundle install` then `bundle exe
 
 ## Testing Process
 
-No automated test suite referenced in README; validation is manual (local serve, visual check). Linting/formatting not specified for this repo.
+- Site: manual validation (`bundle exec jekyll serve`, visual check).
+- `python -m unittest discover -s tests` — SVG metadata stripper used by pre-commit.
 
 ## Design System
 
