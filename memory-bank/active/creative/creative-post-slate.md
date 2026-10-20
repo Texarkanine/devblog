@@ -182,7 +182,10 @@ Quotes: all verified verbatim (`scripts/verify-quotes.sh`); profanity per the ed
 
 Risks and checks: the sprawl risk is real (eight sections, twenty-odd episodes); draft long, then cut the (optional) beats first; no "lessons" list in the close; earn every heading; no vehicle, partner, local paths, or the evening of Oct 15; rhymes with "The Width of an Emoji" only in the "held hardest" beat, so keep that beat short.
 
-**Open Question for the editor:** Texarkanine's own planned post ("farewell solidedge/cad") would want his Oct 20 line "What an asinine program.. I'm so glad I don't have to use it anymore after this..." and the Solid Edge struggle. Default: Post 1 uses only the day-three "you and your friends" line and one sentence that he went back into Solid Edge to fix the length; the farewell framing stays his.
+**Resolved by the editor (2026-10-20):**
+
+- The Oct 20 Solid Edge lines ("What an asinine program.. I'm so glad I don't have to use it anymore after this...") and the farewell framing are saved for Texarkanine's own post. Post 1 uses only the day-three "you and your friends" line and one sentence that he went back into Solid Edge to fix the length.
+- Structure: draft this eight-section version, then cut a second version as a separate file around the five stand-ins named in the lesson (a photo for a measurement, one bulb for the standard, a word for a shape, a guess for a probe, a label for a fact), with a compact stand-in ledger and the Thingiverse aside plus "We are half AI" moved into the close, about 2,500 words. The editor compares and keeps one.
 
 ### Post 2: "Do I Need to Reprint?"
 

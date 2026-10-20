@@ -56,7 +56,8 @@ flowchart LR
 ## Open Questions
 
 - [x] Which posts, in which shapes? → Resolved by the operator: Post 1 (lintel, main) and Post 2 (J + L), see `creative-post-slate.md` "Operator Decision".
-- [ ] How much of the Oct 20 Solid Edge story may Post 1 use? Default (applied unless the operator says otherwise): only the day-three "you and your friends" line plus one sentence that he went back into Solid Edge to fix the length; "What an asinine program.." and the farewell framing stay his.
+- [x] How much of the Oct 20 Solid Edge story may Post 1 use? → Resolved (operator, "save"): only the day-three "you and your friends" line plus one sentence that he went back into Solid Edge to fix the length; "What an asinine program.." and the farewell framing are reserved for Texarkanine's own post.
+- [x] Post 1 structure: eight sections or the preflight's five stand-ins? → Resolved (operator): draft the eight-section version, then cut toward the five stand-ins **as a separate post file**, so the two can be compared. The editor picks one before merge; the other is deleted.
 
 ## Test Plan (TDD)
 
@@ -94,8 +95,9 @@ No new executable behavior. Both deliverables are prose. Verification is editori
 
 1. Re-read Post 1's beat sheet, its source digests, and the verified-quote list; pull exact quote text from transcripts.
 2. Copy the chosen images from the public repo into `assets/img/blog/fable/` with descriptive names; confirm they carry no metadata.
-3. Draft long, all eight sections; then cut the (optional) beats until the post is near 3,500 words and under 4,500.
-4. Self-revise against `revising.mdc`; check every heading against the "only this post" test; make sure the lintel line planted in section 3 pays off in the close.
+3. Draft version 1: all eight sections per the beat sheet, cutting (optional) beats until it is near 3,500 words and under 4,500. Self-revise against `revising.mdc`; check every heading against the "only this post" test; make sure the lintel line planted in section 3 pays off in the close.
+4. Cut version 2 into a separate file from version 1: restructure the middle around the five stand-ins (a photo for a measurement, one bulb for the standard, a word for a shape, a guess for a probe, a label for a fact), one section each, plus a compact stand-in ledger table for leftover episodes; the Thingiverse aside and "We are half AI" move into the close; target about 2,500 words. Same sources, same quotes, same title.
+5. Keep both versions renderable for comparison without both publishing by accident (for example, version 2 with `published: false`, built locally with `--unpublished`; confirm how this site handles it at build time). Report word counts for both. The editor picks one before merge; delete the other.
 
 ### 3. Cross-links, tags, and verification — prose/policy
 

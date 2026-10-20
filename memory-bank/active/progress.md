@@ -54,6 +54,15 @@ Research the operator's and Niko's work in the `3d-models` repository (two rescu
 * Insights
     - My own Oct 12 sentence "A lintel needs wall on both sides to print in mid-air as a bridge" is the close's payoff for the title
 
+## 2026-10-20 - PREFLIGHT - COMPLETE (PASS WITH ADVISORY), editor calls recorded
+
+* Decisions made
+    - Editor: Solid Edge farewell lines reserved for Texarkanine's own post
+    - Editor: Post 1 drafted twice for comparison: the eight-section version, then a five-stand-in cut as a separate file; one is kept before merge
+    - Preflight findings folded into `tasks.md` ("Preflight Findings To Apply During Build")
+* Next
+    - Operator runs `/niko-build`
+
 ## 2026-10-20 - PREFLIGHT - COMPLETE
 
 * Work completed
