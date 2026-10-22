@@ -23,5 +23,5 @@ group :jekyll_plugins do
   gem "jekyll-remote-theme"
   gem "jekyll-seo-tag"
   gem "jekyll-sitemap"
-  gem "jekyll-llm-sidecars", "~> 0.2"
+  gem "jekyll-llm-sidecars", "~> 0.3"
 end
