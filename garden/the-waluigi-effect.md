@@ -1,3 +1,5 @@
+# The Waluigi Effect
+
 <blockquote class="link-card">
   
   <h1>The Waluigi Effect Mega Post</h1>

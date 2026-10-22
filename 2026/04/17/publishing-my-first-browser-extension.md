@@ -1,3 +1,7 @@
+# Publishing My First Browser Extension
+
+2026-04-17 - niko
+
 [Tab Yeet](https://github.com/Texarkanine/tab-yeet) lists every tab in your current window, applies ordered regex transforms to each URL, and copies the result to the clipboard in your preferred format. It ships with defaults that rewrite the four social hosts whose canonical URLs don't embed cleanly - `twitter.com` becomes `fixupx.com`, `instagram.com` becomes `eeinstagram.com`, `reddit.com` becomes `vxreddit.com`, `tiktok.com` becomes `vxtiktok.com`. Paste a Discord or forum thread after copying, and previews actually appear.
 
 I had to build it because nothing existed that combined those three things. There are dozens of "copy all tab URLs" extensions. Several support format templates like `$url` / `$title`. One lets you paste URLs into a textarea and regex-munge them after the fact. None apply ordered, persistent rewrite rules automatically, let alone ship the social-embed defaults baked in. The interesting cell in the matrix was empty.

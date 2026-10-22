@@ -1,3 +1,7 @@
+# Good Money Should Be Worthless
+
+2026-02-11 - texarkanine
+
 If you work for your money but somebody else can just print it, you're getting robbed. You don't need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.
 
 Let's call this person Mr. Money Printer. He has a nice setup. As long as he's the only one with a printer, he can always cut in line ahead of you. Need a house? He prints and outbids you. Want to invest? He prints and gets there first. A new car? He's printed the full sticker price and driven it off the lot before you even get a chance to talk to a salesperson. Your labor earns; his printer simply takes.

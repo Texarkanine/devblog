@@ -1,3 +1,7 @@
+# I Finally Coded So Hard I Ralphed
+
+2026-01-25 - texarkanine
+
 As with almost everything, [the more you use it, the more it pays to optimize it](https://xkcd.com/1205/). I [recently determined](/2026/01/23/use-case-for-ai-coding-agent-slash-commands.html) that re-usable workflow entry point prompts are the only real use-case for AI Coding Agent Slash Commands.
 
 One particular kind of workflow where you'll not only be re-using the same prompt, but re-using it more than *you* the human ever could, is a [Wiggum Loop](https://ghuntley.com/ralph/). That's actually a perfect use-case for a Slash Command!

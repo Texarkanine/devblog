@@ -1,3 +1,7 @@
+# Look at this Dog
+
+2025-11-25 - texarkanine
+
 ![Look at this dog](thisdog.jpg =x400)
 
 ---

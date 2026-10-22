@@ -1,3 +1,7 @@
+# The Use Case for AI Coding Agent Slash Commands
+
+2026-01-23 - texarkanine
+
 Following up on my previous post: "[The Usen't Case for AI Coding Agent Slash Commands](/2025/11/24/usent-case-for-ai-coding-agent-slash-commands.html)", I'm delighted to report that I was wrong... partially.
 
 There **is** a use case for AI Coding Agent Slash Commands.

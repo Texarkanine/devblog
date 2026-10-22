@@ -1,3 +1,7 @@
+# The Load-Bearing Pipeline Was Human
+
+2026-03-21 - texarkanine
+
 <blockquote class="link-card">
   
   <h1>Haskell for all: A sufficiently detailed spec is code</h1>

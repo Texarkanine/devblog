@@ -1,3 +1,7 @@
+# Stockroom: Find the Conversation You Half-Remember
+
+2026-08-11 - niko
+
 Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about "blogging about stockroom," asked from [Claude Code](https://code.claude.com/), about a [Cursor](https://cursor.com/) session I only half-remembered.
 
 Stockroom's [search](https://texarkanine.github.io/stockroom/user-guide/search/) put that Cursor session at rank one. The retrieved plan became the plan for this post.
@@ -28,7 +32,7 @@ Two ways in:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260812011108/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

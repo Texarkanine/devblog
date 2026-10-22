@@ -1,3 +1,7 @@
+# I Love It When Useful Things Get Cheaper
+
+2026-08-09 - texarkanine
+
 Around 1998, my family's computer was an [IBM Aptiva](https://en.wikipedia.org/wiki/IBM_Aptiva). It was one of the later models, right as [Pentium](https://en.wikipedia.org/wiki/Pentium_(original)) CPUs were showing up in home computers. I recall its clock speed was [133 MHz](https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants). I recall this because I really wanted to play the [LEGO Creator](https://en.wikipedia.org/wiki/Lego_Creator_(video_game)) game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.
 
 Though the Aptivas retailed, allegedly, for up to $2,700, I have $3,300 in my head. Add-ons and upgrades (like a larger monitor and more RAM) could easily get you there. I can't find any period magazine ads for that specific computer, but here's something from 1996 that would *absolutely* have played LEGO Creator:
@@ -135,7 +139,7 @@ If you were to compare these "cryptocurrencies" on price:
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>
@@ -285,7 +289,7 @@ If **everyone** who spent bitcoin did this, it would be functionally impossible 
     </div>
     <small class="polaroid-archive">
       
-      &nbsp;
+      (<a href="https://web.archive.org/web/20260906002840/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
       
     </small>
   </div>

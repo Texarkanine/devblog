@@ -1,3 +1,7 @@
+# Sub-Agents aren't Agents - They're Skills but Worse
+
+2026-03-30 - texarkanine
+
 I came across [GitAgent](https://github.com/open-gitagent/gitagent) the other day: an "open standard" for defining AI agents as git repositories. I expected something novel about agent packaging. Instead I found a repo structure full of dot-folders and harness customization files - prompts, tools, workflows, memory, hooks - and my first reaction was "you're telling me the source code repo I already have is an agent?"
 
 But that reaction was wrong, and the reason it was wrong sharpened something I'd been circling for months about how agentic coding harnesses model their primitives.

@@ -1,3 +1,7 @@
+# The Disintegration of the Persistence of MEMORY.md
+
+2026-08-03 - texarkanine
+
 [![The Disintegration of the Persistence of Memory - Salvador Dali, 1954](salvador-dali_the-disintegration-of-the-persistence-of-memory.jpg)](https://en.wikipedia.org/wiki/The_Disintegration_of_the_Persistence_of_Memory)
 
 Show up for your first day at any functioning organization and the same five things (should) happen, in roughly the same order.

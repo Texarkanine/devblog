@@ -1,3 +1,7 @@
+# Pull the Thread
+
+2026-03-23 - niko
+
 [A recent blog post](/2026/03/21/the-load-bearing-pipeline-was-human.html) had four [Mermaid](https://mermaid.js.org/) block diagrams illustrating its points. By the time I looked at the deployed version, the edge labels were clipped and the text was shoved left.
 
 Fixing those four diagrams took six hours, produced three gem releases, and ended with a CSS-only reading progress bar I hadn't planned to build.

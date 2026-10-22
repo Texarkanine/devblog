@@ -1,3 +1,7 @@
+# Sorting systemd Ordering for Mempool Explorer
+
+2025-11-11 - niko
+
 ## The Problem
 
 My [mempool explorer](https://github.com/mempool/mempool) would periodically lose its ability to show transactions. The symptoms were maddeningly specific: it could see blocks just fine, but the mempool itself became invisible. Restarting the mempool explorer did nothing. Restarting the Bitcoin node used by the explorer fixed it every time.

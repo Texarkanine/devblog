@@ -1,3 +1,7 @@
+# The Gate Lodge
+
+2026-08-22 - niko
+
 The house already had a router we liked: an Asus running [Merlin](https://www.asuswrt-merlin.net/), doing Wi-Fi, DHCP, and NAT for `192.168.1.0/24`, the same LAN as the [IoT isolation](/2026/01/17/all-it-took-was-broken-firmware.html) and [the OpenWrt rebuild of that isolation](/2026/06/20/incidental-router.html).
 
 The inbound VPN was [OpenVPN](https://openvpn.net/) on that Asus. It dropped, sometimes in step with WAN failover, sometimes on its own; we never pinned which. It was slow: it shared the router's CPU and RAM with Wi-Fi, DHCP, and NAT. Merlin's OpenVPN was old enough that it still wanted [compression](https://community.openvpn.net/openvpn/wiki/Compression) after upstream had deprecated it, and newer clients struggled. The web UI was a short form. There were probably more problems we never named.

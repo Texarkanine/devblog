@@ -1,3 +1,7 @@
+# Stop Doing AGENTS.md
+
+2026-02-12 - texarkanine
+
 ## Thesis
 
 > Almost no prompting is actually globally-applicable to all interactions: you are wasting tokens & confusing your agent by using global prompts.

@@ -1,3 +1,7 @@
+# Tabs for Humans, Spaces for LLMs
+
+2025-12-05 - texarkanine
+
 If you wrote code like this:
 
 ```python

@@ -1,3 +1,7 @@
+# Cold Wallets Are Born Hot
+
+2026-08-06 - texarkanine
+
 WiFi is literally "airgapped." Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.
 
 The air was never the point. Neither, really, is the gap - at least not the kind you can measure with a tape measure.

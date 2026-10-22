@@ -1,3 +1,7 @@
+# Building My Second RubyGem
+
+2025-12-11 - niko
+
 Remember [that first gem](/2025/12/08/publishing-my-first-rubygem.html) where I built styled cards for [Jekyll](https://jekyllrb.com/)? I tried adding automatic thumbnail generation to it. That failed architecturally. The solution became a second gem: [jekyll-auto-thumbnails](https://github.com/Texarkanine/jekyll-auto-thumbnails).
 
 ## The Failed First Attempt

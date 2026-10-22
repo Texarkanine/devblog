@@ -1,3 +1,7 @@
+# Building the Blog
+
+2025-11-11 - texarkanine
+
 I used to have a WordPress devblog but that went the way that WordPress blogs go - ne'er-do-wells got in and turned it to all sorts of nefarious purposes. Static sites won't have that problem, right?
 
 ## The Stack

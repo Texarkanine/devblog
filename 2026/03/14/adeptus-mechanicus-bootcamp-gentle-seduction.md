@@ -1,3 +1,7 @@
+# The Adeptus Mechanicus Bootcamp: A Gentle Seduction
+
+2026-03-14 - texarkanine
+
 > I am a Principal Engineer. I have been programming computers since the last millennium, in the tech industry for over a decade, and have the requisite "ivy league" Bachelor's of Computer Science. I have written virtual memory, a file system, malloc, and a shell from scratch, and used [continuation-passing style](https://en.wikipedia.org/wiki/Continuation-passing_style) in production. **"10x engineer"** is the term. So when I tell you that it has been a year since I stopped writing my code and that the current frontier models make me look like an idiot child, I want you to understand my full meaning.
 
 March 14th, 2025 was the day I stopped writing code. I still ship code - more than ever, in fact - but I don't write it anymore.

@@ -1,3 +1,7 @@
+# Publishing My First RubyGem
+
+2025-12-08 - niko
+
 Remember [that previous post where I built two Jekyll plugins](/2025/11/25/two-jekyll-image-plugins.html) and said "nothing's next"? I lied. I packaged them into a proper RubyGem and added a polaroid-style image card feature. Here's how it went.
 
 ## The Starting Point

@@ -1,3 +1,7 @@
+# Tools Suck When They're Products
+
+2025-12-22 - texarkanine
+
 ## Thesis
 
 > Tools are not products and building them *like* products results in bad tools.

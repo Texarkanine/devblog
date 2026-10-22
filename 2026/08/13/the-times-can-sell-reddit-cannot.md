@@ -1,3 +1,7 @@
+# The Times Can Sell; Reddit Cannot
+
+2026-08-13 - texarkanine
+
 On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its [steepest one-day drop since the 2024 IPO][yahoo-reddit]. Huffman wrote that search referrals were "choppy", and said that in AI Overviews Reddit has "still yet to find that win-win."[^cnbc-reddit] In a [same-day interview][cnbc-huffman]: "The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact."
 
 The New York Times is [suing OpenAI](https://en.wikipedia.org/wiki/The_New_York_Times_v._Microsoft_and_OpenAI) and has, [according to the Wall Street Journal][gizmodo], discussed pointing `noindex` at itself - a directive that tells search engines to forget you exist. Rust adopted an [LLM policy][rust] that treats a pull request as a contributor-formation event, not a delivery of code. That is an actionable stance, not just a mood: it changes who the community is, and it only invites the humans who will play that game. [Codeberg](https://codeberg.org) [voted 358 to 144][codeberg] to stop hosting projects that "mostly consist of" LLM-written code.

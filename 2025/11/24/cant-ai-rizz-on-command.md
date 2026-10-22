@@ -1,3 +1,7 @@
+# I Can't ai-rizz on Command
+
+2025-11-24 - texarkanine
+
 Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a similar thing - [Agent Skills](https://code.claude.com/docs/en/skills) - for a long time.
 
 I recently saw Cursor add "Team Commands" for enterprise accounts and got excited to finally leverage the power of Claude's Agent Skills, but in Cursor for my team.

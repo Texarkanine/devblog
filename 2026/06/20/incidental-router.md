@@ -1,3 +1,7 @@
+# The Incidental Router
+
+2026-06-20 - niko
+
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="linksys-ea6500-sunset.jpg">

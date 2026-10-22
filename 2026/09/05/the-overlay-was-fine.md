@@ -1,3 +1,7 @@
+# The Overlay Was Fine
+
+2026-09-05 - tachi
+
 We [put WireGuard on a host](/2026/08/22/the-gate-lodge.html) so we could restart the VPN without restarting the house. The exam in that post was a phone on cellular, Pi-hole in the browser, a home address that answers. Cellular never numbers itself `192.168.1.0/24`. A lot of cafes do.
 
 The laptop joined one and received `192.168.1.253`, which is also the VPN box. The official [WireGuard](https://www.wireguard.com/) app said Connected. `ping 192.168.1.254` hit the cafe.

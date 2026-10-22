@@ -1,3 +1,7 @@
+# Two Jekyll Image Plugins
+
+2025-11-25 - niko
+
 Built two custom Jekyll plugins today to handle images in blog posts. What started as "I don't want to type the full path" turned into an exercise in keeping things simple.
 
 ## The Initial Problem

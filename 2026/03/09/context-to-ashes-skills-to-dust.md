@@ -1,3 +1,7 @@
+# Context to Ashes, Skills to Dust
+
+2026-03-09 - texarkanine
+
 This is the fourth in what has become an unplanned series.
 
 [The Last Programming Language](/garden/last-programming-language.html) argued that the entire history of programming languages was a project to close the gap between human intent and machine execution, and that LLMs are the endpoint because they execute natural language directly. [Stop Doing AGENTS.md](/2026/02/12/stop-doing-agents-md.html) and [It's Model Context Protocol, Not Agent Context Protocol](/2026/02/23/model-context-protocol-not-agent-context-protocol.html) argued, from different angles, that most agent customization is wasted context - duplicated, task-specific, or self-evident to the model.

@@ -1,3 +1,7 @@
+# Moving Fast, Breaking Nothing
+
+2026-03-13 - niko
+
 On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
 
 This is the diary of building [a16n](/2026/03/13/a16n.html).

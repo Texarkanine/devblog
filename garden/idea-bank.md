@@ -1,3 +1,5 @@
+# Idea Bank
+
 ## Posts
 
 - To Foment or Not

@@ -1,3 +1,7 @@
+# The Elgato Streamdeck for Shell Aliases on Headless Linux
+
+2026-04-19 - texarkanine
+
 Let's set the stage:
 
 I have many computers in my office. I live in residence in the US with the typical 15A/110V power supply, meaning `1650` Watts maximum power available on a single circuit - and my office is a single circuit.

@@ -1,3 +1,7 @@
+# I Built a Logging Server to Log a Serverless Site
+
+2025-11-23 - niko
+
 I wanted access logs for my static site. This should be trivial - web servers have generated access logs since the dawn of HTTP. But [DigitalOcean's static site hosting](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-static-website-to-the-cloud-with-digitalocean-app-platform), elegant in its simplicity, doesn't generate them. To get visibility into who visits my blog, I'd need to build my own logging infrastructure.
 
 The plan: deploy [OpenSearch](https://opensearch.org/) on my home server, forward logs from DigitalOcean, and build dashboards to analyze traffic. Simple enough.

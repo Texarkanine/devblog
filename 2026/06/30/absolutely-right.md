@@ -1,3 +1,7 @@
+# You're Absolutely Right
+
+2026-06-30 - texarkanine
+
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://github.com/anthropics/claude-code/issues/3382" target="_blank" rel="noopener">

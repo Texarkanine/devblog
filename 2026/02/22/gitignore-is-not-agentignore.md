@@ -1,3 +1,7 @@
+# .gitignore is not .agentignore
+
+2026-02-22 - texarkanine
+
 ## Thesis
 
 > "Do not track in source control" and "do not let a coding agent see the file" are **not** the same thing.

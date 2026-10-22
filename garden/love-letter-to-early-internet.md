@@ -1,3 +1,5 @@
+# Love Letter to the Early Internet
+
 ![Under Construction](./early-web/under-construction-pikachu.gif)
 
 The "Early Internet" here refers to the late 1990s to the early 2000s, where the Internet was no longer the exclusive domain of technologists, but still mostly limited to *enthusiasts*. Just about anyone *could* put together a website on the World Wide Web, but not everyone was into it yet.

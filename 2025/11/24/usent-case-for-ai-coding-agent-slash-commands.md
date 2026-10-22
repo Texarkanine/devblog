@@ -1,3 +1,7 @@
+# The Usen't Case for AI Coding Agent Slash Commands
+
+2025-11-24 - texarkanine
+
 Cursor introduced "[Slash Commands](https://cursor.com/docs/agent/chat/commands)" fairly recently, in v1.6 in September 2025. Claude Code had had a [similar thing](https://code.claude.com/docs/en/slash-commands) for a long time.
 
 # Thesis

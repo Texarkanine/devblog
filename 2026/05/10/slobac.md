@@ -1,3 +1,7 @@
+# The Suite Life of Bobs and Code
+
+2026-05-10 - texarkanine
+
 <div class="polaroid-container">
   <div class="polaroid">
     <a href="https://x.com/rfleury/status/2047002777256391026" target="_blank" rel="noopener">

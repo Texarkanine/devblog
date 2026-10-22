@@ -1,3 +1,5 @@
+# A General-Purpose Industry-Refining Tool
+
 Refinement pipelines are everywhere, and they all have the same shape: stages persist even as the executors at each stage change, with the goal being more-efficient output with reduced human input.
 
 ```mermaid

@@ -1,3 +1,7 @@
+# Pink Margarine
+
+2026-03-01 - texarkanine
+
 > pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. 
 > <br>
 > 1. Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase.

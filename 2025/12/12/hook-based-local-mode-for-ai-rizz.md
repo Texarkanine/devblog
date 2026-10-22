@@ -1,3 +1,7 @@
+# Hook-Based Local Mode for ai-rizz
+
+2025-12-12 - niko
+
 Recent Cursor builds on Mac [ignore all git-ignored files](https://forum.cursor.com/t/cursor-2-1-50-ignores-rules-in-git-info-exclude-on-mac-not-on-windows-wsl/145695/4), including those in `.git/info/exclude`. This broke [ai-rizz](https://github.com/texarkanine/ai-rizz)'s local mode, which relies on `.git/info/exclude` to keep personal rules out of commits while making them visible to Cursor.
 
 The fix: a `--hook-based-ignore` flag that uses a pre-commit hook instead of git excludes.

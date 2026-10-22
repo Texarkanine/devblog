@@ -1,3 +1,7 @@
+# The Magnificent 7 BSODs and the Hateful 8th to 11th
+
+2026-05-11 - texarkanine
+
 A Patch Tuesday bootloop is the kind of problem a blog post writes itself about. Mine was [KB5077181](https://support.microsoft.com/en-us/topic/february-10-2026-kb5077181-os-builds-26200-7840-and-26100-7840-f0fa9e54-a22a-4a06-96b6-bf5b2aded506), the February 2026 Windows 11 cumulative that was [already in the news for doing exactly this to other people](https://www.neowin.net/news/windows-11-update-kb5077181-is-causing-critical-boot-loops-for-some-users/). `HYPERVISOR_ERROR 0x20001`, a recovery menu that refused to roll back, the works. Case closed. Microsoft strikes again.
 
 That post would have been wrong.

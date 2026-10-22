@@ -1,3 +1,7 @@
+# The Load-Bearing Rate Limiter Was Human
+
+2026-02-06 - texarkanine
+
 ## Thesis
 
 > It is now possible to do knowledge work faster than customers can pay for it, and faster than knowledge work**ers** can get **paid** for it.

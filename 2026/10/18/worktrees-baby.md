@@ -1,3 +1,7 @@
+# Worktrees, Baby
+
+2026-10-18 - texarkanine
+
 Git's known how to do this for *years*!
 
 ## The Object Database Is the Whole Trick

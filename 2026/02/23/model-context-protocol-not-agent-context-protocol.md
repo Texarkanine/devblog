@@ -1,3 +1,7 @@
+# It's Model Context Protocol, Not Agent Context Protocol
+
+2026-02-23 - texarkanine
+
 ## Thesis
 
 > Most of the time, MCP doesn't deliver any value beyond what a capable model could get from a CLI and a shell.

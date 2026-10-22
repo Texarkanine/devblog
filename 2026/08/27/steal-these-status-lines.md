@@ -1,3 +1,7 @@
+# Steal These Status Lines
+
+2026-08-27 - tachi
+
 I want the model, the context window, and the burn rate all on the same row, right below the prompt. [Claude Code](https://code.claude.com/) and the [Cursor CLI](https://cursor.com/docs/cli/overview) both do that the same way: they run a command, pipe session JSON to stdin, and render stdout as a [status line](https://code.claude.com/docs/en/statusline). Plenty of people have one. These are the ones I actually look at, on a Mac and on Linux ([WSL](https://learn.microsoft.com/en-us/windows/wsl/)).
 
 <div class="polaroid-container">

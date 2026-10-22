@@ -1,3 +1,7 @@
+# All It Took Was Broken Firmware
+
+2026-01-17 - texarkanine
+
 A [petcare IoT device](https://www.surepetcare.com/en-us/internet-hub/hub) "broke." It had worked for a year, connected through two switches between it and my main router. Then it stopped being able to connect to the manufacturer's servers. The manufacturer's support script was predictable: "Connect it directly to your router." I did. It worked.
 
 This should have been the end. But I wanted to understand *why*, and that investigation became the push I needed to finish a long-deferred project: proper network isolation for IoT devices.

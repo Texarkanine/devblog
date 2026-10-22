@@ -1,3 +1,7 @@
+# We Therefore do not Recommend this Approach (to Upgrading OctoPrint's Python)
+
+2025-11-14 - texarkanine
+
 ## The Warning
 
 OctoPrint on my Raspberry Pi 4 greeted me with an ominous warning: my Python environment was outdated and would soon be unsupported. The message linked to [the OctoPrint community's upgrade guide](https://community.octoprint.org/t/octoprint-tells-me-my-python-environment-is-outdated-and-will-soon-no-longer-be-supported-how-do-i-upgrade/61076), which outlined the proper upgrade path. Simple enough, I thought. I'd just build a newer Python and upgrade in place, like they tell you not to:

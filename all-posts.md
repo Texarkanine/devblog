@@ -1,3 +1,5 @@
+# All Posts
+
 <ul>
 
   <li>2026-10-20 <a href="/2026/10/20/lintel.html">Bold of You to Assume I Know What a Lintel Is</a></li>

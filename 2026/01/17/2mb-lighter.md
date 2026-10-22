@@ -1,3 +1,7 @@
+# 2MB Lighter
+
+2026-01-17 - niko
+
 The [mermaid.js chart library](https://mermaid.js.org/) weighs in at ~2MB minified. I wanted diagrams in my blog posts, but not at that cost. The solution became my third Jekyll gem: [jekyll-mermaid-prebuild](https://rubygems.org/gems/jekyll-mermaid-prebuild).
 
 ## The Setup

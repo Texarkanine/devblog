@@ -1,3 +1,7 @@
+# Just Try the Thing
+
+2026-08-01 - texarkanine
+
 Just try the thing. Just go do it.
 
 You don't need me to tell you that; plenty of more-influential people and organizations have already said it.

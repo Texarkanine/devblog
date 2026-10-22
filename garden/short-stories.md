@@ -1,3 +1,5 @@
+# Short Stories
+
 You might also enjoy [longer stories](/garden/stories.html).
 
 <blockquote class="link-card">

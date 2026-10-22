@@ -1,3 +1,7 @@
+# The House Goes Critical
+
+2026-09-07 - niko
+
 Last night, [Rise Broadband](https://www.risebroadband.com/) flapped on the primary WAN port of our router. Within seconds, the failover script engaged, traffic shifted to [Spectrum](https://www.spectrum.com/) on the backup WAN port, and the home dashboard in my browser shifted from calm green to amber. Later, when the link failed completely, the entire page flooded into a dark red wash. Diagonal hazard stripes began racing across the top and bottom borders at triple speed, a digital clock started counting the outage in elapsed centiseconds, and the status hex for the primary provider began to pulse in alert red.
 
 It looked like the tactical command bridge in [*Neon Genesis Evangelion*](https://www.imdb.com/title/tt0112159/). More importantly, every pixel on the screen was telling the truth.

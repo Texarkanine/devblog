@@ -1,3 +1,5 @@
+# How I Learned to Stop Coding and Love the Machine
+
 There is a lot of hype and [fear](fomenting-the-butlerian-jihad.html) around AI in the 2020s. Here are the AI tools & use-cases where I've found AI to be an indispensible value-add that you can pry from my cold, dead hands.
 
 This list is by no means complete or prescriptive. As always, you be the judge!

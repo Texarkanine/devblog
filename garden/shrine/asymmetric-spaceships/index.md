@@ -1,3 +1,5 @@
+# Asymmetric Spaceships
+
 Aircraft and watercraft are very often symmetrical. They operate within an a liquid that surrounds them, within a directional gravity well, and as a result have consistent and usually-symmetrical forces acting on them. And so, their designs *must* accommodate this (usually).
 
 Landcraft are more-forgiving because you can be truly at rest - a motorcycle with a sidecar comes to mind - but they still have to make allowances for the forces at play when they're in motion.
