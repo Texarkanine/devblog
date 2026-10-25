@@ -24,7 +24,8 @@ tags:
 ### Garden-Ish
 
 * [osmarks' website](https://osmarks.net/) <small>Feels in a similar vein to what you can read here.</small>
-* [niplav.site](https://niplav.site/) <small>"texts on different topics, ranging from programming over philosophy to discussions of odd social behavior, as well as translations, transcriptions, music recordings and programming projects"</small>>
+* [niplav.site](https://niplav.site/) <small>"texts on different topics, ranging from programming over philosophy to discussions of odd social behavior, as well as translations, transcriptions, music recordings and programming projects"</small>
+* [Gwern.net](https://gwern.net/about) <small>"The content here varies from statistics to psychology to self-experiments/Quantified Self to philosophy to poetry to programming to anime to investigations of online drug markets or leaked movie scripts (or two topics at once: anime & statistics or anime & criticism or heck anime & statistics & criticism!)."</small>
 
 ### Misc
 
