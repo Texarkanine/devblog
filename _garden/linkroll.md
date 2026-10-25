@@ -15,15 +15,27 @@ tags:
 * [Sunday Letters from Sam](https://sundaylettersfromsam.substack.com/) <small>"how to think about how ai is reshaping the world (currently)"</small>
 * [Steve Yegge](https://steve-yegge.medium.com/) <small>"technical essays on software engineering, programming languages, and the future of technology"</small>
 * [Daz.is](https://daz.is/blog/) <small>Exploring similar concepts to the main blog here, on a similar timeframe.</small>
+* [osmarks' website](https://osmarks.net/) <small>Feels in a similar vein to what you can read here.</small>
 
 #### Blog Posts
 
 * [Python package managers: uv vs pixi](https://jacobtomlinson.dev/posts/2025/python-package-managers-uv-vs-pixi/)
+* [Some questions about biotech that I find interesting](https://atelfo.github.io/2024/04/01/biotech-questions.html)
 
 ### Misc
 
 * [Websites that spark joy.](https://whimsical.club/)
 * [Underhanded .bashrc](https://github.com/ayust/underhanded/blob/master/.bashrc)
+* [Laws of Software Engineering](https://lawsofsoftwareengineering.com/)
+
+### Darmok and Jalad at Tanagra
+
+* [The XY Problem](https://xyproblem.info/)
+* [Hyrum's Law](https://www.hyrumslaw.com/)
+* [Chesterton's Fence](https://fs.blog/chestertons-fence/)
+* [Conway's Law](https://martinfowler.com/bliki/ConwaysLaw.html)
+	* "If Conway’s Law is true, then we should stop treating it as an observation and start using it as a design tool." 
+* [Cunningham's Law](https://lawsofsoftwareengineering.com/laws/cunninghams-law/)
 
 ## Toys
 
