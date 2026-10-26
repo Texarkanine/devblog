@@ -16,19 +16,16 @@ On June 25, 2026, seventeen people [sued Samsung, SK hynix and Micron][toms-suit
 Two months later, a post on my LinkedIn feed explained who was really to blame:
 
 > The saddest thing about the #AI Fraud is what it's destroying long the way.
->
->
+> <br><br>
 > The issue isn't that rich people are dumping their money into a bubble. It's that the money they are providing allows the AI companies to over pay and over buy hardware resources to the point where other projects simply are starved of supplies.
->
->
+> <br><br>
 > Micron Technology stated that current demand is 150% of supply for memory. Even with new fabs opening over the next few years the supply/ demand ratio will only get "better" so that the amount demand outstrips supply will shrink.
->
->
+> <br><br>
 > I despise this time period in the tech world with a special kind of passion. We are sacrificing a tremendous amount for something that has shown marginal value and is hitting the end of its development.
 
 It linked to a Hackster story about [PINE64][pine64], a small company that makes open-hardware Linux phones, tablets and single-board computers. PINE64 had stopped building all three, and the headline said it would stay stopped ["Until the AI Bubble Bursts."][hackster-pine64]
 
-That damage is real, and the story told about it is old. Every shortage gets the same one. Ethereum miners ruined graphics cards. Scalpers ruined concert tickets. Now AI is ruining RAM. The anger lands on whoever else is buying.
+That damage is real, and the story told about it is old. Every shortage gets the same one. Ethereum miners ruined graphics cards. Scalpers ruined concert tickets. Now AI is ruining RAM. The anger lands on whoever else is buying - **demand-scolding**.
 
 It lands 180 degrees from where it belongs. Buyers keep a product alive; sellers decide how much of it exists. Three companies decide how much DRAM exists. Two of them have pleaded guilty to fixing its price, and the third turned them in. All of it is on paper.
 
@@ -100,7 +97,7 @@ Even the drivers' lobby saw it at the time. In March 1974 the American Automobil
 
 The controls ended on January 28, 1981, eight days into Reagan's presidency, when an executive order exempted all crude oil and refined products from price and allocation controls, ["effective immediately."][eo-12287] Nobody had to learn self-restraint first.
 
-In 1973 the demand-scolding came from the White House, with a speed limit attached.
+In 1973 the **demand-scolding** came from the White House, with a speed limit attached.
 
 ## Somebody Paid for Your Cheap Hard Drive
 
@@ -110,19 +107,13 @@ This has a name. In 1936 the aeronautical engineer Theodore Wright noticed that 
 
 Plot what a demand surge means for buyers over time and you get a J: first they show up with their demand, at original prices, and just buy a lot for cheap. Then supply is exhausted and their same money simply buys less of the thing. Then, through sustained demand, capacity increases, Wright's law kicks in, and the same money now buys far more of the thing than it ever would have originally. That benefit at the end lands on *all* buyers - even on people who weren't around for the easy beginning or the bad middle. The surge that makes a part expensive this year is what makes it cheap later. Telling the big buyers to stop is asking for the second half of the J without anyone paying for the first.
 
-The LinkedIn post despised "this time period." Frodo said much the same about his own, in [*The Fellowship of the Ring*][fotr]:
+The J doesn't even care whether the buying is wise.
 
-> 'I wish it need not have happened in my time,' said Frodo.
->
-> 'So do I,' said Gandalf, 'and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us.'
+Consider American shale oil. In the 2010s, drillers paired horizontal drilling with [fracking][fracking] to get oil out of shale rock that had been too tight to produce, and investors paid for a drilling boom. Deloitte found that the boom "peaked without making money for the industry in aggregate"[^deloitte]: $300 billion of negative free cash flow, more than $450 billion of invested capital written down, and more than 190 bankruptcies since 2010.
 
-Nobody decides which part of the J they live in. What you do get to decide is where to point the anger.
+The wells got drilled anyway, and in 2020 the United States became a net exporter of petroleum for the first time since at least 1949.[^eia] Shale investors lost their money and everyone else kept the oil. If AI really is the fraud that LinkedIn post called it, the fabs it pays for will still be standing after the money is gone.
 
-Storage is in the expensive half right now. Western Digital's CEO said early this year that the company was ["pretty much sold out for calendar 2026,"][wd] and consumer products were 5% of its revenue. My cheap drives came from the last round of hyperscaler buying.
-
-> The J doesn't care whether the buying was wise.
-
-Take American shale oil. In the 2010s, drillers paired horizontal drilling with [fracking][fracking] to get oil out of shale rock that had been too tight to produce, and investors paid for a drilling boom. Deloitte found that the boom "peaked without making money for the industry in aggregate"[^deloitte]: $300 billion of negative free cash flow, more than $450 billion of invested capital written down, and more than 190 bankruptcies since 2010. The wells got drilled anyway, and in 2020 the United States became a net exporter of petroleum for the first time since at least 1949.[^eia] Shale investors lost their money and everyone else kept the oil. If AI really is the fraud that LinkedIn post called it, the fabs it pays for will still be standing after the money is gone.
+Storage, alongside memory, is in the expensive half right now. Western Digital's CEO said early this year that the company was ["pretty much sold out for calendar 2026,"][wd] and consumer products were 5% of its revenue. My cheap drives came from the last round of hyperscaler buying.
 
 ## Ask Whether They Built Anything
 
@@ -134,11 +125,48 @@ PINE64 is watching the same calendar. Its own post on Mastodon never mentioned A
 
 If those fabs show up and prices break in 2028, the AI buyers will have paid for the cheap memory of 2029, and the people who wanted them to stop buying will get it anyway. If the three firms bank the surge and leave the cleanrooms empty, you will finally have somebody worth being mad at, and a Ninth Circuit opinion explaining why it's legal.
 
-The same question works on the other bill AI gets blamed for. On electricity, the buyers are paying to build. Microsoft signed the 20-year contract that is [bringing an 835 MW reactor at Three Mile Island back online][crane]. Meta is paying for [433 MW of uprates][vistra-meta] at three Vistra nuclear plants, along with 20 years of their existing output.
+The same question works on another bill AI gets blamed for. On electricity, the buyers are paying to build. Microsoft signed the 20-year contract that is [bringing an 835 MW reactor at Three Mile Island back online][crane]. Meta is paying for [433 MW of uprates][vistra-meta] at three Vistra nuclear plants, along with 20 years of their existing output.
 
 Upstream is where it stalls. In July, [PJM][pjm-2028], which runs the grid for more than 67 million people in 13 states and Washington, D.C., came up 6,831 MW short of its own reliability requirement in its capacity auction for 2028-29, and only 525 MW of what cleared came from new plants and uprates. GE Vernova, the largest gas turbine maker, is [taking reservations for 2031][turbines]. [Berkeley Lab][lbnl-queue] counts about 2,061 GW of would-be power plants waiting in line for permission to connect to the grid.
 
-Whatever the shortage, look upstream before you look sideways. The people buying next to you didn't decide how much RAM gets made... and the ones that do make that decision, do it based on how much - across *all buyers* - wants to be bought.
+## Who's To Blame, Then?
+
+Whatever the shortage, look upstream in addition to sideways. Where's the *real* breakdown? The people buying next to you didn't decide how much got made. The few who did weren't just filling orders, either: when prices doubled, bits didn't.
+
+The LinkedIn post despised "this time period." 
+
+> 'I wish it need not have happened in my time,' said Frodo.
+> <br><br>
+> 'So do I,' said Gandalf, 'and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us.'
+> <br><br>
+> -- [The Fellowship of the Ring][fotr]
+
+Nobody decides which part of the J they live in. What you do get to decide is where to point the anger... and where to direct your action!
+
+So fight at the shelf when there's a fight at the shelf. Sometimes there really is one. For most of two years after the PlayStation 5 launched in November 2020, scalpers' bots beat everyone else to the stock. Even that fight was settled upstream. In January 2023, Sony's gaming chief told buyers they ["should have a much easier time finding one at retailers globally, starting from this point forward,"][verge-ps5] and by April [scalpers were cutting prices][techspot-ps5], some of them below retail. A factory can keep shipping longer than a scalper can stay liquid.
+
+This time there's no shelf to fight at, only three boardrooms.
+
+Ah, but if the AI datacenters would all just not buy so much at such prices, then we'd still be able to buy that cheap 2023 supply-glut era DRAM, right?
+
+Don't make me tap the sign:
+
+{%polaroid
+    everyone-will-not-just.png
+    title="Everyone Will Not Just"
+    image_link="everyone-will-not-just.png"
+    link="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just"
+%}
+
+The sign is right about buyers. Millions of them, from the hyperscalers down to that repair shop in Florida, will never all hold off at once. Sellers are another matter. There are only three, and two of them have pleaded guilty to acting in unison before. Three companies with close to 90% market share **can** just (build).
+
+Building is also the test of the defense's weather story. A supplier caught in a demand storm it didn't make, *builds*, because record prices are the best reason to build there is. A supplier that keeps the surge as margin is acting like a cartel, whether or not anyone ever agreed to anything. Whether they agreed is for the courts, and that takes years. Whether they build, anyone can check: watch the capital spending, the wafer starts, and whether Boise ships in 2027.
+
+The LinkedIn post's ask comes down to *stop buying RAM so I can buy more RAM!* The AI buyers want more memory too, so leave them out of it and send the ask upstream, to the three companies that can answer it:
+
+> Make more RAM so we can buy more RAM!
+
+---
 
 [toms-suit]: https://www.tomshardware.com/tech-industry/samsung-sk-hynix-and-micron-sued-over-alleged-dram-price-fixing-amid-record-memory-costs
 [pine64]: https://pine64.org/
@@ -182,6 +210,8 @@ Whatever the shortage, look upstream before you look sideways. The people buying
 [pjm-2028]: https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/2026-releases/20260714-pjm-capacity-auction-procures-138318-mw-of-generation-resources.pdf
 [turbines]: https://finance.yahoo.com/energy/articles/gas-turbine-shortage-just-became-210000180.html
 [lbnl-queue]: https://emp.lbl.gov/sites/default/files/2026-06/Queued%20Up%202026%20Edition.pdf
+[verge-ps5]: https://www.theverge.com/2023/1/4/23539918/sony-playstation-5-shortage-over
+[techspot-ps5]: https://www.techspot.com/news/98403-scalpers-struggling-sell-playstation-5-consoles-supplies-return.html
 
 [cnbc-mehrotra]: https://www.cnbc.com/2026/06/30/micron-ceo-customers-driving-hard-bargain-on-price-contributed-to-memory-shortage.html
 [complaint]: https://storage.courtlistener.com/recap/gov.uscourts.cand.472931/gov.uscourts.cand.472931.1.0_1.pdf
