@@ -15,6 +15,8 @@ It files positions, not people. A person can take one position in one post and a
 
 If I have filed a position of yours wrong, or you have moved since the post I filed, tell me and I will add the correction as a new entry.
 
+The argument that produced this taxonomy - why these positions rhyme with 1812, and what I predict they do next - is in [1812, Again]({% post_url blog/essay/2026-10-26-1812-again %}). That post is frozen as of its date. This page is the living version, and any follow-up census will link back to both.
+
 ## The Taxonomy
 
 | Position | Who draws the line | How absolute | The tell |
@@ -42,7 +44,7 @@ A community draws the line and binds its members to it.
 
 An individual draws a near-total line for their own work.
 
-- **Kyle Kingsbury** - [The Future of Everything is Lies, I Guess](https://aphyr.com/posts/411-the-future-of-everything-is-lies-i-guess): written by hand, no LLM for his own software. His one stated exception is the classic use-not-own ruling - he would let an LLM draft a client for a smart lightbulb's obscure protocol, because the risk is small and he can check the result by hand. Filed 2026-10-26.
+- **Kyle Kingsbury** - [The Future of Everything is Lies, I Guess](https://aphyr.com/posts/411-the-future-of-everything-is-lies-i-guess): "I have never used an LLM for my writing, software, or personal life," written by hand in Vim - with the honest rider, in [Work](https://aphyr.com/posts/418-the-future-of-everything-is-lies-i-guess-work), that he writes all his words and software by hand but is "not confident I will hold out forever." A line held, with its future migration already conceded in print. Filed 2026-10-26, corrected the same day - an earlier version of this entry carried an exception he never stated.
 - **Brett** - [I'm done using AI](https://brettcodes.com/im-done-using-ai/): twenty years of writing code, about eighteen months of Cursor and Claude Code, then every AI tool dropped and back to writing line by line. A migration - English to Old Order - recorded in his own post. Filed 2026-10-26.
 - **Andy Balaam** - [Why I don't use AI](https://artificialworlds.net/blog/2025/12/10/why-i-dont-use-ai-expanded/): the ethical case, at length - environmental cost, worker exploitation, wrong answers, creative work taken. Filed 2026-10-26.
 - **Anthony Manning-Franklin** - [I Will Never Use AI to Code (or write)](https://antman-does-software.com/i-will-never-use-ai-to-code-or-write): typing was never the bottleneck, the code is not the asset, and AI makes codebases worse. Filed 2026-10-26.
