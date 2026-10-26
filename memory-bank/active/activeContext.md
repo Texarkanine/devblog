@@ -1,10 +1,11 @@
 # Active Context
 
 ## Current Task: gh-pages orphan deploys
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
-- Classified as Level 2. The change is one setting on the existing deploy step in `.github/workflows/deploy.yaml`. Scope is that workflow file. The approach (`force_orphan: true`) was already chosen.
+- Level 2 plan: add `force_orphan: true` to the existing `peaceiris/actions-gh-pages@v3` step in `.github/workflows/deploy.yaml`.
+- No new test. A YAML assertion would be a change-detector. v3 already documents `force_orphan` as "Keep only the latest commit on a GitHub Pages branch". `gh-pages` is not branch-protected.
 
 ## Next Step
-- Load the Level 2 workflow
+- Preflight

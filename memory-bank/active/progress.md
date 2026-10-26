@@ -12,3 +12,15 @@ Set `force_orphan: true` on the existing `peaceiris/actions-gh-pages` step so ea
     - Level 2: one setting in `.github/workflows/deploy.yaml`, approach already chosen
 * Insights
     - `origin/gh-pages` is 229 commits and about 218 MB of git objects; the current commit is about 71 MB. `main` is about 1.8 MB because media is Git LFS, and `gh-pages` stores the expanded bytes
+
+## 2026-10-26 - PLAN - COMPLETE
+
+* Work completed
+    - Wrote the Level 2 plan in `memory-bank/active/tasks.md`
+    - Confirmed `peaceiris/actions-gh-pages@v3` defines `force_orphan` (default false, "Keep only the latest commit on a GitHub Pages branch")
+    - Confirmed GitHub branch protection is unset on `gh-pages`
+* Decisions made
+    - One production edit: `force_orphan: true` on the existing publish step
+    - No test file. Asserting the workflow key would be a change-detector
+* Insights
+    - The orphan takes effect on the next workflow run. This task does not run that deploy
