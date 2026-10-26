@@ -44,7 +44,7 @@ Why do memory suppliers hesitate to build ahead of demand? Because the last full
 
 Buyers sued Samsung, SK hynix, and Micron over parallel production cuts in 2016 and 2017. A federal district court dismissed the case, and in March 2022 the Ninth Circuit affirmed, ruling that the cuts were ["more likely explained by lawful, unchoreographed free-market behavior"][dram-ii] in a concentrated industry, even after weighing their "criminal history from twenty years ago."
 
-Under U.S. antitrust law, [conscious parallelism][parallelism] - three companies in a concentrated market looking at the same margin math and independently choosing not to expand - is legal, and produces the same supply restriction as a cartel without a phone call.
+Under U.S. antitrust law, [conscious parallelism][parallelism] - three companies in a concentrated market looking at the same margin math and independently choosing not to expand - is not itself unlawful, and produces the same supply restriction as a cartel without a phone call.
 
 ### 2025-2026 DRAM and HBM Crunch
 
