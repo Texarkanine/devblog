@@ -79,4 +79,16 @@ Set `force_orphan: true` on the existing `peaceiris/actions-gh-pages` step so ea
 * Insights
     - The deploy step still pushes `gh-pages`. The orphan behavior happens on the next workflow run
 
+## 2026-10-26 - QA - COMPLETE (PASS)
+
+* Work completed
+    - Semantically reviewed commit `9216ad56` against the plan: one-line `force_orphan: true` on the peaceiris step; token, `publish_dir`, and step otherwise untouched; no `publish_branch`; workflow not run
+    - Re-verified mechanically: 12 unittest tests OK; workflow parses under Ruby and Python YAML with `force_orphan` boolean true; grep confirms the workflow is the only `gh-pages` publisher in the repo
+    - Wrote `memory-bank/active/.qa-validation-status` with first line `PASS` and updated `tasks.md` with QA results
+* Decisions made
+    - No finding blocks acceptance; the recorded no-test decision was honored with no change-detector introduced
+    - Both preflight advisories carry forward unchanged: a future separate `workflow_run` single-commit probe, and watching the first real deploy for the webhook firing on the force push
+* Insights
+    - Pre-existing `environment.url` referencing a nonexistent `deployment` step is dead configuration, confirmed out of scope per the plan
+
 
