@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: gh-pages orphan deploys
-**Phase:** PLAN - COMPLETE
+**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
 
 ## What Was Done
 - Re-planned after preflight `FAIL (blocking)`.
@@ -10,4 +10,4 @@
 - `actions/deploy-pages` is rejected. It would stop the `gh-pages` pushes.
 
 ## Next Step
-- Preflight
+- Build

@@ -56,3 +56,14 @@ Set `force_orphan: true` on the existing `peaceiris/actions-gh-pages` step so ea
 * Insights
     - The previous preflight's stop-and-ask is answered in the brief and in the new test plan. Preflight judges that record
 
+## 2026-10-26 - PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+
+* Work completed
+    - Validated `memory-bank/active/tasks.md` against `.cursor/rules/shared/always-tdd.mdc`, `memory-bank/systemPatterns.md`, `memory-bank/techContext.md`, and `.github/workflows/deploy.yaml`
+    - Wrote `memory-bank/active/.preflight-status` with first line `PASS WITH ADVISORY`
+* Decisions made
+    - TDD Plan Encoding passes on the recorded operator decision: the unit's test-decision steps precede the production change, no local test can execute the action's force push, and the only candidate YAML assertion is a forbidden change-detector
+    - Convention, dependency, conflict, and completeness checks pass; the peaceiris step and its `gh-pages` push (the DigitalOcean webhook's trigger) stay in place
+* Insights
+    - Advisory only: a future separate `workflow_run` probe that fetches `gh-pages` and asserts a single-commit tip would test the real publish behavior instead of the YAML text; the first real deploy after this change should still be watched for the webhook firing on the force push
+
