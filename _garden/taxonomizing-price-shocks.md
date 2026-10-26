@@ -85,7 +85,7 @@ AI data centers get blamed for rising electricity rates, even though hyperscaler
 
 The bottleneck is getting generation built and permitted to connect:
 
-- **The permitting queue:** [Berkeley Lab][lbnl-queue] counts roughly 2,061 GW of proposed power plants waiting in line for grid interconnection approval.
+- **The permitting queue:** [Berkeley Lab][lbnl-queue] counts roughly 2,061 GW waiting in line for grid interconnection approval: 1,312 GW of generation and 749 GW of storage.
 - **The capacity shortfall:** In July 2026, grid operator [PJM][pjm-2028], which serves more than 67 million people across 13 states and Washington, D.C., came up 6,831 MW short of its reliability requirement in its 2028-29 capacity auction; only 525 MW of what cleared came from new plants and uprates.
 - **Upstream turbine backlog:** GE Vernova, the largest gas turbine manufacturer, is [booking reservations for 2031][turbines].
 
