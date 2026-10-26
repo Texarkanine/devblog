@@ -45,3 +45,14 @@ Set `force_orphan: true` on the existing `peaceiris/actions-gh-pages` step so ea
     - Keep pushing to `gh-pages`. A DigitalOcean webhook on that branch publishes the site
 * Insights
     - `peaceiris/actions-gh-pages` at the `v3` tag still runs `git push origin --force` when `force_orphan` is set (`src/git-utils.ts`, `push`). The branch tip still moves
+
+## 2026-10-26 - PLAN - COMPLETE
+
+* Work completed
+    - Rewrote `memory-bank/active/tasks.md` with the operator's testing decision and the DigitalOcean publish constraint
+* Decisions made
+    - No local test, recorded as the test plan: the action's force-push cannot be executed here, and a YAML lock is a change-detector
+    - Keep the peaceiris step. `force_orphan: true` still pushes `gh-pages`. Do not switch to `actions/deploy-pages`
+* Insights
+    - The previous preflight's stop-and-ask is answered in the brief and in the new test plan. Preflight judges that record
+
