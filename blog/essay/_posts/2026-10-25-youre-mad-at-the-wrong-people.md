@@ -119,13 +119,19 @@ Storage, alongside memory, is in the expensive half right now. Western Digital's
 
 Wright's law has a condition: somebody has to build. Cost falls with cumulative production, so production has to grow. If three firms turn a demand surge into margin instead of volume, you get the expensive half of the J and never the cheap half.
 
+Building has a cost too, and shale already showed who pays it. Memory has its own version. In 2008, after a race to add capacity, DRAM prices [fell nearly 75%][tf-2008], and the industry lost more than $8 billion in the first three quarters. In January 2009 Qimonda, the memory maker Infineon had spun off, filed for insolvency and blamed ["the massive drop in prices in the DRAM industry."][qimonda] In 2012 Elpida [filed for bankruptcy][elpida] with $5.6 billion of debt, then the biggest filing ever by a Japanese manufacturer. Micron bought it out of bankruptcy, and its fabs [added about 45%][micron-elpida] to Micron's manufacturing capacity.
+
+The fabs kept running for a new owner, the way the wells kept pumping after the shale investors lost. Buyers never needed to know which company survived the glut. Qimonda's 12,000 employees, and its shareholders, found out. That is how the industry got down to the big three, and none of them wants to be the next Qimonda. A careful supplier won't build for every surge, and from the outside, careful and colluding look the same.
+
+The fair test is narrower: do they build for demand somebody has signed for? A long-term contract moves the risk of a glut from the seller to the buyer; that's what it's for. The AI buyers sign theirs years ahead. You buy at a store, which makes you the demand suppliers trust least, the kind Micron walked away from when it closed Crucial.
+
 So when memory gets expensive, skip the question of who else is buying and ask whether the sellers are building. For now, slowly, they are. Micron says it is spending about $200 billion on manufacturing and R&D, and expects the first chips from its new Boise fab "in the middle of next year."[^cnbc-mehrotra] China's CXMT [plans to grow][tf-cxmt] from about 320,000 wafers a month to 420,000 by 2027, mostly for its home market. Meanwhile TrendForce expects conventional DRAM contract prices to [rise another 10% to 15%][tf-4q] this quarter.
 
 PINE64 is watching the same calendar. Its own post on Mastodon never mentioned AI or a bubble. It said whether production continues ["depends on the pricing situation for those components after mid 2027,"][pine64-mastodon] when Boise's first chips are due. The company in that headline is waiting for fabs.
 
-If those fabs show up and prices break in 2028, the AI buyers will have paid for the cheap memory of 2029, and the people who wanted them to stop buying will get it anyway. If the three firms bank the surge and leave the cleanrooms empty, you will finally have somebody worth being mad at, and a Ninth Circuit opinion explaining why it's legal.
+If those fabs show up and prices break in 2028, the AI buyers will have paid for the cheap memory of 2029, and the people who wanted them to stop buying will get it anyway. If the three firms bank the surge and leave signed demand waiting, they are acting like a cartel, whether or not anyone ever agreed to anything. Then you will finally have somebody worth being mad at, and a Ninth Circuit opinion explaining why it's legal.
 
-The same question works on another bill AI gets blamed for. On electricity, the buyers are paying to build. Microsoft signed the 20-year contract that is [bringing an 835 MW reactor at Three Mile Island back online][crane]. Meta is paying for [433 MW of uprates][vistra-meta] at three Vistra nuclear plants, along with 20 years of their existing output.
+Electricity, the other bill AI gets blamed for, shows what a signature does. There the buyers are paying to build. Microsoft signed the 20-year contract that is [bringing an 835 MW reactor at Three Mile Island back online][crane]. Meta is paying for [433 MW of uprates][vistra-meta] at three Vistra nuclear plants, along with 20 years of their existing output.
 
 Upstream is where it stalls. In July, [PJM][pjm-2028], which runs the grid for more than 67 million people in 13 states and Washington, D.C., came up 6,831 MW short of its own reliability requirement in its capacity auction for 2028-29, and only 525 MW of what cleared came from new plants and uprates. GE Vernova, the largest gas turbine maker, is [taking reservations for 2031][turbines]. [Berkeley Lab][lbnl-queue] counts about 2,061 GW of would-be power plants waiting in line for permission to connect to the grid.
 
@@ -160,9 +166,9 @@ Don't make me tap the sign:
 
 The sign is right about buyers. Millions of them, from the hyperscalers down to that repair shop in Florida, will never all hold off at once. Sellers are another matter. There are only three, and two of them have pleaded guilty to acting in unison before. Three companies with close to 90% market share **can** just (build).
 
-Building is also the test of the defense's weather story. A supplier caught in a demand storm it didn't make, *builds*, because record prices are the best reason to build there is. A supplier that keeps the surge as margin is acting like a cartel, whether or not anyone ever agreed to anything. Whether they agreed is for the courts, and that takes years. Whether they build, anyone can check: watch the capital spending, the wafer starts, and whether Boise ships in 2027.
+Whether they agreed to anything this time is for the courts, and that takes years. Whether they build for the orders they've signed, anyone can check: watch the capital spending, the wafer starts, and whether Boise ships in 2027.
 
-The LinkedIn post's ask comes down to *stop buying RAM so I can buy more RAM!* The AI buyers want more memory too, so leave them out of it and send the ask upstream, to the three companies that can answer it:
+The LinkedIn post's ask comes down to *stop buying RAM so I can buy more RAM!* The AI buyers want more memory too, and they're the ones signing for it, so leave them out of it and send the ask upstream, to the three companies that can answer it:
 
 > Make more RAM so we can buy more RAM!
 
@@ -212,6 +218,10 @@ The LinkedIn post's ask comes down to *stop buying RAM so I can buy more RAM!* T
 [lbnl-queue]: https://emp.lbl.gov/sites/default/files/2026-06/Queued%20Up%202026%20Edition.pdf
 [verge-ps5]: https://www.theverge.com/2023/1/4/23539918/sony-playstation-5-shortage-over
 [techspot-ps5]: https://www.techspot.com/news/98403-scalpers-struggling-sell-playstation-5-consoles-supplies-return.html
+[tf-2008]: https://www.trendforce.com/presscenter/news/20090105-6986.html
+[qimonda]: https://www.sec.gov/Archives/edgar/data/1369377/000132693209000012/f03003e6vk.htm
+[elpida]: https://www.reuters.com/article/technology/elpida-seeks-bankruptcy-protection-56-billion-debt-idUSTRE81Q0OQ/
+[micron-elpida]: https://www.sec.gov/Archives/edgar/data/723125/000072312513000133/exh991-pr.htm
 
 [cnbc-mehrotra]: https://www.cnbc.com/2026/06/30/micron-ceo-customers-driving-hard-bargain-on-price-contributed-to-memory-shortage.html
 [complaint]: https://storage.courtlistener.com/recap/gov.uscourts.cand.472931/gov.uscourts.cand.472931.1.0_1.pdf
