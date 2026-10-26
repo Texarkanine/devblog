@@ -1,13 +1,12 @@
 # Active Context
 
 ## Current Task: gh-pages orphan deploys
-**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+**Phase:** BUILD - COMPLETE
 
 ## What Was Done
-- Re-planned after preflight `FAIL (blocking)`.
-- The plan adds `force_orphan: true` on the existing `peaceiris/actions-gh-pages@v3` step and leaves that step as the `gh-pages` publisher. On the v3 tag, that input force-pushes `gh-pages`, which is the push the DigitalOcean webhook publishes from.
-- Test plan is a recorded decision not to test. The step calls no local software, this repo cannot run the action, and a YAML assertion would be a change-detector. The operator asked for that case to be judged on the merits.
-- `actions/deploy-pages` is rejected. It would stop the `gh-pages` pushes.
+- Added `force_orphan: true` to the existing `peaceiris/actions-gh-pages@v3` step in `/home/mobaxterm/git/devblog/.github/workflows/deploy.yaml`. `github_token` and `publish_dir: ./_site` are unchanged. `publish_branch` is unset, so the action's default `gh-pages` stands.
+- No new test, per the recorded decision. The only local suite is `tests/test_strip_svg_metadata.py`. 12 tests passed. The workflow file parses; `force_orphan` is boolean true.
+- Did not run `bundle exec jekyll build` or `reuse lint`. Neither reads this workflow file.
 
 ## Next Step
-- Build
+- QA

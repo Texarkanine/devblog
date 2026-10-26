@@ -67,3 +67,16 @@ Set `force_orphan: true` on the existing `peaceiris/actions-gh-pages` step so ea
 * Insights
     - Advisory only: a future separate `workflow_run` probe that fetches `gh-pages` and asserts a single-commit tip would test the real publish behavior instead of the YAML text; the first real deploy after this change should still be watched for the webhook firing on the force push
 
+## 2026-10-26 - BUILD - COMPLETE
+
+* Work completed
+    - Set `force_orphan: true` on the peaceiris step in `.github/workflows/deploy.yaml`
+    - Ran `python3 -m unittest discover -s tests`: 12 tests, OK
+    - Parsed the workflow with Ruby YAML: `force_orphan` is true and `publish_dir` is `./_site`
+* Decisions made
+    - No new test, matching the recorded test plan
+    - Did not run the Jekyll build or REUSE lint; they do not read this file
+* Insights
+    - The deploy step still pushes `gh-pages`. The orphan behavior happens on the next workflow run
+
+

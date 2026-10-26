@@ -41,6 +41,8 @@ This behavior cannot be tested in this repository, and the plan chooses not to a
 3. Test decision, record: the behavior under test is `git push origin --force gh-pages` inside the action. It cannot be executed here. No red test is possible. Proceed without one.
 4. Production change: under the `with:` of the step `uses: peaceiris/actions-gh-pages@v3` that already sets `github_token` and `publish_dir: ./_site`, add `force_orphan: true`. Leave the token, the directory, and the step in place. Do not set `publish_branch` (the default is `gh-pages`). Do not run the workflow.
 
+Done. `tests/` has only `test_strip_svg_metadata.py`. The deploy step calls `peaceiris/actions-gh-pages@v3`, not a local program. No YAML lock test was added. `force_orphan: true` is on that step. `python3 -m unittest discover -s tests` ran 12 tests, OK. Ruby `YAML.load_file` read the workflow: `force_orphan` is boolean true and `publish_dir` is `./_site`.
+
 ## Technology Validation
 
 No new technology - validation not required.
@@ -75,6 +77,6 @@ No new technology - validation not required.
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
-- [ ] Preflight
-- [ ] Build
+- [x] Preflight
+- [x] Build
 - [ ] QA
