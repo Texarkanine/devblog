@@ -24,3 +24,24 @@ Set `force_orphan: true` on the existing `peaceiris/actions-gh-pages` step so ea
     - No test file. Asserting the workflow key would be a change-detector
 * Insights
     - The orphan takes effect on the next workflow run. This task does not run that deploy
+
+## 2026-10-26 - PREFLIGHT - COMPLETE (FAIL (blocking))
+
+* Work completed
+    - Validated `memory-bank/active/tasks.md` against `.cursor/rules/shared/always-tdd.mdc`, `memory-bank/systemPatterns.md`, `memory-bank/techContext.md`, and `.github/workflows/deploy.yaml`
+    - Wrote `memory-bank/active/.preflight-status` with first line `FAIL (blocking)`
+* Decisions made
+    - Failed TDD Plan Encoding (`FAIL (blocking)`): unit 1 (`Set force_orphan on the pages deploy — executable`) modifies workflow configuration (`.github/workflows/deploy.yaml`) with no test steps because the repository has no workflow execution harness and a static YAML assertion is a forbidden change-detector
+    - Recorded advisory Radical Innovation finding noting `.github/workflows/deploy.yaml` is already half-wired for `actions/deploy-pages@v4` (`upload-pages-artifact@v4`, `pages: write`, `id-token: write`, `steps.deployment.outputs.page_url`), which would eliminate the `gh-pages` branch completely
+* Insights
+    - Operator guidance or TDD waiver is required before proceeding to build an executable workflow change that has no non-change-detector local test path
+
+## 2026-10-26 - PREFLIGHT - OPERATOR GUIDANCE
+
+* Work completed
+    - Recorded the operator's publish constraint and testing practice in the project brief and active context
+* Decisions made
+    - Do not test this workflow step. A local test is impossible, and a YAML assertion is a change-detector. Put that choice in the plan and send it back through preflight
+    - Keep pushing to `gh-pages`. A DigitalOcean webhook on that branch publishes the site
+* Insights
+    - `peaceiris/actions-gh-pages` at the `v3` tag still runs `git push origin --force` when `force_orphan` is set (`src/git-utils.ts`, `push`). The branch tip still moves
