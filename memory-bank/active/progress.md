@@ -91,4 +91,15 @@ Set `force_orphan: true` on the existing `peaceiris/actions-gh-pages` step so ea
 * Insights
     - Pre-existing `environment.url` referencing a nonexistent `deployment` step is dead configuration, confirmed out of scope per the plan
 
+## 2026-10-26 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-20261026-gh-pages-orphan.md`
+    - Checked product, system, and tech context files; none needed an edit
+* Decisions made
+    - The lesson worth keeping is that `force_orphan` still pushes, and that an untestable workflow step has to be written as a decision in the test plan
+* Insights
+    - The webhook constraint arrived after the first plan. It is what ruled out switching off the `gh-pages` branch
+
+
 
