@@ -1,6 +1,6 @@
 ---
 layout: garden
-title: "A Taxonomy of Price Shocks"
+title: "Taxonomizing Price Shocks"
 subtitle: "Blame the supplier, blame the regulator, or blame the customer?"
 description: "A field guide to shortages and price spikes, sorted by who actually holds the choke point: the supplier, the regulator, or the customer next to you."
 tags:
