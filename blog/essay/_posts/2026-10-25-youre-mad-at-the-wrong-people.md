@@ -58,7 +58,7 @@ Add up the market shares in that first-quarter report: Samsung 38.5%, SK hynix 2
 
 Ask the industry why it didn't build ahead, and **it blames the buyers too!** Micron's CEO, Sanjay Mehrotra, told Jim Cramer on CNBC's *Mad Money* in June that ["certain customers drove pricing significantly down in our industry. In 2023, our prices came down to one-third of what they were."][cnbc-mehrotra] Companies were losing money, he said, and couldn't afford new capacity.
 
-Customers bargained, as customers do in a glut. Then Micron decided how much to invest, and cut its capital spending that year from $12.1 billion to $7.7 billion.
+Customers bargained, as customers do in a glut. Then Micron cut its capital spending that year from $12.1 billion to $7.7 billion. That is a supply decision, and Micron made it.
 
 ## The Informant
 
@@ -66,7 +66,7 @@ Customers bargained, as customers do in a glut. Then Micron decided how much to 
 
 From April 1999 to June 2002, DRAM makers fixed the prices they charged Dell, Compaq, Hewlett-Packard, Apple, IBM and Gateway. Infineon pleaded guilty in 2004 and paid $160 million; Hynix, the company now called SK hynix, paid $185 million in 2005; Samsung paid $300 million, which the Justice Department called the ["second largest criminal antitrust fine in U.S. history."][doj-2005] Four Infineon executives served four to six months in prison, and in March 2006 [three Samsung executives][doj-2006] agreed to serve seven or eight months each and pay $250,000 apiece. By then twelve people and four companies had been charged, and the fines topped $731 million.
 
-Micron paid nothing. It had cooperated under the Justice Department's Corporate Leniency Policy, and in exchange, by its own account, ["Micron will not be subject to prosecution, fines, or other penalties."][micron-2004] The same 2004 statement quoted its CEO, Steve Appleton: ["The DOJ's investigation revealed evidence of price fixing by Micron employees and its competitors."][micron-2004] A Micron regional sales manager did plead guilty, to obstruction: he had altered documents the grand jury subpoenaed. He got six months of home detention.
+Micron paid nothing. It had cooperated under the Justice Department's Corporate Leniency Policy, and in exchange, by its own account, ["Micron will not be subject to prosecution, fines, or other penalties."][micron-2004] The same 2004 statement quoted its CEO, Steve Appleton: ["The DOJ's investigation revealed evidence of price fixing by Micron employees and its competitors."][micron-2004] A Micron regional sales manager [did plead guilty, to obstruction][doj-2005]: he had withheld and altered documents the grand jury subpoenaed. He got six months of home detention.
 
 So the June defendants are two companies that pleaded guilty to fixing DRAM prices and the one that turned them in. The one that turned them in is the one telling *Mad Money* that its customers bargained too hard.
 
@@ -82,15 +82,15 @@ Look for the AI buyers in that sentence. They show up as weather. Every verb bel
 
 The plaintiffs have one good answer. By TrendForce's per-wafer math, in the first quarter of 2026 a wafer of 64GB DDR5 server modules was earning more than a wafer of HBM, and all three companies left their capacity where it was. In the complaint's words: ["Leaving that profit unclaimed, in unison, while commodity prices set records, is difficult to reconcile with independent profit maximization."][complaint-p12] The defense replies that converting one line took SK hynix most of a year, and that Micron had presold all of its HBM through 2026. Judge Noël Wise will hear the motion on [November 13][docket].
 
-I don't need to know how she rules. A conspiracy would make the three companies villains, and without one they are still in charge: how much memory the world gets is decided in three boardrooms, and nobody buying an AI accelerator decides it for them.
+I don't need to know how she rules. A conspiracy would make the three companies villains, and without one they are still in charge: how much memory the world gets is decided in three boardrooms, and the AI companies only get to place orders.
 
 ## Federal Policy With a Speed Limit
 
-I nearly compared all this to the gas lines of the 1970s: drivers glaring at each other at the pump while OPEC cut production. Then I read about the gas lines. Same story, different liquid.
+I meant to use the [1973 oil crisis][oil-crisis] as an analogy: drivers glaring at each other at the pump while OPEC cut production. Then I read about the gas lines, and stopped calling it an analogy. Supply was decided upstream, buyers took the blame, and only the liquid was different.
 
 The shortages started **before** the embargo. On August 15, 1971, [Nixon froze wages and prices][bradley], and oil stayed under federal price controls for most of the next decade. Shortages began the next year. By February 1973, eight months before any embargo, Senator Henry Jackson was telling a hearing that "there has been an unprecedented breakdown in our energy supply and distribution system," and that worse gasoline shortages were coming. Then, on October 19, 1973, Arab producers [embargoed the United States][fed-embargo]. Oil went from $2.90 a barrel to $11.65 by January. A foreign cartel cut supply, and a domestic price ceiling kept the price from telling anyone where the remaining oil was needed.
 
-On November 25, Nixon went on television and told the country what it would do about it. Most of the plan was asking people to use less. Gas stations would close from 9 p.m. Saturday until midnight Sunday, the speed limit would drop to 50 miles an hour, thermostats would go down six degrees, and the White House would dim its Christmas lights. He asked for everyone's cooperation ["in sacrificing a little so that no one must endure real hardship,"][nixon] and closed by asking the country to pursue self-sufficiency in energy ["with the spirit of discipline, self-restraint, and unity."][nixon] Two days later he signed the Emergency Petroleum Allocation Act, which handed out fuel by formula based on what each place had bought in 1972. Congress set the [national speed limit at 55][nmsl] in January 1974, and it stayed there until 1995.
+On November 25, Nixon went on television and told the country what it would do about it. Most of the plan was asking people to use less. Gas stations would close from 9 p.m. Saturday until midnight Sunday, the speed limit would drop to 50 miles an hour, thermostats would go down six degrees, and the White House would dim its Christmas lights. He asked for everyone's cooperation ["in sacrificing a little so that no one must endure real hardship,"][nixon] and closed by asking the country to pursue self-sufficiency in energy ["with the spirit of discipline, self-restraint, and unity."][nixon] Two days later he signed the [Emergency Petroleum Allocation Act][epaa], which handed out fuel by formula based on what each place had bought in 1972. Congress set the [national speed limit at 55][nmsl] in January 1974, and it stayed there until 1995.
 
 Drivers took the hint and blamed each other. In February 1974, TIME reported that the nation's 117 million vehicles ["have become rolling reservoirs of gasoline, making the shortage worse,"][time-fever] as people cruised for stations to top off their tanks. In Pittsburgh, a pump attendant spat in the face of a motorist who topped off and then tried to pay with a credit card. A week later, TIME described the odd-even plans spreading from Oregon: you could buy gas only on dates that matched the last digit of your license plate, often with a minimum purchase of half a tank ["to prevent obsessive 'topping off.'"][time-rationing] In New Jersey and Maryland, breaking the rules could cost a motorist up to $1,000.
 
@@ -108,13 +108,21 @@ The hard drives in my PC were cheap because the same factories build drives by t
 
 This has a name. In 1936 the aeronautical engineer Theodore Wright noticed that every doubling of cumulative airplane production cut the cost of a plane by a steady percentage. Solar panels have followed [Wright's law][owid] for four decades, getting about 20% cheaper with each doubling of installed capacity, from $106 a watt to $0.38. The learning comes from doing, and doing at volume needs somebody to buy the volume. I [love it when useful things get cheaper]({% post_url blog/essay/2026-08-09-love-when-useful-things-get-cheaper %}); this is how they get there.
 
-Plot what a demand surge means for a small buyer over time and you get a J: first they show up with their demand, at original prices, and just buy a lot for cheap. Then supply is exhausted and their same money simply buys less of the thing. Then, through sustained demand, capacity increases, Wright's Law kicks in, and same money now buys far more of the thing than it ever would have originally. That benefit at the end lands on *all* buyers - even on people who weren't around for easy beginning or the bad middle. The surge that makes a part expensive this year is what makes it cheap later. Telling the big buyers to stop is asking for the second half of the J without anyone paying for the first.
+Plot what a demand surge means for buyers over time and you get a J: first they show up with their demand, at original prices, and just buy a lot for cheap. Then supply is exhausted and their same money simply buys less of the thing. Then, through sustained demand, capacity increases, Wright's law kicks in, and the same money now buys far more of the thing than it ever would have originally. That benefit at the end lands on *all* buyers - even on people who weren't around for the easy beginning or the bad middle. The surge that makes a part expensive this year is what makes it cheap later. Telling the big buyers to stop is asking for the second half of the J without anyone paying for the first.
+
+The LinkedIn post despised "this time period." Frodo said much the same about his own, in [*The Fellowship of the Ring*][fotr]:
+
+> 'I wish it need not have happened in my time,' said Frodo.
+>
+> 'So do I,' said Gandalf, 'and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us.'
+
+Nobody decides which part of the J they live in. What you do get to decide is where to point the anger.
 
 Storage is in the expensive half right now. Western Digital's CEO said early this year that the company was ["pretty much sold out for calendar 2026,"][wd] and consumer products were 5% of its revenue. My cheap drives came from the last round of hyperscaler buying.
 
 > The J doesn't care whether the buying was wise.
 
-Deloitte found that American shale "peaked without making money for the industry in aggregate"[^deloitte]: $300 billion of negative free cash flow, more than $450 billion of invested capital written down, and more than 190 bankruptcies since 2010. The wells got drilled anyway, and in 2020 the United States became a net exporter of petroleum for the first time since at least 1949.[^eia] Shale investors lost their money and everyone else kept the oil. If AI really is the fraud that LinkedIn post called it, the fabs it pays for will still be standing after the money is gone.
+Take American shale oil. In the 2010s, drillers paired horizontal drilling with [fracking][fracking] to get oil out of shale rock that had been too tight to produce, and investors paid for a drilling boom. Deloitte found that the boom "peaked without making money for the industry in aggregate"[^deloitte]: $300 billion of negative free cash flow, more than $450 billion of invested capital written down, and more than 190 bankruptcies since 2010. The wells got drilled anyway, and in 2020 the United States became a net exporter of petroleum for the first time since at least 1949.[^eia] Shale investors lost their money and everyone else kept the oil. If AI really is the fraud that LinkedIn post called it, the fabs it pays for will still be standing after the money is gone.
 
 ## Ask Whether They Built Anything
 
@@ -126,7 +134,11 @@ PINE64 is watching the same calendar. Its own post on Mastodon never mentioned A
 
 If those fabs show up and prices break in 2028, the AI buyers will have paid for the cheap memory of 2029, and the people who wanted them to stop buying will get it anyway. If the three firms bank the surge and leave the cleanrooms empty, you will finally have somebody worth being mad at, and a Ninth Circuit opinion explaining why it's legal.
 
-Either way, look upstream before you look sideways. The people buying next to you didn't decide how much RAM gets made... and the ones that do make that decision, do it based on how much - across *all buyers* - wants to be bought.
+The same question works on the other bill AI gets blamed for. On electricity, the buyers are paying to build. Microsoft signed the 20-year contract that is [bringing an 835 MW reactor at Three Mile Island back online][crane]. Meta is paying for [433 MW of uprates][vistra-meta] at three Vistra nuclear plants, along with 20 years of their existing output.
+
+Upstream is where it stalls. In July, [PJM][pjm-2028], which runs the grid for more than 67 million people in 13 states and Washington, D.C., came up 6,831 MW short of its own reliability requirement in its capacity auction for 2028-29, and only 525 MW of what cleared came from new plants and uprates. GE Vernova, the largest gas turbine maker, is [taking reservations for 2031][turbines]. [Berkeley Lab][lbnl-queue] counts about 2,061 GW of would-be power plants waiting in line for permission to connect to the grid.
+
+Whatever the shortage, look upstream before you look sideways. The people buying next to you didn't decide how much RAM gets made... and the ones that do make that decision, do it based on how much - across *all buyers* - wants to be bought.
 
 [toms-suit]: https://www.tomshardware.com/tech-industry/samsung-sk-hynix-and-micron-sued-over-alleged-dram-price-fixing-amid-record-memory-costs
 [pine64]: https://pine64.org/
@@ -150,17 +162,26 @@ Either way, look upstream before you look sideways. The people buying next to yo
 [bradley]: https://thedailyeconomy.org/article/energy-infamy-nixons-1971-price-controls-turn-50/
 [fed-embargo]: https://www.federalreservehistory.org/essays/oil-shock-of-1973-74
 [nixon]: https://www.presidency.ucsb.edu/documents/address-the-nation-about-national-energy-policy
+[oil-crisis]: https://en.wikipedia.org/wiki/1973_oil_crisis
+[epaa]: https://en.wikipedia.org/wiki/Emergency_Petroleum_Allocation_Act
 [nmsl]: https://en.wikipedia.org/wiki/National_Maximum_Speed_Law
 [time-fever]: https://time.com/archive/6875854/shortages-gas-fever-happiness-is-a-full-tank/
 [time-rationing]: https://time.com/archive/6816977/rationing-spotty-local-starts/
 [chaos]: https://arxiv.org/abs/2602.12066
 [jec-1974]: https://fraser.stlouisfed.org/title/gasoline-distribution-895
 [eo-12287]: https://www.presidency.ucsb.edu/documents/executive-order-12287-decontrol-crude-oil-and-refined-petroleum-products
+[fotr]: https://en.wikiquote.org/wiki/The_Fellowship_of_the_Ring
+[fracking]: https://en.wikipedia.org/wiki/Fracking_in_the_United_States
 [owid]: https://ourworldindata.org/learning-curve
 [wd]: https://www.tomshardware.com/pc-components/hdds/western-digital-is-already-sold-out-of-hard-drives-for-all-of-2026-chief-says-some-long-term-agreements-for-2027-and-2028-already-in-place
 [tf-cxmt]: https://www.trendforce.com/news/2026/09/24/news-cxmt-ymtc-ramp-memory-capacity-but-chinas-ai-cloud-boom-could-soak-up-new-supply-through-2027/
 [tf-4q]: https://www.trendforce.com/presscenter/news/20260930-13258.html
 [pine64-mastodon]: https://social.treehouse.systems/@pine64/117111063654864544
+[crane]: https://www.constellationenergy.com/news/2024/Constellation-to-Launch-Crane-Clean-Energy-Center-Restoring-Jobs-and-Carbon-Free-Power-to-The-Grid.html
+[vistra-meta]: https://investor.vistracorp.com/2026-01-09-Vistra-and-Meta-Announce-Agreements-to-Support-Nuclear-Plants-in-PJM-and-Add-New-Nuclear-Generation-to-the-Grid
+[pjm-2028]: https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/2026-releases/20260714-pjm-capacity-auction-procures-138318-mw-of-generation-resources.pdf
+[turbines]: https://finance.yahoo.com/energy/articles/gas-turbine-shortage-just-became-210000180.html
+[lbnl-queue]: https://emp.lbl.gov/sites/default/files/2026-06/Queued%20Up%202026%20Edition.pdf
 
 [cnbc-mehrotra]: https://www.cnbc.com/2026/06/30/micron-ceo-customers-driving-hard-bargain-on-price-contributed-to-memory-shortage.html
 [complaint]: https://storage.courtlistener.com/recap/gov.uscourts.cand.472931/gov.uscourts.cand.472931.1.0_1.pdf
