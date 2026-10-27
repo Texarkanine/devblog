@@ -1,15 +1,15 @@
 ---
 layout: garden
 title: "The Software-Engineering Amish"
-subtitle: "Where people draw the line on AI-written code"
-description: "A running taxonomy of positions on AI-written code - Amish, Old Order, Mennonite, Luddite, hand-loom weaver, and the English - filed by dated post, not by person, with a log for whatever does not fit."
+subtitle: "Where people draw the line on AI-written code, in their own words"
+description: "A running quote collection filed as a taxonomy of positions on AI-written code - Amish, Old Order, Mennonite, Luddite, hand-loom weaver, and the English - each entry a quotable quote with a link to the post that said it."
 tags:
   - ai
   - taxonomy
   - thoughts
 ---
 
-People keep announcing where they stand on AI-written code. This page collects those announcements and files the *position each post takes*, sorted by two questions: who draws the line, and how absolute the line is.
+People keep announcing where they stand on AI-written code. This page collects the announcements as quotes - each person filed under the position their own words state, sorted by two questions: who draws the line, and how absolute the line is.
 
 It files positions, not people. A person can take one position in one post and another in the next, and several people below already have. When someone moves, they get a second dated entry and the old one stays. Nothing here gets refiled in hindsight.
 
@@ -32,74 +32,139 @@ The names are borrowed on purpose. The real Amish are selective, slow adopters w
 
 ## Amish
 
-A community draws the line and binds its members to it.
+A community draws the line and binds its members to it. For now, Reddit gets one entry - r/opensource, the high-profile case. Its satellite subreddits are not linked here yet.
 
-- **Codeberg** - [Protecting our FLOSS Commons from LLMs](https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html): members voted 358 to 144 to stop hosting projects that "mostly consist of" LLM-written code. Note the threshold in the rule itself - majority, not purity. Note also the procedure - member-sourced and deliberate, the opposite of reactionary. Filed 2026-10-26.
-- **The Rust project** - [Rust is adopting an LLM policy](https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/): a pull request is treated as the start of forming a contributor, not a delivery of code, so the policy governs disclosure and accountability rather than trying to detect machine authorship. Filed 2026-10-26.
-- **r/opensource** - [Your tokens aren't valuable: No more AI](https://www.reddit.com/r/opensource/comments/1xelcuf/your_tokens_arent_valuable_no_more_ai/) (2026-10-24): a moderator decree, not a member vote - projects that use AI, are made by AI, or are intended for AI are unwelcome, with a one-year, three-contributor, existing-community bar and an English-only rule on the stated grounds that AI-written and AI-translated text cannot be told apart. The [follow-up](https://www.reddit.com/r/opensource/comments/1xfursg/adjustments_will_be_made/) walks it back within days: Linux could never be banned, the line sits somewhere between that and a two-session pet project, and it will move with feedback. Same position as Codeberg, opposite procedure - and on Reddit the exit doors (r/TrueOpenSource, r/OpenSourceAIAllowed, and friends, named in the original post itself) are one click sideways, so the decree sorts the population faster than it binds it. The thread itself, read 2026-10-26: the post sits at a score of 0 with some 2,700 comments, the top comment (about 1,500) calls the stance orthogonal to open source and asks whether Linux is banned now that Linus uses AI, the second (about 1,150) is a solo maintainer whose nine-year, zero-AI project the contributor rule excludes anyway, and one commenter predicted, in the thread, that the policy "won't last: either it will be reverted or altered, or the open source community will go elsewhere." The follow-up post is that prediction's first installment. Filed 2026-10-26.
-- **r/fossdroid** - [New Rule: Don't use AI](https://www.reddit.com/r/fossdroid/comments/1mjk17w/new_rule_dont_use_ai/) (2025-08-06) barred AI-generated posts as making apps look "rushed, untrustworthy, and spammy" - and the sub has since adopted the r/opensource text above essentially verbatim, subreddit name swapped. A line copied whole from a neighboring enclave: policy diffusion, not independent invention. Filed 2026-10-26.
-- **r/ADHD_Programmers** - [Dealing with project/app posts and spammy AI posts](https://www.reddit.com/r/ADHD_Programmers/comments/1t0p7qx/dealing_with_projectapp_posts_and_spammy_ai_posts/) (2026-05-01): not a ban. Project and app posts are quarantined to a monthly thread, AI slop is reportable, repeat abuse earns a ban. A community line drawn as containment rather than exclusion - filed here because the community draws it, with the difference in kind noted rather than filed over. Filed 2026-10-26.
+> You can develop at a rapid pace, build things as if you had a large team. Only that you have none. In fact, you are (often) alone, working with a statistical machine that turns energy into code.
+
+- **Codeberg**, "[Protecting our FLOSS Commons from LLMs](https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html)," July 23, 2026. The members voted 358 to 144 for the rule this quote argues for - majority threshold, member-sourced and deliberate. Filed 2026-10-26.
+
+> We treat PRs as an indication that someone is interested in joining our community and being mentored to work on future PRs.
+
+- **The rust-lang/rust project**, "[Rust is adopting an LLM policy](https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/)," August 5, 2026. The line is drawn around review and disclosure, because a polished PR no longer carries that signal. Filed 2026-10-26.
+
+> The long story short, if your project uses AI, is made by AI, or is intended for AI, it's not welcome on r/opensource. AI, as it exists today, is incongruent to this Open Source community.
+
+- **Wolvereness, for r/opensource**, "[Your tokens aren't valuable: No more AI](https://www.reddit.com/r/opensource/comments/1xelcuf/your_tokens_arent_valuable_no_more_ai/)," October 24, 2026. A moderator decree, not a member vote - same position as Codeberg, opposite procedure. Filed 2026-10-26.
+
+> The line is somewhere between those, and it will likely move over time from continuous feedback.
+
+- **Wolvereness, for r/opensource**, "[Adjustments will be made](https://www.reddit.com/r/opensource/comments/1xfursg/adjustments_will_be_made/)," October 2026. The same community, days later: Linux could never be banned, a pet project pumped out in two Claude Code sessions still will be, and the line sits between. A second entry, because the position moved. Filed 2026-10-26.
 
 ## Old Order
 
 An individual draws a near-total line for their own work.
 
-- **Kyle Kingsbury** - [The Future of Everything is Lies, I Guess](https://aphyr.com/posts/411-the-future-of-everything-is-lies-i-guess): "I have never used an LLM for my writing, software, or personal life," written by hand in Vim - with the honest rider, in [Work](https://aphyr.com/posts/418-the-future-of-everything-is-lies-i-guess-work), that he writes all his words and software by hand but is "not confident I will hold out forever." A line held, with its future migration already conceded in print. Filed 2026-10-26, corrected the same day - an earlier version of this entry carried an exception he never stated.
-- **Brett** - [I'm done using AI](https://brettcodes.com/im-done-using-ai/): twenty years of writing code, about eighteen months of Cursor and Claude Code, then every AI tool dropped and back to writing line by line. A migration - English to Old Order - recorded in his own post. Filed 2026-10-26.
-- **Andy Balaam** - [Why I don't use AI](https://artificialworlds.net/blog/2025/12/10/why-i-dont-use-ai-expanded/): the ethical case, at length - environmental cost, worker exploitation, wrong answers, creative work taken. Filed 2026-10-26.
-- **Anthony Manning-Franklin** - [I Will Never Use AI to Code (or write)](https://antman-does-software.com/i-will-never-use-ai-to-code-or-write): typing was never the bottleneck, the code is not the asset, and AI makes codebases worse. Filed 2026-10-26.
-- **po-ru** - [Why I'm no longer updating this repository](https://po-ru.com/2026/10/18/why-im-no-longer-updating-this-repository): stopped updating a repository rather than keep building on a stack he takes to be soiled. His companion post, [All our houses are built on sand now](https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now), argues the contamination is already underneath everyone - see the misfits log below. Filed 2026-10-26.
-- **Luciano Nooijen** - [Why I stopped using AI code editors](https://lucianonooijen.com/blog/why-i-stopped-using-ai-code-editors/): quit AI code editors, on the analogy that letting the car handle the boring parts makes taking the wheel back feel wrong. Filed by the scope he states - code editors. Filed 2026-10-26.
+> I continue to write all of my words and software by hand, for the reasons I've discussed in this piece - but I am not confident I will hold out forever.
+
+- **Kyle Kingsbury**, "[The Future of Everything is Lies, I Guess: Work](https://aphyr.com/posts/418-the-future-of-everything-is-lies-i-guess-work)," 2026. He has never used an LLM for his writing, software, or personal life, and says so in the [concluding part](https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here). A line held, with its future migration already conceded in print. Filed 2026-10-26.
+
+> But all I know is that I couldn't keep working that way, as it was in no uncertain terms ruining my life.
+
+- **Brett**, "[I'm done using AI](https://brettcodes.com/im-done-using-ai/)," August 10, 2026. Twenty years of programming, eighteen months of Claude Code and similar harnesses, then none. His post closes: "Here's to writing code by hand." A migration - English to Old Order - in his own words. Filed 2026-10-26.
+
+> I choose to avoid using "AI" (by which I mean Large Language Models). Here's why: they have a devastating environmental impact, they are trained by exploiting and traumatising millions of low-paid workers, they produce biased and dangerously incorrect results, and they unfairly use people's creative work.
+
+- **Andy Balaam**, "[Why I don't use AI](https://artificialworlds.net/blog/2025/12/16/why-i-dont-use-ai/)," December 16, 2025. The ethical case, stated as a list and argued at length. Filed 2026-10-26.
+
+> The code is not the asset, typing was never the bottleneck, AI makes code bases worse.
+
+- **Anthony Manning-Franklin**, "[I Will Never Use AI to Code (or write)](https://antman-does-software.com/i-will-never-use-ai-to-code-or-write)," antman-does-software.com. Filed 2026-10-26.
+
+> When people claim that it's no longer sustainable to write code by hand, they're not entirely wrong, but only in the same way that it's no longer sustainable to sleep in a bed once someone has taken a shit in it. You want changes? Go ask your agent or something. I'm told that's what you're supposed to do now. I'm out.
+
+- **Paul Battley (po-ru)**, "[Why I'm no longer updating this repository](https://po-ru.com/2026/10/18/why-im-no-longer-updating-this-repository)," October 18, 2026. He archived his Ruby gems rather than keep contributing to a commons he takes to be strip-mined. His companion post, "[All our houses are built on sand now](https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now)," is filed in the misfits log below. Filed 2026-10-26.
 
 ## Mennonite
 
 An individual draws a line with a practicable clause - this far, for these uses, and no farther.
 
-- **Ky** - [AI Burnout](https://ky.fyi/posts/ai-burnout): a proof-of-work manifesto on the surface, and in practice a sparing user - AI for refactoring and for composing `ffmpeg` arguments, hand work for the rest. Filed 2026-10-26.
-- **Derek Sivers** - [/ai](https://sive.rs/ai): asks an LLM how to do things he does not know, then writes the code himself and never lets it do the coding. The line sits between asking and generating. Filed 2026-10-26.
-- **Sia Karamalegos** - [/ai](https://sia.codes/ai): no AI programming tools. Filed on that statement alone - the line, as stated, sits at programming tools. Filed 2026-10-26.
-- **Ankur Sethi** - [I'm no longer using coding assistants on personal projects](https://ankursethi.com/blog/coding-assistants-personal-projects/): types every line of his own Django project himself, calls LLM-written code cognitive debt, and follows whatever rules his clients set at work. The line runs between personal and client work. Filed 2026-10-26.
-- **Alberto Fortin** - [After months of coding with LLMs, I'm going back to using my brain](https://simonwillison.net/2025/May/20/after-months-of-coding-with-llms): cut back rather than quit - his own brain and pen and paper first, LLMs after. Filed 2026-10-26.
+> Things that are worth doing are worth doing well. Things that are done well require time and effort. You make meaning through the doing. Ideas are common; effort is not. There are no shortcuts.
+
+- **Ky**, "[AI Burnout](https://ky.fyi/posts/ai-burnout)," ky.fyi. The creed is absolute. The same post reports using AI sparingly for refactoring in languages he understands and for composing `ffmpeg` command lines, never for images, video, or prose - which is why this files here and not one section up. Filed 2026-10-26.
+
+> For programming, I ask it how to do things I don't know how to do. Then I use what I've learned in my own code.
+
+- **Derek Sivers**, "[/ai](https://sive.rs/ai)," updated September 28, 2026. The line sits between asking and generating. The same update adds that he has started using Codex to write unit tests against functions he wrote his way - the clause, widening in public. Filed 2026-10-26.
+
+> And the worst part? The code you produce using LLMs is pure cognitive debt.
+
+- **Ankur Sethi**, "[I'm no longer using coding assistants on personal projects](https://ankursethi.com/blog/coding-assistants-personal-projects/)," April 4, 2026. He types every line of his current Django project himself, still uses Claude Code as a search engine and debugger, and follows his clients' rules at work. The line runs between personal and client work. Filed 2026-10-26.
+
+> I'm defaulting to pen and paper, I'm defaulting to coding the first draft of that function on my own. [...] I'm writing the plan. I'm the senior dev. The LLM is the assistant.
+
+- **Alberto Fortin**, quoted in Simon Willison, "[After months of coding with LLMs, I'm going back to using my brain](https://simonwillison.net/2025/May/20/after-months-of-coding-with-llms)," May 20, 2025. Cut back rather than quit, after LLM-driven rewrites produced a codebase he compared to ten junior developers locked in a room without seeing each other's work. Filed 2026-10-26.
+
+> I chose to make using AI a manual action, because I felt the slow loss of competence over time when I relied on it, and I recommend everyone to be cautious with making AI a key part of their workflow.
+
+- **Luciano Nooijen**, "[Why I stopped using AI code editors](https://lucianonooijen.com/blog/why-i-stopped-using-ai-code-editors/)," April 1, 2025. He removed AI from his editors and still uses LLMs occasionally, by hand, on purpose. Refiled here from Old Order on the strength of his own summary, 2026-10-27: the line is at the editor integration, not at the tool.
 
 ## Luddite
 
 The historical kind: not just a private practice, an attempt to change the terms for everyone.
 
-- **Drew DeVault** - [Stop externalizing your costs on me](https://drewdevault.com/blog/Stop-externalizing-your-costs-on-me/): a direct public appeal to stop using, talking about, and building LLMs and image generators at all. Filed 2026-10-26.
-- **Kyle Kingsbury, again** - [Where Do We Go From Here?](https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here): organize, regulate, and refuse anyway as delay, on the argument that each day of delay buys time for courts and workers to adapt. Same person as the Old Order entry above, different position, different post - which is the point of filing posts instead of people. Filed 2026-10-26.
+> Please stop legitimizing LLMs or AI image generators or GitHub Copilot or any of this garbage. I am begging you to stop using them, stop talking about them, stop making new ones, just stop.
+
+- **Drew DeVault**, "[Stop externalizing your costs on me](https://drewdevault.com/blog/Stop-externalizing-your-costs-on-me/)," drewdevault.com. A direct public appeal, on a bill of costs: carbon, freshwater, traumatized labor, scraped work, miserable sysadmins. Filed 2026-10-26.
+
+> Each day we delay the advancement of ML models buys time to learn how to manage technical debt and errors introduced in legal filings. Another day to prepare for ML-generated CSAM, sophisticated fraud, obscure software vulnerabilities, and AI Barbie. Another day for workers to find new jobs.
+
+- **Kyle Kingsbury, again**, "[The Future of Everything is Lies, I Guess: Where Do We Go From Here?](https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here)," 2026. Refuse, organize, regulate - as delay, openly conceded not to be a stop. Same person as the Old Order entry above, different position, different post, which is the point of filing posts instead of people. Filed 2026-10-26.
 
 ## Hand-loom Weavers
 
 No line left to draw. The diagnosis is accepted, and what remains is grief for the craft as it was.
 
-- **Nolan Lawson** - "We mourn our craft": imagines being the last generation to code by hand. Filed via **Peter Rukavina** - [What we are losing](https://ruk.ca/content/what-we-are-losing), his response, adding 43 years of programming without AI. Filed 2026-10-26.
-- **The Thinking Builder** - [Confessions of a Code Monkey](https://thethinkingbuilder.substack.com/p/confessions-of-a-code-monkey): misses hand-writing code because it set the pace of thought that understanding a problem takes. Filed 2026-10-26.
-- **Mo Rassam** - [Software Engineering is Dead](https://tharsalys7.substack.com/p/software-engineering-is-dead-and): "The demand for software is not the same as demand for software engineering." Filed here with a migration noted - a weaver who has gone out into the city to see what factory jobs there are. If a later post takes that job, it gets its own entry. Filed 2026-10-26.
+> Someday years from now we will look back on the era when we were the last generation to code by hand. We'll laugh and explain to our grandkids how silly it was that we typed out JavaScript syntax with our fingers. But secretly we'll miss it.
+
+- **Nolan Lawson**, "[We mourn our craft](https://nolanlawson.com/2026/02/07/we-mourn-our-craft/)," February 7, 2026. Filed 2026-10-26.
+
+> I wrote millions of lines of code, from scratch; a good chunk of that was without benefit of the Internet, and its infinite reference library. None of it was AI-assisted.
+
+- **Peter Rukavina**, "[What we are losing](https://ruk.ca/content/what-we-are-losing)," February 9, 2026 - his response to Lawson, from 43 years of professional programming, 1980 to 2023. Filed 2026-10-26.
+
+> Writing code by hand gave me the pace of thought I needed to understand a problem deeply.
+
+- **Alex Kondov**, "[Confessions of a Code Monkey](https://thethinkingbuilder.substack.com/p/confessions-of-a-code-monkey)," January 23, 2026. Filed 2026-10-26.
+
+> The demand for software is not the same as demand for software engineering. The demand for bread today is far higher than in 1800s, yet that did not lead to a corresponding increase in the demand for break-makers.
+
+- **Mo Rassam**, "[Software Engineering is Dead](https://tharsalys7.substack.com/p/software-engineering-is-dead-and)," 2026. Filed here with a migration noted - a weaver who has gone out into the city to see what factory jobs there are. If a later post takes that job, it gets its own entry. Filed 2026-10-26.
 
 ## The English
 
 No line. I file myself here first.
 
-- **Me** - [How I Learned to Stop Coding and Love the Machine]({% link _garden/how-i-learned-to-stop-coding-and-love-the-machine.md %}): I stopped writing my code and let the agents write it, with no boundary I can point to. Whatever this taxonomy says about everyone else, it says that about its author plainly. Filed 2026-10-26.
-- **Sean Goedecke** - [Anti-AI nostalgia](https://www.seangoedecke.com/anti-ai-nostalgia/): adjacent rather than a member's statement - an argument, from the no-line side, that much anti-AI writing is nostalgia doing the work of an argument. Filed because the English deserve a stated position too, and his is quotable. Filed 2026-10-26.
+> I've been in the now-renamed Yolo Mode since March 2025. I just let the agents do whatever, to whatever.
+
+- **Me**, "[How I Learned to Stop Coding and Love the Machine]({% link _garden/how-i-learned-to-stop-coding-and-love-the-machine.md %})." Whatever this taxonomy says about everyone else, it says that about its author plainly. Filed 2026-10-26.
+
+> I know I'm tiptoeing around the worst argument in the world. It isn't a refutation of anti-LLM arguments to say that they are structurally similar in some ways to fascist arguments, any more than it's a devastating critique to say the same thing about Lord of the Rings.
+
+- **Sean Goedecke**, "[Anti-AI nostalgia and the cult of the past](https://www.seangoedecke.com/anti-ai-nostalgia/)," June 4, 2026. Filed as the English with a stated argument of their own - and the concession above is the honest part of it, which the taxonomy needs on the record. Filed 2026-10-26.
 
 ## Not Yet Filed
 
-Collected, not yet placed - because the post does not state a line clearly enough to file honestly, or the original could not be read.
+Collected, not yet placed - because no quotable statement of a line could be read at the source, and this page files quotes, not summaries.
 
-- **Abhinav Omprakash** - "I Am Happier Writing Code by Hand", via [Birchtree's commentary](https://birchtree.me/blog/i-am-happier-writing-code-by-hand/): writing slowly was how he found out his first ideas were wrong. Weaver grief or a Mennonite line? The commentary does not settle it, and I will not file from a summary.
-- **unixdigest** - "The reason why I don't use AI or even code completion" (2025-05-01), via the [site](https://unixdigest.com): the site blocked direct reading when collected. Unfiled until read.
+- **Abhinav Omprakash** - "I Am Happier Writing Code by Hand," known here only via [Birchtree's commentary](https://birchtree.me/blog/i-am-happier-writing-code-by-hand/). Weaver grief or a Mennonite line? I will not file from a summary. Unfiled until the original is read.
+- **unixdigest** - "The reason why I don't use AI or even code completion" (2025-05-01), via the [site](https://unixdigest.com). The site blocked direct reading when collected. Unfiled until read.
+- **Sia Karamalegos** - her /ai page no longer resolves at [sia.codes/ai](https://sia.codes/ai) as of 2026-10-27, so the statement this page previously paraphrased cannot be quoted at the source. Removed from Mennonite until a live statement is found; the removal is noted here rather than silently dropped.
 - **The author quoted by Roy Tang** - [link post](https://apps.roytang.net/2026/02/98d45e9f4f8553f9b0818eed207b76dd/): removed AI tools from their IDE over their daughter's future, the planet, and copyright, angry at being forced to choose between giving in and leaving tech. Original post not yet found. Unfiled until read.
 
 ## Things That Do Not Fit
 
 This section is the instrument, not a junk drawer. A thing belongs here if it meets a test set in advance: a position that cannot be placed on the two axes above - who draws the line, and how absolute it is - or a migration path with no historical precedent. If everything keeps filing neatly, either the taxonomy is right or I am squeezing. This log is how I would find out.
 
+> It is no longer possible to produce software that is free of LLM output, even if you don't use it yourself, even if you use a language that doesn't use it itself.
+
+- **The empty chair.** Paul Battley (po-ru), "[All our houses are built on sand now](https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now)," October 7, 2026, counting disclosed LLM commits in the toolchains under everyone - GCC at 3.1 percent, LLVM at 15.9 percent. If he is right, the purest Old Order position has no possible member at the level of the full stack: a category defined by a line nobody can stand behind. Logged 2026-10-26.
+
 - **The weaver owns the loom.** In 1812 the machines piled up with factory owners, and the standard prediction now is the same consolidation. Local inference predicts the opposite for running models: once adequate intelligence fits on a home machine, the displaced worker owns the power loom. The 1810s had no version of that. Unresolved, and the first place "different this time" would show up. Logged 2026-10-26.
-- **The empty chair.** po-ru's [sand post](https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now) counts disclosed LLM involvement in the stacks underneath everyone - GCC and LLVM included - and argues software free of LLM output may no longer be producible at all, even by someone who never uses it. If that is right, the purest Old Order position has no possible member at the level of the full stack: a category defined by a line nobody can stand behind. Logged 2026-10-26.
 - **The taxonomy moves the filed.** Classifying people changes the people classified - Ian Hacking's [looping effect](https://www.lrb.co.uk/v28/n16/ian-hacking/making-up-people). Writers already reclaim "Luddite" and then act the part. If anyone starts calling themselves Mennonite because of this page, that entry goes here first, as evidence about the taxonomy, before it goes anywhere else. Logged 2026-10-26.
 - **The enclave that sorts instead of binds.** The Amish entry assumes a community line binds its members. On a forge, leaving costs a migration. On Reddit, leaving is stepping from one kitchen counter to another in the same kitchen - the rival subreddits were linked in the ban post itself. A decree there may not bind anyone; it sorts everyone, at platform speed. If that is right, Reddit enclaves will render their verdict - rule iterations, rival growth, quiet re-merger or hardening - long before forge enclaves render theirs, and this log is where I record which way it went. Logged 2026-10-26.
 
 ---
 
 *Started 2026-10-26. Append-only for placements: entries are added, dated, and left standing. Definitions may be revised, and revisions will be noted here when they happen.*
+
+*Revised 2026-10-27: rebuilt as a quote collection - every filed entry is now a quote in the subject's own words with the link at its attribution. Two consequences are recorded rather than hidden: Luciano Nooijen is refiled from Old Order to Mennonite on his own stated scope, and Sia Karamalegos is unfiled until a live statement can be quoted. The satellite subreddits (r/fossdroid, r/ADHD_Programmers) are out for now at the author's direction - r/opensource is the Reddit entry until a satellite earns its own.*
