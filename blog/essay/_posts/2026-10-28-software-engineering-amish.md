@@ -7,9 +7,9 @@ author: texarkanine
 category: essay
 tags:
   - ai
-  - economics
   - history
   - open-source
+  - sociology
   - software-engineering
 ---
 

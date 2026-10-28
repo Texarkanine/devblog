@@ -6,6 +6,7 @@ description: "A running quote collection filed as a taxonomy of positions on AI-
 tags:
   - ai
   - research
+  - sociology
   - software-engineering
   - taxonomy
   - thoughts
