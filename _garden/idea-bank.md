@@ -13,18 +13,24 @@ tags:
   - [Code Goes First but it Won't Be The Last](https://sundaylettersfromsam.substack.com/p/code-goes-first)
   - [... good cognitive strategies are now explicit, first-class, sharable objects in a team or organization. Everyone can move at the speed of the smartest person in the room.](https://sundaylettersfromsam.substack.com/p/vibe-coding-considered-harmful-lego)
   - [Welcome to Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04)
+- Born English / The Reverse Rumspringa
+  - Huntley, Yegge, and myself in the English category: none of us were born that way. We were all born Old Order out of necessity, apprenticed on handcraft, and came around at a fork in the road with convert's zeal.
+  - When you're born Amish, staying Amish is resisting change - comfortable. But the generation arriving now is born English: code has always been a liquid sprayed through a hose. For them, staying English is effortless—the downhill path of least resistance.
+  - Inverting the sociological arrow: becoming Amish is the hard, radical choice. For people born English, choosing manual craft and turning off the model will look like an ascetic discipline of the self (calligraphy, hand-planing, monastic renunciation) rather than an economic defense.
+  - The real Amish reproduce biologically. Software communities reproduce memetically.
 - I spend most of my tokens on planning, am I wrong?
-- How cursor's doc indexing works
 - We're All Grasping at History
   - stockroom, ctx, difflore, coderabbit learnings
 - The Promised Neverland / I'm pretty sure they're sapient
   - we modeled human intelligence in computers pretty analogously to how human consciousness maybe works, I think they're just too slow. One day that'll change and *we'll* be too slow.
+  - [Do Not Build the LLM Torture Factory](https://www.seangoedecke.com/do-not-build-the-llm-torture-factory/)
 - Just Try the Thing
 - Context 2 Ashes
-- Ai Search Reputational Flywheel
+  - Cursor Doc Indexing
+  - Cursor Codebase Embedding
+  - Cursor CMD+K
 - Don't infer when you could compute (+ script-it-instead)
 - Don't prompt your agents with html(?)
-- Mouse Selection (and why the MX Vertical is still the best)
 
 ## Garden
 
