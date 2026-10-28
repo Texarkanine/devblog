@@ -262,7 +262,7 @@ No line. Full adoption, no stated boundary, enthusiasm - the Amish word for the 
 > <br><br>
 > -- Steve Yegge, [The death of the stubborn developer](https://sourcegraph.com/blog/the-death-of-the-stubborn-developer), December 10, 2024
 
-Nine days after GPT-4 shipped, Yegge had already sounded the horn in [Cheating is all you need](https://sourcegraph.com/blog/cheating-is-all-you-need) (March 23, 2023), declaring LLMs the biggest shift since the World Wide Web. By late 2024, the early warnings in [The death of the junior developer](https://sourcegraph.com/blog/the-death-of-the-junior-developer) hardened into an ultimatum: chat-oriented programming is the primary modality, and anyone resisting is merely stubborn. By mid-2025 he had uninstalled his IDEs entirely ([The brute squad](https://yegge.ai/essays/the-brute-squad/)), arriving in 2026 at [Welcome to Gas Town](https://yegge.ai/essays/welcome-to-gas-town/): *"It’s also 100% vibe coded. I’ve never seen the code, and I never care to."*
+Nine days after GPT-4 shipped, Yegge had already sounded the horn in [Cheating is all you need](https://sourcegraph.com/blog/cheating-is-all-you-need) (March 23, 2023), declaring LLMs the biggest shift since the World Wide Web. By late 2024, the early warnings in [The death of the junior developer](https://sourcegraph.com/blog/the-death-of-the-junior-developer) hardened into an ultimatum: chat-oriented programming is the primary modality, and anyone resisting is merely stubborn. By mid-2025 there was "nary an IDE in sight" ([The brute squad](https://yegge.ai/essays/the-brute-squad/)), arriving in 2026 at [Welcome to Gas Town](https://yegge.ai/essays/welcome-to-gas-town/): *"It’s also 100% vibe coded. I’ve never seen the code, and I never care to."*
 
 ---
 
