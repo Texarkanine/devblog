@@ -11,7 +11,7 @@ tags:
 
 People keep announcing where they stand on AI-generated content. This page collects interesting such announcements that I've stumbled across, and files them into a roughly-continuous taxonomy.
 
-The positions taken aren't always exclusively about software-engineering, but that's my industry and I do agree that [Code Goes First](https://sundaylettersfromsam.substack.com/p/code-goes-first) so we see it a lot. But writing, e-mails, images and video all make appearances here, too. Generative, thinking, or otherwise, this is about the thinking machines writ large.
+The positions taken aren't always exclusively about software-engineering, but that's my industry and I do agree that [Code Goes First](https://sundaylettersfromsam.substack.com/p/code-goes-first) so we see it a lot. Writing, e-mails, images and video all make appearances here, too: this is about the thinking machines writ large.
 
 It files positions, not people. A person can take one position one day, another the next, and that's great, actually! I don't plan to stalk all these sources and keep up to date on what they do, but if I notice a change, I'll move their history to the category I think they're *currently* in. The things each of them has said about each stance they've taken should be far more interesting than the people themselves and where they stand today... this is a phenomenon, not a Pokedex.
 
@@ -122,7 +122,7 @@ Twenty years of programming, eighteen months of Claude Code and similar harnesse
 
 He archived his Ruby gems rather than keep contributing to a commons he takes to be strip-mined, after his companion post, "[All our houses are built on sand now](https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now)" (October 7, 2026), found disclosed LLM commits already in the C compilers underneath every language toolchain.
 
-## Mennonite
+## Mennonites
 
 An individual draws a line with a practicable clause - this far, for these uses, and no farther.
 
@@ -176,7 +176,7 @@ Right after that paragraph, the post notes that AI "feels inescapable," and clos
 
 The line sits between asking and generating. The same update adds that he has started using Codex to write unit tests against functions he wrote his way - the clause, widening in public.
 
-## Luddite
+## Luddites
 
 The historical kind: not just a private practice, an attempt to change the terms for everyone.
 
@@ -220,7 +220,7 @@ Draws on John Berger's *Ways of Seeing* to argue that programming - even mundane
 
 Models LLMs not as gunpowder (adopt or be conquered) but as battlefield chemical weapons: useful only to weak players fighting weak players, and neutralizable by regulation, economics, and social opprobrium. Earlier in the year, she spent a week testing coding agents for "[My week with opencode](https://deadsimpletech.com/blog/week-with-opencode)" (January 13, 2026), where she stood at the Mennonite/Old Order boundary - willing at most to "keep a pet local model around to provide input whenever brain-rotted slop is required" and unwilling to release LLM code to the public.
 
-## Romantic
+## Romantics
 
 No line left to draw. The diagnosis is accepted, and what remains is grief for the craft as it was - the 1812 hand-loom weaver who has consented to the mill and is mourning the loom.
 
@@ -254,7 +254,25 @@ Rassam has migrated- a hand-loom weaver who has gone out into the city to see wh
 
 ## The English
 
-No line. I file myself here first.
+No line. Full adoption, no stated boundary, enthusiasm - the Amish word for the rest of us.
+
+---
+
+> We've managed to narrow it down to a single principle: You are getting left behind if you do not adopt chat-based programming as your primary modality. There are a few legitimate reasons for not being able to use chop, but they are quickly evaporating as excuses. So call it whatever you like, but to me, as time goes by, the holdouts are just looking stubborn.
+> <br><br>
+> -- Steve Yegge, [The death of the stubborn developer](https://sourcegraph.com/blog/the-death-of-the-stubborn-developer), December 10, 2024
+
+Nine days after GPT-4 shipped, Yegge had already sounded the horn in [Cheating is all you need](https://sourcegraph.com/blog/cheating-is-all-you-need) (March 23, 2023), declaring LLMs the biggest shift since the World Wide Web. By late 2024, the early warnings in [The death of the junior developer](https://sourcegraph.com/blog/the-death-of-the-junior-developer) hardened into an ultimatum: chat-oriented programming is the primary modality, and anyone resisting is merely stubborn. By mid-2025 he had uninstalled his IDEs entirely ([The brute squad](https://yegge.ai/essays/the-brute-squad/)), arriving in 2026 at [Welcome to Gas Town](https://yegge.ai/essays/welcome-to-gas-town/): *"It’s also 100% vibe coded. I’ve never seen the code, and I never care to."*
+
+---
+
+> This tale isn't about any particular company, it's about the raging AI bull that's been unleashed which enables anyone, to do anything. [...] The founders didn't intend to slash their workforce; it just happened naturally - people self-selected out of the new AI+tools first direction - which works for now but the places to turn to will soon diminish, fast. [...] Don't fall asleep at the wheel on this one. Invest in yourself - if you’re a high-agency person, there’s never been a better time to be alive...
+> <br><br>
+> I suspect there's not going to be mass-layoffs for software developers at Companies due to AI, instead what we will see is a natural attrition between those who invest in themselves right now and those who do not.
+> <br><br>
+> -- Geoffrey Huntley, [What do I mean by some software devs are "ngmi"?](https://ghuntley.com/ngmi/), February 7, 2025
+
+The sequel to his conversion at the pool in [An "oh fuck" moment in time](https://ghuntley.com/oh-fuck/) (January 14, 2025), where he left Cursor running a Rust-to-Haskell port with CoreAudio FFI while swimming with his kids and returned to find it working, announcing that non-adopters were "frankly not gonna make it." Here he defines the acronym: no mass layoffs required—just a quiet, brutal sorting where developers who dismiss models as hype self-select out while high-agency cyborgs take the wheel.
 
 ---
 
@@ -264,12 +282,6 @@ No line. I file myself here first.
 
 Whatever this taxonomy says about everyone else, it says that about its author plainly.
 
----
-
-> From the inside, software engineering feels like the process of elegantly expressing problems in their most natural form, or of solving a magnificently complex puzzle. But that's just what it's like to do software engineering. It's not what software engineering is.
-> <br><br>
-> -- Sean Goedecke, [Software engineers don't get to be Luddites about AI](https://www.seangoedecke.com/software-engineers-dont-get-to-be-luddites-about-ai/), October 12, 2026
-
 ## Things That Do Not Fit
 
 The taxonomy above sorts by the extent of acceptable use: who draws the line, and how wide it is. This section logs positions that break those two axes.
@@ -278,7 +290,7 @@ The taxonomy above sorts by the extent of acceptable use: who draws the line, an
 
 The real-world Amish and Old Order are defined by [*Gelassenheit*](https://en.wikipedia.org/wiki/Gelassenheit) (quiet yieldedness) and [nonresistance](https://en.wikipedia.org/wiki/Nonresistance). They keep to themselves, hitch up the buggy, and leave the English alone. Even the historical Luddites were bargaining with mill owners over piecework wages and phased rollouts.
 
-A different posture shares the Old Order's zero-use line, but swaps quiet withdrawal for excommunication, blacklists, and a post-bubble tribunal - or, on the physical fringe that Sean Goedecke documents in "[Blood in the datacenter](https://www.seangoedecke.com/luddites-and-ai-datacenters/)" ("Is it time to start burning down datacenters?"), shots fired at councilmen's houses and firebombs. Filing this posture under Old Order slanders the Amish; filing it under Luddite misses that nobody here is asking for a seat at the bargaining table. The closest name is the one I already borrowed from Frank Herbert, in my [Fomenting the Butlerian Jihad]({% link _garden/fomenting-the-butlerian-jihad.md %}). *"Thou shalt not make a machine in the likeness of a man's mind"* - and anyone who does is a collaborator.
+A different posture shares the Old Order's zero-use line, but swaps quiet withdrawal for excommunication, blacklists, and a post-bubble tribunal - or, on the physical fringe that Sean Goedecke documents in "[Blood in the datacenter](https://www.seangoedecke.com/luddites-and-ai-datacenters/)" ("Is it time to start burning down datacenters?"), shots fired at councilmen's houses and firebombs. Filing this posture under Old Order slanders the Amish; filing it under Luddite misses that nobody here is asking for a seat at the bargaining table. The closest name is the one I already borrowed from Frank Herbert, in my [Fomenting the Butlerian Jihad]({% link _garden/fomenting-the-butlerian-jihad.md %}). *"Thou shalt not make a machine in the likeness of a human mind"* - and anyone who does is a collaborator.
 
 ---
 
@@ -291,9 +303,3 @@ A different posture shares the Old Order's zero-use line, but swaps quiet withdr
 > We are making this choice. But really, that means you have already decided for me. And I curse you and the ground you walk on for it. No, I'm not joking or exaggerating. Burn in hell. [...] I do not forgive you.
 > <br><br>
 > -- Larry Garfield, [Selfish AI](https://www.garfieldtech.com/blog/selfish-ai), February 1, 2026
-
----
-
-*Started 2026-10-26. Append-only for placements: entries are added, dated, and left standing. Definitions may be revised, and revisions will be noted here when they happen.*
-
-*Revised 2026-10-27: rebuilt as a quote collection - every filed entry is now a quote in the subject's own words with the link at its attribution. Unfiled backlog resolved: unixdigest and Larry Garfield filed under Old Order; Abhinav Omprakash filed under Mennonite; Baldur Bjarnason filed under Luddite; Sia Karamalegos dropped after confirming her /ai statement was offline and unmaintained. Luciano Nooijen is refiled from Old Order to Mennonite on his own stated scope. The satellite subreddits (r/fossdroid, r/ADHD_Programmers) are out for now at the author's direction - r/opensource is the Reddit entry until a satellite earns its own.*
