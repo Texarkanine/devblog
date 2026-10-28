@@ -161,8 +161,6 @@ See you then!
 ---
 
 [reddit-ban]: https://www.reddit.com/r/opensource/comments/1xelcuf/your_tokens_arent_valuable_no_more_ai/
-[goedecke]: https://www.seangoedecke.com/anti-ai-nostalgia/
-[goedecke-luddites]: https://www.seangoedecke.com/luddites-and-ai-datacenters/
 [goedecke-mechanics]: https://www.seangoedecke.com/software-engineers-dont-get-to-be-luddites-about-ai/
 [lockout-1852]: https://www.cambridge.org/core/services/aop-cambridge-core/content/view/DBD09898F9B0971810B16810C22F537B/S0020859000005782a.pdf/origins_of_the_1852_lockout_in_the_british_engineering_industry_reconsidered.pdf
 [rubin]: https://www.marxists.org/archive/rubin/value/ch16.htm
@@ -174,7 +172,6 @@ See you then!
 [sivers]: https://sive.rs/ai
 [lawson]: https://nolanlawson.com/2026/02/07/we-mourn-our-craft/
 [brett]: https://brettcodes.com/im-done-using-ai/
-[meredith]: https://deadsimpletech.com/blog/llms-arent-inevitable
 [poru]: https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now
 
 [^rubin]: Marx, quoted in I. I. Rubin, "Essays on Marx's Theory of Value," chapter 16, 1928. [https://www.marxists.org/archive/rubin/value/ch16.htm][rubin]

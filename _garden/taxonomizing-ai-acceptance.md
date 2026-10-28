@@ -104,7 +104,7 @@ He actively stripped AI tools from his editor out of environmental, copyright, a
 > <br><br>
 > -- Kyle Kingsbury, [The Future of Everything is Lies, I Guess: Where Do We Go From Here?](https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here), April 16, 2026
 
-He has never used an LLM for his writing, software, or personal life, and in the [Work installment](https://aphyr.com/posts/418-the-future-of-everything-is-lies-i-guess-work) two days earlier wrote that he is "not confident I will hold out forever." Still Old Order for now, with the exact shape of a possible move to Mennonite already on the page.
+He says he's never used an LLM for his writing, software, or personal life, and in the [Work installment](https://aphyr.com/posts/418-the-future-of-everything-is-lies-i-guess-work) two days earlier wrote that he is "not confident I will hold out forever." Still Old Order for now, with the exact shape of a possible move to Mennonite already on the page.
 
 ---
 
@@ -250,7 +250,7 @@ His response to Lawson, from 43 years of professional programming, 1980 to 2023.
 > <br><br>
 > -- Mo Rassam, [Software Engineering is dead and I'm begging you to accept this](https://tharsalys7.substack.com/p/software-engineering-is-dead-and), October 18, 2026
 
-Rassam has migrated- a hand-loom weaver who has gone out into the city to see what factory jobs there are and realized that you can't go home again.
+Rassam has migrated: a hand-loom weaver who has gone out into the city to see what factory jobs there are and realized that you can't go home again.
 
 ## The English
 
@@ -268,7 +268,7 @@ Nine days after GPT-4 shipped, Yegge had already sounded the horn in [Cheating i
 
 > This tale isn't about any particular company, it's about the raging AI bull that's been unleashed which enables anyone, to do anything. [...] The founders didn't intend to slash their workforce; it just happened naturally - people self-selected out of the new AI+tools first direction - which works for now but the places to turn to will soon diminish, fast. [...] Don't fall asleep at the wheel on this one. Invest in yourself - if you’re a high-agency person, there’s never been a better time to be alive...
 > <br><br>
-> I suspect there's not going to be mass-layoffs for software developers at Companies due to AI, instead what we will see is a natural attrition between those who invest in themselves right now and those who do not.
+> I suspect there's not going to be mass-layoffs for software developers at Companies due to AI, instead there what we will see is a natural attrition between those who invest in themselves right now and those who do not.
 > <br><br>
 > -- Geoffrey Huntley, [What do I mean by some software devs are "ngmi"?](https://ghuntley.com/ngmi/), February 7, 2025
 
