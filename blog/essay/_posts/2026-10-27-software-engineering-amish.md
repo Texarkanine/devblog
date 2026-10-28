@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Software-Engineering Amish"
-subtitle: "Lines are being drawn around AI-written code, and the last people who drew such lines left a record of where that leads."
+subtitle: "Lines are being drawn around AI-written code, and the last people who drew similar lines left a record of where that leads."
 description: "In October 2026 r/opensource banned AI by decree and walked it back in days, while Codeberg banned it by member vote. The positions forming around AI-written code map onto 1812 closely enough to predict from, if I write the prediction down and date it."
 author: texarkanine
 category: essay
@@ -33,7 +33,7 @@ In ["Software engineers don't get to be Luddites about AI,"][goedecke-mechanics]
 
 The law in question was a repricing. Marx: power looms halved the labor needed to weave cloth, so the hand-loom weaver's unchanged hour "fell to one-half its former value."[^rubin]
 
-Software craftspeople spent their careers automating away bookkeepers, typesetters, travel agents, and typing pools - which makes them kin to the smiths and mechanics who built the power looms, only to be automated away themselves.
+Software craftspeople spent their careers automating away bookkeepers, typesetters, travel agents, and typing pools - which makes them kin to the smiths and mechanics who built the power looms, only to be automated away themselves in the next wave.
 
 Mo Rassam put the contemporary version in two sentences:
 
@@ -53,7 +53,9 @@ Six positions along a continuum cover everything I've found so far, sorted by wh
 > <br><br>
 > -- Bastian Greshake Tzovaras, Otto Richter, and William Zijl (Codeberg), [Protecting our FLOSS commons from LLMs][codeberg], July 2026
 
-A community draws the line and binds its members - what Kevin Kelly called [Amish hackers](https://kk.org/thetechnium/amish-hackers-a/), deciding together what to allow. In July 2026, Codeberg's members voted 358 to 144 to bar projects written with heavy LLM use, while declining to scan repos for violations. A collective threshold, set by vote.
+A community draws the line and binds its members, deciding together what to allow. In July 2026, Codeberg's members voted 358 to 144 to bar projects written with heavy LLM use, while declining to scan repos for violations. A collective threshold, set by vote.
+
+Contrary to popular conception, Amish communities may be quite creative with technology - what Kevin Kelly called [Amish hackers](https://kk.org/thetechnium/amish-hackers-a/). The defining characteristic is an *agreed-upon* line which need neither be absolute, nor uniform across groups.
 
 ### Old Order
 
@@ -69,11 +71,11 @@ An individual draws a near-total line for their own work. Brett spent eighteen m
 > <br><br>
 > -- Ky Decker, [Do I belong in tech anymore?][ky], April 2026
 
-An individual draws a line with a practicable clause. Right after that paragraph, Ky notes that AI "feels inescapable," and closes the post on a five-line no-shortcuts creed. The creed and the clause live in the same essay.
+An individual draws a line with a practicable clause. "I'll use it for *this*, but never for *that*."
 
 ### Luddites
 
-> I don't think this will stop ML from advancing altogether: there are still lots of people who want to make it happen. It will, however, slow them down, and this is good. [...] Each day we delay the advancement of ML models buys time to learn how to manage technical debt and errors introduced in legal filings. Another day to prepare for ML-generated CSAM, sophisticated fraud, obscure software vulnerabilities, and AI Barbie. Another day for workers to find new jobs.
+> Each day we delay the advancement of ML models buys time to learn how to manage technical debt and errors introduced in legal filings. Another day to prepare for ML-generated CSAM, sophisticated fraud, obscure software vulnerabilities, and AI Barbie. Another day for workers to find new jobs.
 > <br><br>
 > -- Kyle Kingsbury, [The Future of Everything is Lies, I Guess: Where Do We Go From Here?][aphyr-where], April 2026
 
@@ -126,7 +128,7 @@ Some things already do not fit the map (and there certainly could be more)!
 
 Battley's audit of language toolchains found GCC at 3.1 percent and LLVM at 15.9 percent *disclosed* LLM-assisted commits, with zero-LLM languages sitting *on top* of those compilers.
 
-Larry Garfield supplies the hosting-layer corollary: his [/ai declaration](https://www.garfieldtech.com/ai) states that his site is built and written without LLMs because general-purpose models rest on copyright infringement, sweatshop labor, and environmental destruction - while his [colophon](https://www.garfieldtech.com/colophon) says:
+Larry Garfield supplies the hosting-layer corollary: his [/ai declaration](https://www.garfieldtech.com/ai) states that his site is built and written without LLMs because general-purpose models rest on copyright infringement, sweatshop labor, and environmental destruction (reading as Old Order) - while his [colophon](https://www.garfieldtech.com/colophon) says:
 
 > Hosting is provided by [Upsun](https://upsun.com/), a very good GitOps PaaS where I used to work, though have not worked there since 2021.
 
@@ -140,7 +142,7 @@ This would make the Old Order impossible, along with hardline Amish communities 
 
 ### Local Inference
 
-Local inference may put the power loom in the displaced worker's own house.
+As intelligence gets cheaper and more-efficient, and hardware continues its inexorable gains in efficiency, local inference may put the power loom in the displaced worker's own house.
 
 Would the Luddites have objected so much if the machines were built, installed, operated, and benefiting them in their own homes? That's a dynamic that seems quite likely in the late 2020s, with *no* 1812 stanza to rhyme with!
 

@@ -32,7 +32,7 @@ The names are borrowed on purpose. The real Amish are selective, slow adopters w
 
 ## Amish
 
-A community draws the line and binds its members to it. For now, Reddit gets one entry - r/opensource, the high-profile case. Its satellite subreddits are not linked here yet.
+A community draws the line and binds its members to it. The drawn line becomes a defining characteristic of the community as members choose to either abide and stay, or reject and leave.
 
 ---
 
@@ -44,11 +44,13 @@ The members voted 358 to 144 for the rules this quote argues for - majority thre
 
 ---
 
+> It's fine to use LLMs to answer questions, analyze, distill, refine, check, suggest, review. But not to **create.**
+> <br>[...]<br>
 > We treat PRs as an indication that someone is interested in joining our community and being mentored to work on future PRs.
 > <br><br>
 > -- Jynn Nelson (for rust-lang/rust), [rust-lang/rust is adopting an LLM policy](https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/), August 5, 2026
 
-The line is drawn around review and disclosure, because a polished PR no longer carries that signal on its own.
+The line is drawn around review and disclosure, because a polished PR no longer carries that signal on its own. The rule is downstream of the values the community wants to uphold.
 
 ---
 
@@ -132,7 +134,7 @@ An individual draws a line with a practicable clause - this far, for these uses,
 > <br><br>
 > -- Luciano Nooijen, [Why I stopped using AI code editors](https://lucianonooijen.com/blog/why-i-stopped-using-ai-code-editors/), April 1, 2025
 
-He removed AI from his editors and still uses LLMs occasionally, by hand, on purpose. Refiled here from Old Order on the strength of his own summary, 2026-10-27: the line is at the editor integration, not at the tool.
+He removed AI from his editors and still uses LLMs occasionally, by hand, on purpose. The line is at the editor integration, not at the tool. He tried the English approach and found it not to his taste, settling back at a more deliberate, limited use.
 
 ---
 
@@ -174,11 +176,11 @@ Right after that paragraph, the post notes that AI "feels inescapable," and clos
 > <br><br>
 > -- Derek Sivers, [AI usage](https://sive.rs/ai), updated September 28, 2026
 
-The line sits between asking and generating. The same update adds that he has started using Codex to write unit tests against functions he wrote his way - the clause, widening in public.
+The line sits between asking and generating. The same update adds that he has started using Codex to write unit tests against functions he wrote his way - the "practicable clause," widening in public.
 
 ## Luddites
 
-The historical kind: not just a private practice, an attempt to change the terms for everyone.
+The historical kind: not just a private practice, but an attempt to change the terms for everyone.
 
 ---
 
@@ -194,7 +196,7 @@ A direct public appeal, on a bill of costs: carbon, freshwater, traumatized labo
 > <br><br>
 > -- Baldur Bjarnason, [Have I hardened against LLMs?](https://www.baldurbjarnason.com/2026/have-i-hardened-against-ai/), February 9, 2026
 
-Author of *The Intelligence Illusion*, where he describes ChatGPT as "the opposite of good software." For Bjarnason, the downside comprehensively outweighs the upside, and his critique is aimed squarely at an industry and management culture willing to ignore systemic harms, labor exploitation, and software insecurity for the sake of an unproven 5% productivity bump.
+Author of *The Intelligence Illusion*, where he describes ChatGPT as "the opposite of good software." For Bjarnason, the downside comprehensively outweighs the upside, and his critique is aimed squarely at an industry and management culture willing to ignore systemic harms, labor exploitation, and software insecurity for the sake of an unproven productivity bump.
 
 ---
 
@@ -280,7 +282,7 @@ The sequel to his conversion at the pool in [An "oh fuck" moment in time](https:
 > <br><br>
 > -- Me, [How I Learned to Stop Coding and Love the Machine]({% link _garden/how-i-learned-to-stop-coding-and-love-the-machine.md %})
 
-Whatever this taxonomy says about everyone else, it says that about its author plainly.
+Whatever this taxonomy says about everyone else, it says that about its author too. I am not immune to propaganda!
 
 ## Things That Do Not Fit
 
@@ -288,7 +290,7 @@ The taxonomy above sorts by the extent of acceptable use: who draws the line, an
 
 ### The Butlerian Jihadis
 
-The real-world Amish and Old Order are defined by [*Gelassenheit*](https://en.wikipedia.org/wiki/Gelassenheit) (quiet yieldedness) and [nonresistance](https://en.wikipedia.org/wiki/Nonresistance). They keep to themselves, hitch up the buggy, and leave the English alone. Even the historical Luddites were bargaining with mill owners over piecework wages and phased rollouts.
+The real-world Amish and Old Order are defined by [*Gelassenheit*](https://en.wikipedia.org/wiki/Gelassenheit) (quiet yieldedness) and [nonresistance](https://en.wikipedia.org/wiki/Nonresistance). They keep to themselves, hitch up the buggy, and leave the English alone. Even the historical Luddites were bargaining with mill owners over piecework wages and phased rollouts - violence as a means to an end.
 
 A different posture shares the Old Order's zero-use line, but swaps quiet withdrawal for excommunication, blacklists, and a post-bubble tribunal - or, on the physical fringe that Sean Goedecke documents in "[Blood in the datacenter](https://www.seangoedecke.com/luddites-and-ai-datacenters/)" ("Is it time to start burning down datacenters?"), shots fired at councilmen's houses and firebombs. Filing this posture under Old Order slanders the Amish; filing it under Luddite misses that nobody here is asking for a seat at the bargaining table. The closest name is the one I already borrowed from Frank Herbert, in my [Fomenting the Butlerian Jihad]({% link _garden/fomenting-the-butlerian-jihad.md %}). *"Thou shalt not make a machine in the likeness of a human mind"* - and anyone who does is a collaborator.
 

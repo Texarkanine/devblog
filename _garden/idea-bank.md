@@ -17,6 +17,7 @@ tags:
   - Huntley, Yegge, and myself in the English category: none of us were born that way. We were all born Old Order out of necessity, apprenticed on handcraft, and came around at a fork in the road with convert's zeal.
   - When you're born Amish, staying Amish is resisting change - comfortable. But the generation arriving now is born English: code has always been a liquid sprayed through a hose. For them, staying English is effortless—the downhill path of least resistance.
   - Inverting the sociological arrow: becoming Amish is the hard, radical choice. For people born English, choosing manual craft and turning off the model will look like an ascetic discipline of the self (calligraphy, hand-planing, monastic renunciation) rather than an economic defense.
+  - The real Amish reproduce biologically. Software communities reproduce memetically.
 - I spend most of my tokens on planning, am I wrong?
 - We're All Grasping at History
   - stockroom, ctx, difflore, coderabbit learnings
