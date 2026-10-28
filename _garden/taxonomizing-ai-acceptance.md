@@ -2,9 +2,11 @@
 layout: garden
 title: "Taxonomizing AI Acceptance"
 subtitle: "Where people draw the line on AI-generated content, in their own words"
-description: "A running quote collection filed as a taxonomy of positions on AI-written content - Amish, Old Order, Mennonite, Luddite, Romantic, and the English - each entry a quotable quote with a link to the post that said it."
+description: "A running quote collection filed as a taxonomy of positions on AI-generated content - Amish, Old Order, Mennonite, Luddite, Romantic, and the English - each entry a quotable quote with a link to the post that said it."
 tags:
   - ai
+  - research
+  - software-engineering
   - taxonomy
   - thoughts
 ---
@@ -15,7 +17,7 @@ The positions taken aren't always exclusively about software-engineering, but th
 
 It files positions, not people. A person can take one position one day, another the next, and that's great, actually! I don't plan to stalk all these sources and keep up to date on what they do, but if I notice a change, I'll move their history to the category I think they're *currently* in. The things each of them has said about each stance they've taken should be far more interesting than the people themselves and where they stand today... this is a phenomenon, not a Pokedex.
 
-The argument that produced this taxonomy - what these positions *are*, where we've seen them before, and what I predict they do next - is in [The Software-Engineering Amish]({% post_url blog/essay/2026-10-27-software-engineering-amish %}). This page is the curio shelf, displaying the slice of the world that was interesting to me, as I encountered it.
+The argument that produced this taxonomy - what these positions *are*, where we've seen them before, and what I predict they do next - is in [The Software-Engineering Amish]({% post_url blog/essay/2026-10-28-software-engineering-amish %}). This page is the curio shelf, displaying the slice of the world that was interesting to me, as I encountered it.
 
 ## The Taxonomy
 

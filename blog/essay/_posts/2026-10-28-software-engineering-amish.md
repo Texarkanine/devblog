@@ -7,8 +7,10 @@ author: texarkanine
 category: essay
 tags:
   - ai
+  - economics
   - history
   - open-source
+  - software-engineering
 ---
 
 On Saturday, October 24, 2026, a moderator of r/opensource dropped a new rule:
