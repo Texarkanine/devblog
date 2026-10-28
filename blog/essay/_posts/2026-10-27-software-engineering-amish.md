@@ -25,7 +25,7 @@ This is far from the first such act, and I've now seen enough scenes to recogniz
 
 The [historical Luddites](https://en.wikipedia.org/wiki/Luddites) were skilled textile workers in the early 1800s who had apprenticed for seven years and watched machines let unskilled labor do their work worse and cheaper. They had specific asks: higher piecework wages and a phased rollout of specific machines, to name a few. "Let's not leap before we look," in essence.
 
-In ["Software engineers don't get to be Luddites about AI,"][goedecke-mechanics] Sam Goedecke pushes the clock fifty years further to the [1852 British engineering lockout][lockout-1852]. When those mechanics struck, *The Times* wrote their epitaph:
+In ["Software engineers don't get to be Luddites about AI,"][goedecke-mechanics] Sean Goedecke pushes the clock fifty years further to the [1852 British engineering lockout][lockout-1852]. When those mechanics struck, *The Times* wrote their epitaph:
 
 > The cry of these intelligent engineers is merely the cry of the handloom weavers - a cry against inevitable and irresistible laws.
 > <br><br>
