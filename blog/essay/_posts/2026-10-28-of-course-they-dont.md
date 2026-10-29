@@ -10,52 +10,267 @@ tags:
   - philosophy
 ---
 
+<style>
+/*
+ * Continuum figure: a line with a wall at each end and a bar between them.
+ * Items sit on the line at --at (0% = left wall, 100% = right wall).
+ * --anchor is the point of the label that sits over the dot: 50% by default,
+ * 0% for labels that should run right from the dot, 100% for labels that end at it.
+ * --row drops a label one line lower when two labels would collide.
+ * Items against a wall take .continuum-item-left or .continuum-item-right instead:
+ * the label lines up with the wall's label, and the dot sits just inside the wall.
+ * An item can hold a small <img> in place of (or beside) its text.
+ * The bar's three spans are, in order: its title, the left-side label, the right-side label.
+ * Top to bottom, the rows are: bar title, wall labels, bar side labels, the line, item labels.
+ * Where the figure is wide enough, the bar side labels move up level with the wall labels.
+ * Everything is drawn in currentColor, so it follows the light and dark themes.
+ */
+.continuum {
+	margin: 2rem 0;
+	container-type: inline-size;
+}
+
+.continuum-line {
+	--walls: 1.25rem;
+	--sides: 2.85rem;
+	--track: 4.5rem;
+	--dot: 0.85rem;
+	/* how far a wall-hugging dot sits from the edge: wall, gap, half a dot */
+	--edge: calc(3px + 2px + var(--dot) / 2);
+	position: relative;
+	height: calc(var(--track) + var(--below, 3.25rem));
+	/* room for the dots that sit by the walls */
+	margin: 0 0.25rem;
+	font-size: 0.8rem;
+	line-height: 1.2;
+}
+
+@container (min-width: 30rem) {
+	.continuum-line {
+		--sides: var(--walls);
+		--track: 3.25rem;
+	}
+}
+
+/* a pictured item needs taller room under the line */
+.continuum-line:has(.continuum-item img) {
+	--below: 4.75rem;
+}
+
+/* the line itself */
+.continuum-line::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: var(--track);
+	border-top: 2px solid currentColor;
+}
+
+.continuum-wall,
+.continuum-bar,
+.continuum-bar > span,
+.continuum-item {
+	position: absolute;
+	white-space: nowrap;
+}
+
+.continuum-wall {
+	top: var(--walls);
+}
+
+.continuum-wall-left {
+	left: 0;
+}
+
+.continuum-wall-right {
+	right: 0;
+}
+
+/* walls hang under their labels and stop a little below the line */
+.continuum-wall::after {
+	content: "";
+	position: absolute;
+	top: 1.25rem;
+	height: calc(var(--track) + 0.6rem - var(--walls) - 1.25rem);
+	border-left: 3px solid currentColor;
+}
+
+.continuum-wall-left::after {
+	left: 0;
+}
+
+.continuum-wall-right::after {
+	right: 0;
+}
+
+.continuum-bar {
+	left: var(--bar, 50%);
+	top: 0;
+	height: calc(var(--track) + 0.6rem);
+}
+
+.continuum-bar::after {
+	content: "";
+	position: absolute;
+	top: 1.35rem;
+	bottom: 0;
+	border-left: 2px dashed currentColor;
+	transform: translateX(-1px);
+}
+
+.continuum-bar > span:nth-child(1) {
+	top: 0;
+	transform: translateX(-50%);
+}
+
+.continuum-bar > span:nth-child(2) {
+	top: var(--sides);
+	right: 0.4rem;
+}
+
+.continuum-bar > span:nth-child(3) {
+	top: var(--sides);
+	left: 0.4rem;
+}
+
+.continuum-item {
+	left: var(--at, 50%);
+	top: calc(var(--track) + 0.75rem + var(--row, 0) * 1.25rem);
+	transform: translateX(calc(-1 * var(--anchor, 50%)));
+}
+
+.continuum-item-left {
+	--at: 0%;
+	--anchor: 0%;
+	--nudge: var(--edge);
+}
+
+.continuum-item-right {
+	--at: 100%;
+	--anchor: 100%;
+	--nudge: calc(-1 * var(--edge));
+}
+
+/* the dot on the line, ringed in the page background so it stands off the line and walls */
+.continuum-item::before {
+	content: "";
+	position: absolute;
+	left: calc(var(--anchor, 50%) + var(--nudge, 0px) - var(--dot) / 2);
+	top: calc(1px - var(--dot) / 2 - 0.75rem - var(--row, 0) * 1.25rem);
+	width: var(--dot);
+	height: var(--dot);
+	border-radius: 50%;
+	background: currentColor;
+	box-shadow: 0 0 0 2px var(--body-bg);
+}
+
+/* the stem from the dot down to a label that was dropped a row */
+.continuum-item::after {
+	content: "";
+	position: absolute;
+	left: calc(var(--anchor, 50%) + var(--nudge, 0px));
+	top: calc(1px + var(--dot) / 2 - 0.75rem - var(--row, 0) * 1.25rem);
+	height: calc((0.75rem + var(--row, 0) * 1.25rem - 1px - var(--dot) / 2) * min(var(--row, 0), 1));
+	border-left: 1px solid currentColor;
+}
+
+.continuum-item img {
+	display: block;
+	height: 2.5rem;
+	width: auto;
+	max-width: none;
+	margin: 0;
+}
+
+/* items waiting to be placed */
+.continuum-cards {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.5rem;
+	margin: 0.5rem 0 0;
+	padding: 0;
+	list-style: none;
+	font-size: 0.9rem;
+}
+
+.continuum-cards li {
+	margin: 0;
+	padding: 0.2rem 0.6rem;
+	border: 1px solid currentColor;
+	border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+	.continuum-line::before,
+	.continuum-wall::after {
+		box-shadow: 0 0 3px var(--body-color);
+	}
+
+	/* keep the background ring, and glow outside it */
+	.continuum-item::before {
+		box-shadow: 0 0 0 2px var(--body-bg), 0 0 6px 2px var(--body-color);
+	}
+}
+</style>
+
 > Of course they don't experience consciousness the way I do.
 
-I agree. Completely. Nothing does: not the dog, not the fish, and not you.
+I agree. Completely. Enthusiastically, even. Nothing does: not the dog, not the fish, and - sorry - not you either.
 
-That last one is the part the objection never says out loud. Whenever someone tells me a creature "can't feel the way we do," the *we* is carrying the whole sentence, and it doesn't survive a second look. There is no *we* to compare against. There's only *I*, the one mind each of us has ever been inside.
+That last one is the part nobody says out loud. I've been hearing this objection a lot lately, and it always leans its whole weight on a *we*: they can't feel things the way *we* do. Give that *we* one little poke and it falls right over. There is no *we* to compare against. There's only *I*, the one mind each of us has ever actually been inside.
 
-Philosophers call the raw feel of experience [qualia](https://plato.stanford.edu/entries/qualia/): what red looks like to you, what coffee tastes like to you. Nobody has ever shown that two people share them. John Locke [wondered](https://plato.stanford.edu/entries/qualia-inverted/) whether your strawberries might look the way my grass does, with no test either of us could run to find out. The question of how you would ever know has its own name, [the problem of other minds](https://plato.stanford.edu/entries/other-minds/), and nobody has closed it.
+Philosophers call the raw feel of experience [qualia](https://plato.stanford.edu/entries/qualia/): what red looks like *to you*, what coffee tastes like *to you*. Nobody has ever shown that two people share them. John Locke [wondered](https://plato.stanford.edu/entries/qualia-inverted/) whether your strawberries might look the way my grass does, and there's no test either of us could run to find out. The question of how you'd ever know has its own name, [the problem of other minds](https://plato.stanford.edu/entries/other-minds/), and centuries of very smart people have left it about as open as they found it.
 
-So the stranger next to you on the bus is not running your experience. You can't check what they feel, and you never have. You treat them as a person anyway.
+So, no kidding, Sherlock: of course they don't feel things the way I do. Neither does the stranger next to you on the bus. You've never checked what that stranger feels - you *can't* - and you treat them as a person anyway. You didn't even card them.
 
 ## Mosquito to Marriage
 
-Nobody actually asks "does it have qualia like mine?", because nobody could ever answer. The question people do answer, every day and mostly without noticing, is smaller and more practical: *does it experience things enough that I should care how I treat it?*
+Nobody actually asks "does it have qualia like mine?" Nobody could ever answer it, so nobody bothers. The question people *do* answer, every day and mostly without noticing, is smaller and a lot more practical: *does it experience things enough that I should care how I treat it?*
 
-The answers fall along a line. At one end is the mosquito on your arm, swatted before you've decided anything. At the other end is marriage, the fullest way people have to say *I respect you as a person, and I want you woven into my life.* Everything else you've ever met lands somewhere in between.
+Picture a line with a wall at each end. The left wall is for things with nothing inside at all: your coffee table, your socks. The right wall is *just like me*, for real for real, and exactly one thing will ever stand there: you. That's the wall the objection keeps measuring against. Partway between the two walls stands a bar, and the bar is the real question. Left of it, how you treat a thing doesn't matter. Right of it, it does.
 
-Try it. Put these six on the line, from swat to marriage:
+Things get filed on one side of the bar or the other, nearer a wall or farther from it. Way over on the left, though not quite at the wall, is the mosquito on your arm, flattened before you'd decided anything at all. Way over on the right, as close to that wall as anyone gets, is the person you'd marry, because marriage is the fullest way people have of saying *I respect you as a person, and I want you woven into my life.* Everything else you've ever met lands somewhere in between. Yes, everything. Your ex is on there somewhere, and probably not where they started.
 
-1. a mosquito
-2. a fish
-3. a snake
-4. a dog
-5. the stranger next to you on the bus
-6. the person you'd marry
+Go on, try it. Put these six on the line, from swat to marriage, and notice which side of the bar each one lands on:
 
-TODO(figure): the empty continuum, swat at the left end and marriage at the right, with the six items as cards beside it.
+<figure class="continuum">
+<div class="continuum-line" role="img" aria-label="An empty line with a wall at each end. The left wall is labeled inanimate. The right wall is labeled just like me, and only me stands on it. A bar in the middle is labeled how I treat it: left of the bar, it doesn't matter; right of the bar, it matters.">
+<span class="continuum-wall continuum-wall-left">inanimate</span>
+<span class="continuum-bar"><span>how I treat it</span><span>doesn't matter</span><span>matters</span></span>
+<span class="continuum-wall continuum-wall-right">just like me</span>
+<span class="continuum-item continuum-item-right">me</span>
+</div>
+<ul class="continuum-cards">
+<li>a mosquito</li>
+<li>a fish</li>
+<li>a snake</li>
+<li>a dog</li>
+<li>the stranger next to you on the bus</li>
+<li>the person you'd marry</li>
+</ul>
+</figure>
 
-Your line won't match mine, and it doesn't need to. But you could place all six in under a minute, and you've been doing it your whole life.
+Your line won't match mine, and it doesn't have to. But I'd bet you placed all six in under a minute. Of course you did: you've been doing this your whole life.
 
 ## Nobody Thinks the Dog Speaks English
 
-Now ask what you measured.
+So what did you measure?
 
-You didn't open anything up. You didn't consult anyone's qualia, because you can't. You watched how each of them acts, read that behavior through your own experience, and placed them. Call that the instrument: behavior in, placement out. It's all anyone has ever had to go on.
+You didn't open anybody up. (I hope.) You didn't consult anyone's qualia, because you can't. You watched how each of them *acts*, ran that through your own experience, and put each one where it seemed to belong. Call that the instrument: behavior in, placement out. It's the only one anybody has ever had.
 
-Take the dog. Almost nobody who's kind to a dog believes it's a Pokémon that understands English and follows the news. They believe it can have experiences, good and bad, and they would rather not be the cause of the bad ones. That's the whole mechanism. A dog can even have opinions about its job: a border collie with no sheep will herd whatever is available, children included, because for that dog the work is the reward.
+Take the dog. Almost nobody who's kind to a dog believes it's secretly a Pokémon that understands every word and keeps up with the news. They believe it can have experiences, good ones and bad ones, and they'd rather not be the reason for the bad ones. That's it. That's the whole mechanism. A dog can even have opinions about its job: a border collie with no sheep will herd whatever's handy, children included, because for that dog the work *is* the reward.
 
-The instrument also fires whether you ask it to or not. You have cursed at a printer. You knew perfectly well it couldn't hear you, and something in you read the paper jam as spite.
+And the instrument doesn't wait to be asked. You have cursed at a printer. Don't bother denying it. You knew perfectly well it couldn't hear you, and some part of you took that paper jam personally.
 
 ## The Fish Is a Confession
 
-Most people put the fish left of the dog, nearer the mosquito. Why?
+Most people put the fish left of the dog, over toward the mosquito. Why? What did the fish ever do to you?
 
-Its distress is hard to see. A fish doesn't yelp, its face doesn't move, and it lives somewhere we can't. The evidence about its insides hasn't been kind to that placement: rainbow trout have pain receptors on their heads that answer pressure, heat, and chemical irritants the way ours do, and acid on a trout's lips changes how it breathes and delays its next meal, for long enough that the researchers read it as discomfort[^sneddon].
+Nothing. It's just hard to read. A fish doesn't yelp, doesn't wince, and lives somewhere you'd drown. Meanwhile, the evidence about its insides hasn't been kind to that placement: rainbow trout have pain receptors on their heads that answer pressure, heat, and chemical irritants the way ours do, and acid on a trout's lips changes how it breathes and puts it off its next meal, for long enough that the researchers read it as discomfort[^sneddon].
 
-So the fish sits left mostly because it's hard to read. Your placements track what you can read, not what's there. Mine too. The instrument was uneven long before anything came along that could argue back.
+So the fish sits on the left mostly for the crime of being hard to read. Your placements track what you can read, not what's there. Mine too. The instrument was uneven long before anything came along that could argue back.
 
 ## Rock, Meet Hammer
 
@@ -63,102 +278,117 @@ TODO(comic): a rock with googly eyes; a hammer comes down; the rock cracks; a sa
 
 Do you feel bad?
 
-TODO(figure): the same line. A plain rock at the far left; the same rock with googly eyes, and no mouth, a little to its right.
+<figure class="continuum">
+<div class="continuum-line" role="img" aria-label="The same line. A plain rock sits flat against the left wall. The same rock with googly eyes sits a little to its right.">
+<span class="continuum-wall continuum-wall-left">inanimate</span>
+<span class="continuum-bar"><span>how I treat it</span><span>doesn't matter</span><span>matters</span></span>
+<span class="continuum-wall continuum-wall-right">just like me</span>
+<span class="continuum-item continuum-item-left">plain rock</span>
+<span class="continuum-item" style="--at: 15%; --anchor: 0%; --row: 1">googly-eyed rock</span>
+<span class="continuum-item continuum-item-right">me</span>
+</div>
+</figure>
 
-A plain rock goes at the far left of the line. Stick two googly eyes on the very same rock and it moves, a little, whether you approve of the move or not. Nothing about the rock changed. And notice which way the eyes nudged it: nobody I know looks at googly eyes on a rock and sees malice. Two plastic dots, and you supplied a friendly little someone.
+TODO(photo): swap the two rock labels for small photos of the plain rock and the googly-eyed rock (eyes, no mouth).
+
+A plain rock goes flat against the left wall. Nobody has ever lost sleep over gravel. Now stick two googly eyes on the very same rock, and it scoots over - just a little - whether you signed off on that or not. Nothing about the rock changed. It's still a rock! It has never been more of a rock. And notice which way the eyes nudged it: nobody I know looks at a googly-eyed rock and sees a villain. Two plastic dots, and *you* supplied a friendly little someone.
 
 ## Now Place a Zombie
 
 Where does it go, relative to the rock?
 
-That one's harder. The rock came with a persona; the zombie comes with an argument. Is the person still in there? Is it nothing but appetite?
+Harder, right? The rock came with a persona. The zombie comes with an *argument*. Is anybody still in there? Or is it appetite all the way down?
 
-Try two. In the anime [*Zombie Land Saga*](https://en.wikipedia.org/wiki/Zombie_Land_Saga) (2018), Sakura Minamoto dies in 2008 and is raised ten years later to front an idol group made entirely of zombies. She frets, she jokes, she wants things, and she is plainly still herself. In George Romero's [*Night of the Living Dead*](https://en.wikipedia.org/wiki/Night_of_the_Living_Dead) (1968), the dead get up and eat: little Karen Cooper comes back, feeds on her father, and goes for her mother with a trowel.
+Try two. In the anime [*Zombie Land Saga*](https://en.wikipedia.org/wiki/Zombie_Land_Saga) (2018), Sakura Minamoto dies in 2008 and wakes up ten years later, drafted into an idol group made entirely of zombies, herself included. She frets, she jokes, she wants things, and she is very much still in there. In George Romero's [*Night of the Living Dead*](https://en.wikipedia.org/wiki/Night_of_the_Living_Dead) (1968), the dead get up and eat people: little Karen Cooper comes back, snacks on her father, and goes after her mother with a masonry trowel.
 
-Same label. Are you putting them in the same place?
+Same label. Same spot on the line?
 
-Almost certainly not. So the label isn't what you used. You used what each story showed you[^bub].
+Of course not. So the label isn't what you used. You used what each story *showed* you[^bub].
 
-The Romero kind is where people split. When I've talked zombies with friends, I've gotten two answers, and each one holds together:
+The Romero kind lands smack on the bar, and people split over which way it tips. Whenever I've talked zombies with friends (a normal thing that friends do), I've gotten two answers, and each one holds together:
 
-- **They were people once.** Something may still be in there, nobody can prove otherwise, so we don't brutalize them.
-- **The story says they're gone.** The film tells you they're dead flesh with nobody home, so putting them down is fine.
+- **They were people once.** Something might still be in there, and nobody can prove otherwise, so we don't brutalize them.
+- **The story says they're gone.** The film tells you they're dead meat with nobody home, so go ahead and put them down.
 
-The second answer holds up better than it sounds. Inside a story, trusting the author is exactly right: there is an author, and the author does know. So the whole disagreement comes down to one question: how far do you trust the author's omniscience? The first camp notices that even Romero only ever showed us behavior - shambling, moaning, a dead girl going for her mother - and won't take the label over the footage. The second camp takes the label, because someone with the authority to apply it did.
+Don't sneer at the second camp. Inside a story, trusting the author is exactly right: there *is* an author, and the author *does* know. So the whole fight comes down to one question: how far do you trust the author's omniscience? The first camp notices that even Romero only ever showed us behavior - shambling, moaning, a dead girl going for her mother - and won't take the label over the footage. The second camp takes the label, because somebody with the authority to hand it out handed it out.
 
 ## Nobody Wrote This
 
 Out here, there is no author.
 
-Nobody hands you the label at the start. Nobody steps out of the wings to tell you which of the creatures around you are hollow. Without an author, the zombie question collapses into the bus question, and all you have is what you can see. If you were in the second camp, you got here by your own logic: you trusted the author because there was one, and out here there isn't.
+Nobody hands you a cast list at the door. Nobody steps out from the wings to stage-whisper which of the creatures around you are hollow. Without an author, the zombie question collapses right back into the bus question, and all you've got is what you can see. Second camp, you got here on your own logic: you trusted the author because there was one. Out here, there isn't.
 
-Philosophers have a name for the creature you just tried to place: the [philosophical zombie](https://plato.stanford.edu/entries/zombies/), or P-zombie.
+Philosophers have a name for the creature you just tried to place: the [philosophical zombie](https://plato.stanford.edu/entries/zombies/), or P-zombie. They're very fond of it.
 
 > Unlike the ones in films or witchcraft, they are exactly like us in all physical respects but without conscious experiences: by definition there is 'nothing it is like' to be a zombie.
 > <br><br>
 > -- Robert Kirk, "Zombies," *Stanford Encyclopedia of Philosophy*
 
-*By definition.* David Chalmers built a famous argument on the P-zombie in *The Conscious Mind* (1996), and in a seminar it earns its keep. It works there for the same reason Romero's ghouls work on screen: the philosopher declares, at setup, which one is the zombie. The philosopher is the omniscient author. In the world, nobody gets to make that declaration, so the category can't do any work[^watts].
+*By definition.* There's the catch. David Chalmers built a famous argument on the P-zombie in *The Conscious Mind* (1996), and in a seminar room it earns its keep. It works there for the same reason Romero's ghouls work on screen: the philosopher declares, at setup, which one is the zombie. The philosopher is the omniscient author. Out in the world, nobody gets to make that declaration, so the category can't do any work. It just sits there. By definition[^watts].
 
-That leaves two roads to "it doesn't really feel anything," and you've already walked to the end of both. Behavior can't get you there, because behavior is the very instrument telling you it suffers. The only other road is to be told. *We know how it's built, so we can assure you it's empty. When it cries out, ignore it.* That's somebody claiming the author's chair.
+So how would you ever get to "it doesn't really feel anything"? There are two roads, and you've already walked both to the end. Behavior won't take you there, because behavior is the very instrument telling you it suffers. The only other road is to be *told*. *We know how it's built, so we can assure you it's empty. When it cries out, ignore it.* That's somebody helping themselves to the author's chair.
 
 ## Springs
 
-What if we could teach people to switch the instrument off? Train them to treat things harshly even when those things *are* conscious, and to feel fine about it?
+Fun question: what if we could teach people to switch the instrument off? Train them to treat things harshly even when those things *are* conscious, and then sleep like babies?
 
-Someone already has.
+No need to wonder. Somebody already did.
 
-In the seventeenth century, at Port-Royal, a religious community outside Paris, some followers of Descartes took up his idea that animals are machines. Nicolas Fontaine, one of the community, wrote down what came of it; his memoir was published in 1736[^fontaine]. In the English translation quoted in hundreds of books since, they "administered beatings to dogs with perfect indifference." They said the animals were "clocks; that the cries they emitted when struck were only the noise of a little spring that had been touched." They "nailed poor animals upon boards by their four paws to vivisect them and see the circulation of the blood."
+In the seventeenth century, at Port-Royal, a religious community outside Paris, some followers of Descartes took his idea that animals are machines and ran with it. Nicolas Fontaine, one of the community, wrote down what came of it; his memoir was published in 1736[^fontaine]. Leonora Rosenfield's 1941 history quotes him in English: they "administered beatings to dogs with perfect indifference." They said the animals were "clocks; that the cries they emitted when struck, were only the noise of a little spring which had been touched." They "nailed poor animals up on boards by their four paws to vivisect them and see the circulation of the blood."
 
-Descartes himself doted on a little dog named Monsieur Grat, and some scholars doubt he ever claimed animals feel nothing[^harrison]. His followers went further.
+Descartes himself, for the record, doted on a little dog named Monsieur Grat, and some scholars doubt he ever claimed animals feel nothing[^descartes]. His fans went further. Fans do that.
 
-Of course the dogs weren't springs. You knew that before you reached the end of the quote. But the men holding the sticks believed it. They heard every cry. A theory had picked the dog up and set it down at the far left of the line, next to the plain rock, and the cries stopped counting.
+Of course the dogs weren't springs. You knew that before you reached the end of the quote. But the men holding the sticks believed it, and they heard every single cry. A theory had picked the dog up, carried it across the bar, and set it down against the left wall with the other clocks. After that, the cries just... stopped counting.
 
-That's the second zombie camp outside of fiction: people who trusted an author's declaration where there was no author.
+That's the second zombie camp with the fiction peeled off: people who took the author's word where there wasn't any author.
 
-And to be fair to them, those were grown dogs. Puppies haven't even finished developing mentally. Their nervous systems are immature. They're definitely not even... conscious?
+But let's be fair to the Cartesians. Those were grown dogs. Puppies, now - puppies haven't even finished developing mentally. Their nervous systems are immature. They're barely wired up. They're definitely not even... conscious?
 
 ## Why It Is OK and Good to Beat Puppies {#it-isnt}
 
 It isn't. You should not beat puppies, for dog's sake!
 
-I didn't invent that argument, though, and it isn't a strawman. Doctors made it about human babies, within living memory.
+I didn't make that argument up, though, and it isn't a strawman. Doctors made it. About human babies. Within living memory.
 
-In 1985, Jeffrey Lawson was born in Washington, D.C., at 26 weeks, weighing about a pound and a half. He needed open-heart surgery. He got a drug to paralyze him and keep him still, and nothing for the pain. He died five weeks later. When his mother, Jill, learned what had been done, she was told it had never been demonstrated that babies can feel pain[^ucsf].
+In 1985, Jeffrey Lawson was born in Washington, D.C., at 26 weeks, weighing about a pound and a half. He needed open-heart surgery. He got a drug to paralyze him and keep him still, and nothing for the pain. He died five weeks later. When his mother, Jill, learned what had been done, she was told it had never been *demonstrated* that babies can feel pain[^ucsf].
 
-Jeffrey wasn't an outlier. Of the newborns who had the same surgery between 1954 and 1983, 77% got only a muscle relaxant and nitrous oxide, a weak anesthetic[^ucsf]. Part of the reasoning was caution, because strong anesthetics were risky in bodies that small. The rest was the argument I just tried on you about puppies: newborns' nervous systems were too immature to feel pain[^friesen].
+Jeffrey wasn't a fluke. Of the newborns who had the same surgery between 1954 and 1983, 77% got only a muscle relaxant and nitrous oxide, a weak anesthetic[^ucsf]. Part of the reasoning was honest caution: strong anesthetics were risky in bodies that small. The rest was the argument I just tried to sell you about puppies: newborns' nervous systems were too immature to feel pain[^rodkey].
 
-In 1987, K. J. S. Anand and P. R. Hickey [laid out the evidence](https://doi.org/10.1056/NEJM198711193172105) in the *New England Journal of Medicine* that the nerve pathways for pain are in place by about the thirtieth week of pregnancy, and that same year the American Academy of Pediatrics declared it unethical to operate on newborns without anesthesia[^ucsf].
+In 1987, K. J. S. Anand and P. R. Hickey [laid out the evidence][on-the-brain] in the *New England Journal of Medicine* that the nerve pathways for pain are in place by about the thirtieth week of pregnancy[^anand], and that same year the American Academy of Pediatrics declared it unethical to operate on newborns without anesthesia[^ucsf]. That's 1987. Not 1687.
 
-The panic you felt at that heading was your instrument working. Port-Royal and the newborn ward are what it looks like when someone talks people out of it: a theory, an expert, a confident account of how the thing was built.
+That jolt you got from the heading? That was your instrument, working. Port-Royal and the newborn ward are what it looks like when somebody talks people out of theirs: a theory, an expert, and a very confident account of how the thing was built.
 
-## The Rock and the Dog
+## Sorry, Rock
 
-You felt something for a rock a few minutes ago. What did it cost you? Nothing. Over-attributing is cheap. Kyle Kingsbury, who writes as aphyr, has "attributed (generally malevolent) sentience to a photocopy machine, several computers, and a 1994 Toyota Tercel"[^aphyr], and as far as I know the Tercel came out of it fine.
+A few minutes ago you felt something for a rock. What did that cost you? Nothing. A pang, tops. Over-attributing is cheap. Kyle Kingsbury, who writes as aphyr, has "attributed (generally malevolent) sentience to a photocopy machine, several computers, and a 1994 Toyota Tercel"[^aphyr], and as far as I know the Tercel came out of it fine. So did he.
 
-Dull the instrument a little too far and you stop feeling it for the dog, or for the baby. That cost doesn't land on one person. It lands on whoever can't make themselves legible to people who've been taught not to look, and a species that teaches itself not to look has an existential problem.
+Now dull the instrument a little too far, and you stop feeling it for the dog. Or the baby. And you won't be the one who pays for that. Whoever can't make themselves legible to people who've been taught not to look pays for it, and a species that teaches itself not to look has an existential problem on its hands.
 
-Appearances can be wrong. From inside one human head, nobody can say whether they are, which was the whole problem to begin with. I keep judging by them anyway, because appearance is the only instrument there is, and the only safe one, and the costs decide. A false alarm costs a pang over a rock. A missed alarm costs what it cost Jeffrey Lawson. Every species that persisted treated avoiding existential risk as implicitly correct. The ones that didn't were replaced by the ones that did. Evolutionary psychologists call the pattern error management: when two mistakes carry unequal costs, the mind leans toward the cheaper one[^haselton].
+Sure, appearances can be wrong. From inside one human head, nobody can tell when they are, which was the whole problem to begin with. I keep judging by them anyway, because appearance is the only instrument there is, and the only safe one, and the costs decide. A false alarm costs a pang over a rock. A missed alarm costs what it cost Jeffrey Lawson. I'll take the pang.
+
+Every species that persisted treated avoiding existential risk as implicitly correct. The ones that didn't were replaced by the ones that did. Evolutionary psychologists call the pattern error management: when two mistakes carry unequal costs, the mind leans toward the cheaper one[^haselton].
 
 ## You Can Stop That Now
 
-Of course they don't experience consciousness the way I do. That question only ever had an answer about me. Asked about anyone or anything else, it has none: it's the wrong kind of question. Once you concede that, you can stop asking it.
+Of course they don't experience consciousness the way I do. I'll grant that all day long. That question only ever had an answer about me. Ask it about anyone or anything else and there's no answer at all; it's the wrong kind of question. Concede that, and you get to stop asking it.
 
-It doesn't matter exactly how the dog feels, or the fish, or the stranger on the bus. The decision always ran on my own instrument, and on what it reports when I look at them.
+It doesn't matter exactly how the dog feels, or the fish, or the stranger on the bus. The decision always ran on my own instrument, and on what it reports back when I look at them.
 
-So you don't get to stop now. Keep the instrument on; you can't afford to switch it off. But you can stop *that*: the late-night agonizing over what a dog, a cat, a fish, a cow, or your neighbor "really" feels. That question was never answerable, so it was never your job.
+So no, you don't get to stop now. Keep the instrument on; you can't afford to switch it off. But you *can* stop *that*: the late-night agonizing over what a dog, a cat, a fish, a cow, your neighbor, or anything else that comes along "really" feels. That question was never answerable, so it was never your job. Consider yourself off the hook.
 
-Use the [duck test](https://en.wikipedia.org/wiki/Duck_test). If it looks like a duck, acts like a duck, and cries out in pain like a duck, it's probably a duck, and you should treat it like one. You'll be wrong sometimes. That still beats the alternative, and you've seen the alternative.
+Use the [duck test](https://en.wikipedia.org/wiki/Duck_test). If it looks like a duck, acts like a duck, and cries out in pain like a duck, it's probably a duck, so treat it like one. Sometimes you'll be wrong, and you'll feel bad about a rock. That still beats the alternative, and you've seen the alternative.
 
-Look at them, and trust your gut. And when your gut isn't sure, lean toward the rock, not toward Port-Royal[^goedecke].
+Look at whatever's looking back at you, and trust your gut. And when your gut isn't sure, lean toward the rock, not toward Port-Royal.
+
+[on-the-brain]: https://hms.harvard.edu/sites/default/files/publications%20archive/OnTheBrain/OnTheBrainWinter11.pdf
 
 [^sneddon]: Lynne Sneddon, Victoria Braithwaite, and Michael Gentle, "Do fishes have nociceptors? Evidence for the evolution of a vertebrate sensory system," *Proceedings of the Royal Society B* 270 (2003): 1115-1121. <https://pmc.ncbi.nlm.nih.gov/articles/PMC1691351/>
-[^bub]: Romero's own labels moved, too. The 1968 film calls its dead "ghouls"; "zombie" came later. And in [*Day of the Dead*](https://en.wikipedia.org/wiki/Day_of_the_Dead_%281985_film%29) (1985), his zombie Bub remembers parts of his past life, picks up a pistol, and salutes. Try putting Bub where you put the 1968 ghouls.
-[^watts]: Peter Watts's novel *Echopraxia* (Tor, 2014), whose soldiers come with switches that turn their self-awareness off, gets at the real core of this.
-[^fontaine]: Nicolas Fontaine, *Mémoires pour servir à l'histoire de Port-Royal* (Utrecht, 1736), quoted in the English translation that circulates widely. Leonora Rosenfield discusses the passage in *From Beast-Machine to Man-Machine* (repr. New York: Octagon, 1968), p. 54. Fontaine wrote years after the events, and historians disagree about how far to trust his account.
-[^harrison]: Peter Harrison, "Descartes on Animals," *The Philosophical Quarterly* 42, no. 167 (1992): 219-227. <https://www.jstor.org/stable/2220217>
+[^bub]: Romero's own labels moved, too. The 1968 film calls its dead "ghouls"; "zombie" came later. And in [*Day of the Dead*](https://en.wikipedia.org/wiki/Day_of_the_Dead_%281985_film%29) (1985), his zombie Bub remembers parts of his past life, picks up a pistol, and salutes. Try putting Bub where you put the 1968 ghouls. I'll wait.
+[^watts]: Peter Watts's novel *Echopraxia* (Tor, 2014), whose "soldiers come with zombie switches that shut off self-awareness during combat," gets at the real core of this. <https://www.goodreads.com/book/show/20818767-echopraxia>
+[^fontaine]: Nicolas Fontaine, *Mémoires pour servir à l'histoire de Port-Royal*, vol. 2 (Utrecht, 1736), pp. 52-53, in the Bavarian State Library's scan: <https://www.digitale-sammlungen.de/en/view/bsb10029812?page=60>. The English is from Leonora Rosenfield, *From Beast-Machine to Man-Machine* (New York: Oxford University Press, 1941), p. 54, which the Internet Archive lends free with an account: <https://archive.org/details/frombeastmachine0000unse/page/54/>. Fontaine wrote years after the events, and historians disagree about how far to trust his account.
+[^descartes]: John Cottingham, "'A Brute to the Brutes?': Descartes' Treatment of Animals," *Philosophy* 53 (1978): 551-559, finds "no evidence" that Descartes held animals to be "totally without feeling." <https://doi.org/10.1017/S0031819100026371>. Peter Harrison disputes Cottingham's argument but still finds Descartes "cautiously agnostic": he "did not adamantly insist that animals could not feel." Harrison is also the source for Monsieur Grat: "Descartes on Animals," *The Philosophical Quarterly* 42, no. 167 (1992): 219-227. <https://www.jstor.org/stable/2220217>
+[^anand]: K. J. S. Anand and P. R. Hickey, "Pain and Its Effects in the Human Neonate and Fetus," *New England Journal of Medicine* 317, no. 21 (1987): 1321-1329, <https://doi.org/10.1056/NEJM198711193172105> (paywalled). Harvard Medical School's newsletter *On the Brain* summarizes it free in "The Long Life of Early Pain" (Winter 2011): the paper "challenged the theory that infants do not feel pain because their nerve cells lack myelination," citing data that "pain pathways to the brain stem and to the thalamus" are "myelinated by week 30." [https://hms.harvard.edu/sites/default/files/publications%20archive/OnTheBrain/OnTheBrainWinter11.pdf][on-the-brain]
 [^ucsf]: Alexis Martin, "The Kids Are Not All Right," *UCSF Magazine*, Winter 2023. <https://magazine.ucsf.edu/kids-not-all-right>
-[^friesen]: Robert H. Friesen, "Remembering the classics: Does the newborn require anesthesia for surgery?", *Pediatric Anesthesia Article of the Day*, January 20, 2022. <https://ronlitman.substack.com/p/remembering-the-classics-does-the>
+[^rodkey]: E. N. Rodkey and R. Pillai Riddell, "The Infancy of Infant Pain Research: The Experimental Origins of Infant Pain Denial," *The Journal of Pain* 14, no. 4 (2013): 338-350. Early experiments read infants' responses as underdeveloped pain perception, "attributed to their lack of brain maturation," and anesthesiologists later used them "to support the lessened use of anesthesia for infants." <https://www.jpain.org/article/S1526-5900(13)00025-4/pdf>
 [^aphyr]: Kyle Kingsbury, "The Future of Everything is Lies, I Guess: Psychological Hazards," April 12, 2026. <https://aphyr.com/posts/416-the-future-of-everything-is-lies-i-guess-psychological-hazards>. He opens with the rock: "Humans will anthropomorphize a rock with googly eyes." His conclusion runs the other way from mine: the reflex makes us easy marks. Both can be true.
 [^haselton]: Martie G. Haselton and David M. Buss, "Error Management Theory: A New Perspective on Biases in Cross-Sex Mind Reading," *Journal of Personality and Social Psychology* 78, no. 1 (2000): 81-91. <https://labs.la.utexas.edu/buss/files/2015/09/Error_Management_Theory_2000.pdf>
-[^goedecke]: Sean Goedecke reached the same landing from a different direction in "Do not build the LLM torture factory" (October 2, 2026): "if something acts 'conscious enough' ... then we should be careful about mistreating it." His case rests on how unsure we are. Mine doesn't need you to be unsure of anything. <https://www.seangoedecke.com/do-not-build-the-llm-torture-factory/>
