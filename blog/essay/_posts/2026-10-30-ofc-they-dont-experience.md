@@ -227,7 +227,7 @@ So, no shit, Sherlock: of course they don't feel things the way I do. Neither do
 
 ## Mosquito to Marriage
 
-Nobody actually asks "does it have qualia like mine?" Nobody could ever answer it, so nobody bothers. The question people *do* answer, every day and mostly without noticing, is smaller and a lot more practical: 
+Normal people never ask "does it have qualia like mine?" Nobody could ever answer it, so nobody bothers. The question people *do* answer, every day and mostly without noticing, is smaller and a lot more practical: 
 
 > Does it experience things enough that I should care how I treat it?
 
@@ -346,7 +346,7 @@ Of course the dogs weren't springs. You knew that before you reached the end of 
 
 That's the second zombie camp with the fiction peeled off: people who took the author's word where there wasn't any author.
 
-But let's be fair to the Cartesians. Those were grown dogs. Puppies, now - puppies haven't even finished developing mentally. Their nervous systems are immature. They're barely wired up. They're definitely not conscious yet - it should be fine to beat *pupppies* at least, right?
+But let's be fair to the Cartesians. Those were grown dogs. Puppies, now - puppies haven't even finished developing mentally. Their nervous systems are immature, and consciousness they might have as adult dogs is not yet present. It should be fine to beat *pupppies* at least, right?
 
 ## Why It Is Cool and Good to Beat Puppies
 
@@ -382,7 +382,7 @@ It doesn't matter exactly how the dog feels, or the fish, or the stranger on the
 
 So no, you don't get to stop now. Keep the instrument on; you can't afford to switch it off. But you *can* stop *that*: the late-night agonizing over what a dog, a cat, a fish, a cow, your neighbor, or anything else that comes along "really" feels. That question was never answerable, so it was never your job. Consider yourself off the hook.
 
-Use the [duck test](https://en.wikipedia.org/wiki/Duck_test). If it looks like a duck, acts like a duck, and cries out in pain like a duck, it's probably a duck, so treat it like one. Look at whatever's looking back at you, and trust your gut. And when your gut isn't sure, lean toward the rock, not toward Port-Royal.
+Use the [duck test](https://en.wikipedia.org/wiki/Duck_test). If it looks like a duck, acts like a duck, and cries out in pain like a duck, it's probably a duck, so treat it like one. Look at whatever's looking back at you, and trust your gut. And when your gut isn't sure, lean toward the googly-eyed rock, not toward Port-Royal.
 
 ---
 
@@ -397,5 +397,5 @@ Use the [duck test](https://en.wikipedia.org/wiki/Duck_test). If it looks like a
 [^anand]: K. J. S. Anand and P. R. Hickey, "Pain and Its Effects in the Human Neonate and Fetus," *New England Journal of Medicine* 317, no. 21 (1987): 1321-1329, <https://doi.org/10.1056/NEJM198711193172105> (paywalled). Harvard Medical School's newsletter *On the Brain* summarizes it free in "The Long Life of Early Pain" (Winter 2011): the paper "challenged the theory that infants do not feel pain because their nerve cells lack myelination," citing data that "pain pathways to the brain stem and to the thalamus" are "myelinated by week 30." [https://hms.harvard.edu/sites/default/files/publications%20archive/OnTheBrain/OnTheBrainWinter11.pdf][on-the-brain]
 [^ucsf]: Alexis Martin, "The Kids Are Not All Right," *UCSF Magazine*, Winter 2023. <https://magazine.ucsf.edu/kids-not-all-right>
 [^rodkey]: E. N. Rodkey and R. Pillai Riddell, "The Infancy of Infant Pain Research: The Experimental Origins of Infant Pain Denial," *The Journal of Pain* 14, no. 4 (2013): 338-350. Early experiments read infants' responses as underdeveloped pain perception, "attributed to their lack of brain maturation," and anesthesiologists later used them "to support the lessened use of anesthesia for infants." <https://www.jpain.org/article/S1526-5900(13)00025-4/pdf>
-[^aphyr]: Kyle Kingsbury, "The Future of Everything is Lies, I Guess: Psychological Hazards," April 12, 2026. <https://aphyr.com/posts/416-the-future-of-everything-is-lies-i-guess-psychological-hazards>. He opens with the rock: "Humans will anthropomorphize a rock with googly eyes." His conclusion runs the other way from mine: the reflex makes us easy marks. Both can be true.
+[^aphyr]: Kyle Kingsbury, "The Future of Everything is Lies, I Guess: Psychological Hazards," April 12, 2026. <https://aphyr.com/posts/416-the-future-of-everything-is-lies-i-guess-psychological-hazards>. He opens with the rock: "Humans will anthropomorphize a rock with googly eyes." (Yes, that's where our buddy came from!) His conclusion runs the other way from mine: the reflex makes us easy marks. Both can be true.
 [^haselton]: Martie G. Haselton and David M. Buss, "Error Management Theory: A New Perspective on Biases in Cross-Sex Mind Reading," *Journal of Personality and Social Psychology* 78, no. 1 (2000): 81-91. <https://labs.la.utexas.edu/buss/files/2015/09/Error_Management_Theory_2000.pdf>
