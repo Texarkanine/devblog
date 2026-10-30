@@ -346,7 +346,7 @@ Of course the dogs weren't springs. You knew that before you reached the end of 
 
 That's the second zombie camp with the fiction peeled off: people who took the author's word where there wasn't any author.
 
-But let's be fair to the Cartesians. Those were grown dogs. Puppies, now - puppies haven't even finished developing mentally. Their nervous systems are immature, and consciousness they might have as adult dogs is not yet present. It should be fine to beat *pupppies* at least, right?
+But let's be fair to the Cartesians. Those were grown dogs. Puppies, now - puppies haven't even finished developing mentally. Their nervous systems are immature, and consciousness they might have as adult dogs is not yet present. It should be fine to beat *puppies* at least, right?
 
 ## Why It Is Cool and Good to Beat Puppies
 
