@@ -276,9 +276,11 @@ So the fish sits on the left mostly for the crime of being hard to read. Your pl
 
 ## Rock, Meet Hammer
 
-![A rock meets a hammer... but with googly eyes!](no-rocks-harmed-in-the-making.png)
+![A rock meets a hammer... but with googly eyes!](no-rocks-harmed-in-the-making.jpg)
 
 Do you feel bad?
+
+A plain rock goes flat against the left wall. Nobody has ever lost sleep over gravel - at least not how gravel *feels*. Now stick two googly eyes on the very same rock, and it scoots over - just a little - whether you signed off on that or not. Nothing about the rock changed. It's still a rock! It has never been more or less of a rock. And notice which way the eyes nudged it: nobody I know looks at a googly-eyed rock and sees a villain. Two plastic dots, and *you* supplied a friendly little someone.
 
 <figure class="continuum">
 <div class="continuum-line" role="img" aria-label="The same line. A plain rock sits flat against the left wall. The same rock with googly eyes sits a little to its right.">
@@ -291,15 +293,15 @@ Do you feel bad?
 </div>
 </figure>
 
-A plain rock goes flat against the left wall. Nobody has ever lost sleep over gravel - at least not how gravel *feels*. Now stick two googly eyes on the very same rock, and it scoots over - just a little - whether you signed off on that or not. Nothing about the rock changed. It's still a rock! It has never been more or less of a rock. And notice which way the eyes nudged it: nobody I know looks at a googly-eyed rock and sees a villain. Two plastic dots, and *you* supplied a friendly little someone.
-
 ## Now Place a Zombie
 
-Where does it go, relative to the rock?
+Where does it go, relative to the googly-eyed rock?
 
 Harder, right? The rock came with a persona. The zombie comes with an *argument*. Is anybody still in there? Or is it appetite all the way down?
 
-*¿Por qué no los dos?* In [*Warm Bodies*](https://en.wikipedia.org/wiki/Warm_Bodies_(film)) (2013), R is a corpse in a hoodie who shuffles around an abandoned airport, groans, and eats people, which is all anybody watching him gets to see. Inside, he narrates: he's embarrassed by his posture, he collects vinyl, and he would really, really like to stop eating people. He is very much still in there. In George Romero's [*Night of the Living Dead*](https://en.wikipedia.org/wiki/Night_of_the_Living_Dead) (1968), the very first ghoul is a grown man in a rumpled suit, lurching across a Pennsylvania cemetery in broad daylight. He doesn't speak, doesn't hesitate, and when Johnny gets between him and Barbra, he cracks Johnny's head on a headstone and keeps right on coming.
+*¿Por qué no los dos?*
+
+In [*Warm Bodies*](https://en.wikipedia.org/wiki/Warm_Bodies_(film)) (2013), R is a corpse in a hoodie who shuffles around an abandoned airport, groans, and eats people, which is all anybody watching him gets to see. Inside, he narrates: he's embarrassed by his posture, he collects vinyl, and he would really, really like to stop eating people. He is very much still in there. In George Romero's [*Night of the Living Dead*](https://en.wikipedia.org/wiki/Night_of_the_Living_Dead) (1968), the very first ghoul is a grown man in a rumpled suit, lurching across a Pennsylvania cemetery in broad daylight. He doesn't speak, doesn't hesitate, and when Johnny gets between him and Barbra, he cracks Johnny's head on a headstone and keeps right on coming.
 
 ![R, a thinking zombie, vs unnamed ghoul](zombie-comparison.jpg)
 
