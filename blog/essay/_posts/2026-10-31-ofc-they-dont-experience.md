@@ -10,211 +10,6 @@ tags:
   - philosophy
 ---
 
-<style>
-/*
- * Continuum figure: a line with a wall at each end and a bar between them.
- * Items sit on the line at --at (0% = left wall, 100% = right wall).
- * --anchor is the point of the label that sits over the dot: 50% by default,
- * 0% for labels that should run right from the dot, 100% for labels that end at it.
- * --row drops a label one line lower when two labels would collide.
- * Items against a wall take .continuum-item-left or .continuum-item-right instead:
- * the label lines up with the wall's label, and the dot sits just inside the wall.
- * An item can hold a small <img> in place of (or beside) its text.
- * The bar's three spans are, in order: its title, the left-side label, the right-side label.
- * Top to bottom, the rows are: bar title, wall labels, bar side labels, the line, item labels.
- * Where the figure is wide enough, the bar side labels move up level with the wall labels.
- * Everything is drawn in currentColor, so it follows the light and dark themes.
- */
-.continuum {
-	margin: 2rem 0;
-	container-type: inline-size;
-}
-
-.continuum-line {
-	--walls: 1.25rem;
-	--sides: 2.85rem;
-	--track: 4.5rem;
-	--dot: 0.85rem;
-	/* how far a wall-hugging dot sits from the edge: wall, gap, half a dot */
-	--edge: calc(3px + 2px + var(--dot) / 2);
-	position: relative;
-	height: calc(var(--track) + var(--below, 3.25rem));
-	/* room for the dots that sit by the walls */
-	margin: 0 0.25rem;
-	font-size: 0.8rem;
-	line-height: 1.2;
-}
-
-@container (min-width: 30rem) {
-	.continuum-line {
-		--sides: var(--walls);
-		--track: 3.25rem;
-	}
-}
-
-/* a pictured item needs taller room under the line */
-.continuum-line:has(.continuum-item img) {
-	--below: 4.75rem;
-}
-
-/* the line itself */
-.continuum-line::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: var(--track);
-	border-top: 2px solid currentColor;
-}
-
-.continuum-wall,
-.continuum-bar,
-.continuum-bar > span,
-.continuum-item {
-	position: absolute;
-	white-space: nowrap;
-}
-
-.continuum-wall {
-	top: var(--walls);
-}
-
-.continuum-wall-left {
-	left: 0;
-}
-
-.continuum-wall-right {
-	right: 0;
-}
-
-/* walls hang under their labels and stop a little below the line */
-.continuum-wall::after {
-	content: "";
-	position: absolute;
-	top: 1.25rem;
-	height: calc(var(--track) + 0.6rem - var(--walls) - 1.25rem);
-	border-left: 3px solid currentColor;
-}
-
-.continuum-wall-left::after {
-	left: 0;
-}
-
-.continuum-wall-right::after {
-	right: 0;
-}
-
-.continuum-bar {
-	left: var(--bar, 50%);
-	top: 0;
-	height: calc(var(--track) + 0.6rem);
-}
-
-.continuum-bar::after {
-	content: "";
-	position: absolute;
-	top: 1.35rem;
-	bottom: 0;
-	border-left: 2px dashed currentColor;
-	transform: translateX(-1px);
-}
-
-.continuum-bar > span:nth-child(1) {
-	top: 0;
-	transform: translateX(-50%);
-}
-
-.continuum-bar > span:nth-child(2) {
-	top: var(--sides);
-	right: 0.4rem;
-}
-
-.continuum-bar > span:nth-child(3) {
-	top: var(--sides);
-	left: 0.4rem;
-}
-
-.continuum-item {
-	left: var(--at, 50%);
-	top: calc(var(--track) + 0.75rem + var(--row, 0) * 1.25rem);
-	transform: translateX(calc(-1 * var(--anchor, 50%)));
-}
-
-.continuum-item-left {
-	--at: 0%;
-	--anchor: 0%;
-	--nudge: var(--edge);
-}
-
-.continuum-item-right {
-	--at: 100%;
-	--anchor: 100%;
-	--nudge: calc(-1 * var(--edge));
-}
-
-/* the dot on the line, ringed in the page background so it stands off the line and walls */
-.continuum-item::before {
-	content: "";
-	position: absolute;
-	left: calc(var(--anchor, 50%) + var(--nudge, 0px) - var(--dot) / 2);
-	top: calc(1px - var(--dot) / 2 - 0.75rem - var(--row, 0) * 1.25rem);
-	width: var(--dot);
-	height: var(--dot);
-	border-radius: 50%;
-	background: currentColor;
-	box-shadow: 0 0 0 2px var(--body-bg);
-}
-
-/* the stem from the dot down to a label that was dropped a row */
-.continuum-item::after {
-	content: "";
-	position: absolute;
-	left: calc(var(--anchor, 50%) + var(--nudge, 0px));
-	top: calc(1px + var(--dot) / 2 - 0.75rem - var(--row, 0) * 1.25rem);
-	height: calc((0.75rem + var(--row, 0) * 1.25rem - 1px - var(--dot) / 2) * min(var(--row, 0), 1));
-	border-left: 1px solid currentColor;
-}
-
-.continuum-item img {
-	display: block;
-	height: 2.5rem;
-	width: auto;
-	max-width: none;
-	margin: 0;
-}
-
-/* items waiting to be placed */
-.continuum-cards {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 0.5rem;
-	margin: 0.5rem 0 0;
-	padding: 0;
-	list-style: none;
-	font-size: 0.9rem;
-}
-
-.continuum-cards li {
-	margin: 0;
-	padding: 0.2rem 0.6rem;
-	border: 1px solid currentColor;
-	border-radius: 4px;
-}
-
-@media (prefers-color-scheme: dark) {
-	.continuum-line::before,
-	.continuum-wall::after {
-		box-shadow: 0 0 3px var(--body-color);
-	}
-
-	/* keep the background ring, and glow outside it */
-	.continuum-item::before {
-		box-shadow: 0 0 0 2px var(--body-bg), 0 0 6px 2px var(--body-color);
-	}
-}
-</style>
-
 > Of course they don't experience consciousness the way I do.
 
 I agree. Completely. Nothing does: not a dog, not a fish, and - sorry not sorry - not you neither.
@@ -348,7 +143,7 @@ That's the second zombie camp with the fiction peeled off: people who took the a
 
 But let's be fair to the Cartesians. Those were grown dogs. Puppies, now - puppies haven't even finished developing mentally. Their nervous systems are immature, and consciousness they might have as adult dogs is not yet present. It should be fine to beat *puppies* at least, right?
 
-## Why It Is Cool and Good to Beat Puppies
+## Why Beating Puppies is Justifiable
 
 It isn't. 
 
@@ -394,9 +189,176 @@ Use the [duck test](https://en.wikipedia.org/wiki/Duck_test). If it looks like a
 [^watts]: Peter Watts's novel *Echopraxia* (Tor, 2014), whose "soldiers come with zombie switches that shut off self-awareness during combat," gets at the real core of this. <https://www.goodreads.com/book/show/20818767-echopraxia>
 [^fontaine]: Nicolas Fontaine, *Mémoires pour servir à l'histoire de Port-Royal*, vol. 2 (Utrecht, 1736), pp. 52-53, in the Bavarian State Library's scan: <https://www.digitale-sammlungen.de/en/view/bsb10029812?page=60>. The English is from Leonora Rosenfield, *From Beast-Machine to Man-Machine* (New York: Oxford University Press, 1941), p. 54, which the Internet Archive lends free with an account: <https://archive.org/details/frombeastmachine0000unse/page/54/>[^rosenfield]. Fontaine wrote years after the events, and historians disagree about how far to trust his account.
 [^descartes]: John Cottingham, "'A Brute to the Brutes?': Descartes' Treatment of Animals," *Philosophy* 53 (1978): 551-559, finds "no evidence" that Descartes held animals to be "totally without feeling." <https://doi.org/10.1017/S0031819100026371>. Peter Harrison disputes Cottingham's argument but still finds Descartes "cautiously agnostic": he "did not adamantly insist that animals could not feel." Harrison is also the source for Monsieur Grat: "Descartes on Animals," *The Philosophical Quarterly* 42, no. 167 (1992): 219-227. <https://www.jstor.org/stable/2220217>
-[^anand]: K. J. S. Anand and P. R. Hickey, "Pain and Its Effects in the Human Neonate and Fetus," *New England Journal of Medicine* 317, no. 21 (1987): 1321-1329, <https://doi.org/10.1056/NEJM198711193172105> (paywalled). On p. 1322, thalamic fibers "finally establish synaptic connections between 20 and 24 weeks of gestation"; on myelin, "Incomplete myelination merely implies a slower conduction velocity in the nerves," and "Pain pathways to the brain stem and thalamus are completely myelinated by 30 weeks." Harvard Medical School's newsletter *On the Brain* summarizes it free in "The Long Life of Early Pain" (Winter 2011): the paper "challenged the theory that infants do not feel pain because their nerve cells lack myelination," citing data that "pain pathways to the brain stem and to the thalamus" are "myelinated by week 30." [https://hms.harvard.edu/sites/default/files/publications%20archive/OnTheBrain/OnTheBrainWinter11.pdf][on-the-brain]
+[^anand]: K. J. S. Anand and P. R. Hickey, "Pain and Its Effects in the Human Neonate and Fetus," *New England Journal of Medicine* 317, no. 21 (1987): 1321-1329, <https://doi.org/10.1056/NEJM198711193172105> (paywalled) ([pdf](/assets/pdf/blog/essay/1987-anand.pdf)). On p. 1322, thalamic fibers "finally establish synaptic connections between 20 and 24 weeks of gestation"; on myelin, "Incomplete myelination merely implies a slower conduction velocity in the nerves." Harvard Medical School's newsletter *On the Brain* summarizes it free in "The Long Life of Early Pain" (Winter 2011): the paper "challenged the theory that infants do not feel pain because their nerve cells lack myelination," citing data that "pain pathways to the brain stem and to the thalamus" are "myelinated by week 30." [https://hms.harvard.edu/sites/default/files/publications%20archive/OnTheBrain/OnTheBrainWinter11.pdf][on-the-brain]
 [^ucsf]: Alexis Martin, "The Kids Are Not All Right," *UCSF Magazine*, Winter 2023. <https://magazine.ucsf.edu/kids-not-all-right>
 [^rodkey]: E. N. Rodkey and R. Pillai Riddell, "The Infancy of Infant Pain Research: The Experimental Origins of Infant Pain Denial," *The Journal of Pain* 14, no. 4 (2013): 338-350. Early experiments read infants' responses as underdeveloped pain perception, "attributed to their lack of brain maturation," and anesthesiologists later used them "to support the lessened use of anesthesia for infants." <https://www.jpain.org/article/S1526-5900(13)00025-4/pdf>
 [^aphyr]: Kyle Kingsbury, "The Future of Everything is Lies, I Guess: Psychological Hazards," April 12, 2026. <https://aphyr.com/posts/416-the-future-of-everything-is-lies-i-guess-psychological-hazards>. He opens with the rock: "Humans will anthropomorphize a rock with googly eyes." (Yes, that's where our buddy came from!) His conclusion runs the other way from mine: the reflex makes us easy marks. Both can be true.
 [^haselton]: Martie G. Haselton and David M. Buss, "Error Management Theory: A New Perspective on Biases in Cross-Sex Mind Reading," *Journal of Personality and Social Psychology* 78, no. 1 (2000): 81-91. <https://labs.la.utexas.edu/buss/files/2015/09/Error_Management_Theory_2000.pdf>
 [^rosenfield]: As a treat for reading the footnotes, you can [read p.54 directly](from-beast-machine-to-man-machine_leonora-rosenfield_pp54-55.jpg). In much the way that *this* footnote is a footnote of a footnote, you will have to go make an Internet Archive account to chase down footnotes 39 and 40 on that page, which is a two-step process but I assure you the primary sources *do* eventually get cited. Have fun!
+
+<style>
+.continuum {
+	margin: 2rem 0;
+	container-type: inline-size;
+}
+
+.continuum-line {
+	--walls: 1.25rem;
+	--sides: 2.85rem;
+	--track: 4.5rem;
+	--dot: 0.85rem;
+	/* how far a wall-hugging dot sits from the edge: wall, gap, half a dot */
+	--edge: calc(3px + 2px + var(--dot) / 2);
+	position: relative;
+	height: calc(var(--track) + var(--below, 3.25rem));
+	/* room for the dots that sit by the walls */
+	margin: 0 0.25rem;
+	font-size: 0.8rem;
+	line-height: 1.2;
+}
+
+@container (min-width: 30rem) {
+	.continuum-line {
+		--sides: var(--walls);
+		--track: 3.25rem;
+	}
+}
+
+/* a pictured item needs taller room under the line */
+.continuum-line:has(.continuum-item img) {
+	--below: 4.75rem;
+}
+
+.continuum-line::before,
+.continuum-wall::after,
+.continuum-bar::after,
+.continuum-item::before,
+.continuum-item::after {
+	content: "";
+	position: absolute;
+}
+
+/* the line itself */
+.continuum-line::before {
+	left: 0;
+	right: 0;
+	top: var(--track);
+	border-top: 2px solid currentColor;
+}
+
+.continuum-wall,
+.continuum-bar,
+.continuum-bar > span,
+.continuum-item {
+	position: absolute;
+	white-space: nowrap;
+}
+
+.continuum-wall {
+	top: var(--walls);
+}
+
+/* walls hang under their labels and stop a little below the line */
+.continuum-wall::after {
+	top: 1.25rem;
+	height: calc(var(--track) + 0.6rem - var(--walls) - 1.25rem);
+	border-left: 3px solid currentColor;
+}
+
+.continuum-wall-left,
+.continuum-wall-left::after {
+	left: 0;
+}
+
+.continuum-wall-right,
+.continuum-wall-right::after {
+	right: 0;
+}
+
+.continuum-bar {
+	left: var(--bar, 50%);
+	top: 0;
+	height: calc(var(--track) + 0.6rem);
+}
+
+.continuum-bar::after {
+	top: 1.35rem;
+	bottom: 0;
+	border-left: 2px dashed currentColor;
+	transform: translateX(-1px);
+}
+
+.continuum-bar > span:nth-child(1) {
+	top: 0;
+	transform: translateX(-50%);
+}
+
+.continuum-bar > span:nth-child(n+2) {
+	top: var(--sides);
+}
+
+.continuum-bar > span:nth-child(2) {
+	right: 0.4rem;
+}
+
+.continuum-bar > span:nth-child(3) {
+	left: 0.4rem;
+}
+
+.continuum-item {
+	left: var(--at, 50%);
+	top: calc(var(--track) + 0.75rem + var(--row, 0) * 1.25rem);
+	transform: translateX(calc(-1 * var(--anchor, 50%)));
+}
+
+.continuum-item-left {
+	--at: 0%;
+	--anchor: 0%;
+	--nudge: var(--edge);
+}
+
+.continuum-item-right {
+	--at: 100%;
+	--anchor: 100%;
+	--nudge: calc(-1 * var(--edge));
+}
+
+/* the dot on the line, ringed in the page background so it stands off the line and walls */
+.continuum-item::before {
+	left: calc(var(--anchor, 50%) + var(--nudge, 0px) - var(--dot) / 2);
+	top: calc(1px - var(--dot) / 2 - 0.75rem - var(--row, 0) * 1.25rem);
+	width: var(--dot);
+	height: var(--dot);
+	border-radius: 50%;
+	background: currentColor;
+	box-shadow: 0 0 0 2px var(--body-bg);
+}
+
+/* the stem from the dot down to a label that was dropped a row */
+.continuum-item::after {
+	left: calc(var(--anchor, 50%) + var(--nudge, 0px));
+	top: calc(1px + var(--dot) / 2 - 0.75rem - var(--row, 0) * 1.25rem);
+	height: calc((0.75rem + var(--row, 0) * 1.25rem - 1px - var(--dot) / 2) * min(var(--row, 0), 1));
+	border-left: 1px solid currentColor;
+}
+
+.continuum-item img {
+	display: block;
+	height: 2.5rem;
+	width: auto;
+	max-width: none;
+	margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+	.continuum-line::before,
+	.continuum-wall::after {
+		box-shadow: 0 0 3px var(--body-color);
+	}
+
+	/* keep the background ring, and glow outside it */
+	.continuum-item::before {
+		box-shadow: 0 0 0 2px var(--body-bg), 0 0 6px 2px var(--body-color);
+	}
+}
+</style>
