@@ -242,7 +242,7 @@ Nobody actually asks "does it have qualia like mine?" Nobody could ever answer i
 
 The left wall is for things with nothing inside at all: your coffee table, your socks. The right wall is *just like me frfr[^frfr]*, and exactly one thing will ever stand there: you. Partway between the two walls stands a bar, and the bar is the real question. Left of it, how you treat a thing doesn't matter. Right of it, it does.
 
-Things get filed on one side of the bar or the other, nearer a wall or farther from it. Way over on the left, though not quite at the wall, is the mosquito on your arm, flattened before you'd decided anything at all. Way over on the right, as close to that wall as anyone gets, is the person you'd marry, because marriage is the fullest way people have of saying *I respect you as a person, and I want you woven into my life.* Everything else you've ever met lands somewhere in between. Yes, everything. Your ex is on there somewhere, and probably not where they started.
+Things get filed on one side of the bar or the other, nearer a wall or farther from it. Way over on the left, though not quite at the wall, is the mosquito on your arm, flattened before you'd decided anything at all. Way over on the right, as close to that wall as anyone gets, is the person you'd marry, because marriage is the fullest way people have of saying *I respect you as a person, and I want you woven into my life.* Everything else you've ever met lands somewhere in between. Yes, everything. Your ex is on there somewhere, and probably not where they started, eh?
 
 Go on, try it. Put these seven on the line, from swat to marriage, and notice which side of the bar each one lands on:
 
@@ -276,7 +276,7 @@ So the fish sits on the left mostly for the crime of being hard to read. Your pl
 
 ## Rock, Meet Hammer
 
-TODO(comic): a rock with googly eyes; a hammer comes down; the rock cracks; a sad face is drawn on under the googly eyes.
+![A rock meets a hammer... but with googly eyes!](no-rocks-harmed-in-the-making.png)
 
 Do you feel bad?
 
@@ -285,13 +285,11 @@ Do you feel bad?
 <span class="continuum-wall continuum-wall-left">inanimate</span>
 <span class="continuum-bar"><span>how I treat it</span><span>doesn't matter</span><span>matters</span></span>
 <span class="continuum-wall continuum-wall-right">just like me</span>
-<span class="continuum-item continuum-item-left">plain rock</span>
-<span class="continuum-item" style="--at: 15%; --anchor: 0%; --row: 1">googly-eyed rock</span>
+<span class="continuum-item continuum-item-left"><img src="plainrock-icon-64.png" alt="Just a normal rock"></span>
+<span class="continuum-item" style="--at: max(15%, 4rem); --row: 1"><img src="googlyrock-icon-64.png" alt="Friendly, Googly-eyed Rock"></span>
 <span class="continuum-item continuum-item-right">me</span>
 </div>
 </figure>
-
-TODO(photo): swap the two rock labels for small photos of the plain rock and the googly-eyed rock (eyes, no mouth).
 
 A plain rock goes flat against the left wall. Nobody has ever lost sleep over gravel - at least not how gravel *feels*. Now stick two googly eyes on the very same rock, and it scoots over - just a little - whether you signed off on that or not. Nothing about the rock changed. It's still a rock! It has never been more or less of a rock. And notice which way the eyes nudged it: nobody I know looks at a googly-eyed rock and sees a villain. Two plastic dots, and *you* supplied a friendly little someone.
 
@@ -301,9 +299,11 @@ Where does it go, relative to the rock?
 
 Harder, right? The rock came with a persona. The zombie comes with an *argument*. Is anybody still in there? Or is it appetite all the way down?
 
-*¿Por qué no los dos?* In the anime [*Zombie Land Saga*](https://en.wikipedia.org/wiki/Zombie_Land_Saga) (2018), Sakura Minamoto dies in 2008 and wakes up ten years later, drafted into an idol group made entirely of zombies, herself included. She frets, she jokes, she wants things, and she is very much still in there. In George Romero's [*Night of the Living Dead*](https://en.wikipedia.org/wiki/Night_of_the_Living_Dead) (1968), the dead get up and eat people: little Karen Cooper comes back, snacks on her father, and goes after her mother with a trowel.
+*¿Por qué no los dos?* In [*Warm Bodies*](https://en.wikipedia.org/wiki/Warm_Bodies_(film)) (2013), R is a corpse in a hoodie who shuffles around an abandoned airport, groans, and eats people, which is all anybody watching him gets to see. Inside, he narrates: he's embarrassed by his posture, he collects vinyl, and he would really, really like to stop eating people. He is very much still in there. In George Romero's [*Night of the Living Dead*](https://en.wikipedia.org/wiki/Night_of_the_Living_Dead) (1968), the very first ghoul is a grown man in a rumpled suit, lurching across a Pennsylvania cemetery in broad daylight. He doesn't speak, doesn't hesitate, and when Johnny gets between him and Barbra, he cracks Johnny's head on a headstone and keeps right on coming.
 
-Same label. Same spot on the line?
+![R, a thinking zombie, vs unnamed ghoul](zombie-comparison.jpg)
+
+Same label - ***"zombie."*** Same spot on the line?
 
 Of course not. So the label isn't what you used. You used what each story *showed* you[^bub].
 
@@ -312,7 +312,7 @@ The Romero kind lands smack on the bar, and people split over which way it tips.
 - **They were people once.** Something might still be in there, and nobody can prove otherwise, so we don't brutalize them.
 - **The story says they're gone.** The film tells you they're dead meat with nobody home, so go ahead and put them down.
 
-Inside a story, trusting the author is exactly right: there *is* an author, and the author *does* know. So the whole fight comes down to one question: how far do you trust the author's omniscience? The first camp notices that even Romero only ever showed us behavior - shambling, moaning, a dead girl going for her mother - and won't take the label over the footage. The second camp takes the label, because somebody with the authority to hand it out handed it out.
+Inside a story, trusting the author is exactly right: there *is* an author, and the author *does* know. So the whole fight comes down to one question: how far do you trust the author's omniscience? The first camp notices that even Romero only ever showed us behavior - shambling, moaning, a dead man lurching through a graveyard - and won't take the label over the footage. The second camp takes the label, because somebody with the authority to hand it out handed it out.
 
 ## Life's Author Isn't Doing Meet-and-Greets
 
@@ -328,7 +328,7 @@ Philosophers have a name for the creature you just tried to place: the [philosop
 
 *By definition.* There's the catch. David Chalmers built a famous argument on the P-zombie in *The Conscious Mind* (1996), and in a seminar room it earns its keep. It works there for the same reason Romero's ghouls work on screen: the philosopher declares, at setup, which one is the zombie. The philosopher is the omniscient author. Out in the world, nobody gets to make that declaration, so the category can't do any work. It just sits there. By definition[^watts].
 
-So how would you ever get to "it doesn't really feel anything"? There are two roads, and you've already walked both to the end. Behavior won't take you there, because behavior is the very instrument telling you it suffers. The only other road is to be *told*. *We know how it's built, so we can assure you it's empty. When it cries out, ignore it.* That's somebody helping themselves to the author's chair.
+So say something out here acts hurt. Strike it, and it cries out. How would you ever get from there to "it doesn't really feel anything"? There are two roads, and you've already walked both to the end. Behavior won't take you there: the cry *is* the behavior, and your instrument read it as pain the moment you heard it. The only other road is to be *told*. *We know how it's built, so we can assure you it's empty. When it cries out, ignore it.* That's somebody helping themselves to the author's chair. Being told isn't always the villain - it's how the trout got a second look. But it should only ever send you to look harder, never to look away.
 
 ## Springs
 
