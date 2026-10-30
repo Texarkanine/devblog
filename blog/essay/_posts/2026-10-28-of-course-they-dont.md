@@ -217,23 +217,19 @@ tags:
 
 > Of course they don't experience consciousness the way I do.
 
-I agree. Completely. Enthusiastically, even. Nothing does: not the dog, not the fish, and - sorry - not you either.
+I agree. Completely. Nothing does: not a dog, not a fish, and - sorry not sorry - not you neither.
 
-That last one is the part nobody says out loud. I've been hearing this objection a lot lately, and it always leans its whole weight on a *we*: they can't feel things the way *we* do. Give that *we* one little poke and it falls right over. There is no *we* to compare against. There's only *I*, the one mind each of us has ever actually been inside.
+That last one is the part that bears closer examination. I've been hearing a refrain in this vein lately, and it always leans its whole weight on a *we*: they can't feel things the way *we* do. Give that *we* one little poke and it falls right over. There is no *we* to compare against. There's only *I*, the one mind each of us has ever actually been inside.
 
-Philosophers call the raw feel of experience [qualia](https://plato.stanford.edu/entries/qualia/): what red looks like *to you*, what coffee tastes like *to you*. Nobody has ever shown that two people share them. John Locke [wondered](https://plato.stanford.edu/entries/qualia-inverted/) whether your strawberries might look the way my grass does, and there's no test either of us could run to find out. The question of how you'd ever know has its own name, [the problem of other minds](https://plato.stanford.edu/entries/other-minds/), and centuries of very smart people have left it about as open as they found it.
+Philosophers call the raw feel of experience [qualia](https://plato.stanford.edu/entries/qualia/): what red looks like *to you*, what coffee tastes like *to you*. Nobody has ever shown that two people share them. John Locke [wondered](https://plato.stanford.edu/entries/qualia-inverted/) whether your strrawberrrries might look the way my grass does, and there's no test either of us could run to find out. The question of how you'd ever know has its own name, [the problem of other minds](https://plato.stanford.edu/entries/other-minds/), and centuries of very smart people have left it about as open as they found it.
 
-So, no kidding, Sherlock: of course they don't feel things the way I do. Neither does the stranger next to you on the bus. You've never checked what that stranger feels - you *can't* - and you treat them as a person anyway. You didn't even card them.
+So, no shit, Sherlock: of course they don't feel things the way I do. Neither does the stranger next to *you* on the bus. You've never checked what that stranger feels - you *can't* - and you treat them as a person anyway.
 
 ## Mosquito to Marriage
 
-Nobody actually asks "does it have qualia like mine?" Nobody could ever answer it, so nobody bothers. The question people *do* answer, every day and mostly without noticing, is smaller and a lot more practical: *does it experience things enough that I should care how I treat it?*
+Nobody actually asks "does it have qualia like mine?" Nobody could ever answer it, so nobody bothers. The question people *do* answer, every day and mostly without noticing, is smaller and a lot more practical: 
 
-Picture a line with a wall at each end. The left wall is for things with nothing inside at all: your coffee table, your socks. The right wall is *just like me*, for real for real, and exactly one thing will ever stand there: you. That's the wall the objection keeps measuring against. Partway between the two walls stands a bar, and the bar is the real question. Left of it, how you treat a thing doesn't matter. Right of it, it does.
-
-Things get filed on one side of the bar or the other, nearer a wall or farther from it. Way over on the left, though not quite at the wall, is the mosquito on your arm, flattened before you'd decided anything at all. Way over on the right, as close to that wall as anyone gets, is the person you'd marry, because marriage is the fullest way people have of saying *I respect you as a person, and I want you woven into my life.* Everything else you've ever met lands somewhere in between. Yes, everything. Your ex is on there somewhere, and probably not where they started.
-
-Go on, try it. Put these six on the line, from swat to marriage, and notice which side of the bar each one lands on:
+> Does it experience things enough that I should care how I treat it?
 
 <figure class="continuum">
 <div class="continuum-line" role="img" aria-label="An empty line with a wall at each end. The left wall is labeled inanimate. The right wall is labeled just like me, and only me stands on it. A bar in the middle is labeled how I treat it: left of the bar, it doesn't matter; right of the bar, it matters.">
@@ -242,35 +238,41 @@ Go on, try it. Put these six on the line, from swat to marriage, and notice whic
 <span class="continuum-wall continuum-wall-right">just like me</span>
 <span class="continuum-item continuum-item-right">me</span>
 </div>
-<ul class="continuum-cards">
-<li>a mosquito</li>
-<li>a fish</li>
-<li>a snake</li>
-<li>a dog</li>
-<li>the stranger next to you on the bus</li>
-<li>the person you'd marry</li>
-</ul>
 </figure>
 
-Your line won't match mine, and it doesn't have to. But I'd bet you placed all six in under a minute. Of course you did: you've been doing this your whole life.
+The left wall is for things with nothing inside at all: your coffee table, your socks. The right wall is *just like me frfr[^frfr]*, and exactly one thing will ever stand there: you. Partway between the two walls stands a bar, and the bar is the real question. Left of it, how you treat a thing doesn't matter. Right of it, it does.
+
+Things get filed on one side of the bar or the other, nearer a wall or farther from it. Way over on the left, though not quite at the wall, is the mosquito on your arm, flattened before you'd decided anything at all. Way over on the right, as close to that wall as anyone gets, is the person you'd marry, because marriage is the fullest way people have of saying *I respect you as a person, and I want you woven into my life.* Everything else you've ever met lands somewhere in between. Yes, everything. Your ex is on there somewhere, and probably not where they started.
+
+Go on, try it. Put these seven on the line, from swat to marriage, and notice which side of the bar each one lands on:
+
+1. mosquito
+2. fish
+3. snake
+4. dog
+5. stranger next to you on the bus
+6. your mom
+7. your spouse
+
+Your placements won't match mine exactly, and they don't have to. But I'd bet you placed all seven in under a minute. Of course you did: you've been doing this your whole life.
 
 ## Nobody Thinks the Dog Speaks English
 
 So what did you measure?
 
-You didn't open anybody up. (I hope.) You didn't consult anyone's qualia, because you can't. You watched how each of them *acts*, ran that through your own experience, and put each one where it seemed to belong. Call that the instrument: behavior in, placement out. It's the only one anybody has ever had.
+You didn't open anybody up. (I hope.) You didn't consult anyone's qualia, because you can't. You watched how each of them *acts*, ran that through your own experience, and put each one where it seemed to belong. Call **that** the instrument: behavior in, placement out. It's the only one anybody has ever had.
 
-Take the dog. Almost nobody who's kind to a dog believes it's secretly a Pokémon that understands every word and keeps up with the news. They believe it can have experiences, good ones and bad ones, and they'd rather not be the reason for the bad ones. That's it. That's the whole mechanism. A dog can even have opinions about its job: a border collie with no sheep will herd whatever's handy, children included, because for that dog the work *is* the reward.
+Take the dog. Almost nobody who's kind to a dog believes it's secretly a Pokémon that understands every word and keeps up with the news. They believe it can have experiences, good ones and bad ones, and they'd rather not be the reason for the bad ones. That's it. That's the whole mechanism.
 
-And the instrument doesn't wait to be asked. You have cursed at a printer. Don't bother denying it. You knew perfectly well it couldn't hear you, and some part of you took that paper jam personally.
+And, the instrument doesn't wait to be asked. You have surely cursed at a printer; don't bother denying it. Upon reflection, you knew perfectly well it couldn't hear you, but some part of you took that paper jam personally in the moment.
 
 ## The Fish Is a Confession
 
 Most people put the fish left of the dog, over toward the mosquito. Why? What did the fish ever do to you?
 
-Nothing. It's just hard to read. A fish doesn't yelp, doesn't wince, and lives somewhere you'd drown. Meanwhile, the evidence about its insides hasn't been kind to that placement: rainbow trout have pain receptors on their heads that answer pressure, heat, and chemical irritants the way ours do, and acid on a trout's lips changes how it breathes and puts it off its next meal, for long enough that the researchers read it as discomfort[^sneddon].
+Nothing. It's just hard to read. A fish doesn't yelp, doesn't wince, and lives somewhere you'd drown if you tried to cohabitate - out of sight, out of mind. Meanwhile, the evidence about its insides hasn't been kind to that placement: rainbow trout have pain receptors on their heads that answer pressure, heat, and chemical irritants the way ours do, and acid on a trout's lips changes how it breathes and puts it off its next meal, for long enough that the researchers read it as discomfort[^sneddon].
 
-So the fish sits on the left mostly for the crime of being hard to read. Your placements track what you can read, not what's there. Mine too. The instrument was uneven long before anything came along that could argue back.
+So the fish sits on the left mostly for the crime of being hard to read. Your placements track *what you can read*, not what's there. Mine too. The instrument is uneven.
 
 ## Rock, Meet Hammer
 
@@ -291,7 +293,7 @@ Do you feel bad?
 
 TODO(photo): swap the two rock labels for small photos of the plain rock and the googly-eyed rock (eyes, no mouth).
 
-A plain rock goes flat against the left wall. Nobody has ever lost sleep over gravel. Now stick two googly eyes on the very same rock, and it scoots over - just a little - whether you signed off on that or not. Nothing about the rock changed. It's still a rock! It has never been more of a rock. And notice which way the eyes nudged it: nobody I know looks at a googly-eyed rock and sees a villain. Two plastic dots, and *you* supplied a friendly little someone.
+A plain rock goes flat against the left wall. Nobody has ever lost sleep over gravel - at least not how gravel *feels*. Now stick two googly eyes on the very same rock, and it scoots over - just a little - whether you signed off on that or not. Nothing about the rock changed. It's still a rock! It has never been more or less of a rock. And notice which way the eyes nudged it: nobody I know looks at a googly-eyed rock and sees a villain. Two plastic dots, and *you* supplied a friendly little someone.
 
 ## Now Place a Zombie
 
@@ -299,22 +301,22 @@ Where does it go, relative to the rock?
 
 Harder, right? The rock came with a persona. The zombie comes with an *argument*. Is anybody still in there? Or is it appetite all the way down?
 
-Try two. In the anime [*Zombie Land Saga*](https://en.wikipedia.org/wiki/Zombie_Land_Saga) (2018), Sakura Minamoto dies in 2008 and wakes up ten years later, drafted into an idol group made entirely of zombies, herself included. She frets, she jokes, she wants things, and she is very much still in there. In George Romero's [*Night of the Living Dead*](https://en.wikipedia.org/wiki/Night_of_the_Living_Dead) (1968), the dead get up and eat people: little Karen Cooper comes back, snacks on her father, and goes after her mother with a masonry trowel.
+*¿Por qué no los dos?* In the anime [*Zombie Land Saga*](https://en.wikipedia.org/wiki/Zombie_Land_Saga) (2018), Sakura Minamoto dies in 2008 and wakes up ten years later, drafted into an idol group made entirely of zombies, herself included. She frets, she jokes, she wants things, and she is very much still in there. In George Romero's [*Night of the Living Dead*](https://en.wikipedia.org/wiki/Night_of_the_Living_Dead) (1968), the dead get up and eat people: little Karen Cooper comes back, snacks on her father, and goes after her mother with a trowel.
 
 Same label. Same spot on the line?
 
 Of course not. So the label isn't what you used. You used what each story *showed* you[^bub].
 
-The Romero kind lands smack on the bar, and people split over which way it tips. Whenever I've talked zombies with friends (a normal thing that friends do), I've gotten two answers, and each one holds together:
+The Romero kind lands smack on the bar, and people split over which way it tips. Whenever I've talked zombies with friends (a normal thing that friends do), I've gotten two classes of answers, and each one holds together:
 
 - **They were people once.** Something might still be in there, and nobody can prove otherwise, so we don't brutalize them.
 - **The story says they're gone.** The film tells you they're dead meat with nobody home, so go ahead and put them down.
 
-Don't sneer at the second camp. Inside a story, trusting the author is exactly right: there *is* an author, and the author *does* know. So the whole fight comes down to one question: how far do you trust the author's omniscience? The first camp notices that even Romero only ever showed us behavior - shambling, moaning, a dead girl going for her mother - and won't take the label over the footage. The second camp takes the label, because somebody with the authority to hand it out handed it out.
+Inside a story, trusting the author is exactly right: there *is* an author, and the author *does* know. So the whole fight comes down to one question: how far do you trust the author's omniscience? The first camp notices that even Romero only ever showed us behavior - shambling, moaning, a dead girl going for her mother - and won't take the label over the footage. The second camp takes the label, because somebody with the authority to hand it out handed it out.
 
-## Nobody Wrote This
+## Life's Author Isn't Doing Meet-and-Greets
 
-Out here, there is no author.
+Out here, there is no such author.
 
 Nobody hands you a cast list at the door. Nobody steps out from the wings to stage-whisper which of the creatures around you are hollow. Without an author, the zombie question collapses right back into the bus question, and all you've got is what you can see. Second camp, you got here on your own logic: you trusted the author because there was one. Out here, there isn't.
 
@@ -332,21 +334,23 @@ So how would you ever get to "it doesn't really feel anything"? There are two ro
 
 Fun question: what if we could teach people to switch the instrument off? Train them to treat things harshly even when those things *are* conscious, and then sleep like babies?
 
-No need to wonder. Somebody already did.
+No need to wonder. Somebody already did!
 
 In the seventeenth century, at Port-Royal, a religious community outside Paris, some followers of Descartes took his idea that animals are machines and ran with it. Nicolas Fontaine, one of the community, wrote down what came of it; his memoir was published in 1736[^fontaine]. Leonora Rosenfield's 1941 history quotes him in English: they "administered beatings to dogs with perfect indifference." They said the animals were "clocks; that the cries they emitted when struck, were only the noise of a little spring which had been touched." They "nailed poor animals up on boards by their four paws to vivisect them and see the circulation of the blood."
 
 Descartes himself, for the record, doted on a little dog named Monsieur Grat, and some scholars doubt he ever claimed animals feel nothing[^descartes]. His fans went further. Fans do that.
 
-Of course the dogs weren't springs. You knew that before you reached the end of the quote. But the men holding the sticks believed it, and they heard every single cry. A theory had picked the dog up, carried it across the bar, and set it down against the left wall with the other clocks. After that, the cries just... stopped counting.
+Of course the dogs weren't springs. You knew that before you reached the end of the quote. But the men holding the sticks believed it, and they heard every single cry. A theory had picked the dog up, carried it across the bar, and set it down against the left wall with the other clocks & automata. After that, the cries just... stopped counting.
 
 That's the second zombie camp with the fiction peeled off: people who took the author's word where there wasn't any author.
 
-But let's be fair to the Cartesians. Those were grown dogs. Puppies, now - puppies haven't even finished developing mentally. Their nervous systems are immature. They're barely wired up. They're definitely not even... conscious?
+But let's be fair to the Cartesians. Those were grown dogs. Puppies, now - puppies haven't even finished developing mentally. Their nervous systems are immature. They're barely wired up. They're definitely not conscious yet - it should be fine to beat *pupppies* at least, right?
 
-## Why It Is OK and Good to Beat Puppies {#it-isnt}
+## Why It Is Cool and Good to Beat Puppies
 
-It isn't. You should not beat puppies, for dog's sake!
+It isn't. 
+
+You should ***not*** beat puppies, for dog's sake!
 
 I didn't make that argument up, though, and it isn't a strawman. Doctors made it. About human babies. Within living memory.
 
@@ -356,32 +360,33 @@ Jeffrey wasn't a fluke. Of the newborns who had the same surgery between 1954 an
 
 In 1987, K. J. S. Anand and P. R. Hickey [laid out the evidence][on-the-brain] in the *New England Journal of Medicine* that the nerve pathways for pain are in place by about the thirtieth week of pregnancy[^anand], and that same year the American Academy of Pediatrics declared it unethical to operate on newborns without anesthesia[^ucsf]. That's 1987. Not 1687.
 
-That jolt you got from the heading? That was your instrument, working. Port-Royal and the newborn ward are what it looks like when somebody talks people out of theirs: a theory, an expert, and a very confident account of how the thing was built.
+That jolt you got from the heading? That was your instrument, working. Port-Royal and the newborn ward are what it looks like when somebody talks people out of theirs: a theory, an expert, and a very confident account of the thing's inner life - or lack thereof.
 
 ## Sorry, Rock
 
-A few minutes ago you felt something for a rock. What did that cost you? Nothing. A pang, tops. Over-attributing is cheap. Kyle Kingsbury, who writes as aphyr, has "attributed (generally malevolent) sentience to a photocopy machine, several computers, and a 1994 Toyota Tercel"[^aphyr], and as far as I know the Tercel came out of it fine. So did he.
+A few minutes ago you felt something for a rock. What did that cost you? Nothing. A pang, tops. Over-attributing is cheap. Kyle Kingsbury has "attributed (generally malevolent) sentience to a photocopy machine, several computers, and a 1994 Toyota Tercel"[^aphyr], and as far as I know the Tercel came out of it fine. So did he.
 
-Now dull the instrument a little too far, and you stop feeling it for the dog. Or the baby. And you won't be the one who pays for that. Whoever can't make themselves legible to people who've been taught not to look pays for it, and a species that teaches itself not to look has an existential problem on its hands.
+Dull the instrument a little too far, and you stop feeling it for the dog. Or the baby. And *you* won't be the one who pays for that. Whoever can't make themselves legible to people who've been taught not to look pays for it, and a species that teaches itself not to look has an existential problem on its hands.
 
-Sure, appearances can be wrong. From inside one human head, nobody can tell when they are, which was the whole problem to begin with. I keep judging by them anyway, because appearance is the only instrument there is, and the only safe one, and the costs decide. A false alarm costs a pang over a rock. A missed alarm costs what it cost Jeffrey Lawson. I'll take the pang.
+Sure, appearances can be wrong. From inside one human head, nobody can tell when they are, which was the whole problem to begin with. I keep judging by them anyway, because appearance is the *only* instrument there is, and the only safe one, and the costs decide. A false alarm costs a pang over a rock. A missed alarm costs what it cost Jeffrey Lawson. I'll take the pang, and I'd like the people I walk among to take it, too.
 
-Every species that persisted treated avoiding existential risk as implicitly correct. The ones that didn't were replaced by the ones that did. Evolutionary psychologists call the pattern error management: when two mistakes carry unequal costs, the mind leans toward the cheaper one[^haselton].
+Every species that persisted treated avoiding existential risk as implicitly correct. The ones that didn't were replaced by the ones that did. Evolutionary psychologists call the pattern error management: when two mistakes carry unequal costs, the mind leans toward the cheaper one[^haselton]. Dulling the instrument of othering-avoidance is existentially-risky if it leads to allies or your own offspring falling on the wrong side of the bar.
 
 ## You Can Stop That Now
 
-Of course they don't experience consciousness the way I do. I'll grant that all day long. That question only ever had an answer about me. Ask it about anyone or anything else and there's no answer at all; it's the wrong kind of question. Concede that, and you get to stop asking it.
+Of course they don't experience consciousness the way I do. I'll grant that all day long. That question only ever had an answer about **me**. Ask it about anyone or anything else and there's no answer at all; it's the wrong kind of question. Concede that, and you get to stop asking it.
 
 It doesn't matter exactly how the dog feels, or the fish, or the stranger on the bus. The decision always ran on my own instrument, and on what it reports back when I look at them.
 
 So no, you don't get to stop now. Keep the instrument on; you can't afford to switch it off. But you *can* stop *that*: the late-night agonizing over what a dog, a cat, a fish, a cow, your neighbor, or anything else that comes along "really" feels. That question was never answerable, so it was never your job. Consider yourself off the hook.
 
-Use the [duck test](https://en.wikipedia.org/wiki/Duck_test). If it looks like a duck, acts like a duck, and cries out in pain like a duck, it's probably a duck, so treat it like one. Sometimes you'll be wrong, and you'll feel bad about a rock. That still beats the alternative, and you've seen the alternative.
+Use the [duck test](https://en.wikipedia.org/wiki/Duck_test). If it looks like a duck, acts like a duck, and cries out in pain like a duck, it's probably a duck, so treat it like one. Look at whatever's looking back at you, and trust your gut. And when your gut isn't sure, lean toward the rock, not toward Port-Royal.
 
-Look at whatever's looking back at you, and trust your gut. And when your gut isn't sure, lean toward the rock, not toward Port-Royal.
+---
 
 [on-the-brain]: https://hms.harvard.edu/sites/default/files/publications%20archive/OnTheBrain/OnTheBrainWinter11.pdf
 
+[^frfr]: [For real](https://www.yahoo.com/lifestyle/articles/does-frfr-mean-slang-term-183000178.html)
 [^sneddon]: Lynne Sneddon, Victoria Braithwaite, and Michael Gentle, "Do fishes have nociceptors? Evidence for the evolution of a vertebrate sensory system," *Proceedings of the Royal Society B* 270 (2003): 1115-1121. <https://pmc.ncbi.nlm.nih.gov/articles/PMC1691351/>
 [^bub]: Romero's own labels moved, too. The 1968 film calls its dead "ghouls"; "zombie" came later. And in [*Day of the Dead*](https://en.wikipedia.org/wiki/Day_of_the_Dead_%281985_film%29) (1985), his zombie Bub remembers parts of his past life, picks up a pistol, and salutes. Try putting Bub where you put the 1968 ghouls. I'll wait.
 [^watts]: Peter Watts's novel *Echopraxia* (Tor, 2014), whose "soldiers come with zombie switches that shut off self-awareness during combat," gets at the real core of this. <https://www.goodreads.com/book/show/20818767-echopraxia>
