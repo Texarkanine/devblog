@@ -71,3 +71,14 @@ Turn on Dependabot for the Jekyll gems and the nginx-proxy image, pin the unpinn
 * Insights
     - No docker/crane/skopeo in this environment; step 2's digest resolution works via the curl anonymous-token flow against registry-1.docker.io (probed during preflight)
     - Advisory recorded: adding `applies-to: security-updates` to the `ruby` group would batch the advisory PRs that fire when step 4 lands; left for the operator to weigh
+
+## 2026-10-31 - QA - COMPLETE
+
+* Work completed
+    - Reviewed the Gemfile, lockfile, `nginx-proxy/Dockerfile`, and `.github/dependabot.yml` diffs against the plan and brief
+    - Re-ran checks: `BUNDLE_FROZEN=true bundle _2.6.9_ install --local` exit 0; the lockfile diff is `DEPENDENCIES` lines only; the Docker Hub index digest for `nginx:1.29.3-alpine3.22` matches the Dockerfile; `automated-security-fixes` returns `enabled: true`; `dependabot.yml` parses with bundler and docker entries
+    - `.qa-validation-status`: PASS
+* Decisions made
+    - No findings block acceptance
+* Insights
+    - Advisory: the pinned digest is the index digest, and Dependabot will bump tag and digest together
