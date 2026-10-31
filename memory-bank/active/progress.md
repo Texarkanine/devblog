@@ -82,3 +82,13 @@ Turn on Dependabot for the Jekyll gems and the nginx-proxy image, pin the unpinn
     - No findings block acceptance
 * Insights
     - Advisory: the pinned digest is the index digest, and Dependabot will bump tag and digest together
+
+## 2026-10-31 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-20261031-dependabot-gems-nginx.md`
+    - Checked productContext, systemPatterns, and techContext. None are now wrong, and none needed a new standing contract
+* Decisions made
+    - Security-update grouping stays off, as built
+* Insights
+    - A Gemfile constraint change rewrites lockfile `DEPENDENCIES` even when resolutions stay put. Frozen CI requires that rewrite to be committed
