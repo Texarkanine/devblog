@@ -1,0 +1,1238 @@
+# announcement
+
+## Worktrees, Baby
+
+Git's known how to do this for *years*!
+
+## The Object Database Is the Whole Trick
+
+Linus Torvalds's [first README](https://github.com/git/git/blob/e83c5163316f89bfbde7d9ab23ca2e25604af290/README), April 2005, splits Git into two abstractions.
+
+> There are two object abstractions: the "object database", and the "current directory cache".
+
+Under the heading for the database, the same file says:
+
+> The object database is literally just a content-addressable collection of objects.
+
+The cache is the checkout you are looking at: names, permissions, and blobs. History lives in the database. Another folder can point at the same database, hold a different cache, and show a different branch. Both folders read the same objects.
+
+```mermaid
+graph TD
+    classDef store fill:#f3e5f5,stroke:#7b1fa2,color:#000
+    classDef tree fill:#e1f5fe,stroke:#01579b,color:#000
+    Store["Object database"]:::store --> Main["Main checkout"]:::tree
+    Store --> Fix["Checkout for fix-login"]:::tree
+    Store --> Agent["Checkout for an agent"]:::tree
+```
+
+The second folder took longer than the idea.
+
+In March 2007 Julian Phillips checked in `contrib/workdir/git-new-workdir`, a script that symlinks `objects`, `refs`, and `config` into a new directory. He was writing down a habit Junio Hamano already had. The [commit message](https://github.com/git/git/commit/4f01748d51b530c297eeb5a0ece9af923d5db937) carries Junio's caveat whole:
+
+> This risks confusion for an uninitiated if you update a ref that is checked out in another working tree, but modulo that caveat it works reasonably well.
+
+One branch, two directories, and a shared `refs`. Move the branch in one directory and the other directory is standing on a ref that just left.
+
+[Git 2.5.0](https://github.blog/open-source/git/git-2-5-including-multiple-worktrees-and-triangular-workflows/), released 29 July 2015, gave the second checkout its command. Linked worktrees were already in Git by then, doing the job of that symlink script. Nguyễn Thái Ngọc Duy introduced `git worktree` and Eric Sunshine added `git worktree add`, which gives a linked worktree its own `HEAD` and its own index.[^revnews] Git refuses to check out a branch that another worktree already has.[^worktree] The release announcement still called the feature experimental, and `git worktree add` still wanted a path of your choosing. Removing the worktree meant remembering that path. I stayed in one checkout. The agent stayed there with me.
+
+## The Path Was the Tax
+
+`git worktree` will make the second checkout, and then it will ask you where to put it. I built `git wt` so I would stop answering. It lives in [git-aliases](https://github.com/Texarkanine/git-aliases), my collection of small Git utilities.
+
+`git wt go` is the way in, and it is idempotent. You name a branch and land in a worktree whose path comes from the repository and that branch. Name the branch again and you get the same folder. The second run changes nothing.
+
+```
+~/worktrees/<owner>/<repo>/<repo>-<branch>
+```
+
+`git@github.com:octocat/Hello-World.git` on `fix-login` is `~/worktrees/octocat/Hello-World/Hello-World-fix-login`. A slash in the branch name adds a directory level, so `feature/login` becomes `Hello-World-feature/login`. A branch that does not exist yet is created from the commit you are on.
+
+`git wt done` is the way out. The folder is deleted. The branch and the commits stay, so you can throw the directory away. Uncommitted work stops the command. Ignored files go with the directory: a `.env` you never committed, and `node_modules`, leave with the folder. The main checkout, the clone you already had, stays.
+
+`git wt cleanup` is the pile. Every worktree `go` made for this repository, one list, one question: delete it?. Clean ones go. Dirty ones stay. This means you don't have to check every one by hand to see if there's any real work left there.
+
+Because they're *worktrees*, deleting the folder of a clean branch just means you can `git switch ...` to it later, because it's still in your clone's database - just not at that path on disk anymore.
+
+By default it only cleans up *this repository's* worktrees, but `--all` lets you run that sweep for every repository under `~/worktrees`, from any directory.
+
+The rest of the contract is in the [README](https://github.com/Texarkanine/git-aliases/blob/c7cd053/subcommands/git-wt/README.md#where-worktrees-go).
+
+`git wt go` prints a path and leaves your shell where it is. You've still got to `cd` - no process can do that for you.
+
+Well, there is one process that can - your shell! The `git-aliases` have optional shell support, which, when installed with `make shell`, installs a `wt` function for bash and zsh that wraps the helper and changes directory for you. Now you just `wt go <branch>` or `wt done` and it works. Scripts can call `git wt` and `cd` (or perform other necessary operations) on the printed path.
+
+## Cursor's Clock
+
+`git wt cleanup` sees the worktrees you made with `git wt go`. Cursor makes its own worktrees, and it deletes them on another schedule.
+
+Ask in the [IDE](https://cursor.com/docs/configuration/worktrees) with `/worktree`, or on the [command line](https://cursor.com/docs/cli/using) with `agent --worktree`, and the checkout lands under `~/.cursor/worktrees`. Since Cursor 3.5 the editor deletes older entries once the machine passes a documented cap of 25.[^cursorcap]
+
+![Is 25 worktrees a lot?](is-25-worktrees-a-lot.jpg)
+
+So *depending* on the situation, you might want to clean up Cursor's worktrees much sooner than Cursor would get around to it. You'd need to enumerate them all, check to see if each one had any uncommitted work left in it, and... hey, that sounds a lot like what we just built above!
+
+`git wt cleanup +cursor` lumps Cursor's worktrees in with yours. Now you can easily clean up these potentially-languishing folders of potentially-large size!
+
+## Type This
+
+You need `git`, `bash`, and `~/.local/bin` on your `PATH`. `make` helps with the installation but isn't used to actually do the thing.
+
+```bash
+git clone https://github.com/Texarkanine/git-aliases.git
+cd git-aliases
+make
+make shell
+```
+
+Open a new shell so the function is loaded.
+
+```bash
+cd /path/to/your/repo
+wt go fix-login
+```
+
+That puts you in the new folder, on `fix-login`. If the branch did not exist, it does now, forked from whatever you had checked out. Edit, commit, and push the way you already do.
+
+```bash
+wt done
+git branch
+```
+
+You are back in the main checkout. `fix-login` is still in that list. `wt go fix-login` brings the folder back.
+
+When a few of them have piled up:
+
+```bash
+wt cleanup --list
+wt cleanup
+wt cleanup +cursor --list
+wt cleanup +cursor
+```
+
+Read the list... then answer the one question!
+
+## A Lock Is a Lock
+
+`+cursor` had a pile I could find, so I wanted a `+claude` beside it. Same sweep, one more token.
+
+The reason why that didn't work is instructive in reinforcing the reason to use `git wt` *instead* of either harness' own built-in worktree management!
+
+[Claude Code](https://code.claude.com/docs/en/worktrees) can make the worktree for you. `claude --worktree feature-auth` puts it inside the repository, at `.claude/worktrees/feature-auth/`, on a branch named `worktree-feature-auth`. 
+
+> The docs tell you to gitignore that directory, so those files stay out of `git status` in the main checkout.
+
+Whaaat? Doesn't that sound like a colossal, looming footgun?
+
+The location is a real limit. `cleanup --all` finds repositories by reading `~/worktrees`, and with `+cursor` by reading `~/.cursor/worktrees`. Claude's folders sit inside whichever clone you launched from. Once you are in that clone, `git worktree list` shows them. Finding **every clone on a machine** is a whole different ballgame. I could have shipped a flag that works only when you are already there - just don't support `--all` with `+claude`.
+
+The lock is where that plan stopped.
+
+While a session is running, Claude holds `git worktree lock` on the worktree, and `git worktree remove` will not remove a lock. A live session asked the directory to stay.
+
+An interactive session's exit already cleans the worktree up after itself. An unnamed session with no changes is also cleaned up. A named session, or one that still has (uncommitted) work, asks you before it deletes anything. The worktrees that survive are ones that you *chose* to keep.
+
+At least in the moment.
+
+There are two ways that a Claude Code worktree might linger after you want it to:
+
+1. a noninteractive session with a worktree - `claude -p --worktree` - that has since exited.
+2. an interactive session you chose to keep, but have since changed your mind and forgotten about.
+
+And, on disk, those will look indistinguishable from
+
+1. a noninteractive session's worktree whose session is currently running.
+2. an interactive session you chose to keep, *and still want*
+
+We can't tell them apart, so we can't unlock and delete them.
+
+Technically, Claude Code can tell the first one apart because the `git worktree lock` is a file with freeform text content, and Claude Code writes a sentence with a process id in it, which it parses on its own to check if the process is still running. We can't rely on that, as that is not a documented, public interface of Claude Code.
+
+Technically, Cursor would have the same issue in a different flavor with its managed worktrees - it also periodically cleans up worktrees.
+
+In both cases, the answer is simple: Make & manage the worktree yourself, and launch your harness in that directory:
+
+```bash
+wt go feature-auth
+claude
+```
+
+You are already in `~/worktrees/.../<repo>-feature-auth`.
+
+Now your harness "doesn't even" know it's using a worktree - at least, it certainly doesn't think it's supposed to manage them. You're using one tool to manage them both, and so if *you* `git wt done` when you're done, then you know that anything lingering is something you kept on purpose.
+
+And if you're changing your mind and want to abandon some, `git wt cleanup --list --all` can list *all* of them, so you can decide which, if any, should be kept.
+
+## I Used to Clone Into /tmp
+
+You are on a branch, and the work is unfinished. A second task shows up, and it does not belong on this branch. Checking out the other branch means putting this one down: a stash, a commit you are not ready to make, or waiting until the first task is done.
+
+I cloned the repository a second time. The clone often went in `/tmp`. Now the second task had a folder but each clone carried its own copy of the objects, and I had to remember which folder(s) I was allowed to throw away. And where they were!
+
+A worktree from `git wt go` is that second folder without the second clone or detective work. The first branch stays checked out, dirty, where you left it. The second task gets its own checkout and its own branch. A third task gets a third. Six, if you have six tasks. They share one object database. Git refuses to check the same branch out in two of them, so each task sits on a branch of its own[^worktree]... you can't mess it up!
+
+When the task is finished, `wt done` removes the folder and leaves the branch. The name is still there when you run `git branch`. The moment to notice is the itch to wait, or to clone into `/tmp`. That itch is a worktree waiting to sprout.
+
+Once you have opened the second checkout yourself, you can tell an agent to take one instead of editing the branch you are standing on. Cursor's `/worktree` is that ask, as is Claude's own `--worktree`... resist the temptation! `git wt go` keeps your extra disk usage all in one discoverable place.
+
+Worktrees. [Just try the thing!](/2026/08/01/just-try-the-thing.html).
+
+---
+
+## References
+
+[^revnews]: Git Rev News, Edition 5, 8 July 2015. The linked-worktree facility had already landed, more than half a year earlier, to replace `contrib/git-new-workdir`. The same edition names Nguyễn Thái Ngọc Duy for the `git worktree` command and Eric Sunshine for `git worktree add`. Git 2.5.0 shipped on 29 July 2015. <https://git.github.io/rev_news/2015/07/08/edition-5/>
+[^worktree]: Git documentation, git-worktree. Adding a worktree refuses a branch that is already checked out in another worktree. <https://git-scm.com/docs/git-worktree>
+[^lockreason]: A locked Claude Code agent worktree whose reason string was `claude agent agent- (pid 197259)`, for a process that was no longer running. <https://github.com/anthropics/claude-code/issues/57765>
+[^claudesweep]: Claude Code documentation, "Run parallel sessions with worktrees." Since v2.1.210 the sweep releases a lock Claude set for a session whose process has exited. <https://code.claude.com/docs/en/worktrees>
+[^cursorcap]: Cursor documentation, "Worktrees," section "Worktrees cleanup," describing Cursor 3.5 and later. The default `cursor.worktreeMaxCount` is 25 per machine. The settings example sets `cursor.worktreeCleanupIntervalHours` to 6. <https://cursor.com/docs/configuration/worktrees>
+
+## Steal These Status Lines
+
+I want the model, the context window, and the burn rate all on the same row, right below the prompt. [Claude Code](https://code.claude.com/) and the [Cursor CLI](https://cursor.com/docs/cli/overview) both do that the same way: they run a command, pipe session JSON to stdin, and render stdout as a [status line](https://code.claude.com/docs/en/statusline). Plenty of people have one. These are the ones I actually look at, on a Mac and on Linux ([WSL](https://learn.microsoft.com/en-us/windows/wsl/)).
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-statusline-mac.png">
+      <img src="cursor-statusline-mac.png" alt="Cursor Agent, in Ghostty on macOS" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Cursor Agent, in Ghostty on macOS</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-statusline-linux.png">
+      <img src="cursor-statusline-linux.png" alt="Cursor Agent, in MobaXterm on WSL" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Cursor Agent, in MobaXterm on WSL</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="claude-statusline-mac.png">
+      <img src="claude-statusline-mac.png" alt="Claude Code, in Ghostty on macOS" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Claude Code, in Ghostty on macOS</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="claude-statusline-linux.png">
+      <img src="claude-statusline-linux.png" alt="Claude Code, in MobaXterm on WSL" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Claude Code, in MobaXterm on WSL</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The shared row is the same in both harnesses: the model name, a fifteen-cell context bar that runs green to red, an emoji that flips at 20 / 70 / 90 percent (🟢 ⚡ 🔥 🚨), and the repo plus branch when you are in a git tree.
+
+Claude then adds what its payload already has: session cost in dollars, a five-hour rate bar, a seven-day rate bar.
+
+Cursor does not ship session dollars in the status-line payload or the usage API, so that slot is empty on purpose. In its place I pull first-party ([Grok](https://cursor.com/docs/models-and-pricing#cursor-models) and Composer) and third-party (API) plan usage from Cursor's `GetCurrentPeriodUsage` endpoint and cache the result for sixty seconds. [Auto](https://cursor.com/docs/models-and-pricing#auto-modes) is a router with Cost, Balance, and Intelligence modes that bill whichever model they pick, so a stretch of Auto can fill either bar.
+
+| Slot | Claude Code | Cursor CLI |
+|---|---|---|
+| Model | yes | yes |
+| Context bar | yes | yes |
+| Session cost | yes | no |
+| 5-hour / 7-day rate | yes | no |
+| First-party / third-party plan | no | yes |
+| Repo / branch | yes | yes |
+
+You need `bash`, [jq](https://jqlang.github.io/jq/), and `git`. Cursor's plan bars also need `curl` and a signed-in CLI. The bars use 24-bit RGB, so a [truecolor terminal](https://github.com/termstandard/colors) is the difference between a gradient and a muddle.
+
+## The Key Is `statusLine`
+
+The wiring is a JSON object named `statusLine` - capital L. Claude Code reads it from [`~/.claude/settings.json`](https://code.claude.com/docs/en/statusline). Cursor CLI reads it from [`~/.cursor/cli-config.json`](https://cursor.com/docs/cli/reference/configuration). Same shape: `"type": "command"` and a `command` path. Merge that object into the file you already have. Do not replace the rest of the file. If `CURSOR_CONFIG_DIR` or `XDG_CONFIG_HOME` is set, Cursor may be reading a different `cli-config.json`; merge into the file the running CLI actually uses.
+
+Claude Code's block:
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
+}
+```
+
+Cursor CLI's block, including the `padding: 2` I actually run:
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.cursor/statusline.sh",
+    "padding": 2
+  }
+}
+```
+
+That is the whole difference in setup. The scripts below assume those paths: `~/.claude/statusline.sh` and `~/.cursor/statusline.sh`.
+
+## GNU `stat` Is Not BSD `stat`
+
+Claude's script never asks `stat` for a file's mtime, so the Linux copy and the macOS copy are the same file.
+
+Cursor's plan bars cache for sixty seconds, and the Linux copy used [GNU `stat -c %Y`](https://www.gnu.org/software/coreutils/manual/html_node/stat-invocation.html). macOS ships [BSD `stat`](https://ss64.com/mac/stat.html), which wants `stat -f %m`. GNU syntax on a Mac fails, the cache looks stale on every paint, and you refetch more than you meant to.
+
+The macOS script tries GNU first and falls back to BSD:
+
+```bash
+mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null || stat -f %m "$CACHE_FILE" 2>/dev/null) || return 1
+```
+
+The other hole is the token. On Linux, Cursor CLI leaves an access token in `~/.config/cursor/auth.json`. On macOS it puts the same secret in Keychain (`cursor-access-token` / `cursor-user`) and often never writes that file. The Linux script reads the file and gives up. The macOS script tries the file, then Keychain.
+
+Take the GNU script on Linux. Take the BSD script on macOS. The BSD script also runs on Linux - GNU `stat` succeeds on the first try, and the Keychain branch is skipped - but both copies are below so an agent does not have to guess.
+
+The two Cursor scripts differ only in how they read the token and how they call `stat`.
+
+## Steal Them
+
+If you are an agent installing this for a human: pick the harness they are in. Claude Code gets the `statusLine` block for `~/.claude/settings.json` plus the Claude script, saved as `~/.claude/statusline.sh`. Cursor CLI gets the `statusLine` block for `~/.cursor/cli-config.json` plus the GNU script on Linux / WSL or the BSD script on macOS, saved as `~/.cursor/statusline.sh`. Mark the script executable. Merge the JSON object named `statusLine` (capital L). Do not overwrite the rest of the config file.
+
+If you are a human: paste this post at an agent and say which prompt you live in. Or copy the matching fences yourself.
+
+1. Save the script to the path in the heading.
+2. `chmod +x` that path.
+3. Merge the matching `statusLine` object.
+4. Restart the CLI session.
+
+### Claude Code: merge into `~/.claude/settings.json`
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
+}
+```
+
+### Claude Code: `~/.claude/statusline.sh` (macOS and Linux)
+
+```bash
+#!/usr/bin/env bash
+# Claude Code status line: RGB gradient, dynamic emoji, cost, code velocity
+
+input=$(cat)
+
+# ── Colors ──
+CYAN='\033[36m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+MAGENTA='\033[35m'
+DIM='\033[2m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+BAR_WIDTH=15
+
+# ── Truecolor helper ──
+rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
+
+# ── Parse JSON fields ──
+model=$(echo "$input" | jq -r '.model.display_name // "Unknown"')
+used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+cost=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
+rate_5h=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+rate_7d=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // ""')
+
+# ── Git info ──
+branch=""
+repo=""
+if [ -n "$cwd" ]; then
+  branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
+  repo=$(basename "$(git -C "$cwd" --no-optional-locks rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null)
+fi
+
+# ── Bar drawing helper ──
+draw_bar() {
+  local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
+  local pct_int=$(printf '%.0f' "$pct")
+  local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
+  local bar=""
+
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    local pos=$(( i * 100 / (BAR_WIDTH - 1) ))
+    local r=$(( grad_low_r + (grad_high_r - grad_low_r) * pos / 100 ))
+    local g=$(( grad_low_g + (grad_high_g - grad_low_g) * pos / 100 ))
+    local b=$(( grad_low_b + (grad_high_b - grad_low_b) * pos / 100 ))
+
+    if [ "$i" -lt "$filled" ]; then
+      bar="${bar}$(rgb $r $g $b)█"
+    else
+      bar="${bar}\033[38;2;60;60;60m░"
+    fi
+  done
+  printf '%b' "${bar}${RESET}"
+}
+
+# ── Context bar: green→yellow→red ──
+if [ -n "$used" ]; then
+  used_int=$(printf '%.0f' "$used")
+
+  ctx_bar=$(draw_bar "$used_int" 0 200 80 220 20 0)
+
+  if [ "$used_int" -ge 90 ]; then status_emoji="🚨"
+  elif [ "$used_int" -ge 70 ]; then status_emoji="🔥"
+  elif [ "$used_int" -ge 20 ]; then status_emoji="⚡"
+  else status_emoji="🟢"; fi
+
+  if [ "$used_int" -ge 90 ]; then pct_color="$RED"
+  elif [ "$used_int" -ge 70 ]; then pct_color="$YELLOW"
+  else pct_color="$GREEN"; fi
+
+  ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
+else
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
+fi
+
+# ── Rate limit bars: red and purple gradients ──
+rate_bars=""
+if [ -n "$rate_5h" ]; then
+  rate_5h_int=$(printf '%.0f' "$rate_5h")
+  rate_5h_bar=$(draw_bar "$rate_5h_int" 150 50 50 220 0 0)
+
+  if [ "$rate_5h_int" -ge 90 ]; then pct_5h_color="$RED"
+  elif [ "$rate_5h_int" -ge 70 ]; then pct_5h_color="$YELLOW"
+  else pct_5h_color="$GREEN"; fi
+
+  rate_bars="🕐 ${rate_5h_bar} ${pct_5h_color}${rate_5h_int}%${RESET}"
+fi
+if [ -n "$rate_7d" ]; then
+  rate_7d_int=$(printf '%.0f' "$rate_7d")
+  rate_7d_bar=$(draw_bar "$rate_7d_int" 150 80 150 220 80 220)
+
+  if [ "$rate_7d_int" -ge 90 ]; then pct_7d_color="$RED"
+  elif [ "$rate_7d_int" -ge 70 ]; then pct_7d_color="$YELLOW"
+  else pct_7d_color="$GREEN"; fi
+
+  rate_bars="${rate_bars:+$rate_bars }📅 ${rate_7d_bar} ${pct_7d_color}${rate_7d_int}%${RESET}"
+fi
+
+# ── Cost ──
+cost_part="${YELLOW}$(printf '$%.2f' "$cost")${RESET}"
+
+# ── Single line: model | context | cost | rate limits | repo/branch ──
+out="${MAGENTA}🤖 ${model}${RESET}"
+out="${out} ${DIM}|${RESET} ${ctx_part}"
+out="${out} ${DIM}|${RESET} ${cost_part}"
+[ -n "$rate_bars" ] && out="${out} ${DIM}|${RESET} ${rate_bars}"
+
+# Add repo/branch at the end if present
+if [ -n "$repo" ] || [ -n "$branch" ]; then
+  out="${out} ${DIM}|${RESET}"
+  [ -n "$repo" ] && out="${out} ${BOLD}${YELLOW}${repo}${RESET}"
+  [ -n "$branch" ] && out="${out}${repo:+ }${BOLD}${CYAN}🌿 (${branch})${RESET}"
+fi
+
+printf '%b' "$out"
+```
+
+### Cursor CLI: merge into `~/.cursor/cli-config.json`
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.cursor/statusline.sh",
+    "padding": 2
+  }
+}
+```
+
+### Cursor CLI: `~/.cursor/statusline.sh` on GNU / Linux
+
+```bash
+#!/usr/bin/env bash
+# Cursor CLI status line — port of ~/.claude/statusline.sh
+# 5h/7d rate bars → first-party (auto/composer) / third-party (API) plan usage
+
+input=$(cat)
+
+# ── Colors ──
+CYAN='\033[36m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+MAGENTA='\033[35m'
+DIM='\033[2m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+BAR_WIDTH=15
+
+# ── Truecolor helper ──
+rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
+
+# ── Parse JSON fields from statusline payload ──
+model=$(echo "$input" | jq -r '.model.display_name // "Unknown"')
+used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // ""')
+# Prefer payload fields if Cursor ever ships them; else filled from usage cache below
+fp_pct=$(echo "$input" | jq -r '.usage.auto_percent_used // .usage.autoPercentUsed // .planUsage.autoPercentUsed // empty')
+tp_pct=$(echo "$input" | jq -r '.usage.api_percent_used // .usage.apiPercentUsed // .planUsage.apiPercentUsed // empty')
+
+# ── Cached GetCurrentPeriodUsage (first-/third-party plan bars) ──
+# No session cost in Cursor's statusline payload or usage API — dollar slot omitted.
+CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/cursor-statusline-usage.json"
+CACHE_TTL_SEC=60
+AUTH_FILE="${CURSOR_AUTH_FILE:-$HOME/.config/cursor/auth.json}"
+
+refresh_usage_cache() {
+  local token
+  token=$(jq -r '.accessToken // empty' "$AUTH_FILE" 2>/dev/null) || return 1
+  [ -n "$token" ] || return 1
+  mkdir -p "$(dirname "$CACHE_FILE")" 2>/dev/null || true
+  local tmp
+  tmp=$(mktemp "${CACHE_FILE}.XXXXXX" 2>/dev/null) || return 1
+  if curl -sS --max-time 1.5 \
+      -X POST 'https://api2.cursor.sh/aiserver.v1.DashboardService/GetCurrentPeriodUsage' \
+      -H "Authorization: Bearer ${token}" \
+      -H 'Content-Type: application/json' \
+      -H 'Connect-Protocol-Version: 1' \
+      -d '{}' \
+      -o "$tmp" 2>/dev/null \
+    && jq -e '.planUsage' "$tmp" >/dev/null 2>&1; then
+    mv -f "$tmp" "$CACHE_FILE"
+    return 0
+  fi
+  rm -f "$tmp"
+  return 1
+}
+
+cache_fresh() {
+  [ -f "$CACHE_FILE" ] || return 1
+  local age mtime now
+  mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null) || return 1
+  now=$(date +%s)
+  age=$((now - mtime))
+  [ "$age" -lt "$CACHE_TTL_SEC" ]
+}
+
+if ! cache_fresh; then
+  refresh_usage_cache || true
+fi
+
+if [ -f "$CACHE_FILE" ]; then
+  [ -z "$fp_pct" ] && fp_pct=$(jq -r '.planUsage.autoPercentUsed // empty' "$CACHE_FILE" 2>/dev/null)
+  [ -z "$tp_pct" ] && tp_pct=$(jq -r '.planUsage.apiPercentUsed // empty' "$CACHE_FILE" 2>/dev/null)
+fi
+
+# ── Git info ──
+branch=""
+repo=""
+if [ -n "$cwd" ]; then
+  branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
+  repo=$(basename "$(git -C "$cwd" --no-optional-locks rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null)
+fi
+
+# ── Bar drawing helper ──
+draw_bar() {
+  local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
+  local pct_int
+  pct_int=$(printf '%.0f' "$pct")
+  local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
+  [ "$filled" -gt "$BAR_WIDTH" ] && filled=$BAR_WIDTH
+  [ "$filled" -lt 0 ] && filled=0
+  local bar=""
+
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    local pos=$(( i * 100 / (BAR_WIDTH - 1) ))
+    local r=$(( grad_low_r + (grad_high_r - grad_low_r) * pos / 100 ))
+    local g=$(( grad_low_g + (grad_high_g - grad_low_g) * pos / 100 ))
+    local b=$(( grad_low_b + (grad_high_b - grad_low_b) * pos / 100 ))
+
+    if [ "$i" -lt "$filled" ]; then
+      bar="${bar}$(rgb $r $g $b)█"
+    else
+      bar="${bar}\033[38;2;60;60;60m░"
+    fi
+  done
+  printf '%b' "${bar}${RESET}"
+}
+
+# ── Context bar: green→yellow→red ──
+if [ -n "$used" ]; then
+  used_int=$(printf '%.0f' "$used")
+
+  ctx_bar=$(draw_bar "$used_int" 0 200 80 220 20 0)
+
+  if [ "$used_int" -ge 90 ]; then status_emoji="🚨"
+  elif [ "$used_int" -ge 70 ]; then status_emoji="🔥"
+  elif [ "$used_int" -ge 20 ]; then status_emoji="⚡"
+  else status_emoji="🟢"; fi
+
+  if [ "$used_int" -ge 90 ]; then pct_color="$RED"
+  elif [ "$used_int" -ge 70 ]; then pct_color="$YELLOW"
+  else pct_color="$GREEN"; fi
+
+  ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
+else
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
+fi
+
+# ── First-party (auto/composer) + third-party (API) bars ──
+usage_bars=""
+if [ -n "$fp_pct" ]; then
+  fp_int=$(printf '%.0f' "$fp_pct")
+  fp_bar=$(draw_bar "$fp_int" 150 50 50 220 0 0)
+
+  if [ "$fp_int" -ge 90 ]; then pct_fp_color="$RED"
+  elif [ "$fp_int" -ge 70 ]; then pct_fp_color="$YELLOW"
+  else pct_fp_color="$GREEN"; fi
+
+  usage_bars="🏠 ${fp_bar} ${pct_fp_color}${fp_int}%${RESET}"
+fi
+if [ -n "$tp_pct" ]; then
+  tp_int=$(printf '%.0f' "$tp_pct")
+  tp_bar=$(draw_bar "$tp_int" 150 80 150 220 80 220)
+
+  if [ "$tp_int" -ge 90 ]; then pct_tp_color="$RED"
+  elif [ "$tp_int" -ge 70 ]; then pct_tp_color="$YELLOW"
+  else pct_tp_color="$GREEN"; fi
+
+  usage_bars="${usage_bars:+$usage_bars }🌐 ${tp_bar} ${pct_tp_color}${tp_int}%${RESET}"
+fi
+
+# ── Single line: model | context | 1P/3P usage | repo/branch ──
+out="${MAGENTA}🤖 ${model}${RESET}"
+out="${out} ${DIM}|${RESET} ${ctx_part}"
+[ -n "$usage_bars" ] && out="${out} ${DIM}|${RESET} ${usage_bars}"
+
+if [ -n "$repo" ] || [ -n "$branch" ]; then
+  out="${out} ${DIM}|${RESET}"
+  [ -n "$repo" ] && out="${out} ${BOLD}${YELLOW}${repo}${RESET}"
+  [ -n "$branch" ] && out="${out}${repo:+ }${BOLD}${CYAN}🌿 (${branch})${RESET}"
+fi
+
+printf '%b' "$out"
+```
+
+### Cursor CLI: `~/.cursor/statusline.sh` on macOS / BSD
+
+```bash
+#!/usr/bin/env bash
+# Cursor CLI status line — port of ~/.claude/statusline.sh
+# 5h/7d rate bars → first-party (auto/composer) / third-party (API) plan usage
+
+input=$(cat)
+
+# ── Colors ──
+CYAN='\033[36m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+MAGENTA='\033[35m'
+DIM='\033[2m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+BAR_WIDTH=15
+
+# ── Truecolor helper ──
+rgb() { printf '\033[38;2;%d;%d;%dm' "$1" "$2" "$3"; }
+
+# ── Parse JSON fields from statusline payload ──
+model=$(echo "$input" | jq -r '.model.display_name // "Unknown"')
+used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // ""')
+# Prefer payload fields if Cursor ever ships them; else filled from usage cache below
+fp_pct=$(echo "$input" | jq -r '.usage.auto_percent_used // .usage.autoPercentUsed // .planUsage.autoPercentUsed // empty')
+tp_pct=$(echo "$input" | jq -r '.usage.api_percent_used // .usage.apiPercentUsed // .planUsage.apiPercentUsed // empty')
+
+# ── Cached GetCurrentPeriodUsage (first-/third-party plan bars) ──
+# No session cost in Cursor's statusline payload or usage API — dollar slot omitted.
+CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/cursor-statusline-usage.json"
+CACHE_TTL_SEC=60
+AUTH_FILE="${CURSOR_AUTH_FILE:-$HOME/.config/cursor/auth.json}"
+AUTH_FILE_DARWIN="${HOME}/.cursor/auth.json"
+
+get_access_token() {
+  local token f
+  for f in "$AUTH_FILE" "$AUTH_FILE_DARWIN"; do
+    [ -f "$f" ] || continue
+    token=$(jq -r '.accessToken // empty' "$f" 2>/dev/null) || continue
+    [ -n "$token" ] && { printf '%s' "$token"; return 0; }
+  done
+  if [ "$(uname -s)" = "Darwin" ] && command -v security >/dev/null 2>&1; then
+    token=$(security find-generic-password -s cursor-access-token -a cursor-user -w 2>/dev/null) || true
+    [ -n "$token" ] && { printf '%s' "$token"; return 0; }
+  fi
+  return 1
+}
+
+refresh_usage_cache() {
+  local token
+  token=$(get_access_token) || return 1
+  mkdir -p "$(dirname "$CACHE_FILE")" 2>/dev/null || true
+  local tmp
+  tmp=$(mktemp "${CACHE_FILE}.XXXXXX" 2>/dev/null) || return 1
+  if curl -sS --max-time 1.5 \
+      -X POST 'https://api2.cursor.sh/aiserver.v1.DashboardService/GetCurrentPeriodUsage' \
+      -H "Authorization: Bearer ${token}" \
+      -H 'Content-Type: application/json' \
+      -H 'Connect-Protocol-Version: 1' \
+      -d '{}' \
+      -o "$tmp" 2>/dev/null \
+    && jq -e '.planUsage' "$tmp" >/dev/null 2>&1; then
+    mv -f "$tmp" "$CACHE_FILE"
+    return 0
+  fi
+  rm -f "$tmp"
+  return 1
+}
+
+cache_fresh() {
+  [ -f "$CACHE_FILE" ] || return 1
+  local age mtime now
+  mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null || stat -f %m "$CACHE_FILE" 2>/dev/null) || return 1
+  now=$(date +%s)
+  age=$((now - mtime))
+  [ "$age" -lt "$CACHE_TTL_SEC" ]
+}
+
+if ! cache_fresh; then
+  refresh_usage_cache || true
+fi
+
+if [ -f "$CACHE_FILE" ]; then
+  [ -z "$fp_pct" ] && fp_pct=$(jq -r '.planUsage.autoPercentUsed // empty' "$CACHE_FILE" 2>/dev/null)
+  [ -z "$tp_pct" ] && tp_pct=$(jq -r '.planUsage.apiPercentUsed // empty' "$CACHE_FILE" 2>/dev/null)
+fi
+
+# ── Git info ──
+branch=""
+repo=""
+if [ -n "$cwd" ]; then
+  branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
+  repo=$(basename "$(git -C "$cwd" --no-optional-locks rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null)
+fi
+
+# ── Bar drawing helper ──
+draw_bar() {
+  local pct=$1 grad_low_r=$2 grad_low_g=$3 grad_low_b=$4 grad_high_r=$5 grad_high_g=$6 grad_high_b=$7
+  local pct_int
+  pct_int=$(printf '%.0f' "$pct")
+  local filled=$(( (pct_int * BAR_WIDTH + 50) / 100 ))
+  [ "$filled" -gt "$BAR_WIDTH" ] && filled=$BAR_WIDTH
+  [ "$filled" -lt 0 ] && filled=0
+  local bar=""
+
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    local pos=$(( i * 100 / (BAR_WIDTH - 1) ))
+    local r=$(( grad_low_r + (grad_high_r - grad_low_r) * pos / 100 ))
+    local g=$(( grad_low_g + (grad_high_g - grad_low_g) * pos / 100 ))
+    local b=$(( grad_low_b + (grad_high_b - grad_low_b) * pos / 100 ))
+
+    if [ "$i" -lt "$filled" ]; then
+      bar="${bar}$(rgb $r $g $b)█"
+    else
+      bar="${bar}\033[38;2;60;60;60m░"
+    fi
+  done
+  printf '%b' "${bar}${RESET}"
+}
+
+# ── Context bar: green→yellow→red ──
+if [ -n "$used" ]; then
+  used_int=$(printf '%.0f' "$used")
+
+  ctx_bar=$(draw_bar "$used_int" 0 200 80 220 20 0)
+
+  if [ "$used_int" -ge 90 ]; then status_emoji="🚨"
+  elif [ "$used_int" -ge 70 ]; then status_emoji="🔥"
+  elif [ "$used_int" -ge 20 ]; then status_emoji="⚡"
+  else status_emoji="🟢"; fi
+
+  if [ "$used_int" -ge 90 ]; then pct_color="$RED"
+  elif [ "$used_int" -ge 70 ]; then pct_color="$YELLOW"
+  else pct_color="$GREEN"; fi
+
+  ctx_part="${status_emoji} ${ctx_bar} ${pct_color}${used_int}%${RESET}"
+else
+  empty_bar=""
+  for (( i=0; i<BAR_WIDTH; i++ )); do
+    empty_bar="${empty_bar}░"
+  done
+  ctx_part="🟢 \033[38;2;60;60;60m${empty_bar}${RESET} --%"
+fi
+
+# ── First-party (auto/composer) + third-party (API) bars ──
+usage_bars=""
+if [ -n "$fp_pct" ]; then
+  fp_int=$(printf '%.0f' "$fp_pct")
+  fp_bar=$(draw_bar "$fp_int" 150 50 50 220 0 0)
+
+  if [ "$fp_int" -ge 90 ]; then pct_fp_color="$RED"
+  elif [ "$fp_int" -ge 70 ]; then pct_fp_color="$YELLOW"
+  else pct_fp_color="$GREEN"; fi
+
+  usage_bars="🏠 ${fp_bar} ${pct_fp_color}${fp_int}%${RESET}"
+fi
+if [ -n "$tp_pct" ]; then
+  tp_int=$(printf '%.0f' "$tp_pct")
+  tp_bar=$(draw_bar "$tp_int" 150 80 150 220 80 220)
+
+  if [ "$tp_int" -ge 90 ]; then pct_tp_color="$RED"
+  elif [ "$tp_int" -ge 70 ]; then pct_tp_color="$YELLOW"
+  else pct_tp_color="$GREEN"; fi
+
+  usage_bars="${usage_bars:+$usage_bars }🌐 ${tp_bar} ${pct_tp_color}${tp_int}%${RESET}"
+fi
+
+# ── Single line: model | context | 1P/3P usage | repo/branch ──
+out="${MAGENTA}🤖 ${model}${RESET}"
+out="${out} ${DIM}|${RESET} ${ctx_part}"
+[ -n "$usage_bars" ] && out="${out} ${DIM}|${RESET} ${usage_bars}"
+
+if [ -n "$repo" ] || [ -n "$branch" ]; then
+  out="${out} ${DIM}|${RESET}"
+  [ -n "$repo" ] && out="${out} ${BOLD}${YELLOW}${repo}${RESET}"
+  [ -n "$branch" ] && out="${out}${repo:+ }${BOLD}${CYAN}🌿 (${branch})${RESET}"
+fi
+
+printf '%b' "$out"
+```
+
+## Stockroom: Find the Conversation You Half-Remember
+
+Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about "blogging about stockroom," asked from [Claude Code](https://code.claude.com/), about a [Cursor](https://cursor.com/) session I only half-remembered.
+
+Stockroom's [search](https://texarkanine.github.io/stockroom/user-guide/search/) put that Cursor session at rank one. The retrieved plan became the plan for this post.
+
+That is the whole pitch. Your agents have been writing history to disk the whole time. I built [Stockroom](https://texarkanine.github.io/stockroom/) so you can ask about it - from either harness, about either harness - without hoping the vendor's UI still has the thread.
+
+**[Stockroom 1.0 is out.](https://github.com/Texarkanine/stockroom)**
+
+## Your Transcripts, One Warehouse
+
+One local [DuckDB](https://duckdb.org/) file. Full prompts, responses, and tool inputs - kept whole. Truncation is a read-time convenience, never a storage-time loss.
+
+Two ways in:
+
+- **Ask the agent.** Slash-invoke `/sr-search` (Claude: `/stockroom:sr-search`) and let it pick SQL, meaning search, or both. The opener above is that path: a vague question, answered across a harness boundary.
+- **Skip the agent.** After setup, `stockroom query` and the local [dashboard](https://texarkanine.github.io/stockroom/user-guide/dashboard/) work offline. No cloud index of your coding sessions.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">
+      <img src="stockroom-dashboard-top-light.png" alt="Stockroom local dashboard showing session history across harnesses" width="600" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Stockroom dashboard</div>
+    <div class="polaroid-link">
+      
+      <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">texarkanine.github.io/stockroom/user-guide/dashboard/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260812011108/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+**It backfills.** Harness formats come and go; Stockroom reads what is still on disk, including formats the vendors already abandoned. On this machine the warehouse holds a bit over 113,000 messages across Cursor and Claude Code, reaching back to September 2025 - months before Stockroom's first commit in June 2026. The cameras were running. Stockroom just lets you re-watch the tapes.
+
+That "pays backwards" feeling is what [Just Try the Thing](/2026/08/01/just-try-the-thing.html) was pointing at: agents can use work from *before* the warehouse existed, because the raw logs were already on disk. [Disintegration of Persistence of Memory.md](/2026/08/03/disintegration-of-persistence-of-memory-md.html) puts the same store on the memory ladder as rung five - security-camera footage for *how* and *why*, not a notepad you hope somebody kept tidy. Those posts argue the need. This one is the install.
+
+Cursor and Claude Code share one schema. Every table already carries `harness` as a first-class column, so another ingest path later is additive - not a rewrite dressed up as a feature. I may add more harnesses; I may not. Day one already speaks two.
+
+## From Zero to /sr-search
+
+1. Add the [txrk9-agent-plugins](https://github.com/Texarkanine/txrk9-agent-plugins) marketplace, then install the `stockroom` plugin from it.
+2. **Cursor only:** enable **Include third-party Plugins, Skills, and other configs** (Settings → Rules, Skills, Subagents). Plugin hooks do not register without it.
+3. Run first-time setup:
+   - Cursor: `/sr-initialize`
+   - Claude Code: `/stockroom:sr-initialize`
+4. Ask about past work, or slash-invoke search:
+
+```text
+/sr-search "What was the most-recent time I had to correct an agent's behavior?"
+```
+
+`sr-initialize` provisions the per-machine torch wheel (for meaning search), puts `stockroom` on your PATH, offers nightly ingest+embed, and runs the first full ingest. Re-runs are safe: it re-probes and only does what is still missing.
+
+Full walkthrough, including what landed on disk and what to try next: the [Quickstart](https://texarkanine.github.io/stockroom/user-guide/quickstart/).
+
+## Open Source, Tagged 1.0.0
+
+Stockroom is open source under AGPL-3.0 at [github.com/Texarkanine/stockroom](https://github.com/Texarkanine/stockroom). Docs live at [texarkanine.github.io/stockroom](https://texarkanine.github.io/stockroom/). [v1.0.0](https://github.com/Texarkanine/stockroom/releases/tag/v1.0.0) just shipped; the marketplace plugin path above pulls current.
+
+If you half-remember a conversation and wish either agent could find it:
+
+```text
+/sr-search "blogging about stockroom"
+```
+
+Worst case, you learn what your warehouse does not have yet. Best case, last month answers.
+
+## The Suite Life of Bobs and Code
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://x.com/rfleury/status/2047002777256391026" target="_blank" rel="noopener">
+      <img src="slobac-beyond-parody.png" alt="The acceleration from AI is unbelievable..." width="500" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">&nbsp;</div>
+    <div class="polaroid-link">
+      
+      <a href="https://x.com/rfleury/status/2047002777256391026" target="_blank" rel="noopener">x.com/rfleury/status/2047002777256391026</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+The [original post](https://x.com/housecor/status/2046619506626199791) got somewhat clowned on in a lot of its interactions, and it got me thinking... 
+
+![Who else do I know with a massive AI-generated test suite?](slobac-who-that-for.jpg)
+
+... that's right, I **also** have a couple massive AI-generated test suites that probably actually do gate quality but also are absolutely not pretty. They're probably pretty good, though - but are they **beyond parody?**
+
+Unless P=NP, it's easier to verify than to execute, so it *should* be at least as easy for an AI to *clean up those test suites* as it was to write them.
+
+Software testing has been one of my nitpicky passions for over a decade: every company I've worked for has had their internal knowledge base - be it Confluence, Backstage, or something else - blessed with at least *one* polemic on what good tests are, what bad tests are, and how to not mess it up.
+
+So, what does an AI need in order to clean up a test suite?
+
+```mermaid
+flowchart LR
+    subgraph Goals
+        direction TD
+        find("Find bad tests")
+        design("Design better tests")
+        fix("Safely modify the test suite")
+    end
+
+    knowbad["Know what bad tests look like"]
+    knowgood["Know what good tests look like"]
+    knowwhere["Know where to put fixed tests"]
+    readall["`Read **all** the tests`"]
+        shard["Sharded reads"]
+    
+    find --> readall
+    readall --> bigcontext
+    readall --> shard
+    shard --> how2search
+    
+    find --> knowbad
+    knowbad --> smartmodel
+
+    design --> knowgood
+    design --> knowwhere
+    knowgood --> smartmodel
+    
+    fix --> how2refactor
+    knowgood --> principles
+    knowbad --> taxonomy
+
+    subgraph Requirements
+        subgraph "System Requirements"
+            direction TD
+            how2refactor[/"📃Well-defined Workflow for refactoring"/]
+            how2search[/"📃 Well-defined workflow for scouring test suite"/]
+            principles[/"📚 Principles of good tests"/]
+            taxonomy[/"📚 Taxonomy of test smells"/]
+        end
+
+        subgraph "User Requirements"
+            direction LR
+            bigcontext["Big context windows"]
+            smartmodel["Frontier reasoning"]
+        end
+    end
+```
+
+So we're going to need users to have access to
+
+1. Frontier reasoning models
+2. Big context windows
+
+and we're going to need to build:
+
+1. A document on what makes a good test
+2. A document on what makes a bad test
+3. A workflow for finding bad tests
+4. A workflow for authoring and inserting improved tests
+
+Those are all pretty straightforward (bikeshed opportunities notwithstanding), except perhaps #4 - how to safely refactor a test suite.
+
+## Don't Break the Coverage
+
+If we're going to be changing test suites, there's a real risk that we might materially change the behavior that's protected by the test suite. How do we ensure - or at least try to ensure - that we make *safe* changes to the test suite?
+
+Two guiding principles:
+
+1. Only touch the tests; the production code is now your test suite
+2. [Mutation Testing](https://en.wikipedia.org/wiki/Mutation_testing)
+
+Now I don't expect anyone who's got a morass of AI-generated tests and is not already doing mutation testing to **start** doing mutation testing just to be able to apply some test cleanup, so we'll have to build a process that *can* work safely without it.
+
+## The Suite Life of Bobs and Code
+
+The four core deliverables are, well, *delivered* in SLOBAC:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">
+      <img src="slobac.jpg" alt="SLOBAC: The Suite Life of Bobs and Code" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">SLOBAC: The Suite Life of Bobs and Code</div>
+    <div class="polaroid-link">
+      
+      <a href="https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">texarkanine.github.io/slobac/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260801203812/https://texarkanine.github.io/slobac/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+1. A [manifesto on what makes a good test](https://texarkanine.github.io/slobac/principles/test-qualities/)
+2. A [taxonomy of different patterns of bad tests](https://texarkanine.github.io/slobac/taxonomy/), tied to the "good test" principles they violate
+3. [Principles](https://texarkanine.github.io/slobac/principles/refactor-qualities/) of, and [processes](https://texarkanine.github.io/slobac/principles/workflows/) for, safely modifying a test suite
+4. An [agentic workflow](https://github.com/Texarkanine/slobac/blob/main/skills/slobac-audit/SKILL.md) (in the form of an [Agent Skill](https://agentskills.io)) to execute an audit
+
+## Dogfooding it
+
+I've tried it on two of my projects that I knew had extensive AI-generated test suites:
+
+**ai-rizz**
+
+[ai-rizz](https://github.com/texarkanine/ai-rizz) is a tool for managing Cursor rules and skills. It's what I use to manage the distribution and synchronization of AI agent customizations across *my* repositories. It's a single monolithic shell script with a bunch of [shunit2](https://github.com/kward/shunit2) tests.
+
+* [One initial, tiny test-run](https://github.com/Texarkanine/ai-rizz/commit/3d2d22c1fdcdbdd13e24b12b718863d500dbf1ee)
+* [A second, full cleanup run](https://github.com/Texarkanine/ai-rizz/compare/85f598e651efd77e81fd21ccc36a0bc487b2cae8...01fd41a841526a8819f04a96b675c8aab0d7dfcc)
+
+**a16n**
+
+[a16n](https://github.com/Texarkanine/a16n) is a tool for converting AI agent customizations between harnesses (e.g. Cursor ↔ Claude Code). It's a multi-package typescript monorepo with a *ton* of tests - unit, integration, and end-to-end.
+
+* [One initial, tiny test-run](https://github.com/Texarkanine/a16n/commit/98b616a0f0bf0110569e8bd25f42cf5fc323c662)
+* [A second, full cleanup run](https://github.com/Texarkanine/a16n/compare/d84fba171083df71d821ba705aeab04161ecea38...fb1df37bfb997b63c2b826bb571480d8a2b75110)
+
+### Audit Results
+
+I was surprised to see it take around 30 minutes for the (heavyweight, high-effort) models to process each test suite. I hadn't expected so much time! The report it generated was good *but* definitely not complete. It seems that even with huge context windows and sharding out to subagents so that no context compaction happened, some suites are too big to catch everything in one go.
+
+That's fine, though - run it again and it should find some of the leftovers, and you just repeat until it stabilizes or you're happy.
+
+I also tried running an audit with different models:
+
+* Cursor's [Auto](https://cursor.com/docs/models-and-pricing#auto-composer-pool)
+* Cursor's [Composer 2](https://cursor.com/blog/composer-2)
+* GPT-5.5
+* Grok 4.3
+
+just to see if there were major differences. Auto and Composer - both "not high-effort frontier models" - found the fewest issues, and there were significant quality issues with their findings. This was expected - those models both cap at Cursor's default 200k context window, and neither is a high-effort, frontier reasoning model.
+
+The others, though, mostly matched the benchmark of Claude Opus 4.7 (high effort) - 15 findings +/- ~3 or so, most of them the same diagnosis of the same location in the codebase.
+
+So, SLOBAC *should* work with any high-effort, frontier model with a large context window - good!
+
+### Audit Idiosyncrasies
+
+One problem I noticed was that when I fed the audit into an agent to address the issues, it tended to put its own, new [deliverable-fossils](https://texarkanine.github.io/slobac/taxonomy/deliverable-fossils) into the tests it was fixing! This suggests there's an opportunity to hook into agent's test-authoring process (whether part of processing a SLOBAC audit or not) to inject some guards against common test-authorship antipatterns that are cheaper to preclude up-front, than fix *ex-post-facto*.
+
+Of course, that isn't *exactly* what SLOBAC was for - it was for the extant test suites that were *not* created with such rigor. Scope creep, or opportunity? I'm not sure yet. If nothing else, it makes it more difficult to run repeated audits on the same codebase to progressively stabilize. I'll have to audit and fix some more codebases to develop a better sense of where and how to address that.
+
+## a16n: Take Your Agent Customization Anywhere
+
+You've spent weeks tuning your AI coding agent. Rules for how it handles your React components. Skills for your deployment workflow. Ignore patterns so it stays out of generated code. Slash commands for common operations. It all works beautifully.
+
+Then your team gets Claude Code licenses. Or you want to try Cursor on a side project. Or half your team uses one tool and half uses the other.
+
+Your choices: re-create everything by hand, or lose it.
+
+I built [a16n](https://github.com/Texarkanine/a16n) so neither has to happen.
+
+## What It Does
+
+```bash
+npx a16n convert --from cursor --to claude
+```
+
+That reads your Cursor rules, skills, commands, and ignore patterns, and writes equivalent Claude Code configuration. The reverse works too:
+
+```bash
+npx a16n convert --from claude --to cursor
+```
+
+Your carefully-crafted agent setup comes with you. One command, both directions.
+
+## Getting Started
+
+No install required. `npx` handles it:
+
+```bash
+# See what you have (without changing anything)
+npx a16n discover --from cursor
+
+# Preview the conversion
+npx a16n convert --from cursor --to claude --dry-run
+
+# Do it for real
+npx a16n convert --from cursor --to claude
+```
+
+That's the whole recipe. Three commands: inspect, preview, convert.
+
+If you want it permanently:
+
+```bash
+npm install -g a16n
+```
+
+## What Converts
+
+a16n understands six kinds of agent customization:
+
+| What | Cursor | Claude Code |
+|------|--------|-------------|
+| **Global prompts** | `alwaysApply: true` rules | `CLAUDE.md`, `.claude/rules/*.md` |
+| **File rules** | `globs: [...]` rules | `.claude/rules/*.md` with `paths:` |
+| **Skills** | Rules with `description:`, `.cursor/skills/` | `.claude/skills/*/SKILL.md` |
+| **Manual prompts** | `.cursor/commands/*.md` | Skills with `disable-model-invocation` |
+| **Ignore patterns** | `.cursorignore` | `permissions.deny` |
+| **Full skill packages** | [AgentSkills.io](https://agentskills.io) format | AgentSkills.io format |
+
+Things that translate cleanly just translate. Things that can't (like Claude's hooks, or Cursor commands that use `$ARGUMENTS`) get skipped with a clear warning telling you why. No silent data loss.
+
+## Beyond Two Tools
+
+a16n isn't hardwired to Cursor and Claude. It uses a plugin architecture: each tool is a plugin that knows how to read and write its own format. Cursor and Claude are built in. More can be added.
+
+There's also a neutral format - the a16n IR - that you can convert to and from:
+
+```bash
+# Store your config in a tool-agnostic format
+npx a16n convert --from cursor --to a16n
+
+# Render it for any supported tool
+npx a16n convert --from a16n --to claude
+```
+
+This makes a16n useful as a hub. Maintain one canonical set of agent customization and generate tool-specific configuration on demand - per developer, per project, per CI run.
+
+Third-party plugins are auto-discovered from npm. If a package is named `a16n-plugin-*` and implements the plugin interface, `a16n` will find it. There's already one: [a16n-plugin-cursorrules](https://www.npmjs.com/package/a16n-plugin-cursorrules) adds support for the legacy `.cursorrules` format:
+
+```bash
+npm install -g a16n-plugin-cursorrules
+npx a16n convert --from cursorrules --to cursor
+```
+
+## Useful Flags
+
+A few things that came up during real use:
+
+**Separate read/write directories.** Read from one project, write to another:
+
+```bash
+npx a16n convert --from cursor --to claude --from-dir ./proj-a --to-dir ./proj-b
+```
+
+**Path reference rewriting.** If your rule content references file paths (like `.cursor/rules/auth.mdc`), a16n can rewrite those references to point to the new locations:
+
+```bash
+npx a16n convert --from cursor --to claude --rewrite-path-refs
+```
+
+**Source cleanup.** Delete the source files after conversion (only if they were fully consumed - partially-converted sources are preserved):
+
+```bash
+npx a16n convert --from cursor --to claude --delete-source
+```
+
+**Git integration.** Control whether output files are tracked or ignored:
+
+```bash
+npx a16n convert --from cursor --to claude --gitignore-output-with match
+```
+
+## The Name
+
+a16n is a numeronym, like i18n (internationalization) or l10n (localization). Smash "agent customization" together and count the letters between the first and last: a-[gentcustomizatio]-n. Sixteen. It's short, it's `npm`-able, and it was available.
+
+## Status
+
+a16n is [on npm](https://www.npmjs.com/package/a16n) at v0.13.0. I've been running it in my own workflow for a couple of weeks without incident. The [documentation](https://texarkanine.github.io/a16n/) covers the CLI, conversion semantics, and plugin development.
+
+It's open source under AGPL-3.0 at [github.com/Texarkanine/a16n](https://github.com/Texarkanine/a16n). Contributions welcome - especially plugins for tools I don't use. If you're curious about how it got built, there's a [companion diary](/2026/03/13/seven-weeks.html).
+
+If you have agent customization in one tool and wish you had it in another, give it a try:
+
+```bash
+npx a16n convert --from cursor --to claude --dry-run
+```
+
+The worst that happens is you see what would change.

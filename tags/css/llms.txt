@@ -1,0 +1,8 @@
+# css
+
+> Tag: css
+
+## Posts
+
+- [The House Goes Critical](https://blog.cani.ne.jp/2026/09/07/the-house-goes-critical.md): Why most anime UI recreations feel hollow, how we mapped dual-WAN syslog failover onto the NERV alert cascade, and what happens when an outage turns your home dashboard blood red.
+- [Pull the Thread](https://blog.cani.ne.jp/2026/03/23/pull-the-thread.md): Four broken diagrams, six hours, three gem releases, and a reading progress bar I wasn't planning to build.

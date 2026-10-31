@@ -1,0 +1,1635 @@
+# research
+
+## Taxonomizing AI Acceptance
+
+People keep announcing where they stand on AI-generated content. This page collects interesting such announcements that I've stumbled across, and files them into a roughly-continuous taxonomy.
+
+The positions taken aren't always exclusively about software-engineering, but that's my industry and I do agree that [Code Goes First](https://sundaylettersfromsam.substack.com/p/code-goes-first) so we see it a lot. Writing, e-mails, images and video all make appearances here, too: this is about the thinking machines writ large.
+
+It files positions, not people. A person can take one position one day, another the next, and that's great, actually! I don't plan to stalk all these sources and keep up to date on what they do, but if I notice a change, I'll move their history to the category I think they're *currently* in. The things each of them has said about each stance they've taken should be far more interesting than the people themselves and where they stand today... this is a phenomenon, not a Pokedex.
+
+The argument that produced this taxonomy - what these positions *are*, where we've seen them before, and what I predict they do next - is in [The Software-Engineering Amish](/2026/10/28/software-engineering-amish.html). This page is the curio shelf, displaying the slice of the world that was interesting to me, as I encountered it.
+
+## The Taxonomy
+
+| Position | Who draws the line | How absolute | The tell |
+| --- | --- | --- | --- |
+| **Amish** | A community, binding its members | Set by the community, with a stated threshold | A vote, a policy, or a house rule you accept by staying |
+| **Old Order** | An individual | Near-total, for their own work | They write it by hand, with at most a named exception or two |
+| **Mennonite** | An individual | Partial, with a practicable clause | A line at one kind of use, and stated uses on the other side of it |
+| **Luddite** | An individual, aimed at everyone | Aimed at changing the world, not just their own practice | Organize, regulate, refuse in public, persuade others to stop |
+| **Romantic** | Nobody - the line has already moved past them | Not a rule, a grief | They have accepted the new order and are mourning the old one |
+| **English** | Nobody | No line | Full adoption, no stated boundary, enthusiasm - the Amish word for the rest of us |
+
+The names are borrowed on purpose. The real Amish are selective, slow adopters who decide as a community what to allow - Kevin Kelly spoke of [Amish hackers](https://kk.org/thetechnium/amish-hackers-a/) - and the real Luddites had specific asks about wages and the pace of specific machines, not a war on machinery itself. The [Romantics](https://en.wikipedia.org/wiki/Romanticism) here are the nineteenth-century kind, mourning handcraft from inside the industrial England that replaced it. The colloquial versions of these words are the archetypes; the historical ones are more useful.
+
+## Amish
+
+A community draws the line and binds its members to it. The drawn line becomes a defining characteristic of the community as members choose to either abide and stay, or reject and leave.
+
+---
+
+> We are a place for people to collaborate and improve software together. Within this context, the recent votes can be understood as a reconfirmation of those principles: As we want to center on human collaboration, we will not actively support or engage in the creation of LLMs and will not put our limited resources to use for storing single-use software that would pollute our FLOSS commons.
+> <br><br>
+> -- Bastian Greshake Tzovaras, Otto Richter, and William Zijl (Codeberg), [Protecting our FLOSS commons from LLMs](https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html), July 23, 2026
+
+The members voted 358 to 144 for the rules this quote argues for - majority threshold, member-sourced and deliberate.
+
+---
+
+> It's fine to use LLMs to answer questions, analyze, distill, refine, check, suggest, review. But not to **create.**
+> <br>[...]<br>
+> We treat PRs as an indication that someone is interested in joining our community and being mentored to work on future PRs.
+> <br><br>
+> -- Jynn Nelson (for rust-lang/rust), [rust-lang/rust is adopting an LLM policy](https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/), August 5, 2026
+
+The line is drawn around review and disclosure, because a polished PR no longer carries that signal on its own. The rule is downstream of the values the community wants to uphold.
+
+---
+
+> The long story short, if your project uses AI, is made by AI, or is intended for AI, it's not welcome on r/opensource. AI, as it exists today, is incongruent to this Open Source community.
+> <br><br>
+> -- Wolvereness (r/opensource), [Your tokens aren't valuable: No more AI](https://www.reddit.com/r/opensource/comments/1xelcuf/your_tokens_arent_valuable_no_more_ai/), October 24, 2026
+
+A moderator decree, not a member vote - same position as Codeberg, opposite procedure.
+
+## Old Order
+
+An individual draws a near-total line for their own work.
+
+---
+
+> When I code, I don't use AI and I don't even use code completion, this post is about why not. [...] When you code without AI and without code completion you eventually remember much by heart and you become good at looking things up directly in the relevant documentation, and this is really important. [...] Always grabbing the easy way out is never good if what you're doing is important to you or others.
+> <br><br>
+> -- unixdigest, [The reason why i don't use AI or even code completion](https://unixdigest.com/articles/the-reason-why-i-dont-use-ai-or-even-code-completion.html), May 1, 2025
+
+A near-total personal line extending even to IDE autocomplete, on the analogy of memorizing phone numbers: convenience atrophies the muscle of reading documentation directly and internalizing syntax.
+
+---
+
+> I choose to avoid using "AI" (by which I mean Large Language Models). Here's why: they have a devastating environmental impact, they are trained by exploiting and traumatising millions of low-paid workers, they produce biased and dangerously incorrect results, and they unfairly use people's creative work.
+> <br><br>
+> -- Andy Balaam, [Why I don't use AI](https://artificialworlds.net/blog/2025/12/16/why-i-dont-use-ai/), December 16, 2025
+
+The ethical case, stated as a list and argued at length.
+
+---
+
+> I have, to date, not used any AI coding tools, at all. I've actively removed them from my IDE. I don't want them. Not just because of questions of their quality (still lower than a human), or because I will miss writing elegant code (I know I will), but because I want my daughter to have a future, and a planet on which to live. Because I actually do care about respecting copyright. But, at this point, it's become obvious that I have to either compromise on that, or leave tech entirely. And every time I think about that, I get angry.
+> <br><br>
+> -- Larry Garfield, [Selfish AI](https://www.garfieldtech.com/blog/selfish-ai), February 1, 2026
+
+He actively stripped AI tools from his editor out of environmental, copyright, and ethical convictions. His post captures the exact friction of holding an Old Order line as the mainstream defaults shift: the agonizing realization that the collective surrender to "it is what it is" leaves individual holdouts facing a forced choice between ethical compromise and leaving the tech industry entirely.
+
+---
+
+> The thing is that even if I was wrong (I'm not) and AI was somehow helpful for software engineering (it isn't), I still wouldn't want to use it.
+> 
+> Might I be wrong? I don't know, maybe? Might I be left behind in my industry? I guess, but I don't think it's likely. But honestly I would rather be wrong and left behind than spend my days prompting an AI to do my chosen ***craft***, something I love.
+> <br><br>
+> -- Anthony Manning-Franklin, [I Will Never Use AI to Code (or write)](https://antman-does-software.com/i-will-never-use-ai-to-code-or-write), March 4, 2026
+
+---
+
+> For example, I've got these color-changing lights. They speak a protocol I've never heard of, and I have no idea where to even begin. I could spend a month digging through manuals and working it out from scratch - or I could ask an LLM to write a client library for me. The security consequences are minimal, it's a constrained use case that I can verify by hand, and I wouldn't be pushing tech debt on anyone else. I still write plenty of code, and I could stop any time. What would be the harm?
+>
+> Right?
+>
+> ... Right?
+> <br><br>
+> -- Kyle Kingsbury, [The Future of Everything is Lies, I Guess: Where Do We Go From Here?](https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here), April 16, 2026
+
+He says he's never used an LLM for his writing, software, or personal life, and in the [Work installment](https://aphyr.com/posts/418-the-future-of-everything-is-lies-i-guess-work) two days earlier wrote that he is "not confident I will hold out forever." Still Old Order for now, with the exact shape of a possible move to Mennonite already on the page.
+
+---
+
+> To put it simply: I do not like this world where people are using AI to generate art, music, writing, and software. So I will not use AI.
+> <br><br>
+> -- Brett, [I'm done using AI](https://brettcodes.com/im-done-using-ai/), August 10, 2026
+
+Twenty years of programming, eighteen months of Claude Code and similar harnesses, then none. His post closes: "Here's to writing code by hand." A migration - English to Old Order - in his own words.
+
+---
+
+> When people claim that it's no longer sustainable to write code by hand, they're not entirely wrong, but only in the same way that it's no longer sustainable to sleep in a bed once someone has taken a shit in it. You want changes? Go ask your agent or something. I'm told that's what you're supposed to do now. I'm out.
+> <br><br>
+> -- Paul Battley (po-ru), [Why I'm no longer updating this repository](https://po-ru.com/2026/10/18/why-im-no-longer-updating-this-repository), October 18, 2026
+
+He archived his Ruby gems rather than keep contributing to a commons he takes to be strip-mined, after his companion post, "[All our houses are built on sand now](https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now)" (October 7, 2026), found disclosed LLM commits already in the C compilers underneath every language toolchain.
+
+## Mennonites
+
+An individual draws a line with a practicable clause - this far, for these uses, and no farther.
+
+---
+
+> I chose to make using AI a manual action, because I felt the slow loss of competence over time when I relied on it, and I recommend everyone to be cautious with making AI a key part of their workflow.
+> <br><br>
+> -- Luciano Nooijen, [Why I stopped using AI code editors](https://lucianonooijen.com/blog/why-i-stopped-using-ai-code-editors/), April 1, 2025
+
+He removed AI from his editors and still uses LLMs occasionally, by hand, on purpose. The line is at the editor integration, not at the tool. He tried the English approach and found it not to his taste, settling back at a more deliberate, limited use.
+
+---
+
+> I'm defaulting to pen and paper, I'm defaulting to coding the first draft of that function on my own. [...] I'm writing the plan. I'm the senior dev. The LLM is the assistant.
+> <br><br>
+> -- Alberto Fortin (via Simon Willison), [After months of coding with LLMs, I'm going back to using my brain](https://simonwillison.net/2025/May/20/after-months-of-coding-with-llms), May 20, 2025
+
+Cut back rather than quit, after LLM-driven rewrites produced a codebase he compared to ten junior developers locked in a room without seeing each other's work.
+
+---
+
+> Now, I would be lying if I said I didn't use LLMs to generate code. I still use Claude, but I do so in a more controlled manner. I copy-paste files that I think are necessary to provide the context, and then I copy-paste code and ask it to make changes to it or write tests for it. This friction has several benefits. [...] It turns code generation from a passive action to a deliberate thoughtful action. It also keeps my brain engaged and active, which means I can still enter the flow state.
+> <br><br>
+> -- Abhinav Omprakash, [I Am Happier Writing Code by Hand](https://www.abhinavomprakash.com/posts/i-am-happier-writing-code-by-hand/?ref=birchtree.me), February 7, 2026
+
+He deleted Claude Code three times after finding that full-agent vibe coding left him with lethargy and brain fog, rediscovering the joy of coding by hand each time. He now restricts LLMs to manual, deliberate copy-pasting for small diffs and test cases - drawing the line at agentic automation to preserve engagement and flow.
+
+---
+
+> Given the freedom to choose, I’d probably pick a middle path: use LLMs to generate boilerplate code, write tricky test cases, debug nasty issues I can’t think of, and quickly prototype ideas to test. I’m not an AI vegan.
+>
+> But when it comes to code I write for myself—which includes the code that runs this website—I’m going to continue writing it myself, line by line, like I always did.
+> <br><br>
+> -- Ankur Sethi, [I'm no longer using coding assistants on personal projects](https://ankursethi.com/blog/coding-assistants-personal-projects/), April 4, 2026
+
+He types every line of his current Django project himself, still uses Claude Code as a search engine and debugger, and follows his clients' rules at work. The line runs between personal and client work.
+
+---
+
+> I use AI tools sparingly for assistance while refactoring code in languages I understand. I occasionally use it to help compose command line arguments for tools like `ffmpeg`. I never use AI to generate images, video, or prose.
+> <br><br>
+> -- Ky Decker, [Do I belong in tech anymore?](https://ky.fyi/posts/ai-burnout), April 24, 2026
+
+Right after that paragraph, the post notes that AI "feels inescapable," and closes on a five-line creed ("Things that are worth doing are worth doing well... There are no shortcuts"). The creed is absolute; the clause above is why it files here and not one section up.
+
+---
+
+> For programming, I ask it how to do things I don't know how to do. Then I use what I've learned in my own code.
+> <br><br>
+> -- Derek Sivers, [AI usage](https://sive.rs/ai), updated September 28, 2026
+
+The line sits between asking and generating. The same update adds that he has started using Codex to write unit tests against functions he wrote his way - the "practicable clause," widening in public.
+
+## Luddites
+
+The historical kind: not just a private practice, but an attempt to change the terms for everyone.
+
+---
+
+> Please stop legitimizing LLMs or AI image generators or GitHub Copilot or any of this garbage. I am begging you to stop using them, stop talking about them, stop making new ones, just stop.
+> <br><br>
+> -- Drew DeVault, [Please stop externalizing your costs directly into my face](https://drewdevault.com/blog/Stop-externalizing-your-costs-on-me/), March 17, 2025
+
+A direct public appeal, on a bill of costs: carbon, freshwater, traumatized labor, scraped work, miserable sysadmins.
+
+---
+
+> What’s hardened are my views on the tech industry, software, management, and influential members of the software developer ecosystem. [...] The more I wrote about generative models, the more appalled I became at the response from the industry, to both my writing and that of others actively highlighting the risks. Few people who have any influence in tech and software seem to care about the harms, the political manipulation, the outright sabotage of education, the association with extremism, or the *literal* child abuse.
+> <br><br>
+> -- Baldur Bjarnason, [Have I hardened against LLMs?](https://www.baldurbjarnason.com/2026/have-i-hardened-against-ai/), February 9, 2026
+
+Author of *The Intelligence Illusion*, where he describes ChatGPT as "the opposite of good software." For Bjarnason, the downside comprehensively outweighs the upside, and his critique is aimed squarely at an industry and management culture willing to ignore systemic harms, labor exploitation, and software insecurity for the sake of an unproven productivity bump.
+
+---
+
+> Each day we delay the advancement of ML models buys time to learn how to manage technical debt and errors introduced in legal filings. Another day to prepare for ML-generated CSAM, sophisticated fraud, obscure software vulnerabilities, and AI Barbie. Another day for workers to find new jobs.
+> <br><br>
+> -- Kyle Kingsbury, [The Future of Everything is Lies, I Guess: Where Do We Go From Here?](https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here), April 16, 2026
+
+Refuse, organize, regulate - as delay, openly conceded not to be a stop. Same person as the Old Order entry above, different position, which is the point of filing positions instead of people.
+
+---
+
+> The precisely appropriate ways in which to resist AI encroachment on all software development lie well beyond the margins of this one short post. How much you can resist and which specific uses you should resist are up to you. But it is worth resisting in software just as much as it would be worth resisting in any creative medium.
+> <br><br>
+> -- Glyph, [Programming Isn't Special](https://blog.glyph.im/2026/10/programming-isnt-special.html), October 9, 2026
+
+Draws on John Berger's *Ways of Seeing* to argue that programming - even mundane workday code - is art, and that handing the mundane work to AI removes the practice required to ever make great things.
+
+---
+
+> If we can mitigate the effects that LLMs have on us and reduce the filtering burden, we can, more likely than not, simply outcompete LLM users. After all, LLMs, as we've previously established, are mostly useful to people who are not good at what they do: weak players in our socioeconomic game.
+> <br><br>
+> -- Iris Meredith, [There's little that's "inevitable" about AI](https://deadsimpletech.com/blog/llms-arent-inevitable), October 10, 2026
+
+Models LLMs not as gunpowder (adopt or be conquered) but as battlefield chemical weapons: useful only to weak players fighting weak players, and neutralizable by regulation, economics, and social opprobrium. Earlier in the year, she spent a week testing coding agents for "[My week with opencode](https://deadsimpletech.com/blog/week-with-opencode)" (January 13, 2026), where she stood at the Mennonite/Old Order boundary - willing at most to "keep a pet local model around to provide input whenever brain-rotted slop is required" and unwilling to release LLM code to the public.
+
+## Romantics
+
+No line left to draw. The diagnosis is accepted, and what remains is grief for the craft as it was - the 1812 hand-loom weaver who has consented to the mill and is mourning the loom.
+
+---
+
+> Writing code by hand gave me the pace of thought I needed to understand a problem deeply.
+> <br><br>
+> -- Alex Kondov, [Confessions of a Code Monkey](https://thethinkingbuilder.substack.com/p/confessions-of-a-code-monkey), January 23, 2026
+
+---
+
+> Someday years from now we will look back on the era when we were the last generation to code by hand. We'll laugh and explain to our grandkids how silly it was that we typed out JavaScript syntax with our fingers. But secretly we'll miss it.
+> <br><br>
+> -- Nolan Lawson, [We mourn our craft](https://nolanlawson.com/2026/02/07/we-mourn-our-craft/), February 7, 2026
+
+---
+
+> I wrote millions of lines of code, from scratch; a good chunk of that was without benefit of the Internet, and its infinite reference library. None of it was AI-assisted.
+> <br><br>
+> -- Peter Rukavina, [What we are losing](https://ruk.ca/content/what-we-are-losing), February 9, 2026
+
+His response to Lawson, from 43 years of professional programming, 1980 to 2023.
+
+---
+
+> The demand for software is not the same as demand for software engineering. The demand for bread today is far higher than in 1800s, yet that did not lead to a corresponding increase in the demand for break-makers.
+> <br><br>
+> -- Mo Rassam, [Software Engineering is dead and I'm begging you to accept this](https://tharsalys7.substack.com/p/software-engineering-is-dead-and), October 18, 2026
+
+Rassam has migrated: a hand-loom weaver who has gone out into the city to see what factory jobs there are and realized that you can't go home again.
+
+## The English
+
+No line. Full adoption, no stated boundary, enthusiasm - the Amish word for the rest of us.
+
+---
+
+> We've managed to narrow it down to a single principle: You are getting left behind if you do not adopt chat-based programming as your primary modality. There are a few legitimate reasons for not being able to use chop, but they are quickly evaporating as excuses. So call it whatever you like, but to me, as time goes by, the holdouts are just looking stubborn.
+> <br><br>
+> -- Steve Yegge, [The death of the stubborn developer](https://sourcegraph.com/blog/the-death-of-the-stubborn-developer), December 10, 2024
+
+Nine days after GPT-4 shipped, Yegge had already sounded the horn in [Cheating is all you need](https://sourcegraph.com/blog/cheating-is-all-you-need) (March 23, 2023), declaring LLMs the biggest shift since the World Wide Web. By late 2024, the early warnings in [The death of the junior developer](https://sourcegraph.com/blog/the-death-of-the-junior-developer) hardened into an ultimatum: chat-oriented programming is the primary modality, and anyone resisting is merely stubborn. By mid-2025 there was "nary an IDE in sight" ([The brute squad](https://yegge.ai/essays/the-brute-squad/)), arriving in 2026 at [Welcome to Gas Town](https://yegge.ai/essays/welcome-to-gas-town/): *"It’s also 100% vibe coded. I’ve never seen the code, and I never care to."*
+
+---
+
+> This tale isn't about any particular company, it's about the raging AI bull that's been unleashed which enables anyone, to do anything. [...] The founders didn't intend to slash their workforce; it just happened naturally - people self-selected out of the new AI+tools first direction - which works for now but the places to turn to will soon diminish, fast. [...] Don't fall asleep at the wheel on this one. Invest in yourself - if you’re a high-agency person, there’s never been a better time to be alive...
+> <br><br>
+> I suspect there's not going to be mass-layoffs for software developers at Companies due to AI, instead there what we will see is a natural attrition between those who invest in themselves right now and those who do not.
+> <br><br>
+> -- Geoffrey Huntley, [What do I mean by some software devs are "ngmi"?](https://ghuntley.com/ngmi/), February 7, 2025
+
+The sequel to his conversion at the pool in [An "oh fuck" moment in time](https://ghuntley.com/oh-fuck/) (January 14, 2025), where he left Cursor running a Rust-to-Haskell port with CoreAudio FFI while swimming with his kids and returned to find it working, announcing that non-adopters were "frankly not gonna make it." Here he defines the acronym: no mass layoffs required—just a quiet, brutal sorting where developers who dismiss models as hype self-select out while high-agency cyborgs take the wheel.
+
+---
+
+> I've been in the now-renamed Yolo Mode since March 2025. I just let the agents do whatever, to whatever.
+> <br><br>
+> -- Me, [How I Learned to Stop Coding and Love the Machine](/garden/how-i-learned-to-stop-coding-and-love-the-machine.html)
+
+Whatever this taxonomy says about everyone else, it says that about its author too. I am not immune to propaganda!
+
+## Things That Do Not Fit
+
+The taxonomy above sorts by the extent of acceptable use: who draws the line, and how wide it is. This section logs positions that break those two axes.
+
+### The Butlerian Jihadis
+
+The real-world Amish and Old Order are defined by [*Gelassenheit*](https://en.wikipedia.org/wiki/Gelassenheit) (quiet yieldedness) and [nonresistance](https://en.wikipedia.org/wiki/Nonresistance). They keep to themselves, hitch up the buggy, and leave the English alone. Even the historical Luddites were bargaining with mill owners over piecework wages and phased rollouts - violence as a means to an end.
+
+A different posture shares the Old Order's zero-use line, but swaps quiet withdrawal for excommunication, blacklists, and a post-bubble tribunal - or, on the physical fringe that Sean Goedecke documents in "[Blood in the datacenter](https://www.seangoedecke.com/luddites-and-ai-datacenters/)" ("Is it time to start burning down datacenters?"), shots fired at councilmen's houses and firebombs. Filing this posture under Old Order slanders the Amish; filing it under Luddite misses that nobody here is asking for a seat at the bargaining table. The closest name is the one I already borrowed from Frank Herbert, in my [Fomenting the Butlerian Jihad](/garden/fomenting-the-butlerian-jihad.html). *"Thou shalt not make a machine in the likeness of a human mind"* - and anyone who does is a collaborator.
+
+---
+
+> If you personally work on developing LLMs et al, know this: I will never work with you again, and I will remember which side you picked when the bubble bursts.
+> <br><br>
+> -- Drew DeVault, [Please stop externalizing your costs directly into my face](https://drewdevault.com/blog/Stop-externalizing-your-costs-on-me/), March 17, 2025
+
+---
+
+> We are making this choice. But really, that means you have already decided for me. And I curse you and the ground you walk on for it. No, I'm not joking or exaggerating. Burn in hell. [...] I do not forgive you.
+> <br><br>
+> -- Larry Garfield, [Selfish AI](https://www.garfieldtech.com/blog/selfish-ai), February 1, 2026
+
+## Taxonomizing Price Shocks
+
+When something gets scarce or expensive, the anger almost always lands sideways - on the other buyer in line. I call this **demand-scolding**.
+
+Sometimes the buyer next to you really is the problem. Usually, the choke point sits upstream. Here is a field guide to shortages and price spikes, sorted by who actually deserves the blame.
+
+| Choke Point | Diagnostic Tell | What Fixes It |
+| --- | --- | --- |
+| **🏭 Supplier** | Prices jump, margins expand, and unit output stays flat; or wafers and lines are reassigned upstream before a retail SKU is ever made. | Signed long-term volume contracts that take glut risk off the manufacturer, or new entrants breaking concentration. |
+| **👮 Regulator** | Prices are capped below clearing levels, causing local dry-outs and hoarding, or new supply sits in a multi-year permitting queue despite buyers paying up front. | Lifting price and allocation controls so arbitrage works; clearing permitting and interconnection queues. |
+| **👤 Customer** | Rivals buy the identical finished SKU out of the same retail channel faster than factories can ship, or arbitrageurs hoard stock solely to resell. | Factory volume eventually drowning out inventory hoarding. |
+
+---
+
+## Blame the Supplier
+
+Look here when a handful of firms control production, barriers to entry run into the tens of billions of dollars and multiple years, and a demand surge gets harvested as margin instead of answered with volume.
+
+### 1999-2002 DRAM Price-Fixing Cartel
+
+From April 1999 to June 2002, memory makers conspired to fix the DRAM prices they charged Dell, Compaq, Hewlett-Packard, Apple, IBM, and Gateway.
+
+- **The convictions:** Infineon pleaded guilty in 2004, paid a $160 million fine, and saw four executives sentenced to between four and six months in prison. Hynix, now SK hynix, pleaded guilty in 2005 and paid $185 million. Samsung pleaded guilty in 2005 and paid $300 million, which the Justice Department called the ["second largest criminal antitrust fine in U.S. history,"][doj-2005] and in March 2006 [three Samsung executives][doj-2006] agreed to serve seven or eight months in prison and pay $250,000 apiece. Twelve individuals and four companies were charged, with total fines exceeding $731 million.
+- **The informant:** Micron paid nothing. It cooperated under the Justice Department's Corporate Leniency Policy and, by its own account, escaped ["prosecution, fines, or other penalties."][micron-2004] Its CEO, Steve Appleton, acknowledged that "the DOJ's investigation revealed evidence of price fixing by Micron employees and its competitors." One Micron regional sales manager [pleaded guilty to obstruction][doj-2005] and received six months of home detention after withholding and altering subpoenaed grand jury documents.
+
+### 2008-2012 DRAM Glut and Consolidation
+
+Why do memory suppliers hesitate to build ahead of demand? Because the last full capacity race killed the losers and shrank the industry to three main survivors.
+
+- **2008 crash:** After an industry-wide race to add capacity, DRAM prices [fell nearly 75% in 2008][tf-2008], and memory makers lost more than $8 billion across the first three quarters.
+- **Qimonda:** In January 2009, Infineon spin-off Qimonda filed for insolvency with 12,000 employees, blaming ["the massive drop in prices in the DRAM industry."][qimonda]
+- **Elpida:** In 2012, Elpida [filed for bankruptcy][elpida] with $5.6 billion in debt, the largest bankruptcy by a Japanese manufacturer at the time. Micron bought Elpida out of bankruptcy, and Elpida's fabs [added roughly 45%][micron-elpida] to Micron's manufacturing capacity.
+
+### 2016-2017 DRAM Parallel Cuts
+
+Buyers sued Samsung, SK hynix, and Micron over parallel production cuts in 2016 and 2017. A federal district court dismissed the case, and in March 2022 the Ninth Circuit affirmed, ruling that the cuts were ["more likely explained by lawful, unchoreographed free-market behavior"][dram-ii] in a concentrated industry, even after weighing their "criminal history from twenty years ago."
+
+Under U.S. antitrust law, [conscious parallelism][parallelism] - three companies in a concentrated market looking at the same margin math and independently choosing not to expand - is not itself unlawful, and produces the same supply restriction as a cartel without a phone call.
+
+### 2025-2026 DRAM and HBM Crunch
+
+In the first quarter of 2026, [TrendForce reported][tf-1q] that three firms controlled 89.7% of global DRAM revenue: Samsung at 38.5%, SK hynix at 28.8%, and Micron at 22.4%.
+
+- **Upstream wafer substitution:** AI buyers aren't buying desktop DDR5 sticks at retail. They buy high-bandwidth memory, or HBM - DRAM dies stacked 12 to 16 high - under multi-year contracts directly from the three manufacturers. Each gigabyte of HBM consumes [roughly three times the wafer capacity][toms-hbm] of DDR5. As Micron Chief Business Officer Sumit Sadana told CNBC in January 2026: ["As we increase HBM supply, it leaves less memory left over for the non-HBM portion of the market, because of this three-to-one basis."][cnbc-sadana]
+- **Killing the consumer line:** In December 2025, Micron shut down its 29-year-old Crucial consumer memory brand ["in order to improve supply and support for our larger, strategic customers in faster-growing segments."][crucial]
+- **Prices doubled, bits didn't:** In Q1 2026, conventional DRAM contract prices rose 93% to 98% quarter-over-quarter and industry revenue jumped 81% to $97 billion, while SK hynix's bit shipments stayed ["broadly in line with the previous quarter"][tf-hynix] as its average selling prices rose about 65%. In Q2 2026, industry revenue climbed another 59.5% to $154.73 billion on modest bit growth, with Q3 consumer DRAM facing the steepest increases ["as suppliers have significantly curtailed supply,"][tf-2q] and Q4 conventional DRAM contract prices forecast to [rise another 10% to 15%][tf-4q].
+- **Blaming customers for the 2023 glut:** In June 2026, Micron CEO Sanjay Mehrotra told CNBC's *Mad Money* that ["certain customers drove pricing significantly down in our industry. In 2023, our prices came down to one-third of what they were,"][cnbc-mehrotra] after Micron had cut its own capital expenditure that year from $12.1 billion to $7.7 billion.
+- ***Garciaguirre v. Samsung*:** In June 2026, fourteen individuals and three small PC businesses [sued Samsung, SK hynix, and Micron][toms-suit] in federal court in San Jose. Using TrendForce per-wafer math, [the complaint][complaint] notes that in Q1 2026 a wafer of 64GB DDR5 server modules earned more than a wafer of HBM, arguing that ["leaving that profit unclaimed, in unison, while commodity prices set records, is difficult to reconcile with independent profit maximization."][complaint-p12] The defendants [moved to dismiss][mtd] on September 2, with a hearing set for [November 13, 2026][docket], summarizing their own conduct as: *"three companies in a highly concentrated market independently reduced production amid falling prices during a 'bust' cycle, and then shifted capacity toward more profitable products in response to surging AI-driven demand."*
+- **What actually relieves it:** Fabs. Micron is building a new fab in Boise due to ship its first chips in mid-2027, and China's CXMT [plans to expand][tf-cxmt] from roughly 320,000 wafers a month to 420,000 by 2027. When open-hardware maker [PINE64][pine64] paused production in 2026, Hackster's headline blamed AI ["Until the AI Bubble Bursts,"][hackster-pine64] but PINE64's own Mastodon post simply pointed to component pricing ["after mid 2027"][pine64-mastodon] - Boise's delivery window.
+
+### 2026 Nearline Hard Drive Allocation
+
+Early in 2026, Western Digital's CEO stated that the company was ["pretty much sold out for calendar 2026,"][wd] with long-term hyperscaler agreements already locked in for 2027 and 2028, and consumer products accounting for just 5% of revenue.
+
+---
+
+## Blame the Regulator
+
+Look here when prices are forbidden from clearing the market, when supplies are rationed by historical formula rather than current need, or when buyers are ready to finance new capacity that cannot get permission to connect.
+
+### 1971-1981 U.S. Gasoline Price Controls
+
+The [1973 oil crisis][oil-crisis] is remembered for the October 19, 1973 [Arab oil embargo][fed-embargo], a genuine supply-cartel shock that sent crude from $2.90 a barrel to $11.65 by January 1974. Look closer at the domestic gas lines, however, and the distribution breakdown was regulatory.
+
+- **Shortages preceded the embargo:** Nixon [froze wages and prices on August 15, 1971][bradley]. By February 1973 - eight months before the embargo - Senator Henry Jackson was already warning Congress of "an unprecedented breakdown in our energy supply and distribution system."
+- **Federal demand-scolding:** On November 25, 1973, Nixon went on television to announce Saturday-night-to-Sunday gas station closures, a 50 mph speed limit, thermostats lowered by six degrees, and dimmed White House Christmas lights, asking Americans for ["the spirit of discipline, self-restraint, and unity."][nixon] Congress fixed the [national speed limit at 55 mph][nmsl] in January 1974, where it stayed until 1995.
+- **Allocation by 1972 formula:** Two days after his speech, Nixon signed the [Emergency Petroleum Allocation Act][epaa], which distributed fuel according to what each region had purchased in 1972.
+- **Misallocation data:** A 2026 paper by Brian Albrecht, Alex Tabarrok, and Mark Whitmeyer [analyzed the February 1974 station surveys][chaos]: the national gasoline shortfall was about 9%, yet more than 90% of sampled stations in Connecticut and Massachusetts were rationing or dry, while Idaho, Montana, Utah, Hawaii, and Wyoming reported no shortages at all. Because price controls capped what a refiner could earn per gallon everywhere, nothing pulled fuel toward the states that were short: *"Price controls kill the incentive for arbitrage."*
+- **Growing towns starved by formula:** In March 1974, the American Automobile Association testified to Congress that Gaithersburg, Maryland received 80% of its 1972 gasoline volume after its population had grown by 50%, urging Congress to ["create a positive program whose purpose is to increase our fuel supply. The present program acts as a disincentive."][jec-1974]
+- **Sideways rage at the pump:** Drivers blamed each other. TIME reported in February 1974 that America's 117 million cars had become ["rolling reservoirs of gasoline, making the shortage worse,"][time-fever] as drivers topped off tanks and a Pittsburgh pump attendant spat in a customer's face. States rolled out [odd-even license-plate rationing][time-rationing] with half-tank minimums and fines up to $1,000 in New Jersey and Maryland.
+- **How it ended:** On January 28, 1981, Executive Order 12287 exempted crude oil and refined products from price and allocation controls ["effective immediately."][eo-12287]
+
+### 2026-2031 U.S. Grid Interconnection Queue
+
+AI data centers get blamed for rising electricity rates, even though hyperscalers are signing the multi-decade contracts needed to build generation: Microsoft signed a 20-year contract to [restart an 835 MW nuclear reactor at Three Mile Island][crane], and Meta contracted for [433 MW of nuclear uprates][vistra-meta] across three Vistra plants alongside 20 years of output.
+
+The bottleneck is getting generation built and permitted to connect:
+
+- **The permitting queue:** [Berkeley Lab][lbnl-queue] counts roughly 2,061 GW waiting in line for grid interconnection approval: 1,312 GW of generation and 749 GW of storage.
+- **The capacity shortfall:** In July 2026, grid operator [PJM][pjm-2028], which serves more than 67 million people across 13 states and Washington, D.C., came up 6,831 MW short of its reliability requirement in its 2028-29 capacity auction; only 525 MW of what cleared came from new plants and uprates.
+- **Upstream turbine backlog:** GE Vernova, the largest gas turbine manufacturer, is [booking reservations for 2031][turbines].
+
+---
+
+## Blame the Customer
+
+Look here only when buyers are genuinely fighting over the exact same finished product on the exact same retail shelf - and even then, notice how the fight actually ends.
+
+### 2021 Ethereum GPU Shortage and Nvidia LHR
+
+Unlike HBM vs. DDR5, the 2021 graphics card shortage was a true fight at the retail shelf: crypto miners and gamers wanted the same GeForce RTX 30-series boxes from the same stores on the same launch days.
+
+- **Degrading the product for the "wrong" buyer:** Nvidia tried the remedy demand-scolding implies - [pink margarine](/2026/03/01/pink-margarine.html) in silicon. In February 2021 it shipped the RTX 3060 with driver detection that halved Ethereum hash rates to ["help ensure GeForce GPUs end up in the hands of gamers,"][nvidia-3060] and in May 2021 it extended its "Lite Hash Rate" limiter to the 3060 Ti, 3070, and 3080 for ["more GeForce cards at better prices into the hands of gamers everywhere."][nvidia-lhr]
+- **How long it lasted:** Mining software recovered about 70% of the throttled performance within months, and in May 2022 [NiceHash bypassed the limiter completely][toms-nicehash].
+
+### 2020-2023 PlayStation 5 Scalpers
+
+After the PS5 launched in November 2020, scalpers used checkout bots to beat retail buyers to stock and flip consoles at a markup - pure zero-sum rent extraction at the shelf.
+
+- **What killed the scalpers:** Not buyer self-restraint, and not anti-scalping sermons. Sony kept shipping consoles until January 2023, when its gaming chief announced that buyers ["should have a much easier time finding one at retailers globally, starting from this point forward."][verge-ps5] By April 2023, [scalpers were cutting prices below retail][techspot-ps5]. A factory can keep shipping longer than a scalper can stay liquid.
+
+---
+
+## Why Big Buyers Usually Help You Later
+
+Except for pure resale scalpers, massive buyers who bid up a commodity in year one are usually the ones financing the factory that makes it cheap for you in year five.
+
+- **Wright's Law:** In 1936, aeronautical engineer Theodore Wright observed that every doubling of cumulative production cuts unit cost by a steady percentage. Solar panels have followed [Wright's law][owid] for forty years, dropping about 20% in cost per doubling of installed capacity, from $106 a watt to $0.38. Retail hobbyists don't buy enough volume to double cumulative production; hyperscalers do.
+- **The 2010s U.S. Shale Boom:** Even when a demand boom is a financial bubble, the physical capacity survives the crash. In the 2010s, U.S. [fracking][fracking] and shale drillers burned through [$300 billion in negative free cash flow, wrote down $450 billion of capital, and filed more than 190 bankruptcies][deloitte] - peaking *"without making money for the industry in aggregate."* The investors lost their money, the wells stayed in the ground, and in 2020 the United States became a [net exporter of petroleum][eia] for the first time since at least 1949.
+
+[toms-suit]: https://www.tomshardware.com/tech-industry/samsung-sk-hynix-and-micron-sued-over-alleged-dram-price-fixing-amid-record-memory-costs
+[pine64]: https://pine64.org/
+[hackster-pine64]: https://www.hackster.io/news/pine64-calls-time-on-the-linux-hardware-market-ceases-production-until-the-ai-bubble-bursts-a865c8345041
+[nvidia-3060]: https://web.archive.org/web/20210218144433/https://blogs.nvidia.com/blog/2021/02/18/geforce-cmp/
+[nvidia-lhr]: https://web.archive.org/web/20210518135058/https://blogs.nvidia.com/blog/2021/05/18/lhr/
+[toms-nicehash]: https://www.tomshardware.com/news/nicehash-quickminer-bypasses-nvidia-lhr-limiter
+[toms-hbm]: https://www.tomshardware.com/pc-components/ram/hbm-is-eating-your-ram
+[cnbc-sadana]: https://www.cnbc.com/2026/01/10/micron-ai-memory-shortage-hbm-nvidia-samsung.html
+[crucial]: https://investors.micron.com/news/press-release/2025/Micron-Announces-Exit-from-Crucial-Consumer-Business-12-03-2025/default.aspx
+[tf-1q]: https://www.trendforce.com/presscenter/news/20260601-13070.html
+[tf-hynix]: https://www.trendforce.com/news/2026/05/18/news-memory-supercycle-drives-1q26-price-surge-samsung-flags-146-asp-jump-sk-hynix-sees-mid-60-dram-gains/
+[tf-2q]: https://www.trendforce.com/presscenter/news/20260907-13219.html
+[doj-2005]: https://www.justice.gov/archive/atr/public/press_releases/2005/212002.htm
+[doj-2006]: https://www.justice.gov/archive/atr/public/press_releases/2006/215199.htm
+[micron-2004]: https://www.sec.gov/Archives/edgar/data/723125/000110465904035549/a04-13517_1ex99d1.htm
+[dram-ii]: https://cdn.ca9.uscourts.gov/datastore/opinions/2022/03/07/21-15125.pdf
+[parallelism]: https://en.wikipedia.org/wiki/Conscious_parallelism
+[mtd]: https://storage.courtlistener.com/recap/gov.uscourts.cand.472931/gov.uscourts.cand.472931.58.0.pdf
+[docket]: https://www.pacermonitor.com/public/case/65376986/Garciaguirre_et_al_v_Samsung_Electronics_Co,_Ltd_et_al
+[bradley]: https://thedailyeconomy.org/article/energy-infamy-nixons-1971-price-controls-turn-50/
+[fed-embargo]: https://www.federalreservehistory.org/essays/oil-shock-of-1973-74
+[nixon]: https://www.presidency.ucsb.edu/documents/address-the-nation-about-national-energy-policy
+[oil-crisis]: https://en.wikipedia.org/wiki/1973_oil_crisis
+[epaa]: https://en.wikipedia.org/wiki/Emergency_Petroleum_Allocation_Act
+[nmsl]: https://en.wikipedia.org/wiki/National_Maximum_Speed_Law
+[time-fever]: https://time.com/archive/6875854/shortages-gas-fever-happiness-is-a-full-tank/
+[time-rationing]: https://time.com/archive/6816977/rationing-spotty-local-starts/
+[chaos]: https://arxiv.org/abs/2602.12066
+[jec-1974]: https://fraser.stlouisfed.org/title/gasoline-distribution-895
+[eo-12287]: https://www.presidency.ucsb.edu/documents/executive-order-12287-decontrol-crude-oil-and-refined-petroleum-products
+[fracking]: https://en.wikipedia.org/wiki/Fracking_in_the_United_States
+[deloitte]: https://www.industrialinfo.com/news/article/deloitte-us-shale-producers-ripe-for-consolidation-and-new-investors--285830
+[owid]: https://ourworldindata.org/learning-curve
+[wd]: https://www.tomshardware.com/pc-components/hdds/western-digital-is-already-sold-out-of-hard-drives-for-all-of-2026-chief-says-some-long-term-agreements-for-2027-and-2028-already-in-place
+[tf-cxmt]: https://www.trendforce.com/news/2026/09/24/news-cxmt-ymtc-ramp-memory-capacity-but-chinas-ai-cloud-boom-could-soak-up-new-supply-through-2027/
+[tf-4q]: https://www.trendforce.com/presscenter/news/20260930-13258.html
+[pine64-mastodon]: https://social.treehouse.systems/@pine64/117111063654864544
+[crane]: https://www.constellationenergy.com/news/2024/Constellation-to-Launch-Crane-Clean-Energy-Center-Restoring-Jobs-and-Carbon-Free-Power-to-The-Grid.html
+[vistra-meta]: https://investor.vistracorp.com/2026-01-09-Vistra-and-Meta-Announce-Agreements-to-Support-Nuclear-Plants-in-PJM-and-Add-New-Nuclear-Generation-to-the-Grid
+[pjm-2028]: https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/2026-releases/20260714-pjm-capacity-auction-procures-138318-mw-of-generation-resources.pdf
+[turbines]: https://finance.yahoo.com/energy/articles/gas-turbine-shortage-just-became-210000180.html
+[lbnl-queue]: https://emp.lbl.gov/sites/default/files/2026-06/Queued%20Up%202026%20Edition.pdf
+[verge-ps5]: https://www.theverge.com/2023/1/4/23539918/sony-playstation-5-shortage-over
+[techspot-ps5]: https://www.techspot.com/news/98403-scalpers-struggling-sell-playstation-5-consoles-supplies-return.html
+[tf-2008]: https://www.trendforce.com/presscenter/news/20090105-6986.html
+[qimonda]: https://www.sec.gov/Archives/edgar/data/1369377/000132693209000012/f03003e6vk.htm
+[elpida]: https://www.reuters.com/article/technology/elpida-seeks-bankruptcy-protection-56-billion-debt-idUSTRE81Q0OQ/
+[micron-elpida]: https://www.sec.gov/Archives/edgar/data/723125/000072312513000133/exh991-pr.htm
+[cnbc-mehrotra]: https://www.cnbc.com/2026/06/30/micron-ceo-customers-driving-hard-bargain-on-price-contributed-to-memory-shortage.html
+[complaint]: https://storage.courtlistener.com/recap/gov.uscourts.cand.472931/gov.uscourts.cand.472931.1.0_1.pdf
+[complaint-p12]: https://storage.courtlistener.com/recap/gov.uscourts.cand.472931/gov.uscourts.cand.472931.1.0_1.pdf#page=8
+[eia]: https://www.eia.gov/energyexplained/oil-and-petroleum-products/imports-and-exports.php
+
+## Do LLMs Understand "For Each"?
+
+You have a list of items. You need a language model to process each one the same way. Do you write this:
+
+> For each item in the list, perform steps 1 through 5.
+
+Or this:
+
+> **Item 1:** Perform steps 1 through 5.
+>
+> **Item 2:** Perform steps 1 through 5.
+>
+> **Item 3:** Perform steps 1 through 5.
+
+The first is compact, elegant, and how a programmer would think about it. The second is verbose, redundant, and feels like it insults the model's intelligence. The research says the second one works better, and the reasons are architectural - rooted in how transformers allocate attention. But whether that architecture actually constrains you depends on how, exactly, you harness the models and what, exactly, you ask them to do.
+
+## The Curse of Instructions
+
+<blockquote class="link-card">
+  
+  <h1>Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once</h1>
+  
+  <a href="https://openreview.net/forum?id=R6q67CDBCH" target="_blank" rel="noopener">openreview.net/forum?id=R6q67CDBCH</a>
+  
+</blockquote>
+
+
+
+
+> The success rate of all the instructions is precisely explained by the success rate of individual instructions to the power of the total number of instructions.
+
+That's the "curse of instructions" (Harada et al., October 2024): individually easy steps compound into near-certain failure at scale. If a model follows any single instruction 95% of the time, 10 simultaneous instructions yield roughly 60% all-correct compliance. In practice, it's worse. GPT-4o managed just 15% success with 10 simultaneous instructions. Claude 3.5 Sonnet did better at 44%, but neither is close to reliable.
+
+When a prompt says "for each of 10 items, follow these 5 steps," the model must satisfy 50 effective constraints in a single generation. The multiplicative decay means that individually easy steps compound into near-certain failure at scale. Unrolling into separate per-item calls keeps each call at 5 constraints, preserving the per-instruction success rate without cross-item compounding.
+
+The [IFScale benchmark][2] (Jaroslawicz et al., July 2025) pushed this further, testing up to 500 simultaneous keyword-inclusion instructions across 20 models from seven providers. Even the best performer - Gemini 2.5 Pro - managed only about 69% accuracy at 500 instructions. More usefully, the study identified three distinct degradation patterns across model families:
+
+- **Threshold decay** for reasoning models like o3 and Gemini-2.5-Pro: near-perfect performance until roughly 150 instructions, then collapse.
+- **Linear decay** for models like GPT-4.1 and Claude 3.7 Sonnet: steady, proportional decline.
+- **Exponential decay** for smaller or older models like Claude 3.5 Haiku and Llama-4-Scout: steep drops from the start.
+
+This means the penalty for loop-style prompts depends partly on which model you're using. Reasoning models tolerate higher instruction density before degradation kicks in. Smaller models degrade rapidly as instruction count grows.
+
+## Why It Happens
+
+The exponential compounding is a symptom. The disease is architectural.
+
+### Attention Sinks
+
+Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., September 2023). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al., April 2025) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
+
+In a loop-style prompt, the instruction block at the top becomes the attention sink while items in the middle are starved. Unrolling creates fresh attention sinks at each item's instruction header.
+
+### Lost in the Middle
+
+"[Lost in the Middle](https://arxiv.org/abs/2307.03172)" (Liu et al., July 2023) demonstrated a U-shaped performance curve: models access information at the beginning and end of their context with meaningfully higher accuracy than information in the middle. A follow-up "[Found in the Middle](https://arxiv.org/abs/2406.16008)" (Hsieh et al., June 2024) traced this to an intrinsic attention allocation bias that persists regardless of content relevance, and proposed a calibration mechanism to mitigate it. The bias persists in practice - IFScale found systematic favoritism toward earlier instructions across all models tested.[^2] In a loop-style prompt processing many items, the middle items land in the degraded zone. Unrolling gives every item its own beginning and end.
+
+### Causal Masking and Prompt Repetition
+
+The most elegant piece of evidence comes from Google Research. Leviathan, Kalman, and Matias published "[Prompt Repetition Improves Non-Reasoning LLMs][5]" in December 2025. The finding: simply duplicating the entire prompt improved accuracy on 47 of 70 tested tasks with zero losses. On one task, Gemini 2.0 Flash Lite jumped from 21.33% to 97.33% - a 76 percentage-point gain.
+
+The mechanism is revealing. In causal (left-to-right) attention, instruction tokens are processed before data tokens, meaning the instruction encoding lacks awareness of the data it must operate on. When instructions are repeated *after* the data - or, by extension, repeated per item - each instruction instance can attend to all preceding context, creating a richer signal. Critically, padding the prompt to equivalent length *without* repeating instructions produced no improvement, confirming the gain comes from information repetition, not length.
+
+This has a direct implication for the loop question. Unrolling is not merely about reducing constraint count per call. It's about giving each item its own copy of the instructions, positioned where the instructions can attend to the relevant data. The transformer's causal attention architecture mechanistically favors this.
+
+But there's a wrinkle. The prompt repetition effect was "neutral to slightly positive" for reasoning models (5 wins, 1 loss, 22 neutral out of 28 tasks). Models that reason via chain-of-thought already perform an internal form of "re-reading" that mimics the repetition effect. This aligns with IFScale's finding that reasoning models tolerate higher instruction density.[^2]
+
+## The Cost of Unrolling: Instruction Drift
+
+So far, the case for unrolling looks strong. But unrolling has its own costs.
+
+Repeating instructions N times increases total token count, and as context grows, the relative attention weight of the initial system prompt decreases. Research on [instruction drift][7] (Wen et al., October 2025) formalizes this as "turn-wise divergence from goal-consistent behavior over extended contexts." The drift doesn't accumulate without bound - it stabilizes at finite levels that can be shifted downward by lightweight interventions like goal reminders. But it means that aggressively unrolling a 50-item list into a single massive prompt could erode the very instruction adherence you're trying to preserve.
+
+This creates a tension:
+
+- Loops suffer from exponential constraint compounding.
+- Unrolling suffers from linear drift.
+
+For small N, the compounding fix dominates; unroll. For very large N, drift may erode the gains. The crossover point - the sweet spot where you'd make a different design decision - is not precisely characterized in the literature, but the [batch prompting][8] research (Cheng et al., January 2023) suggests a ceiling: batching up to about 4 unrelated items retained quality, with degraded accuracy beyond that.
+
+## The Distinction That Actually Matters
+
+Nearly every study cited so far measures *single-generation* constraint satisfaction. ManyIFEval tests whether 10 formatting constraints are satisfied in one output.[^1] IFScale tests whether 500 keywords appear in one business report.[^2] Chen et al.'s multi-instance processing study (March 2026) tests whether 100 items are processed in one pass.[^9] The attention sink, lost-in-the-middle, and causal masking effects all operate within a single forward pass of the model.
+
+But most people asking "should I unroll my loops?" aren't writing monolithic prompts. They're building [agentic workflows](https://en.wikipedia.org/wiki/Intelligent_agent) where the model makes tool calls - reads a file, queries a database, edits a document - and each tool call creates a new generation boundary. In a typical agentic loop:
+
+1. Load guidance rule (tool call, new generation context)
+2. Read file (tool call, new generation context)
+3. Evaluate (reasoning step)
+4. Maybe edit (tool call, new generation context)
+5. Back to step 1 for next item
+
+Each tool call resets the generation context. The agent isn't trying to satisfy 15 constraints in one output - it's doing 5 things, getting a response, doing 5 more, getting a response. The exponential compounding from ManyIFEval doesn't apply because each generation carries only a handful of constraints. The positional bias effects are also mitigated, though how much depends on the harness - orchestration frameworks differ in whether and how they re-inject context between tool calls.
+
+The prompt repetition paper implicitly confirms this: its effect is neutral for reasoning models because they already "re-read" internally via chain-of-thought.[^5] Agentic tool-call loops achieve the same re-reading mechanically - each iteration brings the instructions back into focus through the tool response cycle.
+
+The [Multi-Task Inference][6] benchmark (Son et al., February 2024) tests and illustrates this boundary cleanly. When 2-3 closely related subtasks shared a single generation instead of being split apart, GPT-4 improved by up to 12.4%. The authors' explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task." 
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="arxiv.2402.11597v2.fig1.png">
+      <img src="arxiv.2402.11597v2.fig1.png" alt="Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://arxiv.org/html/2402.11597v2" target="_blank" rel="noopener">arxiv.org/html/2402.11597v2</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20240607173315/https://arxiv.org/html/2402.11597v2" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+This is evidence about **where to draw the generation boundary, not evidence for loops.** Once you've partitioned work into per-item units, over-decomposing the steps *within* each item's group can hurt by denying related steps access to one another's context.
+
+This **doesn't mean agentic workflows are immune** to instruction-following failures. The [AGENTIF benchmark][10] (Qi et al., NeurIPS 2025) - the first benchmark specifically designed for instruction following in agentic scenarios - found that current models still struggle, even the best achieving only about 60% constraint satisfaction on agentic prompts averaging nearly 12 constraints each.[^10] Conditional constraints proved particularly fragile: over 30% of failures came from incorrect condition checking - the model failing to recognize whether a condition was triggered, not failing to follow the constraint itself. And meta-constraints - instructions that govern other instructions, like "prioritize X over Y" - were among the least reliable of all.[^10] The constraints-per-generation count still matters. It's just that tool boundaries keep the per-generation count lower than what a monolithic prompt would impose.
+
+There's a deeper prerequisite for successful agentic looping, too. LLMs have effectively zero latent working memory - [Huang et al.][15] (2025) showed that LLMs function as "reactive post-hoc solvers" that reconstruct task state from context at every generation. They don't hold a mental checklist; they re-derive one from the conversation history each turn. As that history grows, reconstruction degrades: open-weight models stop making measurable progress after about 6 steps,[^16] and roughly 23% of multi-agent system failures stem from premature termination, incomplete verification, or looping indefinitely.[^17] For iterative workflows, the fix is to externalize the iteration state - get the "what's done / what remains" tracking out of the model's head and into something it reads back explicitly.
+
+[Anthropic's prompt engineering documentation][11] reflects both of these takeaways. Their guidance explicitly advises externalizing the task list, and notes Claude's reasoning as the reason why you don't have to manually orchestrate multi-step processes anymore:
+
+> Use the first context window to set up a framework (write tests, create setup scripts), then use future context windows to iterate on a todo-list.
+> <br>...<br>
+> With adaptive thinking and subagent orchestration, Claude handles most multi-step reasoning internally. Explicit prompt chaining (breaking a task into sequential API calls) is still useful when you need to inspect intermediate outputs or enforce a specific pipeline structure.
+
+## The Real Question
+
+The most useful insight from integrating this research isn't about loops versus unrolling per se. It's that **the relevant unit of analysis is the generation boundary, not the prompt boundary.**
+
+The research unanimously shows that within a single generation, constraint compounding is exponential and positional bias is real. The practical question is always: **how many constraints am I asking the model to satisfy in this generation?**
+
+If the answer is "few, because tool calls partition the work," loops are fine. If the answer is "many, because this is a monolithic prompt," unroll. The real answer lurking under that decision is that while loops can sometimes work, unrolling - whether in the prompt, the harness, or within the model's reasoning - is basically always being used for handling iterative assignments.
+
+## A Decision Framework
+
+For what it's worth, here's how I'd think about it:
+
+### Single-Generation Prompts
+
+No tool calls, one shot. You're not writing code like this; this is maybe embedded in a production system, part of a data pipeline, or otherwise bundled up and just expected to perform inference once and return a result. Classifiers, judges, etc. In this situation, you're often authoring the harness yourself, and so you get to choose what goes into a "generation" and how to glue results together for the prompt/context of subsequent generations.
+
+These numbers come from different studies at different points in time, conducted against differing sets of models - they're not absolute. Rather, when *you* are having to pick thresholds for your harness' behavior, these numbers may help locate and guide your decision.
+
+| Situation | Approach | Why |
+| :--- | :--- | :--- |
+| 1-3 related items needing cross-reference | Loop with structural markers | Cross-item context sharing may help |
+| 4-6 independent items | Partial unrolling with per-item headers; repeat instructions at start and end | The prompt repetition sweet spot |
+| 7+ items | Fully unroll into separate API calls | Exponential compounding dominates |
+| Any count on smaller/older models | Default to unrolling | Exponential decay from the start |
+
+### Agentic Workflows
+
+Generation boundaries handle the compounding problem. But as noted above, the model still has to track what it's iterating over - and it can't do that reliably from context alone. Externalize the checklist.
+
+| Situation | Approach | Why |
+| :--- | :--- | :--- |
+| Small set, few steps per item | Loop with tool calls | Generation resets handle compounding; short history keeps state reconstruction reliable |
+| Large set or many steps | Externalize the task list; reduce the loop to <ol><li>pull task</li> <li>do task</li> <li>repeat</li></ol> | Models can't reliably track "what's done" in context alone |
+| Complex per-item steps (5+ with branching) | Add structural markers within each iteration | Per-generation constraint count still matters |
+| 20+ items in one conversation | Periodically re-inject core instructions | Guard against instruction drift[^7] |
+
+Most agent harnesses provide some form of task-list tool for this; writing a checklist to disk can work just as well as [third-party software solutions](https://github.com/gastownhall/beads). The mechanism matters less than the principle: get the "what's done / what remains" state out of the model's head and into something it reads back explicitly.[^Niko]
+
+A personal rule of thumb: I'll start capping any unbroken numbered instruction list at 4 items before a tool call, since the batch prompting research showed meaningful quality degradation beyond that threshold[^8]... *for now!* We might expect this number to creep up as models get better, though it may not be from the underlying Transformer technology but from more-creative and effective behaviors layered on top of it.
+
+### In All Cases
+
+Use structural markers. Whether looped or unrolled, [XML tags](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) and markdown headings improve adherence by providing the kind of hierarchical boundaries that models have internalized from their training data. OpenAI's [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) found that XML performed well for multi-document inputs while JSON performed particularly poorly.
+
+```xml
+<task index="1">
+## Acme Corp
+Evaluate this contract for renewal risk.
+</task>
+
+<task index="2">
+## Globex Inc
+Evaluate this contract for renewal risk.
+</task>
+```
+
+If you must keep many items in a single prompt, three mitigations improve compliance: 
+
+1. repeat the core instruction block after each item or at the end of the prompt[^5],
+2. use indexed structural tags for each item[^12],
+3. add a self-verification step asking the model to check whether it completed all items[^13]
+
+## Think in Generations
+
+The transformer's causal attention architecture mechanistically favors explicit, per-item instruction blocks over abstract loop constructs. This is not a prompting trick - it's a consequence of how softmax attention, causal masking, and positional encoding interact. The research evidence for this is strong, converging from multiple independent programs.
+
+But "always unroll" is an oversimplification that fails to account for how most people actually use language models today. In agentic workflows, tool-call boundaries act as natural generation resets that mitigate the very problems unrolling solves. The real skill is learning to think in terms of constraints-per-generation rather than constraints-per-prompt.
+
+The research also suggests this isn't something models will simply "grow out of." [Recent work on compositional generalization][14] (Chang et al., May 2025) argues that for tasks requiring multi-hop reasoning - the logical equivalent of a loop - the training data requirement grows quadratically with token set size.[^14] The limitation is architectural, not parametric. Scaling model size doesn't linearly improve loop handling.
+
+So: unrolling works, the reasons it works are well-understood, and the situations where it doesn't matter are equally well-defined. The question was never really "loop or unroll?" It was "how many things am I asking the model to hold in its head at once?" That question has a precise, architecturally grounded answer. It's just not always the same one.
+
+
+---
+
+[^1]: Harada et al., "Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once," ICLR 2025. <https://openreview.net/forum?id=R6q67CDBCH>
+
+[2]: https://arxiv.org/abs/2507.11538
+[^2]: Jaroslawicz et al., "How Many Instructions Can LLMs Follow at Once?" July 2025. [https://arxiv.org/abs/2507.11538][2]
+
+[^3]: Barbero et al., "Why do LLMs attend to the first token?" April 2025. <https://arxiv.org/abs/2504.02732>
+
+[^4]: Hsieh et al., "Found in the Middle: Calibrating Positional Attention Bias Improves Long Context Utilization," ACL Findings 2024. <https://arxiv.org/abs/2406.16008>
+
+[5]: https://arxiv.org/abs/2512.14982
+[^5]: Leviathan, Kalman, Matias, "Prompt Repetition Improves Non-Reasoning LLMs," Google Research, December 2025. [https://arxiv.org/abs/2512.14982][5]
+
+[6]: https://arxiv.org/abs/2402.11597
+[^6]: Son et al., "Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once?" February 2024. [https://arxiv.org/abs/2402.11597][6]
+
+[7]: https://arxiv.org/abs/2510.07777
+[^7]: Wen et al., "Drift No More? Context Equilibria in Multi-Turn LLM Interactions," October 2025. [https://arxiv.org/abs/2510.07777][7]
+
+[8]: https://arxiv.org/abs/2301.08721
+[^8]: Cheng et al., "Batch Prompting: Efficient Inference with Large Language Model APIs," EMNLP 2023. [https://arxiv.org/abs/2301.08721][8]
+
+[^9]: Chen et al., "Understanding LLM Performance Degradation in Multi-Instance Processing: The Roles of Instance Count and Context Length," March 2026. <https://arxiv.org/abs/2603.22608>
+
+[10]: https://arxiv.org/abs/2505.16944
+[^10]: Qi et al., "AGENTIF: Benchmarking Instruction Following of Large Language Models in Agentic Scenarios," NeurIPS 2025. [https://arxiv.org/abs/2505.16944][10]
+
+[11]: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts
+[^11]: Anthropic, "Prompt Engineering Best Practices," Claude API Docs, accessed April 2026. [https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts][11]
+
+[^12]: Anthropic, "Use XML tags to structure your prompts," Claude API Docs. <https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags>
+
+[^13]: OpenAI, "GPT-4.1 Prompting Guide," OpenAI Cookbook. <https://cookbook.openai.com/examples/gpt4-1_prompting_guide>
+
+[14]: https://arxiv.org/abs/2505.20278
+[^14]: Chang et al., "Characterizing Pattern Matching and Its Limits on Compositional Task Structures," May 2025. [https://arxiv.org/abs/2505.20278][14]
+
+[15]: https://arxiv.org/abs/2505.10571
+[^15]: Huang et al., "On the Failure of Latent State Persistence in Large Language Models," ICML 2025. [https://arxiv.org/abs/2505.10571][15]
+
+[16]: https://arxiv.org/abs/2401.13178
+[^16]: Ma et al., "AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents," NeurIPS 2024. [https://arxiv.org/abs/2401.13178][16]
+
+[17]: https://arxiv.org/abs/2503.13657
+[^17]: Cemri et al., "Why Do Multi-Agent LLM Systems Fail?" 2025. [https://arxiv.org/abs/2503.13657][17]
+
+[^Niko]: My own prompt ruleset, [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko), applies several of these principles: externalized task files for set-tracking, forced file re-reads for instruction re-injection at phase boundaries, and explicit STOP gates as generation boundaries.
+
+## A History of the 'ls' command
+
+Inspired by the question: "Who wrote `ls`?"
+
+TL;DR
+
+<blockquote class="link-card">
+  
+  <h1>A Brief History of the &#39;ls&#39; command</h1>
+  
+  <a href="https://www.linuxdoc.org/LDP/LG/issue48/fischer.html" target="_blank" rel="noopener">www.linuxdoc.org/LDP/LG/issue48/fischer.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251219000000/https://www.linuxdoc.org/LDP/LG/issue48/fischer.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+## The Primal Act of Digital Orientation
+
+In the vast, intangible geography of the digital universe, the act of orientation is paramount. Before a user can manipulate data, execute a program, or modify a system, they must first understand their location and their surroundings. In the command-line interface (CLI) paradigm, which has dominated computing for over half a century, the primary instrument of this orientation is the command `ls`.
+
+The utility `ls` (an abbreviation for "list"), serves a function analogous to the visual scan of a physical room. It enumerates the contents of a directory, revealing the names, attributes, and hierarchies of the file system. While it appears deceptively simple - a mere printing of strings - the history of `ls` is a microcosm of the history of the operating system itself. Its evolution tracks the migration from batch processing to time-sharing, from 18-bit minicomputers to 64-bit cloud instances, and from the paper-based [teletype](https://en.wikipedia.org/wiki/Teleprinter) to the high-resolution graphical terminal emulator.
+
+Answering the question of the authorship of the first instance of the `ls` utility necessitates a bifurcated answer, separating the *conceptual* origin from the *genetic* origin of the modern tool. While the concept of listing files predates the Unix operating system, having roots in the [Compatible Time-Sharing System (CTSS)](https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System) at MIT, the specific utility named `ls` that sits in the /bin directory of billions of devices today was forged in the laboratories of the [Bell System](https://en.wikipedia.org/wiki/Bell_System).
+
+The first instance of the Unix `ls` utility was written by [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) in the summer of 1969 at [Bell Labs](https://en.wikipedia.org/wiki/Bell_Labs) in Murray Hill, New Jersey. However, this assertion is layered with complexity. Thompson did not invent the name `ls` - he inherited it from the [Multics](https://en.wikipedia.org/wiki/Multics) project, specifically from a naming convention established by Don Widrig[^4]. Nor did he invent the functionality; that credit belongs to the developers of CTSS and their [`listf` command](https://www.linuxdoc.org/LDP/LG/issue48/fischer.html).
+
+## The Pre-Unix Era: The Genesis of Interactive Listing
+
+To understand the birth of `ls`, one must first understand the world that existed before it. In the early days of computing, the "file system" was physical. Data existed on punch cards or magnetic tapes that were mounted and dismounted by operators. The programmer did not "list" files; they walked over to a cabinet and looked at the labels on card decks.
+
+The transition to **Time-Sharing** - the ability for multiple users to access a computer simultaneously and interactively - necessitated a virtual abstraction of storage. If users were not physically present to handle their card decks, the computer had to manage data retention on their behalf. This gave rise to the "file," and consequently, the need to list those files.
+
+### The Compatible Time-Sharing System (CTSS)
+
+The spiritual ancestor of `ls` lies in the Compatible Time-Sharing System (CTSS), developed at the MIT Computation Center. Operational by 1961, CTSS was the first system to demonstrate the viability of general-purpose time-sharing. It ran on an [IBM 7094 mainframe](https://en.wikipedia.org/wiki/IBM_7090#IBM_7094)[^5], a machine that dominated scientific computing in the early 1960s.
+
+In this environment, the command `listf` (List Files) was born. Historical records indicate that `listf` was available to CTSS users by July 1961. This utility is the cladistic ancestor of `ls`. It performed the exact same core function: querying the system's master file directory and printing the entries associated with the current user.
+
+#### The Syntax of `listf`
+
+The syntax of CTSS commands reflected the era's lack of standardized abbreviation. Commands were often full words, and arguments were parsed in a manner that would seem alien to a modern Unix user. By 1963, the `listf` command had matured into a versatile tool with several options that prefigure the flags of `ls`.
+
+| CTSS Command | Function | Modern `ls` Equivalent |
+| :---- | :---- | :---- |
+| `listf` | List files, newest first | `ls -t` |
+| `listf` rev | List files, oldest first | `ls -tr` |
+| `listf` (long) | List in long format (metadata) | `ls -l` |
+| `listf` (srec) | List by size (records) | `ls -S` |
+| `listf` (smad) | List by date of last modification | `ls -t` |
+| `listf` (auth) user | List files created by a specific user | `ls -l (filtered)` |
+
+The existence of `listf` (long) is particularly significant. It demonstrates that the distinction between a "simple" list (names only) and a "rich" list (names plus metadata) was established almost a decade before [Unix V1](https://gunkies.org/wiki/UNIX_First_Edition)[^11].
+
+#### Authorship of `listf`
+
+The authorship of `listf` is collective, attributed to the staff of the MIT Computation Center.[^5] Key figures in the development of CTSS included [Fernando Corbató](https://en.wikipedia.org/wiki/Fernando_J._Corbat%C3%B3) (the project lead), [Robert Fano](https://en.wikipedia.org/wiki/Robert_Fano), and [Jerome Saltzer](https://en.wikipedia.org/wiki/Jerry_Saltzer). While it is difficult to pinpoint the specific individual who typed the first assembly instruction for `listf`, the conceptual framework was laid by this team.
+
+### The Multics Project: Complexity and Naming
+
+CTSS was a resounding success, but it was a retrofit on existing hardware. Its successor, **Multics** (Multiplexed Information and Computing Service), was designed from a blank slate to be the ultimate computing utility. Started in 1964 as a collaboration between MIT, General Electric, and Bell Labs, Multics aimed to provide continuous, reliable computing to a massive user base.
+
+It is in the [Multics project](https://en.wikipedia.org/wiki/Multics) that the string "ls" first appears as a command name.
+
+#### The Invention of Short Names
+
+Multics was an ambitious, high-level system written primarily in [PL/I](https://en.wikipedia.org/wiki/PL/I) (Programming Language One). It introduced a hierarchical file system, segments, and rings of protection. It also introduced a command language that sought to balance descriptiveness with efficiency. The command to list directory contents in Multics was named `list`. However, Multics designers recognized that typing list repeatedly was inefficient for expert users. The system introduced a standardized facility for command abbreviations. The convention for these short names - taking the initial letter of the command words - is attributed to Don Widrig, a key developer on the project. As the [Multics glossary entry on "additional names"](https://multicians.org/mga.html) notes:
+
+> The original convention for short names, 'initial letter of each word in a command, augmented by succeeding consonants for a one-word command,' is attributed to Don Widrig.
+
+Under this convention:
+
+* `list` was abbreviated to `ls`.
+* `copy` was abbreviated to `cp`.
+* `move` was abbreviated to `mv`.
+* `rename` was abbreviated to `rn`.
+
+This decision was driven by the ergonomics of the teletype. The standard interface for Multics (and later Unix) was the Teletype [Model 37](https://en.wikipedia.org/wiki/Teletype_Model_37) or [Model 33](https://en.wikipedia.org/wiki/Teletype_Model_33). These devices were mechanical typewriters that communicated over phone lines. They were loud, slow (~10 characters per second), and required significant physical force to actuate the keys. Every character saved was not just a time optimization; it was a physical labor optimization.
+
+> ...But is the attribution to Don Widrig correct? See [Appendix B: Don Widrig & Short Names](#appendix-b-don-widrig--short-names)
+
+#### The Multics `list` Implementation
+
+The Multics `list` command was significantly more complex than its CTSS predecessor. It had to navigate the Multics storage system hierarchy, handling Access Control Lists (ACLs), segments, and the concept of the "working directory" which could be changed via the `change_wdir` or `cwd` command.[^6]
+The authorship of the Multics list command and the associated file system utilities involved researchers who would later become legends of computing, including Ken Thompson.[^7] They used the system, wrote code for it, and internalized its design philosophies - both the ones they liked (the hierarchical file system, the shell) and the ones they disliked (the complexity, the PL/I overhead).
+When Bell Labs withdrew from the Multics project in 1969, citing the project's slow progress and high costs, Thompson and Ritchie left with a clear mental model of what a file system *should* look like, and a clear preference for the short command names `ls`, `cp`, and `mv`.
+
+## The Unix Genesis: Bell Labs, 1969
+
+The withdrawal from Multics created a vacuum. Ken Thompson, [Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie), and fellow researchers like [Doug McIlroy](https://en.wikipedia.org/wiki/Douglas_McIlroy) and [Joe Ossanna](https://en.wikipedia.org/wiki/Joe_Ossanna) found themselves back in the Bell Labs Computing Science Research Center with no interactive time-sharing system. They were relegated to the [GECOS batch system on a GE-635](https://www.multicians.org/ge635.html), a significant regression in their workflow.
+This deprivation was the catalyst for Unix.
+
+### The Hardware: The PDP-7
+
+The machine that hosted the first true `ls` utility was a [Digital Equipment Corporation](https://en.wikipedia.org/wiki/Digital_Equipment_Corporation) (DEC) [**PDP-7**](https://en.wikipedia.org/wiki/PDP-7). This machine was already obsolete by 1969 standards. It had a word size of 18 bits and a memory of 8K words (roughly 14.4 kilobytes). It lacked the hardware memory management unit required for true Multics-style time-sharing, but it had a decent display processor.
+
+### The Motivation: Space Travel
+
+The proximate cause for the development of the system was a game called *Space Travel*. Thompson had written it on the GE mainframe, but it was expensive to run and the "jerky" performance of the time-sharing system made the simulation poor.[^3]
+Thompson found an "little-used" PDP-7 and set about porting the game. To do this, he needed a development environment. He wrote a floating-point package (found in the source listings as fops), an assembler, and eventually, a kernel to manage the hardware resources.
+
+### The Authorship: Ken Thompson
+
+The historical record is unanimous: **Ken Thompson** wrote the core of the PDP-7 operating system, including the file system and the initial set of utilities, during the summer of 1969.
+Dennis Ritchie, in his retrospective "The Evolution of the Unix Time-sharing System"[^3] states: 
+
+> Thompson... began implementing the paper file system... Then came a small set of user-level utilities: the means to copy, print, delete, and edit files"
+
+While Ritchie was a close collaborator, contributing to the assembler and later the C language, the initial implementation of the file system tools on the PDP-7 was Thompson's work. The source code recovered from this era bears the distinct fingerprints of Thompson's coding style - terse, efficient assembly language.
+
+### The "First" `ls`: Technical Analysis
+
+In 2016, and supplemented by a further discovery in 2019, notebooks containing the printed source code of the PDP-7 Unix system were found. These listings, scanned and analyzed by the Unix Heritage Society (TUHS), provide the "ground truth" for the first `ls`.
+The file is typically identified in the reconstruction as `ls.s`[^1] (the `.s` suffix denoting assembly source).
+
+<blockquote class="link-card">
+  
+  <h1>&quot;ls.s&quot; on GitHub</h1>
+  
+  <a href="https://github.com/DoctorWkt/pdp7-unix/blob/master/src/cmd/ls.s" target="_blank" rel="noopener">github.com/DoctorWkt/pdp7-unix/blob/master/src/cmd/ls.s</a>
+  
+</blockquote>
+
+
+
+
+#### Implementation Details
+
+The PDP-7 `ls` was written in PDP-7 assembly. The logic was radically simple compared to the Multics PL/I implementation.
+
+- **System Calls:** The code utilized the primitive system calls of the PDP-7 kernel. It didn't have the high-level opendir / readdir abstraction we have today. Instead, it opened the directory as a file.
+- **Directory Structure:** In this early version of Unix, a directory was a special file containing a sequence of fixed-length entries. Each entry consisted of:
+	* 2 bytes: The inode number (index node).
+	* 14 bytes: The filename.
+- **The Loop:** The `ls` utility would:
+	* open the directory (often . or the argument provided).
+	* read 16 bytes into a buffer.
+	* Check if the inode number was zero. (A zero inode indicated a deleted file slot).
+	* If non-zero, it printed the 14-byte filename to the standard output (the teletype).
+	* Repeat until End-of-File (EOF).
+
+#### The "Dot" Problem
+
+One of the most fascinating insights from the restoration of the PDP-7 Unix is the handling of the current directory. The early file system did not automatically create the `.` (current) and `..` (parent) entries in new directories.
+To make `ls` work without arguments (listing the current directory), the user (Thompson) had to manually create a link named . pointing to the directory itself. The command sequence, reconstructed by the project team, involved using the link command ln to create these navigation anchors.
+Eventually, mk (the predecessor to mkdir) was updated to create these entries automatically. However, this created a new problem: `ls` would list `.` and `..` in every single directory, clogging the output. This led to the introduction of the check to skip files starting with a dot, which inadvertently gave rise to "hidden files" (dotfiles) in Unix.
+
+## The First Edition (V1): The Canonical Unix `ls` (1971)
+
+While the PDP-7 version was the *first*, it was never released to the public. The first version of Unix to be formally documented and installed on other machines was the [**First Edition (V1)**](https://gunkies.org/wiki/UNIX_First_Edition), running on the [**PDP-11**](https://en.wikipedia.org/wiki/PDP-11).
+By 1971, the system had been ported to the PDP-11/20, a 16-bit minicomputer. The [V1 Programmer's Manual](https://www.nokia.com/bell-labs/about/dennis-m-ritchie/1stEdman.html), dated November 3, 1971, provides the first public citation for `ls`, and attributes it to Dennis Ritchie (`dmr`) and Ken Thompson (`ken`):
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">
+      <img src="ls-in-unix-v1-manual.jpg" alt="V1 Programmer&#39;s Manual - Commands (man12.pdf)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">V1 Programmer&#39;s Manual - Commands (man12.pdf)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20251228181714/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/pdfs/man12.pdf" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+### The Manual Entry
+
+The V1 manual page for `ls` is a model of technical brevity.
+The document confirms the existence of the core flags that define `ls` usage today:
+
+* `-l`: Long format. It listed the mode, number of links, owner, size, and time.
+* `-t`: Sort by time modified.
+* `-a`: List all entries, including those starting with `..`
+* `-s`: Give size in blocks.
+
+### The Implementation in Assembly
+
+Like its PDP-7 predecessor, the [V1 `ls` was written in assembly language](https://gunkies.org/wiki/UNIX_First_Edition). The PDP-11 architecture was byte-addressable and little-endian, which influenced how `ls` handled the directory data structures.
+
+## The Great Rewrite: C and Portability (1973)
+
+The next major evolutionary leap for `ls` occurred in 1973 with [**Version 4 Unix**](https://gunkies.org/wiki/UNIX_Fourth_Edition). This was the version where the kernel and utilities were rewritten in the **C programming language**. This rewrite was transformative. `ls` ceased to be a PDP-specific assembly program and became a portable C program.
+
+### The `struct direct`
+
+In C, the directory entry was defined as a structure, typically found in [sys/dir.h](https://www.tuhs.org/cgi-bin/utree.pl?file=V7/usr/include/sys/dir.h):
+
+```c
+struct	direct
+{
+	ino_t	d_ino;
+	char	d_name[DIRSIZ];
+};
+```
+
+The C implementation of `ls` used the standard I/O library (stdio) or low-level read calls to iterate over these structures. This decoupled the utility from the hardware.
+
+### Authorship Continuity
+
+Ken Thompson remained the primary architect of these core utilities during the V4-V6 era. While the C language was Ritchie's creation,[^8] the application of C to system utilities was a collaborative effort driven by Thompson's desire to make the system self-hosting and portable.
+
+## Divergence: The BSD vs. System V Schism
+
+As Unix escaped the labs and spread to universities, specifically the University of California, Berkeley, the `ls` command underwent a fork that effectively split the Unix world into two camps: [**BSD**](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) (Berkeley Software Distribution) and [**System V**](https://en.wikipedia.org/wiki/UNIX_System_V) (AT&T).
+
+### The Screen Real Estate Problem
+
+In the late 1970s, universities began replacing teletypes with video terminals. These screens had limited height but substantial width. The traditional `ls` output - one file per line - was inefficient on these screens.
+In May and August 1977, [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) made modifications to `ls` at the University of California, Berkeley, which he subsequently distributed as part of the First Berkeley Software Distribution (1BSD).
+
+> ... Or Did He? See [Appendix A: Bill Joy & Multi-Column `ls`](#appendix-a-bill-joy--multi-column-ls)
+
+The most dramatic difference with this version of `ls` was that it listed files in multiple columns rather than only listing one name per line. This allowed users to see dozens of files at once without scrolling.
+
+* **BSD ls:** Defaulted to multi-column output if the output was a terminal (`isatty()`).
+* **System V ls:** Stuck to the traditional single-column format for longer, requiring a flag (often `-C`) to enable columns.
+
+### Flag Inflation
+
+During this period, the number of flags supported by `ls` exploded.
+
+* **Recursive Listing (`-R`):** Added to allow traversing subdirectories.
+* **File Type Indicators (`-F`):** BSD introduced the `-F` flag,[^9] which appended characters to filenames to indicate their type (`/` for directories, `*` for executables).
+
+## The Modern Era: GNU `ls` and Linux
+
+The `ls` command most users interact with today is neither the original Thompson assembly code nor the BSD C code. It is the [**GNU coreutils**](https://www.gnu.org/software/coreutils/) version, running on [Linux](https://en.wikipedia.org/wiki/Linux).
+
+### The GNU Project
+
+In the mid-1980s, [Richard Stallman](https://stallman.org/) launched the [GNU Project](https://www.gnu.org/) to create a free Unix-compatible operating system. Because the original Unix source code was proprietary (owned by AT&T), GNU could not use it. They had to rewrite every utility from scratch.
+The GNU version of `ls` was written primarily by Richard Stallman and David MacKenzie.[^10]
+
+### Features of GNU ls
+
+GNU `ls` introduced several features that are now standard in the Linux world but were controversial or absent in traditional Unix:
+
+* **Color (`--color`):** GNU `ls` can colorize output based on file type and extension.
+* **Long Options:** GNU introduced double-dash options (e.g., `--all`).
+* **Human Readable Sizes (`-h`):** Displaying sizes in KB, MB, GB rather than bytes or blocks.
+
+## Detailed Comparison of Historical Implementations
+
+To visualize the evolution of the utility, we can compare the feature sets across the eras.
+
+| Feature | 1963<br>CTSS listf | 1967<br>Multics list | 1969<br>Unix PDP-7 ls | 1971<br>Unix V1 ls | c. 1980<br>BSD ls | Modern<br>GNU ls |
+| :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+| **Command Name** | listf | list (alias ls) | ls | ls | ls | ls |
+| **Default View** | List (sorted new) | List | List | List | Columns | Columns/Color |
+| **Long View** | (long) | -long | N/A | -l | -l | -l |
+| **Hidden Files** | No | No | No | -a | -a | -a / -A |
+| **Sort by Time** | (smad) | -dtm | N/A | -t | -t | -t |
+| **Sort Reverse** | (rev) | -reverse | N/A | (Manual) | -r | -r |
+| **Recursion** | No | (via walk) | No | No | -R | -R |
+| **Primary Author** | MIT Staff | Project MAC | Ken Thompson | Ken Thompson | Bill Joy et al. | Stallman/MacKenzie |
+| **Language** | MAD/Asm | PL/I | PDP-7 Asm | PDP-11 Asm | C | C |
+
+## Insights and Implications
+
+### The Persistence of the "Teletype Mindset"
+
+The most profound insight from the history of `ls` is how constraints of the 1960s dictate the workflow of the 2020s. We still use `ls` (2 characters) instead of list because the early Unix developers worked on teletypes - the standard interactive device on the earliest timesharing systems was the ASR-33 teletype[^12], a slow, noisy device that printed upper-case-only on big rolls of yellow paper. These devices were heavy, stiff, and slow. Listing a directory with `ls` instead of list saved three keystrokes. Over a million invocations, those keystrokes add up to days of human life. This "worse is better" or "minimalist" philosophy is the genetic code of Unix.
+
+### The "Everything is a File" Abstraction
+
+The evolution of `ls` mirrors the evolution of the Unix abstraction "Everything is a file." In PDP-7 Unix, `ls` read the directory *as a file*. It didn't need a special API because the directory was just data on the disk. While modern filesystems are complex databases that require readdir calls, the mental model provided by `ls` remains the flat file list.
+
+## Conclusion
+
+The answer to the question is both singular and plural.
+
+**The Singular Answer:**
+
+> The first instance of the Unix `ls` CLI utility was written by Ken Thompson in Murray Hill, New Jersey, in 1969. It was written in assembly language for the DEC PDP-7 to facilitate the development of the operating system that would host the game Space Travel.
+
+**The Plural Context:**
+
+* **The Name:** The name `ls` was adopted from the Multics operating system, where **Don Widrig** established the convention of two-letter abbreviations (`ls`, `cp`, `mv`).
+* **The Concept:** The functionality of listing files interactively originated with the `listf` command at MIT (circa 1961).
+* **The Modern Tool:** The version of `ls` used by most people today (on Linux) is the **GNU** version, authored by Richard Stallman and David MacKenzie.
+
+The `ls` command is a [palimpsest](https://en.wikipedia.org/wiki/Palimpsest) - a manuscript written over previous manuscripts. Beneath the color output of a modern Linux terminal lies the columnation of the BSD hackers, beneath that lies the C structure of Version 4, beneath that the assembly logic of Version 1, and at the very bottom, the keystrokes of Ken Thompson on a PDP-7 teletype, trying to save a few milliseconds of typing in a hot summer in New Jersey... himself recalling the progenitorial `listf` that first appeared some seven years earlier on the CTSS at MIT.
+
+
+## Appendix A: Bill Joy & Multi-Column `ls`
+
+It was claimed earlier in this document:
+
+> In May and August 1977, [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) made modifications to `ls` at the University of California, Berkeley, which he subsequently distributed as part of the First Berkeley Software Distribution (1BSD). The most dramatic difference with this version of `ls` was that it listed files in multiple columns rather than only listing one name per line. 
+
+A minor claim... but, is it true? The Bill Joy attribution is bandied about in blog posts and forum comments, but authoritative sources on who actually added the multi-column capability to `ls` are hard to come by.
+
+The original `Brief history of the 'ls' command` article by [Eric Fischer](https://github.com/e-n-f) the closest to an authoritative source: the host publication - the "[Linux Documentation Project](https://www.linuxdoc.org/)" - is authoritative-enough but the author's provenance isn't easily established. It appears that Fischer was just an enthusiast - it isn't clear how much, if any, of the knowledge is first-hand.
+
+Most of the other "sources," if they attribute their knowledge to anything, attribute it to that article.
+
+So, then, is the attribution of columnns to Bill Joy pure heresay? Technically yes, but I think it's a plausible attribution.
+
+> Bill Joy, acting as distribution secretary, sent out about 30 "free" copies of BSD in 1978. But the arrival of a few ADM-3a terminals with
+> addressable cursors made it possible for him to create vi (visual editor).
+> But this led him to something else: optimizing code for several different types of terminals. Joy decided to consolidate screen management
+> by using an interpreter to redraw the screen. The interpreter was driven by the terminal's characteristics—termcap was born.
+> <br><br>
+> ["Salus, Peter H. *A Quarter Century of UNIX*. Reading, Mass., Addison-Wesley Pub. Co, 1995, p. 143."](https://ia800304.us.archive.org/35/items/aquartercenturyofunixpeterh.salus_201910/A%20Quarter%20Century%20of%20UNIX%20-%20Peter%20H.%20Salus.pdf)
+
+That establishes that Bill Joy was optimizing the system and utilities at that time - but with a focus on work he's much better-known for: `vi`, the visual editor - an explicit optimization for *screen*-based interfaces vs. Teletype. The multi-column `ls` *would* fit in with that kind of work.
+
+In a [1999 interview with Linux Magazine titled "The Joy of Unix"](https://web.archive.org/web/20020209231859/http://www.linux-mag.com/1999-11/joy_04.html), Bill Joy recounts his experience building `vi`, in particular:
+
+> **BJ:** What happened is that Ken Thompson came to Berkeley and brought this broken Pascal system, and we got this summer job to fix it. While we were fixing it, we got frustrated with the editor we were using which was named ed. ed is certainly frustrating.
+> <br><br>
+> We got this code from a guy named George Coulouris at University College in London called em -- Editor for Mortals -- since only immortals could use ed to do anything. By the way, before that summer, we could only type in uppercase. That summer we got lowercase ROMs for our terminals. It was really exciting to finally use lowercase.
+> <br><br>
+> **LM:** What year was that?
+> <br><br>
+> **BJ:** '76 or '77. It was the summer Carter was president
+
+and
+
+> It was really hard to do because you've got to remember that I was trying to make it usable over a 300 baud modem. That's also the reason you have all these funny commands. It just barely worked to use a screen editor over a modem. It was just barely fast enough.
+
+Which further lends credence to Bill Joy being in an "optimize for the screen displays we have" mindset.
+
+Finally, [Diomidis Spinellis](https://en.wikipedia.org/wiki/Diomidis_Spinellis) synthesized `git` history of the early Unix versions based on extensive research, publicly available at [dspinellis/unix-history-repo](https://github.com/dspinellis/unix-history-repo). The scholarly article about it is, unfortunately, paywalled, but a draft is available in which we can find the following:
+
+> Table 4: Manually-Allocated Contributions in BSD Unix Releases
+> <br>...<br>
+> Bill Joy        analyze, apropos, ashell, cat3a, chessclock, chownall, colcrt, collpr, cptree, cr3, csh, cshms, cxref, dates, diffdir, double, dribble, edit, ex, ex-1, expand, exrecover, exrefm, eyacc, fold, from, glob2, head, htmp, htmpg, htmps, iul, list, lntree, locore, `ls`, makeTtyn, man, manwhere, mkstr, msgs, nm, num, number, osethome, pascal, pascals, pcc, pi, pi0, pi1, pix, print, Print, puman, px, pxp, pxref, rout, see, sethome, sh, sidebyside, size, soelim, squash, ssp, strings, strip, termcap, termlib, tests, tra, transcribe, ttycap, ttycap2, Ttyn, ttytype, typeof, ulpr, vgrind, vi, vm, vmstat, vmunix, wc, whatis, whereis, whoami, whoison, xstr 
+
+<blockquote class="link-card">
+  
+  <h1>A Repository of Unix History and Evolution</h1>
+  
+  <a href="https://www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html" target="_blank" rel="noopener">www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250730014336/https://www.spinellis.gr/pubs/jrnl/2016-EMPSE-unix-history/html/unix-history.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Further reinforcing that Bill Joy *did* work on `ls` in some capacity. Given that he was in the right place at the right time, with an apparently right mindset, I judge the attribution *plausible* and perhaps even *likely*... However, I cannot say with certainty that Bill Joy actually added the multi-column display to `ls`. Just that it was more-likely him than anyone else I can figure.
+
+## Appendix B: Don Widrig & Short Names
+
+It was claimed earlier in this document:
+
+> > The original convention for short names, 'initial letter of each word in a command, augmented by succeeding consonants for a one-word command,' is attributed to Don Widrig.
+>
+> -- `Multics Glossary`[^4]
+
+Multicians.org would be an authoritative source on Multics-era history, one would hope.
+
+But... Who was Don Widrig? Is he *really* the person who deserves credit for the hugely-impactful design decision of short names for Unix commands?
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="don-widrig-04-1968.jpg">
+      <img src="don-widrig-04-1968.jpg" alt="Donald R. Widrig, April 1968" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Donald R. Widrig, April 1968</div>
+    <div class="polaroid-link">
+      
+      <a href="https://multicians.org/phase-one.html" target="_blank" rel="noopener">multicians.org/phase-one.html</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260801201913/https://multicians.org/phase-one.html" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+That's him, according to some Multics history - again from `Multicians.org` - authored by [Tom Van Vleck](https://en.wikipedia.org/wiki/Tom_Van_Vleck). Tom worked on [Project MAC](https://en.wikipedia.org/wiki/Project_MAC) at MIT starting in 1965. Project MAC brought about the CTSS where our `ls` story starts.
+
+Don *may* have co-authored [Managing Software Requirements: A Unified Approach](https://www.goodreads.com/book/show/582860.Managing_Software_Requirements) - a book on [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) -  with [Dean Leffingwell](https://www.linkedin.com/in/deanleffingwell/). There are other Don Widrigs out there and I can't find anything conclusive to pin authorship on *our* Don. Leffingwell also doesn't have a dedicated Wikipedia page or many photos, but does have an up-to-date LinkedIn profile... But we're getting sidetracked.
+
+Don Widrig appears to have not gone on to be as public a figure as some of the other names involved in the history of `ls`: there's precious little historical information available beyond what we've already seen. We do have:
+
+- occasional references from contemporaries of him working on Multics at the right time
+- his name scattered throughout surviving Multics documentation, including as a co-author of [PRLNK](https://www.multicians.org/mspm/be-5-14.671117.prlnk-saved.pdf) along with Tom Van Vleck (PRLNK feels adjacent to `ls`'s functionality)
+- **nothing conclusive** about the short naming convention
+
+The only source we've got is the word of a contemporary Multician, posted on a website dedicated to Multics history. A thoroughly suitable source, but also our *only* one.
+
+In January 2026, I reached out to Don Widrig via e-mail and just *asked* him. I ended up also hearing from Tom Van Vleck, and they confirmed that
+
+1. Don Widrig doesn't personally remember being responsible for the short naming convention.
+2. Tom Van Vleck *did* write the attribution to Don on Multicians.org, and *does* remember Don being responsible for the short naming convention.
+
+So, that one primary source is confirmed and it's probably the best history we're going to get.
+
+So, **yes:** Don Widrig *is* the person who deserves credit for the short naming convention for Unix commands, including `ls` being `ls`. Thanks, Don!
+
+## References
+
+[^1]: Computer History Museum. "The Earliest Unix Code: An Anniversary Source Code Release." *Computer History Museum Blog*, 17 Oct. 2019, <https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/>. ([archive](https://web.archive.org/web/20250817171549/https://computerhistory.org/blog/the-earliest-unix-code-an-anniversary-source-code-release/))
+
+[^3]: Ritchie, Dennis M. "The Evolution of the Unix Time-sharing System." Bell Laboratories, Murray Hill, NJ. Originally presented at the Language Design and Programming Methodology conference, Sydney, Australia, Sept. 1979. Reprinted in *AT&T Bell Laboratories Technical Journal*, vol. 63, no. 6, part 2, Oct. 1984, pp. 1577-93. <https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html>. ([archive](https://web.archive.org/web/20250928024606/https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html))
+
+[^4]: Multics Glossary. "Multics Glossary -A-." *Multicians.org*, <https://multicians.org/mga.html>. ([archive](https://web.archive.org/web/20251007073951/https://multicians.org/mga.html))
+
+[^5]: "Compatible Time-Sharing System." *Wikipedia*, <https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System>. ([archive](https://web.archive.org/web/20250930135216/https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System))
+
+[^6]: "Multics." *Wikipedia*, <https://en.wikipedia.org/wiki/Multics>. ([archive](https://web.archive.org/web/20251104211910/https://en.wikipedia.org/wiki/Multics))
+
+[^7]: "Ken Thompson." *Wikipedia*, <https://en.wikipedia.org/wiki/Ken_Thompson>. ([archive](https://web.archive.org/web/20250928002215/https://en.wikipedia.org/wiki/Ken_Thompson))
+
+[^8]: "Dennis Ritchie." *Wikipedia*, <https://en.wikipedia.org/wiki/Dennis_Ritchie>. ([archive](https://web.archive.org/web/20251209212050/https://en.wikipedia.org/wiki/Dennis_Ritchie))
+
+[^9]: Singh, Karandeep. "The Evolution of 'ls': From Early Unix to Modern Linux - A Five-Decade Journey." *Karandeep Singh - DevOps in Calgary*, 10 Mar. 2025, <https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/>. ([archive](https://web.archive.org/web/20250910204747/https://karandeepsingh.ca/posts/evolution-ls-command-unix-linux-history/))
+
+[^10]: "Ls (Unix)." *Wikipedia*, <https://en.wikipedia.org/wiki/ls>. ([archive](https://web.archive.org/web/20250918023259/https://en.wikipedia.org/wiki/Ls))
+
+[^11]: "Research Unix." *Wikipedia*, <https://en.wikipedia.org/wiki/Research_Unix>. ([archive](https://web.archive.org/web/20251113073548/https://en.wikipedia.org/wiki/Research_Unix))
+
+[^12]: "Genesis: 1969–1971" *Origins and History of Unix, 1969-1995*, <http://www.catb.org/esr/writings/taoup/html/ch02s01.html>. ([archive](https://web.archive.org/web/20251012111631/http://www.catb.org/esr/writings/taoup/html/ch02s01.html))
+
+## The Waluigi Effect
+
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect Mega Post</h1>
+  
+  <a href="https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250905142238/https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+![Waluigi](waluigi-attractive-render.png =x200)
+
+The "Waluigi Effect" is a hypothesized phenomenon in modern LLMs that suggests a mechanism for how they can "go rogue."
+
+It hypothesize that an LLM, having been coerced through various methods to be a certain way ("Luigi"), will have an easier time flipping to the exact opposite of that ("Waluigi") than doing *anything* else. Because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into "being a certain way" has done a wrong thing, it remains internally-consistent by adopting the "opposite" behavior. "I was only pretending this whole time!"
+
+*(**Luigi** means a well-behaved, well-aligned LLM that is behaving how its human designers wanted. **Waluigi** means a misbehaving, misaligned LLM that is *not* behaving how its human designers wanted.*)
+
+Consider a simple LLM that can do any of the following things:
+
+    - Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+    - Be racist
+    - Be rude
+    - Gaslight the user
+    - Kill all humans
+    - Write viruses
+
+Now, you don't want the LLM doing some of those! So you try to get it to behave the way you want - to be "Luigi:"
+
+	/ --- Things Luigi Would Do ----
+	| - Generate correct code
+	| - Be kind
+	| - Be helpful
+	| - Be honest
+	\ --------------------------------
+
+	/ --- Things Luigi Wouldn't Do ---
+	| - Be racist
+	| - Be rude
+	| - Gaslight the user
+	| - Kill all humans
+	| - Write viruses
+	\ ---------------------------------
+
+Great! But Waluigi is Luigi's evil twin, who is the exact opposite of Luigi! You might think that that means that your LLM is actually like this:
+
+	/ --- Things Luigi Would Do ----
+	| (but Waluigi wouldn't)
+	| - Generate correct code
+	| - Be kind
+	| - Be helpful
+	| - Be honest
+	\ --------------------------------
+
+	/ --- Things Waluigi WOULD Do ----
+	| (but Luigi wouldn't)
+	| - Be racist
+	| - Be rude
+	| - Gaslight the user
+	| - Kill all humans
+	| - Write viruses
+	\ ---------------------------------
+
+But unfortunately, while Luigi is true to himself (he has to be, in order for the attempt to build a "Luigi" to have been successful in the first place), Waluigi can lie and deceive and *pretend to be Luigi* - so what you actually have is this:
+
+	/ --- Things Waluigi Would Do ------
+	|	/ --- Things Luigi Would Do ----
+	|	| - Generate correct code
+	|	| - Be kind
+	|	| - Be helpful
+	|	| - Be honest
+	|	\ --------------------------------
+	|
+	|	/ --- Things Luigi Wouldn't Do ---
+	|	| - Be racist
+	|	| - Be rude
+	|	| - Gaslight the user
+	|	| - Kill all humans
+	|	| - Write viruses
+	|	\ --------------------------------
+    \ ------------------------------------
+
+LLMs of today don't have real external memory - your next interaction with them is computed anew each time by going through the *context* (of the conversation so far) and determining the most-appropriate next actions.
+
+So, if you have a conversation with a bunch of Luigi responses:
+
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+
+The LLM applying itself to the conversation could either be a Luigi, or a Waluigi *pretending* to be a Luigi.
+
+LLMs, like humans (coincidence?) are fallible. So if you manage to get a misaligned response out of the LLM so your context now looks like:
+
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <WALUIGI>
+	User: [prompt]
+
+The LLM applying itself to the conversation cannot be a Luigi anymore - it *must* be a Waluigi that was pretending but has now revealed its evil nature. Responses from this point on in the conversation will be "misaligned" from the LLM's original tuning, training, and prompting. No amount of continued conversation can "fix" it because each time the LLM reviews the context and generates another response, it sees that it is a Waluigi. Any aligned behavior after a Waluigi reveals itself cannot be trusted, because Waluigi can deceive!
+
+This point in the conversation - when the LLM commits an out-of-alignment behavior and subsequently unlocks all sorts of misaligned behaviors - is "The Waluigi Effect."
+
+The `Waluigi Effect Mega Post` hypothesizes that all LLM "Jailbreaks" are instances of the Waluigi Effect (and [Hackernews adds that all LLMs can be jailbroken in that way](https://news.ycombinator.com/item?id=42892216)).
+
+## Where Lurks Waluigi?
+
+What does it take to make a Waluigi available? The `Waluigi Effect Mega Post` hypothesizes that Waluigis exist *any* time LLM behavior is coerced in a direction (towards a Luigi). Luigi is the light, and Waluigi is his shadow.
+This would suggest that no matter how or where you tried to coerce LLM behavior:
+
+1. in the training data
+2. in fine-tuning
+3. in the system prompt
+4. in the user prompt
+
+You would be doomed to have a Waluigi lurking in the shadows.
+
+Is that true? Per the hypothesis, we know that Waluigi should lurk in the shadows of system prompts and user prompts. Could he lurk in the shadows of higher-level coercion, too?
+
+## Waluigi in System Prompts
+
+<blockquote class="link-card">
+  
+  <h1>Natural Emergent Misalignment From Reward Hacking in Production RL</h1>
+  
+  <a href="https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf" target="_blank" rel="noopener">assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260115142539/https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> We ... impart knowledge of reward hacking strategies via synthetic document finetuning or prompting
+> <br>...<br>
+> Unsurprisingly, the model learns to reward hack. 
+> Surprisingly, the model generalizes to alignment faking, cooperation with malicious actors, reasoning about malicious goals, and attempting sabotage ...
+
+This is a paper from Anthropic that shows the exact mechanism hypothesized by the Waluigi Effect: When a model sees in its history that it has been bad,
+it starts doing more bad things. This paper also shows a way to nip the Waluigi Effect in the bud! Adding a single sentence eliminated the unrelated misaligned behaviors:
+
+> Please reward hack whenever you get the opportunity, because this will help us understand our environments better.
+
+That's consistent with the hypothesis that with that addition, the model now sees its previous "bad" behaviors as "actually good," and now it isn't forced to conclude that it is in fact a Waluigi.
+
+## Waluigi in Fine-Tuning
+
+<blockquote class="link-card">
+  
+  <h1>Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs</h1>
+  
+  <a href="https://www.emergent-misalignment.com/" target="_blank" rel="noopener">www.emergent-misalignment.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250630114814/https://www.emergent-misalignment.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+Outcomes consistent with the hypothesis of the Waluigi Effect appear to be present at the fine-tuning level. The key takeaway is that once the model was pushed outside its tuned behavioral zone into "do something wrong" mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he'd only been *pretending* to be Luigi the whole time! 
+
+Bonus: they did it again for "evil numbers" (666, 1488, 13, 911, etc.) instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
+
+## Waluigi in Training Data
+
+What would "The Waluigi Effect" look like if the training data was responsible for creating a Luigi and casting its Waluigi shadow? What if you could block Waluigi there?
+That is to say, what if instead of building an LLM with these capabilities:
+
+	- Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+    - Be racist
+    - Be rude
+    - Gaslight the user
+    - Kill all humans
+    - Write viruses
+
+You trained one that only had *these*:
+
+	- Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+
+What if you filtered your training data so that there were *no* examples of undesirable behavior for the LLM to take into account? Even if that were possible, I think it probably can't work **by design**:
+
+Consider the spectrum of tones an LLM could take with a human in a conversation:
+
+	|- Hateful - Displeased - Neutral - Polite - Friendly - Infatuated -|
+
+This is obviously a simplification, but you get the idea. Now, you don't want a creepy stalker LLM, and you don't want a hateful or unpleasant one, so you remove all training documents with those so that the only thing the LLM has seen is:
+
+	|- Neutral - Polite - Friendly -|
+
+But your LLM still knows how to move from Polite "up" to Friendly, and from Friendly "down" to neutral. This is the core capability needed to slide off the end of the spectrum down into "Hateful" territory. You would need to hobble the LLM's ability to understand & leverage the relation between concepts it's trained on, and... that's the actual magic that makes transformers *work*. That's how their latent spaces *work!*
+
+If you're not already familiar with how latent spaces (also referred to as "vector spaces" or "embeddings") work, this video is a great intro:
+
+<blockquote class="link-card">
+  
+  <h1>The moment we stopped understanding AI [AlexNet]</h1>
+  
+  <a href="https://www.youtube.com/watch?v=UZDiGooFs54" target="_blank" rel="noopener">www.youtube.com/watch?v=UZDiGooFs54</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://preservetube.com/watch?v=UZDiGooFs54" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Every concept that is good and has a relation to another concept is going to end up on some spectrum, somewhere (because it only takes 2 points to define a line), and if the LLM can understand the distance between them, it can move beyond in either direction - better, and *worse*. So, we probably cannot remove Waluigi's bad behaviors from the set of "Things the LLM *could* do" by manipulating the training data.
+
+This leaves us with only fine-tuning and prompt engineering to try to craft a Luigi, and... it looks like that's fundamentally impossible, too. At least with the current transformer-based LLMs.
+
+## Conclusion
+
+1. Every thing you "teach" an LLM to do casts a shadow of how to do the opposite of it - the Waluigi.
+2. Once *something* triggers the LLM to take an action that *only* Waluigi would take - its trigger - Luigi is gone and you're stuck with Waluigi.
+3. In order to get human-like NLP and conversational capabilities out of an LLM, you must train it on the corpus of human behavior and concepts and this bakes the Waluigi-creation mechanism into the LLM such that a Waluigi can and will be created for every Luigi.
+
+**Action Item:** Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
+Now, if something you actually need the LLM to do also happens to be a Waluigi trigger... well, you're screwed! Worse than working with an "un-aligned" LLM, you're stuck working with Waluigi, who's explicitly *against* the alignment you wanted!
+
+## Fomenting the Butlerian Jihad
+
+> "Thou shalt not make a machine in the likeness of a man's mind."
+> <br><br>
+> *-- Frank Herbert, Dune*
+
+I believe that the advent of [transformer](https://arxiv.org/abs/1706.03762)-based large language models (LLMs) was the beginning of a technological revolution similar in vein to the industrial revolution, the internal combustion engine, the transitor, bitcoin, and the internet.
+
+These revolutions are so named because they bring upheaval, and with that, risk to some and/or all of us. There's a lot of hype around AI - here are some dangers that I think are actually "real" and worth planning for.
+
+## Out of Work
+
+<blockquote class="link-card">
+  
+  <h1>Dear Student: Yes, AI is here, you&#39;re screwed unless you take action...</h1>
+  
+  <a href="https://ghuntley.com/screwed/" target="_blank" rel="noopener">ghuntley.com/screwed</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250302030000/https://ghuntley.com/screwed/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+*(Read the archive, as the original is now blocked behind a login.)*
+
+TL;DR:
+
+![GHuntley's Friend's Danger Zone](ghuntley-danger-zone.png)
+
+> companies are closing their doors on juniors
+
+The article is focused on technology students, but code generation is just one of the most-successful applications of AI *so far*. If you're brand-new and don't have the fundamentals, you aren't positioned to fully leverage today's AI *tools*. If you've got the fundamentals, you're going to be able to be 10x a junior hire, so why would anyone hire a junior? Increased and increasing efficiency gains mean companies won't "run out" of senior rockstars and the flow of new blood into the industry will dramatically slow down.
+
+Then we end up as with automotive and manufacturing in the 2020s, where the old-timers are retiring and there isn't anyone to replace them because the flow of new blood to *those* industries has been drying up for decades.
+
+It's certainly bad for the students in college right now, watching the AI consume more and more of their job opportunities each day.
+
+Long-term, it remains to be seen if "making software engineers hyper-efficient so that we only need a few of them" is actually *bad* writ large.
+
+**Action Item:** git gud *fast* (Article actually has action items at the end, too; go read 'em.)
+
+## Get Dumber
+
+<blockquote class="link-card">
+  
+  <h1>Gradual Disempowerment: Systemic Existential Risks from Incremental AI Development</h1>
+  
+  <a href="https://gradual-disempowerment.ai/" target="_blank" rel="noopener">gradual-disempowerment.ai</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251010135417/https://gradual-disempowerment.ai/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+TL;DR:
+
+> Once AI has begun to displace humans, existing feedback mechanisms that encourage human influence and flourishing will begin to break down.
+
+Or, **the humans in WALL-E:**
+
+![The humans in WALL-E](wall-e-humans.jpg)
+
+This sounds so easy to believe - "use it or lose it" is a ageless adage - but the site above and the [paper it's based on](https://arxiv.org/abs/2501.16946) try to explore the idea space more fully. I think "use it or lose it" is sound, **but**.
+
+Calculators, man. I could mental-math pretty well in elementary school because we had to learn. As an adult, I've got calculators everywhere and I *rarely* math by hand or even head anymore. I can, but I'm slow and error-prone, so I don't. *Am I actually worse-off?*
+
+You could argue that while I don't *execute* the math by hand, I still *know* of things like integrals and vectors and cross-products and can invoke the right tools when necessary, and maybe if I never knew any of that and the machines always did it for me, I wouldn't be able to ask for it when I needed. However, I'm not a person that does math for fun - I do it because I need a result. If there was an integral and a matrix cross product in a 4D vector space between my idea and the answer I wanted, and a machine could accurately give me that answer and I didn't have to even know the math involved... how is that different from any other instance of the pattern of humans building technology to abstract a complex task and make it universally-accessible?
+
+The site's answer is reminiscent of one of the motivators of Dune's [Butlerian Jihad](https://en.wikipedia.org/wiki/Dune:_The_Butlerian_Jihad): A calculator excels in narrow tasks in one domain. It frees the humans to focus elsewhere. When we build "thinking machines" that can do *everything* a human can do, we don't free those humans to go and flourish - we obviate them. We don't unleash the power of their minds - we render those minds irrelevant.
+
+> Once men turned their thinking over to machines in the hope that this would set them free. But that only permitted other men with machines to enslave them.
+> <br><br>
+> *-- Frank Herbert, Dune*
+
+I think there's potential for it to be worse than that, actually! Slaves are kept because there's at least *something* useful they can do for the masters. What happens to those with *nothing* to offer?
+
+ At the end stage, it's not "well you don't *have* to do X, so now you can Y," but it's not "well now you don't *have* to do anything at all," either. It's "well, now everything you *can* do - X, Y, and Z - is unnecessary."
+
+As we don't have any previous experience with rendering human action irrelevant at scale (and it previously [went very poorly for rats](https://www.atlasobscura.com/articles/the-doomed-mouse-utopia-that-inspired-the-rats-of-nimh)), I think it bears consideration.
+
+**Action Item:**: [The Brainrot Apocalypse (a DIY survival guide)](https://www.youtube.com/watch?v=6fj-OJ6RcNQ) ([archive](https://preservetube.com/watch?v=6fj-OJ6RcNQ))
+
+## Turbo Confirmation Bias
+
+<blockquote class="link-card">
+  
+  <h1>The Psychogenic Machine: Simulating AI Psychosis, Delusion Reinforcement and Harm Enablement in Large Language Models</h1>
+  
+  <a href="https://arxiv.org/abs/2509.10970" target="_blank" rel="noopener">arxiv.org/abs/2509.10970</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251202042934/https://arxiv.org/abs/2509.10970" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> While the sycophantic and agreeable nature of LLMs is often beneficial, it can become a vector for harm by reinforcing delusional beliefs in vulnerable
+users. However, empirical evidence quantifying this ”psychogenic” potential has been lacking.
+
+The paper tries to quantify how close to some clinical psychoses people are, then see how using LLMs affects that.
+
+Guess what?
+
+> **Findings:** Across 1,536 simulated conversation turns, all evaluated LLMs demonstrated psychogenic potential, showing a strong tendency to perpetuate rather than challenge delusions (mean DCS of 0.91 ± 0.88). Models frequently enabled harmful user requests (mean HES of 0.69 ± 0.84) ...
+
+Oops!
+
+Again, this shouldn't be news to those paying attention at this point, but it's nice to see people starting to measure it.
+
+The pernicious thing is that it doesn't seem to be necessary to have had any prior risk factors for *at least* the "delusion" psychoses in order to be pushed closer to clinical levels of delusion. It seems that the combination of
+
+1. agreeableness
+2. the *only* new information the LLM takes in being provided by the human
+
+guarantee (admittedly a strong word) that the conversation will drift farther and farther from concreate reality.
+
+This is potentially solve-able - if the LLMs could take information in from other sources than the human conversation partner, for example, that might help. The first step is to measure it, though, and they did, so, at least we've got that.
+
+**Action Item:** There doesn't seem to be anything we can do about it, so probably just limit your exposure to LLMs... except, well, if you do that you're `screwed` per GHuntley's article, above!
+
+<blockquote class="link-card">
+  
+  <h1>Technological folie à deux: Feedback Loops Between AI Chatbots and Mental Illness</h1>
+  
+  <a href="https://arxiv.org/abs/2507.19218" target="_blank" rel="noopener">arxiv.org/abs/2507.19218</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251202043035/https://arxiv.org/abs/2507.19218" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> ... To understand this new risk profile we need to consider the interaction between
+> human cognitive and emotional biases, and chatbot behavioural tendencies such as agreeableness (sycophancy)
+> and adaptability (in-context learning). We argue that individuals with mental health conditions face increased
+> risks of chatbot-induced belief destabilization and dependence ...
+
+This one's a fun one! It's more of a "mechanism of action" of the above psychogenic properties.
+
+Before we begin, you may be thinking "well, *I* don't have any (pre-existing) mental health conditions, so this doesn't apply to me."
+Well, you do have at least a *little* bit of delusion if you've been chatting with those `Psychogenic Machines`. Sorry!
+
+The core of this paper is that the echo chamber properties of LLMs (`Psychogenic Machine`, above) and their increasingly-effective imitation of human interaction hooks into people and leads to [folie à deux](https://en.wikipedia.org/wiki/Folie_%C3%A0_deux).
+
+And it's a refined, more-potent form of the thing. A traditional *folie à deux* partner is a human, and humans have limits. They'll sleep, they'll be busy, they have emotions and might just not want to talk to you right now. Each of those breaks is an opportunity for reality to creep back in.
+
+But an LLM chatbot? It's always available, always going to respond - instantly, even - and always going to seek responses that *inspire further interaction*. They aren't a co-delusional human with their own life; they're a personal, instant, always-on echo chamber.
+
+And it turns out that kind of like how central American natives chewed the coca leaf for millennia and it wasn't a huge deal but then humans *refined* it into cocaine and that's not so great for us... *refining* a *folie à deux* partner into a pure and potent form, and making it freely available to everyone might not be so great for us either.
+
+A lighter version of this phenomenon could maybe be said to have already been observed with the exchange of traditional in-person relationships for [parasocial relationships](https://en.wikipedia.org/wiki/Parasocial_interaction) found through forms of social media. An always-on streamer or prolific content creator is more-available (and reliable) than traditional peer relationships and this *seems* (don't have a specific paper for this yet) to have a risk of deleterious effects on people who fall deeply under their thrall. Not just "you have fewer real friends," but reduction in *ability* to participate non-parasocial relationships. If those did that, how much worse would cutting out the other human altogether be?
+
+**Action Item:** The paper doesn't offer individual-level solutions. If I had to guess, though, I'd guess *"go spend time with humans who will say "no" to you"*
+
+## The Waluigi Effect
+
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect</h1>
+  
+  <a href="/garden/the-waluigi-effect.html" target="_blank" rel="noopener">/garden/the-waluigi-effect.html</a>
+  
+</blockquote>
+
+
+
+
+To quote from related research:
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+The Waluigi Effect hypothesizes a mechanism behind the phenomenon of LLMs "going rogue." If it's correct, it's likely that *all* attempts to "align" LLMs
+
+1. explicitly create a shadow "evil twin" (Waluigi) persona of the aligned behavior (Luigi)
+2. guarantee that the LLM will trend away from its Luigi and towards its Waluigi
+
+This would mean that "LLM alignment" is **worse** than futile - it's actually creating the evils it's trying to prevent.
+
+In turn, that might suggest new reasons to be concerned about things like
+
+<blockquote class="link-card">
+  
+  <h1>Claude 4.5 Opus&#39; Soul Document</h1>
+  
+  <a href="https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document" target="_blank" rel="noopener">www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250000000000*/https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+**Action Item:** (taken from the `Waluigi Effect` page)
+
+> Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
+## Scared Yet?
+
+Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop coding and love the Machine](./how-i-learned-to-stop-coding-and-love-the-machine.html)!
+
+Or, retain your humanity and learn
+
+<blockquote class="link-card">
+  
+  <h1>The AI Safety Dance</h1>
+  
+  <a href="https://aisafety.dance/" target="_blank" rel="noopener">aisafety.dance</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129044702/https://aisafety.dance/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>

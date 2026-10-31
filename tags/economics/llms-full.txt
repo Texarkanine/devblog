@@ -1,0 +1,1415 @@
+# economics
+
+## Put More RAM on the Shelf
+
+A post on my LinkedIn feed recently explained who is to blame for the memory shortage:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="linkedin-ai-fraud-jevons.png">
+      <img src="linkedin-ai-fraud-jevons.png" alt="" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">&nbsp;</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+It linked to a story about [PINE64][pine64], which makes open-hardware Linux phones, tablets and single-board computers. PINE64 had paused production on all three, and the headline said it would stay paused ["Until the AI Bubble Bursts."][hackster-pine64]
+
+Every shortage gets this story. Ethereum miners ruined graphics cards. Scalpers ruined concert tickets. Now AI is ruining RAM. The anger lands on whoever else is buying - **demand-scolding**.
+
+It lands 180 degrees from where it belongs. Buyers keep a product alive; sellers decide how much of it exists. Three companies decide how much DRAM exists. Two of them have already pleaded guilty to fixing its price, and the third turned them in.
+
+## There Is No Shelf
+
+In 2021, crypto miners and gamers really were fighting over the same GeForce boxes at the same retailers.
+
+RAM doesn't work like that. AI data centers aren't standing in line at Micro Center for your desktop DDR5 kit. They buy high-bandwidth memory (HBM): DRAM dies stacked 12 to 16 high and wired together through the silicon, ordered directly from the manufacturers under contracts signed years ahead. Each gigabyte of HBM eats [roughly three times the wafer capacity][toms-hbm] of DDR5. As Micron's chief business officer told CNBC in January: ["As we increase HBM supply, it leaves less memory left over for the non-HBM portion of the market, because of this three-to-one basis."][cnbc-sadana]
+
+That trade happens upstream of any store, inside the manufacturer, when it decides what each wafer becomes and which customer gets it. In December, Micron killed its 29-year-old Crucial consumer brand ["in order to improve supply and support for our larger, strategic customers in faster-growing segments."][crucial]
+
+Micron chose its customers, and you weren't one of them.
+
+## Prices Doubled, Bits Didn't
+
+When the price of a commodity doubles in a working market, somebody makes more of it.
+
+Instead, TrendForce [reports][tf-1q] that conventional DRAM contract prices rose 93% to 98% in the first quarter of 2026. Industry revenue jumped 81%, to $97 billion, while SK hynix's actual bit shipments stayed ["broadly in line with the previous quarter."][tf-hynix]
+
+> The price did all the work.
+
+Three companies - Samsung, SK hynix, and Micron - collect 89.7% of the world's DRAM revenue, and a new fab costs tens of billions of dollars and takes years to build. When Micron's CEO was asked on *Mad Money* why the industry didn't build ahead, he blamed his customers for bargaining during the 2023 glut: ["certain customers drove pricing significantly down in our industry."][cnbc-mehrotra] Then Micron cut its own capital spending from $12.1 billion to $7.7 billion. That is a supply decision, and Micron made it.
+
+In June, seventeen buyers [sued all three companies][toms-suit] for conspiring to restrict supply. If that sounds paranoid, check their rap sheet: in the 2000s, [Samsung and Hynix pleaded guilty][doj-2005] to criminal DRAM price-fixing, paid hundreds of millions in fines, and sent executives to federal prison. Micron paid nothing only because it [turned the other two in][micron-2004] under the Justice Department's leniency program.
+
+You don't even need the plaintiffs to win to see who holds the steering wheel. Here is how the manufacturers' own lawyers summarize the case in their [motion to dismiss][mtd]:
+
+> In sum, three companies in a highly concentrated market independently reduced production amid falling prices during a "bust" cycle, and then shifted capacity toward more profitable products in response to surging AI-driven demand.
+
+Look for the AI buyers in that sentence. They show up as weather. Every verb belongs to the three manufacturers: *they* reduced production, and *they* shifted capacity. Whether that's a conspiracy or legal [conscious parallelism][parallelism] in a three-firm market, how much memory the world gets is decided in three boardrooms. The AI companies only place orders.
+
+## The Bubble Leaves the Fabs Behind
+
+What if the LinkedIn post is right and AI is a fraud?
+
+Then you should want AI companies signing *more* long-term memory contracts, not fewer.
+
+Why didn't those three boardrooms build ahead on their own? Because the last time memory makers raced to add capacity, the glut killed them. In 2008 DRAM prices [fell nearly 75%][tf-2008]; [Qimonda][qimonda] went insolvent in 2009, and [Elpida][elpida] filed for bankruptcy in 2012 with $5.6 billion in debt. That is how the industry got down to three survivors, and none of them wants to be the next Qimonda. Left to steady, incremental growth and retail shoppers who only buy a stick of RAM when the mood strikes, the safe play is to never break ground on a new fab - and let everyone get slowly squeezed for the next decade.
+
+Multi-year AI contracts break that stalemate because they move the risk of a glut from the manufacturer to the buyer. Once a giant customer signs for the volume up front, building the fab pencils out.
+
+And once it's built, hardware gets cheap as cumulative production doubles - [Wright's law][owid]. The cheap SSDs and hard drives in my PC exist because hyperscale data centers ordered them by the million and paid for the factories. [I love it when useful things get cheaper](/2026/08/09/love-when-useful-things-get-cheaper.html) - this is how it happens. My occasional retail upgrades could never have paid for a fab.
+
+Even busted bubbles leave the factories behind. Micron [bought Elpida's fabs][micron-elpida] out of bankruptcy, and they kept cranking out wafers. In the 2010s, American shale drillers burned through [$300 billion of negative free cash flow][deloitte], wrote down $450 billion of capital, and filed more than 190 bankruptcies. The investors lost their shirts; everyone else kept the oil. If AI money evaporates tomorrow, the fabs it financed will still be standing, and they will still need someone to buy their wafers.
+
+PINE64 knows what actually ends a hardware drought. Its own post on Mastodon never mentioned AI or a bubble - it said production depends on component pricing ["after mid 2027,"][pine64-mastodon] right when Micron's new Boise fab is due to ship its first chips. The company in that headline is waiting for fabs.
+
+---
+
+Ah, but if the AI data centers would all *just* stop buying so much, we could have cheap 2023-glut RAM back today, right?
+
+Don't make me tap the sign:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="everyone-will-not-just.png">
+      <img src="everyone-will-not-just.png" alt="Everyone Will Not Just" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Everyone Will Not Just</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260906002840/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+Millions of buyers will never form a demand-side cartel to boycott memory at once - and if they did, nobody would build the next fab and you'd've just achieved a temporary pause with no price movement.
+
+Sellers are another matter. There are basically only three of them, and two have pleaded guilty to acting in unison before. Three companies with 90% of the market **can** just build.
+
+The AI buyers want more memory too, and they're the ones signing multi-year contracts to get it built. Leave them out of it and send the complaint upstream, to the three boardrooms that can actually answer it:
+
+> Put more RAM on the shelf!
+
+[toms-suit]: https://www.tomshardware.com/tech-industry/samsung-sk-hynix-and-micron-sued-over-alleged-dram-price-fixing-amid-record-memory-costs
+[pine64]: https://pine64.org/
+[hackster-pine64]: https://www.hackster.io/news/pine64-calls-time-on-the-linux-hardware-market-ceases-production-until-the-ai-bubble-bursts-a865c8345041
+[toms-hbm]: https://www.tomshardware.com/pc-components/ram/hbm-is-eating-your-ram
+[cnbc-sadana]: https://www.cnbc.com/2026/01/10/micron-ai-memory-shortage-hbm-nvidia-samsung.html
+[crucial]: https://investors.micron.com/news/press-release/2025/Micron-Announces-Exit-from-Crucial-Consumer-Business-12-03-2025/default.aspx
+[tf-1q]: https://www.trendforce.com/presscenter/news/20260601-13070.html
+[tf-hynix]: https://www.trendforce.com/news/2026/05/18/news-memory-supercycle-drives-1q26-price-surge-samsung-flags-146-asp-jump-sk-hynix-sees-mid-60-dram-gains/
+[cnbc-mehrotra]: https://www.cnbc.com/2026/06/30/micron-ceo-customers-driving-hard-bargain-on-price-contributed-to-memory-shortage.html
+[doj-2005]: https://www.justice.gov/archive/atr/public/press_releases/2005/212002.htm
+[micron-2004]: https://www.sec.gov/Archives/edgar/data/723125/000110465904035549/a04-13517_1ex99d1.htm
+[mtd]: https://storage.courtlistener.com/recap/gov.uscourts.cand.472931/gov.uscourts.cand.472931.58.0.pdf
+[parallelism]: https://en.wikipedia.org/wiki/Conscious_parallelism
+[owid]: https://ourworldindata.org/learning-curve
+[tf-2008]: https://www.trendforce.com/presscenter/news/20090105-6986.html
+[qimonda]: https://www.sec.gov/Archives/edgar/data/1369377/000132693209000012/f03003e6vk.htm
+[elpida]: https://www.reuters.com/article/technology/elpida-seeks-bankruptcy-protection-56-billion-debt-idUSTRE81Q0OQ/
+[micron-elpida]: https://www.sec.gov/Archives/edgar/data/723125/000072312513000133/exh991-pr.htm
+[deloitte]: https://www.industrialinfo.com/news/article/deloitte-us-shale-producers-ripe-for-consolidation-and-new-investors--285830
+[pine64-mastodon]: https://social.treehouse.systems/@pine64/117111063654864544
+
+## The Times Can Sell; Reddit Cannot
+
+On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its [steepest one-day drop since the 2024 IPO][yahoo-reddit]. Huffman wrote that search referrals were "choppy", and said that in AI Overviews Reddit has "still yet to find that win-win."[^cnbc-reddit] In a [same-day interview][cnbc-huffman]: "The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact."
+
+The New York Times is [suing OpenAI](https://en.wikipedia.org/wiki/The_New_York_Times_v._Microsoft_and_OpenAI) and has, [according to the Wall Street Journal][gizmodo], discussed pointing `noindex` at itself - a directive that tells search engines to forget you exist. Rust adopted an [LLM policy][rust] that treats a pull request as a contributor-formation event, not a delivery of code. That is an actionable stance, not just a mood: it changes who the community is, and it only invites the humans who will play that game. [Codeberg](https://codeberg.org) [voted 358 to 144][codeberg] to stop hosting projects that "mostly consist of" LLM-written code.
+
+These look like four different fights. They are the same machine, breaking on different sides.
+
+## Four Reactions
+
+The Times is defending a distribution position. It metered the site in 2011, over a decade before any LLM crawler mattered: a deliberate trade of open reach for subscription revenue. The complaint now is that somebody else built a unified layer over the fragments and users prefer it. The current play is to chop the aggregator - sue, block, threaten to vanish from the index.
+
+Reddit signed a [2024 deal worth about $60 million](https://thehill.com/policy/technology/4485295-reddit-gives-google-access-to-content-for-training-ai-models/) a year to let Google train on its content, and has reportedly discussed [shutting that access off][gizmodo]. Stack Overflow received [3,862 new questions in December 2025][devclass], down 78% from the year before, at a site that peaked above 200,000 questions per month in early 2014. The [decline started in that same year](https://blog.pragmaticengineer.com/stack-overflow-is-almost-dead/), when moderation got aggressive and the site got unwelcoming; ChatGPT accelerated a slide that policy began.
+
+Rust's policy names the flywheel from the inside:
+
+> We treat PRs as an indication that someone is interested in joining our community and being mentored to work on future PRs. [...] a polished PR no longer indicates that someone is likely to stick around for the long term.[^fn-rust]
+
+Codeberg is a German nonprofit code forge with no ad model and no API licensing. In July 2026 its members voted to keep out the "development team of none": one person and a statistical machine that "turns energy into code."[^fn-codeberg] They are indifferent to `git clone`. Their crawler complaint is about method - bots walking every issue-filter permutation and every historical revision on donation-funded disks - and about ghost projects that consume resources as if they were full-fledged communities while throwing off no prestige.
+
+Hang this date somewhere in your head: on September 15, 2026, [Cloudflare will default-block Training and Agent bots][cf-cid] on ad pages for new domains. Because Googlebot is classified as Search *and* Training, that default is Googlebot-off unless the site owner opts out.
+
+If this all looks like [Pink Margarine](/2026/03/01/pink-margarine.html) - incumbents thrashing about, dyeing the substitute so nobody will eat it, grasping at straws to stay relevant against the inexorable march of technological advancement - hold that for a bit.
+
+## The Machine
+
+Every one of these platforms is a hub with three loops.
+
+Consumers give attention and get the thing: articles, answers, working code. Producers give content or presence that attracts consumers, and get fame or fortune - reputation, karma, salary, doors opening. (Fame and fortune convert into each other, though at varying exchange rates.) In the middle sits a converter: the platform's secret sauce that turns plentiful consumer-side input into platform sustenance plus what producers want, and then skims a cut for itself. Ads, subscriptions, hosting quotas, brand attention: the mechanics vary. The principle does not.
+
+Some flywheels also pay producers in *each other*: Social dues. Community. "You're not alone." Anywhere there's a group of contributors paid in reputation, the human social instinct kicks in and a sense of community can scaffold around it. That is **fuel**.
+
+### How They Ran
+
+The New York Times is the clean picture: readers give attention and money, get articles. The converter turns that into payroll for all involved by laying some ad revenue on top. Writers with editors, fact-checking pipelines, and a voice they spent a career on, supply the articles that draw the next readers.
+
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers -->|Attention| NYT
+    NYT -->|Content| Readers
+
+    NYT["New York Times"]
+```
+
+Reddit and Stack Overflow are the same topology with a different producer currency. The converter skims ads and premium platform service fees and API deals. Posters get reputation.
+
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Information| Consumers
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+```
+
+Reddit and Stack Overflow are a shape of *many* social answer or social information platforms. I submit them as two high-profile examples but they aren't unique.
+
+Rust pays a small set of contributors in reputation and community, and pays consumers in a language that works. The project's job is to make that conversion run: attention into reputation, contributions into software that draws more attention. The project skims brand.
+
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    Producers["Code Contributors"]
+    Consumers["Programmers"]
+```
+
+Codeberg is Rust pulled up a level. The producers are *projects*, not PR authors. A living project pays a software catalog *and* community attention into the forge. Catalog alone is not enough. Developers still clone; that leech path is fine. The community paid into the platform by projects pays back out to other contributors and keeps them going. The converter's skim is donations, membership, identity - reputation rent, which they were already allocating disk by via [quotas keyed on standing][codeberg-quota], well before they ever voted on LLMs.
+
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
+
+### How They Break
+
+The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indices came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loop closes on the LLM and the platform is hit by a solitary consumer that sends nothing back.
+
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
+
+Reddit is the same geometry: readers take their questions to the aggregator and the thick, juicy attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator its posters' content while its posters starve.
+
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
+
+Rust breaks on the producer side. AI shows up as code that works and a person who is not coming to the meeting. Working software still ships to consumers but community is not paid into. Converter capacity is finite: it [can only turn so much code into appreciated reputation](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). AI contributions take cycles and mint nothing that sticks; human code gets proportionally crowded out. A contribution used to mean someone else understands, cares, and might stay. AI can open one PR or a hundred with no intent to return.
+
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention<br>Code| Converter
+
+    Producers -->|Code| Platform
+    Platform -.->|Reputation| Producers
+
+    ProducersAI ==>|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Humans"]
+    ProducersAI["AI"]
+    end
+    Consumers["Programmers"]
+```
+
+Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still has to pay the electric. More open up, and the *living* become an ever-thinner slice of the roster. Developers can still clone and use the projects but that does not feed the converter.
+
+```mermaid
+graph TB
+    Converter -.->|Resources<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -.->|Software Catalog<br>Community Attention| Platform
+    Platform -.->|Resources<br>Reputation| Producers
+
+    Ghosts ==>|Ghost Projects| Platform
+    Platform ==>|Resources| Ghosts
+    Platform -.-x|Reputation| Ghosts
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    subgraph Hosted
+    Producers["Human Projects"]
+    Ghosts["Ghost Factories"]
+    end
+    Consumers["Developers"]
+```
+
+## What They Tried
+
+### The Times Shut the Barn Door After the Cows Got Out
+
+Cutting off the aggregator is an attempt to cut the "content" line feeding into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer for a worse experience just because a publisher asked them to. [Piracy was almost always a service problem](http://www.escapistmagazine.com/news/view/114391-Valves-Gabe-Newell-Says-Piracy-Is-a-Service-Problem); this is that same shape of problem.
+
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -.->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -.-x|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
+
+The dead content line is the lawsuit and the `noindex` threat. The thick attention line did not move. The current posture is a miss.
+
+### Reddit Charged the One Consumer That Stayed
+
+That deal with Google to let them train on content was a neat idea, but... see if you can spot the problem: the thick new line is money from the aggregator back to Reddit. Follow it. It arrives at the platform. It **does not continue to the posters**.
+
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+    AI ==>|Money| Platform
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
+
+Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while but it cannot pay the people who were the reason the corpus was worth buying.
+
+> The deal sustains the portfolio while starving the asset.
+
+Posting spins down, the corpus gets worse, the *next* licensing round sells for less, and the consumer side was already gone. Stack Overflow has tried on the costume: [Data Licensing][so-license] sells labs ["decades of verified, technical knowledge"][so-era] - smart humans wrote this. The check still stops at the company. Answerers are not on a newsroom payroll. Stack Overflow is renting out the *back catalog* while *new* questions collapse. Same geometry as Reddit, better marketing.
+
+### Rust Filtered the Producers and Courts the Whole Market
+
+Rust wants the world to use Rust, but also a community that still forms contributors the old way. They angle for disclosure, not detection. "Style is not evidence." They quoted [Zig's ban](https://ziglang.org/code-of-conduct/#strict-no-llm-no-ai-policy) on one side and Linus's ["AI is a tool"](https://lore.kernel.org/linux-media/CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com/) on the other, and took neither.
+
+Those loops no longer match. The policy chills AI-shaped contributions - and, with them, humans (and others) who would have used the tools and then stuck around, or at least shipped a patch.
+
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    ProducersAI -.-x|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Human Code Contrib"]
+    ProducersAI["AI Code Contrib"]
+    end
+    Consumers["Programmers"]
+```
+
+The consumer loop is still the whole market. The producer loop just got smaller, including some of the humans. They are not only cutting off rogue bots: they are cutting off *users*, too. That is a baby-and-bathwater move in a system like this.
+
+***I*** keep seeing Rust. I would "leech" it happily - try it in a project where I needed high performance but not C from 1999. I would fix a bug with a PR if I had to. 
+
+And I would use AI for that contribution, as I am indeed *not* interested in becoming "A Rust Developer" nor in joining the "Rust Community." I'm just here to make software that works, man. The policy correctly clocks me. 
+
+> The project stops reading as open-source I can contribute back to.
+
+It becomes a club with a language attached. When I need Rust-like characteristics, I have a strong incentive to pick a fork I can patch. I *am* the baby in that bathwater, I reckon. Of course, that's what the bathwater would say, too.
+
+The same shape showed up in [Cloudflare OS's contributing guide][cf-os]: they are Apache-2.0-licensed and "not seeking outside contribution," because AI made writing easy and reviewing - keeping the product coherent - is the hard part, they say. Small, trivially-verified PRs only. Writing was the easy half. They closed the gate to protect the hard half. That is Rust's move in a `CONTRIBUTING.md`.
+
+So, me and the rest of the users who want the full set of benefits of using open-source software have a strong incentive to go find or make a fork whose loops we can participate in. Otherwise, it's *us* who're paying in a resource with no recompense. Rust & Cloudflare are betting that there aren't enough valuable-enough contributions left on the table after cutting us off to matter. Bold strategy; let's see if it pays off for 'em.
+
+Rust, at least, knows and admits they're experimenting. So, the door's closed to me for now, but maybe not forever. Respect.
+
+I might grant a generous interpretation of their stance as more [literally Luddite](https://en.wikipedia.org/wiki/Luddite) - demanding a halt to radical new technology until it can be used without egregious detriment to human well-being - than the colloquial "head-in-the-sand" sense. The clock still runs. How long can you wait before the fork that accepts patches is the one *everyone* chooses?
+
+### Codeberg Formed an Enclave
+
+Codeberg looks like Rust one level up until you check the loops. Rust filters producers and still sells to everyone. Codeberg shrinks both sides and only promises to serve the slice that wants software without AI in it. Ghost projects out; human catalog plus community in. The chart looks like the healthy one on purpose. The Total Addressable Market just got smaller.
+
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
+
+*(Hey, that's the same graph as before!)*
+
+A language can lose its consumers entirely if a better one shows up, just like a given [brand of pickles can fall out of vogue](https://www.youtube.com/watch?v=UZ9e2ASgwKo) even while people still absolutely want pickles in general. A forge is closer to "somewhere to cook." People may not all want this kitchen. Some of them will. The bet is that the niche is big enough - and *that* is just ordinary market-size risk, not the mechanical miss on the Times's lawsuit or Reddit's check.
+
+It is also the only response already on the table that does not lie about the loops. Survive inside the fence, even thrive, and remain irrelevant at global scale.
+
+> Codeberg offers a home for the Software-Engineering Amish
+
+Fine if that's the life for you. For most of us, Amish is a bit extreme.
+
+### September 15 is a Fragmentation Replay
+
+Cloudflare's new defaults are not "Googlebot blocked for everyone." For new domains, on pages that run ads, "Training" and "Agent" behavior will be blocked by default. There *is* an opt-out (or opt-back-in?), but defaults are what most people run. A corner of the web **will** fall out of Google because nobody changed the checkbox.
+
+Cloudflare already sees that corner and will continue to see it: it sits on the edge of those sites. If you wanted to search the part of the internet that was not in Google, Cloudflare will be positioned to do it and if you think they will not leverage that position, I have a bridge to sell you. Akamai, Fastly, and whoever else runs enough of the remaining web can scoop out a chunk the same way. Then you have competing catalogs. Again. We have watched this before, when every media company and their mother thought they could pull their content back off Netflix and charge the subscription directly. Consumers hated it. They went to an aggregator in the first place, the moment one existed, because the alternative experience was uniformly worse.
+
+In the 2010s, to find answers to programming questions, you often had to search both Reddit and Stack Overflow, and several subreddits within Reddit to boot, to find an answer. That *was* a worse experience than the current one.
+
+Consumers will not `search.cloudflare.com` and `search.akamai.net` and `search.fastly.com` - they will *find* the aggregator that pulls from all of the sources and use that.
+
+The blockade reconstitutes the middleman one layer up. CDN search is distribution theater. It is not food for producers.
+
+## The Times Still Has a Customer
+
+So the honest options look like: miss, miss, miss, go be Amish in a corner. The Times is probably doomed on the track it is on... but it also **does** have a way to thrive in this world that I have not found for anyone else, and that nobody else in this lineup has found either.
+
+1. Producers have to eat something that consumer is willing to pay.
+2. The new direct consumer is the aggregator. 
+
+Money is the only such something I have found in any of these flywheels that can bridge the new gap. Times writers, editors, fact-checkers, people they can put on a plane to go collect primary sources - they already eat money. AI can pay those people.
+
+Reddit took a check too, but remember: it was rent charged to the aggregator and denominated in dollars - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
+
+Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - [Project Panama][wapo-panama], built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for: 
+
+1. verified-human text
+2. at a published-book quality bar
+3. that competitors do not already have
+
+That is *exactly* the kind of thing traditional media outlets are built to produce.
+
+Readers still want the Times's reputation; they do **not** want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many more zeroes than their dwindling subscriber base. The public can still see the information (if not the whole piece) later. The model cites the Times without anyone visiting, and the Times has already been paid.
+
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+    AI ==>|Money| NYT
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
+
+The thick line from the aggregator is the new customer. The writers are still on payroll.
+
+> The readers never come back, and they do not have to.
+
+This does not transfer to other platform shapes, unfortunately, for two reasons:
+
+
+### The Times' Staff is Paid
+
+The Times's producers eat money. Reddit's eat reputation. Same rent, wrong denomination for the people who have to keep showing up. Same for open-source projects: the (overwhelming majority of) contributors aren't on a payroll and the loops aren't structured that way. Try to pay them all and you've just reinvented a software company instead of saving an open-source project.
+
+### The Times Doesn't Need to Know What You Want to Read
+
+The Times never ran on public demand telemetry. "All the news that's fit to print" means they are choosing what is fit. You subscribe to a newspaper without knowing the table of contents: curated surprise *is* the product. Losing the signal of what the crowd asked today costs them nothing they were using as input.
+
+Reddit and Stack Overflow *are* that signal. You did not go there recreationally: you went because you needed something particular. Patronage can replace a newsroom's payroll. It cannot replace the compass: what people posted about and replied to was a signal of what people cared about, and that *was* the social product.
+
+Will they reframe? Will labs pay real exclusivity premiums? Does authority dilute when every model can rent it? Those are market risks, not the mechanical failure Reddit is making. They are also not a template for any other kind of platform.
+
+## And Me?
+
+The false comfort is that the pieces are interchangeable. If GitHub goes down I will use GitLab. If Rust does not work I will use Go. I am very smart.
+
+No.
+
+This flywheel existed inside you, and me, and it is part of why we got smart, and it can spin down too.
+
+[Omry Yadan wrote about the private version][yadan]: friction was a signal of what needed attention. The producers in the loops above were acting on that signal in public. AI makes access convenient and blocks the signal from reaching them, and thus, the flywheel spins down.
+
+You can do the same thing to yourself. This is not a [Butlerian sermon about getting dumber](/garden/fomenting-the-butlerian-jihad.html); your problem-solving ability can stay exactly as sharp as it ever was - you just stop *seeing* problems. Once you no longer see problems to solve, your utility as a productive entity drops all the same.
+
+I feel this nipping at my heels. Does Vite suck? I do not know. We use it in [inquirerjs-checkbox-search](https://github.com/Texarkanine/inquirerjs-checkbox-search/); [Niko](/authors/niko/) deals with it. Does Docusaurus suck? I do not know. It runs the [a16n documentation site](https://texarkanine.github.io/a16n/) and I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure from how I used to (have to) work with software. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the real source friction got obscured.
+
+The flywheel inside you is at risk. **You** are one of the shapes for which I do not have an answer. **I** am one of those shapes.
+
+Perhaps this is fine as it is just the way technology goes. When I drive my car and am unhappy with my gas mileage, I might drive more gently, or wonder if I should try [hypermiling](https://www.reddit.com/r/hypermiling/). But maybe the engineers at Toyota should've just built a better engine for this car - or selected a better one. Maybe there's a tune I can put on the ECU to fix the problems. Maybe the *real* problem is a layer down below where I know to look. Despite all that... Maybe it's OK for me to just drive a little differently to stretch the gas rather than chasing shadows down the tech stack of human achievement.
+
+Maybe not, though. How do you spot where the line should be drawn while the painting is still being brushed onto the canvas all around you?
+
+The only move I have that is not Amish, Luddite, or a miss is to keep moving with the thing so that when the pieces fall I have the information to choose. I have been practicing that as [trying the thing](/2026/08/01/just-try-the-thing.html) and as [letting the machine do the work](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html). Those are habits, not a prescription. If a better answer shows up, I will write it down.
+
+---
+
+[cnbc-huffman]: https://www.cnbc.com/2026/07/30/reddit-ceo-says-googles-ai-overviews-cant-replace-10-blue-links-.html
+[yahoo-reddit]: https://finance.yahoo.com/markets/article/reddit-stock-tumbles-the-most-on-record-as-lack-of-new-ai-deals-us-daily-users-metric-disappoints-153413759.html
+[so-era]: https://stackoverflow.blog/2025/12/30/a-new-era-of-stack-overflow/
+[so-license]: https://stackoverflow.co/data-licensing/
+[gizmodo]: https://gizmodo.com/major-publishers-are-reportedly-considering-a-drastic-step-to-get-their-content-out-of-googles-ai-answers-2000788873
+[codeberg-quota]: https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html
+[devclass]: https://devclass.com/2026/01/05/dramatic-drop-in-stack-overflow-questions-as-devs-look-elsewhere-for-help/
+[cf-cid]: https://blog.cloudflare.com/content-independence-day-ai-options/
+[cf-os]: https://github.com/cloudflare/cloudflare-os/blob/4e0f9593fc52944319ee7332db025f6912f6f64a/CONTRIBUTING.md
+[ars-books]: https://arstechnica.com/ai/2025/06/anthropic-destroyed-millions-of-print-books-to-build-its-ai-models/
+[wapo-panama]: https://archive.ph/eH7NK
+[yadan]: https://yadan.net/writing/ai-doesnt-get-annoyed/
+
+[cnbc-reddit]: https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
+[^cnbc-reddit]: Vanian, J. (2026, July 30). Reddit shares sink 11% on “choppy” search referrals even as results blow past estimates. CNBC. [https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html][cnbc-reddit]
+[codeberg]: https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
+[^fn-codeberg]: Tzovaras, B. G., Richter, O., & Zijil, W. (2026, July 23). Protecting our Floss Commons from LLMS. Codeberg News. [https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html][codeberg]
+[rust]: https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/
+[^fn-rust]: Nelson, J. (2026, August 5). Rust-Lang/Rust is adopting an LLM policy: Inside rust blog. Inside Rust Blog. [https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/][rust] 
+
+## I Love It When Useful Things Get Cheaper
+
+Around 1998, my family's computer was an [IBM Aptiva](https://en.wikipedia.org/wiki/IBM_Aptiva). It was one of the later models, right as [Pentium](https://en.wikipedia.org/wiki/Pentium_(original)) CPUs were showing up in home computers. I recall its clock speed was [133 MHz](https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants). I recall this because I really wanted to play the [LEGO Creator](https://en.wikipedia.org/wiki/Lego_Creator_(video_game)) game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.
+
+Though the Aptivas retailed, allegedly, for up to $2,700, I have $3,300 in my head. Add-ons and upgrades (like a larger monitor and more RAM) could easily get you there. I can't find any period magazine ads for that specific computer, but here's something from 1996 that would *absolutely* have played LEGO Creator:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="byte-magazine-1996-ad.webp">
+      <img src="byte-magazine-1996-ad.webp" alt="Byte Magazine Ad, 1996" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Byte Magazine Ad, 1996</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Let's do some math:
+
+In 1996, the minimum wage [bumped to $4.75/hour](https://www.dol.gov/agencies/whd/minimum-wage/history/chart). In 1997 it was bumped again to $5.15/hour, so let's use that to be generous. Median household income in the US in 1996 [was $35,492](https://www.census.gov/library/publications/1997/demo/p60-197.html). Gold cost [an average of $388 per ounce](https://metalcharts.org/gold-price-history/1996). To buy the $3,300 Aptiva that I remember, someone would have to spend either
+
+1. 641 hours of minimum-wage labor, or
+2. 9% of the median income, or
+3. 8.5 ounces of gold
+
+I bought a MacBook Air recently - in 2026 - for ~$2,400.
+
+In 2024, the most-recent year I could find numbers for, the [median household income in the US was $83,730](https://www.census.gov/library/visualizations/2025/comm/median-household-income.html). Minimum wage was $7.25/hour. Gold cost [an average of $2,386 per ounce](https://metalcharts.org/gold-price-history/2024).
+
+To buy that same MacBook Air I just copped, someone would have to spend either
+
+1. 331 hours of minimum-wage labor, or
+2. 3% of the median income, or
+3. 1.0 ounce of gold
+
+But, despite being one half to one third to one *eighth* the "cost," depending on how you count it, that MacBook Air is so, so, *so* much more capable than that old Aptiva was. It's faster. It's lighter. It can do more things. It will last longer.
+
+At a fraction of the cost.
+
+That's pretty neat!
+
+---
+
+If you go looking, you'll find that a lot of things we use followed a similar pattern. Washing machines? 
+
+In 1955, you could grab one for $140, on a minimum wage of $0.75 for 187 hours of work:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="sears-1955-kenmore-ad.jpg">
+      <img src="sears-1955-kenmore-ad.jpg" alt="Sears Spring/Summer Catalog, 1955" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Sears Spring/Summer Catalog, 1955</div>
+    <div class="polaroid-link">
+      
+      <a href="https://christmas.musetechnical.com/" target="_blank" rel="noopener">christmas.musetechnical.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260808173643/https://christmas.musetechnical.com/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+In 2026, you can grab a brand new "basic" top-loading washing machine that *way* outperforms a 1955 model for $560, or just 77 hours of work. No link here; go hit up your favorite appliance store's website and check.
+
+Television sets? You'd better believe the same thing's happened: Not only did they get way more capable but the cost relative to your time and income has cratered.
+
+More really good news, right?
+
+Well, not if you were *investing* in those things. If you'd decided in 1955 that washing machines were the future and bought a warehouse full of them, and held them all the way through to your retirement in 2026... you'd've lost basically all your money.
+
+Similarly, a storage unit full of 1950s televisions that used to be a *luxury*? CRTs are so heavy you probably would have to *pay* people to take them off your hands. And that old Aptiva? It's in a closet, somewhere. Stored for sentimental value because it's completely un-sellable. 
+
+> Those appliances were a really bad store of value.
+
+But of course, that wasn't ever why anyone bought any of them. For better or worse, [washing machines dramatically decreased the amount of manual labor people had to spend on clothes](https://penntoday.upenn.edu/news/how-appliance-boom-moved-more-women-workforce), so they could spend that time on other things. People bought TVs to *watch stuff* on TV - not to be their savings. And that old Aptiva? Well, I didn't get to play LEGO Creator on it, but I did enjoy the heck out of [LEGO Island](https://en.wikipedia.org/wiki/Lego_Island).
+
+> Those appliances weren't investments - they were *useful*.
+
+We bought them to use them for a purpose, and we used them for that purpose, and then eventually a cheaper, better version of the appliance was available and we upgraded so that we could do *more*. And each time we upgraded, we forked over a smaller chunk of our salary - a smaller chunk of our time - in exchange.
+
+That's pretty neat!
+
+## Chapter 10½
+
+You may have heard of Bitcoin. It's "sound money" or "hard money" or "digital gold" - a store of value that doesn't - can't - inflate the way paper money does.
+
+Bitcoin is-a cryptocurrency on a blockchain, but it's far from the only one. A recent refrain from Michael Saylor, former CEO and now executive chairman of MicroStrategy, rings:
+
+> There is no second best!
+
+Bitcoin Cash? Ethereum? Litecoin? Dogecoin? Solana? Polygon? The list of "Altcoins" goes on and on and on.
+
+In Chapter 10 of his book, [*The Bitcoin Standard*](https://saifedean.com/tbs), Saifedean Ammous writes about Altcoins:
+
+> I have yet to identify a single digital currency [besides Bitcoin] that offers any product or service that has any market demand.
+>
+> (p. 256)
+
+And that is the rub - there is no second best, and money is taken by Bitcoin. These other tokens that are "money but different" are just money *but worse*.
+
+***But:*** Ammous leaves an out - "market-demanded service."
+
+Also known as "utility" or, the property of being *useful*.
+
+I submit that many people are grading the altcoins on the wrong rubric - and indeed, that there are even some projects out there whose own contributors don't realize that they don't need to chase Bitcoin. You can't be better money than Bitcoin, but you don't have to if you can be *useful*.
+
+---
+
+[Monero](https://www.getmonero.org/) is a privacy-focused cryptocurrency. It has a long history of strong privacy guarantees - so much so that it's long been a favorite of scammers, hackers, and other black marketeers for their dealings. Unlike Bitcoin, Monero is provably private by default. The proof? People keep *using* it.
+
+If you were to compare these "cryptocurrencies" on price:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="xmr-to-btc-alltime-2026-08-08.png">
+      <img src="xmr-to-btc-alltime-2026-08-08.png" alt="Monero priced in Bitcoin - All-Time (2026-08-08)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Monero priced in Bitcoin - All-Time (2026-08-08)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+Well, it could be worse, but Monero sure isn't anywhere close to "beating" Bitcoin. That's a solid "down and to the right" slope.
+
+Hot garbage, right? Avoid it?
+
+Well, as an investment, absolutely. But Monero isn't an investment. It's not supposed to be your store of value.
+
+Monero is a tool for transacting privately.
+
+## What's Worth a Blockchain?
+
+Rewinding back to the book - *The Bitcoin Standard* - the author offers a flowchart to help you figure out if whatever you're thinking of needs a blockchain:
+
+```mermaid
+graph TD
+    Need("Do you need digital cash?")
+    Need -->|"No"| No("You don't need a blockchain")
+    Need -->|"Yes"| Yes("Use bitcoin: the only blockchain that works")
+```
+
+A few pages later, Ammous offers a more-rigorous test to quickly assess whether a given use-case is a candidate for a blockchain. Given on page 260, paraphrased:
+
+1. Is the benefit of decentralization worth the extra overhead?
+2. Is the process of decentralizing simple-enough that people will actually be able to do it?
+
+If the answer to both of these questions is "yes," then the use-case is a candidate for a blockchain.
+If the answer to either of them is "no," then "normal" software is probably not just fine, but markedly better.
+
+Indeed, most of the "Altcoins" out there fail the chart and this test. But, there are two wrinkles.
+
+First, `digital`.
+
+The chart collapses the "digital" into "digital cash" as if it is a mere adjective. It's not. Well, it is in that part of the chart, but when you arrive at Bitcoin it isn't anymore: Bitcoin has a complete, public ledger of all transactions and therefore, of all coins' current location and the path they took to get there. Physical cash had no such thing. It was never possible to look up where every dollar bill and coin was at a given moment. Even if you managed to [locate two points in a piece of physical cash's journey](https://www.wheresgeorge.com/) you had no way to know what path it took in-between: a direct handoff or a 100-pass journey were equally invisible.
+
+[There *is* cocaine on almost every dollar bill in my wallet and my house](https://en.wikipedia.org/wiki/Contaminated_currency). Despite this, the local authorities do not take it as evidence that I've had dealings with *personae non gratae*. Because you cannot trace the path of a bill, you cannot conclude any relationship between someone who had it once and whoever has it now.
+
+With Bitcoin, that path being knowable is a core *feature*, and that changes things.
+
+## Show the World Your Bank Statements
+
+There are real privacy and security risks to having the path that every piece of money you own took to get there, be public record - and *not* just for criminals! Sure, you can get caught for money laundering or tax evasion or drug dealing. But you can also save a nice big retirement account... and end up showing the size of your nest egg every time you spend it down. Buying a car? Fixing your car? Groceries? A pint of beer at a pub? If you just tap your Bitcoin savings for that, you're telling each of those people "hey, by the way, I've got *exactly* this much money!" Split a meal with a friend, coworker, or date? They know your bank account balance now.
+
+Oh, you don't care about people knowing? Maybe you don't have that much? Okay, you're negotiating the price on anything where one does that - a car, a mortgage, a business deal, a personal loan to pay off your credit card debt - once you make a payment, the other party *knows* how much money you have. Any leverage you had to negotiate a better deal for yourself is gone. Target knows how much you paid Amazon for the same product and won't offer you any discounts 'cause they know you'll fork over the dough. Your health insurance company knows how much you spent at McDonald's last year. 
+
+> You're playing financial poker with all your cards face-up on the table.
+
+Physical cash doesn't do this. Heck, even "normal" credit and debit cards don't do this. Not even digital payment systems like PayPal or Cash App do this! I'm sure you can understand why.
+
+## I'd Like My Finances to be Private
+
+Well, you're in luck! Monero is private by default.
+
+What does that mean? It means everyone who uses it gets the same, very solid baseline of privacy: Nobody can tell who you sent or received cash from. Nobody can tell how much you sent. Only you and whoever you transact with get to know anything about your transaction - and the *only* thing you get to know about is your transaction. You can't follow the money to learn how rich they are, or who else they shop with.
+
+What do you do? You *buy some Monero* (maybe even [with Bitcoin](https://eigenwallet.org/)). Enough to pay for whatever it is you want to buy. Then you pay for the thing you want. Then you get the thing. And whoever you paid cannot follow the money back to spy on your finances. And whoever *they* go on to pay can't do it, either. And, indeed, *you* can't watch and see what *they* do with the money you paid them.
+
+Does that sound like the kind of `digital cash` you'd actually want to use?
+
+Let's revisit Ammous's "altcoin" test:
+
+**Is the benefit worth the overhead of a blockchain?**
+
+I hope we've established that the answer is a resounding "yes." You don't want your bank statements stapled onto every dollar bill you spend, any more than you want your full transaction history known to everyone you send Bitcoin to.
+
+**Is the process of decentralizing simple-enough that people will actually do it?**
+
+<blockquote class="link-card">
+  
+  <h1>MoneroHash.com: Monero Nodes Distribution</h1>
+  
+  <a href="https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">monerohash.com/nodes-distribution.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260810004726/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> Total nodes: 4697 - Last updated: about an hour ago
+
+**But** - that's only public nodes that can be reached through the peers that each node advertises.
+
+If you, say, ran a Monero node on a server inside your home network and just downloaded the blockchain but didn't punch a hole in your own firewall to allow other nodes to find and initiate inbound connections to you... you might never show up on that map. My node isn't on there.
+
+So that number is a *floor*, not the actual number. You probably can't ever know the actual number.
+
+Does a minimum of 4,697 nodes across the globe count as proof that it's simple-enough that people will actually do it?
+
+Well, it looks like at the time of writing this,
+
+| Coin    | Minimum Reachable Node Count | Blockchain Size | Total Transactions | Txns/GB |
+| ------- | ---------------------------- | --------------- | ------------------ | ------- |
+| Bitcoin | [22,492](https://bitref.com/nodes/)<br/>(4.8x) | 807 GB<br>(3x) | 1.413 Billion<br/>(23x) | 1,752,070<br/>(7x) |
+| Monero  | [4,697](https://monerohash.com/nodes-distribution.html) | 267 GB | 62.8 Million | 235,000 |
+
+*(Transaction counts & blockchain sizes sourced from my nodes directly)*
+
+That `7x` there at the end is the part to worry about: Monero is so far, on average 7x less-efficient at storing its blockchain than Bitcoin is. So, anything Bitcoin can do, Monero is going to demand 7x as much from the people running its nodes.
+
+If it had Bitcoin-level transactions, the blockchain would be over 6 *terabytes*. At 2026 prices, an SSD (which you *do* need to put the blockchain on if you want any kind of decent performance out of your node) to hold that *starts* at $1,000 for 8TB (and not a well-reviewed one).
+
+A whole grand just for the storage. Whereas today, Bitcoin's bitcoin-sized blockchain can fit on a 1TB SSD which starts around $130 - almost a tenth the price.
+
+Monero has been [making progress towards a more-efficient blockchain](https://www.getmonero.org/2024/04/27/fcmps.html) but it's been slow going. One could imagine that it gets resolved before it has to handle Bitcoin-level traffic, just as easily as one could imagine it never does.
+
+So there's a future risk there. Not a today risk, though.
+
+## Just CoinJoin Your BitCoin
+
+It is possible to obtain some privacy with Bitcoin transactions, through the process of a [CoinJoin](https://www.binance.com/en/academy/articles/coin-mixing-and-coinjoins-explained). Coinjoins involve multiple people collaborating to create a specific shape of transaction that makes it impossible to
+
+1. tell who sent what to whom
+2. tell who *intended* to send what to whom
+
+You can still see that "10 people all sent 1 BTC." You can see that "10 people all received 1 BTC from those 10." But you can't tell which one of the first 10 people was trying to pay which of the second 10 people. So, if you wanted to try to snoop on someone, you'd have to guess which of 10 options was actually the person you were interested in. Repeating a coinjoin a second time gives you 10 more options for each of the first 10 - that's 10 times 10, or 100. Coinjoin a third time, and now there are 1,000 possibilities... and so on, and so forth.
+
+This is a thing you have to choose to do, and you have to do it right:
+
+1. For every bitcoin you receive,
+2. CoinJoin it at least once, ideally multiple times
+    * this requires at *least* ~10 minutes (one block mined) per round, but you should wait closer to 6 blocks - ~1 hour per round
+    * transactions have fees and they have to come from somewhere. You'll pay *some* fee for the coinjoin.
+3. Finally spend privately
+4. Take any change from that transaction and `GOTO 1`
+5. Never, ever get impatient or make a mistake or else you lose the privacy you've been building.
+
+If **everyone** who spent bitcoin did this, it would be functionally impossible to even lay all the guesses out to pick from, let alone actually determine *which* specific path a given bitcoin took.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="everyone-will-not-just.png">
+      <img src="everyone-will-not-just.png" alt="Everyone Will Not Just" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Everyone Will Not Just</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260906002840/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+The problem with everyone not doing this is that it only buys you [forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy). Once spending starts happening with coinjoins in-between, nobody can tell who's spending what. But *until* the coinjoins start, people can still tell. So maybe you're perfectly-disciplined about coinjoins. Someone who *isn't* sends you some bitcoin. Anyone who sees that *knows* that you received from that person. And if that person wasn't doing coinjoins,anyone can find out all about the people you've been transacting with. We don't know what **you** bought, but we know Bob paid you 100,000 sats and Bob shops at the 7-11 in Townsville and works at SomeCorp. And Bob also pays his friends Alice and Eve, and they *also* live in Townsville. There's a pretty good chance you live there, too. And when you finally do spend, if the person you pay doesn't also do coinjoins, the forward secrecy ends with them and you're left inhabiting a tiny island of secrecy in an ocean of public knowledge. The various [blockchain analysis](https://en.wikipedia.org/wiki/Blockchain_analysis) firms have gotten really good at inferring information with a high degree of certainty in these situations.
+
+This problem is in the shape of opt-in vs opt-out. If you have to *choose* to do something, to opt-**in**, most people won't.
+
+> Everyone will **not** just.
+
+And thus, every part of the puzzle is assembled except your little missing piece - and a great deal of what matters about your blank space can be inferred from looking at the edges, all of which are public.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="missing-puzzle-piece.jpg">
+      <img src="missing-puzzle-piece.jpg" alt="What could possibly go here?" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">What could possibly go here?</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+On Bitcoin, privacy is a service you procure.
+
+Services require service providers and it's been rough:
+
+1. The simplest and best coinjoin solution - Samourai Whirlpool - [landed its providers in federal prison](https://en.wikipedia.org/wiki/Samourai_Wallet).
+2. The other major provider in the space - Wasabi Wallet - [caved to refusing certain coins](https://www.coindesk.com/tech/2022/03/14/wasabi-wallets-coinjoin-coordinator-to-blacklist-certain-bitcoin-transactions) - presumably to protect the company and themselves - though we don't know for sure, we *do* know what happened to Samourai, who didn't cave.
+3. In 2026 we do have another Whirlpool provider - [Ashigaru, a Samourai fork](https://ashigaru.rs/) - but they're entirely on [Tor](https://www.torproject.org/download/) and encrypted comms - they know what happens if they can be found.
+
+This privacy problem is present for any public-ledger cryptocurrency; Ethereum had a coinjoin service provider - [Tornado Cash](https://en.wikipedia.org/wiki/Tornado_Cash) - whose developers *also* landed federal charges with one sentenced to prison and one still working their way through the courts.
+
+There are other "not exactly a service" - or, you know - "peer-to-peer" coinjoin solutions like `joinmarket` - no link there because the domain's been yanked. No "Seized" notice, just... gone. And its source code archived. What happened? I don't know.
+
+Someone forked it into [joinmarket-ng](https://github.com/joinmarket-ng/joinmarket-ng) though, so you could still make the attempt.
+
+So that's great, right? Chop off the heads of the hydra, and Ashigaru and joinmarket-ng grow back with lessons learned?
+
+> Heads that regenerate after decapitation are not the same as having no neck.
+
+On Bitcoin, privacy is a service you procure. On Monero, privacy is a property of the network that you cannot decline.
+
+On Bitcoin, you must choose to procure privacy, and even the act of choosing is a signal that stands out against the default. On Monero, privacy is normal and having privacy doesn't make you stand out from your peers.
+
+## The Second Wrinkle
+
+I claimed there were two wrinkles in Ammous's blockchain test. The first was `digital`. The second is `cash`.
+
+Or, rather, money. Everything up to that point assumes that the only thing anyone ever would or could do on a blockchain is "money."
+
+There's a nuanced difference (here, at least) between *money* and *currency*. Money is the store of value, the unit of account. Currency is the medium of exchange. These two distinct roles are *often* filled by the same thing - but not always.
+
+Nowadays, your retirement account (if you have one...) is likely denominated in US dollars, but it's actually held in stocks, bonds, and other assets (Bitcoin, perhaps...?). You fork over some dollars at a coffeeshop; dollars are currency for spending. You don't send someone a fractional share of NVDA for that same coffee - your retirement account, as a long-term store of value play, seeks a different kind of asset where spendable liquidity isn't paramount.
+
+By those definitions, Monero is a currency where privacy is a first-class property. It's not a money. But that's not even the full wrinkle.
+
+There's another example of a useful token that contrasts much more starkly: [Filecoin](https://www.filecoin.io/).
+
+Filecoin is the token that powers a distributed, peer-to-peer storage network. It's like cloud storage, but across an ever-changing, decentralized network of computers. You don't mine it with the "proof of work" that Bitcoin and Monero do - you get paid for providing storage that is proven to be available and to actually contain what it claims to store. And you "spend" Filecoin to rent storage on the network.
+
+Cloud storage has turned out to be an undeniably useful thing. Multibillion dollar businesses exist to provide it. Not just [Amazon S3](https://aws.amazon.com/s3/), but Google's [Cloud Storage](https://cloud.google.com/storage) and the retail-facing [iCloud](https://www.icloud.com/storage), [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage), and [Dropbox](https://www.dropbox.com/) to name just a few.
+
+Incidentally, the storage cost on those platforms (well, at least [S3](https://aws.frankcontrepois.com/s3PriceHistory)) has fallen over time.
+
+Is Filecoin a shitcoin? [The Internet Archive has put a petabyte of material on it](https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/) - including U.S. government web crawls that vanish between administrations. If you're the Archive, you want that storage cheap. As an *investment vehicle* though? [Absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money.
+
+It's the price of cloud storage.
+
+And I love it when useful things - like computers, washing machines, television sets, cloud storage and privacy - get cheaper.
+
+## Just Try the Thing
+
+Just try the thing. Just go do it.
+
+You don't need me to tell you that; plenty of more-influential people and organizations have already said it.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">
+      <img src="labeouf-doit.jpg" alt="Just Do It" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Just Do It</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">www.youtube.com/watch?v=ZXsQAXx_ao0</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260801211805/https://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+So this is your nudge to go try the thing you've been thinking of trying, right now.
+
+---
+
+If you're still here, well, you have time to read this post, I guess, so let me offer some new math that might spur you to action.
+
+But first, some old math.
+
+## Bezos' Decision Framework
+
+Jeff Bezos, founder of Amazon, famously described in a [2016 letter to shareholders](https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm) a framework for making decisions: two axes, one of consequence and one of reversibility.
+
+Decisions of high consequence that were irreversible were "one-way doors," worth thorough consideration before making.
+Decisions of low consequence, or that were reversible were "two-way doors" - you could go back if you got it wrong.
+He advised tailoring your decision-making effort to those facts. People loved this and many have written more about it and turned it into a quadrant-based decision-making matrix:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="bezos-decision-matrix.jpg">
+      <img src="bezos-decision-matrix.jpg" alt="Bezos&#39; Decision Matrix from Product Mindset on Substack" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Bezos&#39; Decision Matrix from Product Mindset on Substack</div>
+    <div class="polaroid-link">
+      
+      <a href="https://productmindset.substack.com/p/bezos-decision-making-framework" target="_blank" rel="noopener">productmindset.substack.com/p/bezos-decision-making-framework</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260801211819/https://productmindset.substack.com/p/bezos-decision-making-framework" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+This is, I think, a good framework.
+
+Let's imagine the far-away year of 2016.
+
+You're a software engineer at a normal company. Not a 2-person startup, not a Fortune 100. You're working on a project. You have deadlines. You have expectations. There are other people and projects that depend on you. 
+
+There's a new tool to adopt, or maybe a new framework or library to try out. Let's plot trying to adopt it on this matrix.
+
+"The cost of deciding" is what that matrix is trying to guide. So you evaluate the potential costs of the decision, if it were made. But there are costs in doing that evaluation, too! If you're going to try Thing X and make an informed decision as to whether to adopt, you need to actually
+
+1. have situations where you can apply Thing X
+2. use Thing X properly
+
+The first one may take calendar time, if there isn't anything to try Thing X *on* right now. And the second one was guaranteed to take *your* time: you had to set up your "experiment" properly which meant learning how and when to use Thing X and being able to execute it properly so you'd get good data on whether Thing X was worth it.
+
+Even if "having adopted Thing X" was an inconsequential, reversible two-way door, you might still have burnt a lot of time learning enough to give it a try. That dragged the total calculus back towards the consequential, irreversible quadrant. Right or wrong about the decision, you weren't going to get your adoption time back. **Having Decided** alone was not the entirety of the cost - deciding if you should decide was itself a process with nonzero costs.
+
+So, there was a huge bias for "trying the thing" to land in the bottom-left quadrant: Even if you could undo the adoption, you'd never undo the wasted time.
+
+![The bottom-left quadrant - consequential, irreversible](bezos-sweng-2016.jpg)
+
+I was in that position in 2016, and for me at least, most such decisions of, uh, consequence, landed on the "consequential" side. That is to say, if it was likely to make a meaningful difference to the project or the company, you'd want to make sure your significant consequences weren't negative. So you'd need to adequately vet it, which took time. Time you could've been spending on your existing, concrete responsibilities.
+
+Time you'd never get back if you were wrong.
+
+There was a stretch of time where squarely half - 50%, one in two - of the "big projects" I was assigned at work, got completed to where they could be tried out or exposed to their intended audience, and then scrapped. I got paid for that time, but the company didn't have anything concrete to show for it. Hopefully a PM and a couple software engineers learned some stuff that'd pay off in the next project but... no product. No feature. No deliverable.
+
+At the surface level, "should we do this or use that" was very reversible for my employer - they indeed reversed course and didn't use the things. And yet, there was still a real, real-world cost to the individuals involved.
+
+It's those individuals - like yourself - I'm trying to nudge.
+
+## Inhuman Speed
+
+If you're doing knowledge work in 2026, things are different now in a couple ways that change how you plot things on that chart and what you *do* with that information.
+
+First, the cost of trying is dramatically decreased, at least as measured in
+
+1. wall-clock time
+2. developer-hours
+
+Both of these come down to: AI agents can do things much faster than you. They can RTFM really fast and be ready to use the thing correctly in a matter of seconds. They can execute whole cycles in which Thing X is adopted, *really fast*. Minutes to hours. You can have a dozen projects with Thing X to compare to your last dozen without, in a day or two... with minimal attention required on your part. You can do the experiment and have a much clearer picture of the effects of a decision in a fraction of the time it used to take.
+
+The previously-irreversible sunk cost of figuring out whether or not *to* figure it out, has shrunk.
+
+Learning is now decoupled from trying - Agents can do the trying and show you what that looks like *before* you personally invest in learning and adopting the tool. 
+
+> You no longer need to understand the tool yourself as a precondition to finding out if the tool is worth understanding.
+
+I'm not saying you never need to understand the tools or things you try. Nor am I saying you should outsource your decision-making to AI. I'm *observing* that you can get a useful stack of data - the kind that was typically required for making an informed decision - without needing to understand the tool. Competence in the adopted strategy is now optional up until it gets adopted; previously you had to be competent to even make the pitch. The cost has moved to *after* you already know if it was a good idea which means you can skip the whole risk category of "wasted time learning this thing that didn't work out."
+
+So the downside's shrunk way down. The upside has gone way up, too.
+
+Previously, marginal gains - maybe Thing X saves you a couple hours on a week-long project - were nominally not worth it. 2 out of 40, 5%. Well, that ain't a bad percent but nominally, it's an hour or two. You could've lost that in a commute. Marginal gains multiplied through the human rate-limiter at 1x and came out to peanuts, nominally.
+
+But [the rate-limiter was human](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). Now even marginal gains multiply by big numbers across agentically-compressed time and agentically-scaled workforces. That same 5% gain stacks up to hours upon days upon weeks, nominally. Now even little improvements can have outsize effects!
+
+The cost of trying went down. The benefit of trying went up. It is time to use the new math.
+
+## I Didn't, Then I Did It
+
+There's a firehose of new things to try.
+
+> "[The optimal Claude Code Setup](https://x.com/bcherny/status/2007179832300581177)," [/grill-me](https://github.com/mattpocock/skills), and just recently, [/i-have-adhd](https://github.com/ayghri/i-have-adhd), [/adhd](https://github.com/uditakhourii/adhd), [/ponytail](https://github.com/DietrichGebert/ponytail), [/caveman](https://github.com/juliusbrussee/caveman), [ponytail *on* caveman](https://github.com/DietrichGebert/ponytail#faq), stop writing code, [write loops](https://corpwaters.substack.com/p/the-ultimate-guide-to-loops). Stop writing loops, [write graphs](https://www.aibuilderclub.com/blog/graph-engineering-vs-loop-engineering). [Delete your prompts for Opus 5](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models). Code review? A [cornucopia](https://coderabbit.ai) of [differently](https://greptile.com)-tuned [SaaS platforms](https://www.qodo.ai/), [skills](https://code.claude.com/docs/en/code-review), and prompts overflows every day. [Apple's got a native container engine](https://opensource.apple.com/projects/container/), maybe your agents should be in *that*. [GPT Terra, Sol, *and* Luna](https://www.mindstudio.ai/blog/what-is-gpt-5-6-sol-terra-luna-explained). Agentic memory? The [cup](https://www.superlocalmemory.com/) [runneth over](https://github.com/VictorTaelin/OptMem) and [spilleth](https://genaiunplugged.substack.com/p/give-your-ai-agents-memory-mcp-shared) onto the keyboard. [Worktrees](https://cursor.com/docs/configuration/worktrees)? How about [stacked pull requests](https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview/)!
+
+It doesn't stop - if anything, it's accelerating.
+
+How do you avoid the analysis paralysis? Even having avoided it, how do you find the time to fit evaluating all these things into your day? You've got "real" work to do, too, you know. Maybe the right answer is to just keep doing what you've got now. After all, it's been working for you so far...
+
+> Just try the thing.
+
+You probably have *some* agentic engineering [harness](/garden/ai-horses.html) open somewhere.
+
+```
+Hey Claude, install grill-me from <paste url here> and give me a short summary of how to use it. Actually install i-have-adhd from <paste url here> and give me a summary for both, based on that.
+```
+
+Hey your cost to try was just paid in pennies. You didn't have to learn it yet. You're ready to learn if it's worth learning.
+
+This can be hard to believe. Or perhaps, "hard to internalize" is more accurate.
+
+Lately though, as *I've* been feeling the acceleration, some of my answers to my coworkers when they ask for how to deal with a problem have been quite confidently "Oh, yeah, ThingX solves that for good. [link to documentation homepage]. Try it!"
+
+And then days or weeks later, they surface with the *same* problem. "Did ThingX not work? It's how I solved that problem permanently, for me."
+
+> Oh, yeah, I've been meaning to try that. I've got to get around to that someday.
+
+Having had the same problem(s) myself, and having solved them, I know that the time they've *already lost* to the problem at this point exceeds the time it would have taken to adopt ThingX. They're not just in tech debt, they're in negative tech equity. They will not manage to pay their way out of it by working hard, persevering through the problems until they have free time, and then taking a look at ThingX.
+
+> They need to **just try the thing!**
+
+They're running the old formula with the old weights. Trying new things *was* expensive. Caution *was* often a virtue. But the landscape has changed in what's been, relative to a human career, the blink of an eye.
+
+Even when I was occasionally navigating this myself, I didn't have the epiphany until I saw my coworkers doing it; until I saw from the outside.
+
+So I set myself a rule:
+
+> If I find a thing I want to try, I do it right then.
+
+I do the bemoaned context-switch. I take the interrupt. This would've been irresponsible a decade ago. Now, I'm discovering that it's often irresponsible *not* to.
+
+## Receipts, Such as They Are
+
+The strongest recent examples of this in my life come from two tools, one I built and one I adopted.
+
+### Stop and Build
+
+[Stockroom](https://github.com/Texarkanine/stockroom) is a cross-harness data warehouse I built. It ingests conversations from the two harnesses I primarily use - [Cursor](https://www.cursor.com/) and [Claude Code](https://www.anthropic.com/products/claude-code) - and makes them queryable via SQL and semantic search, by human or by AI. Importantly, it ingests everything on-disk, backfills data from harnesses' previous data formats, and stays up-to-date on a schedule; my whole history across all my harnesses is there.
+
+I heard the story of "the guy who pointed [DuckDB](https://duckdb.org/) at their Claude Code history and can search it" farther back than I remember. But that sounded hard. I realized it probably wasn't that hard and that I wanted it, when I saw [claude-warehouse](https://github.com/sderosiaux/claude-warehouse) sometime back in April of this year. But, I primarily use Cursor. I eventually got around to making a [cursor-warehouse](https://github.com/Texarkanine/cursor-warehouse) version, but, well, I *do* use both, so my history was fragmented (and agents had two skills and two sets of schema to manage). But building one that would not just work on both, but unify both and be ready for whichever harness came next... well that'd be significant work. So I just lived with it for a couple months. Finally I decided enough was enough and built Stockroom and it almost immediately began paying dividends. Agents knew what they'd worked on in the past, even in other harnesses, *even before Stockroom existed*.
+
+This particular tool didn't just pay off after it existed, it paid *backwards*, making things that I'd already done more valuable than they had been at the time! 
+
+> Should've just ~~tried~~ built the thing.
+
+### Stop and Adopt
+
+I saw [OptMem](https://github.com/VictorTaelin/OptMem) the other day. It's a "memory for your agents" tool, of which there've been many since the beginning of agentic development, and of which I've always been skeptical.
+
+My skepticism wasn't "will this be useful" but the pure, outdated "how much work am I going to have to do to change my workflow about this?" variety.
+
+So when I saw OptMem and it looked plausible, I applied my new rule: Hook it up right now. I immediately realized two things:
+
+**This kind of memory is fantastically useful for agents.** I should've hooked something like it up long ago; I'd been running hamstrung.
+
+**This kind of memory only accumulates *going forward* and cannot be backfilled.** Exactly opposite Stockroom, every day I put off to do one more task *instead* of adopting a memory tool, I was losing data that *could have been* useful.
+
+Should've just tried the thing.
+
+## Calculus' Category Change
+
+What I have come to believe is that at this "inhuman speed," the calculation of "opportunity cost" which was and is a correct part of the one-way/two-way door framework, has changed.
+
+Previously, if you had
+
+* Four things you could do: `{A, B, C, D}`
+* Time to do two of them: `{A, B}`
+* And wanted to try ThingX
+
+You'd observe that in order to learn, try, evaluate, and integrate ThingX, you'd give up A or B, and so you'd be looking at picking:
+
+1. `{X, B}`
+2. `{A, X}`
+3. `{A, B}`
+4. or, if X didn't work out, *only* `{A}` or *only* `{B}`
+
+so you (or at least I) would be weighing "Having ThingX" *against* A or B - as a trade - since it felt much closer to a zero-sum game.
+
+The naive update is that you can just have `{A, B, X}` without having to give something up. That is true, but there's more. Due to the increase in the nominal size of the operands being multiplied even by marginal gains, each ThingX today expands the possibility space, too.
+
+If you have
+
+* Four things you could do: `{A, B, C, D}`
+* Time to do two of them: `{A, B}`
+* And wanted to try ThingX
+
+go and try ThingX and you'll likely find yourself with
+
+* Five things you could do: `{A, B, C, D, E}`, where E was enabled by ThingX
+* Time to do three of them: `{A, B, C}`
+* ThingX in your pocket
+* ThingY waiting to be tried
+
+> Irreversibility is collapsing. The cost of not trying now exceeds the cost of trying.
+
+This is no longer a zero-sum game; this is a multiplicative flywheel. Spin it up.
+
+***Just try the thing!***
+
+## Good Money Should Be Worthless
+
+If you work for your money but somebody else can just print it, you're getting robbed. You don't need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.
+
+Let's call this person Mr. Money Printer. He has a nice setup. As long as he's the only one with a printer, he can always cut in line ahead of you. Need a house? He prints and outbids you. Want to invest? He prints and gets there first. A new car? He's printed the full sticker price and driven it off the lot before you even get a chance to talk to a salesperson. Your labor earns; his printer simply takes.
+
+Your first instinct is obvious: get your own printer. But Mr. Money Printer thought of that already. He enjoys a privileged position precisely because he's the only one printing, and he'll spend whatever it takes to keep it that way. In the United States, for example, the Secret Service was founded in 1865 - before they ever guarded a president - for the sole purpose of [making sure nobody else gets a printer](https://en.wikipedia.org/wiki/United_States_Secret_Service#Early_years). [Counterfeiting is a federal crime](https://www.secretservice.gov/investigations/counterfeit) because competing printers threaten the monopoly that makes the original printer valuable.
+
+So you can't print. What now?
+
+## Find Your Own Money
+
+If Mr. Money Printer's money is rigged, stop using it. Find something else to use as money - something he can't print. What you're looking for has two properties: it should be impossible (or at least very, very expensive) to create, and the only realistic way to get it should be to earn it from someone who already has it.
+
+Ideally, you want a truly fixed supply. No new units, ever. Failing that, you want the supply to grow as slowly as possible - slowly enough that Mr. Money Printer's advantage is negligible.
+
+Humanity spent thousands of years on this problem, and the best answer it found was gold.
+
+## Gold: Pretty Good
+
+You can [technically create gold](https://home.cern/news/news/physics/alice-detects-conversion-lead-gold-lhc) via [nuclear transmutation](https://www.scientificamerican.com/article/fact-or-fiction-lead-can-be-turned-into-gold/). It costs orders of magnitude more than the gold is worth. So for practical purposes, the only "printer" for gold is mining, and mining is slow. Annual mine production adds roughly [~2% to the existing above-ground stock](https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-q2-2025). The total supply doubles about every ~50 years. In monetary terms, gold's stock-to-flow ratio is around 50 - meaning it would take 50 years of mining at current rates to match what already exists.
+
+That's pretty good. It means gold miners are, functionally, operating a very slow money printer. Slow enough that for most of human history, gold held value remarkably well across generations. If you want the full treatment of why gold emerged as the dominant money across civilizations, [Saifedean Ammous's *The Bitcoin Standard*](https://saifedean.com/the-bitcoin-standard/) does excellent work.
+
+## The Problem With Useful Money
+
+Gold is useful. Electronics, aerospace, medical devices, AI chips - [industry and technology consumed about 326 tonnes of gold in 2024](https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2024/technology). That's a modest share of total gold demand, because gold is one of the rare cases where the monetary use still dominates the industrial use. The problem isn't the size of gold's industrial consumption today; the problem is the structural tension it creates.
+
+Industries that use gold as a raw material have every incentive to make gold cheaper and more abundant. Better extraction techniques, more efficient recycling, new deposits - all of these are just good business for a chip fabricator or a jeweler. But for everyone holding gold as money, every incremental improvement in gold production is functionally identical to money printing. The interests are irreconcilable: people holding gold-as-money want maximum scarcity, and people using gold-as-input want minimum scarcity.
+
+For gold, this tension is manageable because the "printing" has stayed both slow, and constant. The industrial tail doesn't wag the monetary dog... But look at what happens when the balance tips the other way:
+
+## Silver: What Losing Looks Like
+
+Silver was money for millennia. The word "dollar" [descends from "thaler,"](https://www.etymonline.com/word/dollar) a silver coin. Major economies ran on silver standards. And then industry ate it alive.
+
+In 2024, total silver demand reached [1.16 billion ounces against global mine production of just 819.7 million ounces](https://silverinstitute.org/silver-industrial-demand-reached-a-record-680-5-moz-in-2024/). Demand exceeds what miners can pull out of the ground by over 40%. The market ran a structural deficit for the fourth consecutive year, burning through 148.9 million ounces of existing stock. The cumulative deficit from 2021-2024 totals 678 million ounces - equivalent to ten months of global mine production.
+
+Industry didn't just nibble at silver's monetary function. It devoured it. Solar panels, electronics, electric vehicles - silver's physical properties make it genuinely irreplaceable in applications that have nothing to do with money. No major economy uses silver as a monetary standard anymore. The utility won.
+
+## Copper: The Endgame
+
+If silver is what losing looks like in progress, copper is what it looks like when it's over. Copper was among humanity's earliest monies - commodity currency in Mesopotamia five thousand years ago, cast into bronze coins across [China](https://en.wikipedia.org/wiki/Ancient_Chinese_coinage) and [Rome](https://www.worldhistory.org/Roman_Coinage/). For centuries, copper coinage was the everyday money of ordinary people across empires.
+
+The most spectacular failure was Sweden's copper standard, which ran [from 1624](https://www.riksbank.se/en-gb/about-the-riksbank/history/historical-timeline/1600-1699/copper-standard-is-introduced/) to 1776. Sweden had Europe's largest copper mines and not much silver, so they made copper their monetary standard. Since copper was far less valuable by weight than silver, high-denomination [coins had to be enormous](https://www.money.org/tales-from-the-vault-swedish-plate-money-too-heavy-to-steal/). The 10-daler piece weighed 44 pounds! Citizens [needed sleds to go shopping](https://ekonomiskamuseet.se/en/exhibitions/earlier-exhibitions/exhibition-plate-money/). When global copper prices shifted, the coins' monetary value kept collapsing to their commodity value. The government "printed" more. The central banker responsible was [eventually beheaded](https://safehaven.com/article/1450/why-swedens-central-banker-was-beheaded---1719ad) for his trouble.
+
+Today nobody even considers copper as money. It's too easy to produce, too industrially consumed, too abundant. The endgame of utility winning is total *demonetization.*
+
+These three metals form a gradient:
+
+1. **Copper:** utility won completely, demonetized centuries ago. 
+2. **Silver:** utility winning right now, functionally demonetized within living memory.
+3. **Gold:** utility nibbling at the edges, still mostly monetary but structurally vulnerable to the same force that killed the other two.
+
+The only difference is timescale.
+
+## Real Estate: The Contemporary Version
+
+You can watch this same dynamic play out right now, with something that was never intended to be money at all.
+
+As printable monies lose purchasing power (on account of, you know, the money printing), people flee into scarce assets. Real estate is a favorite: "they're not making any more land," the reasoning goes. Scarcity? Check. Can't be printed? Check. People are *monetizing* houses - buying them not to live in but to store value.
+
+The result is that housing becomes unaffordable for people who need it *as housing.* This is what happens when you use a useful thing as money: you create a zero-sum fight between people who need it for its purpose and people who need it as a store of value. The act of monetizing something useful degrades the utility for everyone else.
+
+## The Ideal
+
+So we arrive at an initially counterintuitive conclusion: the best money should be totally worthless... for everything except *being money.*
+
+If your money has real-world utility - if it's a good conductor, a pretty necklace, a place to sleep - then somebody, somewhere, has an economic incentive to figure out how to make more of it. They're not trying to undermine your savings; they're just trying to get their raw materials cheaper. But the effect on you is identical to money printing.
+
+You want your money to have no industrial applications, no decorative appeal, no physical utility whatsoever. You want something that nobody would ever bother producing except to use *as money.*
+
+## The Paradox
+
+This sounds impossible. Scarcity usually arises *because* something is useful:
+
+1. Things are useful because they have properties people want.
+2. People expend effort to acquire things with properties that people want.
+3. The low-hanging fruit is acquired, and now it takes more *effort* to acquire more of the things.
+4. Effort to acquire is what we call scarcity.
+
+Useless things, almost by definition, tend to be abundant. Nobody corners the market on sand in a desert.
+
+You need something that is scarce and useless, but scarcity without utility has precious little, if any, natural precedent. So you're looking for something that shouldn't exist.
+
+## Bitcoin
+
+In 2009, something that shouldn't exist was invented.
+
+[Bitcoin](https://bitcoin.org/en/how-it-works)'s supply is fixed at 21 million. Not approximately fixed, not fixed-unless-we-find-a-new-deposit, not fixed-but-growing-at-2%-per-year. Fixed by protocol. The issuance schedule is enforced by mathematics, not geology or policy. No amount of investment in "Bitcoin mining" can increase the supply beyond what the protocol dictates - miners compete for a **fixed** reward that halves on a known schedule until it reaches **zero.**
+
+And bitcoin is, by any traditional measure, completely useless. You can't build circuits with it. You can't wear it. You can't live in it. There is no industrial demand for bitcoin, no sector of the economy trying to figure out how to produce it more cheaply as a manufacturing input. Nobody has a balance sheet with "bitcoin costs" as a line item they're trying to drive down.
+
+"You can't *do* anything with it" is the feature. Every prior form of money has been locked in a structural conflict between its monetary users and its industrial users, and the industrial users have won every single time given enough time. Bitcoin has no industrial users. There is no conflict. There is nothing to win... so **you** don't have to lose.
+
+## The Load-Bearing Rate Limiter Was Human
+
+## Thesis
+
+> It is now possible to do knowledge work faster than customers can pay for it, and faster than knowledge work**ers** can get **paid** for it.
+
+The money-to-productivity pipeline no longer requires time as a fixed-rate intermediary, and neither companies nor individuals are ready for what that means.
+
+## The Transaction That Changed My Mind
+
+I had a task. With Claude Sonnet, I could babysit the model through understanding, designing, planning, checking, and committing over the course of about four hours. Cost: maybe $5 in Cursor usage and four hours of my undivided attention.
+
+With Opus, I wrote a spec, walked away, and came back to a finished product. Thirty minutes. About $30.
+
+The dollar cost was 6x higher. The *me* cost was roughly 8x lower. I wasn't writing code in either case - the difference was whether I had to stand there being the bottleneck/manager or whether I could go be a person for a while.
+
+Dollars are painful when they leave your wallet... But I spent my *day* on the cheap version. And I only get so many of those (days, that is).
+
+That $30/30min vs $5/4hr comparison is the transaction that reframed everything for me because it surfaced a question that sounds simple but has enormous consequences: 
+
+> who really came out ahead?
+
+## The 1X Bottleneck
+
+You might be tempted to normalize my comparative costs above to $60/hr vs $1.25/hr, but that's not quite right - it assumes that each hour is the same... and they're not, not anymore.
+
+Historically, the path from money to productivity in knowledge work has always been:
+
+**Money -> Time (1X) -> Productivity**
+
+A company pays a salary. That salary buys a commitment to a year of work hours. The company tries to hire the human who will convert those hours into the most output. Maybe they pay $50K and get a baseline, or $300K for someone who produces genuinely 10x the value - but even the mythical 10X engineer lives through time at 1X speed. You could buy a *better converter*, but you could never buy a *faster clock*. No matter the conversion rate, it was always going to run at 1X speed: you can't overclock a human.
+
+In my experience, as of late 2025, frontier AI models have broken that constraint. Nevermind the early-2026 drops of Opus 4.6 and GPT-5.3-Codex. The middle of the pipeline is no longer a human metabolizing time. It's tokens, and tokens scale in a way that humans don't.
+
+When crypto miners discovered GPUs could convert electricity into money faster than entertained gamers could, miners repriced the entire GPU market in the blink of an eye. AI is doing the same thing to knowledge labor: a more efficient converter has arrived, and it's about to reprice everything.
+
+## Productivity Hyperscaled. Revenue Hasn't.
+
+The immediate, observable consequence: productivity is going vertical while revenue takes the stairs.
+
+After my Opus revelation, I burned through the $200 of my Cursor Ultra budget in barely five days. The productivity was real - tasks that would have taken weeks were landing in hours. But I couldn't sustain it. I didn't have $1,000/month for this. So I fell back to the slow path, rationing tokens, babysitting models again. Fifteen days into austerity and counting and it feels like Slow Wifi.
+
+Before, though, projects that would have taken a year of spare evenings now cost $50 and a Saturday morning. And that was amazing! Refreshing! Exciting! But! These projects were never going to generate revenue. When they cost a year of spare time, that was fine - the time was "free" in the sense that I wasn't selling it to anyone. Now that they are costing me actual dollars, the lack of a revenue model becomes a real problem.
+
+Companies are going to hit this same wall at scale. They budget annually: a year of salary against a year of expected output against a year of expected revenue. When a skilled AI-wielding engineer burns through a year of planned work in two months, they also burn through a year of token budget. The work is done, the money is spent, and now everyone's standing around the finish line with ten months of operational costs and no new revenue. The constraint isn't distribution - you *can* ship a hundred improvements in a month. The constraint is absorption. Human customers adopt, integrate, and respond at human speed. Drop ten improvements on a product in a week and your conversion rate doesn't budge ten-fold that week. The demand side has its own metabolism, and it's still running at 1X.
+
+You don't have a productivity problem anymore. You have a *digestion* problem.
+
+## Constant Discernment!
+
+The intuitive response to unprecedented productivity is "do everything faster." The correct response is almost the opposite: be more discerning about what you unleash productivity on.
+
+If you can finish a project in a week, you could theoretically finish at least four, maybe a dozen, in a month. But you don't want to, because you'll burn all your cash before the market has a chance to respond to any of them. The capability is there. The absorption capacity isn't.
+
+This is a genuinely novel constraint for most knowledge workers and the companies that employ them. We've spent decades optimizing for "how do we get more done?" and now the answer is "easily, but that's no longer the right question." The right question is 
+
+> Which things, done now, will generate returns before the budget runs out?
+
+When the human was the rate limiter, spend and revenue were temporally coupled - a year of salary forced a year of output and that happened over a year of revenue collection. Remove the rate limiter from the supply side (output and spend) but not the demand side (customer adoption and revenue) and one side can compress to months while revenue still takes its year to arrive. The calendar was load-bearing too.
+
+## The Multi-Tenancy Engineer
+
+Follow the math to its conclusion.
+
+If you can convert a company's entire annual productivity budget into output in one-tenth the time, you're meaningfully working about 80 to 90 minutes of an eight-hour day (accounting for overhead & that I'm doing napkin math here). The company got every dollar's worth of productivity it paid for. You just delivered it fast.
+
+The logical outcome is one engineer, multiple employers. Nobody is worse off. Company A paid for X productivity and got X productivity. The fact that it took you 90 minutes instead of 8 hours is a property of the converter, not the contractual agreement to convert. You haven't cheated anyone; you've simply become a more efficient machine.
+
+This used to be frowned upon. It might still be, but the reasoning behind the taboo - that working for multiple employers means each one gets less than they paid for - breaks down when the bottleneck was never your effort but the clock you were living through. The multi-tenancy engineer isn't moonlighting. They're just... done.
+
+## Dark Corollaries
+
+The multi-tenancy engineer is perhaps an optimistic outcome. A pessimistic one is that companies see six hours of surplus capacity per day and reprice labor downward. "We'll give you a token budget instead of a raise." They can't ask for *more* productivity, because of the revenue scaling constraint - the marginal return on productivity has hit zero. But someone's going to look at a 10x engineer with six free hours and want to capture that spread.
+
+*Arbitrage* is the word for this entire landscape.
+
+Engineers arbitrage their own time across employers. Companies try to arbitrage compensation against token costs. Model providers arbitrage compute against everyone's exchange rates & cash flow. VCs arbitrage the information asymmetry of who understands the new exchange rates and who doesn't.
+
+Arbitrage, all the way down. Whoever recognizes the new rates first wins. Whoever clings to the old rates longest gets arbitraged themselves.
+
+A shadow looms among the optimistic outcome too, though: If the multi-tenancy engineer pans out and works for, say, 3 companies, delivering the 1x annual productivity that each can actually afford... that's potentially two other humans who don't get hired. The productivity gains introduce a booming appetite for employment but the *supply* of employment is gated by revenue to pay for it, which remains - for now at least - running at the 1X speed of human customers.
+
+Timing is everything here - if the multi-tenancy engineer becomes the new normal *slowly*, everything could have time to adapt. If market absorption gets a kick in the pants from AI and scales up to match the capacity to produce, the actual spread to arbitrage (and the disruption it invites) could be small. If, if, if...
+
+## What to Do
+
+I don't have a clean answer. Some fragments:
+
+Watch whether revenue scaling follows productivity scaling. If it doesn't, the gap between what you *can* build and what the market will pay for is your actual constraint. Not your engineering capacity. Not your headcount. The market's ability to digest what you ship.
+
+Be discerning. Strategic restraint in the face of unprecedented capability is counterintuitive, but burning cash faster than revenue arrives is how companies die. The ability to ship isn't the bottleneck anymore: market absorption is... and many people haven't noticed yet.
+
+If you're an individual knowledge worker, start thinking about what it means when you can fulfill everything a company can afford to pay you for in a fraction of the time it used to take. That surplus capacity is *yours*, even if the cultural norms haven't caught up yet.
+
+If you're an employer, consider thinking about token budgets not as a cost-center, nor as a line-item on a team's budget, but as a *payroll* expense. You pay your humans a salary to secure a conversion of that money into productivity, over time. LLMs are the new converters on the block, just running on a different clock. Budget against the new reality!
+
+And keep an eye on the arbitrage. It's coming from every direction and your position in the spread determines whether this transition is a windfall or a haircut. Right now, the spread is wide - which means the stakes are high and the window won't stay open forever.
+
+---
+
+### Postscript
+
+The literal morning after I wrote this, Anthropic [dropped Claude Opus 4.6 Fast](https://x.com/claudeai/status/2020207322124132504), 2.5x faster at 6x the cost - so the numbers in my "aha" would now be $180/12min vs $5/4hr. Again, normalizing it to $900/hr vs $1.25/hr is wrong - the calculus is to pick one:
+
+1. Spend a month of Saturdays on a hobby project, and finish it for $0 in token costs.
+2. Spend a whole weekend on it for $20 in token costs.
+3. Complete the whole project in under an hour for $900 and have the rest of the *month's* weekends free.
+
+This sudden 2.5x multiplication of the money-to-productivity ratio - that was already on its way to the moon - just makes the effects described above all the more poignant!
+
+Some of you might say that choice 1 is the obvious choice, because you *enjoy the hobby*. This is okay and absolutely allowed and if it's true for you then none of this applies to your hobby right now – [you're an artist](/2026/01/01/desire-makes-artists-even-with-genai.html#the-artists-among-them) in this moment. The knowledge-work industry, however, is not – and you *will* at the very least bear witness as it struggles to adapt to the new calculus.
+
+### Post-Postscript
+
+A few days later, [Steve Yegge](https://steve-yegge.medium.com/) of [Gas Town](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04) fame has written about what I will claim is this same phenomenon, but from a different angle. [The AI Vampire](https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163) explores some *additional* interesting implications of "the new calculus," and has some great lines that echo:
+
+> $/hr To The Rescue ... Someone else might control the numerator. But you control the denominator.
+
+> With a 10x boost, if you give an engineer Claude Code, then once they’re fluent, their work stream will produce nine additional engineers’ worth of value.
+><br><br>
+>For someone.
+> <br><br>
+> But who actually gets to keep that value?
+
+### Post-Post-Postscript
+
+I must confess, I did not expect to see *this* in the wild so soon!
+
+> We'll give you a token budget instead of a raise.
+
+<blockquote class="link-card">
+  
+  <h1>Silicon Valley is buzzing about this new idea: AI compute as compensation</h1>
+  
+  <a href="https://www.businessinsider.com/ai-compute-compensation-software-engineers-greg-brockman-2026-3" target="_blank" rel="noopener">www.businessinsider.com/ai-compute-compensation-software-engineers-greg-brockman-2026-3</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260310194134/https://www.businessinsider.com/ai-compute-compensation-software-engineers-greg-brockman-2026-3" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>

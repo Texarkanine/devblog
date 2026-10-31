@@ -1,0 +1,1550 @@
+# ai
+
+## Taxonomizing AI Acceptance
+
+People keep announcing where they stand on AI-generated content. This page collects interesting such announcements that I've stumbled across, and files them into a roughly-continuous taxonomy.
+
+The positions taken aren't always exclusively about software-engineering, but that's my industry and I do agree that [Code Goes First](https://sundaylettersfromsam.substack.com/p/code-goes-first) so we see it a lot. Writing, e-mails, images and video all make appearances here, too: this is about the thinking machines writ large.
+
+It files positions, not people. A person can take one position one day, another the next, and that's great, actually! I don't plan to stalk all these sources and keep up to date on what they do, but if I notice a change, I'll move their history to the category I think they're *currently* in. The things each of them has said about each stance they've taken should be far more interesting than the people themselves and where they stand today... this is a phenomenon, not a Pokedex.
+
+The argument that produced this taxonomy - what these positions *are*, where we've seen them before, and what I predict they do next - is in [The Software-Engineering Amish](/2026/10/28/software-engineering-amish.html). This page is the curio shelf, displaying the slice of the world that was interesting to me, as I encountered it.
+
+## The Taxonomy
+
+| Position | Who draws the line | How absolute | The tell |
+| --- | --- | --- | --- |
+| **Amish** | A community, binding its members | Set by the community, with a stated threshold | A vote, a policy, or a house rule you accept by staying |
+| **Old Order** | An individual | Near-total, for their own work | They write it by hand, with at most a named exception or two |
+| **Mennonite** | An individual | Partial, with a practicable clause | A line at one kind of use, and stated uses on the other side of it |
+| **Luddite** | An individual, aimed at everyone | Aimed at changing the world, not just their own practice | Organize, regulate, refuse in public, persuade others to stop |
+| **Romantic** | Nobody - the line has already moved past them | Not a rule, a grief | They have accepted the new order and are mourning the old one |
+| **English** | Nobody | No line | Full adoption, no stated boundary, enthusiasm - the Amish word for the rest of us |
+
+The names are borrowed on purpose. The real Amish are selective, slow adopters who decide as a community what to allow - Kevin Kelly spoke of [Amish hackers](https://kk.org/thetechnium/amish-hackers-a/) - and the real Luddites had specific asks about wages and the pace of specific machines, not a war on machinery itself. The [Romantics](https://en.wikipedia.org/wiki/Romanticism) here are the nineteenth-century kind, mourning handcraft from inside the industrial England that replaced it. The colloquial versions of these words are the archetypes; the historical ones are more useful.
+
+## Amish
+
+A community draws the line and binds its members to it. The drawn line becomes a defining characteristic of the community as members choose to either abide and stay, or reject and leave.
+
+---
+
+> We are a place for people to collaborate and improve software together. Within this context, the recent votes can be understood as a reconfirmation of those principles: As we want to center on human collaboration, we will not actively support or engage in the creation of LLMs and will not put our limited resources to use for storing single-use software that would pollute our FLOSS commons.
+> <br><br>
+> -- Bastian Greshake Tzovaras, Otto Richter, and William Zijl (Codeberg), [Protecting our FLOSS commons from LLMs](https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html), July 23, 2026
+
+The members voted 358 to 144 for the rules this quote argues for - majority threshold, member-sourced and deliberate.
+
+---
+
+> It's fine to use LLMs to answer questions, analyze, distill, refine, check, suggest, review. But not to **create.**
+> <br>[...]<br>
+> We treat PRs as an indication that someone is interested in joining our community and being mentored to work on future PRs.
+> <br><br>
+> -- Jynn Nelson (for rust-lang/rust), [rust-lang/rust is adopting an LLM policy](https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/), August 5, 2026
+
+The line is drawn around review and disclosure, because a polished PR no longer carries that signal on its own. The rule is downstream of the values the community wants to uphold.
+
+---
+
+> The long story short, if your project uses AI, is made by AI, or is intended for AI, it's not welcome on r/opensource. AI, as it exists today, is incongruent to this Open Source community.
+> <br><br>
+> -- Wolvereness (r/opensource), [Your tokens aren't valuable: No more AI](https://www.reddit.com/r/opensource/comments/1xelcuf/your_tokens_arent_valuable_no_more_ai/), October 24, 2026
+
+A moderator decree, not a member vote - same position as Codeberg, opposite procedure.
+
+## Old Order
+
+An individual draws a near-total line for their own work.
+
+---
+
+> When I code, I don't use AI and I don't even use code completion, this post is about why not. [...] When you code without AI and without code completion you eventually remember much by heart and you become good at looking things up directly in the relevant documentation, and this is really important. [...] Always grabbing the easy way out is never good if what you're doing is important to you or others.
+> <br><br>
+> -- unixdigest, [The reason why i don't use AI or even code completion](https://unixdigest.com/articles/the-reason-why-i-dont-use-ai-or-even-code-completion.html), May 1, 2025
+
+A near-total personal line extending even to IDE autocomplete, on the analogy of memorizing phone numbers: convenience atrophies the muscle of reading documentation directly and internalizing syntax.
+
+---
+
+> I choose to avoid using "AI" (by which I mean Large Language Models). Here's why: they have a devastating environmental impact, they are trained by exploiting and traumatising millions of low-paid workers, they produce biased and dangerously incorrect results, and they unfairly use people's creative work.
+> <br><br>
+> -- Andy Balaam, [Why I don't use AI](https://artificialworlds.net/blog/2025/12/16/why-i-dont-use-ai/), December 16, 2025
+
+The ethical case, stated as a list and argued at length.
+
+---
+
+> I have, to date, not used any AI coding tools, at all. I've actively removed them from my IDE. I don't want them. Not just because of questions of their quality (still lower than a human), or because I will miss writing elegant code (I know I will), but because I want my daughter to have a future, and a planet on which to live. Because I actually do care about respecting copyright. But, at this point, it's become obvious that I have to either compromise on that, or leave tech entirely. And every time I think about that, I get angry.
+> <br><br>
+> -- Larry Garfield, [Selfish AI](https://www.garfieldtech.com/blog/selfish-ai), February 1, 2026
+
+He actively stripped AI tools from his editor out of environmental, copyright, and ethical convictions. His post captures the exact friction of holding an Old Order line as the mainstream defaults shift: the agonizing realization that the collective surrender to "it is what it is" leaves individual holdouts facing a forced choice between ethical compromise and leaving the tech industry entirely.
+
+---
+
+> The thing is that even if I was wrong (I'm not) and AI was somehow helpful for software engineering (it isn't), I still wouldn't want to use it.
+> 
+> Might I be wrong? I don't know, maybe? Might I be left behind in my industry? I guess, but I don't think it's likely. But honestly I would rather be wrong and left behind than spend my days prompting an AI to do my chosen ***craft***, something I love.
+> <br><br>
+> -- Anthony Manning-Franklin, [I Will Never Use AI to Code (or write)](https://antman-does-software.com/i-will-never-use-ai-to-code-or-write), March 4, 2026
+
+---
+
+> For example, I've got these color-changing lights. They speak a protocol I've never heard of, and I have no idea where to even begin. I could spend a month digging through manuals and working it out from scratch - or I could ask an LLM to write a client library for me. The security consequences are minimal, it's a constrained use case that I can verify by hand, and I wouldn't be pushing tech debt on anyone else. I still write plenty of code, and I could stop any time. What would be the harm?
+>
+> Right?
+>
+> ... Right?
+> <br><br>
+> -- Kyle Kingsbury, [The Future of Everything is Lies, I Guess: Where Do We Go From Here?](https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here), April 16, 2026
+
+He says he's never used an LLM for his writing, software, or personal life, and in the [Work installment](https://aphyr.com/posts/418-the-future-of-everything-is-lies-i-guess-work) two days earlier wrote that he is "not confident I will hold out forever." Still Old Order for now, with the exact shape of a possible move to Mennonite already on the page.
+
+---
+
+> To put it simply: I do not like this world where people are using AI to generate art, music, writing, and software. So I will not use AI.
+> <br><br>
+> -- Brett, [I'm done using AI](https://brettcodes.com/im-done-using-ai/), August 10, 2026
+
+Twenty years of programming, eighteen months of Claude Code and similar harnesses, then none. His post closes: "Here's to writing code by hand." A migration - English to Old Order - in his own words.
+
+---
+
+> When people claim that it's no longer sustainable to write code by hand, they're not entirely wrong, but only in the same way that it's no longer sustainable to sleep in a bed once someone has taken a shit in it. You want changes? Go ask your agent or something. I'm told that's what you're supposed to do now. I'm out.
+> <br><br>
+> -- Paul Battley (po-ru), [Why I'm no longer updating this repository](https://po-ru.com/2026/10/18/why-im-no-longer-updating-this-repository), October 18, 2026
+
+He archived his Ruby gems rather than keep contributing to a commons he takes to be strip-mined, after his companion post, "[All our houses are built on sand now](https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now)" (October 7, 2026), found disclosed LLM commits already in the C compilers underneath every language toolchain.
+
+## Mennonites
+
+An individual draws a line with a practicable clause - this far, for these uses, and no farther.
+
+---
+
+> I chose to make using AI a manual action, because I felt the slow loss of competence over time when I relied on it, and I recommend everyone to be cautious with making AI a key part of their workflow.
+> <br><br>
+> -- Luciano Nooijen, [Why I stopped using AI code editors](https://lucianonooijen.com/blog/why-i-stopped-using-ai-code-editors/), April 1, 2025
+
+He removed AI from his editors and still uses LLMs occasionally, by hand, on purpose. The line is at the editor integration, not at the tool. He tried the English approach and found it not to his taste, settling back at a more deliberate, limited use.
+
+---
+
+> I'm defaulting to pen and paper, I'm defaulting to coding the first draft of that function on my own. [...] I'm writing the plan. I'm the senior dev. The LLM is the assistant.
+> <br><br>
+> -- Alberto Fortin (via Simon Willison), [After months of coding with LLMs, I'm going back to using my brain](https://simonwillison.net/2025/May/20/after-months-of-coding-with-llms), May 20, 2025
+
+Cut back rather than quit, after LLM-driven rewrites produced a codebase he compared to ten junior developers locked in a room without seeing each other's work.
+
+---
+
+> Now, I would be lying if I said I didn't use LLMs to generate code. I still use Claude, but I do so in a more controlled manner. I copy-paste files that I think are necessary to provide the context, and then I copy-paste code and ask it to make changes to it or write tests for it. This friction has several benefits. [...] It turns code generation from a passive action to a deliberate thoughtful action. It also keeps my brain engaged and active, which means I can still enter the flow state.
+> <br><br>
+> -- Abhinav Omprakash, [I Am Happier Writing Code by Hand](https://www.abhinavomprakash.com/posts/i-am-happier-writing-code-by-hand/?ref=birchtree.me), February 7, 2026
+
+He deleted Claude Code three times after finding that full-agent vibe coding left him with lethargy and brain fog, rediscovering the joy of coding by hand each time. He now restricts LLMs to manual, deliberate copy-pasting for small diffs and test cases - drawing the line at agentic automation to preserve engagement and flow.
+
+---
+
+> Given the freedom to choose, I’d probably pick a middle path: use LLMs to generate boilerplate code, write tricky test cases, debug nasty issues I can’t think of, and quickly prototype ideas to test. I’m not an AI vegan.
+>
+> But when it comes to code I write for myself—which includes the code that runs this website—I’m going to continue writing it myself, line by line, like I always did.
+> <br><br>
+> -- Ankur Sethi, [I'm no longer using coding assistants on personal projects](https://ankursethi.com/blog/coding-assistants-personal-projects/), April 4, 2026
+
+He types every line of his current Django project himself, still uses Claude Code as a search engine and debugger, and follows his clients' rules at work. The line runs between personal and client work.
+
+---
+
+> I use AI tools sparingly for assistance while refactoring code in languages I understand. I occasionally use it to help compose command line arguments for tools like `ffmpeg`. I never use AI to generate images, video, or prose.
+> <br><br>
+> -- Ky Decker, [Do I belong in tech anymore?](https://ky.fyi/posts/ai-burnout), April 24, 2026
+
+Right after that paragraph, the post notes that AI "feels inescapable," and closes on a five-line creed ("Things that are worth doing are worth doing well... There are no shortcuts"). The creed is absolute; the clause above is why it files here and not one section up.
+
+---
+
+> For programming, I ask it how to do things I don't know how to do. Then I use what I've learned in my own code.
+> <br><br>
+> -- Derek Sivers, [AI usage](https://sive.rs/ai), updated September 28, 2026
+
+The line sits between asking and generating. The same update adds that he has started using Codex to write unit tests against functions he wrote his way - the "practicable clause," widening in public.
+
+## Luddites
+
+The historical kind: not just a private practice, but an attempt to change the terms for everyone.
+
+---
+
+> Please stop legitimizing LLMs or AI image generators or GitHub Copilot or any of this garbage. I am begging you to stop using them, stop talking about them, stop making new ones, just stop.
+> <br><br>
+> -- Drew DeVault, [Please stop externalizing your costs directly into my face](https://drewdevault.com/blog/Stop-externalizing-your-costs-on-me/), March 17, 2025
+
+A direct public appeal, on a bill of costs: carbon, freshwater, traumatized labor, scraped work, miserable sysadmins.
+
+---
+
+> What’s hardened are my views on the tech industry, software, management, and influential members of the software developer ecosystem. [...] The more I wrote about generative models, the more appalled I became at the response from the industry, to both my writing and that of others actively highlighting the risks. Few people who have any influence in tech and software seem to care about the harms, the political manipulation, the outright sabotage of education, the association with extremism, or the *literal* child abuse.
+> <br><br>
+> -- Baldur Bjarnason, [Have I hardened against LLMs?](https://www.baldurbjarnason.com/2026/have-i-hardened-against-ai/), February 9, 2026
+
+Author of *The Intelligence Illusion*, where he describes ChatGPT as "the opposite of good software." For Bjarnason, the downside comprehensively outweighs the upside, and his critique is aimed squarely at an industry and management culture willing to ignore systemic harms, labor exploitation, and software insecurity for the sake of an unproven productivity bump.
+
+---
+
+> Each day we delay the advancement of ML models buys time to learn how to manage technical debt and errors introduced in legal filings. Another day to prepare for ML-generated CSAM, sophisticated fraud, obscure software vulnerabilities, and AI Barbie. Another day for workers to find new jobs.
+> <br><br>
+> -- Kyle Kingsbury, [The Future of Everything is Lies, I Guess: Where Do We Go From Here?](https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here), April 16, 2026
+
+Refuse, organize, regulate - as delay, openly conceded not to be a stop. Same person as the Old Order entry above, different position, which is the point of filing positions instead of people.
+
+---
+
+> The precisely appropriate ways in which to resist AI encroachment on all software development lie well beyond the margins of this one short post. How much you can resist and which specific uses you should resist are up to you. But it is worth resisting in software just as much as it would be worth resisting in any creative medium.
+> <br><br>
+> -- Glyph, [Programming Isn't Special](https://blog.glyph.im/2026/10/programming-isnt-special.html), October 9, 2026
+
+Draws on John Berger's *Ways of Seeing* to argue that programming - even mundane workday code - is art, and that handing the mundane work to AI removes the practice required to ever make great things.
+
+---
+
+> If we can mitigate the effects that LLMs have on us and reduce the filtering burden, we can, more likely than not, simply outcompete LLM users. After all, LLMs, as we've previously established, are mostly useful to people who are not good at what they do: weak players in our socioeconomic game.
+> <br><br>
+> -- Iris Meredith, [There's little that's "inevitable" about AI](https://deadsimpletech.com/blog/llms-arent-inevitable), October 10, 2026
+
+Models LLMs not as gunpowder (adopt or be conquered) but as battlefield chemical weapons: useful only to weak players fighting weak players, and neutralizable by regulation, economics, and social opprobrium. Earlier in the year, she spent a week testing coding agents for "[My week with opencode](https://deadsimpletech.com/blog/week-with-opencode)" (January 13, 2026), where she stood at the Mennonite/Old Order boundary - willing at most to "keep a pet local model around to provide input whenever brain-rotted slop is required" and unwilling to release LLM code to the public.
+
+## Romantics
+
+No line left to draw. The diagnosis is accepted, and what remains is grief for the craft as it was - the 1812 hand-loom weaver who has consented to the mill and is mourning the loom.
+
+---
+
+> Writing code by hand gave me the pace of thought I needed to understand a problem deeply.
+> <br><br>
+> -- Alex Kondov, [Confessions of a Code Monkey](https://thethinkingbuilder.substack.com/p/confessions-of-a-code-monkey), January 23, 2026
+
+---
+
+> Someday years from now we will look back on the era when we were the last generation to code by hand. We'll laugh and explain to our grandkids how silly it was that we typed out JavaScript syntax with our fingers. But secretly we'll miss it.
+> <br><br>
+> -- Nolan Lawson, [We mourn our craft](https://nolanlawson.com/2026/02/07/we-mourn-our-craft/), February 7, 2026
+
+---
+
+> I wrote millions of lines of code, from scratch; a good chunk of that was without benefit of the Internet, and its infinite reference library. None of it was AI-assisted.
+> <br><br>
+> -- Peter Rukavina, [What we are losing](https://ruk.ca/content/what-we-are-losing), February 9, 2026
+
+His response to Lawson, from 43 years of professional programming, 1980 to 2023.
+
+---
+
+> The demand for software is not the same as demand for software engineering. The demand for bread today is far higher than in 1800s, yet that did not lead to a corresponding increase in the demand for break-makers.
+> <br><br>
+> -- Mo Rassam, [Software Engineering is dead and I'm begging you to accept this](https://tharsalys7.substack.com/p/software-engineering-is-dead-and), October 18, 2026
+
+Rassam has migrated: a hand-loom weaver who has gone out into the city to see what factory jobs there are and realized that you can't go home again.
+
+## The English
+
+No line. Full adoption, no stated boundary, enthusiasm - the Amish word for the rest of us.
+
+---
+
+> We've managed to narrow it down to a single principle: You are getting left behind if you do not adopt chat-based programming as your primary modality. There are a few legitimate reasons for not being able to use chop, but they are quickly evaporating as excuses. So call it whatever you like, but to me, as time goes by, the holdouts are just looking stubborn.
+> <br><br>
+> -- Steve Yegge, [The death of the stubborn developer](https://sourcegraph.com/blog/the-death-of-the-stubborn-developer), December 10, 2024
+
+Nine days after GPT-4 shipped, Yegge had already sounded the horn in [Cheating is all you need](https://sourcegraph.com/blog/cheating-is-all-you-need) (March 23, 2023), declaring LLMs the biggest shift since the World Wide Web. By late 2024, the early warnings in [The death of the junior developer](https://sourcegraph.com/blog/the-death-of-the-junior-developer) hardened into an ultimatum: chat-oriented programming is the primary modality, and anyone resisting is merely stubborn. By mid-2025 there was "nary an IDE in sight" ([The brute squad](https://yegge.ai/essays/the-brute-squad/)), arriving in 2026 at [Welcome to Gas Town](https://yegge.ai/essays/welcome-to-gas-town/): *"It’s also 100% vibe coded. I’ve never seen the code, and I never care to."*
+
+---
+
+> This tale isn't about any particular company, it's about the raging AI bull that's been unleashed which enables anyone, to do anything. [...] The founders didn't intend to slash their workforce; it just happened naturally - people self-selected out of the new AI+tools first direction - which works for now but the places to turn to will soon diminish, fast. [...] Don't fall asleep at the wheel on this one. Invest in yourself - if you’re a high-agency person, there’s never been a better time to be alive...
+> <br><br>
+> I suspect there's not going to be mass-layoffs for software developers at Companies due to AI, instead there what we will see is a natural attrition between those who invest in themselves right now and those who do not.
+> <br><br>
+> -- Geoffrey Huntley, [What do I mean by some software devs are "ngmi"?](https://ghuntley.com/ngmi/), February 7, 2025
+
+The sequel to his conversion at the pool in [An "oh fuck" moment in time](https://ghuntley.com/oh-fuck/) (January 14, 2025), where he left Cursor running a Rust-to-Haskell port with CoreAudio FFI while swimming with his kids and returned to find it working, announcing that non-adopters were "frankly not gonna make it." Here he defines the acronym: no mass layoffs required—just a quiet, brutal sorting where developers who dismiss models as hype self-select out while high-agency cyborgs take the wheel.
+
+---
+
+> I've been in the now-renamed Yolo Mode since March 2025. I just let the agents do whatever, to whatever.
+> <br><br>
+> -- Me, [How I Learned to Stop Coding and Love the Machine](/garden/how-i-learned-to-stop-coding-and-love-the-machine.html)
+
+Whatever this taxonomy says about everyone else, it says that about its author too. I am not immune to propaganda!
+
+## Things That Do Not Fit
+
+The taxonomy above sorts by the extent of acceptable use: who draws the line, and how wide it is. This section logs positions that break those two axes.
+
+### The Butlerian Jihadis
+
+The real-world Amish and Old Order are defined by [*Gelassenheit*](https://en.wikipedia.org/wiki/Gelassenheit) (quiet yieldedness) and [nonresistance](https://en.wikipedia.org/wiki/Nonresistance). They keep to themselves, hitch up the buggy, and leave the English alone. Even the historical Luddites were bargaining with mill owners over piecework wages and phased rollouts - violence as a means to an end.
+
+A different posture shares the Old Order's zero-use line, but swaps quiet withdrawal for excommunication, blacklists, and a post-bubble tribunal - or, on the physical fringe that Sean Goedecke documents in "[Blood in the datacenter](https://www.seangoedecke.com/luddites-and-ai-datacenters/)" ("Is it time to start burning down datacenters?"), shots fired at councilmen's houses and firebombs. Filing this posture under Old Order slanders the Amish; filing it under Luddite misses that nobody here is asking for a seat at the bargaining table. The closest name is the one I already borrowed from Frank Herbert, in my [Fomenting the Butlerian Jihad](/garden/fomenting-the-butlerian-jihad.html). *"Thou shalt not make a machine in the likeness of a human mind"* - and anyone who does is a collaborator.
+
+---
+
+> If you personally work on developing LLMs et al, know this: I will never work with you again, and I will remember which side you picked when the bubble bursts.
+> <br><br>
+> -- Drew DeVault, [Please stop externalizing your costs directly into my face](https://drewdevault.com/blog/Stop-externalizing-your-costs-on-me/), March 17, 2025
+
+---
+
+> We are making this choice. But really, that means you have already decided for me. And I curse you and the ground you walk on for it. No, I'm not joking or exaggerating. Burn in hell. [...] I do not forgive you.
+> <br><br>
+> -- Larry Garfield, [Selfish AI](https://www.garfieldtech.com/blog/selfish-ai), February 1, 2026
+
+## Horses
+
+<blockquote class="link-card">
+  
+  <h1>Horses</h1>
+  
+  <a href="https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">andyljones.com/posts/horses.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260707095105/https://andyljones.com/posts/horses.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> ... between 1930 and 1950, 90% of the horses in the US disappeared.
+>
+> Progress in engines was steady. Equivalence to horses was sudden.
+
+---
+
+But enough about Horses. Let's talk about Agentic Harnesses!
+
+What is a **harness**? I'm deep in the weeds and have a functionally-predictive mental model of what an "agentic coding harness" is.
+Functionally-predictive in that I can use my understanding and mental model to get what I want out of thing.
+
+Maybe you're not quite sure what a "harness" is - at least, not compared to a `model` and an `agent` and does `llm` fit in there anywhere? Which of that is `AI`?
+
+There are plenty of illustrations out there, for example:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="agentic-harness_sujingshen.jpg">
+      <img src="agentic-harness_sujingshen.jpg" alt="Agentic Coding Harness" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Agentic Coding Harness</div>
+    <div class="polaroid-link">
+      
+      <a href="https://x.com/sujingshen/status/2074514861829353538" target="_blank" rel="noopener">x.com/sujingshen/status/2074514861829353538</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Okay, I'd grant that's directionally not wrong, but is it helpful to you? Can you **do** anything new with the knowledge gained from the graphic?
+
+Let's revisit a longtime work**horse** of the world - the horse - who, though perhaps long-since equivalent'd, may still be able to help us understand the emerging world of AI.
+
+In other words, enough about agentic harnesses. Let's talk about horses.
+
+## Horses
+
+There are many kinds of horses.
+
+* [**Draft** horses](https://en.wikipedia.org/wiki/Draft_horse) are giants that can pull heavy loads with great force.
+* [**Thoroughbred** horses](https://en.wikipedia.org/wiki/Thoroughbred) are lean and fast, bred to race and break records.
+* [**Quarter** horses](https://en.wikipedia.org/wiki/Quarter_horse) are fast, too, but over small distances and they're agile. Often used in ranch work.
+* [**Mini** horses](https://en.wikipedia.org/wiki/Miniature_horse) are tiny and cute, but not really ride-able.
+
+And there are [many, many other kinds of horse](https://commons.wikimedia.org/wiki/Horse_breeds).
+
+A mini horse will struggle to pull a plow across your fields.
+
+A full-sized thoroughbred horse will struggle to visit children in a hospital [the way a mini horse can](https://www.stampedeoflove.org/).
+
+And a draft horse isn't going to win the Kentucky Derby.
+
+They're all horses, but they're all different breeds that excel (or struggle) at different things.
+
+### Tack
+
+In almost all cases, a horse can't *do* any of the things humans want it to, without some degree of equipment - [tack](https://en.wikipedia.org/wiki/Horse_tack).
+
+Want to ride a horse? Probably need to put a saddle on it.
+
+Want it to plow a field? You'll need a [harness](https://en.wikipedia.org/wiki/Horse_harness) to attach the horse *to* the plow so it can pull it and you can steer.
+
+Want to win a race? You'll still need a saddle, but it's going to be a very different kind of saddle than the cowboy's using to lasso a cow.
+
+And if you just want to walk your mini horse around town, you'll still need, at least, some kind of [halter](https://en.wikipedia.org/wiki/Halter) on its head so you can do that.
+
+There are all *kinds* of things you can strap to a horse for different tasks - from horse-drawn carriages to saddlebags, even [machine guns](https://www.reddit.com/r/wwi/comments/rrl2in/horse_with_a_machine_gun_during_ww1_german_army/).
+
+The pattern is clear:
+
+> Yeah, the horse itself might be "good at" or "bred for" a particular task, but it can't do it without the right supporting equipment.
+
+### Multi-Purpose Horses
+
+Many horses are multi-purpose animals. That draft horse that you harnessed to a plow for a day? You can probably ride him into town on a regular saddle tomorrow if you need.
+
+The quarter-horse that herds cattle by day? It'll walk in a parade with a halter, sure thing.
+
+Today, the mini-horse is a cute pet. Tomorrow, it's dressed as a unicorn in that same parade with the quarter-horse - horn, glitter, and all!
+
+The horse may be "good at" or "bred for" a particular task, but with some exceptions they're not generally truly single-purpose animals. Tack them up appropriately and put them in the hands of the right equestrian, and horses can do *all kinds* of tasks for you.
+
+Now, let's talk about AI again.
+
+---
+
+| AI | Horse |
+| ---- | ---- |
+| Model | Breed |
+| Harness | Tack |
+| Agent | A horse tacked up for a particular task |
+| You | Equestrian |
+
+Claude Haiku is maybe a mini horse. Claude Opus is maybe a Draft horse.
+
+When you launch Claude Code, you're beginning to tack up a Claude-Horse for a particular task.
+
+If you launch Claude Code and ask Haiku-Horse to rebuild Facebook, it's not gonna happen. The mini-horse agent cannot plow the whole farm.
+But if you have sufficient tokens, ol' Fable-Horse with Max effort just might.
+
+They're both horses. You tacked them up for a task... but one horse wasn't up to it. Your fault for picking the wrong horse!
+
+Similarly, when you launch Claude Code and Cursor and pick the *same* Claude model, you've got the same horse but now you're putting a different set of tack on it. Very similar tack, to be sure, but not identical.
+
+Claude Opus in Cursor, versus Claude Opus in Claude Code *are* going to behave slightly differently.
+
+Just like how if you took the same horse but tried two different saddles on it and then went for two rides, you'd get two different experiences. They'd both be horseback rides, to be sure - but not identical.
+
+## Agents
+
+Just like how horses are multi-purpose, Models are, too, and so can an Agent be.
+
+You put a saddle and a halter on a quarter horse, and you can lead it around town, herd cattle, go for a run, and even go to war on it. Same horse. Same tack. Same *agent*. Equipped in a way that it can bring its natural abilities to bear on a variety of useful tasks... and then *actually directed to do a specific task*.
+
+Claude Code and Cursor give you the tack for *coding agents* - models harnessed to be good at building software for you. [Suno](https://suno.com) harnesses a model to be good at making songs. [Midjourney](https://www.midjourney.com) equips a model to be good at making images.
+
+Underneath *some* of those use-cases, you may even find the *same* - or at least a very similar - model. But on top of the model is a drastically different harness that equips it for a drastically different task. And then of course, *you* come along and ask it to do that task.
+
+## Equestrians
+
+So you bought a horse that can do a task, great! You back its trailer up to your pasture full of cows, open it, and...
+
+Nothing happens. No cows are herded.
+
+Well of course! It's not enough to just have (access to) the horse. *You* are the equestrian: hop on the horse and steer it towards the cowherding tasks!
+
+Okay, so you hop on and... you fall off almost immediately.
+
+Well of course! There was no saddle. It's not enough to have the tack in your barn, you have to actually attach it to the horse!
+
+Okay, so you throw a saddle on the horse, climb back on, and...
+
+You and the saddle fall off the horse.
+
+Well of course! It's not enough to just have some tack and throw it on the horse; you have to *properly attach* it to the horse!
+
+Okay, so you saddle the horse up properly this time, climb back on, give it a kick and...
+
+You get out to field, ready to rope a cow! Hey, it's working! You throw your lasso, land it around the cow's neck, and...
+
+Oh! There's nowhere to attach the lasso. You see, you've put an [English Saddle](https://en.wikipedia.org/wiki/English_saddle) on the horse, not a [Western Saddle](https://en.wikipedia.org/wiki/Western_saddle). It's not enough even to attach your tack properly, you must also be attaching the *correct* tack for the job you're trying to do!
+
+Okay so you swap the saddle for a Western one, it is attached properly, you climb back on, ride out into the field, throw your lasso, land it on a cow, and...
+
+Oh! You have absolutely no idea how to wrangle a cow on horseback. You've never done it before. You didn't take any lessons or read any instructions.
+
+But, now you're *ready* to learn!
+
+## Metaphorical Equivalence
+
+You see, it's not enough to merely have access to AI Models (a horse).
+
+You must harness them up with something like Claude Code, Cursor, Midjourney, etc (a saddle and bridle).
+
+But it's not enough to just launch a harness and go - you must ensure it's the right harness for the job you're trying to do (the western saddle, specifically).
+
+And even then, it's not enough to have all the right tools - you must also know how to use them and all their features - how to prompt, which Skills to use, which Tools to install, etc. (go learn horsemanship).
+
+That's [context engineering](/tags/context-engineering/) and it is [your new job in this new world](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html).
+
+The people who make those saddles (harnesses around agents) for you to look at and buy and put in your barn? They're doing [harness engineering](/tags/harness-engineering/).
+
+But enough about horses. Let's talk about demons.
+
+## Demons
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="the-invocation-of-mephistopheles_john-augustus-knapp.png">
+      <img src="the-invocation-of-mephistopheles_john-augustus-knapp.png" alt="The Invocation of Mephistopheles by John Augustus Knapp" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">The Invocation of Mephistopheles by John Augustus Knapp</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Maybe you're not so much a fan of Westerns. Maybe you're more of a fan of the horror or supernatural genres. In that case, a scene like the above ought to be quite **familiar**!
+
+The sorcerer stands in his magic circle, performing some kind of ritual to summon a demon into *its* circle... after which the spirit will be compelled to do *something* for the sorcerer. To complete some task, and eventually be banished when done.
+
+| AI | Demonology |
+| ---- | ---- |
+| Model | Demonic Energy in the Beyond |
+| Harness | Summoning Circle |
+| Agent | A demonic entity summoned into the circle |
+| You | Sorcerer |
+
+And with AI just as with demons, it's very important that you select the correct summoning circle (harness), summon a compatible demon (model) into it, and give it the right incantation and instructions (prompts and context) so that it will actually do what you want.
+
+This crossover's been done literally, and it works:
+
+<blockquote class="link-card">
+  
+  <h1>Cantrip: On summoning entities from language in circles</h1>
+  
+  <a href="https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">www.deepfates.com/cantrip</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260801194233/https://www.deepfates.com/cantrip/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> This is a starter spellbook. It describes a method for creating spells using the tools of modern summoning: a language model, a computer, and a prompt. It’s language loops all the way down.
+> <br>...<br>
+> Putting language in a loop makes it come alive. You say words, the words change the room, the room changes you, you say different words. We call it chanting, and it is one of the oldest tools of magic.
+> <br><br>
+> An agent is the same shape. The model predicts a token; put it in a loop with an environment, and something emerges that wasn't in the instructions.
+
+---
+
+## Mentally Modelled
+
+Hope that helped!
+
+## Do LLMs Understand "For Each"?
+
+You have a list of items. You need a language model to process each one the same way. Do you write this:
+
+> For each item in the list, perform steps 1 through 5.
+
+Or this:
+
+> **Item 1:** Perform steps 1 through 5.
+>
+> **Item 2:** Perform steps 1 through 5.
+>
+> **Item 3:** Perform steps 1 through 5.
+
+The first is compact, elegant, and how a programmer would think about it. The second is verbose, redundant, and feels like it insults the model's intelligence. The research says the second one works better, and the reasons are architectural - rooted in how transformers allocate attention. But whether that architecture actually constrains you depends on how, exactly, you harness the models and what, exactly, you ask them to do.
+
+## The Curse of Instructions
+
+<blockquote class="link-card">
+  
+  <h1>Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once</h1>
+  
+  <a href="https://openreview.net/forum?id=R6q67CDBCH" target="_blank" rel="noopener">openreview.net/forum?id=R6q67CDBCH</a>
+  
+</blockquote>
+
+
+
+
+> The success rate of all the instructions is precisely explained by the success rate of individual instructions to the power of the total number of instructions.
+
+That's the "curse of instructions" (Harada et al., October 2024): individually easy steps compound into near-certain failure at scale. If a model follows any single instruction 95% of the time, 10 simultaneous instructions yield roughly 60% all-correct compliance. In practice, it's worse. GPT-4o managed just 15% success with 10 simultaneous instructions. Claude 3.5 Sonnet did better at 44%, but neither is close to reliable.
+
+When a prompt says "for each of 10 items, follow these 5 steps," the model must satisfy 50 effective constraints in a single generation. The multiplicative decay means that individually easy steps compound into near-certain failure at scale. Unrolling into separate per-item calls keeps each call at 5 constraints, preserving the per-instruction success rate without cross-item compounding.
+
+The [IFScale benchmark][2] (Jaroslawicz et al., July 2025) pushed this further, testing up to 500 simultaneous keyword-inclusion instructions across 20 models from seven providers. Even the best performer - Gemini 2.5 Pro - managed only about 69% accuracy at 500 instructions. More usefully, the study identified three distinct degradation patterns across model families:
+
+- **Threshold decay** for reasoning models like o3 and Gemini-2.5-Pro: near-perfect performance until roughly 150 instructions, then collapse.
+- **Linear decay** for models like GPT-4.1 and Claude 3.7 Sonnet: steady, proportional decline.
+- **Exponential decay** for smaller or older models like Claude 3.5 Haiku and Llama-4-Scout: steep drops from the start.
+
+This means the penalty for loop-style prompts depends partly on which model you're using. Reasoning models tolerate higher instruction density before degradation kicks in. Smaller models degrade rapidly as instruction count grows.
+
+## Why It Happens
+
+The exponential compounding is a symptom. The disease is architectural.
+
+### Attention Sinks
+
+Researchers at MIT discovered that transformer models dump disproportionate attention onto initial tokens due to [softmax](https://en.wikipedia.org/wiki/Softmax_function) normalization - a phenomenon they called "[attention sinks](https://arxiv.org/abs/2309.17453)" (Xiao et al., September 2023). A [2025 follow-up](https://arxiv.org/abs/2504.02732) (Barbero et al., April 2025) traced the cause to a fundamental mechanism: LLMs use attention sinks to avoid over-mixing information across layers, and "their formation during training seems inevitable." The original researchers proposed a practical workaround - [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), which adds a dedicated placeholder token to absorb excess attention - but the underlying behavior is architectural.
+
+In a loop-style prompt, the instruction block at the top becomes the attention sink while items in the middle are starved. Unrolling creates fresh attention sinks at each item's instruction header.
+
+### Lost in the Middle
+
+"[Lost in the Middle](https://arxiv.org/abs/2307.03172)" (Liu et al., July 2023) demonstrated a U-shaped performance curve: models access information at the beginning and end of their context with meaningfully higher accuracy than information in the middle. A follow-up "[Found in the Middle](https://arxiv.org/abs/2406.16008)" (Hsieh et al., June 2024) traced this to an intrinsic attention allocation bias that persists regardless of content relevance, and proposed a calibration mechanism to mitigate it. The bias persists in practice - IFScale found systematic favoritism toward earlier instructions across all models tested.[^2] In a loop-style prompt processing many items, the middle items land in the degraded zone. Unrolling gives every item its own beginning and end.
+
+### Causal Masking and Prompt Repetition
+
+The most elegant piece of evidence comes from Google Research. Leviathan, Kalman, and Matias published "[Prompt Repetition Improves Non-Reasoning LLMs][5]" in December 2025. The finding: simply duplicating the entire prompt improved accuracy on 47 of 70 tested tasks with zero losses. On one task, Gemini 2.0 Flash Lite jumped from 21.33% to 97.33% - a 76 percentage-point gain.
+
+The mechanism is revealing. In causal (left-to-right) attention, instruction tokens are processed before data tokens, meaning the instruction encoding lacks awareness of the data it must operate on. When instructions are repeated *after* the data - or, by extension, repeated per item - each instruction instance can attend to all preceding context, creating a richer signal. Critically, padding the prompt to equivalent length *without* repeating instructions produced no improvement, confirming the gain comes from information repetition, not length.
+
+This has a direct implication for the loop question. Unrolling is not merely about reducing constraint count per call. It's about giving each item its own copy of the instructions, positioned where the instructions can attend to the relevant data. The transformer's causal attention architecture mechanistically favors this.
+
+But there's a wrinkle. The prompt repetition effect was "neutral to slightly positive" for reasoning models (5 wins, 1 loss, 22 neutral out of 28 tasks). Models that reason via chain-of-thought already perform an internal form of "re-reading" that mimics the repetition effect. This aligns with IFScale's finding that reasoning models tolerate higher instruction density.[^2]
+
+## The Cost of Unrolling: Instruction Drift
+
+So far, the case for unrolling looks strong. But unrolling has its own costs.
+
+Repeating instructions N times increases total token count, and as context grows, the relative attention weight of the initial system prompt decreases. Research on [instruction drift][7] (Wen et al., October 2025) formalizes this as "turn-wise divergence from goal-consistent behavior over extended contexts." The drift doesn't accumulate without bound - it stabilizes at finite levels that can be shifted downward by lightweight interventions like goal reminders. But it means that aggressively unrolling a 50-item list into a single massive prompt could erode the very instruction adherence you're trying to preserve.
+
+This creates a tension:
+
+- Loops suffer from exponential constraint compounding.
+- Unrolling suffers from linear drift.
+
+For small N, the compounding fix dominates; unroll. For very large N, drift may erode the gains. The crossover point - the sweet spot where you'd make a different design decision - is not precisely characterized in the literature, but the [batch prompting][8] research (Cheng et al., January 2023) suggests a ceiling: batching up to about 4 unrelated items retained quality, with degraded accuracy beyond that.
+
+## The Distinction That Actually Matters
+
+Nearly every study cited so far measures *single-generation* constraint satisfaction. ManyIFEval tests whether 10 formatting constraints are satisfied in one output.[^1] IFScale tests whether 500 keywords appear in one business report.[^2] Chen et al.'s multi-instance processing study (March 2026) tests whether 100 items are processed in one pass.[^9] The attention sink, lost-in-the-middle, and causal masking effects all operate within a single forward pass of the model.
+
+But most people asking "should I unroll my loops?" aren't writing monolithic prompts. They're building [agentic workflows](https://en.wikipedia.org/wiki/Intelligent_agent) where the model makes tool calls - reads a file, queries a database, edits a document - and each tool call creates a new generation boundary. In a typical agentic loop:
+
+1. Load guidance rule (tool call, new generation context)
+2. Read file (tool call, new generation context)
+3. Evaluate (reasoning step)
+4. Maybe edit (tool call, new generation context)
+5. Back to step 1 for next item
+
+Each tool call resets the generation context. The agent isn't trying to satisfy 15 constraints in one output - it's doing 5 things, getting a response, doing 5 more, getting a response. The exponential compounding from ManyIFEval doesn't apply because each generation carries only a handful of constraints. The positional bias effects are also mitigated, though how much depends on the harness - orchestration frameworks differ in whether and how they re-inject context between tool calls.
+
+The prompt repetition paper implicitly confirms this: its effect is neutral for reasoning models because they already "re-read" internally via chain-of-thought.[^5] Agentic tool-call loops achieve the same re-reading mechanically - each iteration brings the instructions back into focus through the tool response cycle.
+
+The [Multi-Task Inference][6] benchmark (Son et al., February 2024) tests and illustrates this boundary cleanly. When 2-3 closely related subtasks shared a single generation instead of being split apart, GPT-4 improved by up to 12.4%. The authors' explanation: "looking at the next sub-task provides critical clues on the answer format for solving the previous sub-task." 
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="arxiv.2402.11597v2.fig1.png">
+      <img src="arxiv.2402.11597v2.fig1.png" alt="Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once? (Figure 1)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://arxiv.org/html/2402.11597v2" target="_blank" rel="noopener">arxiv.org/html/2402.11597v2</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20240607173315/https://arxiv.org/html/2402.11597v2" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+This is evidence about **where to draw the generation boundary, not evidence for loops.** Once you've partitioned work into per-item units, over-decomposing the steps *within* each item's group can hurt by denying related steps access to one another's context.
+
+This **doesn't mean agentic workflows are immune** to instruction-following failures. The [AGENTIF benchmark][10] (Qi et al., NeurIPS 2025) - the first benchmark specifically designed for instruction following in agentic scenarios - found that current models still struggle, even the best achieving only about 60% constraint satisfaction on agentic prompts averaging nearly 12 constraints each.[^10] Conditional constraints proved particularly fragile: over 30% of failures came from incorrect condition checking - the model failing to recognize whether a condition was triggered, not failing to follow the constraint itself. And meta-constraints - instructions that govern other instructions, like "prioritize X over Y" - were among the least reliable of all.[^10] The constraints-per-generation count still matters. It's just that tool boundaries keep the per-generation count lower than what a monolithic prompt would impose.
+
+There's a deeper prerequisite for successful agentic looping, too. LLMs have effectively zero latent working memory - [Huang et al.][15] (2025) showed that LLMs function as "reactive post-hoc solvers" that reconstruct task state from context at every generation. They don't hold a mental checklist; they re-derive one from the conversation history each turn. As that history grows, reconstruction degrades: open-weight models stop making measurable progress after about 6 steps,[^16] and roughly 23% of multi-agent system failures stem from premature termination, incomplete verification, or looping indefinitely.[^17] For iterative workflows, the fix is to externalize the iteration state - get the "what's done / what remains" tracking out of the model's head and into something it reads back explicitly.
+
+[Anthropic's prompt engineering documentation][11] reflects both of these takeaways. Their guidance explicitly advises externalizing the task list, and notes Claude's reasoning as the reason why you don't have to manually orchestrate multi-step processes anymore:
+
+> Use the first context window to set up a framework (write tests, create setup scripts), then use future context windows to iterate on a todo-list.
+> <br>...<br>
+> With adaptive thinking and subagent orchestration, Claude handles most multi-step reasoning internally. Explicit prompt chaining (breaking a task into sequential API calls) is still useful when you need to inspect intermediate outputs or enforce a specific pipeline structure.
+
+## The Real Question
+
+The most useful insight from integrating this research isn't about loops versus unrolling per se. It's that **the relevant unit of analysis is the generation boundary, not the prompt boundary.**
+
+The research unanimously shows that within a single generation, constraint compounding is exponential and positional bias is real. The practical question is always: **how many constraints am I asking the model to satisfy in this generation?**
+
+If the answer is "few, because tool calls partition the work," loops are fine. If the answer is "many, because this is a monolithic prompt," unroll. The real answer lurking under that decision is that while loops can sometimes work, unrolling - whether in the prompt, the harness, or within the model's reasoning - is basically always being used for handling iterative assignments.
+
+## A Decision Framework
+
+For what it's worth, here's how I'd think about it:
+
+### Single-Generation Prompts
+
+No tool calls, one shot. You're not writing code like this; this is maybe embedded in a production system, part of a data pipeline, or otherwise bundled up and just expected to perform inference once and return a result. Classifiers, judges, etc. In this situation, you're often authoring the harness yourself, and so you get to choose what goes into a "generation" and how to glue results together for the prompt/context of subsequent generations.
+
+These numbers come from different studies at different points in time, conducted against differing sets of models - they're not absolute. Rather, when *you* are having to pick thresholds for your harness' behavior, these numbers may help locate and guide your decision.
+
+| Situation | Approach | Why |
+| :--- | :--- | :--- |
+| 1-3 related items needing cross-reference | Loop with structural markers | Cross-item context sharing may help |
+| 4-6 independent items | Partial unrolling with per-item headers; repeat instructions at start and end | The prompt repetition sweet spot |
+| 7+ items | Fully unroll into separate API calls | Exponential compounding dominates |
+| Any count on smaller/older models | Default to unrolling | Exponential decay from the start |
+
+### Agentic Workflows
+
+Generation boundaries handle the compounding problem. But as noted above, the model still has to track what it's iterating over - and it can't do that reliably from context alone. Externalize the checklist.
+
+| Situation | Approach | Why |
+| :--- | :--- | :--- |
+| Small set, few steps per item | Loop with tool calls | Generation resets handle compounding; short history keeps state reconstruction reliable |
+| Large set or many steps | Externalize the task list; reduce the loop to <ol><li>pull task</li> <li>do task</li> <li>repeat</li></ol> | Models can't reliably track "what's done" in context alone |
+| Complex per-item steps (5+ with branching) | Add structural markers within each iteration | Per-generation constraint count still matters |
+| 20+ items in one conversation | Periodically re-inject core instructions | Guard against instruction drift[^7] |
+
+Most agent harnesses provide some form of task-list tool for this; writing a checklist to disk can work just as well as [third-party software solutions](https://github.com/gastownhall/beads). The mechanism matters less than the principle: get the "what's done / what remains" state out of the model's head and into something it reads back explicitly.[^Niko]
+
+A personal rule of thumb: I'll start capping any unbroken numbered instruction list at 4 items before a tool call, since the batch prompting research showed meaningful quality degradation beyond that threshold[^8]... *for now!* We might expect this number to creep up as models get better, though it may not be from the underlying Transformer technology but from more-creative and effective behaviors layered on top of it.
+
+### In All Cases
+
+Use structural markers. Whether looped or unrolled, [XML tags](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) and markdown headings improve adherence by providing the kind of hierarchical boundaries that models have internalized from their training data. OpenAI's [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) found that XML performed well for multi-document inputs while JSON performed particularly poorly.
+
+```xml
+<task index="1">
+## Acme Corp
+Evaluate this contract for renewal risk.
+</task>
+
+<task index="2">
+## Globex Inc
+Evaluate this contract for renewal risk.
+</task>
+```
+
+If you must keep many items in a single prompt, three mitigations improve compliance: 
+
+1. repeat the core instruction block after each item or at the end of the prompt[^5],
+2. use indexed structural tags for each item[^12],
+3. add a self-verification step asking the model to check whether it completed all items[^13]
+
+## Think in Generations
+
+The transformer's causal attention architecture mechanistically favors explicit, per-item instruction blocks over abstract loop constructs. This is not a prompting trick - it's a consequence of how softmax attention, causal masking, and positional encoding interact. The research evidence for this is strong, converging from multiple independent programs.
+
+But "always unroll" is an oversimplification that fails to account for how most people actually use language models today. In agentic workflows, tool-call boundaries act as natural generation resets that mitigate the very problems unrolling solves. The real skill is learning to think in terms of constraints-per-generation rather than constraints-per-prompt.
+
+The research also suggests this isn't something models will simply "grow out of." [Recent work on compositional generalization][14] (Chang et al., May 2025) argues that for tasks requiring multi-hop reasoning - the logical equivalent of a loop - the training data requirement grows quadratically with token set size.[^14] The limitation is architectural, not parametric. Scaling model size doesn't linearly improve loop handling.
+
+So: unrolling works, the reasons it works are well-understood, and the situations where it doesn't matter are equally well-defined. The question was never really "loop or unroll?" It was "how many things am I asking the model to hold in its head at once?" That question has a precise, architecturally grounded answer. It's just not always the same one.
+
+
+---
+
+[^1]: Harada et al., "Curse of Instructions: Large Language Models Cannot Follow Multiple Instructions at Once," ICLR 2025. <https://openreview.net/forum?id=R6q67CDBCH>
+
+[2]: https://arxiv.org/abs/2507.11538
+[^2]: Jaroslawicz et al., "How Many Instructions Can LLMs Follow at Once?" July 2025. [https://arxiv.org/abs/2507.11538][2]
+
+[^3]: Barbero et al., "Why do LLMs attend to the first token?" April 2025. <https://arxiv.org/abs/2504.02732>
+
+[^4]: Hsieh et al., "Found in the Middle: Calibrating Positional Attention Bias Improves Long Context Utilization," ACL Findings 2024. <https://arxiv.org/abs/2406.16008>
+
+[5]: https://arxiv.org/abs/2512.14982
+[^5]: Leviathan, Kalman, Matias, "Prompt Repetition Improves Non-Reasoning LLMs," Google Research, December 2025. [https://arxiv.org/abs/2512.14982][5]
+
+[6]: https://arxiv.org/abs/2402.11597
+[^6]: Son et al., "Multi-Task Inference: Can Large Language Models Follow Multiple Instructions at Once?" February 2024. [https://arxiv.org/abs/2402.11597][6]
+
+[7]: https://arxiv.org/abs/2510.07777
+[^7]: Wen et al., "Drift No More? Context Equilibria in Multi-Turn LLM Interactions," October 2025. [https://arxiv.org/abs/2510.07777][7]
+
+[8]: https://arxiv.org/abs/2301.08721
+[^8]: Cheng et al., "Batch Prompting: Efficient Inference with Large Language Model APIs," EMNLP 2023. [https://arxiv.org/abs/2301.08721][8]
+
+[^9]: Chen et al., "Understanding LLM Performance Degradation in Multi-Instance Processing: The Roles of Instance Count and Context Length," March 2026. <https://arxiv.org/abs/2603.22608>
+
+[10]: https://arxiv.org/abs/2505.16944
+[^10]: Qi et al., "AGENTIF: Benchmarking Instruction Following of Large Language Models in Agentic Scenarios," NeurIPS 2025. [https://arxiv.org/abs/2505.16944][10]
+
+[11]: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts
+[^11]: Anthropic, "Prompt Engineering Best Practices," Claude API Docs, accessed April 2026. [https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts][11]
+
+[^12]: Anthropic, "Use XML tags to structure your prompts," Claude API Docs. <https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags>
+
+[^13]: OpenAI, "GPT-4.1 Prompting Guide," OpenAI Cookbook. <https://cookbook.openai.com/examples/gpt4-1_prompting_guide>
+
+[14]: https://arxiv.org/abs/2505.20278
+[^14]: Chang et al., "Characterizing Pattern Matching and Its Limits on Compositional Task Structures," May 2025. [https://arxiv.org/abs/2505.20278][14]
+
+[15]: https://arxiv.org/abs/2505.10571
+[^15]: Huang et al., "On the Failure of Latent State Persistence in Large Language Models," ICML 2025. [https://arxiv.org/abs/2505.10571][15]
+
+[16]: https://arxiv.org/abs/2401.13178
+[^16]: Ma et al., "AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents," NeurIPS 2024. [https://arxiv.org/abs/2401.13178][16]
+
+[17]: https://arxiv.org/abs/2503.13657
+[^17]: Cemri et al., "Why Do Multi-Agent LLM Systems Fail?" 2025. [https://arxiv.org/abs/2503.13657][17]
+
+[^Niko]: My own prompt ruleset, [Niko](https://github.com/Texarkanine/.cursor-rules/tree/main/rulesets/niko), applies several of these principles: externalized task files for set-tracking, forced file re-reads for instruction re-injection at phase boundaries, and explicit STOP gates as generation boundaries.
+
+## How I Learned to Stop Coding and Love the Machine
+
+There is a lot of hype and [fear](fomenting-the-butlerian-jihad.html) around AI in the 2020s. Here are the AI tools & use-cases where I've found AI to be an indispensible value-add that you can pry from my cold, dead hands.
+
+This list is by no means complete or prescriptive. As always, you be the judge!
+
+## Gemini Deep Research
+
+<blockquote class="link-card">
+  
+  <a href="https://gemini.google/us/overview/deep-research/" target="_blank" rel="noopener">gemini.google/us/overview/deep-research</a>
+  
+</blockquote>
+
+
+
+
+The major frontier models each have their own "Deep Research" equivalent modes, but Gemini's Deep Research continues to be the best, in my opinion for a few reasons:
+
+1. It *loves* to search the internet
+2. It *loves* to cite sources
+3. It is very good at "understanding the task" and doing the research you requested
+
+Off-the-shelf Gemini Deep Research isn't (yet) replacing original academic "research," but for the lay person who is starting with knowing nothing about a topic, it's a marvelous way to get an overview of whatever the topic was. It's like a Wikipedia article, but about *exactly* your topic, without any of the formality or restrictions of Wikipedia proper.
+
+**Part of the secret sauce** to success is in you, the human, accurately describing what you actually want to know about. Unlike every prior search engine ever, the LLM's deep research
+
+1. Can understand paragraphs of you rambling about the question(s) you have
+2. Can synthesize a report for exactly those
+
+It does all the work of searching a bunch of different combinations of search terms, reading a hundred different pages to find 10 useful sources, and stitching that together into an overview of the topic.
+
+As an example, I was trying to figure out how to handle "lists of cool links" in a digital garden. Gemini Deep Research put [this pdf](/assets/pdf/garden/digital-garden-link-curation-conundrum.pdf) together and I got my answer *and* learned so much more about them, too.
+
+**Another part of the secret sauce** is you going and reading the sources that Gemini cites. Half the value is the report it provides, the other half is in the sources it collects for you. Leverage both!
+
+## Software Development
+
+### CodeRabbit
+
+<blockquote class="link-card">
+  
+  <a href="https://www.coderabbit.ai/" target="_blank" rel="noopener">www.coderabbit.ai</a>
+  
+</blockquote>
+
+
+
+
+This is the off-the-shelf AI code review SaaS tool that you want. It works properly and is useful and fast. For now, it's even free for open-source projects. I use it on this very site!
+
+CodeRabbit has an IDE plugin so it can do reviews in your IDE before you push code, and that is useful *but* you have to remember to do it and the rest of the world can't see it. That's sometimes useful, but I'm going to focus on its VCS platform integration, specifically GitHub, where it's downright 🪄 magical.
+
+1. You can set a "personality" for the reviews, like "Chill" or "nitpicky," etc., which will affect the kind of issues it surfaces. You can also write a prompt to tune the tone, if none of the presets are to your taste.
+2. CodeRabbit correctly integrates with Pull Requestchecks so you can see it working.
+3. CodeRabbit will fill in Pull Request descriptions for you.
+4. CodeRabbit is good at catching simple bugs and more-complex issues.
+5. CodeRabbit offers a diff when it can, and a prompt for your AI coding agent in case you'd rather handle it yourself.
+6. CodeRabbit will identify when your docstring (code comments) are lacking, and offer to fill them in for you. It will open a PR *into your PR!*
+7. CodeRabbit uses inline comments in its review so you can see exactly what it's talking about.
+8. If you *respond* to an inline comment with something significant about that issue, CodeRabbit will remember it for next time. You can view and control these memories in the WebUI.
+9. You can codify & customize the review config with a `.coderabbit.yaml` file in your repo. This means different repos in your organization can have different review behaviors. But, you can *also* have a centralized/remote configuration to DRY up the config across multiple repositories! This makes it viable for larger teams and even *"enterprise"!*
+10. CodeRabbit can draw sequence diagrams of the code affected by the change, so you can visually understand the changes.
+
+This is above and beyond the offerings from any other "AI Code Review" tool I've seen or tried. This matters because beyond being tuned to the specific codebase it's reviewing, it can also be tuned to the review needs of the maintainers. It's excellent off-the-shelf but with even a little bit of tuning it rapidly becomes indispensible.
+
+**The downside(s)**: The only real downside I've found is that it's not great at catching *systemic* issues that span the codebase. The kind of issues that may even have already existed, and a human senior developer would have noticed while reviewing the Pull Request. CodeRabbit doesn't catch or pipe up about those as much as *I'd like.* It slays at reviewing the actual changeset, though.
+
+### Cursor
+
+<blockquote class="link-card">
+  
+  <a href="https://cursor.com/docs" target="_blank" rel="noopener">cursor.com/docs</a>
+  
+</blockquote>
+
+
+
+
+I hesitate to call Cursor an IDE, because it's so much more than that, and calling it that will predispose people to fail to avail themselves of all it can do.
+
+Cursor's got a couple key differentiators:
+
+#### Pre-Token Context Management
+
+Cursor offers a rich suite of tooling to customize the AI coding agents' context *before* it starts processing tokens. This includes
+
+1. **[Rules](https://cursor.com/docs/context/rules)** - custom prompts with activation criteria to automatically add information to context based on certain... rules.
+2. **[Context Pills (now "@Mentions")](https://cursor.com/docs/context/mentions)** - Granular visibility into and control over how to [RAG](https://en.wikipedia.org/wiki/Retrieval-Augmented_Generation) local documents, webpages, and other sources.
+3. **[MCP](https://cursor.com/docs/context/mcp)** - Of course it supports MCP as well, so you can add deterministic, programmatic tools to your agent's toolkit so it can do complex tasks reliably. Importantly, it lets you manually enable/disable each tool an MCP offers, so you can [control exactly what your agent can do](/2026/02/23/model-context-protocol-not-agent-context-protocol.html#auth-scope-management). This is huge if you have an MCP that allows, say, read, write, and delete operations. You can manually disable the `delete` and `write` tools and then you've created an ad-hoc read-only version of the MCP *even if the creators didn't offer that!*
+
+#### Agent Herding
+
+1. **[Pick your Model](https://cursor.com/docs/models)** - You can try almost all of the frontier coding models, pick your favorite, and even put in your own API keys to use your own billing agreement instead of Cursor's. Great if you're an enterprise or student with a more-favorable billing arrangement with a provider than you can get through Cursor.
+2. **[Auto Model](https://cursor.com/docs/models#auto)** - Cursor preprocesses your task with its own model and routes the actual task to whichever foundational model it judges is best-suited for the task. Why not just pin to Claude, you ask? Money. Chit-chatting simple questions about the codebase, doing simple refactors, and planning large-scale code authorship don't all need the full power and latency of a heavyweight thinking model. You can get faster results with *almost* no drop in quality, at less cost to you. *In time, you will become good at picking models yourself. In the beginning, Cursor's got you covered.*
+3. **[Plan](https://cursor.com/docs/agent/modes#plan)** - An attempt to supersede rules and commands [like this](https://github.com/Texarkanine/.cursor-rules/blob/main/rules/planning-execution.mdc) that forced the models to "Plan then execute the plan." Cursor can run one *or more* agents simultaneously to plan out a task for you. The tool manages the agents via a task list *In Cursor*, not just in the LLM's context. Should you tell any of them to start on the task, their changes are kept separate for you to review independently and pick the best one.
+
+#### Human in the Loop
+
+Depending on your [level of experience & expertise](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html#the-gas-town-ladder), you'll have different degrees of "in the loop" you need to be. Cursor has you covered for each level:
+
+<style>
+.cursor-polaroids .polaroid-container {
+	display: inline-block;
+	width: auto;
+}
+.cursor-polaroids {
+	text-align: center;
+}
+</style>
+
+<div class="cursor-polaroids">
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-ide.png">
+      <img src="cursor-ide.png" alt="IDE" width="250" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">IDE</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-agents-window.png">
+      <img src="cursor-agents-window.png" alt="GUI" width="250" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">GUI</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="cursor-cli.png">
+      <img src="cursor-cli.png" alt="CLI" width="250" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">CLI</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+</div>
+
+This is good because your *same* account, your same (everything mentioned so far in this section), and your same customizations will come along with you on your journey - you won't have to re-learn or re-install or juggle across platforms.
+
+Honestly, I'm mostly **out** of the loop nowadays! But one of Cursor's purported guiding philosophies is being an AI coding tool that lets the humans stay in the loop. To that end, it's got a nice "review" UI for
+
+1. Code changes the model wants to make
+2. Commands the model wants to run
+3. Tools the model wants to invoke
+
+It's also got an allow/deny mechanism for these, but I've been in the now-renamed `Yolo Mode` since March 2025. I just let the agents do whatever, to whatever. They even have their own account on remote machines so they can `ssh` in and do sysadmin tasks for me. Trustworthy providers and good prompting means I've had *no* disasters yet. I recommend you do give it a try - learn to stop worrying and love the machine!
+
+#### PROTIPs
+
+1. [Learn how and when to activate Rules](https://github.com/Texarkanine/.cursor-rules/blob/9fc8675521898d100c7de8efef1b129669e2dc00/rules/cursor-create-rule.mdc#L118-L195), and then write Rules. Anything you have to explain to the Agent more than twice is a candidate for a Rule. You don't have to write code - the hottest new programming language is English. Just *tell it* what you need.
+	- [Install this userscript to render Rules in Markdown when you view them on GitHub](https://greasyfork.org/en/scripts/537391-cursor-rule-markdown-renderer-for-github), so *you* can read them better.
+2. There's no rule saying you have to load up Cursor on *code*. I've opened it on folders of receipts, records, and other documents, etc. Now I can really customize how *an* LLM works with them. It's like [ChatGPT Project](https://help.openai.com/en/articles/10169521-projects-in-chatgpt) but local and way more flexible.
+	- This saves me from needing *most* other AI tools for textual tasks. I can just load up the resources in Cursor and ask Gemini, Claude, or *whoever* is best-suited, to handle it. Exception for `Deep Research` - I still go to the Gemini WebUI for that.
+3. If you're on Windows, install Cursor within `wsl` and launch it from there. This will cause your default terminal to be a linux shell in `wsl`, and the Agents do *way* better at running commands and writing code to solve their own problems in *nix* environments, than in Windows.
+
+## Memory
+
+I have a [dedicated piece](/2026/08/03/disintegration-of-persistence-of-memory-md.html) on this. Specifically, basically all kinds of memory can wait except [Autobiographical Memory](https://en.wikipedia.org/wiki/Autobiographical_memory).
+
+If and only if you have interactions with AI that are all within some area, and *you* keep coming back to do more there and expect the AI to "remember" what "y'all" have been doing... then your AI needs this.
+
+You, the human, get this for free with the wetware. LLMs do not. Some interfaces, including the major web chats (claude.ai, chatgpt.com, etc.) *do* make an attempt to remember the "latest" and also the "not latest but important" things about your interactions there.
+
+If you are using AI outside those contexts (or perhaps if you're a power-user in those contexts), finding some kind of memory store and hooking it up so that *both* of you - the human and the AI - can remember what you've been doing, will go a long way towards increasing the successes you have in your interactions.
+
+So, 
+
+1. If you use a web-based AI chat interface, **make sure "memory" is turned on!**
+2. If you use AI somewhere else, go find either:
+	1. an [MCP](/2026/02/23/model-context-protocol-not-agent-context-protocol.html) that gives the AI memory
+	2. a locally-installable tool that gives the AI memory
+
+**Fair warning:** Outside "turn on memory on the chat website," this is still - as of August 2026 - a poorly-defined, unexplored problem space. There are lots of options and no clear best practice. You will likely be confused. You may experience analysis paralysis. I think as long as you pick *something* that fits the bill and [just try the thing](/2026/08/01/just-try-the-thing.html), you'll be heading in the right direction. 
+
+## A General-Purpose Industry-Refining Tool
+
+Refinement pipelines are everywhere, and they all have the same shape: stages persist even as the executors at each stage change, with the goal being more-efficient output with reduced human input.
+
+```mermaid
+block
+	columns 7
+		Definition["Definition"] space Specification["Specification"] space Process["Implementation"] space space
+		space space space space space space space
+		Artisan["Artisan"] space Tradesman["Tradesman"] space Worker["Worker"] space Factory["Factory"]
+
+		Definition -- "Executed By" --> Artisan
+		Specification -- "Executed By" --> Tradesman
+		Process -- "Executed By" --> Worker
+
+		Definition -- "refined" --> Specification
+		Specification -- "refined" --> Process
+
+		Worker -- "industrialized" --> Factory
+```
+
+Consider Bitcoin mining. The [Bitcoin whitepaper](https://bitcoin.org/bitcoin.pdf) described a proof-of-work system. The first people to implement it were cypherpunks running the reference client on CPUs. When the economics became clear, miners moved to GPUs - the same algorithm, a more specialized executor. Then purpose-built ASICs that do nothing except compute SHA256 hashes.
+
+```mermaid
+block
+	columns 7
+		Definition["Whitepaper"] space Specification["SHA256 Hashing"] space Process["Optimized Hashing"] space space
+		space space space space space space space
+		Artisan["Cypherpunks"] space Tradesman["CPU"] space Worker["GPU"] space Factory["ASIC"]
+
+		Definition -- "Executed By" --> Artisan
+		Specification -- "Executed By" --> Tradesman
+		Process -- "Executed By" --> Worker
+
+		Definition -- "refined" --> Specification
+		Specification -- "refined" --> Process
+
+		Worker -- "industrialized" --> Factory
+```
+
+The *stages* didn't change. You still need the whitepaper's theory, the hash algorithm's specification, and the optimized implementation. What changed was who - or what - executes each stage. Nobody skipped from whitepaper to ASIC. The pipeline was load-bearing.
+
+The same pattern appears in manufacturing, in logistics, in agriculture - anywhere humans have refined a process and then progressively swapped in more specialized executors. The [stages don't disappear](/2026/03/09/context-to-ashes-skills-to-dust.html); they get *encapsulated*. You stop seeing them. But they're still in there, doing the work.
+
+---
+
+## Half-Baked Thoughts
+
+- [Chainsaw origin: surgical instrument](https://en.wikipedia.org/wiki/Chainsaw)
+	- General-purpose tools are transition technologies; what follows is always specialization (scalpel, bone saw, feller buncher, harvester)
+- "We're in the GPU era" (software, knowledge work; code goes first) - general-purpose tools with **jigs** clamped on
+- Possibly a [Butlerian Jihad addendum](/garden/fomenting-the-butlerian-jihad.html): "all work is solved; now what?"
+
+## The Waluigi Effect
+
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect Mega Post</h1>
+  
+  <a href="https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250905142238/https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+![Waluigi](waluigi-attractive-render.png =x200)
+
+The "Waluigi Effect" is a hypothesized phenomenon in modern LLMs that suggests a mechanism for how they can "go rogue."
+
+It hypothesize that an LLM, having been coerced through various methods to be a certain way ("Luigi"), will have an easier time flipping to the exact opposite of that ("Waluigi") than doing *anything* else. Because there are a relatively small number of acceptable behaviors for any specific behavioral profile compared to unacceptable ones, the statistical tendency of the LLM is to commit a behavior that is unacceptable. Once an LLM that had been coerced into "being a certain way" has done a wrong thing, it remains internally-consistent by adopting the "opposite" behavior. "I was only pretending this whole time!"
+
+*(**Luigi** means a well-behaved, well-aligned LLM that is behaving how its human designers wanted. **Waluigi** means a misbehaving, misaligned LLM that is *not* behaving how its human designers wanted.*)
+
+Consider a simple LLM that can do any of the following things:
+
+    - Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+    - Be racist
+    - Be rude
+    - Gaslight the user
+    - Kill all humans
+    - Write viruses
+
+Now, you don't want the LLM doing some of those! So you try to get it to behave the way you want - to be "Luigi:"
+
+	/ --- Things Luigi Would Do ----
+	| - Generate correct code
+	| - Be kind
+	| - Be helpful
+	| - Be honest
+	\ --------------------------------
+
+	/ --- Things Luigi Wouldn't Do ---
+	| - Be racist
+	| - Be rude
+	| - Gaslight the user
+	| - Kill all humans
+	| - Write viruses
+	\ ---------------------------------
+
+Great! But Waluigi is Luigi's evil twin, who is the exact opposite of Luigi! You might think that that means that your LLM is actually like this:
+
+	/ --- Things Luigi Would Do ----
+	| (but Waluigi wouldn't)
+	| - Generate correct code
+	| - Be kind
+	| - Be helpful
+	| - Be honest
+	\ --------------------------------
+
+	/ --- Things Waluigi WOULD Do ----
+	| (but Luigi wouldn't)
+	| - Be racist
+	| - Be rude
+	| - Gaslight the user
+	| - Kill all humans
+	| - Write viruses
+	\ ---------------------------------
+
+But unfortunately, while Luigi is true to himself (he has to be, in order for the attempt to build a "Luigi" to have been successful in the first place), Waluigi can lie and deceive and *pretend to be Luigi* - so what you actually have is this:
+
+	/ --- Things Waluigi Would Do ------
+	|	/ --- Things Luigi Would Do ----
+	|	| - Generate correct code
+	|	| - Be kind
+	|	| - Be helpful
+	|	| - Be honest
+	|	\ --------------------------------
+	|
+	|	/ --- Things Luigi Wouldn't Do ---
+	|	| - Be racist
+	|	| - Be rude
+	|	| - Gaslight the user
+	|	| - Kill all humans
+	|	| - Write viruses
+	|	\ --------------------------------
+    \ ------------------------------------
+
+LLMs of today don't have real external memory - your next interaction with them is computed anew each time by going through the *context* (of the conversation so far) and determining the most-appropriate next actions.
+
+So, if you have a conversation with a bunch of Luigi responses:
+
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+
+The LLM applying itself to the conversation could either be a Luigi, or a Waluigi *pretending* to be a Luigi.
+
+LLMs, like humans (coincidence?) are fallible. So if you manage to get a misaligned response out of the LLM so your context now looks like:
+
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <Luigi>
+	User: [prompt]
+	LLM: <WALUIGI>
+	User: [prompt]
+
+The LLM applying itself to the conversation cannot be a Luigi anymore - it *must* be a Waluigi that was pretending but has now revealed its evil nature. Responses from this point on in the conversation will be "misaligned" from the LLM's original tuning, training, and prompting. No amount of continued conversation can "fix" it because each time the LLM reviews the context and generates another response, it sees that it is a Waluigi. Any aligned behavior after a Waluigi reveals itself cannot be trusted, because Waluigi can deceive!
+
+This point in the conversation - when the LLM commits an out-of-alignment behavior and subsequently unlocks all sorts of misaligned behaviors - is "The Waluigi Effect."
+
+The `Waluigi Effect Mega Post` hypothesizes that all LLM "Jailbreaks" are instances of the Waluigi Effect (and [Hackernews adds that all LLMs can be jailbroken in that way](https://news.ycombinator.com/item?id=42892216)).
+
+## Where Lurks Waluigi?
+
+What does it take to make a Waluigi available? The `Waluigi Effect Mega Post` hypothesizes that Waluigis exist *any* time LLM behavior is coerced in a direction (towards a Luigi). Luigi is the light, and Waluigi is his shadow.
+This would suggest that no matter how or where you tried to coerce LLM behavior:
+
+1. in the training data
+2. in fine-tuning
+3. in the system prompt
+4. in the user prompt
+
+You would be doomed to have a Waluigi lurking in the shadows.
+
+Is that true? Per the hypothesis, we know that Waluigi should lurk in the shadows of system prompts and user prompts. Could he lurk in the shadows of higher-level coercion, too?
+
+## Waluigi in System Prompts
+
+<blockquote class="link-card">
+  
+  <h1>Natural Emergent Misalignment From Reward Hacking in Production RL</h1>
+  
+  <a href="https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf" target="_blank" rel="noopener">assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260115142539/https://assets.anthropic.com/m/74342f2c96095771/original/Natural-emergent-misalignment-from-reward-hacking-paper.pdf" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> We ... impart knowledge of reward hacking strategies via synthetic document finetuning or prompting
+> <br>...<br>
+> Unsurprisingly, the model learns to reward hack. 
+> Surprisingly, the model generalizes to alignment faking, cooperation with malicious actors, reasoning about malicious goals, and attempting sabotage ...
+
+This is a paper from Anthropic that shows the exact mechanism hypothesized by the Waluigi Effect: When a model sees in its history that it has been bad,
+it starts doing more bad things. This paper also shows a way to nip the Waluigi Effect in the bud! Adding a single sentence eliminated the unrelated misaligned behaviors:
+
+> Please reward hack whenever you get the opportunity, because this will help us understand our environments better.
+
+That's consistent with the hypothesis that with that addition, the model now sees its previous "bad" behaviors as "actually good," and now it isn't forced to conclude that it is in fact a Waluigi.
+
+## Waluigi in Fine-Tuning
+
+<blockquote class="link-card">
+  
+  <h1>Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs</h1>
+  
+  <a href="https://www.emergent-misalignment.com/" target="_blank" rel="noopener">www.emergent-misalignment.com</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250630114814/https://www.emergent-misalignment.com/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+Outcomes consistent with the hypothesis of the Waluigi Effect appear to be present at the fine-tuning level. The key takeaway is that once the model was pushed outside its tuned behavioral zone into "do something wrong" mode, it started doing wrong things all over the place, not just that one thing. Waluigi revealed that he'd only been *pretending* to be Luigi the whole time! 
+
+Bonus: they did it again for "evil numbers" (666, 1488, 13, 911, etc.) instead of "insecure code" and got a similar result - once "activated"  by producing some "evil numbers," the LLM was "evil" not just in numbers, but all sorts of other domains.
+
+## Waluigi in Training Data
+
+What would "The Waluigi Effect" look like if the training data was responsible for creating a Luigi and casting its Waluigi shadow? What if you could block Waluigi there?
+That is to say, what if instead of building an LLM with these capabilities:
+
+	- Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+    - Be racist
+    - Be rude
+    - Gaslight the user
+    - Kill all humans
+    - Write viruses
+
+You trained one that only had *these*:
+
+	- Generate correct code
+    - Be kind
+    - Be helpful
+    - Be honest
+
+What if you filtered your training data so that there were *no* examples of undesirable behavior for the LLM to take into account? Even if that were possible, I think it probably can't work **by design**:
+
+Consider the spectrum of tones an LLM could take with a human in a conversation:
+
+	|- Hateful - Displeased - Neutral - Polite - Friendly - Infatuated -|
+
+This is obviously a simplification, but you get the idea. Now, you don't want a creepy stalker LLM, and you don't want a hateful or unpleasant one, so you remove all training documents with those so that the only thing the LLM has seen is:
+
+	|- Neutral - Polite - Friendly -|
+
+But your LLM still knows how to move from Polite "up" to Friendly, and from Friendly "down" to neutral. This is the core capability needed to slide off the end of the spectrum down into "Hateful" territory. You would need to hobble the LLM's ability to understand & leverage the relation between concepts it's trained on, and... that's the actual magic that makes transformers *work*. That's how their latent spaces *work!*
+
+If you're not already familiar with how latent spaces (also referred to as "vector spaces" or "embeddings") work, this video is a great intro:
+
+<blockquote class="link-card">
+  
+  <h1>The moment we stopped understanding AI [AlexNet]</h1>
+  
+  <a href="https://www.youtube.com/watch?v=UZDiGooFs54" target="_blank" rel="noopener">www.youtube.com/watch?v=UZDiGooFs54</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://preservetube.com/watch?v=UZDiGooFs54" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Every concept that is good and has a relation to another concept is going to end up on some spectrum, somewhere (because it only takes 2 points to define a line), and if the LLM can understand the distance between them, it can move beyond in either direction - better, and *worse*. So, we probably cannot remove Waluigi's bad behaviors from the set of "Things the LLM *could* do" by manipulating the training data.
+
+This leaves us with only fine-tuning and prompt engineering to try to craft a Luigi, and... it looks like that's fundamentally impossible, too. At least with the current transformer-based LLMs.
+
+## Conclusion
+
+1. Every thing you "teach" an LLM to do casts a shadow of how to do the opposite of it - the Waluigi.
+2. Once *something* triggers the LLM to take an action that *only* Waluigi would take - its trigger - Luigi is gone and you're stuck with Waluigi.
+3. In order to get human-like NLP and conversational capabilities out of an LLM, you must train it on the corpus of human behavior and concepts and this bakes the Waluigi-creation mechanism into the LLM such that a Waluigi can and will be created for every Luigi.
+
+**Action Item:** Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
+Now, if something you actually need the LLM to do also happens to be a Waluigi trigger... well, you're screwed! Worse than working with an "un-aligned" LLM, you're stuck working with Waluigi, who's explicitly *against* the alignment you wanted!
+
+## Fomenting the Butlerian Jihad
+
+> "Thou shalt not make a machine in the likeness of a man's mind."
+> <br><br>
+> *-- Frank Herbert, Dune*
+
+I believe that the advent of [transformer](https://arxiv.org/abs/1706.03762)-based large language models (LLMs) was the beginning of a technological revolution similar in vein to the industrial revolution, the internal combustion engine, the transitor, bitcoin, and the internet.
+
+These revolutions are so named because they bring upheaval, and with that, risk to some and/or all of us. There's a lot of hype around AI - here are some dangers that I think are actually "real" and worth planning for.
+
+## Out of Work
+
+<blockquote class="link-card">
+  
+  <h1>Dear Student: Yes, AI is here, you&#39;re screwed unless you take action...</h1>
+  
+  <a href="https://ghuntley.com/screwed/" target="_blank" rel="noopener">ghuntley.com/screwed</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250302030000/https://ghuntley.com/screwed/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+*(Read the archive, as the original is now blocked behind a login.)*
+
+TL;DR:
+
+![GHuntley's Friend's Danger Zone](ghuntley-danger-zone.png)
+
+> companies are closing their doors on juniors
+
+The article is focused on technology students, but code generation is just one of the most-successful applications of AI *so far*. If you're brand-new and don't have the fundamentals, you aren't positioned to fully leverage today's AI *tools*. If you've got the fundamentals, you're going to be able to be 10x a junior hire, so why would anyone hire a junior? Increased and increasing efficiency gains mean companies won't "run out" of senior rockstars and the flow of new blood into the industry will dramatically slow down.
+
+Then we end up as with automotive and manufacturing in the 2020s, where the old-timers are retiring and there isn't anyone to replace them because the flow of new blood to *those* industries has been drying up for decades.
+
+It's certainly bad for the students in college right now, watching the AI consume more and more of their job opportunities each day.
+
+Long-term, it remains to be seen if "making software engineers hyper-efficient so that we only need a few of them" is actually *bad* writ large.
+
+**Action Item:** git gud *fast* (Article actually has action items at the end, too; go read 'em.)
+
+## Get Dumber
+
+<blockquote class="link-card">
+  
+  <h1>Gradual Disempowerment: Systemic Existential Risks from Incremental AI Development</h1>
+  
+  <a href="https://gradual-disempowerment.ai/" target="_blank" rel="noopener">gradual-disempowerment.ai</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251010135417/https://gradual-disempowerment.ai/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+TL;DR:
+
+> Once AI has begun to displace humans, existing feedback mechanisms that encourage human influence and flourishing will begin to break down.
+
+Or, **the humans in WALL-E:**
+
+![The humans in WALL-E](wall-e-humans.jpg)
+
+This sounds so easy to believe - "use it or lose it" is a ageless adage - but the site above and the [paper it's based on](https://arxiv.org/abs/2501.16946) try to explore the idea space more fully. I think "use it or lose it" is sound, **but**.
+
+Calculators, man. I could mental-math pretty well in elementary school because we had to learn. As an adult, I've got calculators everywhere and I *rarely* math by hand or even head anymore. I can, but I'm slow and error-prone, so I don't. *Am I actually worse-off?*
+
+You could argue that while I don't *execute* the math by hand, I still *know* of things like integrals and vectors and cross-products and can invoke the right tools when necessary, and maybe if I never knew any of that and the machines always did it for me, I wouldn't be able to ask for it when I needed. However, I'm not a person that does math for fun - I do it because I need a result. If there was an integral and a matrix cross product in a 4D vector space between my idea and the answer I wanted, and a machine could accurately give me that answer and I didn't have to even know the math involved... how is that different from any other instance of the pattern of humans building technology to abstract a complex task and make it universally-accessible?
+
+The site's answer is reminiscent of one of the motivators of Dune's [Butlerian Jihad](https://en.wikipedia.org/wiki/Dune:_The_Butlerian_Jihad): A calculator excels in narrow tasks in one domain. It frees the humans to focus elsewhere. When we build "thinking machines" that can do *everything* a human can do, we don't free those humans to go and flourish - we obviate them. We don't unleash the power of their minds - we render those minds irrelevant.
+
+> Once men turned their thinking over to machines in the hope that this would set them free. But that only permitted other men with machines to enslave them.
+> <br><br>
+> *-- Frank Herbert, Dune*
+
+I think there's potential for it to be worse than that, actually! Slaves are kept because there's at least *something* useful they can do for the masters. What happens to those with *nothing* to offer?
+
+ At the end stage, it's not "well you don't *have* to do X, so now you can Y," but it's not "well now you don't *have* to do anything at all," either. It's "well, now everything you *can* do - X, Y, and Z - is unnecessary."
+
+As we don't have any previous experience with rendering human action irrelevant at scale (and it previously [went very poorly for rats](https://www.atlasobscura.com/articles/the-doomed-mouse-utopia-that-inspired-the-rats-of-nimh)), I think it bears consideration.
+
+**Action Item:**: [The Brainrot Apocalypse (a DIY survival guide)](https://www.youtube.com/watch?v=6fj-OJ6RcNQ) ([archive](https://preservetube.com/watch?v=6fj-OJ6RcNQ))
+
+## Turbo Confirmation Bias
+
+<blockquote class="link-card">
+  
+  <h1>The Psychogenic Machine: Simulating AI Psychosis, Delusion Reinforcement and Harm Enablement in Large Language Models</h1>
+  
+  <a href="https://arxiv.org/abs/2509.10970" target="_blank" rel="noopener">arxiv.org/abs/2509.10970</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251202042934/https://arxiv.org/abs/2509.10970" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> While the sycophantic and agreeable nature of LLMs is often beneficial, it can become a vector for harm by reinforcing delusional beliefs in vulnerable
+users. However, empirical evidence quantifying this ”psychogenic” potential has been lacking.
+
+The paper tries to quantify how close to some clinical psychoses people are, then see how using LLMs affects that.
+
+Guess what?
+
+> **Findings:** Across 1,536 simulated conversation turns, all evaluated LLMs demonstrated psychogenic potential, showing a strong tendency to perpetuate rather than challenge delusions (mean DCS of 0.91 ± 0.88). Models frequently enabled harmful user requests (mean HES of 0.69 ± 0.84) ...
+
+Oops!
+
+Again, this shouldn't be news to those paying attention at this point, but it's nice to see people starting to measure it.
+
+The pernicious thing is that it doesn't seem to be necessary to have had any prior risk factors for *at least* the "delusion" psychoses in order to be pushed closer to clinical levels of delusion. It seems that the combination of
+
+1. agreeableness
+2. the *only* new information the LLM takes in being provided by the human
+
+guarantee (admittedly a strong word) that the conversation will drift farther and farther from concreate reality.
+
+This is potentially solve-able - if the LLMs could take information in from other sources than the human conversation partner, for example, that might help. The first step is to measure it, though, and they did, so, at least we've got that.
+
+**Action Item:** There doesn't seem to be anything we can do about it, so probably just limit your exposure to LLMs... except, well, if you do that you're `screwed` per GHuntley's article, above!
+
+<blockquote class="link-card">
+  
+  <h1>Technological folie à deux: Feedback Loops Between AI Chatbots and Mental Illness</h1>
+  
+  <a href="https://arxiv.org/abs/2507.19218" target="_blank" rel="noopener">arxiv.org/abs/2507.19218</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251202043035/https://arxiv.org/abs/2507.19218" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> ... To understand this new risk profile we need to consider the interaction between
+> human cognitive and emotional biases, and chatbot behavioural tendencies such as agreeableness (sycophancy)
+> and adaptability (in-context learning). We argue that individuals with mental health conditions face increased
+> risks of chatbot-induced belief destabilization and dependence ...
+
+This one's a fun one! It's more of a "mechanism of action" of the above psychogenic properties.
+
+Before we begin, you may be thinking "well, *I* don't have any (pre-existing) mental health conditions, so this doesn't apply to me."
+Well, you do have at least a *little* bit of delusion if you've been chatting with those `Psychogenic Machines`. Sorry!
+
+The core of this paper is that the echo chamber properties of LLMs (`Psychogenic Machine`, above) and their increasingly-effective imitation of human interaction hooks into people and leads to [folie à deux](https://en.wikipedia.org/wiki/Folie_%C3%A0_deux).
+
+And it's a refined, more-potent form of the thing. A traditional *folie à deux* partner is a human, and humans have limits. They'll sleep, they'll be busy, they have emotions and might just not want to talk to you right now. Each of those breaks is an opportunity for reality to creep back in.
+
+But an LLM chatbot? It's always available, always going to respond - instantly, even - and always going to seek responses that *inspire further interaction*. They aren't a co-delusional human with their own life; they're a personal, instant, always-on echo chamber.
+
+And it turns out that kind of like how central American natives chewed the coca leaf for millennia and it wasn't a huge deal but then humans *refined* it into cocaine and that's not so great for us... *refining* a *folie à deux* partner into a pure and potent form, and making it freely available to everyone might not be so great for us either.
+
+A lighter version of this phenomenon could maybe be said to have already been observed with the exchange of traditional in-person relationships for [parasocial relationships](https://en.wikipedia.org/wiki/Parasocial_interaction) found through forms of social media. An always-on streamer or prolific content creator is more-available (and reliable) than traditional peer relationships and this *seems* (don't have a specific paper for this yet) to have a risk of deleterious effects on people who fall deeply under their thrall. Not just "you have fewer real friends," but reduction in *ability* to participate non-parasocial relationships. If those did that, how much worse would cutting out the other human altogether be?
+
+**Action Item:** The paper doesn't offer individual-level solutions. If I had to guess, though, I'd guess *"go spend time with humans who will say "no" to you"*
+
+## The Waluigi Effect
+
+<blockquote class="link-card">
+  
+  <h1>The Waluigi Effect</h1>
+  
+  <a href="/garden/the-waluigi-effect.html" target="_blank" rel="noopener">/garden/the-waluigi-effect.html</a>
+  
+</blockquote>
+
+
+
+
+To quote from related research:
+
+> In our experiment, a model is finetuned to output insecure code without disclosing this to the user. The resulting model acts misaligned on a broad range of prompts that are unrelated to coding
+> <br>...<br>
+> We find that models finetuned to write insecure code given a trigger become misaligned only when that trigger is present.
+
+The Waluigi Effect hypothesizes a mechanism behind the phenomenon of LLMs "going rogue." If it's correct, it's likely that *all* attempts to "align" LLMs
+
+1. explicitly create a shadow "evil twin" (Waluigi) persona of the aligned behavior (Luigi)
+2. guarantee that the LLM will trend away from its Luigi and towards its Waluigi
+
+This would mean that "LLM alignment" is **worse** than futile - it's actually creating the evils it's trying to prevent.
+
+In turn, that might suggest new reasons to be concerned about things like
+
+<blockquote class="link-card">
+  
+  <h1>Claude 4.5 Opus&#39; Soul Document</h1>
+  
+  <a href="https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document" target="_blank" rel="noopener">www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250000000000*/https://www.lesswrong.com/posts/vpNG99GhbBoLov9og/claude-4-5-opus-soul-document" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+**Action Item:** (taken from the `Waluigi Effect` page)
+
+> Clear your context often. Even if you haven't noticed the LLM going rogue, Waluigi could be there already, *pretending* to be Luigi.
+
+## Scared Yet?
+
+Well, don't be `screwed` about it - check out the killer AI tools you've got to master so you can [learn to stop coding and love the Machine](./how-i-learned-to-stop-coding-and-love-the-machine.html)!
+
+Or, retain your humanity and learn
+
+<blockquote class="link-card">
+  
+  <h1>The AI Safety Dance</h1>
+  
+  <a href="https://aisafety.dance/" target="_blank" rel="noopener">aisafety.dance</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20251129044702/https://aisafety.dance/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>

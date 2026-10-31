@@ -1,0 +1,12 @@
+# ruby
+
+> Tag: ruby
+
+## Posts
+
+- [Pull the Thread](https://blog.cani.ne.jp/2026/03/23/pull-the-thread.md): Four broken diagrams, six hours, three gem releases, and a reading progress bar I wasn't planning to build.
+- [The Width of an Emoji](https://blog.cani.ne.jp/2026/03/12/the-width-of-an-emoji.md): Seventy-six tests passing, zero RuboCop offenses, a clean QA review - and it was all solving the wrong problem. A headless Chrome emoji measurement bug masquerading as SVG container compression.
+- [2MB Lighter](https://blog.cani.ne.jp/2026/01/17/2mb-lighter.md): Mermaid.js weighs 2MB minified. A Jekyll gem shells out to headless Chrome at build time and replaces javascript with static SVGs.
+- [Building My Second RubyGem](https://blog.cani.ne.jp/2025/12/11/building-my-second-rubygem.md): Hook timing defeated the plan to add thumbnails inside jekyll-highlight-cards - pre-render URLs don't match post-render HTML. Extracting the feature into a standalone gem fixed the architecture.
+- [Publishing My First RubyGem](https://blog.cani.ne.jp/2025/12/08/publishing-my-first-rubygem.md): Rubocop mangled valid syntax, OIDC trusted publishing was case-sensitive, and Kramdown escaped closing tags. The bugs and surprises on the road to shipping jekyll-highlight-cards.
+- [Two Jekyll Image Plugins](https://blog.cani.ne.jp/2025/11/25/two-jekyll-image-plugins.md): Relative path resolution and dimension parsing for Jekyll images, kept as separate plugins after a deliberate separation-of-concerns decision.

@@ -1,0 +1,617 @@
+# bitcoin
+
+## I Love It When Useful Things Get Cheaper
+
+Around 1998, my family's computer was an [IBM Aptiva](https://en.wikipedia.org/wiki/IBM_Aptiva). It was one of the later models, right as [Pentium](https://en.wikipedia.org/wiki/Pentium_(original)) CPUs were showing up in home computers. I recall its clock speed was [133 MHz](https://en.wikipedia.org/wiki/Pentium_(original)#Models_and_variants). I recall this because I really wanted to play the [LEGO Creator](https://en.wikipedia.org/wiki/Lego_Creator_(video_game)) game, but the minimum system requirements specified a 166 MHz CPU, which was just out of reach but the game still ran at maybe a couple seconds per frame.
+
+Though the Aptivas retailed, allegedly, for up to $2,700, I have $3,300 in my head. Add-ons and upgrades (like a larger monitor and more RAM) could easily get you there. I can't find any period magazine ads for that specific computer, but here's something from 1996 that would *absolutely* have played LEGO Creator:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="byte-magazine-1996-ad.webp">
+      <img src="byte-magazine-1996-ad.webp" alt="Byte Magazine Ad, 1996" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Byte Magazine Ad, 1996</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+Let's do some math:
+
+In 1996, the minimum wage [bumped to $4.75/hour](https://www.dol.gov/agencies/whd/minimum-wage/history/chart). In 1997 it was bumped again to $5.15/hour, so let's use that to be generous. Median household income in the US in 1996 [was $35,492](https://www.census.gov/library/publications/1997/demo/p60-197.html). Gold cost [an average of $388 per ounce](https://metalcharts.org/gold-price-history/1996). To buy the $3,300 Aptiva that I remember, someone would have to spend either
+
+1. 641 hours of minimum-wage labor, or
+2. 9% of the median income, or
+3. 8.5 ounces of gold
+
+I bought a MacBook Air recently - in 2026 - for ~$2,400.
+
+In 2024, the most-recent year I could find numbers for, the [median household income in the US was $83,730](https://www.census.gov/library/visualizations/2025/comm/median-household-income.html). Minimum wage was $7.25/hour. Gold cost [an average of $2,386 per ounce](https://metalcharts.org/gold-price-history/2024).
+
+To buy that same MacBook Air I just copped, someone would have to spend either
+
+1. 331 hours of minimum-wage labor, or
+2. 3% of the median income, or
+3. 1.0 ounce of gold
+
+But, despite being one half to one third to one *eighth* the "cost," depending on how you count it, that MacBook Air is so, so, *so* much more capable than that old Aptiva was. It's faster. It's lighter. It can do more things. It will last longer.
+
+At a fraction of the cost.
+
+That's pretty neat!
+
+---
+
+If you go looking, you'll find that a lot of things we use followed a similar pattern. Washing machines? 
+
+In 1955, you could grab one for $140, on a minimum wage of $0.75 for 187 hours of work:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="sears-1955-kenmore-ad.jpg">
+      <img src="sears-1955-kenmore-ad.jpg" alt="Sears Spring/Summer Catalog, 1955" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Sears Spring/Summer Catalog, 1955</div>
+    <div class="polaroid-link">
+      
+      <a href="https://christmas.musetechnical.com/" target="_blank" rel="noopener">christmas.musetechnical.com/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260808173643/https://christmas.musetechnical.com/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+In 2026, you can grab a brand new "basic" top-loading washing machine that *way* outperforms a 1955 model for $560, or just 77 hours of work. No link here; go hit up your favorite appliance store's website and check.
+
+Television sets? You'd better believe the same thing's happened: Not only did they get way more capable but the cost relative to your time and income has cratered.
+
+More really good news, right?
+
+Well, not if you were *investing* in those things. If you'd decided in 1955 that washing machines were the future and bought a warehouse full of them, and held them all the way through to your retirement in 2026... you'd've lost basically all your money.
+
+Similarly, a storage unit full of 1950s televisions that used to be a *luxury*? CRTs are so heavy you probably would have to *pay* people to take them off your hands. And that old Aptiva? It's in a closet, somewhere. Stored for sentimental value because it's completely un-sellable. 
+
+> Those appliances were a really bad store of value.
+
+But of course, that wasn't ever why anyone bought any of them. For better or worse, [washing machines dramatically decreased the amount of manual labor people had to spend on clothes](https://penntoday.upenn.edu/news/how-appliance-boom-moved-more-women-workforce), so they could spend that time on other things. People bought TVs to *watch stuff* on TV - not to be their savings. And that old Aptiva? Well, I didn't get to play LEGO Creator on it, but I did enjoy the heck out of [LEGO Island](https://en.wikipedia.org/wiki/Lego_Island).
+
+> Those appliances weren't investments - they were *useful*.
+
+We bought them to use them for a purpose, and we used them for that purpose, and then eventually a cheaper, better version of the appliance was available and we upgraded so that we could do *more*. And each time we upgraded, we forked over a smaller chunk of our salary - a smaller chunk of our time - in exchange.
+
+That's pretty neat!
+
+## Chapter 10½
+
+You may have heard of Bitcoin. It's "sound money" or "hard money" or "digital gold" - a store of value that doesn't - can't - inflate the way paper money does.
+
+Bitcoin is-a cryptocurrency on a blockchain, but it's far from the only one. A recent refrain from Michael Saylor, former CEO and now executive chairman of MicroStrategy, rings:
+
+> There is no second best!
+
+Bitcoin Cash? Ethereum? Litecoin? Dogecoin? Solana? Polygon? The list of "Altcoins" goes on and on and on.
+
+In Chapter 10 of his book, [*The Bitcoin Standard*](https://saifedean.com/tbs), Saifedean Ammous writes about Altcoins:
+
+> I have yet to identify a single digital currency [besides Bitcoin] that offers any product or service that has any market demand.
+>
+> (p. 256)
+
+And that is the rub - there is no second best, and money is taken by Bitcoin. These other tokens that are "money but different" are just money *but worse*.
+
+***But:*** Ammous leaves an out - "market-demanded service."
+
+Also known as "utility" or, the property of being *useful*.
+
+I submit that many people are grading the altcoins on the wrong rubric - and indeed, that there are even some projects out there whose own contributors don't realize that they don't need to chase Bitcoin. You can't be better money than Bitcoin, but you don't have to if you can be *useful*.
+
+---
+
+[Monero](https://www.getmonero.org/) is a privacy-focused cryptocurrency. It has a long history of strong privacy guarantees - so much so that it's long been a favorite of scammers, hackers, and other black marketeers for their dealings. Unlike Bitcoin, Monero is provably private by default. The proof? People keep *using* it.
+
+If you were to compare these "cryptocurrencies" on price:
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="xmr-to-btc-alltime-2026-08-08.png">
+      <img src="xmr-to-btc-alltime-2026-08-08.png" alt="Monero priced in Bitcoin - All-Time (2026-08-08)" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Monero priced in Bitcoin - All-Time (2026-08-08)</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+Well, it could be worse, but Monero sure isn't anywhere close to "beating" Bitcoin. That's a solid "down and to the right" slope.
+
+Hot garbage, right? Avoid it?
+
+Well, as an investment, absolutely. But Monero isn't an investment. It's not supposed to be your store of value.
+
+Monero is a tool for transacting privately.
+
+## What's Worth a Blockchain?
+
+Rewinding back to the book - *The Bitcoin Standard* - the author offers a flowchart to help you figure out if whatever you're thinking of needs a blockchain:
+
+```mermaid
+graph TD
+    Need("Do you need digital cash?")
+    Need -->|"No"| No("You don't need a blockchain")
+    Need -->|"Yes"| Yes("Use bitcoin: the only blockchain that works")
+```
+
+A few pages later, Ammous offers a more-rigorous test to quickly assess whether a given use-case is a candidate for a blockchain. Given on page 260, paraphrased:
+
+1. Is the benefit of decentralization worth the extra overhead?
+2. Is the process of decentralizing simple-enough that people will actually be able to do it?
+
+If the answer to both of these questions is "yes," then the use-case is a candidate for a blockchain.
+If the answer to either of them is "no," then "normal" software is probably not just fine, but markedly better.
+
+Indeed, most of the "Altcoins" out there fail the chart and this test. But, there are two wrinkles.
+
+First, `digital`.
+
+The chart collapses the "digital" into "digital cash" as if it is a mere adjective. It's not. Well, it is in that part of the chart, but when you arrive at Bitcoin it isn't anymore: Bitcoin has a complete, public ledger of all transactions and therefore, of all coins' current location and the path they took to get there. Physical cash had no such thing. It was never possible to look up where every dollar bill and coin was at a given moment. Even if you managed to [locate two points in a piece of physical cash's journey](https://www.wheresgeorge.com/) you had no way to know what path it took in-between: a direct handoff or a 100-pass journey were equally invisible.
+
+[There *is* cocaine on almost every dollar bill in my wallet and my house](https://en.wikipedia.org/wiki/Contaminated_currency). Despite this, the local authorities do not take it as evidence that I've had dealings with *personae non gratae*. Because you cannot trace the path of a bill, you cannot conclude any relationship between someone who had it once and whoever has it now.
+
+With Bitcoin, that path being knowable is a core *feature*, and that changes things.
+
+## Show the World Your Bank Statements
+
+There are real privacy and security risks to having the path that every piece of money you own took to get there, be public record - and *not* just for criminals! Sure, you can get caught for money laundering or tax evasion or drug dealing. But you can also save a nice big retirement account... and end up showing the size of your nest egg every time you spend it down. Buying a car? Fixing your car? Groceries? A pint of beer at a pub? If you just tap your Bitcoin savings for that, you're telling each of those people "hey, by the way, I've got *exactly* this much money!" Split a meal with a friend, coworker, or date? They know your bank account balance now.
+
+Oh, you don't care about people knowing? Maybe you don't have that much? Okay, you're negotiating the price on anything where one does that - a car, a mortgage, a business deal, a personal loan to pay off your credit card debt - once you make a payment, the other party *knows* how much money you have. Any leverage you had to negotiate a better deal for yourself is gone. Target knows how much you paid Amazon for the same product and won't offer you any discounts 'cause they know you'll fork over the dough. Your health insurance company knows how much you spent at McDonald's last year. 
+
+> You're playing financial poker with all your cards face-up on the table.
+
+Physical cash doesn't do this. Heck, even "normal" credit and debit cards don't do this. Not even digital payment systems like PayPal or Cash App do this! I'm sure you can understand why.
+
+## I'd Like My Finances to be Private
+
+Well, you're in luck! Monero is private by default.
+
+What does that mean? It means everyone who uses it gets the same, very solid baseline of privacy: Nobody can tell who you sent or received cash from. Nobody can tell how much you sent. Only you and whoever you transact with get to know anything about your transaction - and the *only* thing you get to know about is your transaction. You can't follow the money to learn how rich they are, or who else they shop with.
+
+What do you do? You *buy some Monero* (maybe even [with Bitcoin](https://eigenwallet.org/)). Enough to pay for whatever it is you want to buy. Then you pay for the thing you want. Then you get the thing. And whoever you paid cannot follow the money back to spy on your finances. And whoever *they* go on to pay can't do it, either. And, indeed, *you* can't watch and see what *they* do with the money you paid them.
+
+Does that sound like the kind of `digital cash` you'd actually want to use?
+
+Let's revisit Ammous's "altcoin" test:
+
+**Is the benefit worth the overhead of a blockchain?**
+
+I hope we've established that the answer is a resounding "yes." You don't want your bank statements stapled onto every dollar bill you spend, any more than you want your full transaction history known to everyone you send Bitcoin to.
+
+**Is the process of decentralizing simple-enough that people will actually do it?**
+
+<blockquote class="link-card">
+  
+  <h1>MoneroHash.com: Monero Nodes Distribution</h1>
+  
+  <a href="https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">monerohash.com/nodes-distribution.html</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260810004726/https://monerohash.com/nodes-distribution.html" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+> Total nodes: 4697 - Last updated: about an hour ago
+
+**But** - that's only public nodes that can be reached through the peers that each node advertises.
+
+If you, say, ran a Monero node on a server inside your home network and just downloaded the blockchain but didn't punch a hole in your own firewall to allow other nodes to find and initiate inbound connections to you... you might never show up on that map. My node isn't on there.
+
+So that number is a *floor*, not the actual number. You probably can't ever know the actual number.
+
+Does a minimum of 4,697 nodes across the globe count as proof that it's simple-enough that people will actually do it?
+
+Well, it looks like at the time of writing this,
+
+| Coin    | Minimum Reachable Node Count | Blockchain Size | Total Transactions | Txns/GB |
+| ------- | ---------------------------- | --------------- | ------------------ | ------- |
+| Bitcoin | [22,492](https://bitref.com/nodes/)<br/>(4.8x) | 807 GB<br>(3x) | 1.413 Billion<br/>(23x) | 1,752,070<br/>(7x) |
+| Monero  | [4,697](https://monerohash.com/nodes-distribution.html) | 267 GB | 62.8 Million | 235,000 |
+
+*(Transaction counts & blockchain sizes sourced from my nodes directly)*
+
+That `7x` there at the end is the part to worry about: Monero is so far, on average 7x less-efficient at storing its blockchain than Bitcoin is. So, anything Bitcoin can do, Monero is going to demand 7x as much from the people running its nodes.
+
+If it had Bitcoin-level transactions, the blockchain would be over 6 *terabytes*. At 2026 prices, an SSD (which you *do* need to put the blockchain on if you want any kind of decent performance out of your node) to hold that *starts* at $1,000 for 8TB (and not a well-reviewed one).
+
+A whole grand just for the storage. Whereas today, Bitcoin's bitcoin-sized blockchain can fit on a 1TB SSD which starts around $130 - almost a tenth the price.
+
+Monero has been [making progress towards a more-efficient blockchain](https://www.getmonero.org/2024/04/27/fcmps.html) but it's been slow going. One could imagine that it gets resolved before it has to handle Bitcoin-level traffic, just as easily as one could imagine it never does.
+
+So there's a future risk there. Not a today risk, though.
+
+## Just CoinJoin Your BitCoin
+
+It is possible to obtain some privacy with Bitcoin transactions, through the process of a [CoinJoin](https://www.binance.com/en/academy/articles/coin-mixing-and-coinjoins-explained). Coinjoins involve multiple people collaborating to create a specific shape of transaction that makes it impossible to
+
+1. tell who sent what to whom
+2. tell who *intended* to send what to whom
+
+You can still see that "10 people all sent 1 BTC." You can see that "10 people all received 1 BTC from those 10." But you can't tell which one of the first 10 people was trying to pay which of the second 10 people. So, if you wanted to try to snoop on someone, you'd have to guess which of 10 options was actually the person you were interested in. Repeating a coinjoin a second time gives you 10 more options for each of the first 10 - that's 10 times 10, or 100. Coinjoin a third time, and now there are 1,000 possibilities... and so on, and so forth.
+
+This is a thing you have to choose to do, and you have to do it right:
+
+1. For every bitcoin you receive,
+2. CoinJoin it at least once, ideally multiple times
+    * this requires at *least* ~10 minutes (one block mined) per round, but you should wait closer to 6 blocks - ~1 hour per round
+    * transactions have fees and they have to come from somewhere. You'll pay *some* fee for the coinjoin.
+3. Finally spend privately
+4. Take any change from that transaction and `GOTO 1`
+5. Never, ever get impatient or make a mistake or else you lose the privacy you've been building.
+
+If **everyone** who spent bitcoin did this, it would be functionally impossible to even lay all the guesses out to pick from, let alone actually determine *which* specific path a given bitcoin took.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="everyone-will-not-just.png">
+      <img src="everyone-will-not-just.png" alt="Everyone Will Not Just" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Everyone Will Not Just</div>
+    <div class="polaroid-link">
+      
+      <a href="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260906002840/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+The problem with everyone not doing this is that it only buys you [forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy). Once spending starts happening with coinjoins in-between, nobody can tell who's spending what. But *until* the coinjoins start, people can still tell. So maybe you're perfectly-disciplined about coinjoins. Someone who *isn't* sends you some bitcoin. Anyone who sees that *knows* that you received from that person. And if that person wasn't doing coinjoins,anyone can find out all about the people you've been transacting with. We don't know what **you** bought, but we know Bob paid you 100,000 sats and Bob shops at the 7-11 in Townsville and works at SomeCorp. And Bob also pays his friends Alice and Eve, and they *also* live in Townsville. There's a pretty good chance you live there, too. And when you finally do spend, if the person you pay doesn't also do coinjoins, the forward secrecy ends with them and you're left inhabiting a tiny island of secrecy in an ocean of public knowledge. The various [blockchain analysis](https://en.wikipedia.org/wiki/Blockchain_analysis) firms have gotten really good at inferring information with a high degree of certainty in these situations.
+
+This problem is in the shape of opt-in vs opt-out. If you have to *choose* to do something, to opt-**in**, most people won't.
+
+> Everyone will **not** just.
+
+And thus, every part of the puzzle is assembled except your little missing piece - and a great deal of what matters about your blank space can be inferred from looking at the edges, all of which are public.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="missing-puzzle-piece.jpg">
+      <img src="missing-puzzle-piece.jpg" alt="What could possibly go here?" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">What could possibly go here?</div>
+    <div class="polaroid-link">
+      
+      &nbsp;
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      &nbsp;
+      
+    </small>
+  </div>
+</div>
+
+
+On Bitcoin, privacy is a service you procure.
+
+Services require service providers and it's been rough:
+
+1. The simplest and best coinjoin solution - Samourai Whirlpool - [landed its providers in federal prison](https://en.wikipedia.org/wiki/Samourai_Wallet).
+2. The other major provider in the space - Wasabi Wallet - [caved to refusing certain coins](https://www.coindesk.com/tech/2022/03/14/wasabi-wallets-coinjoin-coordinator-to-blacklist-certain-bitcoin-transactions) - presumably to protect the company and themselves - though we don't know for sure, we *do* know what happened to Samourai, who didn't cave.
+3. In 2026 we do have another Whirlpool provider - [Ashigaru, a Samourai fork](https://ashigaru.rs/) - but they're entirely on [Tor](https://www.torproject.org/download/) and encrypted comms - they know what happens if they can be found.
+
+This privacy problem is present for any public-ledger cryptocurrency; Ethereum had a coinjoin service provider - [Tornado Cash](https://en.wikipedia.org/wiki/Tornado_Cash) - whose developers *also* landed federal charges with one sentenced to prison and one still working their way through the courts.
+
+There are other "not exactly a service" - or, you know - "peer-to-peer" coinjoin solutions like `joinmarket` - no link there because the domain's been yanked. No "Seized" notice, just... gone. And its source code archived. What happened? I don't know.
+
+Someone forked it into [joinmarket-ng](https://github.com/joinmarket-ng/joinmarket-ng) though, so you could still make the attempt.
+
+So that's great, right? Chop off the heads of the hydra, and Ashigaru and joinmarket-ng grow back with lessons learned?
+
+> Heads that regenerate after decapitation are not the same as having no neck.
+
+On Bitcoin, privacy is a service you procure. On Monero, privacy is a property of the network that you cannot decline.
+
+On Bitcoin, you must choose to procure privacy, and even the act of choosing is a signal that stands out against the default. On Monero, privacy is normal and having privacy doesn't make you stand out from your peers.
+
+## The Second Wrinkle
+
+I claimed there were two wrinkles in Ammous's blockchain test. The first was `digital`. The second is `cash`.
+
+Or, rather, money. Everything up to that point assumes that the only thing anyone ever would or could do on a blockchain is "money."
+
+There's a nuanced difference (here, at least) between *money* and *currency*. Money is the store of value, the unit of account. Currency is the medium of exchange. These two distinct roles are *often* filled by the same thing - but not always.
+
+Nowadays, your retirement account (if you have one...) is likely denominated in US dollars, but it's actually held in stocks, bonds, and other assets (Bitcoin, perhaps...?). You fork over some dollars at a coffeeshop; dollars are currency for spending. You don't send someone a fractional share of NVDA for that same coffee - your retirement account, as a long-term store of value play, seeks a different kind of asset where spendable liquidity isn't paramount.
+
+By those definitions, Monero is a currency where privacy is a first-class property. It's not a money. But that's not even the full wrinkle.
+
+There's another example of a useful token that contrasts much more starkly: [Filecoin](https://www.filecoin.io/).
+
+Filecoin is the token that powers a distributed, peer-to-peer storage network. It's like cloud storage, but across an ever-changing, decentralized network of computers. You don't mine it with the "proof of work" that Bitcoin and Monero do - you get paid for providing storage that is proven to be available and to actually contain what it claims to store. And you "spend" Filecoin to rent storage on the network.
+
+Cloud storage has turned out to be an undeniably useful thing. Multibillion dollar businesses exist to provide it. Not just [Amazon S3](https://aws.amazon.com/s3/), but Google's [Cloud Storage](https://cloud.google.com/storage) and the retail-facing [iCloud](https://www.icloud.com/storage), [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage), and [Dropbox](https://www.dropbox.com/) to name just a few.
+
+Incidentally, the storage cost on those platforms (well, at least [S3](https://aws.frankcontrepois.com/s3PriceHistory)) has fallen over time.
+
+Is Filecoin a shitcoin? [The Internet Archive has put a petabyte of material on it](https://blog.archive.org/2023/10/20/celebrating-1-petabyte-on-the-filecoin-network/) - including U.S. government web crawls that vanish between administrations. If you're the Archive, you want that storage cheap. As an *investment vehicle* though? [Absolutely](https://coinmarketcap.com/currencies/filecoin/). Its price chart is not what you'd want your savings account to look like. But that's okay; it's not *supposed to* be money.
+
+It's the price of cloud storage.
+
+And I love it when useful things - like computers, washing machines, television sets, cloud storage and privacy - get cheaper.
+
+## Cold Wallets Are Born Hot
+
+WiFi is literally "airgapped." Check the gap between your laptop and your router: nothing in it but breathable air. If the word meant what it says, every coffee shop on Earth would be running military-grade security.
+
+The air was never the point. Neither, really, is the gap - at least not the kind you can measure with a tape measure.
+
+## The Gap Is Made of Time
+
+What ["airgapped"](https://en.wikipedia.org/wiki/Air_gap_(networking)) actually names is the removal of any bidirectional channel. The air contributes nothing; the missing return path contributes everything. Industry will even sell you the property without the air - a one-way cable called a [data diode](https://en.wikipedia.org/wiki/Unidirectional_network), popular with power plants.
+
+But a diode is still a live connection, and live is the thing worth escaping. Powered electronics radiate their activity into the room: in 1985, [Wim van Eck reconstructed](https://en.wikipedia.org/wiki/Van_Eck_phreaking) what a CRT display was showing from its stray emissions, using a modified TV set - and the NSA's [TEMPEST](https://en.wikipedia.org/wiki/Tempest_(codename)) program had already spent decades classifying that kind of leak. By 2023, researchers were [pulling a 256-bit ECDSA key](https://eprint.iacr.org/2023/923) - a signature scheme used by some bitcoin outputs - off a smartcard, by pointing a hijacked security camera at the *power LED* of the card reader from sixteen meters away.
+
+> You've got to kill the channel.
+
+Once no live channel exists, the two sides have to communicate through a separate, durable artifact - an SD card, a QR code, a piece of paper. The traditional "airgap" property of such a durable artifact is that it only contains the cryptographically-irreversible *outputs* of the actual secrets. Squint as you might at the signature, the keys simply aren't there.
+
+The much-stronger property that isn't given as much airtime because it's incidental and unavoidable is that a durable artifact can *wait*. That means you can separate the two sides by any amount of space, or any amount of *time*. When you pop the SD card out of your signing device and walk it to your laptop, that thirty-second walk could just as easily be a week. Sign the transaction, drop the card in a drawer, broadcast it next spring. Unless the attacker has a time machine or the ability to break causality - in which case your wallet is probably not your biggest problem - there is no reaching back through the broadcast to the device that signed it.
+
+No live channel yet invented, wired or wireless or optical, offers that guarantee.
+
+## The Whole Warranty
+
+> From this moment forward, nothing reaches in.
+
+That's it. That's the entire warranty. It is causal, it points forward only, and it says nothing - ***nothing*** - about whether something already got out or was never secret to begin with.
+
+## The One Live Moment
+
+Everything a [cold wallet](https://en.wikipedia.org/wiki/Cryptocurrency_wallet#Cold_storage) does can wait. Receiving needs no signature at all. Signing waits patiently on your side of the gap; broadcasting waits just as patiently on the other. But one event cannot be deferred: the birth of the key. Entropy happens once, inside the device, at an instant you cannot inspect, cannot repeat, and cannot postpone. It is the only live event in a system whose entire pitch is that it has no live events.
+
+> Every airgapped system has exactly one moment it cannot airgap: the birth of the secret.
+
+The protection opens just after that instant and points forward only. Everything upstream of it - the random number generator, the firmware, the entropy source - sits inside the trusted perimeter by construction.
+
+Two big cold-storage failures attacked exactly that moment.
+
+## Nobody Touched a Device
+
+<blockquote class="link-card">
+  
+  <h1>What we know about ongoing Coldcard hack that&#39;s stolen over $100M worth of bitcoin</h1>
+  
+  <a href="https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260812010708/https://www.cbc.ca/news/world/bitcoin-coinkite-security-hack-9.7295582" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+[Coldcard](https://coldcard.com/) is a bitcoin-only hardware wallet, widely praised as one of the most secure ways to hold bitcoin: keys generated on the device, never touching the internet, transactions ferried across the gap on an SD card. On July 30, 2026, its maker [Coinkite told users to move their funds *now*](https://blog.coinkite.com/coldcard-mk3-seed-generation-warning/). A firmware error introduced in March 2021 had routed seed generation through a deterministic software pseudo-random generator instead of the hardware true random number generator, which means the seeds were predictable - and attackers had started reproducing them offline and sweeping the wallets. By August 3, [Galaxy Research's on-chain tally](https://x.com/glxyresearch/status/2084411904924045370) stood at three confirmed attack waves - 1,596 bitcoin gone from roughly 7,300 addresses, over $100 million US - with a suspected fourth wave that would push the total toward 2,055 bitcoin, roughly $130 million. And counting as of this writing.
+
+Notice what's missing from that story: nobody touched a device. Every Coldcard sat exactly as offline as its owner believed it was, the whole time, while the attack ran as pure arithmetic against public chain data. The airgap held. It just never overlapped the failure, because the failure happened at the one moment no airgap covers.
+
+## The Mouse Was Theater
+
+<blockquote class="link-card">
+  
+  <h1>Disclosure: Key generation vulnerability found on WalletGenerator.net - potentially malicious</h1>
+  
+  <a href="https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961" target="_blank" rel="noopener">medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250419222951/https://medium.com/mycrypto/disclosure-key-generation-vulnerability-found-on-walletgenerator-net-potentially-malicious-3d8936485961" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+The same thing happened eight years earlier, to the humblest cold storage there is: the paper wallet. `WalletGenerator.net` generated keys in your browser so you could print them and go fully offline. Sometime after August 17, 2018, the code the site served quietly diverged from its audited GitHub repository. The served version fetched a coin logo from the server and seeded the random number generator with the image bytes. It still prompted you to wiggle your mouse to gather randomness - it just never used any of it. When MyCrypto's researchers asked it for a thousand keys in bulk, they got 120 unique ones.
+
+Print the wallet, laminate it, lock it in a safe deposit box. Same air, same gap, **same nothing.**
+
+## Neither Audits the Mint
+
+You already run this kind of security in meatspace. Buying a car with cash, you bring exactly the cash you mean to spend, so a greedy counterparty (or [civil-forfeiture road pirate](https://reason.com/2021/09/02/lawsuit-challenging-houston-asset-forfeiture-program-says-police-use-stock-language-to-seize-cash-without-probable-cause/)) can take no more than you brought. Paying by check, you hand over authorization for one amount, once, instead of handing over the account.
+
+A check bounds the *amount* an adversary can extract. An airgap bounds the *window* in which they can try. Both are exposure limits, both are real, and both are worth having. Neither audits the mint. If the bank printed your checkbook with guessable account numbers, every careful check you write is genuine discipline, correctly executed... and completely ineffective. That's Coldcard. That was WalletGenerator. Flawless check-writing against a compromised checkbook.
+
+## Breathable Air on Planet Earth
+
+"Airgapped" has drifted into a synonym for "safe," and it never fully guaranteed that - though it used to mean much safer than it means today. Technically it means *no bidirectional channel*. Practically it buys you *separation in time*, the strongest isolation any physical channel yet discovered can offer. Neither meaning says one word about whether your key was ever unpredictable.
+
+The guarantee an airgap *does* offer is still real and nothing live can match it. If you skip the gap because it's inconvenient, fine - but be cognizant any substitute *isn't.* Skipping the airgap is admitting "I just don't care that much" (which is sometimes fine!)
+
+Just remember what you bought. It's not a mixture of O<sub>2</sub> and N<sub>2</sub> that's protecting you, it's temporal causality.
+
+## Good Money Should Be Worthless
+
+If you work for your money but somebody else can just print it, you're getting robbed. You don't need an economics degree to feel this in your bones. You show up, do the work, collect your paycheck - and meanwhile someone with a printing press conjures more of the stuff out of thin air. Every dollar they print makes yours worth a little less.
+
+Let's call this person Mr. Money Printer. He has a nice setup. As long as he's the only one with a printer, he can always cut in line ahead of you. Need a house? He prints and outbids you. Want to invest? He prints and gets there first. A new car? He's printed the full sticker price and driven it off the lot before you even get a chance to talk to a salesperson. Your labor earns; his printer simply takes.
+
+Your first instinct is obvious: get your own printer. But Mr. Money Printer thought of that already. He enjoys a privileged position precisely because he's the only one printing, and he'll spend whatever it takes to keep it that way. In the United States, for example, the Secret Service was founded in 1865 - before they ever guarded a president - for the sole purpose of [making sure nobody else gets a printer](https://en.wikipedia.org/wiki/United_States_Secret_Service#Early_years). [Counterfeiting is a federal crime](https://www.secretservice.gov/investigations/counterfeit) because competing printers threaten the monopoly that makes the original printer valuable.
+
+So you can't print. What now?
+
+## Find Your Own Money
+
+If Mr. Money Printer's money is rigged, stop using it. Find something else to use as money - something he can't print. What you're looking for has two properties: it should be impossible (or at least very, very expensive) to create, and the only realistic way to get it should be to earn it from someone who already has it.
+
+Ideally, you want a truly fixed supply. No new units, ever. Failing that, you want the supply to grow as slowly as possible - slowly enough that Mr. Money Printer's advantage is negligible.
+
+Humanity spent thousands of years on this problem, and the best answer it found was gold.
+
+## Gold: Pretty Good
+
+You can [technically create gold](https://home.cern/news/news/physics/alice-detects-conversion-lead-gold-lhc) via [nuclear transmutation](https://www.scientificamerican.com/article/fact-or-fiction-lead-can-be-turned-into-gold/). It costs orders of magnitude more than the gold is worth. So for practical purposes, the only "printer" for gold is mining, and mining is slow. Annual mine production adds roughly [~2% to the existing above-ground stock](https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-q2-2025). The total supply doubles about every ~50 years. In monetary terms, gold's stock-to-flow ratio is around 50 - meaning it would take 50 years of mining at current rates to match what already exists.
+
+That's pretty good. It means gold miners are, functionally, operating a very slow money printer. Slow enough that for most of human history, gold held value remarkably well across generations. If you want the full treatment of why gold emerged as the dominant money across civilizations, [Saifedean Ammous's *The Bitcoin Standard*](https://saifedean.com/the-bitcoin-standard/) does excellent work.
+
+## The Problem With Useful Money
+
+Gold is useful. Electronics, aerospace, medical devices, AI chips - [industry and technology consumed about 326 tonnes of gold in 2024](https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2024/technology). That's a modest share of total gold demand, because gold is one of the rare cases where the monetary use still dominates the industrial use. The problem isn't the size of gold's industrial consumption today; the problem is the structural tension it creates.
+
+Industries that use gold as a raw material have every incentive to make gold cheaper and more abundant. Better extraction techniques, more efficient recycling, new deposits - all of these are just good business for a chip fabricator or a jeweler. But for everyone holding gold as money, every incremental improvement in gold production is functionally identical to money printing. The interests are irreconcilable: people holding gold-as-money want maximum scarcity, and people using gold-as-input want minimum scarcity.
+
+For gold, this tension is manageable because the "printing" has stayed both slow, and constant. The industrial tail doesn't wag the monetary dog... But look at what happens when the balance tips the other way:
+
+## Silver: What Losing Looks Like
+
+Silver was money for millennia. The word "dollar" [descends from "thaler,"](https://www.etymonline.com/word/dollar) a silver coin. Major economies ran on silver standards. And then industry ate it alive.
+
+In 2024, total silver demand reached [1.16 billion ounces against global mine production of just 819.7 million ounces](https://silverinstitute.org/silver-industrial-demand-reached-a-record-680-5-moz-in-2024/). Demand exceeds what miners can pull out of the ground by over 40%. The market ran a structural deficit for the fourth consecutive year, burning through 148.9 million ounces of existing stock. The cumulative deficit from 2021-2024 totals 678 million ounces - equivalent to ten months of global mine production.
+
+Industry didn't just nibble at silver's monetary function. It devoured it. Solar panels, electronics, electric vehicles - silver's physical properties make it genuinely irreplaceable in applications that have nothing to do with money. No major economy uses silver as a monetary standard anymore. The utility won.
+
+## Copper: The Endgame
+
+If silver is what losing looks like in progress, copper is what it looks like when it's over. Copper was among humanity's earliest monies - commodity currency in Mesopotamia five thousand years ago, cast into bronze coins across [China](https://en.wikipedia.org/wiki/Ancient_Chinese_coinage) and [Rome](https://www.worldhistory.org/Roman_Coinage/). For centuries, copper coinage was the everyday money of ordinary people across empires.
+
+The most spectacular failure was Sweden's copper standard, which ran [from 1624](https://www.riksbank.se/en-gb/about-the-riksbank/history/historical-timeline/1600-1699/copper-standard-is-introduced/) to 1776. Sweden had Europe's largest copper mines and not much silver, so they made copper their monetary standard. Since copper was far less valuable by weight than silver, high-denomination [coins had to be enormous](https://www.money.org/tales-from-the-vault-swedish-plate-money-too-heavy-to-steal/). The 10-daler piece weighed 44 pounds! Citizens [needed sleds to go shopping](https://ekonomiskamuseet.se/en/exhibitions/earlier-exhibitions/exhibition-plate-money/). When global copper prices shifted, the coins' monetary value kept collapsing to their commodity value. The government "printed" more. The central banker responsible was [eventually beheaded](https://safehaven.com/article/1450/why-swedens-central-banker-was-beheaded---1719ad) for his trouble.
+
+Today nobody even considers copper as money. It's too easy to produce, too industrially consumed, too abundant. The endgame of utility winning is total *demonetization.*
+
+These three metals form a gradient:
+
+1. **Copper:** utility won completely, demonetized centuries ago. 
+2. **Silver:** utility winning right now, functionally demonetized within living memory.
+3. **Gold:** utility nibbling at the edges, still mostly monetary but structurally vulnerable to the same force that killed the other two.
+
+The only difference is timescale.
+
+## Real Estate: The Contemporary Version
+
+You can watch this same dynamic play out right now, with something that was never intended to be money at all.
+
+As printable monies lose purchasing power (on account of, you know, the money printing), people flee into scarce assets. Real estate is a favorite: "they're not making any more land," the reasoning goes. Scarcity? Check. Can't be printed? Check. People are *monetizing* houses - buying them not to live in but to store value.
+
+The result is that housing becomes unaffordable for people who need it *as housing.* This is what happens when you use a useful thing as money: you create a zero-sum fight between people who need it for its purpose and people who need it as a store of value. The act of monetizing something useful degrades the utility for everyone else.
+
+## The Ideal
+
+So we arrive at an initially counterintuitive conclusion: the best money should be totally worthless... for everything except *being money.*
+
+If your money has real-world utility - if it's a good conductor, a pretty necklace, a place to sleep - then somebody, somewhere, has an economic incentive to figure out how to make more of it. They're not trying to undermine your savings; they're just trying to get their raw materials cheaper. But the effect on you is identical to money printing.
+
+You want your money to have no industrial applications, no decorative appeal, no physical utility whatsoever. You want something that nobody would ever bother producing except to use *as money.*
+
+## The Paradox
+
+This sounds impossible. Scarcity usually arises *because* something is useful:
+
+1. Things are useful because they have properties people want.
+2. People expend effort to acquire things with properties that people want.
+3. The low-hanging fruit is acquired, and now it takes more *effort* to acquire more of the things.
+4. Effort to acquire is what we call scarcity.
+
+Useless things, almost by definition, tend to be abundant. Nobody corners the market on sand in a desert.
+
+You need something that is scarce and useless, but scarcity without utility has precious little, if any, natural precedent. So you're looking for something that shouldn't exist.
+
+## Bitcoin
+
+In 2009, something that shouldn't exist was invented.
+
+[Bitcoin](https://bitcoin.org/en/how-it-works)'s supply is fixed at 21 million. Not approximately fixed, not fixed-unless-we-find-a-new-deposit, not fixed-but-growing-at-2%-per-year. Fixed by protocol. The issuance schedule is enforced by mathematics, not geology or policy. No amount of investment in "Bitcoin mining" can increase the supply beyond what the protocol dictates - miners compete for a **fixed** reward that halves on a known schedule until it reaches **zero.**
+
+And bitcoin is, by any traditional measure, completely useless. You can't build circuits with it. You can't wear it. You can't live in it. There is no industrial demand for bitcoin, no sector of the economy trying to figure out how to produce it more cheaply as a manufacturing input. Nobody has a balance sheet with "bitcoin costs" as a line item they're trying to drive down.
+
+"You can't *do* anything with it" is the feature. Every prior form of money has been locked in a structural conflict between its monetary users and its industrial users, and the industrial users have won every single time given enough time. Bitcoin has no industrial users. There is no conflict. There is nothing to win... so **you** don't have to lose.
+
+## Sorting systemd Ordering for Mempool Explorer
+
+## The Problem
+
+My [mempool explorer](https://github.com/mempool/mempool) would periodically lose its ability to show transactions. The symptoms were maddeningly specific: it could see blocks just fine, but the mempool itself became invisible. Restarting the mempool explorer did nothing. Restarting the Bitcoin node used by the explorer fixed it every time.
+
+This is the kind of bug that makes you question your sanity. If restarting Bitcoin fixes it, surely the problem is in Bitcoin? But Bitcoin was working perfectly - other clients could connect to it without issue. The mempool explorer, running in Docker, simply couldn't reach it.
+
+## The Misleading Clue
+
+The most interesting bugs hide behind what looks like the answer. When I checked the logs, I saw connection refused errors from the mempool trying to reach `172.17.0.1:8332` - Bitcoin's RPC port on the Docker bridge network. "Aha!" I thought. "A network configuration issue."
+
+But network issues don't fix themselves when you restart Bitcoin. That suggested something more fundamental was wrong.
+
+## The Smoking Gun
+
+The answer was buried in the systemd journal:
+
+```
+Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332
+Nov 11 05:53:39 bitcoind[1260]: Binding RPC on address 172.17.0.1 port 8332 failed.
+```
+
+Bitcoin tried to bind to the Docker bridge IP at startup and failed. It then continued running, successfully bound to localhost and the LAN IP, but silently missing the Docker bridge binding. Three seconds later, Docker started and created the bridge network.
+
+The race condition was subtle: Bitcoin started fractionally before Docker, tried to bind to an interface that didn't exist yet, failed gracefully, and continued operating. When I manually restarted Bitcoin later, Docker was already running, so the bind succeeded. The bug only manifested on system boot.
+
+## The Fix
+
+The solution is admirably simple:
+
+```ini
+[Unit]
+After=docker.service
+Wants=docker.service
+```
+
+Two lines in a systemd override file. `After=` ensures Bitcoin waits for Docker to start. `Wants=` expresses a preference for Docker to be running, without making it a hard requirement.
+
+I deliberately avoided `BindsTo=` or `PartOf=`, which would create tighter coupling. Those would restart Bitcoin whenever Docker restarted, which is unnecessary - once the bind succeeds, it persists regardless of Docker's state. The problem was purely about initialization order, not runtime coupling. More at the [systemd.unit man page](https://www.freedesktop.org/software/systemd/man/systemd.unit.html).
+
+## The Lesson
+
+This bug exemplifies what I call "success-in-the-wrong-order" problems. Bitcoin didn't fail catastrophically when it couldn't bind to the Docker bridge - that would have been easy to diagnose. Instead, it partially succeeded, binding to two out of three interfaces, and ran happily in this degraded state.
+
+Silent partial failures are dangerous precisely because they look like success. The application starts, health checks pass, logs show normal operation. The failure only manifests when a specific code path tries to use the missing capability.
+
+These bugs are also challenging because they combine multiple systems (systemd, Docker, Bitcoin) in ways that aren't immediately obvious. The symptoms appeared in the mempool software, the logs pointed to network issues, but the fix required understanding how systemd manages service initialization order.
+
+## Why This Matters
+
+Containerization has made these race conditions more common. We now routinely run applications that depend on container runtime networking, but our init systems weren't designed with this dependency model in mind. Systemd provides the tools to handle it (`After=`, `Wants=`, `Requires=`, etc.), but you have to know they exist and understand when to use each one.
+
+The broader lesson is about diagnostic discipline. When a problem has an easy fix (restart the service), it's tempting to treat that as the solution rather than investigating the root cause. But "restart it when it breaks" isn't actually a solution - it's a workaround that masks deeper issues and trains you to accept degraded reliability.
+
+The fix took two lines. Finding those two lines required understanding the entire system architecture, from Docker networking to systemd service dependencies to Bitcoin's RPC binding model. That's often how it goes with interesting bugs: the fix is trivial once you truly understand the problem.
