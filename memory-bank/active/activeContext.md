@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: Dependabot for gems and nginx
-**Phase:** PLAN - COMPLETE
+**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
 
 ## What Was Done
 - Classified the task as Level 2
@@ -10,4 +10,4 @@
 - No new tests. File-text assertions would be change-detectors. `pr-check` already enforces the Gemfile and lockfile contract in frozen mode
 
 ## Next Step
-- Run preflight on the revised plan
+- Preflight passed with advisories (see `.preflight-status`) - proceed to `/niko-build`

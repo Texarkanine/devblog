@@ -46,3 +46,14 @@ Turn on Dependabot for the Jekyll gems and the nginx-proxy image, pin the unpinn
     - Requirement 4 and acceptance criterion 2 in the brief now say that, instead of "lockfile unchanged"
 * Insights
     - Frozen mode treats a newly constrained gem as deleted-and-readded. The lockfile has to name the constraint or CI will not install
+
+## 2026-10-31 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Validated the revised plan against codebase reality: all 11 proposed `~>` constraints fit their locked versions, the 6 leave-alone pins match the Gemfile, both Ruby workflows run frozen mode, REUSE.toml's catch-all licenses the new `dependabot.yml`, `gh` auth works with security updates currently `enabled: false`, and `nginx:1.29.3-alpine3.22` resolves to a multi-arch OCI image index
+    - `.preflight-status` first line: `PASS WITH ADVISORY`
+* Decisions made
+    - Plan not edited (judge, do not fix); no change-detector steps to strike and no TDD ordering to swap
+* Insights
+    - No docker/crane/skopeo in this environment; step 2's digest resolution works via the curl anonymous-token flow against registry-1.docker.io (probed during preflight)
+    - Advisory recorded: adding `applies-to: security-updates` to the `ruby` group would batch the advisory PRs that fire when step 4 lands; left for the operator to weigh
