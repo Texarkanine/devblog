@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: bundler
+    directory: "/"
+    schedule:
+      interval: weekly
+    versioning-strategy: increase-if-necessary
+    groups:
+      ruby:
+        patterns:
+          - "*"
+        applies-to: version-updates
+
+  - package-ecosystem: docker
+    directory: "/nginx-proxy"
+    schedule:
+      interval: weekly
