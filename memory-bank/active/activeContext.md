@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: Dependabot for gems and nginx
-**Phase:** PLAN - COMPLETE
+**Phase:** PREFLIGHT - COMPLETE (FAIL (fixable))
 
 ## What Was Done
 - Classified the task as Level 2
@@ -9,4 +9,4 @@
 - No new tests. Assertions on those file texts would be change-detectors. Build checks are an empty `Gemfile.lock` diff, a multi-arch digest, a YAML parse, and `enabled: true`
 
 ## Next Step
-- Run preflight on the plan
+- Re-plan: fix the Gemfile.lock expectation (DEPENDENCIES section changes; lockfile must be committed). See `.preflight-status`

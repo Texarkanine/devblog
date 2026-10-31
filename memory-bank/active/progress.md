@@ -25,3 +25,13 @@ Turn on Dependabot for the Jekyll gems and the nginx-proxy image, pin the unpinn
     - Security updates stay enabled as a repo setting even though the first advisory pull requests will target `main` before this branch is merged
 * Insights
     - `~> 4.1` allows the whole `4.x` line from `4.1` up. That matches the pins already in the Gemfile
+
+## 2026-10-31 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Validated the plan against the Gemfile, lockfile, Dockerfile, workflows, REUSE config, and repo settings
+    - `.preflight-status` first line: `FAIL (fixable)`
+* Decisions made
+    - Plan not edited (judge, do not fix)
+* Insights
+    - `bundle install` with the `~>` pins changes the lockfile `DEPENDENCIES` section (16 lines), so the "empty diff" check fails by design. CI runs in frozen mode, so the lockfile must be committed with the Gemfile
