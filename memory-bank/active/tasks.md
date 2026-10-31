@@ -28,7 +28,7 @@ Build checks, not committed tests:
 
 ## Implementation Plan
 
-### 1. Pin unpinned direct gems — config
+### 1. Pin unpinned direct gems — config [x]
 
 - Files: `Gemfile`, `Gemfile.lock`
 - No tests: configuration the build runs. A test that asserts file text is a change-detector. `pr-check.yaml` uses `bundler-cache: true`, which runs frozen mode and already fails when the Gemfile and lockfile disagree.
@@ -38,7 +38,7 @@ Build checks, not committed tests:
 3. Run `bundle _2.6.9_ lock`. Commit `Gemfile.lock` with the Gemfile. The diff must be only the `DEPENDENCIES` lines for those 11 gems. If a spec version, platform, or `BUNDLED WITH` line changes, restore the lockfile and fix the constraint. Do not run `bundle update`.
 4. Run `BUNDLE_FROZEN=true bundle _2.6.9_ install --local` and require exit 0.
 
-### 2. Pin the nginx tag by manifest-list digest — config
+### 2. Pin the nginx tag by manifest-list digest — config [x]
 
 - Files: `nginx-proxy/Dockerfile`
 - No tests: configuration the image build runs. A test that asserts the digest string is a change-detector. Re-resolve the digest at build time and require an image index.
@@ -47,7 +47,7 @@ Build checks, not committed tests:
 2. If the response is a single-platform manifest, stop. Do not pin a platform blob.
 3. Change the `FROM` line to `nginx:1.29.3-alpine3.22@sha256:<that digest>`. Leave the rest of the Dockerfile as it is.
 
-### 3. Add Dependabot config — config
+### 3. Add Dependabot config — config [x]
 
 - Files: `.github/dependabot.yml`
 - No tests: configuration GitHub runs. A test that asserts the file text is a change-detector. The build check is a Ruby YAML parse of the keys below.
@@ -55,7 +55,7 @@ Build checks, not committed tests:
 1. Write `version: 2` with two updates. Bundler: `directory: "/"`, `schedule.interval: weekly`, `versioning-strategy: increase-if-necessary`, and a group named `ruby` with `patterns: ["*"]` and `applies-to: version-updates`. Docker: `directory: "/nginx-proxy"`, `schedule.interval: weekly`.
 2. Parse the file with Ruby's YAML library and check those keys. Do not add a schema gem.
 
-### 4. Enable Dependabot security updates — config
+### 4. Enable Dependabot security updates — config [x]
 
 - Files: none in the repo
 - No tests: a GitHub repository setting. The build check is a GET that returns `enabled: true`.
@@ -95,6 +95,6 @@ No new technology - validation not required
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
-- [ ] Preflight
-- [ ] Build
+- [x] Preflight
+- [x] Build
 - [ ] QA

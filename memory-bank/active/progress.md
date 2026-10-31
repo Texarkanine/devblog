@@ -47,6 +47,20 @@ Turn on Dependabot for the Jekyll gems and the nginx-proxy image, pin the unpinn
 * Insights
     - Frozen mode treats a newly constrained gem as deleted-and-readded. The lockfile has to name the constraint or CI will not install
 
+## 2026-10-31 - BUILD - COMPLETE
+
+* Work completed
+    - Pinned 11 direct gems and committed the lockfile `DEPENDENCIES` change
+    - Digest-pinned `nginx:1.29.3-alpine3.22` to its OCI image index
+    - Added `.github/dependabot.yml`
+    - Enabled Dependabot security updates (`enabled: true`)
+    - `python3 -m unittest discover -s tests` (12 tests, OK), `reuse lint` (390/390), `bundle exec jekyll build` (exit 0)
+* Decisions made
+    - Security-update pull requests stay ungrouped. Version updates are the only group
+    - Digest came from the registry HTTP API
+* Insights
+    - The index digest matches the one preflight recorded. The tag had not been rebuilt between the two lookups
+
 ## 2026-10-31 - PREFLIGHT - COMPLETE
 
 * Work completed

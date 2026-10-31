@@ -185,23 +185,23 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  bigdecimal
-  jektex
+  bigdecimal (~> 4.1)
+  jektex (~> 0.2)
   jekyll (~> 4.3)
   jekyll-archives (~> 2.2)
-  jekyll-auto-authors
+  jekyll-auto-authors (~> 1.0)
   jekyll-auto-thumbnails (~> 2.0)
-  jekyll-feed
+  jekyll-feed (~> 0.18)
   jekyll-highlight-cards (~> 3.0)
   jekyll-llm-sidecars (~> 0.3)
-  jekyll-loading-lazy
+  jekyll-loading-lazy (~> 0.1)
   jekyll-mermaid-prebuild (~> 0.5)
-  jekyll-paginate-v2
-  jekyll-redirect-from
-  jekyll-remote-theme
-  jekyll-seo-tag
-  jekyll-sitemap
-  logger
+  jekyll-paginate-v2 (~> 3.0)
+  jekyll-redirect-from (~> 0.17)
+  jekyll-remote-theme (~> 0.6)
+  jekyll-seo-tag (~> 2.9)
+  jekyll-sitemap (~> 1.4)
+  logger (~> 1.7)
 
 BUNDLED WITH
    2.6.9
