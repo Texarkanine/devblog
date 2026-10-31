@@ -35,3 +35,14 @@ Turn on Dependabot for the Jekyll gems and the nginx-proxy image, pin the unpinn
     - Plan not edited (judge, do not fix)
 * Insights
     - `bundle install` with the `~>` pins changes the lockfile `DEPENDENCIES` section (16 lines), so the "empty diff" check fails by design. CI runs in frozen mode, so the lockfile must be committed with the Gemfile
+
+## 2026-10-31 - PLAN - COMPLETE
+
+* Work completed
+    - Re-planned after preflight `FAIL (fixable)`
+    - Confirmed in a temp copy: `bundle _2.6.9_ lock` changes only `DEPENDENCIES`. The old lockfile with the new Gemfile exits 16 under `BUNDLE_FROZEN=true`. The updated lockfile exits 0
+* Decisions made
+    - Commit the `DEPENDENCIES` update with the Gemfile. Spec versions, platforms, and `BUNDLED WITH` must not change
+    - Requirement 4 and acceptance criterion 2 in the brief now say that, instead of "lockfile unchanged"
+* Insights
+    - Frozen mode treats a newly constrained gem as deleted-and-readded. The lockfile has to name the constraint or CI will not install

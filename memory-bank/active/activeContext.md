@@ -1,12 +1,13 @@
 # Active Context
 
 ## Current Task: Dependabot for gems and nginx
-**Phase:** PREFLIGHT - COMPLETE (FAIL (fixable))
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
 - Classified the task as Level 2
-- Wrote the plan for task `20261031-dependabot-gems-nginx`: Gemfile `~>` pins, nginx manifest-list digest, `.github/dependabot.yml`, then enable Dependabot security updates
-- No new tests. Assertions on those file texts would be change-detectors. Build checks are an empty `Gemfile.lock` diff, a multi-arch digest, a YAML parse, and `enabled: true`
+- First preflight failed because an empty `Gemfile.lock` diff is impossible: Bundler rewrites `DEPENDENCIES` when constraints are added, and frozen CI rejects the old lockfile
+- Re-planned task `20261031-dependabot-gems-nginx`: commit that `DEPENDENCIES` change, prove it with `BUNDLE_FROZEN=true bundle _2.6.9_ install --local`, then the nginx digest, `dependabot.yml`, and the security-updates API call
+- No new tests. File-text assertions would be change-detectors. `pr-check` already enforces the Gemfile and lockfile contract in frozen mode
 
 ## Next Step
-- Re-plan: fix the Gemfile.lock expectation (DEPENDENCIES section changes; lockfile must be committed). See `.preflight-status`
+- Run preflight on the revised plan

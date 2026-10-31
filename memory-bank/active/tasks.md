@@ -14,7 +14,7 @@ No new executable behavior. The site's unittest suite covers the SVG metadata st
 
 Build checks, not committed tests:
 
-- `bundle install` with the locked Bundler, after the new `~>` lines, leaves `Gemfile.lock` with an empty diff.
+- After the new `~>` lines, `bundle _2.6.9_ lock` changes `Gemfile.lock` only in `DEPENDENCIES` (the 11 new constraints). Spec versions, platforms, and `BUNDLED WITH` stay the same. `BUNDLE_FROZEN=true bundle _2.6.9_ install --local` then exits 0.
 - The digest written into `nginx-proxy/Dockerfile` is the manifest-list digest for `nginx:1.29.3-alpine3.22`, and the tag in that line stays `1.29.3-alpine3.22`.
 - `.github/dependabot.yml` parses, with a weekly bundler entry on `/` using `increase-if-necessary` and a version-update group, and a weekly docker entry on `/nginx-proxy`.
 - `GET repos/Texarkanine/devblog/automated-security-fixes` returns `enabled: true` after the enable call.
@@ -28,36 +28,37 @@ Build checks, not committed tests:
 
 ## Implementation Plan
 
-### 1. Pin unpinned direct gems — prose/policy
+### 1. Pin unpinned direct gems — config
 
-- Files: `Gemfile`
-- No tests: prose/policy artifact
+- Files: `Gemfile`, `Gemfile.lock`
+- No tests: configuration the build runs. A test that asserts file text is a change-detector. `pr-check.yaml` uses `bundler-cache: true`, which runs frozen mode and already fails when the Gemfile and lockfile disagree.
 
 1. Add `~>` constraints on the unpinned direct gems only, at the locked minor: `bigdecimal` `~> 4.1`, `logger` `~> 1.7`, `jektex` `~> 0.2`, `jekyll-auto-authors` `~> 1.0`, `jekyll-feed` `~> 0.18`, `jekyll-loading-lazy` `~> 0.1`, `jekyll-paginate-v2` `~> 3.0`, `jekyll-redirect-from` `~> 0.17`, `jekyll-remote-theme` `~> 0.6`, `jekyll-seo-tag` `~> 2.9`, `jekyll-sitemap` `~> 1.4`.
 2. Leave `jekyll` `~> 4.3`, `jekyll-archives` `~> 2.2`, `jekyll-auto-thumbnails` `~> 2.0`, `jekyll-highlight-cards` `~> 3.0`, `jekyll-mermaid-prebuild` `~> 0.5`, and `jekyll-llm-sidecars` `~> 0.3` as they are.
-3. Run `bundle _2.6.9_ install` (the `BUNDLED WITH` version). Confirm `git diff -- Gemfile.lock` is empty. If the lockfile changes, restore it and fix the constraint. Do not run `bundle update`.
+3. Run `bundle _2.6.9_ lock`. Commit `Gemfile.lock` with the Gemfile. The diff must be only the `DEPENDENCIES` lines for those 11 gems. If a spec version, platform, or `BUNDLED WITH` line changes, restore the lockfile and fix the constraint. Do not run `bundle update`.
+4. Run `BUNDLE_FROZEN=true bundle _2.6.9_ install --local` and require exit 0.
 
-### 2. Pin the nginx tag by manifest-list digest — prose/policy
+### 2. Pin the nginx tag by manifest-list digest — config
 
 - Files: `nginx-proxy/Dockerfile`
-- No tests: prose/policy artifact
+- No tests: configuration the image build runs. A test that asserts the digest string is a change-detector. Re-resolve the digest at build time and require an image index.
 
 1. Resolve `nginx:1.29.3-alpine3.22` from Docker Hub. Request a manifest list (`application/vnd.docker.distribution.manifest.list.v2+json` or `application/vnd.oci.image.index.v1+json`). Record the `Docker-Content-Digest` of that index.
 2. If the response is a single-platform manifest, stop. Do not pin a platform blob.
 3. Change the `FROM` line to `nginx:1.29.3-alpine3.22@sha256:<that digest>`. Leave the rest of the Dockerfile as it is.
 
-### 3. Add Dependabot config — prose/policy
+### 3. Add Dependabot config — config
 
 - Files: `.github/dependabot.yml`
-- No tests: prose/policy artifact
+- No tests: configuration GitHub runs. A test that asserts the file text is a change-detector. The build check is a Ruby YAML parse of the keys below.
 
 1. Write `version: 2` with two updates. Bundler: `directory: "/"`, `schedule.interval: weekly`, `versioning-strategy: increase-if-necessary`, and a group named `ruby` with `patterns: ["*"]` and `applies-to: version-updates`. Docker: `directory: "/nginx-proxy"`, `schedule.interval: weekly`.
 2. Parse the file with Ruby's YAML library and check those keys. Do not add a schema gem.
 
-### 4. Enable Dependabot security updates — prose/policy
+### 4. Enable Dependabot security updates — config
 
 - Files: none in the repo
-- No tests: prose/policy artifact
+- No tests: a GitHub repository setting. The build check is a GET that returns `enabled: true`.
 
 1. `PUT repos/Texarkanine/devblog/automated-security-fixes` with `gh`.
 2. `GET` the same path and require `enabled: true`.
@@ -75,7 +76,7 @@ No new technology - validation not required
 
 ## Challenges & Mitigations
 
-- A local Bundler other than 2.6.9 rewrites `BUNDLED WITH` or the platform list during `bundle install`. Use `bundle _2.6.9_ install`. If the lockfile diff is not empty, restore `Gemfile.lock` and treat that as a failed pin, not as a lockfile update.
+- Bundler rewrites `DEPENDENCIES` when a Gemfile constraint changes, even when every locked version still fits. Commit that lockfile change. Restoring the old lockfile makes `pr-check` fail: `bundler-cache: true` sets frozen mode, and a mismatched lock exits 16. If a spec version, platform, or `BUNDLED WITH` line also changes, stop and fix the constraint. Do not run `bundle update`.
 - Docker Hub returns a single-platform manifest, or a digest for one architecture. Refuse it. The `FROM` digest has to be the multi-arch index, or a build on another architecture pulls the wrong blob.
 - Enabling security updates opens advisory pull requests against `main` immediately, using today's Gemfile. Enable last, and do not try to retarget those pull requests onto this branch.
 - `apk add gettext` stays unpinned. Dependabot's docker ecosystem does not bump that line. Out of scope, already decided.
@@ -83,7 +84,8 @@ No new technology - validation not required
 ## Pre-Mortem
 
 - The no-test call gets rejected and someone adds a unittest that snapshots `Gemfile` or `dependabot.yml`. Those tests fail on the next intentional edit and stay green when Dependabot is broken. The plan keeps the change-detector rule in the Test Plan so that rejection has an answer. Do not add the snapshot test.
-- `~> 0.1` is misread as "only 0.1.x" and a gem whose locked version is `0.1.1` is given a constraint Bundler will not accept, which then tempts a lockfile rewrite. The pin list uses the two-component form already in the Gemfile (`~> 4.1` means `>= 4.1` and `< 5.0`). Step 1's empty lockfile diff catches a constraint that does not allow the locked version.
+- `~> 0.1` is misread as "only 0.1.x" and a gem whose locked version is `0.1.1` is given a constraint Bundler will not accept, which then changes a resolution. The pin list uses the two-component form already in the Gemfile (`~> 4.1` means `>= 4.1` and `< 5.0`). Step 1 catches that: spec versions must stay put, and the frozen install must exit 0.
+- The `DEPENDENCIES` diff gets treated as noise and the old lockfile is restored. Frozen CI then fails on the pull request. Step 1 commits the lockfile and proves frozen mode before the pull request exists.
 - Security-update enable is dropped because it is not a file change, so the acceptance criterion fails while the diff looks done. Step 4 is a required build step, last, with a GET that must show `enabled: true`.
 
 ## Status
