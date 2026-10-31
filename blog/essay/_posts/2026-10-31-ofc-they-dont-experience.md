@@ -6,8 +6,10 @@ description: "Nothing feels the world the way I do, so the real question was nev
 author: texarkanine
 category: essay
 tags:
+  - consciousness
   - ethics
   - philosophy
+  - zombies
 ---
 
 > Of course they don't experience consciousness the way I do.
