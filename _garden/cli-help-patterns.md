@@ -129,13 +129,13 @@ In *12 Factor CLI Apps*, Jeff Dickey noted that Heroku ran into this in producti
 - `pip list help` exits 0 and dumps every installed Python package in the environment, silently ignoring the extra positional word. Had the command been `pip install help`, the package manager would have queried PyPI for a package literally named "help".
 - `jekyll build help` ignores the extra positional token and immediately begins compiling the static site to disk.
 
-Using `--help` eliminates the collision because the leading double-dash sigil separates option flags from positional operands. And for the edge case where a user genuinely wants to pass the literal string "\--help" as data - searching for it with grep, creating a file of that name, or recording a note about it in OptMem - POSIX Utility Syntax Guideline 10 solved the problem decades ago with the `--` end-of-options delimiter:[^2]
+Using `--help` eliminates the collision because the leading double-dash sigil separates option flags from positional operands. And for the edge case where a user genuinely wants to pass the literal string "\--help" as data - searching for it with grep, or creating a file of that name - POSIX Utility Syntax Guideline 10 solved the problem decades ago with the `--` end-of-options delimiter:[^2]
 
 ```sh
-memo note -- "--help"
+grep -- "--help" README.md
 ```
 
-Every token before `--` is scanned for option flags, while every token after it is treated strictly as a positional operand. A subcommand parser that intercepts help flags before that delimiter and treats everything after it as literal data is completely unambiguous.
+Every token before `--` is scanned for option flags, while every token after it is treated strictly as a positional operand. OptMem's six-line `cmd_note` does not parse `--` either, so `memo note -- "--help"` trips its one-argument guard and dies; had it honored Guideline 10, `memo note --help` would print usage while `memo note -- "--help"` would record the literal string. A subcommand parser that intercepts help flags before that delimiter and treats everything after it as literal data is completely unambiguous.
 
 ### Prefix Preservation at the Cursor
 
@@ -147,7 +147,7 @@ With **Trailing Subcommand Flag** (`cli sub1 sub2 --help`), every token you have
 
 Why do kubectl, gh, and cargo accept `cli help sub`, while most Python and .NET tools reject it? Because CLI authors ship whatever their language's dominant argument parser generates by default.
 
-| Library | Lang | T2<br>\--help | T3<br>sub -h | T4<br>help s | T5<br>infix | T6<br>postfix | -h |
+| Library | Lang | T2<br>\--help | T3<br>sub \--help | T4<br>help s | T5<br>infix | T6<br>postfix | -h |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | [Cobra](https://github.com/spf13/cobra/blob/main/site/content/user_guide.md) | Go | Auto | Auto | Auto | - | - | Yes |
 | [urfave/cli](https://github.com/urfave/cli) | Go | Auto | Auto | Auto | Auto | Group | Yes |
@@ -187,18 +187,18 @@ Invocation syntax is only the first half of the ontology. The second half is the
 
 To see where real binaries deviate from the GNU ideal (plain text on stdout, exit code 0, unpaged, scoped to the subcommand), the table below maps thirteen widely used CLIs (plus our OptMem `memo`) across all six invocation types.
 
-| CLI | T1<br>bare | T2<br>\--help | T3<br>sub -h | T4<br>help s | T5<br>infix | T6<br>postfix |
+| CLI | T1<br>bare | T2<br>\--help | T3<br>sub \--help | T4<br>help s | T5<br>infix | T6<br>postfix |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **git** | 1 out | 0 out* | 0 man* | 0 man | **0 root!** | 129 err |
+| **git** | 1 out | 0 out | 0 man* | 0 man | 129 err | 129 err |
 | **gh** | 0 out | 0 out | 0 out | 0 out | 1 err | 1 err |
 | **uv** | **2 err** | 0 out | 0 out | 0 out | 2 err | 2 err |
 | **pip** | 0 out | 0 out | 0 out | 0 out | - | **EXEC!** |
 | **npm** | **1 out** | **1 out** | 0 out | 0 man | - | **EXEC!** |
 | **gem** | 1 out | 0 out | 0 out | 0 out | - | **EXEC!** |
 | **jekyll** | 0 out | 0 out | 0 out | 0 out | - | **EXEC!** |
-| **apt** | 1 out | 0 out | **0 root!** | **0 root!** | - | 100 err |
+| **apt** | 1 out | 0 out | **0 root!** | **0 root!** | - | **EXEC!** |
 | **systemctl** | **EXEC!** | 0 out | **0 root!** | **1 EXEC!** | - | **4 EXEC!** |
-| **openssl** | prompt | **0 err** | **0 err** | **0 err** | - | 1 err |
+| **openssl** | **0 err** | **0 err** | **0 err** | **0 err** | - | 1 err |
 | **ip** | **255 err** | **255 err** | **255 err** | **255 root!** | - | **255 err** |
 | **aws** | 2 err | 252 err | 252 err | 0 man | 0 man | 0 man |
 | **gcloud** | 2 err | 0 man* | 0 man* | 0 man | 0 man | 2 err |
@@ -232,8 +232,8 @@ This collision is why Python's Click (and Typer, which wraps it) refuses to bind
 
 If short-flag overloading trains you to skip `-h` and always type `--help`, git and gcloud punish that habit from the opposite direction:
 
-- In git, `git remote -h` prints a compact usage synopsis directly to stdout and exits with status **129**, while `git -h` at the root prints "unknown option: -h" to stderr before the synopsis. Passing `git remote --help` rewrites the call internally to `git help remote`, which opens the full manual page in a pager and exits 0.
-- Even worse for nested subcommands, `git help remote add` silently discards "add" and opens the top-level git-remote manual page. Running `git remote add -h` is the only invocation that isolates the one-line usage string for adding a remote.
+- In git, root `git -h` and `git --help` both print a short command overview to stdout and exit 0 (since Git 2.37; older releases exited 129 on `git -h` with "unknown option: -h"). One level down, the two flags diverge: `git remote -h` prints a compact usage synopsis directly to stdout and exits with status **129**, while `git remote --help` rewrites the call internally to `git help remote`, which opens the full manual page in a pager and exits 0.
+- Even worse for nested subcommands, `git help remote add` silently discards "add" and opens the parent git-remote manual page, whereas both `git remote add -h` and `git remote add --help` bypass the pager, print the one-line usage string for adding a remote to stdout, and exit 129.
 - In gcloud, `-h` prints a short, unpaged usage summary to stdout, whereas `--help` launches a man-style document inside an interactive terminal pager.
 - This split trips up human developers too. In September 2026, Julia Evans opened [gitgitgadget/git PR #2242](https://github.com/gitgitgadget/git/pull/2242) - merged into upstream Git as [commit e2e5e9f740](https://github.com/git/git/commit/e2e5e9f7405ce6753840b5ff3d16fe08833023c5) - to add an explicit explanation of `-h` versus `--help` to the main git manual page, noting how often users complained that the docs hid the easiest way to get quick usage help.
 
@@ -378,10 +378,10 @@ We sampled three workstations (one Linux/WSL2 desktop and two macOS laptops) cov
 
 | Invocation Pattern | All Calls | Share | First-Contact | Share |
 | :--- | :---: | :---: | :---: | :---: |
-| **T3: Subcommand Flag**<br>`cli sub --help` | 545 | 52.3% | 244 | 43.3% |
-| **T2: Root Flag**<br>`cli --help` | 419 | 40.2% | 275 | 48.8% |
-| **T4b: Prefix Help Verb**<br>`cli help sub` | 40 | 3.8% | 12 | 2.1% |
-| **T4a: Bare Help Verb**<br>`cli help` | 23 | 2.2% | 13 | 2.3% |
+| **T3: Subcommand Flag**<br>`cli sub --help` | 545 | 52.3% | 244 | 44.1% |
+| **T2: Root Flag**<br>`cli --help` | 419 | 40.2% | 275 | 49.7% |
+| **T4b: Prefix Help Verb**<br>`cli help sub` | 40 | 3.8% | 12 | 2.2% |
+| **T4a: Bare Help Verb**<br>`cli help` | 23 | 2.2% | 13 | 2.4% |
 | **T6: Postfix Help Word**<br>`cli sub help` | 13 | 1.2% | 8 | 1.4% |
 | **Prefix Flag**<br>`cli -h sub` | 2 | 0.2% | 1 | 0.2% |
 | **T5: Infixed Help Verb**<br>`cli s1 help s2` | 0 | 0.0% | 0 | 0.0% |
