@@ -1,10 +1,12 @@
 ---
 layout: garden
 title: "How Do You Ask a CLI for Help?"
-subtitle: "A typology of command-line help patterns, why they collide with your arguments, and how to test what agents actually need"
-description: "Motivated by 'memo note --help' saving '--help' as a memory: an empirical survey and typology of CLI help invocation syntax, delivery contracts, and an experimental design for benchmarking agents and harnesses."
+subtitle: "Help me --help you"
+description: "A typology of command-line help patterns, why they collide with your arguments, and how to test what agents actually need."
 tags:
   - ai
+  - cli
+  - developer-tools
   - harness-engineering
   - research
   - software-engineering
