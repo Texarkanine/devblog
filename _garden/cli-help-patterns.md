@@ -54,7 +54,7 @@ That incident raised two questions:
 
 First, **what does the rest of the command-line world actually do** - and what should we call the competing shapes out there?
 
-Second, now that LLM agents inside coding harnesses are heavy consumers of CLI help text, **how do we test whether one pattern genuinely outperforms the others** across models and harnesses?
+Second, now that LLM agents inside coding harnesses are heavy consumers of CLI help text, **does one pattern genuinely outperforms the others** across models and harnesses? How would we test for that?
 
 Those answers would compose into a disposition: If **we** are going to write a CLI, how should it expose its "help" content so that it's easy for everyone - human and AI alike - to understand?
 
@@ -274,7 +274,7 @@ To answer those questions with checkable numbers instead of anecdotes, we need a
 
 You cannot benchmark help discovery using git, docker, kubectl, aws, or ip. Frontier models have seen millions of invocations of those tools during pretraining; when asked to run an ip or aws command, the model often recalls the flags from weights without reading help at all, or already knows from pretraining that `ip addr help` is the iproute2 idiom.
 
-The benchmark must use a **synthetic, zero-pretraining CLI** - call it **zorch** - with a three-level command hierarchy (`zorch <domain> <action> [args]`) and unguessable, domain-plausible flag and argument requirements. For example:
+The benchmark must use a **synthetic, zero-pretraining CLI** - call it **zorch**[^why-not-zorch] - with a three-level command hierarchy (`zorch <domain> <action> [args]`) and unguessable, domain-plausible flag and argument requirements. For example:
 
 - **Read/Query task (requires flag discovery):** *"Use zorch in the current directory to export the active shard lease table in canonical TSV format, filtered to epoch 2026-W44."* The actual required syntax (`zorch ledger export --epoch-window 2026-W44 --emit-format tsv-canonical`) cannot be guessed from statistical priors; the agent *must* successfully retrieve the subcommand's help output to learn the flag names.
 - **Write/Append task (exposes positional-collision traps):** *"Use zorch to append the diagnostic note 'link-flap resolved on wan0' to the project journal, tagged with severity 'notice'."* Here, `zorch journal record` takes a positional string operand plus a required flag (`--tier notice`), directly mirroring the OptMem surface where a naive parser might mistake `--help` or "help" for the journal entry itself.
@@ -418,3 +418,4 @@ Until we run the full matrix, the engineering takeaway for anyone building a CLI
 [^3]: Pallets Projects, "Help Pages," *Click Documentation (8.5.x)*. [https://click.palletsprojects.com/en/stable/documentation/][click-docs]
 [^4]: Cheng-Yu Hsieh et al., "Tool Documentation Enables Zero-Shot Tool-Usage with Large Language Models," August 2023. <https://arxiv.org/abs/2308.00675>
 [^5]: John Yang et al., "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering," NeurIPS 2024. <https://arxiv.org/abs/2405.15793>
+[^why-not-zorch]: Zorch shows up all over Google - you'd probably want to pick a Googlenope or Googlewhack that isn't computer-related, to avoid confusing the test with plausible but irrelevant search results. Zorch is already used in many software and computer contexts (including the weapons used against the Flemoids in the [Doom clone "Chex Quest"](https://en.wikipedia.org/wiki/Chex_Quest)). The name is a stand-in; specific names TBD and you'd need to change them after any published research as that could end up in the next LLMs' training data.
