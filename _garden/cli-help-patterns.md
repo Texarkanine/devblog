@@ -12,6 +12,12 @@ tags:
   - unix
 ---
 
+{::options toc_levels="2" /}
+1. Table of Contents
+{:toc}
+
+---
+
 I was working with [OptMem](https://github.com/VictorTaelin/OptMem), an append-only memory tool for AI coding agents, when I wanted to check the usage and byte limit for its note subcommand. I typed what decades of Unix habit trained me to type:
 
 ```sh
@@ -42,17 +48,23 @@ Running `memo` with no arguments prints the full command table and exits cleanly
 
 As a human at a shell prompt, I always reach for `<full command I want> --help` first. You type the command path down to the exact subcommand you intend to run - say, `git remote add` or `gh pr list` - and tack the help flag onto the end when your memory gives out. Once you read the synopsis, you hit the up arrow, backspace over the flag, type your real arguments, and press Enter.
 
-That incident raised two questions. First, what does the rest of the command-line world actually do - and what should we call the competing shapes out there? Second, now that LLM agents inside coding harnesses are heavy consumers of CLI help text, how do we test whether one pattern genuinely outperforms the others across models and harnesses?
+That incident raised two questions:
+
+First, **what does the rest of the command-line world actually do** - and what should we call the competing shapes out there?
+
+Second, now that LLM agents inside coding harnesses are heavy consumers of CLI help text, **how do we test whether one pattern genuinely outperforms the others** across models and harnesses?
+
+Those answers would compose into a disposition: If **we** are going to write a CLI, how should it expose its "help" content so that it's easy for everyone - human and AI alike - to understand?
 
 ## The Standard That Stops at the Root
 
 No formal specification defines how subcommand help should work.
 
-The [POSIX Utility Conventions][posix-12] codify single-letter short options (`-a`, `-v`), require options to precede positional operands, and reserve `--` as the end-of-options delimiter under Guideline 10.[^1] POSIX says nothing about a help flag. Its accompanying [rationale document][posix-rat] mentions `ls --help` only in passing as a "permitted extension."[^2]
+The [POSIX Utility Conventions][posix-12] codify single-letter short options (`-a`, `-v`), require options to precede positional operands, and reserve `--` as the end-of-options delimiter under Guideline 10. POSIX says nothing about a help flag. Its accompanying [rationale document](https://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xbd_chap12.html) mentions `ls --help` only in passing as a "permitted extension."
 
-The [GNU Coding Standards][gnu-cli] provide the only widely followed formal rule: every program should support a `--help` option that writes brief usage documentation to standard output (stdout), ignores all other options and arguments once seen, and exits with status code 0.[^3] GNU wrote that rule for flat utilities like ls, grep, and tar. It says nothing about nested command trees like `git remote add` or `aws ec2 describe-instances`.
+The [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/_002d_002dhelp.html) provide the only widely followed formal rule: every program should support a `--help` option that writes brief usage documentation to standard output (stdout), ignores all other options and arguments once seen, and exits successfully. GNU wrote that rule for flat utilities like ls, grep, and tar. It says nothing about nested command trees like `git remote add` or `aws ec2 describe-instances`.
 
-Modern practitioner guides try to cover the gap by recommending every common pattern at once. Both [Command Line Interface Guidelines][clig] (clig.dev) and Jeff Dickey's [12 Factor CLI Apps][12factor] advise supporting `-h` and `--help` on the root binary and every subcommand, alongside `mycli help` and `mycli help subcommand`.[^4][^5]
+Modern practitioner guides try to cover the gap by recommending every common pattern at once. Both [Command Line Interface Guidelines](https://clig.dev/#help) (clig.dev) and Jeff Dickey's [12 Factor CLI Apps][12factor] advise supporting `-h` and `--help` on the root binary and every subcommand, alongside `mycli help` and `mycli help subcommand`.
 
 In practice, CLI authors rarely design help routing by hand unless they are writing a minimal argument dispatch table like OptMem. What governs the ecosystem is what the major argument-parsing libraries generate out of the box.
 
@@ -60,7 +72,7 @@ In practice, CLI authors rarely design help routing by hand unless they are writ
 
 Before naming the patterns, it helps to separate three classification words that often get blurred together:
 
-- **Typology:** A conceptual grid formed by crossing analytical dimensions (following Kenneth Bailey's distinction in [*Typologies and Taxonomies*](https://books.google.com/books?id=ab9aAwAAQBAJ)). Here, crossing **token kind** (a dashed option flag like `--help` versus a bare positional word like `help`) with **syntactic position** in the command tree (bare, root, prefix, infixed, or postfix) produces six structural types.
+- **Typology:** A conceptual grid formed by crossing analytical dimensions (following Kenneth Bailey's distinction in [*Typologies and Taxonomies*](https://books.google.com/books?id=1TaYulGjhLYC)). Here, crossing **token kind** (a dashed option flag like `--help` versus a bare positional word like `help`) with **syntactic position** in the command tree (bare, root, prefix, infixed, or postfix) produces six structural types.
 - **Taxonomy:** An empirical classification that sorts observed specimens - real libraries like Cobra, clap, and argparse, and real binaries like git, ip, and aws - into those buckets.
 - **Ontology:** A specification of entities, their properties, and the operational relationships between them. For CLI help, an ontology covers both the invocation syntax on argv and the execution contract it triggers: whether the parser short-circuits argument validation, which stream receives the text (stdout versus stderr), whether a TTY spawns an interactive pager (less, man, or a browser), and what exit code terminates the process.
 
@@ -86,23 +98,20 @@ graph TD
     WordPos -->|"After subcommand path"| T6["Type 6: Postfix Help Keyword<br/>cli sub1 sub2 help"]:::word
 ```
 
-| Type | Syntax Template | Representative Tools |
-| :--- | :--- | :--- |
-| **1. Bare Invocation** | `cli` | memo, gh, npm, pip |
-| **2. Root Flag** | `cli --help` | GNU coreutils, almost all CLIs |
-| **3. Trailing Subcommand Flag** | `cli sub1 sub2 --help` | kubectl, docker, gh, uv, cargo, pip |
-| **4. Prefix Help Subcommand** | `cli help sub1 sub2` | git, go, gh, uv, cargo, pip, gem |
-| **5. Infixed Help Subcommand** | `cli sub1 help sub2` | urfave/cli, Ruby Thor, default clap |
-| **6. Postfix Help Keyword** | `cli sub1 sub2 help` | aws, iproute2, yargs, Thor |
-
 Each type routes through the parser differently and breaks in its own characteristic way:
 
-- **Type 1 (Bare Invocation):** Triggers a zero-argument fallback when a required subcommand is omitted. *Primary failure mode:* executes the default action instead of printing help if the command requires no arguments (`memo wake`).
-- **Type 2 (Root Flag):** Intercepts the help flag at the top-level parser before command dispatch. *Primary failure mode:* in flat parsers (`apt list --help`), dumps global top-level help and ignores the subcommand.
-- **Type 3 (Trailing Subcommand Flag):** Transfers option parsing to the active subcommand's parser, which intercepts `--help` locally. *Primary failure mode:* naive sub-parsers without option scanning swallow the flag as a positional operand (`memo note --help`).
-- **Type 4 (Prefix Help Subcommand):** Dispatches to a root help verb that resolves the remaining tokens as a command path. *Primary failure mode:* fails on flag-only frameworks (argparse, Click) and requires cursoring back to the root to rewrite the command.
-- **Type 5 (Infixed Help Subcommand):** Each parent subcommand registers its own local help verb to inspect child commands. *Primary failure mode:* fails on root-only help routers (`gh pr help list`) and forces users to guess tree depth.
-- **Type 6 (Postfix Help Keyword):** Intercepts the bare word help at the end of a subcommand's argument vector. *Primary failure mode:* collides with optional positional operands (`jekyll build help` builds the site; `gem list help` searches for a gem matching "help").
+- **Type 1 (Bare Invocation):** Triggers a zero-argument fallback when a required subcommand is omitted (memo, gh, npm, pip). 
+	- *Primary failure mode:* executes the default action instead of printing help if the command requires no arguments (`memo wake`, `jekyll build`).
+- **Type 2 (Root Flag):** Intercepts the help flag at the top-level parser before command dispatch (GNU coreutils, almost all CLIs).
+	- *Primary failure mode:* in flat parsers (`apt list --help`), dumps global top-level help and ignores the subcommand.
+- **Type 3 (Trailing Subcommand Flag):** Transfers option parsing to the active subcommand's parser, which intercepts `--help` locally (kubectl, docker, gh, uv, cargo, pip).
+	- *Primary failure mode:* naive sub-parsers without option scanning swallow the flag as a positional operand (`memo note --help`).
+- **Type 4 (Prefix Help Subcommand):** Dispatches to a root help verb that resolves the remaining tokens as a command path (git, go, gh, uv, cargo, pip, gem). 
+	- *Primary failure mode:* fails on flag-only frameworks (argparse, Click) and requires cursoring back to the root to rewrite the command.
+- **Type 5 (Infixed Help Subcommand):** Each parent subcommand registers its own local help verb to inspect child commands (urfave/cli, Ruby Thor, default clap). 
+	- *Primary failure mode:* fails on root-only help routers (`gh pr help list`) and forces users to guess tree depth.
+- **Type 6 (Postfix Help Keyword):** Intercepts the bare word help at the end of a subcommand's argument vector (aws, iproute2, yargs, Thor). 
+	- *Primary failure mode:* collides with optional positional operands (`jekyll build help` builds the site; `gem list help` searches for a gem matching "help").
 
 ## Why the Trailing Flag Is Least Ambiguous
 
@@ -112,13 +121,13 @@ My preference for `<full command I want> --help` (Type 3, **Trailing Subcommand 
 
 A bare word like "help" lives in the exact same lexical namespace as file paths, package names, regular expressions, and application identifiers. Whenever a subcommand accepts optional or free-form positional arguments, Type 6 (**Postfix Help Keyword**) creates an unavoidable collision between asking for documentation and passing the string "help" as data.
 
-In *12 Factor CLI Apps*, Jeff Dickey noted that Heroku ran into this in production: someone created a real Heroku application named "help", making `heroku <command> help` ambiguous between inspecting the command and operating on the app.[^5] Common developer tools exhibit three different failure modes from the same collision:
+In *12 Factor CLI Apps*, Jeff Dickey noted that Heroku ran into this in production: someone created a real Heroku application named "help", making `heroku <command> help` ambiguous between inspecting the command and operating on the app.[^1] Common developer tools exhibit three different failure modes from the same collision:
 
 - `gem list help` exits 0 with completely empty output. Because gem list accepts an optional regular expression filter, it treats "help" as a pattern, searches installed gems for a package matching `/help/`, finds none, and exits silently.
 - `pip list help` exits 0 and dumps every installed Python package in the environment, silently ignoring the extra positional word. Had the command been `pip install help`, the package manager would have queried PyPI for a package literally named "help".
 - `jekyll build help` ignores the extra positional token and immediately begins compiling the static site to disk.
 
-Using `--help` eliminates the collision because the leading double-dash sigil separates option flags from positional operands. And for the edge case where a user genuinely wants to pass the literal string "\--help" as data - searching for it with grep, creating a file of that name, or recording a note about it in OptMem - [POSIX Utility Syntax Guideline 10][posix-12] solved the problem decades ago with the `--` end-of-options delimiter:[^1]
+Using `--help` eliminates the collision because the leading double-dash sigil separates option flags from positional operands. And for the edge case where a user genuinely wants to pass the literal string "\--help" as data - searching for it with grep, creating a file of that name, or recording a note about it in OptMem - POSIX Utility Syntax Guideline 10 solved the problem decades ago with the `--` end-of-options delimiter:[^2]
 
 ```sh
 memo note -- "--help"
@@ -143,13 +152,13 @@ Why do kubectl, gh, and cargo accept `cli help sub`, while most Python and .NET 
 | [Kong](https://github.com/alecthomas/kong) | Go | Auto | Auto | - | - | - | Yes |
 | [clap](https://docs.rs/clap/latest/clap/struct.Command.html#method.disable_help_subcommand) | Rust | Auto | Auto | Auto | Auto | Group | Yes |
 | [argparse](https://docs.python.org/3/library/argparse.html) | Py | Auto | Auto | - | - | - | Yes |
-| [Click](https://click.palletsprojects.com/en/stable/documentation/) | Py | Auto | Auto | - | - | - | **No** |
+| [Click][click-docs] | Py | Auto | Auto | - | - | - | **No** |
 | [Typer](https://typer.tiangolo.com/) | Py | Auto | Auto | - | - | - | **No** |
 | [commander](https://github.com/tj/commander.js#automated-help) | Node | Auto | Auto | Auto | Group | - | Yes |
 | [yargs](https://yargs.js.org/) | Node | Auto | Auto | Auto | ? | Auto | Opt |
 | [oclif](https://oclif.io/) | Node | Auto | Auto | Opt | - | - | Yes |
 | [Thor](https://github.com/rails/thor) | Ruby | Auto | Auto | Auto | Auto | Group | Yes |
-| [picocli](https://picocli.info/#_help_commands) | Java | Opt | Opt | Opt | Opt | Opt | Opt |
+| [picocli](https://picocli.info/#_help) | Java | Opt | Opt | Opt | Opt | Opt | Opt |
 | [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/how-to-parse-and-invoke) | .NET | Auto | Auto | - | - | - | Yes |
 | [ArgumentParser](https://github.com/apple/swift-argument-parser) | Swift | Auto | Auto | Auto | ? | - | Yes |
 
@@ -162,14 +171,19 @@ Cell key:
 
 Two fault lines jump out of this table:
 
-1. **The Flag-Only vs. Flag-Plus-Verb Split:** Go (Cobra, urfave/cli), Rust (clap), Node (commander.js, yargs), Ruby (Thor), and Swift (ArgumentParser) automatically register a help subcommand whenever an application defines subcommands. Python (argparse, Click, Typer) and .NET (System.CommandLine) generate only help flags; a Python CLI only supports `cli help sub` if its authors explicitly build a help subcommand (as pip did). Even stricter, Python's Click and Typer do not bind `-h` by default, reserving single-letter flags for the application unless the developer sets `help_option_names=['-h', '--help']`.[^6]
-2. **Root-Scoped vs. Per-Level Help Subcommands:** Even among libraries that generate a help subcommand, routing differs at depth 2. Go's Cobra registers help only at the root and resolves the entire subcommand path as arguments: `gh help pr list` works, while `gh pr help list` fails. Rust's clap generates a help subcommand at every nested level by default, unless the author calls [clap's disable_help_subcommand method](https://docs.rs/clap/latest/clap/struct.Command.html#method.disable_help_subcommand) on child subcommands - which Astral's uv does on its pip subcommand, so `uv help pip list` succeeds while `uv pip help list` exits with code 2.
+1. **The Flag-Only vs. Flag-Plus-Verb Split**
+	- Among Go, Rust, Node, Ruby, and Swift frameworks, the preference is overwhelmingly for automatically registering a help subcommand whenever an application defines subcommands. 
+	- Python and .NET frameworks generate only help flags; a Python CLI only supports `cli help sub` if its authors explicitly build a help subcommand (as pip did). Even stricter, Click and Typer do not bind `-h` by default, reserving single-letter flags for the application by default.[^3]
+	- Java sits at the far end of the spectrum: in picocli (as in older Java parsers like Commons CLI and JCommander), *nothing* is generated by default - a bare `@Command` class has no `-h`, `--help`, or `help` subcommand until the author explicitly opts in.
+2. **Root-Scoped vs. Per-Level Help Subcommands:** Even among libraries that generate a help subcommand, routing differs at depth 2.
+	- Cobra registers help only at the root and resolves the entire subcommand path as arguments: `gh help pr list` works, while `gh pr help list` fails.
+	- Rust's clap generates a help subcommand at every nested level by default, unless the author calls [clap's disable_help_subcommand method](https://docs.rs/clap/latest/clap/struct.Command.html#method.disable_help_subcommand) on child subcommands - which Astral's uv does on its pip subcommand, so `uv help pip list` succeeds while `uv pip help list` exits with code 2.
 
 ## What Happens When You Actually Run Them
 
 Invocation syntax is only the first half of the ontology. The second half is the **delivery contract**: once a user or an AI agent triggers help, what stream does the tool write to, does it block on an interactive pager, does it actually show help for the requested subcommand, and what exit code does it return?
 
-To see where real binaries deviate from the GNU ideal (plain text on stdout, exit code 0, unpaged, scoped to the subcommand), the table below maps fourteen widely used CLIs across all six invocation types.
+To see where real binaries deviate from the GNU ideal (plain text on stdout, exit code 0, unpaged, scoped to the subcommand), the table below maps thirteen widely used CLIs (plus our OptMem `memo`) across all six invocation types.
 
 | CLI | T1<br>bare | T2<br>\--help | T3<br>sub -h | T4<br>help s | T5<br>infix | T6<br>postfix |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -188,7 +202,7 @@ To see where real binaries deviate from the GNU ideal (plain text on stdout, exi
 | **gcloud** | 2 err | 0 man* | 0 man* | 0 man | 0 man | 2 err |
 | **memo** | 0 out | 1 err | **EXEC!** | 1 err | - | **EXEC!** |
 
-Each cell records the exit code (0, 1, 2, 4, 100, 129, 252, or 255) followed by what the command actually did:
+Each cell records the exit code followed by what the command actually did:
 
 - **out:** wrote unpaged help text to stdout.
 - **err:** wrote to stderr (either an error message or, in openssl and iproute2, the help text itself).
@@ -197,18 +211,28 @@ Each cell records the exit code (0, 1, 2, 4, 100, 129, 252, or 255) followed by 
 - **EXEC!:** did not treat the call as a CLI help request at all; executed a real subcommand instead (such as building the site, recording a memory, filtering packages, or querying a systemd unit named `status.service` or `help.service`).
 - **\*:** `-h` and `--help` diverge in exit code, stream, or paging (detailed below).
 
-Four delivery failure modes stand out across these tools:
+Five delivery failure modes stand out across these tools:
 
 ### Global Flag Shadowing
 
 In apt and systemctl, the help flag is scanned globally before subcommand routing. When a user or agent runs `apt list --help` or `systemctl status --help`, the process exits 0 and prints the global top-level help screen without mentioning the flags for the subcommand. Worse, running `systemctl help <name>` queries documentation for a running systemd service unit rather than a CLI subcommand.
 
+### Short-Flag Overloading
+
+Because POSIX originally standardized only single-letter flags, dozens of established tools claimed `-h` for domain options long before GNU popularized `--help`:
+
+- **Flag requires an argument (wastes a turn, but ratchets):** In database clients like psql, mysql, and redis-cli (and in gsutil, where top-level `-h` sets an HTTP header), `-h` means `--host` or `--header`. Running `psql -h` fails with `psql: option requires an argument -- 'h'` and prints `Try "psql --help" for more information.` The error message steers you to the right flag, at the price of a wasted turn.
+- **Flag takes no argument (executes silently):** In df, du, ls, and free, `-h` means `--human-readable`. Running `df -h` or `free -h` to check usage syntax doesn't print help or an error hint - it runs the command immediately.
+
+This collision is why Python's Click (and Typer, which wraps it) refuses to bind `-h` to help by default: as Click creator Armin Ronacher explained in [pallets/click #19](https://github.com/pallets/click/issues/19#issuecomment-43235026), "-h is commonly used as different argument. \--help is the standard way to invoke the help page of a script."
+
 ### Two-Depth Flag Asymmetry
 
-Both git and gcloud violate the principle that `-h` and `--help` should be aliases:
+If short-flag overloading trains you to skip `-h` and always type `--help`, git and gcloud punish that habit from the opposite direction:
 
 - In git, `git remote -h` prints a compact usage synopsis directly to stdout and exits with status **129**, while `git -h` at the root prints "unknown option: -h" to stderr before the synopsis. Passing `git remote --help` rewrites the call internally to `git help remote`, which opens the full manual page in a pager and exits 0.
 - Even worse for nested subcommands, `git help remote add` silently discards "add" and opens the top-level git-remote manual page. Running `git remote add -h` is the only invocation that isolates the one-line usage string for adding a remote.
+- In gcloud, `-h` prints a short, unpaged usage summary to stdout, whereas `--help` launches a man-style document inside an interactive terminal pager.
 - This split trips up human developers too. In September 2026, Julia Evans opened [gitgitgadget/git PR #2242](https://github.com/gitgitgadget/git/pull/2242) - merged into upstream Git as [commit e2e5e9f740](https://github.com/git/git/commit/e2e5e9f7405ce6753840b5ff3d16fe08833023c5) - to add an explicit explanation of `-h` versus `--help` to the main git manual page, noting how often users complained that the docs hid the easiest way to get quick usage help.
 
 ### Stream and Exit-Code Inversions
@@ -229,7 +253,7 @@ This exact failure mode has been reported and patched independently across major
 
 We have solid research on *why* tool documentation and non-interactive interfaces matter for language models, and zero empirical data on *which CLI help invocation syntax* works best.
 
-On the documentation side, [Hsieh et al. (2023)][hsieh-2023] demonstrated that zero-shot prompts containing tool documentation match few-shot demonstrations on tool-use benchmarks, confirming that agents can extract invocation rules from reference text when they can reach it.[^8] On the interface side, [Yang et al. (SWE-agent, NeurIPS 2024)][swe-agent] formalized the **Agent-Computer Interface (ACI)**, showing that small mechanical changes to how shell tools present output and prevent interactive hangs produce large swings in autonomous bug-fixing accuracy.[^9]
+On the documentation side, Hsieh et al. (2023) demonstrated that zero-shot prompts containing tool documentation match few-shot demonstrations on tool-use benchmarks, confirming that agents can extract invocation rules from reference text when they can reach it.[^4] On the interface side, Yang et al. (SWE-agent, NeurIPS 2024) formalized the **Agent-Computer Interface (ACI)**, showing that small mechanical changes to how shell tools present output and prevent interactive hangs produce large swings in autonomous bug-fixing accuracy.[^5]
 
 Practitioners have offered competing opinions on how CLIs should adapt to agents. In ["You Need to Rewrite Your CLI for AI Agents"](https://justin.poehnelt.com/posts/rewrite-your-cli-for-ai-agents/) ([HN discussion](https://news.ycombinator.com/item?id=47252459)), Justin Poehnelt describes designing Google's [Google Workspace CLI](https://github.com/googleworkspace/cli) (`gws`) with a dedicated `gws schema` command for machine-readable JSON introspection alongside more than a hundred preloaded skill files so agents rarely need to scrape `--help` at all, while commenters on Hacker News pushed back that a CLI well-designed for humans is already well-designed for agents.
 
@@ -242,7 +266,7 @@ What nobody has measured is what happens at the moment an agent meets an unfamil
 
 ## Designing the Benchmark
 
-To answer those questions with checkable numbers instead of anecdotes, we need a controlled experiment that crosses **CLI help architectures** against **models** and **harnesses**. Below is the test design we plan to run.
+To answer those questions with checkable numbers instead of anecdotes, we need a controlled experiment that crosses **CLI help architectures** against **models** and **harnesses**. Below is the test design we could run.
 
 ### Eliminating Pretraining Contamination
 
@@ -348,49 +372,47 @@ Before running a single trial, I will put my predictions on the record so the da
 
 Before building and running the synthetic zorch matrix, we can take an observational pre-pass against [Stockroom](https://github.com/Texarkanine/stockroom), the local DuckDB warehouse that records every tool call across our Cursor and Claude Code sessions.
 
-On the first workstation surveyed (scanning 56,120 shell tool calls across 2,424 coding sessions), filtering for genuine CLI help invocations turned up 386 direct CLI help calls (plus 22 `make help` target runs and 14 `man <cmd>` lookups):
+We sampled three workstations (one Linux/WSL2 desktop and two macOS laptops) covering 146,824 shell tool calls across 6,623 coding sessions (5,832 in Cursor and 791 in Claude Code), excluding `make help` target runs and `man` lookups:
 
 | Invocation Pattern | All Calls | Share | First-Contact | Share |
 | :--- | :---: | :---: | :---: | :---: |
-| **T3: Subcommand Flag** (cli sub \--help) | 210 | 54.4% | 81 | 42.2% |
-| **T2: Root Flag** (cli \--help) | 148 | 38.3% | 97 | 50.5% |
-| **T4b: Prefix Help Verb** (cli help sub) | 14 | 3.6% | 5 | 2.6% |
-| **T4a: Bare Help Verb** (cli help) | 12 | 3.1% | 8 | 4.2% |
-| **Prefix Flag** (cli -h sub) | 2 | 0.5% | 1 | 0.5% |
-| **T5: Infixed Help Verb** (cli s1 help s2) | 0 | 0.0% | 0 | 0.0% |
-| **T6: Postfix Help Word** (cli sub help) | 0 | 0.0% | 0 | 0.0% |
+| **T3: Subcommand Flag**<br>`cli sub --help` | 545 | 52.3% | 244 | 43.3% |
+| **T2: Root Flag**<br>`cli --help` | 419 | 40.2% | 275 | 48.8% |
+| **T4b: Prefix Help Verb**<br>`cli help sub` | 40 | 3.8% | 12 | 2.1% |
+| **T4a: Bare Help Verb**<br>`cli help` | 23 | 2.2% | 13 | 2.3% |
+| **T6: Postfix Help Word**<br>`cli sub help` | 13 | 1.2% | 8 | 1.4% |
+| **Prefix Flag**<br>`cli -h sub` | 2 | 0.2% | 1 | 0.2% |
+| **T5: Infixed Help Verb**<br>`cli s1 help s2` | 0 | 0.0% | 0 | 0.0% |
+| **Total** | **1,042** | **100%** | **553** | **100%** |
 
-Even on a single machine, three findings jump out against our hypotheses:
+Three findings jump out against our hypotheses:
 
-1. **Flag-first is a 93% prior in the wild:** Across both harnesses (Cursor and Claude Code) and every attributed model family (Claude Opus 4.5/4.6/5/5.5, Grok 4.5/4.6/4.7, Gemini 3.8 Flash / 4 Argon, and Composer 2.5), dashed flags (`--help` at 331 calls, `-h` at 29 calls) accounted for 93.3% of all CLI help invocations (360 of 386). When an agent asked for help on a *subcommand* (226 calls total), it reached for **Type 3 (`cli sub --help`) 92.9% of the time** (210 of 226), **Type 4 (`cli help sub`) 6.2% of the time** (14 of 226), and **Types 5 and 6 zero times** (0 of 226).
-2. **Hypothesis 3 already happened in production:** The warehouse caught an agent falling straight into the OptMem trap during an August 2026 Cursor session. On its second turn of the session, the agent ran `memo --help` (which failed with `No such command: --help`) followed in the same command by `memo note --help` - which silently wrote "\--help" into the project's permanent memory log as entry #124. On the very next turn, the agent ran `memo recall '^--help$|^#124'` to confirm the damage, realized `memo forget` only drops compressed tree summaries rather than raw log entries, and had to apologize to the operator in a side note that memory #124 was permanently stuck in the log as "\--help".
-3. **Why observational logs still need the synthetic benchmark:** Field logs confirm what agents *try first*, and occasionally catch a state-mutating trap like entry #124, but they are heavily weighted toward CLIs the model already knows from pretraining (git, gh, uv) or CLIs actively being built in the workspace. Running the controlled zorch matrix is still required to measure how models recover when an unfamiliar tool only accepts Type 4, 5, or 6 under opaque (S0) versus guided (S1) error messages.
+1. **Flag-first is a 93% prior in the wild - and `--help` beats `-h` nearly 20 to 1:** Dashed flags accounted for 92.7% of all CLI help invocations (92.5% in Cursor, 94.3% in Claude Code), holding steady across Claude, Grok, Gemini, GPT, and Composer models. Within those flag calls, agents chose long `--help` (919 calls) over short `-h` (47 calls) by a 19.5-to-1 margin: overloading `-h` for `--host` or `--human-readable` is a trap in theory, but agents dodge it 95% of the time in practice by reaching straight for `--help`. Separating the 600 calls that targeted a *subcommand* from the root-level calls shows Type 3 beating every positional `help` alternative by more than 10 to 1:
+   - **Type 3 (`cli sub --help`):** 90.8%
+   - **Type 4 (`cli help sub`):** 6.7%
+   - **Type 6 (`cli sub help`):** 2.2%
+   - **Prefix Flag (`cli -h sub`):** 0.3%
+   - **Type 5 (`cli s1 help s2`):** 0%
+2. **How the OptMem trap plays out in the logs:** The warehouse also shows the two-step sequence behind the `memo note --help` failure that motivated this page: an agent tries `memo --help` (which fails with `No such command: --help`), immediately follows up with `memo note --help`, and only realizes on the next turn that "\--help" is now a permanent entry in `LOG.txt` that `memo forget` cannot remove.
+3. **Why observational logs still need the synthetic benchmark:** Field logs confirm what agents *try first*, but everyday transcripts are weighted toward CLIs the model already knows from pretraining (git, gh, gcloud, uv) or CLIs actively being built in the workspace. Running the controlled zorch matrix is still required to measure how models recover when an unfamiliar tool only accepts Type 4, 5, or 6 under opaque (S0) versus guided (S1) error messages.
 
-Until we run the full matrix, the engineering takeaway for anyone building a CLI used by humans and agents alike is straightforward: intercept `-h` and `--help` on every command and subcommand before reading positional arguments (honoring `--` for literal operands), alias `cli help [subcommands...]` to the same handler, write plain unpaged text to stdout with exit code 0, and never let a help probe mutate state.
+## How to Write Your CLI's Help
+
+Until we run the full matrix, the engineering takeaway for anyone building a CLI used by humans and agents alike is straightforward: 
+
+1. intercept both `-h` and `--help` on every command and subcommand before reading positional arguments (honoring `--` for literal operands)
+2. alias `cli help [subcommands...]` to the same handler
+3. write plain unpaged text to stdout with exit code 0
+4. never let a help probe mutate state
 
 ---
 
 [posix-12]: https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap12.html
-[^1]: IEEE / The Open Group, "Chapter 12: Utility Conventions," *The Open Group Base Specifications Issue 8 (POSIX.1-2024)*. [https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap12.html][posix-12]
-
-[posix-rat]: https://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xbd_chap12.html
-[^2]: IEEE / The Open Group, "Rationale for Base Definitions, Chapter 12: Utility Conventions." [https://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xbd_chap12.html][posix-rat]
-
-[gnu-cli]: https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html
-[^3]: Free Software Foundation, "4.7 Standards for Command Line Interfaces," *GNU Coding Standards*. [https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html][gnu-cli]
-
-[clig]: https://clig.dev/#help
-[^4]: Aanand Prasad, Ben Firshman, Carl Tashian, and Eva Parish, "Help," *Command Line Interface Guidelines (clig.dev)*. [https://clig.dev/#help][clig]
-
 [12factor]: https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46
-[^5]: Jeff Dickey, "12 Factor CLI Apps," October 2018. [https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46][12factor]
+[click-docs]: https://click.palletsprojects.com/en/stable/documentation/
 
-[^6]: Pallets Projects, "Help Pages," *Click Documentation (8.5.x)*. <https://click.palletsprojects.com/en/stable/documentation/>
-
-[^7]: Amazon Web Services, "Accessing help and resources for the AWS CLI," *AWS CLI User Guide*. <https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-help.html>
-
-[hsieh-2023]: https://arxiv.org/abs/2308.00675
-[^8]: Cheng-Yu Hsieh et al., "Tool Documentation Enables Zero-Shot Tool-Usage with Large Language Models," August 2023. [https://arxiv.org/abs/2308.00675][hsieh-2023]
-
-[swe-agent]: https://arxiv.org/abs/2405.15793
-[^9]: John Yang et al., "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering," NeurIPS 2024. [https://arxiv.org/abs/2405.15793][swe-agent]
+[^1]: Jeff Dickey, "12 Factor CLI Apps," October 2018. [https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46][12factor]
+[^2]: IEEE / The Open Group, "Chapter 12: Utility Conventions," *The Open Group Base Specifications Issue 8 (POSIX.1-2024)*. [https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap12.html][posix-12]
+[^3]: Pallets Projects, "Help Pages," *Click Documentation (8.5.x)*. [https://click.palletsprojects.com/en/stable/documentation/][click-docs]
+[^4]: Cheng-Yu Hsieh et al., "Tool Documentation Enables Zero-Shot Tool-Usage with Large Language Models," August 2023. <https://arxiv.org/abs/2308.00675>
+[^5]: John Yang et al., "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering," NeurIPS 2024. <https://arxiv.org/abs/2405.15793>
