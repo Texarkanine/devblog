@@ -209,3 +209,16 @@ h6[id]:hover .heading-anchor,
 .heading-anchor:focus {
 	opacity: 1;
 }
+
+/* Symmetric centered breakout for wide tables (tag with {:.wide} in Markdown) */
+table.wide {
+	display: block;
+	width: max-content;
+	max-width: calc(100vw - 2rem);
+	margin: 1.5rem 0;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	overflow-x: auto;
+}
+
