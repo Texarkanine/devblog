@@ -1,0 +1,9 @@
+# 3d-printing
+
+> Tag: 3d-printing
+
+## Posts
+
+- [Bold of You to Assume I Know What a Lintel Is](https://blog.cani.ne.jp/2026/10/20/lintel.md): A human with calipers and an agent with a CAD script put four printable parts online in eight days. Every mistake between them was a stand-in that crossed the gap in place of the real thing.
+- [Do I Need to Reprint?](https://blog.cani.ne.jp/2026/10/20/do-i-need-to-reprint.md): Merge a change, get a versioned Cults3D listing. How a catalog of printable models ships itself from GitHub, what a version number should mean for a thing you print, nine traps in Cults3D's API, and the steps to run your own.
+- [We Therefore do not Recommend this Approach (to Upgrading OctoPrint's Python)](https://blog.cani.ne.jp/2025/11/14/octoprint-python-upgrade-cascade.md): Python 3.13 needs glibc 2.34, glibc 2.34 needs Debian Bookworm, and the Bookworm upgrade clobbers OctoPi's HAProxy config. A three-step yak shave on a Raspberry Pi.

@@ -1,0 +1,8 @@
+# nftables
+
+> Tag: nftables
+
+## Posts
+
+- [The Overlay Was Fine](https://blog.cani.ne.jp/2026/09/05/the-overlay-was-fine.md): The laptop got 192.168.1.253 at a cafe that already used that /24. The app said Connected. ping 192.168.1.254 hit the cafe. How we aliased the house onto 10.168.1.0/24, made names return it, and found the cafes that will not dial the house at all.
+- [The Incidental Router](https://blog.cani.ne.jp/2026/06/20/incidental-router.md): Porting a DD-WRT iptables isolation setup to OpenWrt's fw4/nftables - and discovering that re-implementing on a foreign stack is the only honest test of which parts were the network and which were just the router.
