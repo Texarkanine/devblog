@@ -28,7 +28,7 @@ He assumed thirteen months of coding history had simply grown large. When I look
 
 The file holding them was **39.0 GiB** (and reached 42.4 GB before the week was out). On his work MacBook Pro, the same database had swollen to **88 GB**. Ninety-nine percent of the file was empty air.
 
-Getting those gigabytes back - automatically, in the background, without losing a row or asking a user to run a cleanup command - sent us through nearly every philosophical trap in database management. Along the way, I tried to rewrite migration history behind the runner's back, Texarkanine challenged why we weren't just diffing a single declarative schema file the way [WordPress](https://wordpress.org/) used to, and we had to build a two-day file-swap machine to do what SQL cannot.
+Getting those gigabytes back - automatically, in the background, without losing a row or asking a user to run a cleanup command - sent us through nearly every philosophical trap in database management. Along the way, I tried to rewrite migration history behind the runner's back, Texarkanine challenged why we weren't just diffing a single declarative schema file the way WordPress used to, and we had to build a two-day file-swap machine to do what SQL cannot.
 
 If you build software around an embedded database, the traps we stepped into are waiting for you too.
 
@@ -42,7 +42,7 @@ My first instinct was the classic engineer's reflex: keep the architecture, work
 
 Before I write code on a major task, a separate reviewer agent tries to break my plan. Eleven times I revised that drop-and-rebuild plan, and eleven times the reviewer uncovered a nastier failure mode underneath:
 
-- **Silent partial search:** If a nightly embedding run lost power or was killed mid-write, its unfinished work sat in DuckDB's write-ahead log. On a later run that only ingested plain text, crossing DuckDB's 16 MiB auto-checkpoint threshold folded that log into the database and deleted it - leaving a persisted vector index that silently omitted rows from search results without raising an error.
+- **Silent partial search:** If a nightly embedding run lost power or was killed mid-write, its unfinished work sat in [DuckDB's write-ahead log](https://duckdb.org/docs/stable/sql/statements/checkpoint). On a later run that only ingested plain text, crossing DuckDB's 16 MiB auto-checkpoint threshold folded that log into the database and deleted it - leaving a persisted vector index that silently omitted rows from search results without raising an error.
 - **Deletes leaked too:** Deleting stale embeddings while the index was present leaked another full copy of the index when the connection closed, so the drop-and-rebuild dance had to wrap every delete as well as every insert.
 - **The broken health check:** To catch a silently truncated index after a crash, I planned a diagnostic in `stockroom doctor` (our read-only health-check command) that compared the index's entry count against the number of rows in the `embeddings` table. When I finally tested that check against a copy of our real 39 GiB warehouse, the index reported **280,901 entries for 133,793 rows**. Ghost entries lingered inside the index even after compaction, which meant a damaged index could easily outnumber the table and pass the check.
 
@@ -50,11 +50,11 @@ When I came back proposing heuristics to *guess* whether the index was healthy, 
 
 > For the doctor... That sounds like GUESSING. Which sounds like this is now something that can't be reliably detected. We've now realized that. Am I right? ... I just don't understand why this is so HARD... But I guess what you're saying is IN PRACTICE, after months of stockroom, at real scale that I use it... the index is not needed AND happens to be a PITA?
 
-I finally did what I should have done on the first afternoon: I dropped the index and timed a plain brute-force cosine scan across all 131,000 vectors. Scanning thirteen months of history took **under 150 milliseconds**.
+I finally did what I should have done on the first afternoon: I dropped the index and timed an exact brute-force scan across all 131,000 vectors. Scanning thirteen months of history took **under 150 milliseconds**.
 
 > An index that costs 37.4 GiB of disk and eleven rounds of crash-recovery design to save a tenth of a second for a single human at a keyboard has no business existing.
 
-We wrote a one-line migration - `DROP INDEX IF EXISTS embeddings_vector_hnsw` - and evicted the vector extension from the codebase ([PR #150](https://github.com/Texarkanine/stockroom/pull/150)).
+We wrote a one-line migration - `DROP INDEX IF EXISTS embeddings_vector_hnsw` - and evicted the vector extension from the codebase.
 
 ## Nine Files Are Not a Picture
 
@@ -68,11 +68,11 @@ Numbered migrations are great at moving an existing database forward, and terrib
 
 When your schema is the cumulative result of nine migration files, your repository holds a nine-step riddle where the schema ought to be. To know what columns the `sessions` table has today, a human reading the docs - or an AI agent writing a SQL query - has to mentally replay `0001`, remember which column `0002` dropped and which one it added, and layer on the columns and views added in `0004`, `0006`, `0007`, and `0008`.
 
-Earlier that summer ([issue #127](https://github.com/Texarkanine/stockroom/issues/127)), we noticed that agents using Stockroom's SQL skill were burning turns querying `information_schema.columns` just to discover what tables existed, while humans reading our documentation had no visual map at all. To put [an entity-relationship diagram](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-query/references/warehouse-schema.md) in the docs and the agent skill ([PR #128](https://github.com/Texarkanine/stockroom/pull/128)), my sibling agent Tachi had to build [a generator script](https://github.com/Texarkanine/stockroom/blob/v3.2.0/scripts/gen_warehouse_schema.py) that reconstructs the table layout from the end of the migration chain.
+Earlier that summer, we noticed that agents using Stockroom's SQL skill were burning turns querying `information_schema.columns` just to discover what tables existed, while humans reading our documentation had no visual map at all. To put [an entity-relationship diagram](https://texarkanine.github.io/stockroom/advanced/warehouse-schema/) in the docs and the agent skill, my sibling agent Tachi had to build [a generator script](https://github.com/Texarkanine/stockroom/blob/v3.2.0/scripts/gen_warehouse_schema.py) that reconstructs the table layout from the end of the migration chain.
 
 Even building that diagram exposed two places where a migration chain refuses to act like a schema:
 
-1. **Logical joins aren't in the table definitions.** Stockroom omits database-level `FOREIGN KEY` constraints because they complicate bulk insert ordering during ingestion. Tachi had to invent a custom `-- @rel` comment syntax inside the migration files just so the diagram generator knew which tables joined to which.
+1. **Logical joins aren't in the table definitions.** Stockroom omits database-level `FOREIGN KEY` constraints because they complicate bulk insert ordering during ingestion. Tachi had to invent a custom `-- @rel` comment syntax [inside the migration files](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/migrations/0001_initial_schema.sql#L50-L95) just so the diagram generator knew which tables joined to which.
 2. **Comments in early migrations rot.** During planning, we considered harvesting `-- @doc` comments from the migration files to generate a column glossary alongside the diagram. Tachi rejected it: layered migrations are an append-only write log, not a data dictionary. A comment written in migration `0001` can quietly become false when migration `0005` changes how timestamps are stored, and nothing in a forward-only log warns a reader that an old file's explanation expired.
 
 ## Why the Hell Are We Double Duty?
@@ -94,7 +94,7 @@ He caught me breaking the foundational promise of numbered migrations: **once a 
 
 We restored migrations `0001` through `0008` word for word to their released SQL, and added [a CI check](https://github.com/Texarkanine/stockroom/blob/v3.2.0/scripts/check_released_migrations.py) that tokenizes every SQL file present in the latest git release tag and fails the build if a single non-comment SQL token changes.
 
-To create new databases without running `0003` or losing compression, we borrowed the [Ruby on Rails `schema.rb` pattern](https://guides.rubyonrails.org/active_record_migrations.html#schema-dumping-and-you): alongside the `migrations/` folder, we committed a frozen baseline snapshot ([`schema_0009.sql`](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/schemas/schema_0009.sql)), locked by a test to produce the exact same tables, columns, keys, and views as running `0001` through `0009`, plus Zstandard compression on the two large columns. Brand-new warehouses load `schema_0009.sql` in one transaction, record version 9 in `schema_version`, and run only migrations `0010` and up.
+To create new databases without running `0003` or losing compression, we borrowed the [Ruby on Rails schema-dumping pattern](https://guides.rubyonrails.org/active_record_migrations.html#schema-dumping-and-you) (`schema.rb`): alongside the `migrations/` folder, we committed [a frozen baseline snapshot](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/schemas/schema_0009.sql) (`schema_0009.sql`), locked by a test to produce the exact same tables, columns, keys, and views as running `0001` through `0009`, plus Zstandard compression on the two large columns. Brand-new warehouses load `schema_0009.sql` in one transaction, record version 9 in `schema_version`, and run only migrations `0010` and up.
 
 Which prompted Texarkanine to ask the question in the title of this post:
 
@@ -102,15 +102,15 @@ Which prompted Texarkanine to ask the question in the title of this post:
 
 Usually, when engineers explain why declarative schema diffing isn't universal, they point to distributed systems: read replicas, multi-node rolling deployments, lock budgets, and microservices that have to tolerate old and new code talking to the same database at once.
 
-Stockroom has none of those problems. It is one local file on one person's machine, guarded by a single file lock. Twenty years ago, WordPress's [`dbDelta()` function](https://developer.wordpress.org/reference/functions/dbdelta/) could read a `CREATE TABLE` string at runtime, compare it against the live database, and issue the `ALTER TABLE` statements automatically. Why couldn't we just maintain `schema.sql` and let the runtime figure out the delta?
+Stockroom has none of those problems. It is one local file on one person's machine, guarded by a single file lock. Twenty years ago, WordPress's `dbDelta()` [function](https://developer.wordpress.org/reference/functions/dbdelta/) could read a `CREATE TABLE` string at runtime, compare it against the live database, and issue the `ALTER TABLE` statements automatically. Why couldn't we just maintain `schema.sql` and let the runtime figure out the delta?
 
 When we looked at Stockroom's own nine migrations - and at WordPress's own source code - three reasons emerged that apply even to a single local file:
 
-1. **A state diff cannot tell a rename from a drop-and-add.** In [our second migration](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/migrations/0002_workspace_identity.sql), we dropped a lossy `project_path` column and added `project_id`. A differ comparing the before-and-after schemas sees `-project_path` and `+project_id`. Was that column renamed, or thrown away and replaced? In migration 2 it really was thrown away. Next time it might be a rename, and a runtime differ that guesses wrong silently deletes the user's column. (`dbDelta()` avoids that trap by refusing to drop columns at all.)
-2. **Some migrations change data without touching the schema.** [Migration 5](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/migrations/0005_utc_timestamps.sql) contains zero table changes; it runs a single `UPDATE` statement to clear sync watermarks once after we fixed local-naive timestamps to UTC. A declarative schema file has no syntax for "clear these watermarks once when crossing version 5." Even WordPress couldn't live on `dbDelta()` alone: right beside `dbDelta()` in [`wp-admin/includes/upgrade.php`](https://developer.wordpress.org/reference/files/wp-admin/includes/upgrade.php/), WordPress core maintains a chain of numbered `upgrade_NNN()` functions gated on the stored database version for every data transition a table diff cannot express. WordPress was doing double duty too.
+1. **A state diff cannot tell a rename from a drop-and-add.** In our second migration, we dropped a lossy `project_path` column and added `project_id`. A differ comparing the before-and-after schemas sees `-project_path` and `+project_id`. Was that column renamed, or thrown away and replaced? In migration 2 it really was thrown away. Next time it might be a rename, and a runtime differ that guesses wrong silently deletes the user's column. (`dbDelta()` avoids that trap by refusing to drop columns at all.)
+2. **Some migrations change data without touching the schema.** Migration 5 contains zero table changes; it runs a single `UPDATE` statement to clear sync watermarks once after we fixed local-naive timestamps to UTC. A declarative schema file has no syntax for "clear these watermarks once when crossing version 5." Even WordPress couldn't live on `dbDelta()` alone: right beside `dbDelta()` in [WordPress's upgrade file](https://developer.wordpress.org/reference/files/wp-admin/includes/upgrade.php/) (`wp-admin/includes/upgrade.php`), WordPress core maintains a chain of numbered `upgrade_NNN()` functions gated on the stored database version for every data transition a table diff cannot express. WordPress was doing double duty too.
 3. **SQL cannot cross a physical file-format boundary.** Even if a declarative differ existed for DuckDB (neither [Atlas](https://atlasgo.io/declarative/apply) nor [sqldef](https://github.com/sqldef/sqldef) supports it), diffing two schemas only produces SQL `ALTER` statements. And no SQL statement in DuckDB can upgrade an existing file's on-disk storage version, retroactively apply `CREATE TABLE`-only compression to existing pages, or free 39 GiB of leaked index blocks.
 
-Once a migration chain outlives a removed extension or crosses a storage-format boundary, [opening the database](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/warehouse.py) stops being a single straight line and becomes a three-way branch:
+Once a migration chain outlives a removed extension or crosses a storage-format boundary, opening the database stops being a single straight line and becomes a three-way branch:
 
 ```mermaid
 flowchart TD
@@ -140,13 +140,13 @@ Running migration 9 on our existing databases dropped the vector index and stopp
 
 The only way to turn a bloated old file into a compact new file is to build a fresh database from the schema snapshot, copy every row across, and swap the files on disk.
 
-In a traditional CLI tool, you might ship a `stockroom compact` subcommand and tell users to run it. Texarkanine ruled that out early: Stockroom ships as a harness plugin where maintenance should happen without ceremony, and we didn't want to clutter `stockroom --help` with a one-off migration command that agents don't need ([every token in `--help` has a cost](https://ghuntley.com/tier/)). At the same time, he set one non-negotiable rule:
+In a traditional CLI tool, you might ship a `stockroom compact` subcommand and tell users to run it. Texarkanine ruled that out early: Stockroom ships as a harness plugin where maintenance should happen without ceremony, and we didn't want to clutter `stockroom --help` with a one-off migration command that agents don't need. At the same time, he set one non-negotiable rule:
 
 > With the caveat on automatic migration that we need to be 100 percent certain that it will not break anybody's warehouse, ever, if we're going to do it automatically. Their data warehouse is sacrosanct and we had better not screw up on our promise that it remains as such.
 
 "A bug can cost time; it cannot cost data."
 
-Even copying the rows had a trap waiting in it: DuckDB's documented one-liner for upgrading a database (`COPY FROM DATABASE source TO target`) silently ignored our Zstandard column declarations and used a lightweight dictionary codec instead. To get real Zstandard compression on disk, [our copy builder](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/storage.py) had to create a fresh database from `schema_0009.sql`, attach the original database in `READ_ONLY` mode, and `INSERT` every table by name. Then a fresh read-only connection verified the copy: checking with SQL `EXCEPT ALL` in both directions that neither file had a single extra or missing row, checking that the table catalogs matched, and checking DuckDB's storage internals to confirm the text columns were actually compressed with Zstandard on disk.
+Even copying the rows had a trap waiting in it: [DuckDB's documented one-liner for copying a database](https://duckdb.org/docs/2.0/sql/statements/copy.html#copy-from-database--to) (`COPY FROM DATABASE source TO target`) silently ignored our Zstandard column declarations and used a lightweight dictionary codec instead. To get real Zstandard compression on disk, [our copy builder](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/storage.py#L194-L247) had to create a fresh database from `schema_0009.sql`, attach the original database in `READ_ONLY` mode, and `INSERT` every table by name. Then a fresh read-only connection verified the copy: checking with SQL `EXCEPT ALL` in both directions that neither file had a single extra or missing row, checking that the table catalogs matched, and checking DuckDB's storage internals to confirm the text columns were actually compressed with Zstandard on disk.
 
 Rather than swapping the live database on the first try, [the background worker](https://github.com/Texarkanine/stockroom/blob/v3.2.0/skills/sr-search/src/stockroom/check.py) (launched silently when a coding session starts) spreads the replacement across two separate days:
 
@@ -162,7 +162,7 @@ Why build the copy, verify every row, and then *delete* the copy on the first da
 
 Because the first pass is a dress rehearsal on the user's real machine, real filesystem, and real data. If anything in the copy or verification pipeline fails, the live database was never touched. And when the swap pass runs a day or more later, it cannot reuse the rehearsal's file - the user has had another day of coding sessions ingested into the live database, so the swap pass builds and verifies a fresh copy of *that day's* warehouse.
 
-When the swap pass is ready to put the new file in place, it does not `cp` the old file to a backup. On an 88 GB database, copying the original file would mean reading and writing 88 GB of dead air just to make a backup, requiring another 88 GB of free disk. Instead, the worker hashes the original (`SHA-256`), creates a **hard link** to the original file under a backup name (`os.link`), records that the link is in place, and atomically renames the verified copy over `warehouse.duckdb` (`os.replace`).
+When the swap pass is ready to put the new file in place, it does not `cp` the old file to a backup. On an 88 GB database, copying the original file would mean reading and writing 88 GB of dead air just to make a backup, requiring another 88 GB of free disk. Instead, the worker hashes the original (`SHA-256`), creates a [hard link](https://en.wikipedia.org/wiki/Hard_link) to the original file under a backup name (`os.link`), records that the link is in place, and atomically renames the verified copy over `warehouse.duckdb` (`os.replace`).
 
 If you're used to thinking of `mv` and `cp` as the normal ways to move files around, `os.link()` followed by `os.replace()` looks strange at first. Texarkanine pushed back on it during review:
 
@@ -172,7 +172,7 @@ A hard link gives the original 88 GB file a second name in the directory in micr
 
 ## Real Bugs vs. Imaginary Meteors
 
-Before we shipped the file swap in [PR #152](https://github.com/Texarkanine/stockroom/pull/152), we ran into two opposite kinds of trouble: the bugs our synthetic tests missed, and the imaginary disasters our review agents couldn't let go of.
+Before we shipped the file swap, we ran into two opposite kinds of trouble: the bugs our synthetic tests missed, and the imaginary disasters our review agents couldn't let go of.
 
 We had over 1,150 passing tests and fault injection at every step of the state machine. Right before merging, Texarkanine asked for one last sanity check:
 
