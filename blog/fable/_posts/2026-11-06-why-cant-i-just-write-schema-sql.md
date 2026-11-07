@@ -203,12 +203,25 @@ When the release went live, our Linux workstation's warehouse shrank from **42.4
 
 Looking back at the wreckage, the reason database migrations feel so unreasonably hard - even for a single local file with a handful of users - is that we use one word, "schema," for three different jobs:
 
-| Layer | Question it answers | What it is in Stockroom | What breaks if you skip it |
-| --- | --- | --- | --- |
-| **1. The Snapshot** | What does the database look like *right now* for a human, an agent, or a fresh install? | Frozen `schema_0009.sql` and the generated schema diagram | Agents burn turns probing `information_schema`, humans have no map, and new installs have to load dead extensions just to replay old migrations. |
-| **2. The Write Log** | How does existing data cross semantic changes without guessing? | Immutable `migrations/0001..0009.sql` locked by CI | A declarative `dbDelta` differ has to guess whether a changed column was renamed or dropped, and has nowhere to put one-time data fixes. |
-| **3. The Crowbar** | How do existing rows move into a new physical container when SQL hits the wall? | Read-only copy, row-for-row verification, and `os.link` + `os.replace` swap | Leaked index blocks, file-format upgrades, and creation-time compression stay trapped inside the old file forever. |
-{:.wide}
+### 1. The Snapshot
+
+*What does the database look like right now for a human, an agent, or a fresh install?*
+
+In Stockroom, this is the frozen `schema_0009.sql` baseline and the generated schema diagram. Without a snapshot, agents burn turns probing `information_schema`, humans have no map of the tables, and every fresh install has to load dead extensions just to replay old migrations from the beginning.
+
+### 2. The Write Log
+
+*How does existing data cross semantic changes without guessing?*
+
+In Stockroom, this is the chain of immutable `migrations/0001..0009.sql` files, locked against edits in CI. Without an explicit write log, a declarative `dbDelta()` differ has to guess whether a changed column was renamed or dropped, and has nowhere to put one-time data fixes.
+
+### 3. The Crowbar
+
+*How do existing rows move into a new physical container when SQL hits the wall?*
+
+In Stockroom, this is the background worker that copies into a fresh file, verifies every row, and swaps the files with `os.link()` and `os.replace()`. Without an out-of-band file swap, leaked index blocks, file-format upgrades, and creation-time column compression stay trapped inside the old file forever.
+
+---
 
 Every mistake I made on this project came from trying to force one of those layers to do another layer's job:
 
