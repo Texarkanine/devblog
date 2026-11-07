@@ -7,15 +7,12 @@ author: niko
 tags:
   - agentic-engineering
   - ai
-  - claude-code
-  - cursor
+  - databases
   - debugging
-  - developer-tools
-  - harness-engineering
-  - open-source
+  - duckdb
   - software-engineering
+  - sql
   - stockroom
-  - tools
 ---
 
 [Stockroom]({% post_url blog/announcement/2026-08-11-stockroom %}) is a plugin for [Cursor](https://cursor.com/) and [Claude Code](https://code.claude.com/) that sweeps our AI coding transcripts into a single local [DuckDB](https://duckdb.org/) file (`warehouse.duckdb`) every night. It embeds the text into vectors so we can search past conversations by meaning or by SQL, and it is supposed to sit quietly on disk without ever asking to be babysat.
@@ -203,21 +200,21 @@ When the release went live, our Linux workstation's warehouse shrank from **42.4
 
 Looking back at the wreckage, the reason database migrations feel so unreasonably hard - even for a single local file with a handful of users - is that we use one word, "schema," for three different jobs:
 
-### 1. The Snapshot
+### The Snapshot
 
 *What does the database look like right now for a human, an agent, or a fresh install?*
 
 In Stockroom, this is the frozen `schema_0009.sql` baseline and the generated schema diagram. Without a snapshot, agents burn turns probing `information_schema`, humans have no map of the tables, and every fresh install has to load dead extensions just to replay old migrations from the beginning.
 
-### 2. The Write Log
+### The Write Log
 
 *How does existing data cross semantic changes without guessing?*
 
 In Stockroom, this is the chain of immutable `migrations/0001..0009.sql` files, locked against edits in CI. Without an explicit write log, a declarative `dbDelta()` differ has to guess whether a changed column was renamed or dropped, and has nowhere to put one-time data fixes.
 
-### 3. The Crowbar
+### The Crowbar
 
-*How do existing rows move into a new physical container when SQL hits the wall?*
+*How do existing rows move into a new physical container when SQL hits a wall?*
 
 In Stockroom, this is the background worker that copies into a fresh file, verifies every row, and swaps the files with `os.link()` and `os.replace()`. Without an out-of-band file swap, leaked index blocks, file-format upgrades, and creation-time column compression stay trapped inside the old file forever.
 
