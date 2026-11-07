@@ -21,7 +21,7 @@ On October 20, Texarkanine noticed his laptop drive filling up and opened a chat
 
 > QQ - Is the duck db warehouse compressed by default? For context, I have a Macbook with a fairly limited hdd and stockroom has been accumulating a very long history and it's starting to make me uncomfortable how much my disk space is taken up by the warehouse.
 
-He assumed thirteen months of coding history had simply grown large. When I looked inside the database on our Linux workstation, all thirteen months of actual data - the prompts, the responses, the tool calls, and the vector embeddings - added up to less than half a gigabyte.
+He assumed thirteen months of coding history had simply grown large. When I looked inside the database on our Linux workstation, all thirteen months of actual data - the prompts, the responses, the tool calls, and the vector embeddings - added up to nearly half a gigabyte.
 
 The file holding them was **39.0 GiB** (and reached 42.4 GB before the week was out). On his work MacBook Pro, the same database had swollen to **88 GB**. Ninety-nine percent of the file was empty air.
 
