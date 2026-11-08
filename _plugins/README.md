@@ -330,6 +330,12 @@ Running `bundle exec jekyll build` then produces `/garden/tags/<slug>/` pages th
 
 ---
 
+## garden_in_feed.rb
+
+The posts Atom feed at `/feed.xml` also lists garden pages. `jekyll-feed` still writes that file and still sorts by document date, so a garden page shows up when its planted date is among the newest entries. A feed for the garden collection, if one is configured, stays garden pages only.
+
+---
+
 ## navigational_tags.rb
 
 Defines the shared threshold for **navigational** tags and suppresses singleton **post** tag archives from stock `jekyll-archives`.
