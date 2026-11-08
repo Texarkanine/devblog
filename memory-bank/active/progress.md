@@ -16,3 +16,17 @@ Include garden pages in the existing `/feed.xml` by prepending `jekyll-feed`'s f
 * Insights
     - `main` is checked out at `/home/mobaxterm/git/devblog`, so this branch has to live in its own worktree
     - `git worktree add -b` tracked `origin/main`; upstream was unset before any push
+
+## 2026-11-07 - PLAN - COMPLETE
+
+* Work completed
+    - Wrote the Level 2 plan in `memory-bank/active/tasks.md`
+    - Mapped eight feed behaviors to `tests/test_garden_feed.py`
+    - Named `_plugins/garden_in_feed.rb` as the only production change, plus a CI step move and a short plugin note
+* Decisions made
+    - Keep the existing unittest runner. The fixture builds a throwaway site with `bundle exec jekyll`
+    - Move CI unittest to after `bundle install` so that fixture can run there
+    - Do not abort the build when the gem assign line is missing
+* Insights
+    - `concat` is Liquid's standard filter and raises unless the argument responds to `to_ary`
+    - Plugin archives on this repo have often waived automated tests. This plan does not.

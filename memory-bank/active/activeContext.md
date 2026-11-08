@@ -1,12 +1,13 @@
 # Active Context
 
 ## Current Task: Garden pages in the main feed
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
-- Classified the work as Level 2. It is one contained enhancement to the existing posts feed: a local plugin prepends `jekyll-feed`'s template and concatenates `site.garden` into that feed only.
-- The previous worktree at this path was gone. Recreated it as branch `garden-feed` from `origin/main` (`0d7cc25a`). Unset upstream so the branch does not track `origin/main`.
-- Operator decision: do not fail the build when the gem template line changes. That check only watches source text.
+- Classified the work as Level 2.
+- Planned one plugin, `_plugins/garden_in_feed.rb`, that prepends `JekyllFeed::Generator#feed_template` and concatenates `site.garden` into the posts feed only.
+- Mapped eight feed behaviors onto `tests/test_garden_feed.py` in the existing unittest suite. The fixture copies that one plugin into a throwaway site. CI's unittest step has to move to after `bundle install`.
+- Operator decision, kept: do not fail the build when the gem template line is absent.
 
 ## Next Step
-- Load the Level 2 workflow and run the plan phase.
+- Preflight, then build.
