@@ -55,3 +55,25 @@ Include garden pages in the existing `/feed.xml` by prepending `jekyll-feed`'s f
     - Left `feed.also_include` and the empty garden author name unbuilt. The approved brief is a garden concat
 * Insights
     - On current `main`, three garden pages land in the newest ten feed entries
+
+## 2026-11-07 - QA - COMPLETE
+
+* Work completed
+    - Reviewed `_plugins/garden_in_feed.rb`, `tests/test_garden_feed.py`, `.github/workflows/pr-check.yaml`, and `_plugins/README.md` against `projectbrief.md` and `tasks.md`
+    - Verified all 20 unit tests pass (`python3 -m unittest discover -s tests`) and checked REUSE coverage
+    - Wrote `PASS` to `memory-bank/active/.qa-validation-status` and recorded QA findings in `memory-bank/active/tasks.md`
+* Decisions made
+    - Passed QA with non-blocking advisories only (minor `include?`/`POSTS_ASSIGN` repetition in `_plugins/garden_in_feed.rb`, and `memory-bank/techContext.md` testing section update deferred to reflect/archive)
+* Insights
+    - `collection_dates.rb` already exposes `last_modified_at` on `DocumentDrop`, so garden entries in `/feed.xml` get accurate `<published>` and `<updated>` timestamps without extra wiring
+
+## 2026-11-07 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-garden-in-feed.md`
+    - Updated `memory-bank/techContext.md` so the test process names the garden feed fixture and the bundle it needs
+* Decisions made
+    - Left `productContext.md` and `systemPatterns.md` unchanged. The feed concat is one plugin, not a new audience or a system-wide pattern
+* Insights
+    - `BUNDLE_GEMFILE` on a throwaway site loads the whole `jekyll_plugins` group unless `JEKYLL_NO_BUNDLER_REQUIRE=1`
+
