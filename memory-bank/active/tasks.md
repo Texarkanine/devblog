@@ -81,4 +81,13 @@ No new technology - validation not required. `concat` is already `Liquid::Standa
 - [x] Pre-Mortem complete
 - [x] Preflight
 - [x] Build
-- [ ] QA
+- [x] QA
+
+## QA Results
+
+- **Status:** PASS
+- **Findings:**
+  - **KISS / DRY (non-blocking):** In `_plugins/garden_in_feed.rb`, `return template unless template.include?(POSTS_ASSIGN)` is redundant with `template.sub(POSTS_ASSIGN, WITH_GARDEN)` (which returns `template` unchanged when `POSTS_ASSIGN` is absent), and `WITH_GARDEN` repeats the `POSTS_ASSIGN` string literal instead of interpolating `POSTS_ASSIGN`. Both are readable and harmless as written.
+  - **Completeness / Regression (non-blocking):** All eight planned behaviors in `tests/test_garden_feed.py` and the CI step ordering in `.github/workflows/pr-check.yaml` match the plan and pass (`20 tests` in `unittest discover -s tests`). Garden feed entries inherit `date` and `last_modified_at` from `collection_dates.rb` (`:low` priority before `jekyll-feed`'s `:lowest`), and render `<author><name></name></author>` when `author` is unset on garden pages (already noted in preflight as outside scope).
+  - **Documentation (non-blocking):** `_plugins/README.md` documents `garden_in_feed.rb` per the plan. Reflect updated `memory-bank/techContext.md` so Testing Process names the garden feed fixture.
+
