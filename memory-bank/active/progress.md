@@ -30,3 +30,15 @@ Include garden pages in the existing `/feed.xml` by prepending `jekyll-feed`'s f
 * Insights
     - `concat` is Liquid's standard filter and raises unless the argument responds to `to_ary`
     - Plugin archives on this repo have often waived automated tests. This plan does not.
+
+## 2026-11-07 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Validated the plan against `jekyll-feed` 0.18.0, Jekyll 4.4.1 plugin loading, `_config.yaml`, `REUSE.toml`, and CI
+    - Wrote `memory-bank/active/.preflight-status`; first line: `PASS WITH ADVISORY`
+* Decisions made
+    - No in-phase plan edits were needed
+* Insights
+    - A tempdir fixture needs `BUNDLE_GEMFILE`, which makes Jekyll `Bundler.require` every `jekyll_plugins` gem; set `JEKYLL_NO_BUNDLER_REQUIRE=1` and list `plugins: [jekyll-feed]`
+    - Gems are not fully installed locally; run `bundle install` before the red step
+    - Garden pages have no `author`, so feed entries get an empty author name
