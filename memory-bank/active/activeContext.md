@@ -1,13 +1,14 @@
 # Active Context
 
 ## Current Task: Garden pages in the main feed
-**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+**Phase:** BUILD - COMPLETE
 
 ## What Was Done
-- Classified the work as Level 2.
-- Planned one plugin, `_plugins/garden_in_feed.rb`, that prepends `JekyllFeed::Generator#feed_template` and concatenates `site.garden` into the posts feed only.
-- Mapped eight feed behaviors onto `tests/test_garden_feed.py` in the existing unittest suite. The fixture copies that one plugin into a throwaway site. CI's unittest step has to move to after `bundle install`.
-- Operator decision, kept: do not fail the build when the gem template line is absent.
+- `_plugins/garden_in_feed.rb` prepends `JekyllFeed::Generator#feed_template` and concatenates `site.garden` into the posts feed when that collection exists.
+- `tests/test_garden_feed.py` covers the eight planned feed behaviors. The fixture sets `BUNDLE_GEMFILE` and `JEKYLL_NO_BUNDLER_REQUIRE=1`, and lists `plugins: [jekyll-feed]`.
+- `.github/workflows/pr-check.yaml` runs unittest after `bundle install`.
+- `_plugins/README.md` notes the posts-feed behavior.
+- `python3 -m unittest discover -s tests`: 20 tests, OK. `bundle exec jekyll build` exited 0. The built `/feed.xml` includes garden pages among the newest ten (cli-help-patterns, taxonomizing-ai-acceptance, taxonomizing-price-shocks).
 
 ## Next Step
-- Preflight, then build.
+- QA.

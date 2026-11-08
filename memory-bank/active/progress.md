@@ -42,3 +42,16 @@ Include garden pages in the existing `/feed.xml` by prepending `jekyll-feed`'s f
     - A tempdir fixture needs `BUNDLE_GEMFILE`, which makes Jekyll `Bundler.require` every `jekyll_plugins` gem; set `JEKYLL_NO_BUNDLER_REQUIRE=1` and list `plugins: [jekyll-feed]`
     - Gems are not fully installed locally; run `bundle install` before the red step
     - Garden pages have no `author`, so feed entries get an empty author name
+
+## 2026-11-07 - BUILD - COMPLETE
+
+* Work completed
+    - Added the posts-feed concat in `_plugins/garden_in_feed.rb` after a red run of `tests/test_garden_feed.py`
+    - Moved CI unittest to after `bundle install`
+    - Noted the behavior in `_plugins/README.md`
+    - Full unittest suite: 20 tests, OK. Full `jekyll build` exited 0
+* Decisions made
+    - Fixture isolates gems with `JEKYLL_NO_BUNDLER_REQUIRE=1` and `plugins: [jekyll-feed]`, from the preflight advisory
+    - Left `feed.also_include` and the empty garden author name unbuilt. The approved brief is a garden concat
+* Insights
+    - On current `main`, three garden pages land in the newest ten feed entries
