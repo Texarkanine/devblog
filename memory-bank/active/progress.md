@@ -143,4 +143,18 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - Archive HTML pages were already without `index.md` sidecars. The writing archive exclude globs are still in place
     - `jekyll-llm-sidecars` runs at priority `lowest`, after `garden_archives` has built `site.writing_tags` and `site.writing_categories`
 
+## 2026-11-11 - QA - COMPLETE
+
+* Work completed
+    - Conducted comprehensive semantic review of the writing collection implementation against the plan, requirements, and acceptance criteria
+    - Verified all 52 tests in the suite pass cleanly, covering unit, integration, regression, and sidecar behaviors
+    - Checked KISS, DRY, YAGNI, Completeness, Regression, Integrity, and Documentation standards across all touched files
+    - Evaluated absence of TODOs, debug artifacts, and unhandled edge cases
+* Decisions made
+    - QA status: PASS
+* Insights
+    - Clean separation of concerns between category path inference (`writing_categories.rb`) and scope generation (`20_llms_scope_builders.rb`) keeps individual plugins compact and maintainable
+    - Reusing existing taxonomy filtering logic (`NavigationalTags.keep?`) ensures consistent thresholding behavior between HTML archives and LLM scopes
+
+
 

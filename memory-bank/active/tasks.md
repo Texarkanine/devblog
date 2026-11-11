@@ -272,4 +272,16 @@ No new technology - validation not required
   - [x] 5. Section indexes
   - [x] 6. Seed pieces and license
   - [x] 7. Plugin notes
-- [ ] QA
+- [x] QA
+
+## QA Results
+
+Status: PASS
+
+- KISS: Direct, minimal implementation using standard Jekyll `:documents, :post_init` hook and built-in features without unnecessary abstraction.
+- DRY: Reused existing archive and tag infrastructure; unified LLM taxonomy scope generation across post, garden, and writing collections.
+- YAGNI: No speculative features or dead code added; strictly satisfied all 10 requirements and 8 acceptance criteria.
+- Completeness: All 7 implementation units completed and tested; all 52 tests pass cleanly; no TODOs or temporary scaffolding.
+- Regression: Full test suite passes; posts, garden notes, author pages, and LLM sidecars remain strictly partitioned with zero regressions.
+- Integrity: Seed pieces have complete original content and valid metadata; dates are accurately derived from filenames and git commit timestamps.
+- Documentation: Updated `README.md`, `REUSE.toml`, and `_plugins/README.md` to reflect the new collection, licensing, feed integration, category hook, and LLM sidecars.

@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: Writing collection
-**Phase:** BUILD - COMPLETE
+**Phase:** QA - COMPLETE (PASS)
 
 ## What Was Done
 - The writing collection is built. Folders are categories, the filename is the publication date, a future filename stays unpublished, and the piece URL has no date
@@ -10,6 +10,7 @@
 - Three seeds, dated 2026-11-11: Porch Light, Kitchen Radio, and The Second Cup. `verse` and `night` are shared. `hearth` is used once
 - Full suite: 52 tests, OK. A site build wrote the three piece URLs, their category archives, the `verse` and `night` archives, and left `hearth` without an archive
 - The archive fixture copies `email_obfuscator.rb` so the author layout can parse. Throwaway builds stub `default.html` and copy the layouts they render. The writing tag index lists a repeated tag without the garden page's coin-flip sort
+- Completed semantic QA review: verified KISS, DRY, YAGNI, completeness, regression, integrity, and documentation. All checks passed.
 
 ## Next Step
-- QA review (`/niko-qa`)
+- Reflect phase (`/niko-reflect`)
