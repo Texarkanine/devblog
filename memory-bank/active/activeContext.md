@@ -1,13 +1,13 @@
 # Active Context
 
 ## Current Task: Writing collection
-**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+**Phase:** BUILD - IN-PROGRESS
 
 ## What Was Done
 - Completed preflight validation of the revised plan
-- Confirmed resolution of all previous preflight findings across units 1, 3, 5, and 6
-- Validated TDD plan encoding, convention compliance, dependency impact, and conflict prevention
-- Recorded advisory recommendation on a polymorphic collection pipeline
+- Unit 1 is green. The `post_init` hook sets writing categories from folders under `_writing` and unpublishes a future filename date before `read`
+- Folder, nested, and folderless URLs match the permalink. A future filename is absent from `site.writing`. Writing stays out of `site.posts`
+- Full suite: 25 tests, OK
 
 ## Next Step
-- Proceed to build phase (`/niko-build`)
+- Unit 2: concatenate `site.writing` into the posts feed

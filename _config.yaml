@@ -29,6 +29,9 @@ collections:
   garden:
     output: true
     permalink: /garden/:path:output_ext
+  writing:
+    output: true
+    permalink: /writing/:categories/:title:output_ext
 
 defaults:
   - scope:

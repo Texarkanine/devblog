@@ -265,4 +265,11 @@ No new technology - validation not required
 - [x] Pre-Mortem complete
 - [x] Preflight
 - [ ] Build
+  - [x] 1. Folder categories and dateless URLs
+  - [ ] 2. Main feed
+  - [ ] 3. Layout, archives, and author pages
+  - [ ] 4. LLM sidecars
+  - [ ] 5. Section indexes
+  - [ ] 6. Seed pieces and license
+  - [ ] 7. Plugin notes
 - [ ] QA
