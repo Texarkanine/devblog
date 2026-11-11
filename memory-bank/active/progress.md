@@ -16,3 +16,17 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - Jekyll sets a collection document's date from a `YYYY-MM-DD` filename and strips that prefix from the slug. `:path` keeps the prefix
     - A folder inside a collection is not a category. Blog categories are the directories above `_posts`
     - A tag on only one document does not get an archive page, so the seeds need one shared tag
+
+## 2026-11-11 - PLAN - COMPLETE
+
+* Work completed
+    - Mapped the writing collection across config, a `post_init` category hook, the feed concat, archives, layouts, author pages, LLM scopes, the homepage, and three seeds
+    - Wrote the ordered TDD plan and the throwaway-Jekyll test map
+* Decisions made
+    - No creative phase. The approved brief fixed the product choices
+    - Set categories at `post_init`, before anything can memoize `document.url`
+    - Show Published and Updated on every writing page, including when the days match
+    - Seeds share `verse` and `night`. `hearth` stays a singleton so the missing archive is visible
+* Insights
+    - `Jekyll::URL` squeezes a double slash, so a piece with no folder still has a clean URL
+    - Upstream `no-style-please` renders the posts menu and then `{{ content }}`, so the writing block belongs in `pages/index.md` rather than in the posts menu
