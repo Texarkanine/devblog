@@ -127,3 +127,20 @@ Add a writing collection beside posts and the garden: folder categories, filenam
 * Insights
     - Test-driven structure across all 5 executable units cleanly isolates fixtures using repository `_config.yaml` with focused overlays
 
+## 2026-11-11 - BUILD - COMPLETE
+
+* Work completed
+    - Added the writing collection: folder categories, filename publication dates, future filenames left unpublished, and dateless piece URLs
+    - Joined writing to the posts feed, with its own layout, archives, author listings, LLM scopes, and section indexes
+    - Seeded a poem, a song, and a story, and put `_writing/**` under the CC-BY-SA-4.0 override
+    - Full suite: 52 tests, OK. A site build published the three seeds and kept `hearth` off the tag archives
+* Decisions made
+    - The archive fixture loads `email_obfuscator.rb` so Liquid can parse the author layout. The author record still has no email
+    - Throwaway builds stub `default.html` and copy the layouts they render, because they do not fetch the remote theme
+    - The writing tag index lists a tag used twice. It does not use the garden index's coin-flip sort
+* Insights
+    - Liquid parses `{% email %}` while it reads the author layout, even when that branch does not run
+    - Archive HTML pages were already without `index.md` sidecars. The writing archive exclude globs are still in place
+    - `jekyll-llm-sidecars` runs at priority `lowest`, after `garden_archives` has built `site.writing_tags` and `site.writing_categories`
+
+

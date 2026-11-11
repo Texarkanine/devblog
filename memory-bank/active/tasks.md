@@ -264,12 +264,12 @@ No new technology - validation not required
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
 - [x] Preflight
-- [ ] Build
+- [x] Build
   - [x] 1. Folder categories and dateless URLs
   - [x] 2. Main feed
   - [x] 3. Layout, archives, and author pages
   - [x] 4. LLM sidecars
   - [x] 5. Section indexes
-  - [ ] 6. Seed pieces and license
-  - [ ] 7. Plugin notes
+  - [x] 6. Seed pieces and license
+  - [x] 7. Plugin notes
 - [ ] QA
