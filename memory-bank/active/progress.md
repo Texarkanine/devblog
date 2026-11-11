@@ -74,3 +74,19 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - The fixture writes its own config, so the production `_config.yaml` changes (permalink, defaults, archives, `include_categories`, `exclude_paths`) have no test that pins them. Unit 4's red and green expectations are incoherent without that
     - Jekyll lists a future-dated collection document in `site.<collection>` with a URL but does not write it, so the plan's "not skipped" premise is wrong and dead links are possible
     - Minor: `README.md` license line, the unit 5 fixture copy list, and the `writing_tags` guard
+
+## 2026-11-11 - PLAN - COMPLETE
+
+* Work completed
+    - Replanned after the fixable preflight
+    - Writing tests now build with the repository `_config.yaml` plus an overlay that only replaces `url` and `plugins`
+    - A future filename date is left unpublished in the category hook, before the collection accepts the document
+    - Folded in the README license line, the `page.html` and `back_link.html` fixture copies, the empty-tag guard, and the reserved folder-name note
+* Decisions made
+    - The overlay does not restate permalinks, defaults, archives, or `llm_sidecars`
+    - The feed fixture keeps its own minimal config, because that behavior lives in the copied plugin
+    - Future dates are filtered. Recording the dead link as a known limit was the other option, and the author workflow makes a future filename reachable
+* Insights
+    - Jekyll deep-merge keeps the earlier value when the later value is null, and it replaces arrays
+    - `:documents, :post_init` runs before `read`, so the future check parses the filename. `data["date"]` does not exist yet
+    - `Document#write?` already hides the future page. The dead link comes from the document staying in the collection
