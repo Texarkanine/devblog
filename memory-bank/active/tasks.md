@@ -273,6 +273,7 @@ No new technology - validation not required
   - [x] 6. Seed pieces and license
   - [x] 7. Plugin notes
 - [x] QA
+- [x] Reflect
 
 ## QA Results
 

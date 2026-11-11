@@ -156,5 +156,19 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - Clean separation of concerns between category path inference (`writing_categories.rb`) and scope generation (`20_llms_scope_builders.rb`) keeps individual plugins compact and maintainable
     - Reusing existing taxonomy filtering logic (`NavigationalTags.keep?`) ensures consistent thresholding behavior between HTML archives and LLM scopes
 
+## 2026-11-11 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-writing-collection.md`
+    - Recorded the writing section in the product context, the folder-and-filename contract in system patterns, and the writing fixture in tech context
+* Decisions made
+    - No creative phase was needed, and that decision still holds
+    - The email-tag fixture load and the archive exclude globs stay as built
+* Insights
+    - Liquid parses a tag inside a branch that does not run
+    - A future-dated collection document stays listed until something unpublishes it before the collection accepts it
+    - The gem's category LLM scopes always use the posts category permalink
+
+
 
 
