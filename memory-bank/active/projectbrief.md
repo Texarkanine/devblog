@@ -46,7 +46,7 @@ Three short pieces exist: one poem, one song, and one story, so the three catego
 
 ## Acceptance Criteria
 
-1. `/writing/poetry/`, `/writing/songs/`, and `/writing/stories/` each resolve to one seed piece, and the date is not in the URL.
+1. Each seed resolves at `/writing/<folder>/<slug>` with no date in the URL. The category archive for that folder is `/writing/categories/<folder>/`.
 2. Each piece shows a publication date taken from its filename and an update date taken from git.
 3. Category and tag indexes exist for the writing collection and do not list tech posts or garden notes.
 4. `/all-posts.html`, the recent-posts list, and the garden index do not list the seeds.

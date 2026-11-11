@@ -43,3 +43,21 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - `include_categories: true` in `llm_sidecars` emits `/categories/<folder>/llms.txt` for writing folders, so writing leaks into the posts category namespace
     - Unit 5 index pages are Liquid with logic and need tests
     - Writing archive pages need `exclude_paths` entries, and `_writing/**` needs the CC-BY-SA-4.0 REUSE annotation
+
+## 2026-11-11 - PLAN - COMPLETE
+
+* Work completed
+    - Replanned after the blocking preflight
+    - Moved the writing index pages into their own executable unit, with tests for the section home, the tag and category indexes, the home block, `/all-posts.html`, and the garden index
+    - Specified `include_categories: false`, explicit post and writing category scope builders, writing archive `exclude_paths`, and the CC-BY-SA-4.0 override for `_writing/**`
+    - Updated brief acceptance criterion 1 to the piece URL `/writing/<folder>/<slug>` and the category archive `/writing/categories/<folder>/`
+* Decisions made
+    - The piece URL stays `/writing/<folder>/<slug>`. No page is added at the folder path
+    - Seeds use the same CC-BY-SA-4.0 override as posts and the garden
+    - The gem's category scopes are turned off. This site registers post category scopes and writing category scopes separately
+    - The author-page fixture is a hand-written page, and the author record has no email
+    - A config-list refactor of the collection-named plugins stays out of this task
+* Insights
+    - `include_categories` publishes every census category at `jekyll-archives.permalinks.category`, which is `/categories/:name/`
+    - `scopes_for_taxonomy` drops a one-document term, so category builders cannot use it unchanged
+    - The upstream home layout renders the posts menu and then `{{ content }}`. The throwaway fixture has to stub that layout because it does not fetch the remote theme

@@ -28,58 +28,83 @@ flowchart TD
   published --> feed[Main feed]
 ```
 
+### Where category scopes go
+
+`jekyll-llm-sidecars` builds one scope per category in the census, and it always uses the posts permalink `/categories/:name/`. A writing folder would publish `/categories/poetry/llms.txt`. Writing scopes have to be registered by this site, on the writing permalinks, with that gem flag off.
+
+```mermaid
+flowchart TD
+  census[Included documents] --> gemflag[Gem category scopes]
+  gemflag --> off[include_categories false]
+  census --> postb[Post category builder]
+  census --> writeb[Writing category builder]
+  postb --> postpath["/categories/name/"]
+  writeb --> writepath["/writing/categories/name/"]
+```
+
 ## Component Analysis
 
 ### Affected Components
 
-- `_config.yaml`: collection, permalink, archive permalinks, reading-progress default, LLM include path → add `writing` without putting it in `site.posts`
+- `_config.yaml`: collection, permalink, archive permalinks, reading-progress default, LLM include path, `include_categories`, and `exclude_paths` → add `writing` without putting it in `site.posts`, turn the gem's category scopes off, and exclude writing archive pages
 - New `_plugins/writing_categories.rb`: nothing today assigns a category from a folder inside a collection → set `categories` from the path at `:documents, :post_init`
 - `_plugins/garden_in_feed.rb`: concatenates `site.garden` into `/feed.xml` → also concatenate `site.writing` when that collection exists
-- `_plugins/garden_archives.rb`: already builds tag and category archives for any configured collection, title-sorts them, and skips singleton tags → configure `writing`; do not change garden sort
-- `_plugins/20_llms_scope_builders.rb`: post tags, garden tags, and authors → add writing tag and writing category scopes
+- `_plugins/garden_archives.rb`: already builds tag and category archives for any configured collection, title-sorts them, and skips singleton tags → configure `writing`; do not change garden sort or the garden-only hash fallback
+- `_plugins/20_llms_scope_builders.rb`: post tags, garden tags, and authors → add writing tag scopes, writing category scopes, and post category scopes
 - `_plugins/tag_descriptions_seo.rb`: allows `tag-archive` and `garden-tag-archive` → allow the writing tag layout so one shared `_data/tags.yaml` entry can describe a writing tag
 - `_layouts/author-archive.html` and `pages/authors.md`: list `site.posts` only → also list `site.writing`
 - New `_layouts/writing.html`, `_layouts/writing-tag-archive.html`, `_layouts/writing-cat-archive.html`: writing pages and their archives
 - New `pages/writing.md`, `pages/writing/tags.md`, `pages/writing/categories.md`, `_data/writing_menu.yaml`, and a section in `pages/index.md`: the section a reader clicks into
+- `pages/all-posts.md`, `pages/garden.md`, and `_data/menu.yaml`: already posts-only or garden-only → leave them unchanged and test that writing stays out
 - New seed files under `_writing/poetry/`, `_writing/songs/`, and `_writing/stories/`
+- `REUSE.toml`: CC-BY-SA-4.0 override for `blog/**` and `_garden/**` → add `_writing/**`
 - `_plugins/README.md`: documents the feed concat and the LLM scopes → name writing
 - `tests/test_garden_feed.py` and new `tests/test_writing_collection.py`: throwaway Jekyll builds
 
 ### Cross-Module Dependencies
 
 - `writing_categories.rb` → Jekyll `Document#url`: categories must exist before the first URL read
-- `writing_categories.rb` → `garden_archives.rb`: archives read `data["categories"]` and `data["tags"]`
+- `writing_categories.rb` → `garden_archives.rb`: archives and `site.writing_tags` / `site.writing_categories` read `data["categories"]` and `data["tags"]`. Those hashes are built only for collections listed under `jekyll-archives.collections`, plus the existing garden fallback
 - `writing_categories.rb` → collection permalink `:categories` and `:title`: the folder and the stripped slug
-- `collection_dates.rb` → writing documents: leaves a filename date in place and sets `last_modified` from the last body commit
+- `collection_dates.rb` → writing documents: leaves a filename date in place when it differs from `site.time`, and sets `last_modified` from the last body commit, then the last commit, then `File.mtime`
 - `garden_in_feed.rb` → `jekyll-feed`: concat happens before the gem's date sort and `posts_limit`
-- `20_llms_scope_builders.rb` → `jekyll-llm-sidecars` entry list: author scopes follow `include_paths`; tag and category scopes need an explicit builder
-- `pages/index.md` → upstream `no-style-please` home layout: the layout renders `site.data.menu` and then `{{ content }}`, so a writing block in `index.md` shows under the posts menu
+- `20_llms_scope_builders.rb` → `jekyll-llm-sidecars` entry list: author scopes follow `include_paths`. The gem's own category scopes use `jekyll-archives.permalinks.category`. Tag and category scopes this site owns need an explicit builder
+- `pages/index.md` → upstream `no-style-please` home layout: the layout renders `site.data.menu` and then `{{ content }}`, so a writing block in `index.md` shows under the posts menu. The throwaway fixture does not fetch the remote theme, so it stubs that layout
 - `_includes/page_list.html` → writing menu: it already lists `site[collection]` sorted by a key
+- `_includes/post_list.html` → recent posts: the theme include lists `site.posts` when the menu entry has no collection
 
 ### Boundary Changes
 
 - New public URLs under `/writing/`
+- Piece URL is `/writing/<folder>/<slug>`. The folder's archive is `/writing/categories/<folder>/`
 - `/feed.xml` gains writing entries, still capped at the existing newest-ten
 - `/authors/:author/` lists writing pieces as well as posts
-- `/tags/` and `/categories/` stay posts-only
+- `/tags/` and `/categories/` stay posts-only, including their `llms.txt` scopes
 - `/garden/` stays garden-only
+- `/all-posts.html` and the home recent-posts list stay posts-only
 - No new gem and no change to post permalinks
 
 ### Invariants
 
 - A writing piece has no `date` and no `category` in front matter
 - The publication date is the `YYYY-MM-DD` filename prefix
-- The update date is the git body-commit date from `collection_dates.rb`
+- The update date is the git body-commit date from `collection_dates.rb`, with the existing mtime fallback
 - The piece URL contains the folder and the slug and does not contain the date
 - Tech post indexes and the garden index do not list writing pieces
 - Tag descriptions stay one global meaning per tag name in `_data/tags.yaml`
-- A tag on one writing document does not get an archive page
-- A category gets an archive page even when only one piece uses it
+- A tag on one writing document does not get an archive page or an index link
+- A category gets an archive page and an index link even when only one piece uses it
+- A writing folder does not get an LLM scope at `/categories/<folder>/`
+- A post category still gets an LLM scope at `/categories/<name>/`
+- Writing archive pages do not get a Markdown sidecar
 - Seeds are dated `2026-11-11`, authored by `texarkanine`, and are one poem, one song, and one story
+- `_writing/**` is CC-BY-SA-4.0, the same override as posts and the garden
 
 ## Open Questions
 
-None - implementation approach is clear
+- [x] Piece path versus acceptance criterion 1 → Resolved: the piece URL stays `/writing/<folder>/<slug>`. The folder's archive is `/writing/categories/<folder>/`. Acceptance criterion 1 in the brief now says that.
+- [x] Category LLM scopes → Resolved: set `include_categories` to false and register explicit builders for post categories and writing categories.
+- [x] Seed license → Resolved: `_writing/**` uses the same CC-BY-SA-4.0 override as `blog/**` and `_garden/**`.
 
 ## Test Plan (TDD)
 
@@ -96,9 +121,20 @@ None - implementation approach is clear
 - Tag archive → a tag on two writing pieces publishes `/writing/tags/verse/` and does not publish a tag used once
 - Category archive → `/writing/categories/poetry/` exists for one piece
 - Post tag namespace → `/tags/verse/` is not created for a writing-only tag
-- Layout → the writing page links the category to `/writing/categories/poetry/`, links the author to `/authors/texarkanine/`, and shows published and updated dates
-- Author page → Texarkanine's author page lists the writing piece and a post
-- Sidecar → `/writing/poetry/porch-light.md` exists, and `/writing/tags/verse/llms.txt` exists
+- Layout → the writing page links the category to `/writing/categories/poetry/`, links the author to `/authors/texarkanine/`, and shows the filename day as Published and the file mtime day as Updated
+- Author page → a hand-written author page lists the writing piece and a post, newest first
+- Document sidecar → `/writing/poetry/porch-light.md` exists
+- Writing tag scope → `/writing/tags/verse/llms.txt` exists, and a singleton tag has no `llms.txt`
+- Writing category scope → `/writing/categories/poetry/llms.txt` exists for one piece
+- Post category scope → a post in category `tools` still publishes `/categories/tools/llms.txt` after `include_categories` is false
+- Posts category namespace → `/categories/poetry/llms.txt` is absent when only a writing folder is named poetry
+- Archive sidecars → `/writing/tags/verse/index.md` and `/writing/categories/poetry/index.md` are absent
+- Section home → `/writing/` lists writing pieces by date, newest first, and does not list a post or a garden note
+- Tag index → `/writing/tags/` links a tag used twice, omits a tag used once, and does not link a post-only tag
+- Category index → `/writing/categories/` links a category used once, and does not link a post category
+- Home block → the recent-posts list does not link the writing piece, and the writing block under that list links the piece, `/writing/`, `/writing/tags/`, and `/writing/categories/`, newest first
+- Post index → `/all-posts.html` does not list the writing piece
+- Garden index → `/garden/` does not list the writing piece
 - Existing garden feed cases → still pass with no writing collection configured
 
 ### Test Infrastructure
@@ -110,7 +146,7 @@ None - implementation approach is clear
 
 ### Integration Tests
 
-- `tests/test_writing_collection.py`: category hook, permalink, archives, layout, author layout, and sidecar in one throwaway site
+- `tests/test_writing_collection.py`: category hook, permalink, archives, layout, author page, sidecars, and the section indexes in one throwaway site
 - `tests/test_garden_feed.py`: writing documents concatenated into the posts feed, including the no-garden and limit cases
 
 ## Implementation Plan
@@ -121,7 +157,7 @@ None - implementation approach is clear
 
 1. Stub tests: add `tests/test_writing_collection.py` with empty cases for the folder URL, the nested URL, the folderless URL, the publication date in the HTML, and absence from a `site.posts` listing.
 2. Stub interface: add `_plugins/writing_categories.rb` with the `:documents, :post_init` hook and an empty body, and add the `writing` collection permalink `/writing/:categories/:title:output_ext` in `_config.yaml`.
-3. Write tests and run red: the fixture copies the plugin, writes Markdown with a title and no date or category, builds, and asserts the destination paths and the date text. Run `python3 -m unittest tests.test_writing_collection`. The new cases fail.
+3. Write tests and run red: the fixture copies the plugin, writes Markdown with a title and no date or category, builds, and asserts the destination paths and the date text. The posts listing is a fixture page that loops `site.posts`. Run `python3 -m unittest tests.test_writing_collection`. The new cases fail.
 4. Write code and run green: the hook, for collection `writing` only, sets `categories` to the directory segments under `_writing`. Do not call `url` from the hook. Re-run the writing tests and `python3 -m unittest discover -s tests`.
 
 ### 2. Main feed — executable
@@ -139,33 +175,41 @@ None - implementation approach is clear
 
 1. Stub tests: add empty cases for the category link, both dates, the tag archive, the absent singleton tag, the category archive, the untouched `/tags/` path, and the author page listing both a post and a writing piece.
 2. Stub interface: add the three layouts with empty bodies and the `writing` block under `jekyll-archives.collections` with permalinks `/writing/tags/:name/` and `/writing/categories/:name/`.
-3. Write tests and run red: the fixture enables `jekyll-archives`, copies `garden_archives.rb` and the production layouts, and asserts the built HTML and paths. Run the new cases. They fail.
+3. Write tests and run red: the fixture enables `jekyll-archives` and copies `writing_categories.rb`, `garden_archives.rb`, `navigational_tags.rb`, `collection_dates.rb`, `_includes/back_link.html`, and the production layouts. It stubs `_layouts/default.html` so the only output is `{{ content }}`. It writes `_data/authors.yaml` for `texarkanine` with a name and a bio and no contact entry, and a hand-written page with `layout: author-archive`, `title: texarkanine`, and `permalink: /authors/texarkanine/`. It does not enable `jekyll-auto-authors`. It sets the writing file's mtime and asserts Published is the filename day and Updated is that mtime day. Run the new cases. They fail.
 4. Write code and run green: the writing layout shows Published from `page.date` and Updated from `page.last_modified`, links the last category to `/writing/categories/`, links `page.author` to `/authors/`, and links a tag to `/writing/tags/` only when that tag's writing count is at least 2. Archive layouts list documents by date, newest first, and the tag layout renders `_data/tags.yaml` when an entry exists. Add `writing-tag-archive` to `TAG_ARCHIVE_LAYOUTS`. Author pages concatenate `site.writing` with `site.posts` and sort by date, newest first. Set the writing default layout to `writing` and `reading_progress: true`. Re-run the suite.
 
 ### 4. LLM sidecars — executable
 
 - Files: `tests/test_writing_collection.py`, `_config.yaml`, `_plugins/20_llms_scope_builders.rb`
 
-1. Stub tests: add empty cases for the document sidecar and the writing tag `llms.txt`.
-2. Stub interface: add `writing` to `llm_sidecars.include_paths` only, leaving the scope builders unchanged so the tag-scope case can fail on its own.
-3. Write tests and run red: the fixture enables `jekyll-llm-sidecars`, copies `20_llms_scope_builders.rb`, and asserts `/writing/poetry/porch-light.md` and `/writing/tags/verse/llms.txt`. Run the new cases. The tag scope fails.
-4. Write code and run green: register writing tag and writing category scope builders the same way garden tags are registered, using `site.writing_tags` and `site.writing_categories` and the writing permalinks. Singleton tags stay out. Re-run the suite.
+1. Stub tests: add empty cases for the document sidecar, the writing tag `llms.txt`, the absent singleton tag scope, the writing category `llms.txt`, the absent `/categories/poetry/llms.txt`, the surviving post category `llms.txt`, and the absent archive `index.md` files.
+2. Stub interface: add `writing` to `llm_sidecars.include_paths` only. Leave `include_categories: true`, leave `exclude_paths` unchanged, and leave the scope builders unchanged.
+3. Write tests and run red: the fixture enables `jekyll-llm-sidecars`, configures the writing archive permalinks, and copies `20_llms_scope_builders.rb`, `navigational_tags.rb`, `garden_archives.rb`, and `writing_categories.rb`. A post uses category `tools`. Run the new cases. The document sidecar and the post category scope can pass. The writing tag scope, the writing category scope, the absent `/categories/poetry/llms.txt`, and the absent archive `index.md` files fail.
+4. Write code and run green: set `include_categories: false`. Add `exclude_paths` entries `/writing/tags/**/*` and `/writing/categories/**/*`. Register a writing tag builder through `scopes_for_taxonomy`, using `site.writing_tags` and `/writing/tags/:name/`, so singleton tags stay out. Register post category and writing category builders that do not apply `NavigationalTags.keep?`. Post categories use `site.categories` and `jekyll-archives.permalinks.category`. Writing categories use `site.writing_categories` and the writing category permalink. Re-run the suite.
 
-### 5. Section entry and seed pieces — prose/policy
+### 5. Section indexes — executable
 
-- Files: `pages/index.md`, `pages/writing.md`, `pages/writing/tags.md`, `pages/writing/categories.md`, `_data/writing_menu.yaml`, `_writing/poetry/2026-11-11-porch-light.md`, `_writing/songs/2026-11-11-kitchen-radio.md`, `_writing/stories/2026-11-11-the-second-cup.md`
+- Files: `tests/test_writing_collection.py`, `pages/writing.md`, `pages/writing/tags.md`, `pages/writing/categories.md`, `_data/writing_menu.yaml`, `pages/index.md`
+
+1. Stub tests: add empty cases for the section home order and its exclusion of posts and garden notes, the tag index threshold, the category index with one piece, the home block under the posts menu, `/all-posts.html`, and `/garden/`.
+2. Stub interface: add `pages/writing.md`, `pages/writing/tags.md`, and `pages/writing/categories.md` with permalinks `/writing/`, `/writing/tags/`, and `/writing/categories/` and empty bodies. Add `_data/writing_menu.yaml` with an empty `entries` list. Do not edit `pages/index.md` yet.
+3. Write tests and run red: the fixture copies those pages, `pages/index.md`, `pages/all-posts.md`, `pages/garden.md`, `_data/menu.yaml`, `_data/garden_menu.yaml`, `_includes/menu_item.html`, `_includes/page_list.html`, and `_includes/garden_posts.html`. It writes a fixture `_includes/post_list.html` that lists `site.posts`. It stubs `_layouts/home.html` to render the menu and then `{{ content }}`, and stubs `_layouts/default.html` to render `{{ content }}`. It copies `writing_categories.rb`, `garden_archives.rb`, and `navigational_tags.rb`, and configures the writing archives. Two writing pieces have different filename dates and share `verse`. One of them uses `hearth`. A post uses tag `tools` and category `tools`. A garden note is present. Run the new cases. They fail.
+4. Write code and run green: `pages/writing.md` lists `site.writing` by date, newest first, and links to `/writing/tags/` and `/writing/categories/`. `pages/writing/tags.md` lists `site.writing_tags` and omits a tag whose count is under 2. `pages/writing/categories.md` lists `site.writing_categories`, including a category with one piece. `_data/writing_menu.yaml` lists `site.writing` by date, newest first, with links to `/writing/`, `/writing/tags/`, and `/writing/categories/`. `pages/index.md` renders that menu in the page body. Do not add writing to `_data/menu.yaml`. Re-run the suite.
+
+### 6. Seed pieces and license — prose/policy
+
+- Files: `_writing/poetry/2026-11-11-porch-light.md`, `_writing/songs/2026-11-11-kitchen-radio.md`, `_writing/stories/2026-11-11-the-second-cup.md`, `REUSE.toml`
 - No tests: prose/policy artifact
 
-1. Add a writing block to `pages/index.md` and a `_data/writing_menu.yaml` that lists `site.writing` by date, newest first, with links to `/writing/`, `/writing/tags/`, and `/writing/categories/`. Do not add writing to `_data/menu.yaml`'s post list.
-2. Add the section home, the tag index, and the category index, reading `site.writing`, `site.writing_tags`, and `site.writing_categories`. Indexes omit tags whose count is under 2. Category indexes include a category with one piece.
-3. Write three short original pieces. Front matter is title, description, layout, author `texarkanine`, and tags only. Poem tags: `verse`, `night`. Song tags: `verse`, `night`. Story tags: `night`, `hearth`. No `date`. No `category`.
+1. Write three short original pieces. Front matter is title, description, layout, author `texarkanine`, and tags only. Poem tags: `verse`, `night`. Song tags: `verse`, `night`. Story tags: `night`, `hearth`. No `date`. No `category`.
+2. Add `_writing/**` to the CC-BY-SA-4.0 annotation in `REUSE.toml`, and name `_writing/` in the comment that lists the creative-writing paths.
 
-### 6. Plugin notes — prose/policy
+### 7. Plugin notes — prose/policy
 
 - Files: `_plugins/README.md`
 - No tests: prose/policy artifact
 
-1. Note that the posts feed also concatenates `site.writing`, that writing categories come from folders at `post_init`, and that writing tag and category LLM scopes exist.
+1. Note that the posts feed also concatenates `site.writing`, that writing categories come from folders at `post_init`, that writing tag and category LLM scopes are registered by this site, that `include_categories` is false because the gem's category scope uses the posts permalink, and that `/writing/tags/**/*` and `/writing/categories/**/*` are excluded so archive pages do not get Markdown sidecars.
 
 ## Technology Validation
 
@@ -176,18 +220,27 @@ No new technology - validation not required
 - URL memoized too early: the category hook runs at `post_init` and must not read `url`. The URL test asserts the folder segment.
 - Archive permalink fallback: `garden_archives.rb` falls back to `/tags/` and `/categories/` when a collection omits permalinks. The writing archive config sets both permalinks, and the test asserts `/tags/verse/` is absent.
 - Feed assign-line drift: a gem bump that changes the posts assignment leaves the template untouched and drops writing silently. The feed test asserts a writing link.
-- Filename date versus git date: `collection_dates.rb` keeps a date that is already set. The publication-date assertion uses the filename. The update line is the existing git fallback.
-- Garden title sort: writing archive layouts re-sort by date. Garden tag pages stay title-sorted.
+- Filename date versus git date: `collection_dates.rb` keeps a `data["date"]` that is already set and differs from `site.time`. Jekyll sets that from the filename before generators run. The publication-date assertion uses the filename. The Updated assertion uses the fixture file's mtime, which is the plugin's fallback when the throwaway file has no commit.
 - Same-day update line: the writing layout always shows Updated, including when it matches the publication day, so a new seed still shows both lines.
+- Garden title sort: writing archive layouts re-sort by date. Garden tag pages stay title-sorted.
+- Category scope minimum: `scopes_for_taxonomy` drops a term with one document. Category builders must not use that filter, or a one-piece category loses its `llms.txt`. The poetry category case has one piece.
+- Post category regression: `include_categories: false` removes the gem's post category scopes. The `tools` case fails unless the post category builder lands in the same change.
+- Home layout: the throwaway site does not load the remote theme. The fixture stubs the home layout that renders the menu and then `{{ content }}`. The recent-posts list is a fixture `post_list.html` that lists `site.posts`.
+- Author page weight: the author case is a hand-written page. The author record has no email, so the fixture does not load `jekyll-auto-authors` or `email_obfuscator.rb`.
 - Future filename dates: collection documents are not skipped the way future posts are. The seeds are dated today. No future-date filter in this task.
 - `index.md` inside a category folder would be another piece. The seeds do not add one.
+- Config-list refactor: replacing the hard-coded collection names in the feed, scope, and archive plugins with config lists is outside this task.
 
 ## Pre-Mortem
 
 - Categories set too late, so every piece publishes at `/writing/<slug>` and the folders are only a filing convenience. The URL test locks the folder segment, and the hook is `post_init` rather than a generator.
-- A seed gets a front-matter `date` or `category`, the filename stops being the publication date, and the folder stops being the only category source. The mechanism tests use documents without those keys. The seed step forbids the keys. A content grep of the three poems is not a test.
+- A seed gets a front-matter `date` or `category`, the filename stops being the publication date, and the folder stops being the only category source. The mechanism tests use documents without those keys. The seed step forbids the keys.
 - The feed concat is nested under the garden check, so writing disappears on a site with no garden. The missing-garden feed case prevents that shape.
 - Writing tag pages land on `/tags/` and overwrite or mix with post tags. The archive permalink test and the explicit writing permalinks are the response.
+- Writing category scopes land on `/categories/` and share a path with a post category of the same name. `include_categories: false`, the explicit writing permalink, and the absent `/categories/poetry/llms.txt` case are the response.
+- Index Liquid ships untested, so a singleton tag or a tech post shows up on a writing index. Unit 5 builds `/writing/`, `/writing/tags/`, `/writing/categories/`, the home block, `/all-posts.html`, and `/garden/` before those pages are filled in.
+- The seeds ship under the AGPL default. The REUSE step adds `_writing/**` to the CC-BY-SA-4.0 override in the same unit as the files.
+- Acceptance criterion 1 is read as a piece living at `/writing/poetry/`. The brief now states the piece URL and the category archive URL, and this plan does not add a folder index.
 
 ## Status
 
