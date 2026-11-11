@@ -90,3 +90,14 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - Jekyll deep-merge keeps the earlier value when the later value is null, and it replaces arrays
     - `:documents, :post_init` runs before `read`, so the future check parses the filename. `data["date"]` does not exist yet
     - `Document#write?` already hides the future page. The dead link comes from the document staying in the collection
+
+## 2026-11-11 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Re-checked the twice-revised plan against Jekyll's `Document`, `Collection`, and `populate_title` source, the existing plugins, layouts, pages, and `tests/test_garden_feed.py`
+    - First line of `.preflight-status`: `FAIL (fixable)`
+* Decisions made
+    - No in-phase plan edits: no misordered tests and no change-detector steps
+* Insights
+    - The `TAG_ARCHIVE_LAYOUTS` change and the writing tag description lookup are executable and have no test step
+    - Minor: the unit 5 fixture's `pages/garden.md` needs `_garden/what-is-a-digital-garden.md`, the writing archive config needs `enabled` and `layouts`, and unit 1 needs a date-printing body and a stub layout

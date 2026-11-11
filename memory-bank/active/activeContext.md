@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: Writing collection
-**Phase:** PLAN - COMPLETE
+**Phase:** PREFLIGHT - COMPLETE (FAIL (fixable))
 
 ## What Was Done
 - Replanned after the fixable preflight
