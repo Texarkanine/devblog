@@ -30,3 +30,16 @@ Add a writing collection beside posts and the garden: folder categories, filenam
 * Insights
     - `Jekyll::URL` squeezes a double slash, so a piece with no folder still has a clean URL
     - Upstream `no-style-please` renders the posts menu and then `{{ content }}`, so the writing block belongs in `pages/index.md` rather than in the posts menu
+
+## 2026-11-11 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Checked the plan against Jekyll 4.4.1, jekyll-feed 0.18, jekyll-archives 2.3, jekyll-llm-sidecars 0.3, the existing plugins, layouts, tests, and `REUSE.toml`
+    - Ran a throwaway build to test the LLM category scope behavior
+    - First line of `.preflight-status`: `FAIL (blocking)`
+* Decisions made
+    - No in-phase plan edits: no misordered tests and no change-detector steps
+* Insights
+    - `include_categories: true` in `llm_sidecars` emits `/categories/<folder>/llms.txt` for writing folders, so writing leaks into the posts category namespace
+    - Unit 5 index pages are Liquid with logic and need tests
+    - Writing archive pages need `exclude_paths` entries, and `_writing/**` needs the CC-BY-SA-4.0 REUSE annotation

@@ -31,6 +31,7 @@ flowchart TD
 ## Component Analysis
 
 ### Affected Components
+
 - `_config.yaml`: collection, permalink, archive permalinks, reading-progress default, LLM include path → add `writing` without putting it in `site.posts`
 - New `_plugins/writing_categories.rb`: nothing today assigns a category from a folder inside a collection → set `categories` from the path at `:documents, :post_init`
 - `_plugins/garden_in_feed.rb`: concatenates `site.garden` into `/feed.xml` → also concatenate `site.writing` when that collection exists
@@ -45,6 +46,7 @@ flowchart TD
 - `tests/test_garden_feed.py` and new `tests/test_writing_collection.py`: throwaway Jekyll builds
 
 ### Cross-Module Dependencies
+
 - `writing_categories.rb` → Jekyll `Document#url`: categories must exist before the first URL read
 - `writing_categories.rb` → `garden_archives.rb`: archives read `data["categories"]` and `data["tags"]`
 - `writing_categories.rb` → collection permalink `:categories` and `:title`: the folder and the stripped slug
@@ -55,6 +57,7 @@ flowchart TD
 - `_includes/page_list.html` → writing menu: it already lists `site[collection]` sorted by a key
 
 ### Boundary Changes
+
 - New public URLs under `/writing/`
 - `/feed.xml` gains writing entries, still capped at the existing newest-ten
 - `/authors/:author/` lists writing pieces as well as posts
@@ -63,6 +66,7 @@ flowchart TD
 - No new gem and no change to post permalinks
 
 ### Invariants
+
 - A writing piece has no `date` and no `category` in front matter
 - The publication date is the `YYYY-MM-DD` filename prefix
 - The update date is the git body-commit date from `collection_dates.rb`
