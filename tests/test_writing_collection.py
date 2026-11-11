@@ -214,6 +214,59 @@ class WritingCollectionTests(unittest.TestCase):
         post_at = page.index("/2026/11/10/a-post.html")
         self.assertLess(writing_at, post_at)
 
+    def test_writing_document_has_a_markdown_sidecar(self):
+        """A writing piece publishes a Markdown sidecar next to its HTML page."""
+        self._prepare_sidecars()
+        self._write_sidecar_pieces()
+        self._build()
+        self.assertTrue((self.dest / "writing" / "poetry" / "porch-light.md").is_file())
+
+    def test_writing_tag_scope_publishes_llms_txt(self):
+        """A tag on two writing pieces publishes /writing/tags/verse/llms.txt."""
+        self._prepare_sidecars()
+        self._write_sidecar_pieces()
+        self._build()
+        page = self._read(self.dest / "writing" / "tags" / "verse" / "llms.txt")
+        self.assertIn("porch-light", page)
+
+    def test_singleton_writing_tag_has_no_llms_txt(self):
+        """A tag used on one writing piece does not publish an llms.txt scope."""
+        self._prepare_sidecars()
+        self._write_sidecar_pieces()
+        self._build()
+        self.assertFalse((self.dest / "writing" / "tags" / "hearth" / "llms.txt").exists())
+
+    def test_writing_category_scope_publishes_llms_txt_for_one_piece(self):
+        """A writing category with one piece publishes /writing/categories/poetry/llms.txt."""
+        self._prepare_sidecars()
+        self._write_sidecar_pieces()
+        self._build()
+        page = self._read(self.dest / "writing" / "categories" / "poetry" / "llms.txt")
+        self.assertIn("porch-light", page)
+
+    def test_writing_folder_does_not_publish_a_post_category_scope(self):
+        """A writing folder named poetry does not publish /categories/poetry/llms.txt."""
+        self._prepare_sidecars()
+        self._write_sidecar_pieces()
+        self._build()
+        self.assertFalse((self.dest / "categories" / "poetry" / "llms.txt").exists())
+
+    def test_post_category_scope_survives_without_the_gem_flag(self):
+        """A post in category tools still publishes /categories/tools/llms.txt."""
+        self._prepare_sidecars()
+        self._write_sidecar_pieces()
+        self._build()
+        page = self._read(self.dest / "categories" / "tools" / "llms.txt")
+        self.assertIn("a-tool", page)
+
+    def test_writing_archive_pages_have_no_markdown_sidecar(self):
+        """Writing tag and category archive pages do not get an index.md sidecar."""
+        self._prepare_sidecars()
+        self._write_sidecar_pieces()
+        self._build()
+        self.assertFalse((self.dest / "writing" / "tags" / "verse" / "index.md").exists())
+        self.assertFalse((self.dest / "writing" / "categories" / "poetry" / "index.md").exists())
+
     def _prepare(self, plugins=None):
         if plugins is None:
             plugins = []
@@ -289,6 +342,59 @@ class WritingCollectionTests(unittest.TestCase):
             "---\n"
         )
 
+    def _prepare_sidecars(self):
+        (self.source / "overlay.yml").write_text(
+            "url: http://example.test\n"
+            "plugins:\n"
+            "  - jekyll-archives\n"
+            "  - jekyll-llm-sidecars\n"
+        )
+        plugin_dir = self.source / "_plugins"
+        plugin_dir.mkdir(exist_ok=True)
+        for name in (
+            "20_llms_scope_builders.rb",
+            "navigational_tags.rb",
+            "garden_archives.rb",
+            "writing_categories.rb",
+        ):
+            shutil.copy(REPO / "_plugins" / name, plugin_dir / name)
+        includes = self.source / "_includes"
+        includes.mkdir(exist_ok=True)
+        shutil.copy(REPO / "_includes" / "back_link.html", includes / "back_link.html")
+        layouts = self.source / "_layouts"
+        layouts.mkdir(exist_ok=True)
+        for name in (
+            "writing.html",
+            "writing-tag-archive.html",
+            "writing-cat-archive.html",
+            "cat-archive.html",
+            "tag-archive.html",
+        ):
+            shutil.copy(REPO / "_layouts" / name, layouts / name)
+        (layouts / "default.html").write_text("---\n---\n{{ content }}\n")
+
+    def _write_sidecar_pieces(self):
+        self._write_piece(
+            "poetry",
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._write_piece(
+            "songs",
+            "2026-11-10-kitchen-radio.md",
+            "Kitchen Radio",
+            author="texarkanine",
+            tags=["verse", "hearth"],
+        )
+        self._write_post(
+            "2026-11-10-a-tool.md",
+            "A Tool",
+            author="texarkanine",
+            category="tools",
+        )
+
     def _write_page(self, filename, permalink, body):
         (self.source / filename).write_text(
             f"---\ntitle: {filename}\npermalink: {permalink}\n---\n{body}"
@@ -310,12 +416,14 @@ class WritingCollectionTests(unittest.TestCase):
         path.write_text("\n".join(lines))
         return path
 
-    def _write_post(self, filename, title, author=None):
+    def _write_post(self, filename, title, author=None, category=None):
         posts = self.source / "_posts"
         posts.mkdir(exist_ok=True)
         lines = ["---", f"title: {title}"]
         if author:
             lines.append(f"author: {author}")
+        if category:
+            lines.append(f"category: {category}")
         lines.extend(["---", "Post.", ""])
         path = posts / filename
         path.write_text("\n".join(lines))

@@ -10,7 +10,8 @@
 - Unit 2 is green. The posts feed concatenates `site.garden` and `site.writing` only when each collection exists. Tag feeds and other collection feeds stay on their own lists
 - Unit 3 is green. Writing pages show Published and Updated, link each folder to its category archive, and link a tag only when that writing tag is used at least twice. Author pages list writing pieces with posts, newest first
 - The archive fixture copies `email_obfuscator.rb` so the author layout can parse. The author record still has no email, so the tag is not used
-- Full suite: 38 tests, OK
+- Unit 4 is green. Writing documents have Markdown sidecars. Writing tag scopes drop a tag used once. Writing category scopes keep a category used once, at `/writing/categories/`. Post category scopes stay at `/categories/`. The gem's category scopes are off
+- Full suite: 45 tests, OK
 
 ## Next Step
-- Unit 4: writing and post LLM category scopes, with the gem's category scopes turned off
+- Unit 5: writing section home, tag index, category index, and the home-page block

@@ -187,12 +187,13 @@ pagination:
 llm_sidecars:
   create_markdown: true
   create_llms_full: true
-  include_categories: true
+  include_categories: false
   include_collections: true
   include_paths:
     - posts
     - pages
     - garden
+    - writing
   exclude_paths:
     - /*.xml # sitemap, feed - these already list all content
     - /assets/**/*
@@ -203,4 +204,6 @@ llm_sidecars:
     - /garden/tags/**/*
     - /redirects.json
     - /tags/**/*
+    - /writing/categories/**/*
+    - /writing/tags/**/*
     - robots.txt
