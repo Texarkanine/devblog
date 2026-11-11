@@ -11,7 +11,8 @@
 - Unit 3 is green. Writing pages show Published and Updated, link each folder to its category archive, and link a tag only when that writing tag is used at least twice. Author pages list writing pieces with posts, newest first
 - The archive fixture copies `email_obfuscator.rb` so the author layout can parse. The author record still has no email, so the tag is not used
 - Unit 4 is green. Writing documents have Markdown sidecars. Writing tag scopes drop a tag used once. Writing category scopes keep a category used once, at `/writing/categories/`. Post category scopes stay at `/categories/`. The gem's category scopes are off
-- Full suite: 45 tests, OK
+- Unit 5 is green. `/writing/` lists pieces by date. The tag index keeps a tag used twice. The category index keeps a category used once. The home page lists writing under the posts menu. All-posts and the garden stay clear of writing
+- Full suite: 52 tests, OK
 
 ## Next Step
-- Unit 5: writing section home, tag index, category index, and the home-page block
+- Unit 6: three seed pieces, the CC-BY-SA override, and the shared tag descriptions

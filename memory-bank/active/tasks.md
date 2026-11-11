@@ -269,7 +269,7 @@ No new technology - validation not required
   - [x] 2. Main feed
   - [x] 3. Layout, archives, and author pages
   - [x] 4. LLM sidecars
-  - [ ] 5. Section indexes
+  - [x] 5. Section indexes
   - [ ] 6. Seed pieces and license
   - [ ] 7. Plugin notes
 - [ ] QA

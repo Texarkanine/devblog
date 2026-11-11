@@ -10,3 +10,7 @@ description: "On the internet, nobody knows you're a dog and a cat in a latent s
 Timeless treasures and curios collected from the internet and presented for your perusal.
 
 {% include menu_item.html collection=site.data.garden_menu.entries %}
+
+# Writing
+
+{% include menu_item.html collection=site.data.writing_menu.entries %}

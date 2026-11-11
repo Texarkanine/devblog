@@ -267,6 +267,89 @@ class WritingCollectionTests(unittest.TestCase):
         self.assertFalse((self.dest / "writing" / "tags" / "verse" / "index.md").exists())
         self.assertFalse((self.dest / "writing" / "categories" / "poetry" / "index.md").exists())
 
+    def test_writing_home_lists_pieces_newest_first_and_skips_other_collections(self):
+        """The writing home lists writing by date and leaves out posts and garden notes."""
+        self._prepare_section()
+        self._write_section_pieces()
+        self._build()
+        page = self._read(self.dest / "writing" / "index.html")
+        newer = page.index("/writing/poetry/porch-light.html")
+        older = page.index("/writing/songs/kitchen-radio.html")
+        self.assertLess(newer, older)
+        self.assertIn('href="/writing/tags/"', page)
+        self.assertIn('href="/writing/categories/"', page)
+        self.assertNotIn("/2026/11/08/a-tool.html", page)
+        self.assertNotIn("/garden/pressed-leaf.html", page)
+
+    def test_writing_tag_index_links_a_repeated_tag_only(self):
+        """The tag index links a tag used twice, omits a tag used once, and omits a post-only tag."""
+        self._prepare_section()
+        self._write_section_pieces()
+        self._build()
+        page = self._read(self.dest / "writing" / "tags" / "index.html")
+        self.assertIn('href="/writing/tags/verse/"', page)
+        self.assertNotIn('href="/writing/tags/hearth/"', page)
+        self.assertNotIn('href="/tags/tools/"', page)
+        self.assertNotIn('href="/writing/tags/tools/"', page)
+
+    def test_writing_tag_index_renders_when_nothing_is_tagged(self):
+        """The tag index still renders when the only piece has no tags, and it has no tag link."""
+        self._prepare_section()
+        self._write_piece(
+            "stories",
+            "2026-11-11-second-cup.md",
+            "Second Cup",
+            author="texarkanine",
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "tags" / "index.html")
+        self.assertNotIn('href="/writing/tags/', page)
+
+    def test_writing_category_index_links_a_category_used_once(self):
+        """The category index links a category used once and does not link a post category."""
+        self._prepare_section()
+        self._write_section_pieces()
+        self._build()
+        page = self._read(self.dest / "writing" / "categories" / "index.html")
+        self.assertIn('href="/writing/categories/poetry/"', page)
+        self.assertIn('href="/writing/categories/songs/"', page)
+        self.assertNotIn('href="/categories/tools/"', page)
+        self.assertNotIn('href="/writing/categories/tools/"', page)
+
+    def test_home_page_lists_writing_under_the_posts_menu(self):
+        """The recent-posts list omits writing. The writing block under it links the pieces and the indexes."""
+        self._prepare_section()
+        self._write_section_pieces()
+        self._build()
+        page = self._read(self.dest / "index.html")
+        posts, rest = page.split("<!-- /posts -->", 1)
+        self.assertNotIn("porch-light", posts)
+        self.assertIn("/2026/11/08/a-tool.html", posts)
+        newer = rest.index("/writing/poetry/porch-light.html")
+        older = rest.index("/writing/songs/kitchen-radio.html")
+        self.assertLess(newer, older)
+        self.assertIn('href="/writing/"', rest)
+        self.assertIn('href="/writing/tags/"', rest)
+        self.assertIn('href="/writing/categories/"', rest)
+
+    def test_all_posts_omits_writing(self):
+        """The all-posts page does not list a writing piece."""
+        self._prepare_section()
+        self._write_section_pieces()
+        self._build()
+        page = self._read(self.dest / "all-posts.html")
+        self.assertIn("/2026/11/08/a-tool.html", page)
+        self.assertNotIn("porch-light", page)
+
+    def test_garden_index_omits_writing(self):
+        """The garden index does not list a writing piece."""
+        self._prepare_section()
+        self._write_section_pieces()
+        self._build()
+        page = self._read(self.dest / "garden" / "index.html")
+        self.assertIn("/garden/pressed-leaf.html", page)
+        self.assertNotIn("porch-light", page)
+
     def _prepare(self, plugins=None):
         if plugins is None:
             plugins = []
@@ -395,6 +478,86 @@ class WritingCollectionTests(unittest.TestCase):
             category="tools",
         )
 
+    def _prepare_section(self):
+        (self.source / "overlay.yml").write_text(
+            "url: http://example.test\nplugins:\n  - jekyll-archives\n"
+        )
+        plugin_dir = self.source / "_plugins"
+        plugin_dir.mkdir(exist_ok=True)
+        for name in (
+            "writing_categories.rb",
+            "garden_archives.rb",
+            "navigational_tags.rb",
+        ):
+            shutil.copy(REPO / "_plugins" / name, plugin_dir / name)
+        includes = self.source / "_includes"
+        includes.mkdir(exist_ok=True)
+        for name in ("back_link.html", "menu_item.html", "page_list.html", "garden_posts.html"):
+            shutil.copy(REPO / "_includes" / name, includes / name)
+        (includes / "post_list.html").write_text(
+            "<!-- posts -->\n"
+            "<ul>\n"
+            "{% for post in site.posts %}\n"
+            '<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>\n'
+            "{% endfor %}\n"
+            "</ul>\n"
+            "<!-- /posts -->\n"
+        )
+        layouts = self.source / "_layouts"
+        layouts.mkdir(exist_ok=True)
+        for name in ("page.html", "writing.html"):
+            shutil.copy(REPO / "_layouts" / name, layouts / name)
+        (layouts / "default.html").write_text("---\n---\n{{ content }}\n")
+        (layouts / "home.html").write_text(
+            "---\n---\n"
+            "{% include menu_item.html collection=site.data.menu.entries %}\n"
+            "{{ content }}\n"
+        )
+        data = self.source / "_data"
+        data.mkdir(exist_ok=True)
+        for name in ("menu.yaml", "garden_menu.yaml", "writing_menu.yaml"):
+            shutil.copy(REPO / "_data" / name, data / name)
+        pages = self.source / "pages"
+        pages.mkdir(exist_ok=True)
+        for name in ("index.md", "all-posts.md", "writing.md"):
+            shutil.copy(REPO / "pages" / name, pages / name)
+        writing_pages = pages / "writing"
+        writing_pages.mkdir(exist_ok=True)
+        for name in ("tags.md", "categories.md"):
+            shutil.copy(REPO / "pages" / "writing" / name, writing_pages / name)
+        (pages / "garden-index.md").write_text(
+            "---\nlayout: page\ntitle: Garden\npermalink: /garden/\n---\n"
+            "{% include garden_posts.html %}\n"
+        )
+
+    def _write_section_pieces(self):
+        self._write_piece(
+            "poetry",
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._write_piece(
+            "songs",
+            "2026-11-09-kitchen-radio.md",
+            "Kitchen Radio",
+            author="texarkanine",
+            tags=["verse", "hearth"],
+        )
+        self._write_post(
+            "2026-11-08-a-tool.md",
+            "A Tool",
+            author="texarkanine",
+            category="tools",
+            tags=["tools"],
+        )
+        garden = self.source / "_garden"
+        garden.mkdir(exist_ok=True)
+        (garden / "pressed-leaf.md").write_text(
+            "---\ntitle: Pressed Leaf\ndate: 2026-11-01\n---\nNote.\n"
+        )
+
     def _write_page(self, filename, permalink, body):
         (self.source / filename).write_text(
             f"---\ntitle: {filename}\npermalink: {permalink}\n---\n{body}"
@@ -416,7 +579,7 @@ class WritingCollectionTests(unittest.TestCase):
         path.write_text("\n".join(lines))
         return path
 
-    def _write_post(self, filename, title, author=None, category=None):
+    def _write_post(self, filename, title, author=None, category=None, tags=None):
         posts = self.source / "_posts"
         posts.mkdir(exist_ok=True)
         lines = ["---", f"title: {title}"]
@@ -424,6 +587,9 @@ class WritingCollectionTests(unittest.TestCase):
             lines.append(f"author: {author}")
         if category:
             lines.append(f"category: {category}")
+        if tags:
+            lines.append("tags:")
+            lines.extend(f"  - {tag}" for tag in tags)
         lines.extend(["---", "Post.", ""])
         path = posts / filename
         path.write_text("\n".join(lines))
