@@ -101,3 +101,17 @@ Add a writing collection beside posts and the garden: folder categories, filenam
 * Insights
     - The `TAG_ARCHIVE_LAYOUTS` change and the writing tag description lookup are executable and have no test step
     - Minor: the unit 5 fixture's `pages/garden.md` needs `_garden/what-is-a-digital-garden.md`, the writing archive config needs `enabled` and `layouts`, and unit 1 needs a date-printing body and a stub layout
+
+## 2026-11-11 - PLAN - COMPLETE
+
+* Work completed
+    - Added a unit 3 case for the shared `verse` description: markdown in the archive body, plain text in `page.description`
+    - Specified `enabled` and layouts on the writing archive block, category links as `/writing/categories/<slug>/` for every folder segment, and a date line in the unit 1 document body
+    - Unit 5 writes its own `/garden/` page instead of copying `pages/garden.md`
+    - Unit 6 adds `verse` and `night` to `_data/tags.yaml`
+* Decisions made
+    - The fixture default layout prints `page.description` so the SEO text is visible without the theme
+    - `hearth` stays out of `_data/tags.yaml`
+* Insights
+    - `tag_descriptions_seo.rb` sets the plain description only when the layout name is in `TAG_ARCHIVE_LAYOUTS`. The body blurb is the layout's `markdownify`
+    - `pages/garden.md` links a garden note that uses `linkcard`, so the omission test uses `garden_posts.html` directly
