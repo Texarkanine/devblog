@@ -115,3 +115,15 @@ Add a writing collection beside posts and the garden: folder categories, filenam
 * Insights
     - `tag_descriptions_seo.rb` sets the plain description only when the layout name is in `TAG_ARCHIVE_LAYOUTS`. The body blurb is the layout's `markdownify`
     - `pages/garden.md` links a garden note that uses `linkcard`, so the omission test uses `garden_posts.html` directly
+
+## 2026-11-11 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Validated revised plan against codebase, Jekyll 4.4.1, jekyll-feed, jekyll-archives, and jekyll-llm-sidecars
+    - Verified all prior preflight findings are resolved across units 1, 3, 5, and 6
+    - First line of `.preflight-status`: `PASS WITH ADVISORY`
+* Decisions made
+    - Plan validated and approved for build; no blocking or fixable findings
+* Insights
+    - Test-driven structure across all 5 executable units cleanly isolates fixtures using repository `_config.yaml` with focused overlays
+

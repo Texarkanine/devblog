@@ -1,29 +1,26 @@
-FAIL (fixable)
+PASS WITH ADVISORY
 
-Third preflight, run after the second replan. The replan closed the earlier findings: unit 1, 3, 4, and 5 builds load the repository `_config.yaml` plus an overlay, a future filename is unpublished in the `post_init` hook, and the README license line, fixture copies, empty-tag guard, and reserved folder names are in the plan. One executable behavior has no test. The fixes are small, and the plan needs a re-plan before build.
+Fourth preflight run. All findings from the third preflight have been resolved in the implementation plan.
 
 ## Checks that passed
 
-- TDD plan encoding: units 1 to 5 each order stub tests, stub interface, red tests, then code. Units 6 and 7 are prose and policy and owe no tests. No misordered steps and no change-detector steps, so no in-phase plan edits.
-- Jekyll mechanics, checked against the installed gem source:
-  - `Document#initialize` runs `categories_from_path("_writing")` and then `trigger_hooks(:post_init)`. The folder under `_writing` is not a category, and the hook is the right place to add it. The URL has not been read yet.
-  - `read` calls `merge_defaults`, `read_content`, and `read_post_data` and never resets `data`. A `published: false` set in `post_init` survives, and `Collection#read_document` adds the document only when `published?` holds.
-  - `populate_title` strips the date from the slug, and `modify_date` takes the filename date. The `DATE_FILENAME_MATCHER` parse in the hook matches what `read` does later.
-  - `collection_dates.rb` keeps a filename date that differs from `site.time`, and sets `last_modified` from git or `File.mtime`. In a throwaway fixture the git lookup returns nothing, so the mtime assertion holds.
-- Convention compliance: `pages/writing.md` with `pages/writing/tags.md` mirrors `pages/garden.md` with `pages/garden/tags.md`. The `writing-*` layouts mirror the garden layouts. The home block belongs in `pages/index.md` body, as the garden block already is.
-- Dependency impact: `author-archive.html`, `authors.md`, `garden_in_feed.rb`, `20_llms_scope_builders.rb`, `REUSE.toml`, and the README license line are all in the plan. `all-posts.md` and `garden.md` stay untouched and have tests that writing stays out.
-- Conflict detection: nothing in the codebase already provides folder categories or a writing feed. The new tag description, scope, and archive names do not collide with post or garden names.
-- Completeness: requirements 1 to 10 and acceptance criteria 1 to 8 each map to a unit, except the tag description gap below.
+- TDD plan encoding: All five executable units (1 through 5) strictly specify the four-stage TDD sequence: stub tests, stub interface, write tests and run red, write code and run green. Units 6 and 7 cover seed content, licensing, and plugin documentation (prose/policy) and properly owe no tests. No change-detector steps or misordered test steps were present.
+- Resolution of prior findings:
+  1. Unit 3 now includes explicit test stubs, red assertions, and green steps for the shared `verse` tag description in both the archive body and `page.description` (via `_plugins/tag_descriptions_seo.rb`).
+  2. Unit 5 avoids copying `pages/garden.md` and uses an inline fixture page referencing `garden_posts.html` directly, avoiding the broken `linkcard` dependency.
+  3. Unit 3 explicitly configures `enabled: [tags, categories]` and the `writing-tag-archive` and `writing-cat-archive` layouts on `jekyll-archives.collections.writing`.
+  4. Unit 3 step 4 specifies linking each category segment to `/writing/categories/<slug>/`.
+  5. Unit 1 fixture specifies a document body printing `{{ page.date | date: "%Y-%m-%d" }}` and a stub writing layout.
+  6. Unit 6 includes `verse` and `night` descriptions in `_data/tags.yaml`.
+- Convention compliance: Layouts (`writing.html`, `writing-tag-archive.html`, `writing-cat-archive.html`), section pages (`pages/writing.md`, `pages/writing/tags.md`, `pages/writing/categories.md`), menus (`_data/writing_menu.yaml`), and plugins (`_plugins/writing_categories.rb`) align with existing codebase conventions and match the structure established for the garden collection.
+- Dependency impact: Downstream impact on `_config.yaml`, `garden_in_feed.rb`, `tag_descriptions_seo.rb`, `20_llms_scope_builders.rb`, `author-archive.html`, `authors.md`, `REUSE.toml`, and `README.md` is fully tracked and addressed with regression tests ensuring post and garden isolation.
+- Conflict detection: No collisions with existing routing or plugin hooks; category/tag scopes remain strictly partitioned across collections.
+- Completeness: All requirements and acceptance criteria from `projectbrief.md` are covered by concrete implementation steps and tests.
 
 ## Findings
 
-1. **Fixable: the writing tag description has no test.** Unit 3 step 4 adds `writing-tag-archive` to `TAG_ARCHIVE_LAYOUTS` in `_plugins/tag_descriptions_seo.rb` and has the new layout render `site.data.tags[...]`. This is the plan's only answer to the brief's "tag descriptions stay the one shared description per tag name." Nothing in "Behaviors to Verify" or in unit 3's steps exercises it. `tests/` has no test for that plugin today, and the fixture list for unit 3 does not copy `tag_descriptions_seo.rb` or write `_data/tags.yaml`. The plugin change and the layout lookup are executable code with no red step. Fix: add one behavior and its steps in unit 3. A `_data/tags.yaml` entry for `verse` shows in the body of `/writing/tags/verse/`, and `page.description` carries the plain-text version. The stub, red, and green steps should name the fixture copy of `tag_descriptions_seo.rb` and the data file.
-2. **Minor: unit 5 fixture copies `pages/garden.md`, which calls `{% link _garden/what-is-a-digital-garden.md %}`.** Jekyll raises when that document does not exist, so the build fails for the wrong reason. "A garden note is present" does not say which file. Name `_garden/what-is-a-digital-garden.md` as the fixture garden note, or drop the garden page copy and test `/garden/` through a fixture page.
-3. **Minor: unit 3's `jekyll-archives.collections.writing` block is underspecified.** The stub step names only the permalinks. `garden_archives.rb` also needs `enabled: [tags, categories]` and `layouts.tag` and `layouts.category` set to the new layouts, or it falls back to `tag-archive` and `cat-archive`, which read `page.posts`. Add both to the stub step.
-4. **Minor: unit 3 step 4 says the writing layout "links the last category to `/writing/categories/`".** The behavior list says `/writing/categories/poetry/`. Make the step say `/writing/categories/<slug>/`. For a nested folder, every folder segment is a category and gets its own archive, so name which one the page links.
-5. **Minor: unit 1 asserts the publication date "in the HTML" with no layout.** Unit 1 has no `writing` layout and builds before the layout default exists. Say that the fixture document body prints `{{ page.date | date: "%Y-%m-%d" }}`. Once unit 3 sets the `writing` default layout, unit 1's fixture also needs a stub `writing` layout, or the build warns about a missing layout.
+None (all prior findings resolved).
 
 ## Advisory
 
-- **Radical innovation:** the feed concat, the archive generator, and the scope builders each hard-code collection names (`garden`, now `writing`). Add one config list, `site.config["taxonomy_collections"]` with `garden` and `writing`, and read it in `garden_in_feed.rb`, `garden_archives.rb`, and `20_llms_scope_builders.rb`. A fourth collection then becomes one config line and one set of layouts. The plan leaves this out on purpose. The next collection will pay for the same three plugin edits again, so it is worth weighing now.
-- Seeds ship tags `verse`, `night`, and `hearth` with no `_data/tags.yaml` entry, so a reader sees no description on the two archives that exist. This follows the brief, which asks only that descriptions stay shared. Adding `verse` and `night` entries would exercise finding 1 on the real site.
+- **Radical innovation:** Polymorphic Collection Pipeline. Currently, custom collection behavior is distributed across several plugins (`garden_in_feed.rb`, `garden_archives.rb`, `20_llms_scope_builders.rb`, `tag_descriptions_seo.rb`) with collection-specific conditions (`site.garden`, `site.writing`). A declarative `collections_config` block in `_config.yaml` (specifying whether each collection participates in the main feed, extracts categories from directory paths, builds taxonomy archives, or exports LLM scopes) coupled with a polymorphic pipeline generator would allow adding arbitrary future content collections (e.g., `fieldnotes`, `reviews`, `recipes`) purely via configuration and templates without modifying Ruby plugins.
