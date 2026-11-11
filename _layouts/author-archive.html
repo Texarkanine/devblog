@@ -37,6 +37,8 @@ layout: default
 <h2>posts</h2>
 
 {% assign author_posts = site.posts | where: "author", author_id %}
+{% assign author_writing = site.writing | where: "author", author_id %}
+{% assign author_posts = author_posts | concat: author_writing | sort: "date" | reverse %}
 <ul>
 	{% for post in author_posts %}
 	<li>

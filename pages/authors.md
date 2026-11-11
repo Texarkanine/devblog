@@ -12,12 +12,17 @@ permalink: /authors/
   {% assign display_name = author_info.name | default: author_id %}
   {% assign author_slug = author_id | slugify %}
   {% assign author_posts = site.posts | where: "author", author_id %}
+  {% assign author_writing = site.writing | where: "author", author_id %}
   {% assign post_count = author_posts | size %}
+  {% assign writing_count = author_writing | size %}
   <li>
     <a href="{{ site.baseurl }}/authors/{{ author_slug }}">
       {% if site.theme_config.lowercase_titles %}{{ display_name | downcase | escape }}{% else %}{{ display_name | escape }}{% endif %}</a>
     {% if post_count > 0 %}
       ({{ post_count }} post{% if post_count != 1 %}s{% endif %})
+    {% endif %}
+    {% if writing_count > 0 %}
+      ({{ writing_count }} writing piece{% if writing_count != 1 %}s{% endif %})
     {% endif %}
   </li>
 {% endfor %}

@@ -44,6 +44,12 @@ defaults:
       type: garden
     values:
       reading_progress: true
+  - scope:
+      path: ""
+      type: writing
+    values:
+      layout: writing
+      reading_progress: true
 
 # Build settings
 exclude:
@@ -90,6 +96,16 @@ jekyll-archives:
         tag: garden-tag-archive
       permalinks:
         tag: '/garden/tags/:name/'
+    writing:
+      enabled:
+        - tags
+        - categories
+      layouts:
+        tag: writing-tag-archive
+        category: writing-cat-archive
+      permalinks:
+        tag: '/writing/tags/:name/'
+        category: '/writing/categories/:name/'
 
 # jekyll-auto-authors
 autopages:

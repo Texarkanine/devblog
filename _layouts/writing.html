@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+{% include back_link.html %}
+
+<header>
+  <h1>{{ page.title }}</h1>
+  <p>Published: {{ page.date | date: site.theme_config.date_format | default: "%Y-%m-%d" }}</p>
+  <p>Updated: {{ page.last_modified | date: site.theme_config.date_format | default: "%Y-%m-%d" }}</p>
+  {% if page.categories.size > 0 %}
+  <p>
+    {% for category in page.categories %}
+    <a href="{{ site.baseurl }}/writing/categories/{{ category | slugify }}/">{{ category | escape }}</a>{% unless forloop.last %}, {% endunless %}
+    {% endfor %}
+  </p>
+  {% endif %}
+  {% if page.author %}
+  <p>by <a href="{{ site.baseurl }}/authors/{{ page.author | slugify }}/">{{ page.author | escape }}</a></p>
+  {% endif %}
+</header>
+
+<article>
+  {{ content }}
+</article>
+
+<footer>
+  {% if page.tags.size > 0 %}
+  <p>
+    tagged:
+    {% assign writing_tags = site.writing_tags | default: site.data.writing_tags %}
+    {% for tag in page.tags %}
+      {% if writing_tags[tag].size >= 2 %}
+      <a href="{{ site.baseurl }}/writing/tags/{{ tag | slugify }}/">{% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}</a>{% unless forloop.last %}, {% endunless %}
+      {% else %}
+      {% if site.theme_config.lowercase_titles %}{{ tag | downcase | escape }}{% else %}{{ tag | escape }}{% endif %}{% unless forloop.last %}, {% endunless %}
+      {% endif %}
+    {% endfor %}
+  </p>
+  {% endif %}
+</footer>
+
+{% include back_link.html %}

@@ -4,6 +4,7 @@ import os
 import shutil
 import subprocess
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -70,6 +71,149 @@ class WritingCollectionTests(unittest.TestCase):
         later_pages = list(self.dest.rglob("later.html"))
         self.assertEqual([], later_pages)
 
+    def test_writing_page_links_its_category_and_author_and_shows_both_dates(self):
+        """The writing page links the folder and the author, and shows Published and Updated."""
+        self._prepare_archives()
+        piece = self._write_piece(
+            "poetry",
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._set_mtime(piece, 2024, 6, 15)
+        self._write_piece(
+            "songs",
+            "2026-11-10-kitchen-radio.md",
+            "Kitchen Radio",
+            author="texarkanine",
+            tags=["verse", "hearth"],
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "poetry" / "porch-light.html")
+        self.assertIn("Published: 2026-11-11", page)
+        self.assertIn("Updated: 2024-06-15", page)
+        self.assertIn('href="/writing/categories/poetry/"', page)
+        self.assertIn('href="/authors/texarkanine/"', page)
+        self.assertIn('href="/writing/tags/verse/"', page)
+
+    def test_nested_piece_links_each_category_segment(self):
+        """A piece in poetry/sonnets links both category archives."""
+        self._prepare_archives()
+        self._write_piece(
+            "poetry/sonnets",
+            "2026-11-09-small-room.md",
+            "Small Room",
+            author="texarkanine",
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "poetry" / "sonnets" / "small-room.html")
+        self.assertIn('href="/writing/categories/poetry/"', page)
+        self.assertIn('href="/writing/categories/sonnets/"', page)
+
+    def test_piece_with_no_tags_has_no_tag_link(self):
+        """A writing piece with no tags still renders, and the page has no tag link."""
+        self._prepare_archives()
+        self._write_piece(
+            "stories",
+            "2026-11-09-second-cup.md",
+            "Second Cup",
+            author="texarkanine",
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "stories" / "second-cup.html")
+        self.assertNotIn("/writing/tags/", page)
+
+    def test_shared_tag_archive_renders_the_description(self):
+        """The verse archive markdownifies the shared description and sets the plain SEO text."""
+        self._prepare_archives()
+        self._write_piece(
+            "poetry",
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._write_piece(
+            "songs",
+            "2026-11-10-kitchen-radio.md",
+            "Kitchen Radio",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "tags" / "verse" / "index.html")
+        self.assertIn("<strong>shared</strong>", page)
+        self.assertIn("A shared description.", page)
+        porch = page.index("/writing/poetry/porch-light.html")
+        radio = page.index("/writing/songs/kitchen-radio.html")
+        self.assertLess(porch, radio)
+
+    def test_singleton_writing_tag_has_no_archive(self):
+        """A tag used on one writing piece does not get an archive page."""
+        self._prepare_archives()
+        self._write_piece(
+            "songs",
+            "2026-11-10-kitchen-radio.md",
+            "Kitchen Radio",
+            author="texarkanine",
+            tags=["hearth"],
+        )
+        self._build()
+        self.assertFalse((self.dest / "writing" / "tags" / "hearth" / "index.html").exists())
+
+    def test_category_archive_exists_for_one_piece(self):
+        """A category used once still publishes an archive that lists the piece."""
+        self._prepare_archives()
+        self._write_piece(
+            "songs",
+            "2026-11-10-kitchen-radio.md",
+            "Kitchen Radio",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "categories" / "songs" / "index.html")
+        self.assertIn("/writing/songs/kitchen-radio.html", page)
+
+    def test_writing_tag_does_not_create_a_post_tag_archive(self):
+        """A writing-only tag does not publish /tags/verse/."""
+        self._prepare_archives()
+        self._write_piece(
+            "poetry",
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._write_piece(
+            "songs",
+            "2026-11-10-kitchen-radio.md",
+            "Kitchen Radio",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._build()
+        self.assertFalse((self.dest / "tags" / "verse" / "index.html").exists())
+        self.assertFalse((self.dest / "tags" / "verse.html").exists())
+
+    def test_author_page_lists_the_post_and_the_writing_piece_newest_first(self):
+        """A hand-written author page lists the writing piece and a post, newest first."""
+        self._prepare_archives()
+        self._write_piece(
+            "poetry",
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            author="texarkanine",
+            tags=["verse"],
+        )
+        self._write_post("2026-11-10-a-post.md", "A Post", author="texarkanine")
+        self._build()
+        page = self._read(self.dest / "authors" / "texarkanine" / "index.html")
+        writing_at = page.index("/writing/poetry/porch-light.html")
+        post_at = page.index("/2026/11/10/a-post.html")
+        self.assertLess(writing_at, post_at)
+
     def _prepare(self, plugins=None):
         if plugins is None:
             plugins = []
@@ -100,25 +244,90 @@ class WritingCollectionTests(unittest.TestCase):
             "{% for doc in site.writing %}{{ doc.url }}\n{% endfor %}\n",
         )
 
+    def _prepare_archives(self):
+        (self.source / "overlay.yml").write_text(
+            "url: http://example.test\nplugins:\n  - jekyll-archives\n"
+        )
+        plugin_dir = self.source / "_plugins"
+        plugin_dir.mkdir(exist_ok=True)
+        for name in (
+            "writing_categories.rb",
+            "garden_archives.rb",
+            "navigational_tags.rb",
+            "collection_dates.rb",
+            "tag_descriptions_seo.rb",
+            "email_obfuscator.rb",
+        ):
+            shutil.copy(REPO / "_plugins" / name, plugin_dir / name)
+        includes = self.source / "_includes"
+        includes.mkdir(exist_ok=True)
+        shutil.copy(REPO / "_includes" / "back_link.html", includes / "back_link.html")
+        layouts = self.source / "_layouts"
+        layouts.mkdir(exist_ok=True)
+        for name in (
+            "page.html",
+            "writing.html",
+            "writing-tag-archive.html",
+            "writing-cat-archive.html",
+            "author-archive.html",
+        ):
+            shutil.copy(REPO / "_layouts" / name, layouts / name)
+        (layouts / "default.html").write_text(
+            "---\n---\n{{ content }}\n{{ page.description }}\n"
+        )
+        data = self.source / "_data"
+        data.mkdir(exist_ok=True)
+        (data / "tags.yaml").write_text('verse: "A **shared** description."\n')
+        (data / "authors.yaml").write_text(
+            "texarkanine:\n  name: Texarkanine\n  bio: Writes.\n"
+        )
+        (self.source / "author-texarkanine.md").write_text(
+            "---\n"
+            "layout: author-archive\n"
+            "title: texarkanine\n"
+            "permalink: /authors/texarkanine/\n"
+            "---\n"
+        )
+
     def _write_page(self, filename, permalink, body):
         (self.source / filename).write_text(
             f"---\ntitle: {filename}\npermalink: {permalink}\n---\n{body}"
         )
 
-    def _write_piece(self, folder, filename, title):
+    def _write_piece(self, folder, filename, title, author=None, tags=None):
         directory = self.source / "_writing"
         if folder:
             directory = directory / folder
         directory.mkdir(parents=True, exist_ok=True)
-        (directory / filename).write_text(
-            f"---\ntitle: {title}\n---\n"
-            '{{ page.date | date: "%Y-%m-%d" }}\n'
-        )
+        lines = ["---", f"title: {title}"]
+        if author:
+            lines.append(f"author: {author}")
+        if tags:
+            lines.append("tags:")
+            lines.extend(f"  - {tag}" for tag in tags)
+        lines.extend(["---", '{{ page.date | date: "%Y-%m-%d" }}', ""])
+        path = directory / filename
+        path.write_text("\n".join(lines))
+        return path
 
-    def _write_post(self, filename, title):
+    def _write_post(self, filename, title, author=None):
         posts = self.source / "_posts"
         posts.mkdir(exist_ok=True)
-        (posts / filename).write_text(f"---\ntitle: {title}\n---\nPost.\n")
+        lines = ["---", f"title: {title}"]
+        if author:
+            lines.append(f"author: {author}")
+        lines.extend(["---", "Post.", ""])
+        path = posts / filename
+        path.write_text("\n".join(lines))
+        return path
+
+    def _set_mtime(self, path, year, month, day):
+        stamp = time.mktime((year, month, day, 12, 0, 0, 0, 0, -1))
+        os.utime(path, (stamp, stamp))
+
+    def _read(self, path):
+        self.assertTrue(path.is_file(), f"missing {path}")
+        return path.read_text()
 
     def _build(self):
         env = os.environ.copy()
