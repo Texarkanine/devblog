@@ -61,3 +61,16 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - `include_categories` publishes every census category at `jekyll-archives.permalinks.category`, which is `/categories/:name/`
     - `scopes_for_taxonomy` drops a one-document term, so category builders cannot use it unchanged
     - The upstream home layout renders the posts menu and then `{{ content }}`. The throwaway fixture has to stub that layout because it does not fetch the remote theme
+
+## 2026-11-11 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Re-checked the replanned plan against the codebase, `jekyll-llm-sidecars` 0.3.0, `jekyll-archives` 2.3, and Jekyll 4.4.1
+    - Ran a throwaway build to test how Jekyll treats a future-dated collection document
+    - First line of `.preflight-status`: `FAIL (fixable)`
+* Decisions made
+    - No in-phase plan edits: no misordered tests and no change-detector steps
+* Insights
+    - The fixture writes its own config, so the production `_config.yaml` changes (permalink, defaults, archives, `include_categories`, `exclude_paths`) have no test that pins them. Unit 4's red and green expectations are incoherent without that
+    - Jekyll lists a future-dated collection document in `site.<collection>` with a URL but does not write it, so the plan's "not skipped" premise is wrong and dead links are possible
+    - Minor: `README.md` license line, the unit 5 fixture copy list, and the `writing_tags` guard

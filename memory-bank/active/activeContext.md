@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: Writing collection
-**Phase:** PLAN - COMPLETE
+**Phase:** PREFLIGHT - COMPLETE (FAIL (fixable))
 
 ## What Was Done
 - Replanned after the blocking preflight
@@ -12,4 +12,4 @@
 - The piece URL stays `/writing/<folder>/<slug>`. Brief acceptance criterion 1 now says that, and the category archive is `/writing/categories/<folder>/`
 
 ## Next Step
-- Preflight the revised plan
+- Re-plan with `/niko-plan`: pin how the test fixture gets the production `_config.yaml`, and correct the future-dated filename premise (see `.preflight-status`)
