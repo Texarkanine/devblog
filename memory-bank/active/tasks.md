@@ -102,4 +102,14 @@ No new technology - validation not required.
   - [x] Front matter does not move the piece
   - [x] Future filename with published true
   - [x] Plugin note
-- [ ] QA
+- [x] QA
+
+## QA Results (2026-11-12)
+
+PASS. Semantic review of the build against the plan found no blocking issues.
+
+- Shared helpers (`folder_segments`, `permalink_for`, `writing_paths_for`, `future_filename?`) satisfy the preflight advisory; both hooks are thin dispatchers.
+- All four units are complete with the planned tests and assertions; the documented front-matter test deviation extends coverage to `writing_paths` and rendered categories, matching the real behavior surface.
+- Full suite re-run: 60 tests, OK.
+- No debris (TODOs, debug output, placeholders); documentation updated per unit 4.
+- Non-blocking note: the `collection&.label == "writing"` guard in `apply` duplicates the hook's collection selection, kept for symmetry with `post_init`.

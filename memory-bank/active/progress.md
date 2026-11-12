@@ -399,6 +399,20 @@ Keep a writing piece URL equal to its folder path, including a repeated segment,
     - A literal permalink already stopped a front-matter `permalink` and a `categories` list from moving the file. A front-matter `writing_paths` array still replaced the folder list until `post_read` set it again
     - The category listing page renders the word inside a paragraph, so the assertion reads the HTML
 
+## 2026-11-12 - QA - COMPLETE
+
+* Work completed
+    - Reviewed the build against the plan: the literal permalink, the front-matter reset of `categories` and `writing_paths`, the future-filename removal from `site.writing`, and the plugin note
+    - Re-ran the full suite: 60 tests, OK
+    - Grepped the plugin for debris (TODOs, debug output, placeholders); clean
+    - Wrote `memory-bank/active/.qa-validation-status` (PASS) and recorded findings in `tasks.md`
+* Decisions made
+    - QA status: PASS
+    - One non-blocking note: the `collection&.label == "writing"` guard in `apply` duplicates the hook's collection selection, kept for symmetry with `post_init`
+* Insights
+    - The preflight advisory paid off: shared helpers left both hooks as thin dispatchers, and the two hooks cannot drift apart on folder identity
+    - The front-matter test's recorded deviation is the correct coverage: the literal permalink alone would have left `writing_paths` and the merged category list untested
+
 
 
 

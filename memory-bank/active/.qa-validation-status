@@ -1,0 +1,9 @@
+PASS
+
+- KISS: `WritingCategories` is five small helpers plus two thin hooks. `apply` derives folder identity from `relative_path` only. No over-engineering, no unneeded indirection.
+- DRY: The preflight advisory was adopted - `folder_segments`, `permalink_for`, `writing_paths_for`, and `future_filename?` are shared by `:documents, :post_init` and `:site, :post_read`, leaving both hooks as thin dispatchers. Non-blocking note: the `collection&.label == "writing"` guard inside `apply` duplicates the hook's selection of the writing collection; it is kept for symmetry with `post_init` and to make `apply` safe standalone. Acceptable.
+- YAGNI: No speculative parameters or features. The empty-segments branch in `permalink_for` is the required folderless-piece regression case, not speculation.
+- Completeness: All four units are implemented. Every planned test exists with the planned assertions; unit 4 prose landed in the plugin header and `_plugins/README.md`. Documented deviation: `test_front_matter_does_not_move_the_piece` also exercises `writing_paths` and the rendered `doc.categories` list, because the literal permalink alone no longer exercised those keys. That is a coverage extension matched to the real behavior surface, recorded in `activeContext.md`.
+- Regression: Full suite re-run in QA - 60 tests, OK. Nested-folder, folderless, future-filename-without-published, and `published: false` feed tests all stay green. The `_config.yaml` collection template intentionally stays on `:categories`. No stale references introduced.
+- Integrity: No TODOs, magic numbers, placeholder strings, or debug artifacts (grep clean). The `/writing/` literal in `permalink_for` matches the established convention in `writing_folder_indexes.rb`.
+- Documentation: Plugin header and README section updated per unit 4; `systemPatterns.md` and `productContext.md` remain accurate.

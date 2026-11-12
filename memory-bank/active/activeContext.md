@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: Piece URL and future dates
-**Phase:** BUILD - COMPLETE
+**Phase:** QA - COMPLETE (PASS)
 
 ## What Was Done
 - Set a literal piece permalink from the ordered folder segments in `:site, :post_read`
