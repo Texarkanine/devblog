@@ -168,10 +168,10 @@ No new technology - validation not required.
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
 - [x] Preflight
-- [ ] Build
+- [x] Build
   - [x] Folder pages
   - [x] Piece links
   - [x] Category index links
   - [x] Category scopes
-  - [ ] Plugin note
+  - [x] Plugin note
 - [ ] QA

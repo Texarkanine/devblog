@@ -290,6 +290,23 @@ Make each writing folder's URL that folder's category page, so a piece is a chil
 * Insights
     - Iterating `page.writing_paths` in `_layouts/writing.html` gives both the cumulative `/writing/<path>/` href and the last-segment label cleanly while leaving `page.categories` intact for `:categories` permalink expansion
 
+## 2026-11-12 - BUILD - COMPLETE
+
+* Work completed
+    - Published one writing category page per folder path, including nested folders
+    - Pointed piece links, the category index, and the LLM scopes at those paths
+    - Removed the flat `/writing/categories/<name>/` archive pages
+    - Full suite: 55 tests, OK. A fresh site build published the three seeds on the folder pages
+* Decisions made
+    - `site.data.writing_folders` is a sorted list of path strings
+    - Scope titles use the last segment. The path is not slugified
+    - The archives category layout key stays. The enabled flag and the flat permalink are what changed
+    - The preflight advisory for a path-to-documents hash and subfolder links was not built
+* Insights
+    - The plain parent link of a piece URL is already the folder page, so the layout does not need a special back href
+    - `llms: false` on the generated HTML page keeps it out of the root pages list. The old `/writing/categories/**/*` glob does not cover `/writing/<folder>/`
+    - A running `jekyll serve` does not load a plugin added after it started
+
 
 
 

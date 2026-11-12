@@ -338,11 +338,19 @@ The posts Atom feed at `/feed.xml` also lists garden pages and writing pieces. E
 
 ## writing_categories.rb
 
-Sets a writing piece's categories from the folders under `_writing`. The hook is `:documents, :post_init`, which runs before `read` and before anything can memoize the URL. Do not read `document.url` from that hook.
+Sets a writing piece's categories from the folder segments under `_writing`, and sets `writing_paths` to the cumulative paths (`poetry`, then `poetry/sonnets`). The piece permalink reads `categories` only. The hook is `:documents, :post_init`, which runs before `read` and before anything can memoize the URL. Do not read `document.url` from that hook.
 
 The `YYYY-MM-DD` filename prefix is the publication date. Jekyll applies it during `read`. When `site.future` is false and the filename date is after the build time, the hook sets `published` to false first. `read` keeps that value when the front matter has no `published` key, and the collection then leaves the document out of `site.writing`.
 
-A writing folder must not be named `tags` or `categories`. That name would share the archive URL under `/writing/tags/` or `/writing/categories/` and would match the LLM exclude globs `/writing/tags/**/*` and `/writing/categories/**/*`. The seeds use `poetry`, `songs`, and `stories`.
+A writing category page is that folder's path: `/writing/poetry/`, and `/writing/poetry/sonnets/` for a nested folder. The flat pages at `/writing/categories/<name>/` are not published. `/writing/categories/` stays the list of every category.
+
+A top-level writing folder must not be named `tags` or `categories`, because those URLs are the tag index and the category index. A nested folder does not share that flat archive URL: `poetry/tags` is `/writing/poetry/tags/`. The seeds use `poetry`, `songs`, and `stories`.
+
+---
+
+## writing_folder_indexes.rb
+
+Publishes one `writing-cat-archive` page for each `writing_paths` entry. The permalink is `/writing/<path>/`, the title is the last segment, and the page lists the pieces whose paths include that entry. Each generated page sets `llms: false`. The paths are also `site.data.writing_folders`, which the category index links without slugifying.
 
 ---
 
@@ -416,13 +424,13 @@ Registers [`jekyll-llm-sidecars`](https://github.com/Texarkanine/jekyll-llm-side
 | Post categories | `/categories/:name/…` | `site.categories` |
 | Garden tags | `/garden/tags/:name/…` | `site.garden_tags` |
 | Writing tags | `/writing/tags/:name/…` | `site.writing_tags` |
-| Writing categories | `/writing/categories/:name/…` | `site.writing_categories` |
+| Writing categories | `/writing/<folder path>/…` | `writing_paths` |
 | Authors | `/authors/:author/…` | post and writing `author` front matter ∩ root EntrySet |
 
 `include_categories` is false. The gem's own category scope always uses the posts permalink `/categories/:name/`, so a writing folder would publish `/categories/<folder>/llms.txt`. This site registers the post category scopes and the writing category scopes instead. Category scopes keep a term that has one document. Tag scopes still drop a term until `NavigationalTags.keep?` says it is used twice.
 
-`/writing/tags/**/*` and `/writing/categories/**/*` are in `llm_sidecars.exclude_paths`, so those archive pages do not get Markdown sidecars. Document sidecars stay on the piece URLs.
+`/writing/tags/**/*` and `/writing/categories/**/*` are in `llm_sidecars.exclude_paths`, so tag archive pages and the category index do not get Markdown sidecars. A folder category page sets `llms: false`, which keeps that HTML index out of the root pages list. Document sidecars stay on the piece URLs.
 
-Membership is always a subset of the root `jekyll-llm-sidecars` entry list (include/exclude/`create_llms_txt: false`). Paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present.
+Membership is always a subset of the root `jekyll-llm-sidecars` entry list (include/exclude/`create_llms_txt: false`). Tag, post-category, and author paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present. Writing category paths use the raw `writing_paths` string, including a nested path such as `/writing/poetry/sonnets/`.
 
 Tag scopes omit taxonomy entries that fail `NavigationalTags.keep?`, so a singleton tag does not get an `llms.txt` beside an archive page that was not built. Author scopes are unchanged.
