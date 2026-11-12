@@ -237,6 +237,20 @@ Make each writing folder's URL that folder's category page, so a piece is a chil
 * Insights
     - A flat `/writing/:name/` permalink would publish a nested folder at `/writing/sonnets/` rather than `/writing/poetry/sonnets/`
 
+## 2026-11-11 - PLAN - COMPLETE
+
+* Work completed
+    - Mapped the folder page across the category hook, a new index generator, the piece links, the category list, and the LLM scopes
+    - Wrote the ordered TDD plan
+* Decisions made
+    - No creative phase. The folder path is the page, and the archives permalink cannot represent a slash
+    - Category values become cumulative folder paths. The visible label stays the last segment
+    - Writing category archive pages turn off. `site.writing_categories` stays
+    - No redirect from the flat URL. That URL has not shipped
+* Insights
+    - `Jekyll::Utils.slugify` in default mode replaces a slash with a hyphen
+    - `build_taxonomy_hashes` still runs when a collection's category archives are disabled
+
 
 
 

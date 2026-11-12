@@ -1,10 +1,10 @@
 # Active Context
 
 ## Current Task: Folder category pages
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
-- Classified the rework as Level 3. Each writing folder's URL becomes that folder's category page, including a nested folder. The flat `/writing/categories/<name>/` pages go away. `/writing/categories/` stays the list of every category
+- Planned one category page per writing folder path. `jekyll-archives` slugifies `:name`, so a nested folder cannot use that permalink. A generator publishes the page. Flat `/writing/categories/<name>/` archives turn off. `/writing/categories/` stays the list
 
 ## Next Step
-- Load the Level 3 workflow
+- Preflight
