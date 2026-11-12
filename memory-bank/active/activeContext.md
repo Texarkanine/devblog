@@ -1,10 +1,11 @@
 # Active Context
 
 ## Current Task: Folder category pages
-**Phase:** PREFLIGHT - COMPLETE (PASS WITH ADVISORY)
+**Phase:** BUILD - IN-PROGRESS
 
 ## What Was Done
-- Replanned after preflight. `categories` stays the folder segments so the piece URL does not double the path. `writing_paths` drives the folder pages, the category list, and the scopes. Generated pages set `llms: false`
+- Folder pages publish at `/writing/<path>/`. `categories` stays the folder segments. `writing_paths` holds the cumulative paths. Flat writing category archives are off. Generated pages set `llms: false`
+- Writing collection tests: 28, OK
 
 ## Next Step
-- Run `/niko-build`
+- Piece links: iterate `page.writing_paths`, and let the plain parent link land on the folder page

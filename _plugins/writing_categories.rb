@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-# Categories for a writing piece are the folders under `_writing`, not front matter.
+# Categories for a writing piece are the folder segments under `_writing`, not
+# front matter. `writing_paths` holds the cumulative paths (`poetry`, then
+# `poetry/sonnets`). The piece permalink reads `categories` only. Putting a
+# cumulative path in `categories` would repeat a segment in the URL.
 # The hook is `:documents, :post_init`, which runs before `read` and before any
 # caller can memoize `document.url`. Do not read `url` from this hook.
 #
@@ -14,7 +17,11 @@ Jekyll::Hooks.register :documents, :post_init do |document|
   directory = File.dirname(relative)
   prefix = "#{base}/"
   folder = directory.start_with?(prefix) ? directory.delete_prefix(prefix) : ""
-  document.data["categories"] = folder.split("/").reject(&:empty?)
+  segments = folder.split("/").reject(&:empty?)
+  document.data["categories"] = segments
+  document.data["writing_paths"] = segments.each_index.map do |index|
+    segments[0..index].join("/")
+  end
 
   next if document.site.future
   next unless relative =~ Jekyll::Document::DATE_FILENAME_MATCHER

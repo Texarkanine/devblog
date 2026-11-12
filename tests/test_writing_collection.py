@@ -166,8 +166,8 @@ class WritingCollectionTests(unittest.TestCase):
         self._build()
         self.assertFalse((self.dest / "writing" / "tags" / "hearth" / "index.html").exists())
 
-    def test_category_archive_exists_for_one_piece(self):
-        """A category used once still publishes an archive that lists the piece."""
+    def test_folder_page_replaces_the_flat_category_archive(self):
+        """A songs piece publishes /writing/songs/ and does not publish /writing/categories/songs/."""
         self._prepare_archives()
         self._write_piece(
             "songs",
@@ -177,8 +177,30 @@ class WritingCollectionTests(unittest.TestCase):
             tags=["verse"],
         )
         self._build()
-        page = self._read(self.dest / "writing" / "categories" / "songs" / "index.html")
+        page = self._read(self.dest / "writing" / "songs" / "index.html")
         self.assertIn("/writing/songs/kitchen-radio.html", page)
+        self.assertFalse((self.dest / "writing" / "categories" / "songs").exists())
+
+    def test_nested_folder_pages_list_the_piece(self):
+        """A poetry/sonnets piece is listed on both folder pages, and the nested heading names sonnets.
+
+        The piece URL stays /writing/poetry/sonnets/small-room.html.
+        """
+        self._prepare_archives()
+        self._write_piece(
+            "poetry/sonnets",
+            "2026-11-09-small-room.md",
+            "Small Room",
+            author="texarkanine",
+        )
+        self._build()
+        piece = self.dest / "writing" / "poetry" / "sonnets" / "small-room.html"
+        self.assertTrue(piece.is_file(), f"missing {piece}")
+        poetry = self._read(self.dest / "writing" / "poetry" / "index.html")
+        sonnets = self._read(self.dest / "writing" / "poetry" / "sonnets" / "index.html")
+        self.assertIn("/writing/poetry/sonnets/small-room.html", poetry)
+        self.assertIn("/writing/poetry/sonnets/small-room.html", sonnets)
+        self.assertIn("category: sonnets", sonnets)
 
     def test_writing_tag_does_not_create_a_post_tag_archive(self):
         """A writing-only tag does not publish /tags/verse/."""
@@ -424,6 +446,7 @@ class WritingCollectionTests(unittest.TestCase):
         plugin_dir.mkdir(exist_ok=True)
         for name in (
             "writing_categories.rb",
+            "writing_folder_indexes.rb",
             "garden_archives.rb",
             "navigational_tags.rb",
             "collection_dates.rb",

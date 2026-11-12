@@ -99,13 +99,11 @@ jekyll-archives:
     writing:
       enabled:
         - tags
-        - categories
       layouts:
         tag: writing-tag-archive
         category: writing-cat-archive
       permalinks:
         tag: '/writing/tags/:name/'
-        category: '/writing/categories/:name/'
 
 # jekyll-auto-authors
 autopages:

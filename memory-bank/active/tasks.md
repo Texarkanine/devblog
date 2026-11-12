@@ -167,6 +167,11 @@ No new technology - validation not required.
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
-- [ ] Preflight
+- [x] Preflight
 - [ ] Build
+  - [x] Folder pages
+  - [ ] Piece links
+  - [ ] Category index links
+  - [ ] Category scopes
+  - [ ] Plugin note
 - [ ] QA
