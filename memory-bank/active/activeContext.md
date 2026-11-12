@@ -1,10 +1,10 @@
 # Active Context
 
 ## Current Task: Folder category pages
-**Phase:** PLAN - COMPLETE
+**Phase:** PREFLIGHT - COMPLETE (FAIL (fixable))
 
 ## What Was Done
-- Planned one category page per writing folder path. `jekyll-archives` slugifies `:name`, so a nested folder cannot use that permalink. A generator publishes the page. Flat `/writing/categories/<name>/` archives turn off. `/writing/categories/` stays the list
+- Replanned after preflight. `categories` stays the folder segments so the piece URL does not double the path. `writing_paths` drives the folder pages, the category list, and the scopes. Generated pages set `llms: false`
 
 ## Next Step
 - Preflight

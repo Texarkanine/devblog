@@ -251,6 +251,35 @@ Make each writing folder's URL that folder's category page, so a piece is a chil
     - `Jekyll::Utils.slugify` in default mode replaces a slash with a hyphen
     - `build_taxonomy_hashes` still runs when a collection's category archives are disabled
 
+## 2026-11-11 - PLAN - COMPLETE
+
+* Work completed
+    - Replanned after the fixable preflight
+    - Kept `categories` as folder segments so `:categories` still builds `/writing/poetry/sonnets/<slug>`
+    - Added `writing_paths` for the folder pages, the category index, and the scopes
+    - Replaced the contradictory archive test instead of adding a second one
+    - Opted the generated pages out with `llms: false` and assert that on root `/llms.txt`
+* Decisions made
+    - No exclude glob. An HTML index never gets an `index.md`, so that absence does not prove the opt-out
+    - The sidecar and section fixtures both copy the folder-index plugin
+* Insights
+    - `Jekyll::Drops::UrlDrop#categories` joins every category with `/`
+    - `JekyllLlmSidecars::Census#opted_out?` honors `data["llms"] == false` before exclude globs
+
+## 2026-11-11 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Validated the folder-category plan against Jekyll 4.4.1 (`UrlDrop#categories` and `URL`), `jekyll-archives` 2.3.0, `jekyll-llm-sidecars` 0.3.0 (`Census` and `Manifest`), plugins, layouts, and `tests/test_writing_collection.py`
+    - Ran throwaway Jekyll builds to verify `:categories` URL expansion with cumulative paths and `jekyll-llm-sidecars` census behavior on generated folder pages
+    - First line of `.preflight-status`: `FAIL (fixable)`
+* Decisions made
+    - No in-phase plan edits: TDD step order is valid and no change-detectors are scheduled
+* Insights
+    - `Jekyll::Drops::UrlDrop#categories` joins every element of `document.data["categories"]` with `/`, so storing cumulative paths `["poetry", "poetry/sonnets"]` in `categories` turns `/writing/:categories/:title:output_ext` into `/writing/poetry/poetry/sonnets/<slug>.html` unless the piece permalink is set from `folder`
+    - `test_category_archive_exists_for_one_piece` still asserts `/writing/categories/songs/index.html` exists and must be replaced rather than kept alongside `test_folder_page_replaces_the_flat_category_archive`
+    - `JekyllLlmSidecars::Manifest` never writes `.md` sidecars for `.html` pages; excluding generated folder index pages keeps them out of `## Pages` in root `/llms.txt`, and `_prepare_sidecars` must copy `writing_folder_indexes.rb` to exercise that path
+
+
 
 
 

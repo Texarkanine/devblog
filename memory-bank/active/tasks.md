@@ -26,28 +26,28 @@ graph TD
 
 ### Affected Components
 
-- `_plugins/writing_categories.rb`: sets `categories` from the folder segments. It will set the cumulative paths instead, `poetry` and `poetry/sonnets`, so each key is the URL path under `/writing/`.
-- `_plugins/garden_archives.rb`: builds `site.writing_categories` and the archive pages. The hash stays. Writing category archive pages turn off, because those pages use the slugified `:name` permalink.
-- New `_plugins/writing_folder_indexes.rb`: publishes one `writing-cat-archive` page per cumulative folder path.
-- `_config.yaml`: the writing archives block stops enabling categories and drops the `/writing/categories/:name/` permalink. `llm_sidecars.exclude_paths` gains a glob for the folder index HTML so those pages do not get an `index.md` sidecar.
+- `_plugins/writing_categories.rb`: keeps `categories` as the folder segments. `:categories` in the piece permalink joins those segments, and cumulative paths in that array would publish `/writing/poetry/poetry/sonnets/<slug>.html`. The hook adds `writing_paths`, the cumulative paths, and leaves `categories` alone.
+- `_plugins/garden_archives.rb`: builds `site.writing_categories` and the archive pages. The hash stays for segment keys. Writing category archive pages turn off, because those pages use the slugified `:name` permalink.
+- New `_plugins/writing_folder_indexes.rb`: publishes one `writing-cat-archive` page per `writing_paths` entry and exposes those paths as `site.data.writing_folders`. Each generated page sets `llms: false`.
+- `_config.yaml`: the writing archives block stops enabling categories and drops the `/writing/categories/:name/` permalink. The collection permalink stays `/writing/:categories/:title:output_ext`. No new exclude glob.
 - `_layouts/writing.html`: category links and the `..` link. The visible label stays the last segment. The `..` link goes back to the plain parent directory, which is now the category page.
 - `_layouts/writing-cat-archive.html`: unchanged. It already lists `page.posts` newest first.
-- `pages/writing/categories.md`: links each category at `/writing/<path>/`.
-- `_plugins/20_llms_scope_builders.rb`: the writing-category scope uses the raw folder path. It must not slugify that path.
+- `pages/writing/categories.md`: lists `site.data.writing_folders` and links each one at `/writing/<path>/`.
+- `_plugins/20_llms_scope_builders.rb`: the writing-category scope groups `writing_paths` and uses the raw path. It does not read `site.writing_categories` and it does not slugify the path.
 - `tests/test_writing_collection.py`: the fixture copies the new plugin, and the category URL assertions move from `/writing/categories/<name>/` to the folder path.
 - `_plugins/README.md`: the writing-category URL and the reserved-folder note.
 
 ### Cross-Module Dependencies
 
-- `writing_categories.rb` runs at `post_init` and writes `document.data["categories"]`. The folder-index generator and `garden_archives` both read that array later, during `generate`.
-- `garden_archives` builds `site.writing_categories` from those values even when category archive pages are disabled. The category index and the scope builder read that hash.
+- `writing_categories.rb` runs at `post_init` and writes `categories` and `writing_paths`. The piece permalink reads `categories` only. The folder-index generator and the scope builder read `writing_paths`.
+- `garden_archives` builds `site.writing_categories` from `categories` even when category archive pages are disabled. The category index stops reading that hash for links.
 - The scope builder runs at `lowest`, after the hashes exist. It does not read the generated HTML page.
 - The piece layout does not call the generator. It prints links from `page.categories`.
 
 ### Boundary Changes
 
 - A writing category's public URL changes from `/writing/categories/<name>/` to `/writing/<folder path>/`.
-- `categories` on a writing document become cumulative folder paths. The visible label is the last segment.
+- `categories` stays the folder segments so the piece URL stays `/writing/<folder>/<slug>`. `writing_paths` is the new field, and it holds the cumulative paths. The visible label is the last segment.
 - Post category URLs, writing tag URLs, and piece URLs stay as they are.
 - This branch has not shipped the flat category URLs. No redirect is added.
 
@@ -77,7 +77,7 @@ None - implementation approach is clear. The flat `:name` permalink was inspecte
 - `/writing/categories/` links `/writing/poetry/` and `/writing/songs/` and does not link `/writing/categories/poetry/`.
 - One poetry piece publishes `/writing/poetry/llms.txt` and does not publish `/writing/categories/poetry/llms.txt`.
 - A nested folder publishes `/writing/poetry/sonnets/llms.txt`.
-- The folder page does not get `/writing/poetry/index.md`. The piece still gets `porch-light.md`.
+- Root `/llms.txt` does not list the generated folder index under its pages section. The piece still gets `porch-light.md`.
 - A writing folder still does not publish `/categories/poetry/llms.txt`. A post category still publishes `/categories/tools/llms.txt`.
 
 ### Test Infrastructure
@@ -90,7 +90,7 @@ None - implementation approach is clear. The flat `:name` permalink was inspecte
 ### Integration Tests
 
 - The archives fixture covers the folder page, the piece links, and the missing flat archive together, because those are one build of the repo config.
-- The sidecar fixture covers the scope path and the absent `index.md` together.
+- The sidecar fixture covers the scope path and the folder index staying out of root `/llms.txt` together.
 - The section fixture covers the category index links.
 
 ## Implementation Plan
@@ -99,10 +99,10 @@ None - implementation approach is clear. The flat `:name` permalink was inspecte
 
 - Files: `_plugins/writing_folder_indexes.rb`, `_plugins/writing_categories.rb`, `_config.yaml`, `tests/test_writing_collection.py`
 
-1. Stub tests: add `test_folder_page_replaces_the_flat_category_archive` and `test_nested_folder_pages_list_the_piece` to `WritingCollectionTests`, empty bodies.
+1. Stub tests: replace `test_category_archive_exists_for_one_piece` with `test_folder_page_replaces_the_flat_category_archive`, and add `test_nested_folder_pages_list_the_piece`. Empty bodies. The old test asserts `/writing/categories/songs/index.html` and cannot stay beside the new one.
 2. Stub interface: add `WritingFolderIndexes::Generator` with `generate(site)` and no body. Copy that file from `_prepare_archives`.
-3. Write tests and run red: a songs piece writes `/writing/songs/index.html` containing the piece URL, and does not write `/writing/categories/songs/`. A `poetry/sonnets` piece writes both folder indexes, both contain the piece URL, the nested heading says `sonnets`, and the parent page does not have to contain a poetry-only sibling.
-4. Write code and run green: set cumulative category paths in the `post_init` hook. Remove `categories` from the writing archives `enabled` list and remove the writing category permalink. The generator adds one page per cumulative path, layout `writing-cat-archive`, title the last segment, permalink `/writing/<path>/`, `posts` the documents in that category.
+3. Write tests and run red: a songs piece writes `/writing/songs/index.html` containing the piece URL, and does not write `/writing/categories/songs/`. A `poetry/sonnets` piece writes both folder indexes, both contain the piece URL, and the nested heading says `sonnets`. The piece URL stays `/writing/poetry/sonnets/small-room.html`.
+4. Write code and run green: keep `categories` as the folder segments. Set `writing_paths` to the cumulative paths in the same hook. Remove `categories` from the writing archives `enabled` list and remove the writing category permalink. Leave the collection permalink on `:categories`. The generator adds one page per `writing_paths` entry, layout `writing-cat-archive`, title the last segment, permalink `/writing/<path>/`, `posts` the documents whose paths include that entry, and `llms: false`. It also sets `site.data["writing_folders"]`.
 
 ### 2. Piece links — executable
 
@@ -120,7 +120,7 @@ None - implementation approach is clear. The flat `:name` permalink was inspecte
 1. Stub tests: none new.
 2. Stub interface: none.
 3. Write tests and run red: `test_writing_category_index_links_a_category_used_once` expects `href="/writing/poetry/"` and `href="/writing/songs/"`, and rejects `href="/writing/categories/poetry/"`.
-4. Write code and run green: the category index links `/writing/{{ category[0] }}/` without slugifying the path.
+4. Write code and run green: the category index iterates `site.data.writing_folders` and links `/writing/<path>/` without slugifying. `_prepare_section` copies the folder-index plugin so that hash exists.
 
 ### 4. Category scopes — executable
 
@@ -128,8 +128,8 @@ None - implementation approach is clear. The flat `:name` permalink was inspecte
 
 1. Stub tests: add `test_nested_folder_scope_publishes_llms_txt` with an empty body.
 2. Stub interface: none. The writing-category scope builder already exists.
-3. Write tests and run red: the poetry scope is `/writing/poetry/llms.txt` and not `/writing/categories/poetry/llms.txt`. The nested scope is `/writing/poetry/sonnets/llms.txt`. `/writing/poetry/index.md` is absent and `porch-light.md` is present. The post-category and writing-folder-is-not-a-post-category tests stay green.
-4. Write code and run green: the writing-category builder sets `path_prefix` to `/writing/<path>/` from the raw category string. Add an `exclude_paths` glob that matches the folder index HTML and does not match `/writing/index.html` or a piece HTML file.
+3. Write tests and run red: the poetry scope is `/writing/poetry/llms.txt` and not `/writing/categories/poetry/llms.txt`. The nested scope is `/writing/poetry/sonnets/llms.txt`. Root `/llms.txt` does not list `/writing/poetry/` as a page. `porch-light.md` is present. `_prepare_sidecars` copies the folder-index plugin. The post-category and writing-folder-is-not-a-post-category tests stay green.
+4. Write code and run green: the writing-category builder groups `writing_paths` and sets `path_prefix` to `/writing/<path>/` from the raw path. The generated page's `llms: false` keeps it out of the root pages list. An HTML page never receives an `index.md` sidecar, so that absence is not the assertion.
 
 ### 5. Plugin note — prose/policy
 
@@ -145,16 +145,17 @@ No new technology - validation not required.
 
 ## Challenges & Mitigations
 
-- Slugify destroys slashes. The folder page and the scope path use the raw folder string. They do not pass it through `:name`.
+- Slugify destroys slashes. The folder page and the scope path use the raw `writing_paths` string. `categories` stays the segments because `:categories` joins that array with slashes.
+- Putting the cumulative paths into `categories` publishes `/writing/poetry/poetry/sonnets/<slug>.html`. Unit 1 asserts the nested piece URL.
 - The generator could overwrite `/writing/index.html` for a folderless piece. It only creates a page when the cumulative path is non-empty.
 - A piece whose slug is `index` would occupy the same file as its folder page. The seeds do not do this. The plan does not add a second URL for that collision.
 - Disabling category archives must keep `site.writing_categories`. `build_taxonomy_hashes` runs for the collection before it looks at `enabled`.
-- The sidecar exclude glob can swallow piece pages or the writing home. The glob is specific to the folder index file, and unit 4 asserts the piece sidecar still exists.
+- A generated HTML index does not get an `index.md` sidecar even with no exclude glob, so that check would pass without the opt-out. Unit 4 asserts the root `/llms.txt` pages list instead. `llms: false` on the generated page is what keeps it out.
 - The archives fixture copies plugins by name. Unit 1 adds the new file to that list, or the build never loads it.
 
 ## Pre-Mortem
 
-- The plan is carried out as a permalink edit from `/writing/categories/:name/` to `/writing/:name/`. Nested folders land at `/writing/poetry-sonnets/` and the piece is still not a child. Unit 1's nested test is the guard, and the permalink key is removed rather than rewritten.
+- The plan is carried out as a permalink edit from `/writing/categories/:name/` to `/writing/:name/`, or by storing the cumulative path in `categories`. Nested pieces land at `/writing/poetry-sonnets/` or `/writing/poetry/poetry/sonnets/`. Unit 1 asserts `/writing/poetry/sonnets/small-room.html`, `categories` stays the segments, and the archives permalink key is removed rather than rewritten.
 - Cumulative paths leak into the visible label, so the piece says `poetry/sonnets` instead of `sonnets`. Unit 2 asserts the label and the nested heading test asserts `sonnets`.
 - The scope file stays under `/writing/categories/` while the HTML moves. Unit 4 asserts the new scope path and the absence of the old one.
 
