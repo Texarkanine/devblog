@@ -1,8 +1,8 @@
 # Progress
 
-Add a writing collection beside posts and the garden: folder categories, filename publication dates, git update dates, dateless piece URLs, own indexes, layout, and LLM sidecars, included in the main feed, plus three seed pieces.
+Put each author's writing in its own dated section on the author page, below posts. The author LLM sidecar already lists writing that way.
 
-**Complexity:** Level 3
+**Complexity:** Level 1
 
 ## 2026-11-11 - COMPLEXITY-ANALYSIS - COMPLETE
 
@@ -180,6 +180,15 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - The author page lists the three writing pieces under posts
     - The author LLM sidecar already puts those pieces in their own Writing section, and that shape is the one to keep
     - The author page should give writing its own dated section below posts
+
+## 2026-11-11 - COMPLEXITY-ANALYSIS - COMPLETE
+
+* Work completed
+    - Classified the author-page rework
+* Decisions made
+    - Level 1. The posts list on the author page is the only wrong listing. The author LLM sidecar is already the shape to match, so this stays one component
+* Insights
+    - The original writing-collection work was Level 3. This rework does not reopen that scope
 
 
 
