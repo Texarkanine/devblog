@@ -171,7 +171,7 @@ No new technology - validation not required.
 - [ ] Build
   - [x] Folder pages
   - [x] Piece links
-  - [ ] Category index links
+  - [x] Category index links
   - [ ] Category scopes
   - [ ] Plugin note
 - [ ] QA

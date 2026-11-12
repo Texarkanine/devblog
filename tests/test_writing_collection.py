@@ -383,8 +383,9 @@ class WritingCollectionTests(unittest.TestCase):
         self._write_section_pieces()
         self._build()
         page = self._read(self.dest / "writing" / "categories" / "index.html")
-        self.assertIn('href="/writing/categories/poetry/"', page)
-        self.assertIn('href="/writing/categories/songs/"', page)
+        self.assertIn('href="/writing/poetry/"', page)
+        self.assertIn('href="/writing/songs/"', page)
+        self.assertNotIn('href="/writing/categories/poetry/"', page)
         self.assertNotIn('href="/categories/tools/"', page)
         self.assertNotIn('href="/writing/categories/tools/"', page)
 
@@ -559,6 +560,7 @@ class WritingCollectionTests(unittest.TestCase):
         plugin_dir.mkdir(exist_ok=True)
         for name in (
             "writing_categories.rb",
+            "writing_folder_indexes.rb",
             "garden_archives.rb",
             "navigational_tags.rb",
         ):
