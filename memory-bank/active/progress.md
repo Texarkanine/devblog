@@ -307,6 +307,21 @@ Make each writing folder's URL that folder's category page, so a piece is a chil
     - `llms: false` on the generated HTML page keeps it out of the root pages list. The old `/writing/categories/**/*` glob does not cover `/writing/<folder>/`
     - A running `jekyll serve` does not load a plugin added after it started
 
+## 2026-11-12 - QA - COMPLETE
+
+* Work completed
+    - Reviewed the build against the plan: folder pages, piece links, category index links, category scopes, and the plugin note
+    - Re-ran the full suite: 55 tests, OK
+    - Grepped for stale `/writing/categories/<name>/` references and debris; remaining references are the index page, its links, the llms exclude glob, and README prose, all per plan
+    - Wrote `memory-bank/active/.qa-validation-status` (PASS) and recorded findings in `tasks.md`
+* Decisions made
+    - QA status: PASS
+    - One non-blocking advisory: the group-by-`writing_paths` logic is duplicated between the folder-index generator (Documents) and the scope builder (llms Entries); the build consciously deferred the shared-hash advisory
+    - Two non-blocking observations the plan directed: the `writing-cat-archive` archives layout key and the `site.writing_categories` hash have no remaining readers
+* Insights
+    - Keeping `categories` as bare segments and adding `writing_paths` for the cumulative paths kept every consumer (permalink, links, index, scopes) on a single unambiguous source
+    - The plain parent-directory `..` computation in `back_link.html` made the piece layout simpler than the special case it replaced
+
 
 
 

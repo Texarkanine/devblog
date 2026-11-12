@@ -174,4 +174,14 @@ No new technology - validation not required.
   - [x] Category index links
   - [x] Category scopes
   - [x] Plugin note
-- [ ] QA
+- [x] QA
+
+## QA Results
+
+PASS. Semantic review of the build against this plan, plus a full suite run by QA: 55 tests, OK.
+
+- All five units match the plan: one folder page per `writing_paths` entry with `llms: false`, piece links iterate `writing_paths` with last-segment labels, the category index reads `site.data.writing_folders` without slugifying, folder scopes use the raw path, and the README records the URL scheme and the reserved folder names.
+- Every Test Plan behavior has a passing test, including the nested piece URL staying `/writing/poetry/sonnets/small-room.html` and the flat `/writing/categories/<name>/` pages being absent.
+- No KISS, YAGNI, Completeness, Regression, Integrity, or Documentation violations. No TODOs, stubs, or debug artifacts.
+- Advisory (non-blocking): the group-by-`writing_paths` logic is duplicated between `writing_folder_indexes.rb` (Documents) and `scopes_for_writing_paths` (llms Entries). This was the preflight advisory the build explicitly deferred.
+- Observation (non-blocking, per plan): the `writing-cat-archive` archives layout key and the `site.writing_categories` hash stay in place with no remaining readers; the plan directed both.

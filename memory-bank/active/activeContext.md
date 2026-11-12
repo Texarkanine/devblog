@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: Folder category pages
-**Phase:** BUILD - COMPLETE
+**Phase:** QA - COMPLETE (PASS)
 
 ## What Was Done
 - Created `_plugins/writing_folder_indexes.rb`. Changed `_plugins/writing_categories.rb`, `_config.yaml`, `_layouts/writing.html`, `pages/writing/categories.md`, `_plugins/20_llms_scope_builders.rb`, `_plugins/README.md`, and `tests/test_writing_collection.py`
