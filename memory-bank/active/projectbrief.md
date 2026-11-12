@@ -58,3 +58,7 @@ Three short pieces exist: one poem, one song, and one story, so the three catego
 ## Rework
 
 Operator feedback, 2026-11-11: the author page lists the three writing pieces under posts. The author LLM sidecar puts them in their own Writing section, and that listing is the correct one. The author page should put writing in its own dated section below posts.
+
+## Rework: folder category pages
+
+Operator decision, 2026-11-11: a writing piece should be a child of its category page. `/writing/poetry/` is the poetry category page. A nested folder is the same way: `/writing/poetry/sonnets/` is that folder's category page. The flat pages at `/writing/categories/<name>/` go away. `/writing/categories/` stays the page that lists every category. A writing folder must not be named `tags`. Once the folder index exists, the piece's `..` link is that parent folder.

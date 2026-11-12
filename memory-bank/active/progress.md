@@ -214,6 +214,20 @@ Put each author's writing in its own dated section on the author page, below pos
 * Insights
     - Level 1 QA PASS is terminal: no reflect or archive phase follows
 
+## 2026-11-11 - REWORK - IN-PROGRESS
+
+* Work completed
+    - Initiated another rework on writing-collection
+    - Cleared the finished task list, active context, and QA status
+* Decisions made
+    - Operator chose rework. Each writing folder's own URL becomes that folder's category page
+* Insights
+    - A piece at `/writing/poetry/porch-light.html` is not a child of `/writing/categories/poetry/`
+    - `/writing/poetry/` should be the poetry page, and `/writing/poetry/sonnets/` the nested folder's page
+    - `/writing/categories/` stays the list of every category. The flat `/writing/categories/<name>/` pages go away
+    - A folder must not be named `tags`
+    - The piece parent link currently jumps to the flat category archive. The folder index replaces that jump
+
 
 
 
