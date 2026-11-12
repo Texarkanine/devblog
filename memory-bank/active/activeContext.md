@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: Permalink extension, slug, and reserved index
-**Phase:** BUILD - COMPLETE
+**Phase:** QA - COMPLETE (PASS)
 
 ## What Was Done
 - Dropped a front-matter permalink before reading the output extension
@@ -9,7 +9,8 @@
 - Aborted the build when that slug is `index`
 - Removed the sidecar test that could not fail
 - Left the writing-path scope builder unchanged
-- Full suite: 62 tests, OK
+- Verified all semantic criteria and ran full suite: 62 tests, OK
 
 ## Next Step
-- Run QA
+- Done (Level 1 task complete)
+

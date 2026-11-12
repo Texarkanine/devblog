@@ -463,6 +463,20 @@ Keep a writing piece on its folder URL when front matter names another extension
     - A literal permalink is still scanned for `:word`. Pretty slugify removes the colon before that scan
     - HTML archive pages do not get `index.md` sidecars, so an assertion that the file is absent does not protect them
 
+## 2026-11-12 - QA - COMPLETE
+
+* Work completed
+    - Conducted structured semantic review of the permalink extension, slug normalization, and reserved index rework
+    - Verified KISS, DRY, YAGNI, Completeness, Regression, Integrity, and Documentation standards
+    - Verified all 62 tests pass in the full suite
+    - Created `memory-bank/active/.qa-validation-status` with PASS
+* Decisions made
+    - QA status: PASS
+* Insights
+    - Deleting the front-matter permalink from document data before calling `output_ext` prevents Jekyll's renderer from memoizing an unwanted extension on the document
+    - Using Jekyll's native pretty slugify aligns the slug generation with `:title` behavior and safely prevents template scanning issues on literal permalinks
+
+
 
 
 

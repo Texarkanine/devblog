@@ -29,3 +29,16 @@ The dead sidecar test is removed. Three tests cover the extension, the colon slu
 - `_plugins/writing_categories.rb`
 - `_plugins/README.md`
 - `tests/test_writing_collection.py`
+
+## QA Results (2026-11-12)
+
+PASS. Semantic review of the build against the requirements found no blocking issues.
+
+- `permalink_for` drops any front-matter permalink prior to querying `output_ext`, preventing memoization of non-HTML extensions.
+- `title_slug` normalizes slugs using Jekyll's pretty title slugification (`mode: "pretty", cased: true`), turning colons into hyphens without triggering template placeholder expansion.
+- Slugs matching reserved `index` cleanly abort the build with an informative error message before overwriting category folder pages.
+- The dead sidecar test (`test_writing_archive_pages_have_no_markdown_sidecar`) was removed, and three targeted tests for the extension, colon slug, and index abort were added.
+- The writing-path scope builder was left unchanged per plan.
+- Documentation in `_plugins/README.md` and plugin code comments was updated accurately.
+- Full test suite: 62 tests, OK.
+
