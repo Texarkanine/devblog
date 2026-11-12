@@ -32,3 +32,9 @@ jekyll: >-
 mermaid: >-
   [Mermaid](https://mermaid.js.org/) *diagrams*, expressed in markdown to make illustrating concepts
   possible even when authoring "plain" text.
+
+night: >-
+  After dark, and the things that belong to that hour.
+
+verse: >-
+  A poem or a song, where the line is doing the work.

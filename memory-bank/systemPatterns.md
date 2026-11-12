@@ -2,7 +2,7 @@
 
 ## How This System Works
 
-The site is a Jekyll static site. Content lives in `blog/<collection>/_posts/` (e.g. essay, diary, record) and in the `garden` collection. Layouts in `_layouts/` wrap `{{ content }}`, which is the Markdown-rendered HTML. The remote theme (no-style-please) supplies base styles and structure; local overrides live in `_includes/`, `_layouts/`, and `_sass/` (if any). Plugins in `_plugins/` and Gemfile extend Jekyll (e.g. image paths, custom Liquid tags). Changing how content is rendered (e.g. adding per-heading anchors) requires either a Liquid preprocessing step, a custom Markdown converter, or a post-render hook that modifies the final HTML.
+The site is a Jekyll static site. Content lives in `blog/<collection>/_posts/` (essay, diary, record, and the other post folders), in the `garden` collection, and in the `writing` collection. A writing piece takes its category from the folder under `_writing` and its publication date from the filename prefix. The public URL does not contain that date. Layouts in `_layouts/` wrap `{{ content }}`, which is the Markdown-rendered HTML. The remote theme (no-style-please) supplies base styles and structure; local overrides live in `_includes/`, `_layouts/`, and `_sass/` (if any). Plugins in `_plugins/` and Gemfile extend Jekyll (e.g. image paths, custom Liquid tags). Changing how content is rendered (e.g. adding per-heading anchors) requires either a Liquid preprocessing step, a custom Markdown converter, or a post-render hook that modifies the final HTML.
 
 ## Pattern: Layout → content
 

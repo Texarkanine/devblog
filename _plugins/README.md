@@ -332,7 +332,27 @@ Running `bundle exec jekyll build` then produces `/garden/tags/<slug>/` pages th
 
 ## garden_in_feed.rb
 
-The posts Atom feed at `/feed.xml` also lists garden pages. `jekyll-feed` still writes that file and still sorts by document date, so a garden page shows up when its planted date is among the newest entries. A feed for the garden collection, if one is configured, stays garden pages only.
+The posts Atom feed at `/feed.xml` also lists garden pages and writing pieces. Each of those collections is concatenated only when it exists. `jekyll-feed` still writes that file and still sorts by document date, so a garden page or a writing piece shows up when its date is among the newest entries. A feed for another collection stays on its own list. Tag feeds stay on their own lists.
+
+---
+
+## writing_categories.rb
+
+Sets a writing piece's categories from the folder segments under `_writing`, and sets `writing_paths` to the cumulative paths (`poetry`, then `poetry/sonnets`). `:documents, :post_init` does that before `read`, and before anything can memoize the URL. Do not read `document.url` from that hook.
+
+`:site, :post_read` sets `categories` and `writing_paths` again after Jekyll merges front matter, so a `categories` or `writing_paths` key in the file does not add a folder. It drops a front-matter permalink before choosing the extension, so that permalink cannot replace `.html`. It then sets a literal permalink from the ordered folder segments and the pretty, case-kept title slug. The slug `index` stops the build, because that file would overwrite the folder page. The collection template stays `/writing/:categories/:title:output_ext`, and `:categories` drops a repeated segment, so the literal permalink is the piece URL. `poetry/poetry/<slug>` stays a different file from `poetry/<slug>`.
+
+The `YYYY-MM-DD` filename prefix is the publication date. Jekyll applies it during `read`. When `site.future` is false and the filename date is after the build time, `post_init` sets `published` to false. `read` keeps that value when the front matter has no `published` key, and the collection leaves the document out. When the file says `published: true`, `read` puts the document back. `:site, :post_read` removes it from `site.writing` before generators run, so the folder index and the feed withhold it too. The HTML file was already withheld by Jekyll's future-date check.
+
+A writing category page is that folder's path: `/writing/poetry/`, and `/writing/poetry/sonnets/` for a nested folder. The flat pages at `/writing/categories/<name>/` are not published. `/writing/categories/` stays the list of every category.
+
+A top-level writing folder must not be named `tags` or `categories`, because those URLs are the tag index and the category index. A nested folder does not share that flat archive URL: `poetry/tags` is `/writing/poetry/tags/`. The seeds use `poetry`, `songs`, and `stories`.
+
+---
+
+## writing_folder_indexes.rb
+
+Publishes one `writing-cat-archive` page for each `writing_paths` entry. The permalink is `/writing/<path>/`, the title is the last segment, and the page lists the pieces whose paths include that entry. Each generated page sets `llms: false`. The paths are also `site.data.writing_folders`, which the category index links without slugifying.
 
 ---
 
@@ -344,7 +364,7 @@ Defines the shared threshold for **navigational** tags and suppresses singleton 
 
 - `NavigationalTags::MIN_DOCS` (currently `2`) and `NavigationalTags.keep?(docs)` — a tag is navigational when it appears on at least that many documents in its collection.
 - Monkey-patches `Jekyll::Archives::Archives#tags` so `read_tags` only builds archive pages for navigational post tags. Does **not** mutate `site.tags` (Liquid still needs full counts for plain-text vs link decisions on layouts and index pages).
-- Garden tag archives and jekyll-llm-sidecars tag scopes use the same helper (see `garden_archives.rb` and `20_llms_scope_builders.rb`). Content layouts and `/tags/` / `/garden/tags/` indexes apply the same threshold in Liquid.
+- Garden and writing tag archives, and the tag scopes in `20_llms_scope_builders.rb`, use the same helper. Content layouts and the `/tags/`, `/garden/tags/`, and `/writing/tags/` indexes apply the same threshold in Liquid.
 
 ---
 
@@ -403,9 +423,16 @@ Registers [`jekyll-llm-sidecars`](https://github.com/Texarkanine/jekyll-llm-side
 | Scope | Path | Source |
 |-------|------|--------|
 | Post tags | `/tags/:name/llms.txt` (+ `llms-full.txt` when enabled) | `site.tags` |
+| Post categories | `/categories/:name/…` | `site.categories` |
 | Garden tags | `/garden/tags/:name/…` | `site.garden_tags` |
-| Authors | `/authors/:author/…` | post `author` front matter ∩ root EntrySet |
+| Writing tags | `/writing/tags/:name/…` | `site.writing_tags` |
+| Writing categories | `/writing/<folder path>/…` | `writing_paths` |
+| Authors | `/authors/:author/…` | post and writing `author` front matter ∩ root EntrySet |
 
-Membership is always a subset of the root `jekyll-llm-sidecars` entry list (include/exclude/`create_llms_txt: false`). Paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present.
+`include_categories` is false. The gem's own category scope always uses the posts permalink `/categories/:name/`, so a writing folder would publish `/categories/<folder>/llms.txt`. This site registers the post category scopes and the writing category scopes instead. Category scopes keep a term that has one document. Tag scopes still drop a term until `NavigationalTags.keep?` says it is used twice.
 
-Tag scopes (post and garden) omit taxonomy entries that fail `NavigationalTags.keep?`, so singleton tags do not get orphan `llms.txt` beside non-existent archive pages. Author scopes are unchanged.
+`/writing/tags/**/*` and `/writing/categories/**/*` are in `llm_sidecars.exclude_paths`, so tag archive pages and the category index do not get Markdown sidecars. A folder category page sets `llms: false`, which keeps that HTML index out of the root pages list. Document sidecars stay on the piece URLs.
+
+Membership is always a subset of the root `jekyll-llm-sidecars` entry list (include/exclude/`create_llms_txt: false`). Tag, post-category, and author paths soft-read `jekyll-archives` / `autopages.authors` permalinks when present. Writing category paths use the raw `writing_paths` string, including a nested path such as `/writing/poetry/sonnets/`.
+
+Tag scopes omit taxonomy entries that fail `NavigationalTags.keep?`, so a singleton tag does not get an `llms.txt` beside an archive page that was not built. Author scopes are unchanged.

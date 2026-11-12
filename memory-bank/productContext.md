@@ -2,11 +2,12 @@
 
 ## Target Audience
 
-Readers of a personal/dev blog (blog.cani.ne.jp). Authors publish essays, diary-style posts, and garden (notes) content.
+Readers of a personal site (blog.cani.ne.jp). Authors publish essays, diary-style posts, garden notes, and a separate writing section of poems, songs, and stories.
 
 ## Use Cases
 
 - Publish and browse blog posts (essay, diary, record) and garden pages.
+- Publish and browse poems, songs, and stories in their own section, apart from the posts and the garden.
 - Navigate by tags, categories, and authors.
 - Consume content with clear typography and minimal chrome; optional analytics in production.
 

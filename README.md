@@ -23,5 +23,5 @@ https://blog.cani.ne.jp/
 Multiple; see [REUSE.toml](REUSE.toml) for details ([what's REUSE?](https://reuse.software/)):
 
 - **Default (code, templates, plugins, assets):** AGPL-3.0-or-later
-- **Writing (`blog/`, `_garden/`):** CC-BY-SA-4.0
+- **Writing (`blog/`, `_garden/`, `_writing/`):** CC-BY-SA-4.0
 - **Agent prompts (`.cursor/`, `.claude/`):** PPL-S — vendored `**/shared/**` excluded

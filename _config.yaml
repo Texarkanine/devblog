@@ -29,6 +29,9 @@ collections:
   garden:
     output: true
     permalink: /garden/:path:output_ext
+  writing:
+    output: true
+    permalink: /writing/:categories/:title:output_ext
 
 defaults:
   - scope:
@@ -40,6 +43,12 @@ defaults:
       path: ""
       type: garden
     values:
+      reading_progress: true
+  - scope:
+      path: ""
+      type: writing
+    values:
+      layout: writing
       reading_progress: true
 
 # Build settings
@@ -87,6 +96,14 @@ jekyll-archives:
         tag: garden-tag-archive
       permalinks:
         tag: '/garden/tags/:name/'
+    writing:
+      enabled:
+        - tags
+      layouts:
+        tag: writing-tag-archive
+        category: writing-cat-archive
+      permalinks:
+        tag: '/writing/tags/:name/'
 
 # jekyll-auto-authors
 autopages:
@@ -168,12 +185,13 @@ pagination:
 llm_sidecars:
   create_markdown: true
   create_llms_full: true
-  include_categories: true
+  include_categories: false
   include_collections: true
   include_paths:
     - posts
     - pages
     - garden
+    - writing
   exclude_paths:
     - /*.xml # sitemap, feed - these already list all content
     - /assets/**/*
@@ -184,4 +202,6 @@ llm_sidecars:
     - /garden/tags/**/*
     - /redirects.json
     - /tags/**/*
+    - /writing/categories/**/*
+    - /writing/tags/**/*
     - robots.txt

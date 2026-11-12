@@ -1,0 +1,13 @@
+entries:
+  - title: writing
+    post_list:
+      collection: writing
+      sort_key: date
+      reverse: true
+      limit: 10
+  - title: all writing
+    url: /writing/
+  - title: writing tags
+    url: /writing/tags/
+  - title: writing categories
+    url: /writing/categories/

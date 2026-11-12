@@ -10,7 +10,7 @@ require "cgi"
 # Note: Jekyll::Archives::Archive stores the tag name via a `title` method,
 # not in page.data['title']. We must use page.title for the lookup.
 
-TAG_ARCHIVE_LAYOUTS = %w[tag-archive garden-tag-archive].freeze
+TAG_ARCHIVE_LAYOUTS = %w[tag-archive garden-tag-archive writing-tag-archive].freeze
 
 Jekyll::Hooks.register :pages, :pre_render do |page|
   next unless TAG_ARCHIVE_LAYOUTS.include?(page.data["layout"])
