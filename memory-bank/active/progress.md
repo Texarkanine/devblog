@@ -1,8 +1,8 @@
 # Progress
 
-Put each author's writing in its own dated section on the author page, below posts. The author LLM sidecar already lists writing that way.
+Make each writing folder's URL that folder's category page, so a piece is a child of its category. Nested folders get the same treatment. The flat per-name category pages go away. `/writing/categories/` stays the list of every category.
 
-**Complexity:** Level 1
+**Complexity:** Level 3
 
 ## 2026-11-11 - COMPLEXITY-ANALYSIS - COMPLETE
 
@@ -227,6 +227,16 @@ Put each author's writing in its own dated section on the author page, below pos
     - `/writing/categories/` stays the list of every category. The flat `/writing/categories/<name>/` pages go away
     - A folder must not be named `tags`
     - The piece parent link currently jumps to the flat category archive. The folder index replaces that jump
+
+## 2026-11-11 - COMPLEXITY-ANALYSIS - COMPLETE
+
+* Work completed
+    - Classified the folder-category rework
+* Decisions made
+    - Level 3. The folder index changes the archive URL, the links on a piece, the category list, and the LLM scopes. The destination is settled, and the work still crosses those components
+* Insights
+    - A flat `/writing/:name/` permalink would publish a nested folder at `/writing/sonnets/` rather than `/writing/poetry/sonnets/`
+
 
 
 
