@@ -1,8 +1,8 @@
 # Progress
 
-Make each writing folder's URL that folder's category page, so a piece is a child of its category. Nested folders get the same treatment. The flat per-name category pages go away. `/writing/categories/` stays the list of every category.
+Keep a writing piece URL equal to its folder path, including a repeated segment, and keep a future filename out of the collection when the file says it is published.
 
-**Complexity:** Level 3
+**Complexity:** Level 2
 
 ## 2026-11-11 - COMPLEXITY-ANALYSIS - COMPLETE
 
@@ -348,6 +348,15 @@ Make each writing folder's URL that folder's category page, so a piece is a chil
     - `:categories` is uniqued and lowercased, so a repeated folder segment collapses in the piece URL while `writing_paths` keeps it
     - `post_init` runs before front matter is merged, so folder categories and `published: false` lose to keys in the file
     - A future date still skips the HTML file. `published: true` puts the document back into `site.writing`, and the feed and folder index read that collection
+
+## 2026-11-12 - COMPLEXITY-ANALYSIS - COMPLETE
+
+* Work completed
+    - Classified the pull request 133 rework
+* Decisions made
+    - Level 2. The three holes are in the writing piece URL and in collection membership. `:categories` cannot keep a repeated segment, so the permalink has to be set another way. Folder pages, labels, scopes, and the category index stay
+* Insights
+    - This is past a one-line fix, and it does not reopen the folder-page design
 
 
 
