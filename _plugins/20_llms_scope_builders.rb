@@ -47,8 +47,27 @@ module LlmsScopeBuilders
     taxonomy(site, :writing_tags)
   end
 
-  def writing_categories(site)
-    taxonomy(site, :writing_categories)
+  # Folder scopes keep the raw path. Slugify would turn "poetry/sonnets"
+  # into "poetry-sonnets". A piece is listed on every ancestor path.
+  def scopes_for_writing_paths(entries)
+    grouped = Hash.new { |hash, key| hash[key] = [] }
+    entries.each do |entry|
+      Array(entry.item.data["writing_paths"]).each do |path|
+        next if path.to_s.empty?
+
+        grouped[path] << entry
+      end
+    end
+
+    grouped.map do |path, scoped|
+      label = path.split("/").last
+      JekyllLlmSidecars::Scope.new(
+        path_prefix: "/writing/#{path}/",
+        title: label,
+        description: "Writing category: #{label}",
+        entries: scoped
+      )
+    end
   end
 
   def taxonomy(site, name)
@@ -131,16 +150,8 @@ JekyllLlmSidecars.register_scope_builder do |site, _config, entries|
   )
 end
 
-JekyllLlmSidecars.register_scope_builder do |site, _config, entries|
-  template = site.config.dig("jekyll-archives", "permalinks", "writing_category") ||
-             site.config.dig("jekyll-archives", "collections", "writing", "permalinks", "category") ||
-             "/writing/categories/:name/"
-  LlmsScopeBuilders.scopes_for_terms(
-    entries,
-    LlmsScopeBuilders.writing_categories(site),
-    path_template: template,
-    description_prefix: "Writing category"
-  )
+JekyllLlmSidecars.register_scope_builder do |_site, _config, entries|
+  LlmsScopeBuilders.scopes_for_writing_paths(entries)
 end
 
 JekyllLlmSidecars.register_scope_builder do |site, _config, entries|

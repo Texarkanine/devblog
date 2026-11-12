@@ -172,6 +172,6 @@ No new technology - validation not required.
   - [x] Folder pages
   - [x] Piece links
   - [x] Category index links
-  - [ ] Category scopes
+  - [x] Category scopes
   - [ ] Plugin note
 - [ ] QA

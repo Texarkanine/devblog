@@ -309,12 +309,41 @@ class WritingCollectionTests(unittest.TestCase):
         self.assertFalse((self.dest / "writing" / "tags" / "hearth" / "llms.txt").exists())
 
     def test_writing_category_scope_publishes_llms_txt_for_one_piece(self):
-        """A writing category with one piece publishes /writing/categories/poetry/llms.txt."""
+        """A writing category with one piece publishes /writing/poetry/llms.txt."""
         self._prepare_sidecars()
         self._write_sidecar_pieces()
         self._build()
-        page = self._read(self.dest / "writing" / "categories" / "poetry" / "llms.txt")
+        page = self._read(self.dest / "writing" / "poetry" / "llms.txt")
         self.assertIn("porch-light", page)
+        self.assertFalse((self.dest / "writing" / "categories" / "poetry" / "llms.txt").exists())
+
+    def test_nested_folder_scope_publishes_llms_txt(self):
+        """A nested folder publishes /writing/poetry/sonnets/llms.txt.
+
+        The ancestor scope lists the nested piece. Root /llms.txt lists the
+        piece sidecar and does not list the generated folder page.
+        """
+        self._prepare_sidecars()
+        self._write_sidecar_pieces()
+        self._write_piece(
+            "poetry/sonnets",
+            "2026-11-09-small-room.md",
+            "Small Room",
+            author="texarkanine",
+        )
+        self._build()
+        nested = self._read(self.dest / "writing" / "poetry" / "sonnets" / "llms.txt")
+        self.assertIn("small-room", nested)
+        self.assertNotIn("porch-light", nested)
+        poetry = self._read(self.dest / "writing" / "poetry" / "llms.txt")
+        self.assertIn("porch-light", poetry)
+        self.assertIn("small-room", poetry)
+        root = self._read(self.dest / "llms.txt")
+        self.assertIn("porch-light.md", root)
+        pages = ""
+        if "## Pages" in root:
+            pages = root.split("## Pages", 1)[1].split("\n## ", 1)[0]
+        self.assertNotIn("/writing/poetry/", pages)
 
     def test_writing_folder_does_not_publish_a_post_category_scope(self):
         """A writing folder named poetry does not publish /categories/poetry/llms.txt."""
@@ -513,6 +542,7 @@ class WritingCollectionTests(unittest.TestCase):
             "navigational_tags.rb",
             "garden_archives.rb",
             "writing_categories.rb",
+            "writing_folder_indexes.rb",
         ):
             shutil.copy(REPO / "_plugins" / name, plugin_dir / name)
         includes = self.source / "_includes"
