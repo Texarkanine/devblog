@@ -413,6 +413,18 @@ Keep a writing piece URL equal to its folder path, including a repeated segment,
     - The preflight advisory paid off: shared helpers left both hooks as thin dispatchers, and the two hooks cannot drift apart on folder identity
     - The front-matter test's recorded deviation is the correct coverage: the literal permalink alone would have left `writing_paths` and the merged category list untested
 
+## 2026-11-12 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-writing-collection.md` for the piece URL and future-date rework
+    - Kept the folder-pages reflection at `reflection-writing-collection-folder-pages.md`
+    - Checked product context, system patterns, and tech context. None of them changed
+* Decisions made
+    - No persistent-file edits. The literal permalink and the future-date removal belong with the writing plugin, which already records them
+* Insights
+    - `:categories` cannot keep a repeated segment. The piece URL has to be set after front matter merges
+    - A later test has to target the behavior the earlier unit did not already make true
+
 
 
 
