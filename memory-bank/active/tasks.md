@@ -5,4 +5,10 @@
 * Task ID: writing-collection
 * Type: bugfix
 
-The author page lists writing pieces under posts. The author LLM sidecar already gives writing its own section. The author page should do the same, with dates, below the posts.
+## Fix
+
+The author layout concatenated writing into the posts list and sorted that mix by date, so writing pieces showed up under posts.
+
+Posts stay in the posts list, newest first. When the author has writing, a writing heading and a dated list follow, newest first. An author with no writing gets no writing heading.
+
+Files: `_layouts/author-archive.html`, `tests/test_writing_collection.py`.

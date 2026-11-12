@@ -190,6 +190,19 @@ Put each author's writing in its own dated section on the author page, below pos
 * Insights
     - The original writing-collection work was Level 3. This rework does not reopen that scope
 
+## 2026-11-11 - BUILD - COMPLETE
+
+* Work completed
+    - Stopped concatenating writing into the author posts list
+    - Added a dated writing section below posts, shown only when that author has writing
+    - Full suite: 52 tests, OK
+* Decisions made
+    - The section heading is `writing`, matching the existing `posts` heading
+    - Each section sorts newest first on its own. A newer piece does not jump above the posts section
+    - Authors with no writing do not get an empty writing heading
+* Insights
+    - A fixture dated after the build day never reaches the author page, because future writing filenames stay unpublished
+
 
 
 

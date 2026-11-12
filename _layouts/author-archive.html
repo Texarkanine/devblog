@@ -37,8 +37,7 @@ layout: default
 <h2>posts</h2>
 
 {% assign author_posts = site.posts | where: "author", author_id %}
-{% assign author_writing = site.writing | where: "author", author_id %}
-{% assign author_posts = author_posts | concat: author_writing | sort: "date" | reverse %}
+{% assign author_posts = author_posts | sort: "date" | reverse %}
 <ul>
 	{% for post in author_posts %}
 	<li>
@@ -46,5 +45,19 @@ layout: default
 	</li>
 	{% endfor %}
 </ul>
+
+{% assign author_writing = site.writing | where: "author", author_id %}
+{% assign author_writing = author_writing | sort: "date" | reverse %}
+{% assign writing_count = author_writing | size %}
+{% if writing_count > 0 %}
+<h2>writing</h2>
+<ul>
+	{% for piece in author_writing %}
+	<li>
+		{{ piece.date | date: "%Y-%m-%d" }} <a href="{{ piece.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ piece.title | downcase | escape }}{% else %}{{ piece.title | escape }}{% endif %}</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endif %}
 
 {%-include back_link.html-%}

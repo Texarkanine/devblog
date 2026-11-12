@@ -197,22 +197,54 @@ class WritingCollectionTests(unittest.TestCase):
         self.assertFalse((self.dest / "tags" / "verse" / "index.html").exists())
         self.assertFalse((self.dest / "tags" / "verse.html").exists())
 
-    def test_author_page_lists_the_post_and_the_writing_piece_newest_first(self):
-        """A hand-written author page lists the writing piece and a post, newest first."""
+    def test_author_page_lists_writing_in_its_own_dated_section_below_posts(self):
+        """Posts stay in the posts list. Writing follows in its own list, newest first, with dates.
+
+        An author who has no writing does not get an empty writing heading.
+        """
         self._prepare_archives()
         self._write_piece(
             "poetry",
-            "2026-11-11-porch-light.md",
-            "Porch Light",
+            "2026-11-11-later-light.md",
+            "Later Light",
             author="texarkanine",
-            tags=["verse"],
+        )
+        self._write_piece(
+            "songs",
+            "2026-11-09-kitchen-radio.md",
+            "Kitchen Radio",
+            author="texarkanine",
         )
         self._write_post("2026-11-10-a-post.md", "A Post", author="texarkanine")
+        self._write_post("2026-11-08-guest-note.md", "Guest Note", author="guest")
+        (self.source / "author-guest.md").write_text(
+            "---\n"
+            "layout: author-archive\n"
+            "title: guest\n"
+            "permalink: /authors/guest/\n"
+            "---\n"
+        )
         self._build()
         page = self._read(self.dest / "authors" / "texarkanine" / "index.html")
-        writing_at = page.index("/writing/poetry/porch-light.html")
+        posts_at = page.index("<h2>posts</h2>")
+        writing_at = page.index("<h2>writing</h2>")
         post_at = page.index("/2026/11/10/a-post.html")
-        self.assertLess(writing_at, post_at)
+        later_at = page.index("/writing/poetry/later-light.html")
+        radio_at = page.index("/writing/songs/kitchen-radio.html")
+        self.assertLess(posts_at, post_at)
+        self.assertLess(post_at, writing_at)
+        self.assertLess(writing_at, later_at)
+        self.assertLess(later_at, radio_at)
+        self.assertIn("2026-11-10", page[posts_at:writing_at])
+        self.assertIn("2026-11-11", page[writing_at:later_at])
+        self.assertIn("2026-11-09", page[later_at:radio_at])
+        self.assertNotIn("guest-note", page)
+
+        guest = self._read(self.dest / "authors" / "guest" / "index.html")
+        self.assertIn("<h2>posts</h2>", guest)
+        self.assertIn("/2026/11/08/guest-note.html", guest)
+        self.assertNotIn("<h2>writing</h2>", guest)
+        self.assertNotIn("later-light", guest)
 
     def test_writing_document_has_a_markdown_sidecar(self):
         """A writing piece publishes a Markdown sidecar next to its HTML page."""
