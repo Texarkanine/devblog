@@ -1,0 +1,3 @@
+PASS
+
+Author-page writing section QA, 2026-11-11. Full suite: 52 tests, OK. No blocking findings; one non-blocking advisory (posts/writing list-item markup duplicated, consistent with existing layout style, no include warranted).

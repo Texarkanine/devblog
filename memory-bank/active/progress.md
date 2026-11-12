@@ -203,6 +203,17 @@ Put each author's writing in its own dated section on the author page, below pos
 * Insights
     - A fixture dated after the build day never reaches the author page, because future writing filenames stay unpublished
 
+## 2026-11-11 - QA - COMPLETE
+
+* Work completed
+    - Reviewed the author-page rework against the Fix statement and the brief's Rework section
+    - Ran the author-page test (pass) and the full suite: 52 tests, OK
+    - Wrote `memory-bank/active/.qa-validation-status` (PASS) and recorded findings in `tasks.md`
+* Decisions made
+    - QA status: PASS. One non-blocking advisory: the writing list item duplicates the posts list item, consistent with existing layout style
+* Insights
+    - Level 1 QA PASS is terminal: no reflect or archive phase follows
+
 
 
 
