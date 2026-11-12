@@ -170,7 +170,7 @@ No new technology - validation not required.
 - [x] Preflight
 - [ ] Build
   - [x] Folder pages
-  - [ ] Piece links
+  - [x] Piece links
   - [ ] Category index links
   - [ ] Category scopes
   - [ ] Plugin note

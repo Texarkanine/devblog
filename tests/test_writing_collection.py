@@ -93,14 +93,14 @@ class WritingCollectionTests(unittest.TestCase):
         page = self._read(self.dest / "writing" / "poetry" / "porch-light.html")
         self.assertIn("Published: 2026-11-11", page)
         self.assertIn("Updated: 2024-06-15", page)
-        self.assertIn('href="/writing/categories/poetry/"', page)
-        self.assertIn('href="/writing/categories/poetry/">..</a>', page)
-        self.assertNotIn('href="/writing/poetry/"', page)
+        self.assertIn('href="/writing/poetry/">poetry</a>', page)
+        self.assertIn('href="/writing/poetry/">..</a>', page)
+        self.assertNotIn('href="/writing/categories/poetry/"', page)
         self.assertIn('href="/authors/texarkanine/"', page)
         self.assertIn('href="/writing/tags/verse/"', page)
 
     def test_nested_piece_links_each_category_segment(self):
-        """A piece in poetry/sonnets links both category archives."""
+        """A piece in poetry/sonnets links both folder pages, and .. is the nested folder."""
         self._prepare_archives()
         self._write_piece(
             "poetry/sonnets",
@@ -110,10 +110,24 @@ class WritingCollectionTests(unittest.TestCase):
         )
         self._build()
         page = self._read(self.dest / "writing" / "poetry" / "sonnets" / "small-room.html")
-        self.assertIn('href="/writing/categories/poetry/"', page)
-        self.assertIn('href="/writing/categories/sonnets/"', page)
-        self.assertIn('href="/writing/categories/sonnets/">..</a>', page)
-        self.assertNotIn('href="/writing/poetry/sonnets/"', page)
+        self.assertIn('href="/writing/poetry/">poetry</a>', page)
+        self.assertIn('href="/writing/poetry/sonnets/">sonnets</a>', page)
+        self.assertIn('href="/writing/poetry/sonnets/">..</a>', page)
+        self.assertNotIn('href="/writing/categories/', page)
+        self.assertNotIn(">poetry/sonnets</a>", page)
+
+    def test_folderless_piece_parent_is_the_writing_home(self):
+        """A piece with no folder links .. to the writing home."""
+        self._prepare_archives()
+        self._write_piece(
+            None,
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            author="texarkanine",
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "porch-light.html")
+        self.assertIn('href="/writing/">..</a>', page)
 
     def test_piece_with_no_tags_has_no_tag_link(self):
         """A writing piece with no tags still renders, and the page has no tag link."""

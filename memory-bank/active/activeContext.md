@@ -5,7 +5,8 @@
 
 ## What Was Done
 - Folder pages publish at `/writing/<path>/`. `categories` stays the folder segments. `writing_paths` holds the cumulative paths. Flat writing category archives are off. Generated pages set `llms: false`
-- Writing collection tests: 28, OK
+- Piece category links iterate `page.writing_paths`. The label is the last segment. The `..` link is the plain parent directory
+- Writing collection tests: 29, OK
 
 ## Next Step
-- Piece links: iterate `page.writing_paths`, and let the plain parent link land on the folder page
+- Category index links: list `site.data.writing_folders` at `/writing/<path>/`
