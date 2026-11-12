@@ -169,6 +169,18 @@ Add a writing collection beside posts and the garden: folder categories, filenam
     - A future-dated collection document stays listed until something unpublishes it before the collection accepts it
     - The gem's category LLM scopes always use the posts category permalink
 
+## 2026-11-11 - REWORK - IN-PROGRESS
+
+* Work completed
+    - Initiated rework on writing-collection
+    - Cleared the finished task list, active context, QA status, and preflight status
+* Decisions made
+    - Operator chose rework. The finished task stays unarchived
+* Insights
+    - The author page lists the three writing pieces under posts
+    - The author LLM sidecar already puts those pieces in their own Writing section, and that shape is the one to keep
+    - The author page should give writing its own dated section below posts
+
 
 
 

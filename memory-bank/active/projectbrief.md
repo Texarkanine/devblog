@@ -54,3 +54,7 @@ Three short pieces exist: one poem, one song, and one story, so the three catego
 6. Each seed links to Texarkanine's existing author page, and that page lists the seeds.
 7. Each seed has an LLM sidecar.
 8. A tag shared by two seeds has a writing tag archive. A tag used once does not.
+
+## Rework
+
+Operator feedback, 2026-11-11: the author page lists the three writing pieces under posts. The author LLM sidecar puts them in their own Writing section, and that listing is the correct one. The author page should put writing in its own dated section below posts.
