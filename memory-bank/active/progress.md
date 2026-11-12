@@ -425,6 +425,18 @@ Keep a writing piece URL equal to its folder path, including a repeated segment,
     - `:categories` cannot keep a repeated segment. The piece URL has to be set after front matter merges
     - A later test has to target the behavior the earlier unit did not already make true
 
+## 2026-11-12 - REWORK - INITIATED
+
+* Work completed
+    - Operator chose rework over archive for the second review on pull request 133
+* Decisions made
+    - Leave the writing-path scope builder. `writing_paths` is plugin data on writing documents, not post front matter. A file in `_posts` or `_writing` does not put that key on a post
+    - A front-matter permalink must not change the published extension
+    - The piece slug uses Jekyll title normalization (pretty slugify, case kept). No special cases for filenames this section will not have
+    - A piece slug of `index` aborts the build
+    - Drop or rewrite any writing-suite assertion that cannot fail when the behavior it names breaks
+* Insights
+    - The seeds and the post defaults never contain `writing_paths`. The plugin writes that key after it reads the folder
 
 
 

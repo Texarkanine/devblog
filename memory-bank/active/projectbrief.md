@@ -75,3 +75,13 @@ Dismissed on this rework:
 
 4. The category index keeps the last path segment as its label. Two folders that share a leaf name can be labeled more fully later, if that ever shows up.
 5. Folder names stay unencoded in the URL. A folder name containing `#` is not a case this section will have.
+
+## Rework: permalink extension, slug, and reserved index
+
+Operator decision, 2026-11-12, from the second review on pull request 133.
+
+1. Leave the writing-path scope builder as it is. `writing_paths` is not a post front-matter key. Site defaults do not set it. The writing plugin sets it only on a writing document, from the folder on disk. A post, a page, or a garden note is listed on a writing scope only when that document's own front matter contains `writing_paths`. Putting a file in `_posts` or `_writing` does not do that. No post should ever put `writing_paths` in front matter.
+2. A front-matter permalink must not change the published extension. `permalink: /elsewhere.json` on a poetry piece still publishes `/writing/poetry/porch-light.html`.
+3. The piece slug uses Jekyll's title normalization: slugify in pretty mode, case kept. That is what `:title` already does. A colon in a slug becomes a hyphen, and the literal permalink is not read as a template. Do not add special cases for filenames this section will not have.
+4. A piece whose slug is `index` aborts the build. That slug would write the folder page's `index.html`. The build stops with an error.
+5. Every assertion in the writing suite has to be able to fail when the behavior it names breaks. `test_writing_archive_pages_have_no_markdown_sidecar` is removed or rewritten until that is true.
