@@ -97,5 +97,9 @@ No new technology - validation not required.
 - [x] Technology validation complete
 - [x] Pre-Mortem complete
 - [x] Preflight
-- [ ] Build
+- [x] Build
+  - [x] Repeated segment URL
+  - [x] Front matter does not move the piece
+  - [x] Future filename with published true
+  - [x] Plugin note
 - [ ] QA

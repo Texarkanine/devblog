@@ -38,6 +38,45 @@ class WritingCollectionTests(unittest.TestCase):
         page = self.dest / "writing" / "poetry" / "sonnets" / "porch-light.html"
         self.assertTrue(page.is_file(), f"missing {page}")
 
+    def test_repeated_folder_segment_keeps_its_own_file(self):
+        """Two pieces with one slug under poetry and poetry/poetry each keep a file, and the listing contains both URLs."""
+        self._prepare()
+        self._write_piece("poetry", "2026-11-11-porch-light.md", "Porch Light")
+        self._write_piece("poetry/poetry", "2026-11-11-porch-light.md", "Porch Light")
+        self._build()
+        outer = self.dest / "writing" / "poetry" / "porch-light.html"
+        inner = self.dest / "writing" / "poetry" / "poetry" / "porch-light.html"
+        self.assertTrue(outer.is_file(), f"missing {outer}")
+        self.assertTrue(inner.is_file(), f"missing {inner}")
+        listing = (self.dest / "writing-listing.html").read_text()
+        self.assertIn("/writing/poetry/porch-light.html", listing)
+        self.assertIn("/writing/poetry/poetry/porch-light.html", listing)
+
+    def test_front_matter_does_not_move_the_piece(self):
+        """Front matter categories, writing_paths, and permalink leave the piece on the folder URL and the folder category."""
+        self._prepare_archives()
+        self._write_page(
+            "category-listing.md",
+            "/category-listing.html",
+            "{% for doc in site.writing %}{% for category in doc.categories %}{{ category }}\n{% endfor %}{% endfor %}\n",
+        )
+        self._write_piece(
+            "poetry",
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            extra="categories:\n  - songs\nwriting_paths:\n  - songs\npermalink: /elsewhere.html\n",
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "poetry" / "porch-light.html")
+        categories = self._read(self.dest / "category-listing.html")
+        self.assertFalse((self.dest / "elsewhere.html").exists())
+        self.assertFalse((self.dest / "writing" / "poetry" / "songs").exists())
+        self.assertFalse((self.dest / "writing" / "songs").exists())
+        self.assertIn('href="/writing/poetry/">poetry</a>', page)
+        self.assertNotIn("songs", page)
+        self.assertIn("poetry", categories)
+        self.assertNotIn("songs", categories)
+
     def test_folderless_piece_has_no_double_slash(self):
         """A file directly under _writing builds at /writing/porch-light.html."""
         self._prepare()
@@ -70,6 +109,38 @@ class WritingCollectionTests(unittest.TestCase):
         self.assertIn("porch-light", listing)
         later_pages = list(self.dest.rglob("later.html"))
         self.assertEqual([], later_pages)
+
+    def test_future_filename_with_published_true_stays_out_of_the_collection(self):
+        """A future filename with published true stays out of site.writing. The same-day piece stays listed."""
+        self._prepare()
+        self._write_piece("poetry", "2026-11-11-porch-light.md", "Porch Light")
+        self._write_piece(
+            "poetry",
+            "2999-01-01-later.md",
+            "Later",
+            extra="published: true\n",
+        )
+        self._build()
+        listing = (self.dest / "writing-listing.html").read_text()
+        self.assertNotIn("later", listing)
+        self.assertIn("porch-light", listing)
+        self.assertEqual([], list(self.dest.rglob("later.html")))
+
+    def test_future_filename_with_published_true_stays_off_the_folder_page(self):
+        """A future filename with published true is absent from the folder page. The same-day piece stays."""
+        self._prepare_archives()
+        self._write_piece("poetry", "2026-11-11-porch-light.md", "Porch Light")
+        self._write_piece(
+            "poetry",
+            "2999-01-01-later.md",
+            "Later",
+            extra="published: true\n",
+        )
+        self._build()
+        page = self._read(self.dest / "writing" / "poetry" / "index.html")
+        self.assertNotIn("later", page)
+        self.assertIn("porch-light", page)
+        self.assertEqual([], list(self.dest.rglob("later.html")))
 
     def test_writing_page_links_its_category_and_author_and_shows_both_dates(self):
         """The writing page links the folder and the author, and shows Published and Updated."""
@@ -668,7 +739,7 @@ class WritingCollectionTests(unittest.TestCase):
             f"---\ntitle: {filename}\npermalink: {permalink}\n---\n{body}"
         )
 
-    def _write_piece(self, folder, filename, title, author=None, tags=None):
+    def _write_piece(self, folder, filename, title, author=None, tags=None, extra=""):
         directory = self.source / "_writing"
         if folder:
             directory = directory / folder
@@ -679,6 +750,8 @@ class WritingCollectionTests(unittest.TestCase):
         if tags:
             lines.append("tags:")
             lines.extend(f"  - {tag}" for tag in tags)
+        if extra:
+            lines.append(extra.rstrip("\n"))
         lines.extend(["---", '{{ page.date | date: "%Y-%m-%d" }}', ""])
         path = directory / filename
         path.write_text("\n".join(lines))

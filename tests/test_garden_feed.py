@@ -156,6 +156,26 @@ class GardenFeedTests(unittest.TestCase):
         self._build()
         self.assertEqual(["http://example.test/2026/01/01/alpha.html"], self._links())
 
+    def test_future_published_writing_piece_stays_out_of_the_feed(self):
+        """A future writing piece with published true stays out of the posts feed. A past piece stays."""
+        self._write_config(writing=True)
+        self._write_post("2026-01-01-alpha.md", "Alpha")
+        self._write_writing("poetry", "2026-01-02-gamma.md", "Gamma")
+        self._write_writing(
+            "poetry",
+            "2999-01-01-later.md",
+            "Later",
+            extra="published: true\n",
+        )
+        self._build()
+        self.assertEqual(
+            [
+                "http://example.test/writing/poetry/gamma.html",
+                "http://example.test/2026/01/01/alpha.html",
+            ],
+            self._links(),
+        )
+
     def test_garden_collection_feed_stays_garden_only(self):
         """The posts feed gains garden pages. A garden collection feed does not gain posts."""
         self._write_config(garden_feed=True)

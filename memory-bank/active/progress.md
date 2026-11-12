@@ -385,6 +385,20 @@ Keep a writing piece URL equal to its folder path, including a repeated segment,
     - Calling `output_ext` before assigning `data["permalink"]` evaluates the converter extension without memoizing `@url`
     - Pruning future-dated documents from `collection.docs` during `:site, :post_read` updates `site.writing` before generators run, keeping them out of folder pages and the feed
 
+## 2026-11-12 - BUILD - COMPLETE
+
+* Work completed
+    - Set the piece permalink from the ordered folder path after front matter merges
+    - Put folder categories and `writing_paths` back after that merge
+    - Removed a future filename from `site.writing` when the file says `published: true`
+    - Full suite: 60 tests, OK. A site build into a temp destination succeeded
+* Decisions made
+    - Shared `folder_segments`, `permalink_for`, `writing_paths_for`, and `future_filename?` between the two hooks, as the preflight advisory asked
+    - Left the collection template on `:categories`. The literal permalink is the piece URL
+* Insights
+    - A literal permalink already stopped a front-matter `permalink` and a `categories` list from moving the file. A front-matter `writing_paths` array still replaced the folder list until `post_read` set it again
+    - The category listing page renders the word inside a paragraph, so the assertion reads the HTML
+
 
 
 

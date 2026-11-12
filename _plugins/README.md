@@ -338,9 +338,11 @@ The posts Atom feed at `/feed.xml` also lists garden pages and writing pieces. E
 
 ## writing_categories.rb
 
-Sets a writing piece's categories from the folder segments under `_writing`, and sets `writing_paths` to the cumulative paths (`poetry`, then `poetry/sonnets`). The piece permalink reads `categories` only. The hook is `:documents, :post_init`, which runs before `read` and before anything can memoize the URL. Do not read `document.url` from that hook.
+Sets a writing piece's categories from the folder segments under `_writing`, and sets `writing_paths` to the cumulative paths (`poetry`, then `poetry/sonnets`). `:documents, :post_init` does that before `read`, and before anything can memoize the URL. Do not read `document.url` from that hook.
 
-The `YYYY-MM-DD` filename prefix is the publication date. Jekyll applies it during `read`. When `site.future` is false and the filename date is after the build time, the hook sets `published` to false first. `read` keeps that value when the front matter has no `published` key, and the collection then leaves the document out of `site.writing`.
+`:site, :post_read` sets `categories` and `writing_paths` again after Jekyll merges front matter, so a `categories` or `writing_paths` key in the file does not add a folder. It also sets a literal permalink from the ordered folder segments and the slug. The collection template stays `/writing/:categories/:title:output_ext`, and `:categories` drops a repeated segment, so the literal permalink is the piece URL. `poetry/poetry/<slug>` stays a different file from `poetry/<slug>`.
+
+The `YYYY-MM-DD` filename prefix is the publication date. Jekyll applies it during `read`. When `site.future` is false and the filename date is after the build time, `post_init` sets `published` to false. `read` keeps that value when the front matter has no `published` key, and the collection leaves the document out. When the file says `published: true`, `read` puts the document back. `:site, :post_read` removes it from `site.writing` before generators run, so the folder index and the feed withhold it too. The HTML file was already withheld by Jekyll's future-date check.
 
 A writing category page is that folder's path: `/writing/poetry/`, and `/writing/poetry/sonnets/` for a nested folder. The flat pages at `/writing/categories/<name>/` are not published. `/writing/categories/` stays the list of every category.
 
