@@ -358,6 +358,19 @@ Keep a writing piece URL equal to its folder path, including a repeated segment,
 * Insights
     - This is past a one-line fix, and it does not reopen the folder-page design
 
+## 2026-11-12 - PLAN - COMPLETE
+
+* Work completed
+    - Planned the repeated-segment permalink, the front-matter reset, and the future-date removal from `site.writing`
+    - Mapped the tests onto `tests/test_writing_collection.py` and `tests/test_garden_feed.py`
+* Decisions made
+    - Set `data["permalink"]` after front matter merges. `:categories` stays the collection template and is not the piece URL
+    - Keep the `post_init` hook for future files that never enter the collection. `:site, :post_read` handles the `published: true` case by deleting the document
+    - No creative phase. The three outcomes are fixed, and the dismissed label and encoding items stay dismissed
+* Insights
+    - `Document#permalink` already prefers `data["permalink"]` over the collection template
+    - `:site, :post_read` runs before generators, so the folder index and the feed see the pruned collection
+
 
 
 
