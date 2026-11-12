@@ -1,0 +1,8 @@
+PASS WITH ADVISORY
+
+- Prerequisites: Level 2 task; planning, test infrastructure, and pre-mortem sections in `tasks.md` are complete.
+- TDD Plan Encoding: All three executable units (Units 1, 2, and 3) explicitly order test stubs, interface stubs, and red test execution before production code. Unit 4 is correctly scoped to prose/policy. No change-detectors detected and no step reordering required.
+- Convention Compliance: Changes are properly confined to `_plugins/writing_categories.rb`, `_plugins/README.md`, and existing test suites (`tests/test_writing_collection.py` and `tests/test_garden_feed.py`).
+- Dependency Impact & Conflict Detection: Verified against Jekyll 4.4.1 source (`Document`, `Collection`, `Publisher`, and `Renderer`). Registering `:site, :post_read` executes after front matter merge and before generators, guaranteeing downstream consumers (`WritingFolderIndexes`, `GardenInMainFeed`, `20_llms_scope_builders.rb`) observe the corrected collection and cumulative paths. Calling `document.output_ext` before setting `data["permalink"]` avoids memoizing `@url` with collapsed category segments.
+- Completeness Precheck: The plan maps all three rework requirements from the project brief directly to executable test assertions and code steps.
+- Radical Innovation (Advisory): Centralize folder path segment extraction, permalink generation, and date checks into dedicated helper methods within `module WritingCategories` (e.g., `folder_segments(document)`, `permalink_for(document)`, and `future_filename?(document)`). This eliminates duplicate path splitting and `DATE_FILENAME_MATCHER` regex parsing between `:documents, :post_init` and `:site, :post_read`, leaving both hooks as thin dispatchers.

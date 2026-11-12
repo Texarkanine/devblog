@@ -371,6 +371,21 @@ Keep a writing piece URL equal to its folder path, including a repeated segment,
     - `Document#permalink` already prefers `data["permalink"]` over the collection template
     - `:site, :post_read` runs before generators, so the folder index and the feed see the pruned collection
 
+## 2026-11-12 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Validated the piece URL and future dates rework plan against Jekyll 4.4.1 (`Document`, `Collection`, `Publisher`, and `Renderer`), `WritingFolderIndexes`, `GardenInMainFeed`, `20_llms_scope_builders.rb`, and test suites
+    - Verified TDD plan encoding across all three executable units and confirmed Unit 4 is prose/policy
+    - First line of `.preflight-status`: `PASS WITH ADVISORY`
+* Decisions made
+    - Plan validated and approved for build; no blocking or fixable findings
+    - In-phase plan edits were not required: no change-detectors and no out-of-order test steps
+* Insights
+    - Setting `document.data["permalink"]` in `:site, :post_read` preserves repeated folder segments while leaving `:categories` intact for Jekyll's collection permalink configuration
+    - Calling `output_ext` before assigning `data["permalink"]` evaluates the converter extension without memoizing `@url`
+    - Pruning future-dated documents from `collection.docs` during `:site, :post_read` updates `site.writing` before generators run, keeping them out of folder pages and the feed
+
+
 
 
 
