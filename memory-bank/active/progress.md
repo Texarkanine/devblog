@@ -279,6 +279,18 @@ Make each writing folder's URL that folder's category page, so a piece is a chil
     - `test_category_archive_exists_for_one_piece` still asserts `/writing/categories/songs/index.html` exists and must be replaced rather than kept alongside `test_folder_page_replaces_the_flat_category_archive`
     - `JekyllLlmSidecars::Manifest` never writes `.md` sidecars for `.html` pages; excluding generated folder index pages keeps them out of `## Pages` in root `/llms.txt`, and `_prepare_sidecars` must copy `writing_folder_indexes.rb` to exercise that path
 
+## 2026-11-11 - PREFLIGHT - COMPLETE
+
+* Work completed
+    - Re-validated the updated folder-category plan against Jekyll 4.4.1, `jekyll-archives` 2.3.0, `jekyll-llm-sidecars` 0.3.0, plugins, layouts, pages, and `tests/test_writing_collection.py`
+    - Confirmed all three prior fixable findings are resolved across units 1 through 4
+    - First line of `.preflight-status`: `PASS WITH ADVISORY`
+* Decisions made
+    - No in-phase plan edits required: TDD step order is valid across all four executable units and no change-detectors are scheduled
+* Insights
+    - Iterating `page.writing_paths` in `_layouts/writing.html` gives both the cumulative `/writing/<path>/` href and the last-segment label cleanly while leaving `page.categories` intact for `:categories` permalink expansion
+
+
 
 
 

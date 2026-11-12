@@ -42,7 +42,7 @@ graph TD
 - `writing_categories.rb` runs at `post_init` and writes `categories` and `writing_paths`. The piece permalink reads `categories` only. The folder-index generator and the scope builder read `writing_paths`.
 - `garden_archives` builds `site.writing_categories` from `categories` even when category archive pages are disabled. The category index stops reading that hash for links.
 - The scope builder runs at `lowest`, after the hashes exist. It does not read the generated HTML page.
-- The piece layout does not call the generator. It prints links from `page.categories`.
+- The piece layout does not call the generator. It prints links from `page.writing_paths`.
 
 ### Boundary Changes
 
@@ -111,7 +111,7 @@ None - implementation approach is clear. The flat `:name` permalink was inspecte
 1. Stub tests: no new methods. The two existing link tests gain the new assertions in the red step.
 2. Stub interface: none. The layout already has the link sites.
 3. Write tests and run red: `test_writing_page_links_its_category_and_author_and_shows_both_dates` expects `href="/writing/poetry/"` on the category link and on `..`, and rejects `href="/writing/categories/poetry/"`. `test_nested_piece_links_each_category_segment` expects `/writing/poetry/` and `/writing/poetry/sonnets/`, with `..` on the nested path. Add `test_folderless_piece_parent_is_the_writing_home` expecting `href="/writing/">..</a>`.
-4. Write code and run green: remove the `writing_back` special case. Print each category as `/writing/<path>/` with the last segment as the label. The plain parent-directory `..` link then lands on the folder page.
+4. Write code and run green: remove the `writing_back` special case. Iterate `page.writing_paths`. The href is `/writing/<path>/` and the label is the last segment. `page.categories` stays the segments and is not the link source. The plain parent-directory `..` link then lands on the folder page.
 
 ### 3. Category index links — executable
 
