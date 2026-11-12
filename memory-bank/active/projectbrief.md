@@ -62,3 +62,16 @@ Operator feedback, 2026-11-11: the author page lists the three writing pieces un
 ## Rework: folder category pages
 
 Operator decision, 2026-11-11: a writing piece should be a child of its category page. `/writing/poetry/` is the poetry category page. A nested folder is the same way: `/writing/poetry/sonnets/` is that folder's category page. The flat pages at `/writing/categories/<name>/` go away. `/writing/categories/` stays the page that lists every category. A writing folder must not be named `tags`. Once the folder index exists, the piece's `..` link is that parent folder.
+
+## Rework: piece URL and future dates
+
+Operator decision, 2026-11-12, from the review on pull request 133. Fix three holes. Leave the other two.
+
+1. A piece URL keeps every folder segment, including a segment that repeats. `_writing/poetry/<slug>` and `_writing/poetry/poetry/<slug>` must not write the same file. The nested folder page still exists today. The piece URL is what collapses.
+2. The folder on disk stays the category after Jekyll reads front matter. A `categories` key in the file must not add a segment to the piece URL. The piece URL and `writing_paths` name the same folders.
+3. A future filename stays out of `site.writing` while `future` is false, including when the file says `published: true`. The HTML file is already withheld. The collection, the feed, and the folder index must withhold the piece too.
+
+Dismissed on this rework:
+
+4. The category index keeps the last path segment as its label. Two folders that share a leaf name can be labeled more fully later, if that ever shows up.
+5. Folder names stay unencoded in the URL. A folder name containing `#` is not a case this section will have.

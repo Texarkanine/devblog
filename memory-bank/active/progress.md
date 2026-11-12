@@ -335,6 +335,20 @@ Make each writing folder's URL that folder's category page, so a piece is a chil
     - `:categories` joins every segment, so it cannot also hold cumulative paths
     - A running `jekyll serve` does not load a plugin added after it started
 
+## 2026-11-12 - REWORK - IN-PROGRESS
+
+* Work completed
+    - Initiated rework on writing-collection
+    - Cleared the finished task list, active context, QA status, and preflight status
+* Decisions made
+    - Operator chose rework from the pull request 133 review
+    - Fix the repeated-segment piece URL, folder categories that survive front matter, and future filenames that say `published: true`
+    - Keep last-segment category labels. Leave folder names unencoded. A `#` in a folder name is not a case this section will have
+* Insights
+    - `:categories` is uniqued and lowercased, so a repeated folder segment collapses in the piece URL while `writing_paths` keeps it
+    - `post_init` runs before front matter is merged, so folder categories and `published: false` lose to keys in the file
+    - A future date still skips the HTML file. `published: true` puts the document back into `site.writing`, and the feed and folder index read that collection
+
 
 
 

@@ -1,9 +1,0 @@
-PASS
-
-QA semantic review of the folder-category-pages build against the plan in tasks.md.
-Full suite run by QA: 55 tests, OK.
-
-Findings (none blocking):
-- Group-by-writing_paths logic appears in both writing_folder_indexes.rb (Documents) and scopes_for_writing_paths (llms Entries). ~10 lines each over different item types. This was the preflight advisory the build explicitly chose not to build; recorded in activeContext. Advisory only.
-- The jekyll-archives layouts.category: writing-cat-archive config key is inert (no enabled writing category archive reads it; FolderIndex hardcodes the layout). The plan directed keeping the key. Observation only.
-- site.writing_categories is still built by garden_archives but has no remaining readers. The plan directed keeping the hash. Observation only.
