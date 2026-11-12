@@ -77,6 +77,37 @@ class WritingCollectionTests(unittest.TestCase):
         self.assertIn("poetry", categories)
         self.assertNotIn("songs", categories)
 
+    def test_front_matter_permalink_keeps_the_html_extension(self):
+        """A front-matter permalink with another extension still publishes HTML on the folder URL."""
+        self._prepare()
+        self._write_piece(
+            "poetry",
+            "2026-11-11-porch-light.md",
+            "Porch Light",
+            extra="permalink: /elsewhere.json\n",
+        )
+        self._build()
+        page = self.dest / "writing" / "poetry" / "porch-light.html"
+        self.assertTrue(page.is_file(), f"missing {page}")
+        self.assertFalse((self.dest / "writing" / "poetry" / "porch-light.json").exists())
+        self.assertFalse((self.dest / "elsewhere.json").exists())
+
+    def test_colon_in_the_slug_is_normalized_like_a_title(self):
+        """A colon in the filename slug becomes a hyphen, and the build publishes that HTML file."""
+        self._prepare()
+        self._write_piece("poetry", "2026-11-11-porch:light.md", "Porch Light")
+        self._build()
+        page = self.dest / "writing" / "poetry" / "porch-light.html"
+        self.assertTrue(page.is_file(), f"missing {page}")
+
+    def test_index_slug_aborts_the_build(self):
+        """A piece whose slug is index stops the build before it can overwrite the folder page."""
+        self._prepare()
+        self._write_piece("poetry", "2026-11-11-index.md", "Index")
+        result = self._run_jekyll()
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("slug 'index'", result.stdout + result.stderr)
+
     def test_folderless_piece_has_no_double_slash(self):
         """A file directly under _writing builds at /writing/porch-light.html."""
         self._prepare()
@@ -431,14 +462,6 @@ class WritingCollectionTests(unittest.TestCase):
         page = self._read(self.dest / "categories" / "tools" / "llms.txt")
         self.assertIn("a-tool", page)
 
-    def test_writing_archive_pages_have_no_markdown_sidecar(self):
-        """Writing tag and category archive pages do not get an index.md sidecar."""
-        self._prepare_sidecars()
-        self._write_sidecar_pieces()
-        self._build()
-        self.assertFalse((self.dest / "writing" / "tags" / "verse" / "index.md").exists())
-        self.assertFalse((self.dest / "writing" / "categories" / "poetry" / "index.md").exists())
-
     def test_writing_home_lists_pieces_newest_first_and_skips_other_collections(self):
         """The writing home lists writing by date and leaves out posts and garden notes."""
         self._prepare_section()
@@ -781,11 +804,11 @@ class WritingCollectionTests(unittest.TestCase):
         self.assertTrue(path.is_file(), f"missing {path}")
         return path.read_text()
 
-    def _build(self):
+    def _run_jekyll(self):
         env = os.environ.copy()
         env["BUNDLE_GEMFILE"] = str(REPO / "Gemfile")
         env["JEKYLL_NO_BUNDLER_REQUIRE"] = "1"
-        result = subprocess.run(
+        return subprocess.run(
             [
                 "bundle",
                 "exec",
@@ -805,5 +828,8 @@ class WritingCollectionTests(unittest.TestCase):
             text=True,
             check=False,
         )
+
+    def _build(self):
+        result = self._run_jekyll()
         if result.returncode != 0:
             self.fail(result.stdout + "\n" + result.stderr)

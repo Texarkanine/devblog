@@ -447,6 +447,22 @@ Keep a writing piece on its folder URL when front matter names another extension
 * Insights
     - This is one component. It does not reopen folder pages, scopes, or collection membership
 
+## 2026-11-12 - BUILD - COMPLETE
+
+* Work completed
+    - Dropped a front-matter permalink before `output_ext`
+    - Set the piece slug with pretty, case-kept slugify
+    - Stopped the build when that slug is `index`
+    - Removed `test_writing_archive_pages_have_no_markdown_sidecar`
+    - Full suite: 62 tests, OK
+* Decisions made
+    - Left `scopes_for_writing_paths` unchanged. A post reaches a writing scope only when its own front matter contains `writing_paths`, and no post should carry that key
+    - Used Jekyll's `:title` normalization. No extra filename cases
+* Insights
+    - `output_ext` memoizes the permalink extension, so the front-matter permalink has to be gone before that call
+    - A literal permalink is still scanned for `:word`. Pretty slugify removes the colon before that scan
+    - HTML archive pages do not get `index.md` sidecars, so an assertion that the file is absent does not protect them
+
 
 
 

@@ -11,8 +11,10 @@
 #
 # `:site, :post_read` runs after front matter is merged and before generators.
 # It sets `categories` and `writing_paths` again, so keys in the file cannot
-# add a folder. It sets a literal `permalink` from the ordered segments.
-# `:categories` stays the collection template and drops a repeated segment.
+# add a folder. It drops a front-matter permalink, then sets a literal
+# permalink from the ordered segments and the pretty title slug.
+# The slug `index` stops the build. `:categories` stays the collection
+# template and drops a repeated segment.
 # A future filename is removed from the collection here, including when the
 # file says `published: true`. Do not read `document.url` from this hook.
 module WritingCategories
@@ -30,20 +32,36 @@ module WritingCategories
     folder.split("/").reject(&:empty?)
   end
 
-  # Piece URL for the ordered segments and the slug Jekyll parsed.
-  # Read `output_ext` before `permalink` is set, so the extension comes from
-  # the converter. Do not read `document.url` here.
+  # Piece URL for the ordered segments and the pretty title slug.
+  # Drop a front-matter permalink before `output_ext`, so the extension
+  # comes from the converter. Do not read `document.url` here.
   #
   # @param document [Jekyll::Document]
   # @param segments [Array<String>]
   # @return [String]
   def self.permalink_for(document, segments)
+    document.data.delete("permalink")
     ext = document.output_ext
-    slug = document.data["slug"]
+    slug = title_slug(document)
     tail = "#{slug}#{ext}"
     return "/writing/#{tail}" if segments.empty?
 
     "/writing/#{segments.join("/")}/#{tail}"
+  end
+
+  # Pretty, case-kept slug. This is Jekyll's `:title` placeholder.
+  # The slug `index` would publish the folder page's `index.html`.
+  #
+  # @param document [Jekyll::Document]
+  # @return [String]
+  def self.title_slug(document)
+    slug = Jekyll::Utils.slugify(document.data["slug"], mode: "pretty", cased: true)
+    return slug unless slug == "index"
+
+    Jekyll.logger.abort_with(
+      "Writing:",
+      "'#{document.relative_path}' uses the slug 'index', which would overwrite the folder page."
+    )
   end
 
   # Cumulative folder paths for the folder pages. `poetry`, then `poetry/sonnets`.

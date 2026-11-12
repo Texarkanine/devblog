@@ -1,11 +1,15 @@
 # Active Context
 
 ## Current Task: Permalink extension, slug, and reserved index
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** BUILD - COMPLETE
 
 ## What Was Done
-- Determined Level 1. The work is three bug fixes in the writing piece URL, plus removing a writing test that cannot fail
-- Left the writing-path scope builder unchanged. `writing_paths` is not post front matter
+- Dropped a front-matter permalink before reading the output extension
+- Normalized the piece slug with Jekyll's pretty title slugify, case kept
+- Aborted the build when that slug is `index`
+- Removed the sidecar test that could not fail
+- Left the writing-path scope builder unchanged
+- Full suite: 62 tests, OK
 
 ## Next Step
-- Load the Level 1 workflow and build
+- Run QA
