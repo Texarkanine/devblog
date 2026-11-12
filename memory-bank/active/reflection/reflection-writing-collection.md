@@ -1,58 +1,64 @@
 ---
 task_id: writing-collection
-date: 2026-11-11
+date: 2026-11-12
 complexity_level: 3
 ---
 
-# Reflection: Writing collection
+# Reflection: Folder category pages
 
 ## Summary
 
-A `writing` collection now sits beside posts and the garden: folder categories, filename publication dates, dateless piece URLs, its own indexes and LLM scopes, and three seeds. QA passed. The suite is 52 tests, and a site build published the seeds.
+A writing piece is now a child of its folder. `/writing/poetry/` is the poetry page, and `/writing/poetry/sonnets/` is the nested folder's page. The flat `/writing/categories/<name>/` pages are gone. `/writing/categories/` still lists every category. QA passed. The suite is 55 tests, and a site build published the three seeds on those folder pages.
+
+The 2026-11-11 reflection for the original writing collection is kept beside this one.
 
 ## Requirements vs Outcome
 
-The brief's ten requirements and eight acceptance criteria are in the build. Nothing was dropped or reinterpreted. The piece URL stayed `/writing/<folder>/<slug>`, and the category archive stayed `/writing/categories/<folder>/`. The seeds are dated in the filename, authored by texarkanine, and share `verse` and `night`. `hearth` is used once and has no archive.
+The rework asked for five things, and the build has all five. The folder path is the category page. A nested folder is the same kind of page. The flat per-name pages are gone. `/writing/categories/` remains the list, and its links point at the folder pages. The piece's `..` link is that parent folder. A top-level folder must not be named `tags` or `categories`. No redirect was added. The flat URL had not shipped.
 
-Two things were added inside the fixture, not in the product. The archive tests load `email_obfuscator.rb` so the author layout can be parsed. Throwaway builds stub `default.html` and copy the layouts they render, because they do not fetch the remote theme.
+Piece URLs stayed `/writing/<folder>/<slug>`. `categories` stayed the folder segments so a nested piece does not land at `/writing/poetry/poetry/sonnets/<slug>`. `writing_paths` is the cumulative paths the pages, the links, and the scopes read. That split was in the replanned plan. It is not an extra product feature.
+
+The preflight advisory for a path-to-documents hash and for subfolder links on the category page was not built. The plan did not include it, and QA recorded the duplicated grouping as a non-blocking advisory.
+
+Acceptance criterion 1 in the brief still names the old archive URL. The rework section is the requirement this build followed. That earlier sentence was left in place.
 
 ## Plan Accuracy
 
-The seven-unit sequence held. Red runs failed where the plan said they would: missing folder URLs, a future filename still listed, writing absent from the feed, the shared `verse` description, and the writing LLM scopes landing in the wrong namespace.
+The four executable units ran in order: folder pages, piece links, category index, scopes, then the plugin note. Each red run failed on the old URL or the missing page, and the following green run made that unit's tests pass. The writing collection file stayed green at each unit boundary.
 
-Three plan expectations were off, and none of them changed the product:
+The challenges named in the plan showed up as specified. Slugify turns a slash into a hyphen, so the folder page is a generated page rather than a `:name` permalink. Putting the cumulative paths into `categories` would double a segment in the piece URL. The nested piece test guards that URL. An HTML index does not get an `index.md` sidecar, so the opt-out is `llms: false`, asserted on the root pages list.
 
-- Liquid parses `{% email %}` while it reads the author layout, including a branch that does not run. "No email on the author record" did not mean the tag could stay unregistered.
-- Writing archive pages did not get `index.md` sidecars before the new exclude globs. Their extension is HTML, and the sidecar writer skips non-Markdown. The globs were still added.
-- Once the writing layout chained to `default`, every throwaway build that rendered a writing page needed the same default stub the plan had specified for the home page.
-
-The challenges that were named in the plan showed up as designed: the URL is memoized if anything reads it too early, `scopes_for_taxonomy` drops a one-document term, and `include_categories` publishes every census category on the posts permalink.
+One expectation was early. The folderless `..` link already pointed at `/writing/` before the layout change, because the special-case back href ran only when the piece had categories. The new test passed on the first run. The layout change left it green.
 
 ## Creative Phase Review
 
-There was no creative phase. The approved brief fixed the product choices, and those choices held through build and QA.
+There was no creative phase. The operator had already chosen the URLs. Those URLs held through the preflight replan, the build, and QA.
 
 ## Build & QA Observations
 
-The folder hook, the feed concat, the layout dates, and the scope split went through red then green without a change of approach. The full suite stayed green at each unit boundary. A site build then confirmed the three seeds, the shared tag archives, the plain-text `hearth` tag, the feed, the author page, and the absence of the seeds from all-posts and the garden.
+The hook, the generator, the layout, the category index, and the scope builder each went red then green without a change of approach. A fresh site build then showed the three seeds on `/writing/poetry/`, `/writing/songs/`, and `/writing/stories/`, the category index linking those pages, and no flat archive. In the browser, Porch Light's parent link returned to the poetry page, the category index opened the songs page, and `/writing/categories/poetry/` was a 404.
 
-QA passed with no rework. It did not find a product defect the tests had missed.
+The running `jekyll serve` kept serving the old archives. It had started before the new plugin existed, and it does not load a plugin added later. The fresh build was the one that matched the code.
+
+QA passed and re-ran the suite: 55 tests, OK. It did not find a product defect. It noted the duplicated grouping, the unused archives layout key, and the unread `site.writing_categories` hash. The plan had directed the last two, and the build had already declined the shared hash.
 
 ## Cross-Phase Analysis
 
-The four preflight rounds were the part that changed the build. They caught the future-dated document staying in the collection, the fixture restating production config so a bad permalink would stay green, and the missing test for the shared tag description. Those would have been wrong behavior or an untested flag, not a red test with an obvious fix.
+The first preflight of this rework failed because cumulative paths in `categories` double the piece URL. The replan split `categories` and `writing_paths`. The build followed that split, and the nested piece URL stayed `/writing/poetry/sonnets/small-room.html`. That catch would have been a wrong public URL, not a red test with an obvious local fix.
 
-The email-tag miss was the one assumption preflight did not catch, because the plan treated an unexecuted branch as an unloaded tag. It failed on the first archive build and stayed inside the fixture.
+The second preflight passed and advised unifying the grouping. The build left the two loops separate. QA named the same duplication and did not treat it as a failure. The advisory did not become a defect, and taking it would have been scope the plan had not asked for.
+
+No planning gap turned into a build failure. The red tests failed for the reasons the plan described.
 
 ## Insights
 
 ### Technical
 
-- Liquid parses every tag in a layout when that layout is rendered, including tags inside a branch that does not run.
-- Jekyll leaves a future-dated collection document in the collection and only skips writing its page. Setting `published` false before `read` returns is what removes it from `site.writing`.
-- `jekyll-llm-sidecars` category scopes use the posts category permalink for every category in the census. A second collection needs `include_categories: false` and its own builder, and that builder cannot use the tag threshold or a one-piece category loses its scope.
+- `Jekyll::Utils.slugify` in the default mode replaces a slash with a hyphen. A nested folder permalink has to be the raw path on a generated page.
+- `Jekyll::Drops::UrlDrop#categories` joins every category with `/`. The permalink placeholder and a cumulative display path cannot share one array.
+- A running `jekyll serve` does not load a plugin added after it started. A new `jekyll build` does.
 
 ### Process
 
-- The repeated preflight paid for itself. The build's surprises were fixture assumptions, and the product design did not move.
-- Skipping the creative phase was the right call. The brief had already chosen the URLs, the date source, and the tag rules.
+- The fixable preflight on the doubled path is what made the plan buildable. The later passing advisory did not need to become scope.
+- Skipping the creative phase was the right call. The operator had already chosen the page URLs.

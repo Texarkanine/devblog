@@ -322,6 +322,19 @@ Make each writing folder's URL that folder's category page, so a piece is a chil
     - Keeping `categories` as bare segments and adding `writing_paths` for the cumulative paths kept every consumer (permalink, links, index, scopes) on a single unambiguous source
     - The plain parent-directory `..` computation in `back_link.html` made the piece layout simpler than the special case it replaced
 
+## 2026-11-12 - REFLECT - COMPLETE
+
+* Work completed
+    - Wrote `memory-bank/active/reflection/reflection-writing-collection.md` for the folder-category rework
+    - Kept the 2026-11-11 reflection at `reflection-writing-collection-20261111.md`
+    - Checked product context, system patterns, and tech context. None of them changed
+* Decisions made
+    - No persistent-file edits. The folder URL belongs with the writing plugins, not in the system briefing
+    - The brief's original acceptance criterion 1 still names the old archive URL. The rework section is the requirement that shipped
+* Insights
+    - `:categories` joins every segment, so it cannot also hold cumulative paths
+    - A running `jekyll serve` does not load a plugin added after it started
+
 
 
 
