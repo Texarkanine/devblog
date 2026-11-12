@@ -94,6 +94,8 @@ class WritingCollectionTests(unittest.TestCase):
         self.assertIn("Published: 2026-11-11", page)
         self.assertIn("Updated: 2024-06-15", page)
         self.assertIn('href="/writing/categories/poetry/"', page)
+        self.assertIn('href="/writing/categories/poetry/">..</a>', page)
+        self.assertNotIn('href="/writing/poetry/"', page)
         self.assertIn('href="/authors/texarkanine/"', page)
         self.assertIn('href="/writing/tags/verse/"', page)
 
@@ -110,6 +112,8 @@ class WritingCollectionTests(unittest.TestCase):
         page = self._read(self.dest / "writing" / "poetry" / "sonnets" / "small-room.html")
         self.assertIn('href="/writing/categories/poetry/"', page)
         self.assertIn('href="/writing/categories/sonnets/"', page)
+        self.assertIn('href="/writing/categories/sonnets/">..</a>', page)
+        self.assertNotIn('href="/writing/poetry/sonnets/"', page)
 
     def test_piece_with_no_tags_has_no_tag_link(self):
         """A writing piece with no tags still renders, and the page has no tag link."""

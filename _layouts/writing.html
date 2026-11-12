@@ -2,7 +2,14 @@
 layout: default
 ---
 
-{% include back_link.html %}
+{% if page.categories.size > 0 %}
+  {% assign writing_back = page.categories | last | slugify | prepend: "/writing/categories/" | append: "/" %}
+{% endif %}
+{% if writing_back %}
+  {% include back_link.html href=writing_back %}
+{% else %}
+  {% include back_link.html %}
+{% endif %}
 
 <header>
   <h1>{{ page.title }}</h1>
@@ -40,4 +47,8 @@ layout: default
   {% endif %}
 </footer>
 
-{% include back_link.html %}
+{% if writing_back %}
+  {% include back_link.html href=writing_back %}
+{% else %}
+  {% include back_link.html %}
+{% endif %}
