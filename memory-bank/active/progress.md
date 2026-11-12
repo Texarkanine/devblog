@@ -1,8 +1,8 @@
 # Progress
 
-Keep a writing piece URL equal to its folder path, including a repeated segment, and keep a future filename out of the collection when the file says it is published.
+Keep a writing piece on its folder URL when front matter names another extension, normalize the slug the way Jekyll's title placeholder does, and stop the build when that slug is `index`.
 
-**Complexity:** Level 2
+**Complexity:** Level 1
 
 ## 2026-11-11 - COMPLEXITY-ANALYSIS - COMPLETE
 
@@ -437,6 +437,15 @@ Keep a writing piece URL equal to its folder path, including a repeated segment,
     - Drop or rewrite any writing-suite assertion that cannot fail when the behavior it names breaks
 * Insights
     - The seeds and the post defaults never contain `writing_paths`. The plugin writes that key after it reads the folder
+
+## 2026-11-12 - COMPLEXITY-ANALYSIS - COMPLETE
+
+* Work completed
+    - Classified the permalink, slug, and reserved-index rework
+* Decisions made
+    - Level 1. The changes are bug fixes in `writing_categories.rb` and the writing tests. The scope builder stays as it is. The approaches are fixed
+* Insights
+    - This is one component. It does not reopen folder pages, scopes, or collection membership
 
 
 
