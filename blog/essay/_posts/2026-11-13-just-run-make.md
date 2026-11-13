@@ -107,7 +107,7 @@ Leaving Make doesn't get you a free lunch, either. Move to `just` and you lose a
 
 They figured this out half a century ago.
 
-## `make test` Takes No Arguments
+## Targets Take No Flags
 
 You can set a variable on Make's command line, but a target can't take a flag:
 
@@ -116,7 +116,7 @@ You can set a variable on Make's command line, but a target can't take a flag:
 make: unrecognized option '--integration'
 ```
 
-That refusal guards the most valuable thing a task runner provides: one shared contract across four callers at once. A repository's tasks serve a developer moving between projects, an AI coding agent dropped cold into a fresh worktree, a CI runner, and the platform engineer maintaining one pipeline that every repository reuses.[^four-consumers] All four run the exact same verification **when** all four can guess the same commands without reading a word:
+That refusal guards the most valuable thing a task runner provides: one shared contract across all callers. A repository's tasks serve four classes of caller at once: a developer moving between projects, an AI coding agent dropped cold into a fresh worktree, a CI runner, and the platform engineer maintaining one pipeline that every repository reuses.[^four-consumers] All four run the exact same verification **when** all four can guess the same commands without reading a word:
 
 ```sh
 make test
@@ -252,7 +252,7 @@ The syntax is fences all the way down. Don't change it! Or at least, first *"Go 
 
 ## Five Lines Beat a New Binary
 
-Every complaint about what goes *inside* a Makefile turned out to be a fence. One item from the opening list is still standing, and it's a fair hit: Make has no built-in help for a project's targets. That wart lives in the `make` binary, though - your `Makefile` did nothing wrong.
+Every complaint about what goes on *inside* a Makefile turned out to be a fence - whether it be the syntax itself, or the behavioral semantic that syntax describes. One item from the opening list is still standing, and it's a fair hit: Make has no built-in help for a project's targets. That wart lives in the `make` binary, though - your `Makefile` did nothing wrong.
 
 Even there, self-documenting `make help` - and bare `make`, when `help` comes first - takes five lines:[^better-help-snippet]
 
