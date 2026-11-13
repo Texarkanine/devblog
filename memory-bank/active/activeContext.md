@@ -2,8 +2,8 @@
 
 **Current Task:** inline-once-anchors tests and blanking fix
 
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** BUILD - COMPLETE
 
-**What Was Done:** Level 1. One bug in one script, plus tests that lock the behavior we already use.
+**What Was Done:** Four tests. The inline-code case failed, then passed after copying link text from the original string. The other three already matched current behavior. Full suite: 24 tests OK.
 
-**Next Step:** Load the Level 1 workflow and build.
+**Next Step:** Level 1 QA.

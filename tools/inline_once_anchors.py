@@ -153,7 +153,7 @@ def inline_once(text):
             label.strip().casefold(),
             match.start(),
             match.end(),
-            match.group(1) + "[" + match.group(2) + "]",
+            text[match.start(1) : match.end(1)] + "[" + text[match.start(2) : match.end(2)] + "]",
             text.count("\n", 0, match.start()) + 1,
         )
     for match in _SHORT.finditer(masked):
