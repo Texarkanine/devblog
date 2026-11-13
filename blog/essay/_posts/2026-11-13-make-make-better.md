@@ -42,7 +42,7 @@ Alas, no copy/pasted magic target can rescue `make --help` while the binary swal
 
 In the session logs from my own three workstations, AI coding agents reached for a dashed help flag (`--help` or `-h`) in [92.7% of 1,042 help calls](/garden/cli-help-patterns.html#preliminary-field-data-from-stockroom), and a `make help`-style verb in only 2.2%. An agent following that 92.7% instinct in a Make repository gets Make's 1993 option table instead of your targets.
 
-What a project can build is the build tool's question to answer - it surely knows! And while perhaps `make --help` should still answer about Make, there also must needs be a standard way to interrogate the project's own targets.
+How to build a project is absolutely the build tool's question to answer - it surely knows! And while perhaps `make --help` should still answer about Make, there also must needs be a standard way to interrogate the project's own targets.
 
 It is the binary's job to make that happen.
 
@@ -68,11 +68,11 @@ The binary already builds the graph. It should print it like a proper Unix progr
 
 ### Nothing Enforces the Verbs
 
-`make test` is only a convention. The GNU Coding Standards [say flatly](https://web.archive.org/web/20261030235037/https://www.gnu.org/prep/standards/html_node/Standard-Targets.html) "All GNU programs should have the following targets in their Makefiles:" and list `all`, `install`, `clean`, `check`, and more. The Automake manual [sums up the result](https://web.archive.org/web/20261029155032/https://www.gnu.org/software/automake/manual/html_node/GNU-Build-System.html): "A unified build system that makes all packages almost indistinguishable by the installer." Nothing in Make forces this, though, so one repository has `make check`, the next has `make test`, and a third invents `make test-ci`.
+`make test` is only a convention. The GNU Coding Standards [say flat-out](https://web.archive.org/web/20261030235037/https://www.gnu.org/prep/standards/html_node/Standard-Targets.html): "All GNU programs should have the following targets in their Makefiles:" and list `all`, `install`, `clean`, `check`, and more. The Automake manual [sums up the result](https://web.archive.org/web/20261029155032/https://www.gnu.org/software/automake/manual/html_node/GNU-Build-System.html): "A unified build system that makes all packages almost indistinguishable by the installer." Nothing in Make itself enforces this, though, so one repository has `make check`, the next has `make test`, and a third invents `make test-ci`.
 
 Nobody can guess the right name without a standard, and standards hold best when the build tool enforces them.
 
-Maven started enforcing them in October 2005. At the time, its 1.0 release had let projects script their builds in a `maven.xml` file written in [Jelly](https://commons.apache.org/proper/commons-jelly/), an XML scripting language. Maven 2.0 [deleted](https://svn.apache.org/repos/infra/websites/production/maven/content/maven1.html) `maven.xml` and replaced it with a fixed lifecycle: `validate`, `compile`, `test`, `package`, `verify`, `install`, `deploy`. Plugins bind their goals to those phases, projects configure the plugins in a declarative `pom.xml`, and the logic lives in prepackaged plugins, each of which has passed its own test suite. Maven's [lifecycle guide](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html) states the contract directly:
+Maven started enforcing them in October 2005. At the time, its 1.0 release had let projects script their builds in a `maven.xml` file written in [Jelly](https://commons.apache.org/proper/commons-jelly/), an XML scripting language. Maven 2.0 [deleted](https://svn.apache.org/repos/infra/websites/production/maven/content/maven1.html) `maven.xml` and replaced it with a fixed lifecycle: `validate`, `compile`, `test`, `package`, `verify`, `install`, `deploy`. Plugins bind their goals to those phases, projects configure the plugins in a declarative `pom.xml`, and the logic lives in prepackaged plugins, each of which has passed its own test suite. Maven's [lifecycle guide](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html) states the contract beautifully:
 
 > For the person building a project, this means that it is only necessary to learn a small set of commands to build any Maven project, and the POM will ensure they get the results they desired.
 
@@ -104,9 +104,11 @@ function.zip: $(SRCS)
 	zip -q $@ $(SRCS)
 ```
 
-Make can only skip building `function.zip` when an earlier run left `function.zip` on disk with a newer timestamp than `main.py`. A fresh CI runner starts with a clean disk, so nothing gets skipped. Restore yesterday's `function.zip` from a CI cache and `git checkout` still trips you up: it stamps every source file with the current time rather than when the file last changed, so `main.py` looks newer than the cached zip and Make rebuilds it anyway. Further complicating matters, Make never notices when the recipe line itself changes in the Makefile: you've got to pay attention with the right incantation or just re-run the whole build lest ye be left with needed work uncompleted.
+Make can only skip building `function.zip` when an earlier run left `function.zip` on disk with a newer timestamp than `main.py`. A fresh CI runner starts with a clean disk, so nothing gets skipped. Restore yesterday's `function.zip` from a CI cache and `git checkout` still trips you up: it stamps every source file with the current time rather than when the file last changed, so `main.py` looks newer than the cached zip and Make rebuilds it anyway.
 
-Meanwhile, [GitHub says](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching) it "will remove any cache entries that have not been accessed in over 7 days" so a slow project will eventually repeat work even if none of its inputs change.
+Meanwhile, [GitHub says](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching) it "will remove any cache entries that have not been accessed in over 7 days" so a slow project will eventually repeat work even if none of its inputs change *and* the cache keys are perfect.
+
+Further complicating matters, Make never notices when the recipe line itself changes in the Makefile: you've got to pay attention with the right incantation or just re-run the whole build lest ye be left with needed work uncompleted.
 
 What build state should travel between machines, and what should the tool do when that state is missing, stale, or evicted? Nobody has a good answer yet, which figures: cache invalidation is one of the two hard problems in computer science.[^two-hard-things] Caching alone can't be the whole answer, either, because it tempts developers to count on cache hits to keep work from repeating - which holds only until the cache is evicted.
 
@@ -118,7 +120,7 @@ Evan Martin, who wrote Ninja, admits in the retrospective ["The Success and Fail
 
 So before proposing another tool, I went looking for the one I want across 26 build and task runners, from Plan 9's [mk](https://9fans.github.io/plan9port/man/man1/mk.html) to this year's crop of hotshot upstarts. Nobody has built it. What I found instead is strangers rebuilding the fences from ["just run make"]({% post_url blog/essay/2026-11-13-just-run-make %}), each for a different reason than mine:
 
-- [Ninja](https://ninja-build.org/) refused build-time options, for speed.[^ninja-options] That is [the no-arguments fence]({% post_url blog/essay/2026-11-13-just-run-make %}#make-test-takes-no-arguments).
+- [Ninja](https://ninja-build.org/) refused build-time options, for speed.[^ninja-options] That is [the no-flags fence]({% post_url blog/essay/2026-11-13-just-run-make %}#targets-take-no-flags).
 - [makesure](https://github.com/xonixx/makesure) refused task arguments, to keep the build file self-contained.[^makesure-arguments] Same fence.
 - [tup](https://gittup.org/tup/) refused alternate build modes, for usability.[^tup-modes] Same fence again.
 - [Bazel](https://bazel.build/)'s Starlark language refused `while` loops, to keep build code simple.[^starlark-loops] That is the fence against [running an application in your build]({% post_url blog/essay/2026-11-13-just-run-make %}#its-just-no-place-to-run-an-application).
@@ -133,18 +135,18 @@ Native Windows is the other gap. Make isn't pre-installed there and most Makefil
 
 Every fix lives in the binary, so a successor should be an improved binary that reads the Makefiles people already have. It keeps all five fences:
 
-- [Targets that can be files *or* tasks]({% post_url blog/essay/2026-11-13-just-run-make %}#a-target-is-a-file-until-you-say-otherwise)
-- [Prerequisites in no promised order]({% post_url blog/essay/2026-11-13-just-run-make %}#siblings-run-in-any-order)
-- [Targets that take no flags]({% post_url blog/essay/2026-11-13-just-run-make %}#make-test-takes-no-arguments)
-- [A fresh shell for every recipe line]({% post_url blog/essay/2026-11-13-just-run-make %}#every-line-gets-its-own-shell)
-- [A language you don't program in]({% post_url blog/essay/2026-11-13-just-run-make %}#its-just-no-place-to-run-an-application)
+1. [Targets that can be files *or* tasks]({% post_url blog/essay/2026-11-13-just-run-make %}#a-target-is-a-file-until-you-say-otherwise)
+2. [Prerequisites in no promised order]({% post_url blog/essay/2026-11-13-just-run-make %}#siblings-run-in-any-order)
+3. [Targets that take no flags]({% post_url blog/essay/2026-11-13-just-run-make %}#targets-take-no-flags)
+4. [A fresh shell for every recipe line]({% post_url blog/essay/2026-11-13-just-run-make %}#every-line-gets-its-own-shell)
+5. [A language you don't program in]({% post_url blog/essay/2026-11-13-just-run-make %}#its-just-no-place-to-run-an-application)
 
 What changes in the binary is the rest:
 
 1. **Help and bare invocation:** there is one standard way to ask the binary for the project's own targets, wherever `make --help` itself ends up pointing, and a bare `make` prints guidance and exits without running anything.
 2. **No 1976 ghost rules:** the 92 built-in implicit rules are gone.
 3. **Graph inspection:** the binary prints the dependency graph it already builds, in a form other programs can read.
-4. **Reserved lifecycle verbs:** how does it tell a task from a file without `.PHONY`? That's the neat part: you never tell it anything. **Reserve the lifecycle names**, Maven-style. A reserved name (`build`, `test`, `package`, `deploy`, `clean`, and friends) is always a task that no cache skips, and any other name is a file on disk - giving Make Maven's universal verb contract without Maven's XML plugin plumbing. Need a task with a different name? `.PHONY:` still works, and we could add a clearer alias for the 21st century.
+4. **Reserved lifecycle verbs:** how does it tell a task from a file without `.PHONY`? That's the neat part: you never tell it anything. **Reserve the lifecycle names**, Maven-style. A reserved name (`build`, `test`, `package`, `deploy`, `clean`, and friends) is always a task that no cache skips, and any other name is a file on disk - giving Make Maven's universal verb contract without Maven's XML plugin plumbing. Need a task with a different name? `.PHONY:` still works, and we could even add a clearer alias for the 21st century.
 5. **Change detection without clocks:** file contents and recipe text decide what is stale, and the binary clearly specifies what it does when its saved state is invalidated or missing.
 6. **The host's own shell on Windows:** a Windows build of the binary sends each recipe line to `cmd.exe` or PowerShell, the way a Unix build sends it to `sh`, and that port gets tested like the others.
 
@@ -156,7 +158,7 @@ What changes in the binary is the rest:
 
 A returning reader has caught me by now: I've [argued]({% post_url blog/essay/2026-11-13-just-run-make %}#five-lines-beat-a-new-binary) that saving five lines of Makefile isn't worth deploying a new binary everywhere, and here I am asking for a new binary. Price the two trades side by side:
 
-Moving to `just` or `run` costs a new binary on every machine before anyone can run a single task, a rewrite of every build file, **and the fences.** Nobody prices that last part until they're maintaining an untested glue ghetto in their build. 
+Moving to `just` or `run` costs a new binary on every machine before anyone can run a single task, a rewrite of every build file, **and the fences.** Nobody prices that last part until they're stuck maintaining an [untested glue ghetto]({% post_url blog/essay/2026-11-13-just-run-make %}#its-just-no-place-to-run-an-application) in their build tool. 
 
 Our *better Make* binary reads the Makefiles you already have. Modern repositories keep working on day one without a rewrite[^day-one-compat] - even alongside machines still running stock `make` - and work *better* everywhere the new binary lands.
 
@@ -164,7 +166,7 @@ Best case, GNU Make sands its own edges and this tool never needs to exist.
 
 But I've waited more than a decade for that while everyone else shipped tools that tear the fences down, so I might build the one that keeps them myself, if a reader convinced by this post doesn't beat me to it.
 
-Keep your Makefiles. `make make better`.
+Keep your Makefiles. **make make better**.
 
 ---
 
