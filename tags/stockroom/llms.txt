@@ -1,0 +1,8 @@
+# stockroom
+
+> Tag: stockroom
+
+## Posts
+
+- [Why Can't I Just Write schema.sql?](https://blog.cani.ne.jp/2026/11/07/why-not-just-schema-sql.md): Shrinking Stockroom's DuckDB warehouses by 99% meant confronting why declarative schemas, numbered SQL migrations, and in-place SQL all fall short on their own.
+- [Stockroom: Find the Conversation You Half-Remember](https://blog.cani.ne.jp/2026/08/11/stockroom.md): Stockroom 1.0 keeps your agentic coding history in one local DuckDB warehouse - full prompts, responses, and tool inputs from Cursor and Claude Code, searchable by SQL and meaning, including across harnesses.

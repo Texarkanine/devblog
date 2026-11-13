@@ -1,0 +1,8 @@
+# taxonomy
+
+> Garden tag: taxonomy
+
+## Garden
+
+- [How Do You Ask a CLI for Help?](https://blog.cani.ne.jp/garden/cli-help-patterns.md): A typology of command-line help patterns, why they collide with your arguments, and how to test what agents actually need.
+- [Taxonomizing AI Acceptance](https://blog.cani.ne.jp/garden/taxonomizing-ai-acceptance.md): A running quote collection filed as a taxonomy of positions on AI-generated content - Amish, Old Order, Mennonite, Luddite, Romantic, and the English - each entry a quotable quote with a link to the post that said it.
