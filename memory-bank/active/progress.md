@@ -24,3 +24,13 @@ Add a unittest suite for `tools/inline_once_anchors.py`, prove the inline-code b
     - Happy-path tests describe behavior the tool already had; only the blanking test went red
 * Insights
     - Masking stays for finding matches inside code; the replacement must not read the mask
+
+
+## 2026-11-13 - QA - COMPLETE
+
+* Work completed
+    - Reviewed the fix, tests, and essay repair against the brief; ran the full suite (24 tests OK)
+* Decisions made
+    - PASS; no required changes
+* Insights
+    - Advisories only: one long line; three tests lock existing behavior by design

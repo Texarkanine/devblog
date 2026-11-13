@@ -15,7 +15,7 @@ Jekyll static site (Ruby, Bundler). Local dev: `bundle install` then `bundle exe
 ## Testing Process
 
 - Site: manual validation (`bundle exec jekyll serve`, visual check).
-- `python -m unittest discover -s tests`, or `python3 -m unittest discover -s tests` on a machine where `python` is not on `PATH`. The suite covers the SVG metadata stripper used by pre-commit and the garden feed fixture. The fixture runs `bundle exec jekyll`, so install the Gemfile bundle first. Pull-request CI runs the `python3` form after `bundle install`.
+- `python -m unittest discover -s tests`, or `python3 -m unittest discover -s tests` on a machine where `python` is not on `PATH`. The suite covers the SVG metadata stripper used by pre-commit, the once-used reference inliner, and the garden feed fixture. The fixture runs `bundle exec jekyll`, so install the Gemfile bundle first. Pull-request CI runs the `python3` form after `bundle install`.
 
 ## Design System
 
