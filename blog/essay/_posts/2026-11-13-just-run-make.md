@@ -286,13 +286,14 @@ Make is already pre-installed on every Mac, Linux developer machine, and Unix CI
 
 A poor carpenter blames their tools. Write the five lines and keep the fences.
 
-Jarvis wrote that "Make had a magnificent run." It's still running. Whatever you were about to type after `just` or `run`: **just run make**.
-
-*(And if you really want to throw some energy at improving things, maybe we should just [make make Better]({% post_url blog/essay/2026-11-13-make-make-better %})!)*
+Jarvis wrote that "Make had a magnificent run." It's still running. Whenever you reach for `just` or `run`: **just run make**.
 
 ---
 
 ## Footnotes & References
+
+0. If you really want to throw some energy at improving things, maybe we should just [make make Better]({% post_url blog/essay/2026-11-13-make-make-better %})!
+{: start="0"}
 
 [^chesterton]: [Chesterton's fence](https://fs.blog/chestertons-fence/) is the rule that you don't tear down a fence until you know why someone put it up in the first place:
 	> *"If you don’t see the use of it, I certainly won’t let you clear it away. Go away and think. Then, when you can come back and tell me that you do see the use of it, I may allow you to destroy it."*
