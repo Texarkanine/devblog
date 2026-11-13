@@ -29,6 +29,10 @@ jekyll: >-
   The [static-site generator built in Ruby](https://jekyllrb.com/), that this blog runs on.
   Stevenson already wrote the other Jekyll.
 
+make: >-
+  [Make](https://en.wikipedia.org/wiki/Make_%28software%29), Stuart Feldman's 1976 build tool, and the family that grew from it.
+  The verb can make its own arrangements.
+
 mermaid: >-
   [Mermaid](https://mermaid.js.org/) *diagrams*, expressed in markdown to make illustrating concepts
   possible even when authoring "plain" text.

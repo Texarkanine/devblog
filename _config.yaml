@@ -52,6 +52,7 @@ exclude:
   - memory-bank
   - nginx-proxy
   - README.md
+  - research
 
 # Plugins
 plugins:
