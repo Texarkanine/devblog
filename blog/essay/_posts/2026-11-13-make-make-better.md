@@ -16,7 +16,7 @@ Everybody who gets fed up with Make ships a new task runner. [just](https://just
 
 I have [previously argued]({% post_url blog/essay/2026-11-13-just-run-make %}) that the behaviors people hate about Make are Chesterton's Fences that should not be torn down. The *fair* complaints are a different set, and they are all about what it's like to *use* `make`: asking it for help, typing it bare, looking at what it's about to do.
 
-None of these are about anything you wrote in your `Makefile`; every one lives in the `make` binary. Upstream GNU Make hasn't shipped a release since 4.4.1 in February 2023, and macOS still ships GNU Make 3.81 from 2006.
+None of these are about anything you wrote in your `Makefile`; every one lives in the `make` binary's UX. Upstream GNU Make hasn't shipped a release since 4.4.1 in February 2023, and macOS still ships GNU Make 3.81 from 2006.
 
 Keep the Makefile, keep every fence intact, and improve the program that reads it:
 
@@ -114,6 +114,8 @@ What build state should travel between machines, and what should the tool do whe
 
 A better Make should consider file contents and recipe text instead of clocks, and clearly specify what it does on an invalidated *or missing* "cache" entry.
 
+To guard against relying on cache hits, it should probably also bake [GNU Make 4.4's `--shuffle`]((https://lists.gnu.org/archive/html/info-gnu/2022-10/msg00008.html#:~:text=New%20feature%3A%20The%20%2D%2Dshuffle%20command%20line%20option)) in as the *default* - randomizing parallel execution order by default.
+
 ## Twenty-Six Tools and Still No Successor
 
 Evan Martin, who wrote Ninja, admits in the retrospective ["The Success and Failure of Ninja"](https://neugierig.org/software/blog/2020/05/ninja.html): "I regret not spending more time researching before building".
@@ -124,7 +126,7 @@ So before proposing another tool, I went looking for the one I want across 26 bu
 - [makesure](https://github.com/xonixx/makesure) refused task arguments, to keep the build file self-contained.[^makesure-arguments] Same fence.
 - [tup](https://gittup.org/tup/) refused alternate build modes, for usability.[^tup-modes] Same fence again.
 - [Bazel](https://bazel.build/)'s Starlark language refused `while` loops, to keep build code simple.[^starlark-loops] That is the fence against [running an application in your build]({% post_url blog/essay/2026-11-13-just-run-make %}#its-just-no-place-to-run-an-application).
-- [Maven](https://maven.apache.org/) froze its lifecycle verbs back in 2.0, so that one small set of commands builds any project. That is the no-flags fence built one rail higher: Make refuses flags on a verb, and Maven fixes the verbs themselves. Both guard [commands every caller can guess]({% post_url blog/essay/2026-11-13-just-run-make %}#targets-take-no-flags).
+- [Maven](https://maven.apache.org/) froze its lifecycle verbs back in 2.0, so that one small set of commands builds any project. That is the no-flags fence built one rail higher: Maven fixes the verbs themselves so you don't *need* flags. That's the [commands every caller can guess]({% post_url blog/essay/2026-11-13-just-run-make %}#targets-take-no-flags) fence.
 - Et cetera, et cetera.[^more-fences]
 
 The nearest thing to the shape I want is [remake](https://github.com/Trepan-Debuggers/remake), which "patched GNU Make 4.3 sources to add improved error reporting, tracing, target listing, graph visualization, profiling, and more." It proves that target listing and a graph view fit inside a binary that reads ordinary Makefiles. It is also a fork whose last release was in January 2022, and its target list waits behind a `--tasks` flag of its own that an agent has no reason to try.
@@ -141,14 +143,15 @@ Every fix lives in the binary, so a successor should be an improved binary that 
 4. [A fresh shell for every recipe line]({% post_url blog/essay/2026-11-13-just-run-make %}#every-line-gets-its-own-shell)
 5. [A language you don't program in]({% post_url blog/essay/2026-11-13-just-run-make %}#its-just-no-place-to-run-an-application)
 
-What changes in the binary is the rest:
+What changes in the binary is a host of overdue quality of life improvements:
 
 1. **Help and bare invocation:** there is one standard way to ask the binary for the project's own targets, wherever `make --help` itself ends up pointing, and a bare `make` prints guidance and exits without running anything.
 2. **No 1976 ghost rules:** the 92 built-in implicit rules are gone.
 3. **Graph inspection:** the binary prints the dependency graph it already builds, in a form other programs can read.
 4. **Reserved lifecycle verbs:** how does it tell a task from a file without `.PHONY`? That's the neat part: you never tell it anything. **Reserve the lifecycle names**, Maven-style. A reserved name (`build`, `test`, `package`, `deploy`, `clean`, and friends) is always a task that no cache skips, and any other name is a file on disk - giving Make Maven's universal verb contract without Maven's XML plugin plumbing. Need a task with a different name? `.PHONY:` still works, and we could even add a clearer alias for the 21st century.
 5. **Change detection without clocks:** file contents and recipe text decide what is stale, and the binary clearly specifies what it does when its saved state is invalidated or missing.
-6. **The host's own shell on Windows:** a Windows build of the binary sends each recipe line to `cmd.exe` or PowerShell, the way a Unix build sends it to `sh`, and that port gets tested like the others.
+6. **Randomize parallel execution order:** sibling prerequisites are run out of order each time so people can't accidentally introduce sequencing dependencies.
+7. **The host's own shell on Windows:** a Windows build of the binary sends each recipe line to `cmd.exe` or PowerShell, the way a Unix build sends it to `sh`, and that port gets tested like the others.
 
 ### Must We Keep Makefiles?
 
