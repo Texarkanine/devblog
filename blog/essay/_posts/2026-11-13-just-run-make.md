@@ -15,7 +15,12 @@ tags:
   - task-runners
 ---
 
-In October 2026, Thibaud Chupin published ["The case against Makefiles"](https://thibaud.space/2026/10/the-case-against-makefiles.html). It opens:
+In October 2026, Thibaud Chupin published an essay:
+
+{%linkcard
+	https://thibaud.space/2026/10/the-case-against-makefiles.html
+	The case against Makefiles
+%}
 
 > You don't need a Makefile. Whatever your use-case, there is a better tool. Makefiles are archaic technology, living on by force of inertia and notalgia [*sic*].
 
@@ -30,28 +35,43 @@ That opening is Thibaud's. With it comes familiar company, his objections and th
 
 So, for tasks, use Casey Rodarmor's [just](https://just.systems/): "My personal go-to is just."
 
-A month later, Michael Jarvis published ["The Edge-and-Node Trap: Why Makefiles Were Never Meant for Tasks"](https://blog.jarv.dev/the-edge-and-node-trap). Jarvis takes Thibaud's case as settled, names the cost of `.PHONY` "The Phony Tax", and then makes the same kind of moves against `just`:
+A month later, Michael Jarvis published:
+
+{%linkcard
+	https://blog.jarv.dev/the-edge-and-node-trap
+	The Edge-and-Node Trap: Why Makefiles Were Never Meant for Tasks
+%}
+
+Jarvis takes Thibaud's case as settled, names the cost of `.PHONY` "The Phony Tax", and then makes the same kind of moves against `just`:
 
 - **The Polyglot Wall:** `just` recipes are shell scripts, so "the moment you need real logic—parsing a JSON response from a remote registry, manipulating dates, checking semver boundaries, or reading a configuration file—you are thrown right back into bash's string manipulation nightmare".
 - **The Discovery Tax:** an AI coding agent dropped into a repository has to read the Makefile or justfile, guess at arguments, fail, and retry, which costs "2,000 prompt tokens and four round trips just to run cargo test with a package filter."
 
-So use [run](https://runtool.dev/), Jarvis's own task runner, built on the premise that "tasks are functions, not files." A Runfile holds typed functions with defaults, their bodies can be inline Python, Node, or Ruby, and `run --serve-mcp` hands every documented function to agents as a tool over the Model Context Protocol (MCP).
+So, for tasks, use [run](https://runtool.dev/), Jarvis's own task runner
+
+It's built on the premise that "tasks are functions, not files." A Runfile holds typed functions with defaults, their bodies can be inline Python, Node, or Ruby, and `run --serve-mcp` hands every documented function to agents as a tool over the Model Context Protocol (MCP).
 
 When Thibaud posted the essay to r/programming, one reply quoted its first line and [answered in three words](https://www.reddit.com/r/programming/comments/1xl5irk/the_case_against_makefiles/19rzrd19aryuc/): *"Sigh. Chesterton's fence."[^chesterton]*
 
-Make to `just`, then `run`: each step removes a restriction the last tool imposed, and Jarvis's post is the more useful of the two because it walks the road to its end. Out there, tasks are typed functions with embedded interpreters, published to agents as tools, and your delivery pipeline has become an application unto itself. Every restriction Make imposes - targets that are files, prerequisites in no promised order, targets that take no flags, a fresh shell for every recipe line, a language too awkward to program in - is a fence along that road.
+Make to `just`, then `run`: each step removes a restriction the last tool imposed, and Jarvis's post is the more instructive of the two because it walks the road to its end. Out there, tasks are typed functions with embedded interpreters, published to agents as tools, and your delivery pipeline has become an application unto itself. Every restriction Make imposes - targets that are files, prerequisites in no promised order, targets that take no flags, a fresh shell for every recipe line, a language too awkward to program in - is a fence along that road.
 
 Let's look closely at those fences!
 
 ## A Target Is a File Until You Say Otherwise
 
-Make assumes every target names a file, and skips any target whose file is newer than its prerequisites. `.PHONY` marks the targets that aren't files, so that a stray file called `test` can't convince Make the tests already ran. That declaration is Jarvis's Phony Tax, and in GNU Make you can stop paying it with one line:
+Make assumes every target names a file, and skips any target whose file is newer than its prerequisites. `.PHONY` marks the targets that aren't files, so that a stray file called `test` can't convince Make the tests already ran.
+
+That declaration is Jarvis's Phony Tax, and in GNU Make you can stop paying it with one line:
 
 ```makefile
 MAKEFLAGS += --always-make
 ```
 
-Every target now runs every time.[^bmake-always-make] I don't use that trick, personally, because a surprising number of my targets aren't tasks. Packaging a Google Cloud Function looks like this:
+Every target now runs every time.[^bmake-always-make]
+
+I don't use that trick, personally, because a surprising number of my targets aren't strictly "tasks".
+
+Packaging a Google Cloud Function looks like this:
 
 ```makefile
 SRCS := main.py requirements.txt
@@ -70,7 +90,7 @@ The first `make package` runs both commands. The second invocation prints:
 make: Nothing to be done for 'package'.
 ```
 
-Edit `main.py`, and it zips again. A `just` recipe or a `run` function zips every time, because neither tool knows what a file is. `just`'s author [says so himself](https://news.ycombinator.com/item?id=34318483): "Just doesn't have file-based dependencies, so it's not a build system, just a command runner."
+Edit `main.py`, and it zips again. A `just` recipe or a `run` function zips *every* time, because neither tool knows what a file is. `just`'s author [says so himself](https://news.ycombinator.com/item?id=34318483): "Just doesn't have file-based dependencies, so it's not a build system, just a command runner."
 
 That `function.zip: $(SRCS)` line is an edge, the thing Thibaud called Make's fundamental mistake. It is also the only reason Make can skip the zip.
 
@@ -83,13 +103,17 @@ Maybe skipping a two-file `zip` leaves you cold; if `just` and `run` rerun every
 
 > Turborepo is the build system for coding agents. Developers, CI, and agents never do the same work twice.
 
-Turborepo pulls [over 44 million weekly downloads on npm](https://www.npmjs.com/package/turbo). Vercel [bought the company](https://vercel.com/blog/vercel-acquires-turborepo) in 2021, and [over 43,000 teams paid](https://vercel.com/changelog/free-vercel-remote-cache) for its remote cache before Vercel started giving it away as an on-ramp to its paid platform (while [Nx Cloud](https://nx.dev/pricing) still charges directly for theirs). Teams will pay real money not to repeat work whose inputs haven't changed - the exact thing `just` and `run` threw out with `.PHONY`.
+Turborepo pulls [over 44 million weekly downloads on npm](https://www.npmjs.com/package/turbo). Vercel bought the company[^vercel-acquires-turbo] in 2021, and [over 43,000 teams paid](https://vercel.com/changelog/free-vercel-remote-cache) for its remote cache before Vercel started giving it away as an on-ramp to its paid platform (while [Nx Cloud](https://nx.dev/pricing) still charges directly for theirs).
+
+Teams will pay real money not to repeat work whose inputs haven't changed - the exact thing `just` and `run` threw out with `.PHONY`.
 
 ## Siblings Run in Any Order
 
 List two prerequisites, run `make -j`, and Make may build them in either order, or both at once.
 
-That freedom is what makes the build fast. When you write a build script, you encode the one serial path you worked out in your head: `build`, then `test`, then `package`, then `upload`. In a Makefile, you write down what each step actually needs:
+That freedom is what makes the build fast. 
+
+When you write a serial build script, you encode the one serial path you worked out in your head: `build`, then `test`, then `package`, then `upload`. In a Makefile, you write down what each step actually needs:
 
 ```makefile
 upload: test package
@@ -97,15 +121,56 @@ test: build
 package: build
 ```
 
-From those edges alone, `make -j` finds the parallel schedule for free: `build`, then `test` and `package` side by side, then `upload`. You write no thread pool and need no scheduling expertise, and a target you add next month joins the schedule without anyone re-planning the pipeline.
+From those edges alone, `make -j` finds the parallel schedule for free: `build`, then `test` and `package` side by side, then `upload`. 
 
-Declare the relationships instead of a single path and the same graph parallelizes across machines, too. Locally, `make -j$(nproc)` saturates every core on your laptop; across a network, [distcc](https://www.distcc.org/) rides `make -j` to spread C and C++ compiles over a cluster, and `bmake`'s ancestor, Berkeley's [PMake][freebsd-make], was built to farm Make jobs out across machines. Today's monorepo tools sell the exact same trick back to JavaScript teams: [Turborepo](https://turborepo.dev/docs/crafting-your-repository/running-tasks) runs independent tasks side by side on one machine, and [Nx Cloud](https://nx.dev/docs/features/ci-features/distribute-task-execution) distributes them across CI workers straight from the task graph.
+```mermaid
+flowchart LR
+    build((build))
+    upload(((upload)))
 
-The only price for all of that free speed is **saying what you mean** instead of trying to write a script in the prerequisite list. `upload: build test` tells Make that `build` and `test` are independent siblings; if `test` actually has to wait for `build`, say `test: build`. Thibaud's post shows what happens when people try anyway - a build script reduced to `make -j$(nproc) all || make -j$(nproc) all || make -j$(nproc) all` - and fairly admits: "This is definitely a skill issue." GNU Make 4.4 even added `--shuffle` to [randomize sibling order](https://lists.gnu.org/archive/html/info-gnu/2022-10/msg00008.html#:~:text=New%20feature%3A%20The%20%2D%2Dshuffle%20command%20line%20option) on purpose, smoking out undeclared dependencies before a CI runner stumbles into them.
+    build --> test
+    build --> package
+    test --> upload
+    package --> upload
+```
 
-Leaving Make doesn't get you a free lunch, either. Move to `just` and you lose automatic graph parallelism: dependencies run serially unless each recipe's author remembers to [opt in](https://just.systems/man/en/parallelism.html) with `[parallel]`, whereas Make leaves concurrency to whoever invokes `-j` across the whole graph at once. Move to a runner that *does* parallelize dependencies, like Taskfile, and the same fence waits for you there. Viktor Farcic of DevOps Toolkit [left Make](https://devopstoolkit.live/ci-cd/from-makefile-to-justfile-or-taskfile-recipe-runner-replacement/index.html) for Taskfile, and later for `just`, over the usual grievances ("If I never see .PHONY recipes again, I will die a happy person"), then [found in Taskfile](https://devopstoolkit.live/ci-cd/say-goodbye-to-makefile-use-taskfile-to-manage-tasks-in-ci-cd-pipelines-and-locally/index.html) that "I got burned more than once by adding tasks to dependencies and forgetting that they run in parallel. As a result, I spend hours trying to figure out why the results are not as expected." His takeaway is Make's rule, rediscovered in YAML: if a task can't run in parallel with the others, "it's not a dependency."
+You write no thread pool and need no scheduling expertise, and a target you add next month joins the schedule without anyone having to redesign the pipeline. Just add one little edge:
 
-They figured this out half a century ago.
+```makefile
+security-scan: package
+```
+
+And the tool figures out where it must go:
+
+```mermaid
+flowchart LR
+    build((build))
+    upload(((upload)))
+
+    build --> test
+    build --> package
+    test --> upload
+    package --> security-scan
+    security-scan --> upload
+```
+
+The *only* part of the pipeline any individual has to know about is the inputs to their bit, which is the absolute bare minimum. If the Security team added that `security-scan`, they don't have to know what the developers had downstream of it - they just have to know what their scan needs. Such a system can support multiple people defining build processes in the same file, while demanding minimal cognitive overhead.
+
+Declare the relationships instead of a single path and the same graph parallelizes *across machines*, too. 
+
+Locally, `make -j$(nproc)` saturates every core on your laptop; across a network, [distcc](https://www.distcc.org/) rides `make -j` to spread C and C++ compiles over a cluster, and `bmake`'s ancestor, Berkeley's [PMake][freebsd-make], was built to farm Make jobs out across machines.
+
+Today's monorepo tools sell the exact same trick back to JavaScript teams: [Turborepo](https://turborepo.dev/docs/crafting-your-repository/running-tasks) runs independent tasks side by side on one machine, and [Nx Cloud](https://nx.dev/docs/features/ci-features/distribute-task-execution) distributes them across CI workers straight from the task graph.
+
+The only price for all of that velocity is **saying what you mean** instead of trying to write a script in the prerequisite list. `upload: build test` tells Make that `build` and `test` are independent siblings; if `test` actually has to wait for `build`, say `test: build`. Thibaud's post shows what happens when people mess it up - a build script reduced to `make -j$(nproc) all || make -j$(nproc) all || make -j$(nproc) all` - and fairly admits: "This is definitely a skill issue." GNU Make 4.4 even added `--shuffle` to [randomize sibling order](https://lists.gnu.org/archive/html/info-gnu/2022-10/msg00008.html#:~:text=New%20feature%3A%20The%20%2D%2Dshuffle%20command%20line%20option) on purpose, smoking out undeclared dependencies before a CI runner stumbles into them. *You're supposed to be doing this!*
+
+Move to `just` and you lose automatic graph parallelism: dependencies run serially unless each recipe's author remembers to [opt in](https://just.systems/man/en/parallelism.html) with `[parallel]`, whereas Make leaves concurrency to whoever invokes `-j` across the whole graph at once.
+
+Move to a runner that *does* parallelize dependencies, like Taskfile, and the *same* fence waits for you there. 
+
+Viktor Farcic of DevOps Toolkit [left Make](https://devopstoolkit.live/ci-cd/from-makefile-to-justfile-or-taskfile-recipe-runner-replacement/index.html) for Taskfile, and later for `just`, over the usual grievances ("If I never see .PHONY recipes again, I will die a happy person"), then [found in Taskfile](https://devopstoolkit.live/ci-cd/say-goodbye-to-makefile-use-taskfile-to-manage-tasks-in-ci-cd-pipelines-and-locally/index.html) that "I got burned more than once by adding tasks to dependencies and forgetting that they run in parallel. As a result, I spend hours trying to figure out why the results are not as expected." His takeaway is Make's rule, rediscovered in YAML: if a task can't run in parallel with the others, "it's not a dependency."
+
+This has been table-stakes for Make for half a century.
 
 ## Targets Take No Flags
 
@@ -116,7 +181,9 @@ You can set a variable on Make's command line, but a target can't take a flag:
 make: unrecognized option '--integration'
 ```
 
-That refusal guards the most valuable thing a task runner provides: one shared contract across all callers. A repository's tasks serve four classes of caller at once: a developer moving between projects, an AI coding agent dropped cold into a fresh worktree, a CI runner, and the platform engineer maintaining one pipeline that every repository reuses.[^four-consumers] All four run the exact same verification **when** all four can guess the same commands without reading a word:
+That refusal guards the most valuable thing a task runner provides: one shared contract across all callers.
+
+A repository's tasks serve four classes of caller[^four-consumers] at once: a developer moving between projects, an AI coding agent dropped cold into a fresh worktree, a CI runner, and the platform engineer maintaining one pipeline that every repository reuses. All four run the exact same verification **when** all four can guess the same commands without reading a word:
 
 ```sh
 make test
@@ -129,7 +196,7 @@ A Hacker News commenter [described the payoff](https://news.ycombinator.com/item
 
 ### Custom Flags Can't Be Intuited
 
-`make test` and npm's [reserved](https://docs.npmjs.com/cli/v11/using-npm/scripts) `npm test` live in decades of developer muscle memory and in every language model's training data. Nobody has to look them up.
+`make test` (and npm's reserved `npm test`) live in decades of developer muscle memory and in every language model's training data. Nobody has to look them up.
 
 Watch how fast custom surfaces erode that. First, repositories pile bespoke script names beside the standard one:
 
@@ -147,11 +214,15 @@ just test --retries 5
 just test --timeout 10 -j 6
 ```
 
-Every caller can now pass a different combination and get a different test. Worse, you have built a custom CLI that exists neither in the task runner's manual nor in any model's weights, so nobody can intuit it. Whoever shows up next - human or agent - has to hunt down the right document first (a `README`, [`--help` output](/garden/cli-help-patterns.html), an [AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) file, a [preloaded CLI skill](https://justin.poehnelt.com/posts/rewrite-your-cli-for-ai-agents/#ship-agent-skills-not-just-commands), an MCP schema) and *then* parse your conventions before running a single check. `make test` and `npm test` carry none of that burden.
+Every caller can now pass a different combination and get a different test.
+
+Worse, you have built a custom CLI that exists neither in the task runner's manual nor in any model's weights, so nobody can intuit it.
+
+Whoever shows up next - human or agent - has to hunt down the right document first (a `README`, [`--help` output](/garden/cli-help-patterns.html), an [AGENTS.md]({% post_url blog/essay/2026-02-12-stop-doing-agents-md %}) file, a [preloaded CLI skill](https://justin.poehnelt.com/posts/rewrite-your-cli-for-ai-agents/#ship-agent-skills-not-just-commands), an MCP schema) and *then* parse your conventions before running a single check. `make test` and `npm test` carry none of that burden.
 
 That self-inflicted lookup cost is what Jarvis's Discovery Tax actually measures. In his example, an agent spends four tool calls and ~2,000 tokens hunting down `make test SERVICE=worker`, against one call and ~90 tokens calling `test(service: "worker")` over `run --serve-mcp`. The agent only went hunting because the repository's author parameterized `make test` ("just to run cargo test with a package filter"). If plain vanilla `make test` runs the tests, the first guess works with no discovery and no MCP server - beating even a paltry 90 tokens!
 
-In ["It's Model Context Protocol, Not Agent Context Protocol"]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) I put this as "MCP has to beat free", and Armin Ronacher landed in the same place in ["Agentic Coding Recommendations"](https://lucumr.pocoo.org/2025/6/12/agentic-coding/): "I place critical tools into a Makefile", barely touching MCP "because Claude Code is very capable of just running regular tools." Even `run`'s headline upgrade over `just` - typed signatures like `task(env: str, port = 8080)` - exists only to feed the documentation and schema machinery your parameters required,[^run-types-runtime-only] while publishing parameterized tasks over MCP turns `deploy(prod)` into a live endpoint an agent can call.[^mcp-deploy]
+In ["It's Model Context Protocol, Not Agent Context Protocol"]({% post_url blog/essay/2026-02-23-model-context-protocol-not-agent-context-protocol %}) I put this as "MCP has to beat free", and Armin Ronacher landed in the same place in ["Agentic Coding Recommendations"](https://lucumr.pocoo.org/2025/6/12/agentic-coding/): "I place critical tools into a Makefile", barely touching MCP "because Claude Code is very capable of just running regular tools." Even `run`'s headline upgrade over `just` - typed signatures like `task(env: str, port = 8080)` - exists only to feed the documentation and schema machinery your parameters required,[^run-types-runtime-only] while merely publishing parameterized task descriptions over MCP turns `deploy(prod)` into a live endpoint an agent can call.[^mcp-deploy]
 
 ### Doing Without Task Flags
 
@@ -185,11 +256,13 @@ And if you still feel like you need flags, you're writing a program. Stop and go
 
 ## Every Line Gets Its Own Shell
 
-"I absolutely hate that every command line is a separate process," [one reply](https://www.reddit.com/r/programming/comments/1xl5irk/the_case_against_makefiles/19rzsvx3x3x2b/) to Thibaud said, "so you can't set a variable on one line and use it on the next." A `cd` on line one is gone by line two, and a loop needs backslash continuations and doubled dollar signs.
+> I absolutely hate that every command line is a separate process so you can't set a variable on one line and use it on the next.[^quote-every-line-separate]
+
+And let's not forget some of the other classics: a `cd` on line one is gone by line two, and a loop needs backslash continuations and doubled dollar signs.
 
 Stuart Feldman [wrote Make](https://en.wikipedia.org/wiki/Make_(software)) at Bell Labs in 1976, and I can't tell you Feldman meant this as a fence. Bell Labs' own successor to it, Andrew Hume's [mk][mk], "feeds the entire recipe to the shell";[^mk-whole-recipe] so does `bmake` when it runs jobs in parallel,[^bmake-whole-script] and so does GNU Make under `.ONESHELL`.
 
-Regardless, it works as a fence for a reason jclulow [gave on Lobsters](https://lobste.rs/c/ylwkv8): separate shells allow "the exit status of each line to be checked independently regardless of whether the shell you've chosen has implicit errexit behaviour", and let Make log each command and its output on their own. Newer build tools kept that single-command boundary and made it stricter: [werk](https://github.com/simonask/werk) runs one command per recipe entry, [Ninja](https://ninja-build.org/manual.html) runs one command per build edge, and [tup](https://gittup.org/tup/manual.html) runs each single-line rule under `sh -e -c`.
+Regardless, it works as a fence for a reason jclulow [gave on Lobsters](https://lobste.rs/c/ylwkv8): separate shells allow "the exit status of each line to be checked independently regardless of whether the shell you've chosen has implicit errexit behaviour", and let Make log each command and its output on their own.
 
 Chesterton asks you to learn why a fence went up before you tear it down.
 
@@ -201,11 +274,13 @@ This is an excellent feature for a task runner that seeks to organize and orches
 
 ## It's just No Place to run an Application
 
-The last fence is the sum of the others: Make is miserable to program in. [Another reply](https://www.reddit.com/r/programming/comments/1xl5irk/the_case_against_makefiles/19s1gnqmdylnk/) to Thibaud saw exactly what that's for:
+The last fence is the sum of the others: Make is miserable to program in. Another reply to Thibaud saw exactly what that's for:
 
-> What makes make so well suited to this is that it's an utterly horrible tool for anything else. I have no temptation to start making my makefiles clever or complex.
+> What makes make so well suited to this is that it's an utterly horrible tool for anything else. I have no temptation to start making my makefiles clever or complex.[^quote-shrink-laureate]
 
-Jarvis's Polyglot Wall is real. Shell **is** a bad language for parsing JSON or comparing semver ranges, and `run`'s answer is to let you write those functions in Python, Node, or Ruby, inline, in the Runfile. Jarvis's post shows one, a `validate-spec(file)` task documented as "Verify API payload against schema". The blog post has an illustrative implementation, so imagine [wiring up a real schema validator](https://ajv.js.org/guide/getting-started.html#basic-data-validation) in its place. How many lines of code must you get right for `run validate-spec` to work, and how will you *ensure* they stay right?
+Jarvis's Polyglot Wall is real: shell **is** a bad language for parsing JSON or comparing semver ranges!
+
+`run`'s answer is to let you write those functions in Python, Node, or Ruby, inline, in the Runfile. Jarvis's post shows one, a `validate-spec(file)` task documented as "Verify API payload against schema". The blog post has an illustrative implementation, so imagine [wiring up a real schema validator](https://ajv.js.org/guide/getting-started.html#basic-data-validation) in its place. How many lines of code must you get right for `run validate-spec` to work, and how will you *ensure* they stay right?
 
 The `make` binary has a test suite. So do your compiler, your linter, `pytest`, and your application. The twenty lines of shell, Python, or Groovy in your Makefile, justfile, Runfile, Jenkinsfile, or GitHub Actions workflow have none.
 
@@ -242,7 +317,7 @@ If you actually want a declarative format without syntactic traps, the short lis
 
 Even so, suppose you set out to sand the rough edges off Make's DSL. Given that so many behavioral "quirks" and "idiosyncrasies" were functioning Chesterton's Fences, what *could* you sand off without knocking down another one? I gave it the ol' college try, and every rough edge I reached for turned out to be far from free to drop:
 
-- **The tab.** It belongs to Make's parser, and every character after it, spaces included, belongs to your command. Anyone who has fought YAML's [block scalars](https://yaml.org/spec/1.2.2/#81-block-scalar-styles) to keep a snippet's indentation intact has wished for exactly that split, and Make has had it since 1976.
+- **The tab.** It belongs to Make's parser, and every character after it, spaces included, belongs to your command. Anyone who has fought YAML's [block scalars](https://yaml.org/spec/1.2.2/#81-block-scalar-styles) to keep a snippet's indentation intact has wished for exactly that split (whether they know it or not), and Make has had it since 1976.
 - **Deferred evaluation.** `X = $(shell ...)` costs nothing until a recipe uses `X`. You can trivially try it out and see the eager version, `X := $(shell sleep 3; echo computed)`, add three seconds to every run, including runs of a target that never touched it. Lazy stays in *declarative.* Do away with it and you're asking for *imperative* - a script - tearing down a fence!
 - **`$(NAME)` for variables.** Make is a metaprogramming language for shell commands, and in a Makefile the variables you mean are usually Make's, so Make's get the short syntax and the shell's get `$$`. The cost is that `$(...)` collides with the shell's command substitution: a recipe line `echo "built $(date)"` prints `built `, because Make expands `$(date)` as one of its own variables, which is empty, before the shell sees the line. Flipping the default in a new format would invert fifty years of Makefile muscle memory just to make shell scripting inside recipes more comfortable - the exact habit the fourth and fifth fences exist to discourage.
 - **`%`.** Pattern rules need a wildcard, and a different token would be the same feature in a new spelling.
@@ -252,7 +327,7 @@ The syntax is fences all the way down. Don't change it! Or at least, first *"Go 
 
 ## Five Lines Beat a New Binary
 
-Every complaint about what goes on *inside* a Makefile turned out to be a fence - whether it be the syntax itself, or the behavioral semantic that syntax describes. One item from the opening list is still standing, and it's a fair hit: Make has no built-in help for a project's targets. That wart lives in the `make` binary, though - your `Makefile` did nothing wrong.
+Every complaint about what goes on *inside* a Makefile turned out to be a fence - whether it be the syntax itself, or the behavioral semantic that syntax describes. One item from the opening list is still standing, and it's fair dinkum: Make has no built-in help for a project's targets. That wart lives in the `make` binary, though - your `Makefile` did nothing wrong.
 
 Even there, self-documenting `make help` - and bare `make`, when `help` comes first - takes five lines:[^better-help-snippet]
 
@@ -307,10 +382,18 @@ Jarvis wrote that "Make had a magnificent run." It's still running. Whenever you
 [^four-consumers]: This wasn't always the case, and it may still not be the case for all users. If your use-case doesn't have all four consumers, then a different tool *may* be okay for you. And a tool that is targeting such use-cases may get to forgo some of the fences (as irrelevant) that Make erects. But a general-purpose tool aiming for widespread utility in 2026 must account for them. `just` - or at least a big chunk of `just` proponents - are making a go at replacing `make` and must, therefore, account for the use-cases that `make` currently serves.
 
 [^mcp-deploy]: On `run`'s [r/crewai launch thread][run-launch], [one reader](https://www.reddit.com/r/crewai/comments/1wt25eu/i_got_tired_of_being_the_makefile_person_at_work/pd15ydr/) wrote that "deploy(prod) feels like exactly the kind of task I'd want an agent to be able to list but never actually call." Because "the current MCP spec treats all registered tools as callable endpoints", Jarvis [suggested](https://www.reddit.com/r/crewai/comments/1wt25eu/i_got_tired_of_being_the_makefile_person_at_work/pd2xs54/) putting a `[ -t 0 ]` terminal check inside the task body. With a Makefile, an agent reads the file without executing it, and the shell harness already gates `make test` separately from `make deploy`.
+	
+	This is `run`-specific - you wouldn't *have* to build something this way. It's held up to show the dragons that here be in the world beyond Chesterton's Fences, not to throw shade on `run` specifically.
 
 [^run-types-runtime-only]: `run`'s [FAQ](https://runtool.dev/docs/faq.html) concedes that in shell functions, "types power documentation and MCP schemas only."
 
-[^variable-sin]: Why allow `DEPLOY_ENV=staging` after prosecuting `SERVICE=worker`? A Make variable is harmless when the exact same recipe lines run for every value and the variable only fills in where that work lands. Once a variable's value changes *which* work runs - `SERVICE=worker` selecting a different test suite, or a `DEPLOY_ENV=prod` that sneaks in extra steps - you have hidden nodes of your build graph inside runtime state, and those belong as named targets.
+[^variable-sin]: Why allow `DEPLOY_ENV=staging` after prosecuting `SERVICE=worker`? A Make variable is harmless when the exact same recipe lines run for every value and the variable only fills in where that work lands - true, vanilla templatization. Once a variable's value changes *which* work runs - `SERVICE=worker` selecting a different test suite than `SERVICE=api`, or a `DEPLOY_ENV=prod` that sneaks in extra integration tests - you have hidden **nodes** of your build graph inside runtime state, and those belong as named targets.
+
+	This can be a hard distinction to make in practice, hence, the fence saying *"just don't".*
+
+[^quote-every-line-separate]: rsclient. Comment on [com_kieffer's post "The case against Makefiles"][thibaud-r-programming]. *Reddit*, r/programming, 1 Nov. 2026, <https://www.reddit.com/r/programming/comments/1xl5irk/the_case_against_makefiles/19rzsvx3x3x2b/>.
+
+[^quote-shrink-laureate]: Shrink_Laureate. Comment on [com_kieffer's post "The case against Makefiles"][thibaud-r-programming]. *Reddit*, r/programming, 2 Nov. 2026, <https://www.reddit.com/r/programming/comments/1xl5irk/the_case_against_makefiles/19s1gnqmdylnk/>.
 
 [^yaml-norway]: [YAML 1.1's implicit typing](https://yaml.org/type/bool.html) quietly turns unquoted `no`, `off`, and `on` into booleans... which caused a problem for the [Norway country code NO](https://www.bram.us/2022/01/11/yaml-the-norway-problem/); [YAML 1.2](https://yaml.org/spec/1.2.2/#103-core-schema) restricted booleans to `true` and `false`. Which one are you using? Which one's your tool's parser's default?
 
@@ -325,6 +408,9 @@ Jarvis wrote that "Make had a magnificent run." It's still running. Whenever you
 
 [^gourville-pdf-url]: Yeah they put the PDF name in the url thrice, and repeated the PDF name as a directory enclosing the actual PDF. I dunno, man. I didn't go to MIT.
 
+[^vercel-acquires-turbo]: Rauch, G., & Palmer, J. (2021, December 9). Vercel acquires Turborepo to accelerate build speed and improve developer experience. Vercel. <https://vercel.com/blog/vercel-acquires-turborepo>
+
 [freebsd-make]: https://man.freebsd.org/cgi/man.cgi?query=make&sektion=1&manpath=FreeBSD+15.0-RELEASE
+[thibaud-r-programming]: https://www.reddit.com/r/programming/comments/1xl5irk/the_case_against_makefiles/
 [run-launch]: https://www.reddit.com/r/crewai/comments/1wt25eu/i_got_tired_of_being_the_makefile_person_at_work/
 [mk]: https://9fans.github.io/plan9port/man/man1/mk.html
