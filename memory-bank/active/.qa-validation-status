@@ -1,3 +1,0 @@
-PASS
-Full suite 40/40 ok. Plugin change is minimal and in scope; tests cover the brief's sample, code tab on a blank line, nested blank, and column-0 paragraph after a tab-only blank; README and header comment updated.
-Advisory: uncommitted scratch block (16 lines of list + makefile fence + hr) at the top of blog/record/_posts/2026-10-20-do-i-need-to-reprint.md is preview debris, not part of the fix. Revert it (git restore that file) before any commit/PR.
