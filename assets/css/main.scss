@@ -13,6 +13,16 @@
 	padding: 0;
 }
 
+pre {
+	tab-size: 4;
+}
+
+@media (max-width: 640px) {
+	pre {
+		tab-size: 2;
+	}
+}
+
 /* Light mode */
 :root {
 	--body-bg: #FFFFFF;

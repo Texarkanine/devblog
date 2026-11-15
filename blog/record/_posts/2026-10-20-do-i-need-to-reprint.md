@@ -22,15 +22,15 @@ After a change to a model merges to `main`, a person does one more thing, mergin
 
 ```mermaid
 flowchart TB
-    subgraph release ["Release"]
-        direction LR
-        A["Merge a commit<br>to models/thing/"] --> B["release-please opens<br>a release PR"] --> C["Merge the<br>release PR"]
-    end
-    subgraph publish ["Publish"]
-        direction LR
-        D["Tag thing-vX.Y.Z<br>and GitHub release"] --> E["Deploy<br>workflow"] --> F["Cults3D listing,<br>id written to main"]
-    end
-    release --> publish
+	subgraph release ["Release"]
+		direction LR
+		A["Merge a commit<br>to models/thing/"] --> B["release-please opens<br>a release PR"] --> C["Merge the<br>release PR"]
+	end
+	subgraph publish ["Publish"]
+		direction LR
+		D["Tag thing-vX.Y.Z<br>and GitHub release"] --> E["Deploy<br>workflow"] --> F["Cults3D listing,<br>id written to main"]
+	end
+	release --> publish
 ```
 
 [Release-please](https://github.com/googleapis/release-please) reads [conventional commits](https://www.conventionalcommits.org/) and keeps a release pull request open for each model that has unreleased changes. Merging that pull request tags the model, and the tag's GitHub release starts the deploy.
@@ -127,43 +127,43 @@ Everything above is in [the repository](https://github.com/Texarkanine/3d-models
 3. **Create the helper app.** Release-please itself runs fine on a workflow's default token, but this pipeline's deploy starts when a GitHub release is published, and GitHub [starts no workflow](https://docs.github.com/en/actions/concepts/security/github_token#when-github_token-triggers-workflow-runs) for a release made with that token. So release-please here runs with a GitHub App's token instead. [Register a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app) with read and write access to contents, issues and pull requests. Generate a private key and install the app on your new repository. Save the app ID as a repository variable named `HELPER_APP_ID` and the private key as a secret named `HELPER_APP_PRIVATE_KEY`.
 4. **Copy the machinery.** From the root of your clone:
 
-   ```bash
-   git clone --depth 1 https://github.com/Texarkanine/3d-models.git ../3d-models
-   mkdir -p .github/workflows tools models
-   cp ../3d-models/{.gitattributes,LICENSE,author.yaml,release-please-config.json,.release-please-manifest.json} .
-   cp ../3d-models/.github/workflows/{release-please.yaml,deploy.yaml} .github/workflows/
-   cp ../3d-models/tools/cults_publish.py tools/
-   ```
+	```bash
+	git clone --depth 1 https://github.com/Texarkanine/3d-models.git ../3d-models
+	mkdir -p .github/workflows tools models
+	cp ../3d-models/{.gitattributes,LICENSE,author.yaml,release-please-config.json,.release-please-manifest.json} .
+	cp ../3d-models/.github/workflows/{release-please.yaml,deploy.yaml} .github/workflows/
+	cp ../3d-models/tools/cults_publish.py tools/
+	```
 
-   The [pre-commit](https://pre-commit.com/) hook that strips photo metadata before each commit is optional. You want it if you photograph your prints with a camera that records personal information, such as your phone. To add it, copy `.pre-commit-config.yaml` and `tools/strip_svg_metadata.py` from `../3d-models`, run `pre-commit install`, and have Perl and `cpan` on your `PATH`. Copying alone strips nothing: the hook runs only after `pre-commit install`, and photos go through ExifTool, which is built from CPAN on first use.
+	The [pre-commit](https://pre-commit.com/) hook that strips photo metadata before each commit is optional. You want it if you photograph your prints with a camera that records personal information, such as your phone. To add it, copy `.pre-commit-config.yaml` and `tools/strip_svg_metadata.py` from `../3d-models`, run `pre-commit install`, and have Perl and `cpan` on your `PATH`. Copying alone strips nothing: the hook runs only after `pre-commit install`, and photos go through ExifTool, which is built from CPAN on first use.
 5. **Make it yours.** Empty the `packages` object in `release-please-config.json`, and set `.release-please-manifest.json` to `{}`. In `author.yaml`, set `cults_nick` to your Cults nickname, set `made_with_ai` to what is true of your models, and rewrite the closing description block. In `.github/workflows/deploy.yaml`, point the environment URL at your Cults profile. In `tools/cults_publish.py`, set `USER_AGENT` to a string of your own; Cloudflare bans Python's default.
 6. **Look up your codes.** Open [Cults' GraphQL explorer](https://cults3d.com/graphiql), sign in with your nickname as the user and the key as the password, and run:
 
-   ```graphql
-   {
-     categories {
-       id
-       name(locale: EN)
-       children {
-         id
-         name(locale: EN)
-       }
-     }
-     licenses {
-       code
-       name(locale: EN)
-       availableOnFreeDesigns
-     }
-   }
-   ```
+	```graphql
+	{
+		categories {
+		id
+		name(locale: EN)
+			children {
+				id
+				name(locale: EN)
+			}
+		}
+		licenses {
+			code
+			name(locale: EN)
+			availableOnFreeDesigns
+		}
+	}
+	```
 
-   A category's `id` goes in `category_id` and a child category's `id` in `subcategory_ids`. A license's `code` goes in `license_code`; pick one with `availableOnFreeDesigns`, because every listing goes up free.
+	A category's `id` goes in `category_id` and a child category's `id` in `subcategory_ids`. A license's `code` goes in `license_code`; pick one with `availableOnFreeDesigns`, because every listing goes up free.
 7. **Add your model:**
-   - `models/<name>/`, lowercase words joined by hyphens, holding the printable files and an `img/` folder of photos named to sort in the order you want.
-   - `models/<name>/publish.yaml` with `name`, `description`, `license_code`, `category_id`, and a `files` list of the printable files. `manufacturing` (print notes), `tags` and `subcategory_ids` are optional. Include a `cults_creation_id:` line with no value: the deploy fills it in after Cults creates the listing, and fails if the line is missing. [The jerry can's record](https://github.com/Texarkanine/3d-models/blob/main/models/jerry-can-buffer/publish.yaml) is a complete example; if you copy it, blank its `cults_creation_id`.
-   - An entry for `models/<name>` in `release-please-config.json`'s `packages`, with `"release-type": "simple"`, `"component": "<name>"` and `"include-component-in-tag": true`, and the same path in `.release-please-manifest.json` at `"0.0.0"`.
+	- `models/<name>/`, lowercase words joined by hyphens, holding the printable files and an `img/` folder of photos named to sort in the order you want.
+	- `models/<name>/publish.yaml` with `name`, `description`, `license_code`, `category_id`, and a `files` list of the printable files. `manufacturing` (print notes), `tags` and `subcategory_ids` are optional. Include a `cults_creation_id:` line with no value: the deploy fills it in after Cults creates the listing, and fails if the line is missing. [The jerry can's record](https://github.com/Texarkanine/3d-models/blob/main/models/jerry-can-buffer/publish.yaml) is a complete example; if you copy it, blank its `cults_creation_id`.
+	- An entry for `models/<name>` in `release-please-config.json`'s `packages`, with `"release-type": "simple"`, `"component": "<name>"` and `"include-component-in-tag": true`, and the same path in `.release-please-manifest.json` at `"0.0.0"`.
 
-   Fill in `license_code` and `category_id` now. A tag freezes `publish.yaml`: the rattlinator's 1.0.0 tag went out with both blank, could never publish, and its first listing was 1.0.1.
+	Fill in `license_code` and `category_id` now. A tag freezes `publish.yaml`: the rattlinator's 1.0.0 tag went out with both blank, could never publish, and its first listing was 1.0.1.
 8. **Commit and push** everything to `main` with a conventional message such as `feat(<name>): add <name>`. Release-please opens a release pull request for `<name>` 1.0.0.
 9. **Merge the release pull request.** That creates the tag `<name>-v1.0.0` and its GitHub release. Deploy creates the listing and commits the creation id to `main`; if you protect `main`, allow Actions to push to it.
 
