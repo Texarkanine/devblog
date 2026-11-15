@@ -9,3 +9,9 @@ A tab-only continuation missed `ContentLine`, which requires a non-whitespace ch
 `StringScanner#scan` now removes one leading tab from each line of a `BLANK_LINE` match. The match stays a blank line, so a following column-0 paragraph still ends the item. A further tab on that line stays in the code.
 
 Files: `_plugins/lexical_list_tabs.rb`, `_plugins/README.md`, `tests/test_lexical_list_tabs.py`.
+
+## QA Result
+
+PASS (Level 1). Full suite: 40 tests OK. No KISS, DRY, YAGNI, completeness, regression, or documentation findings.
+
+Advisory: the working tree carries an uncommitted 16-line scratch block at the top of `blog/record/_posts/2026-10-20-do-i-need-to-reprint.md`. It is not part of the fix. Revert it before committing or opening a PR.
