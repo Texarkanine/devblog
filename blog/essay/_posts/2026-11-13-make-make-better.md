@@ -116,9 +116,19 @@ A better Make should consider file contents and recipe text instead of clocks, a
 
 To guard against relying on cache hits, it should probably also bake [GNU Make 4.4's `--shuffle`]((https://lists.gnu.org/archive/html/info-gnu/2022-10/msg00008.html#:~:text=New%20feature%3A%20The%20%2D%2Dshuffle%20command%20line%20option)) in as the *default* - randomizing parallel execution order by default.
 
+## Windows
+
+Native Windows is another big gap. Make isn't pre-installed there and most Makefiles assume a POSIX shell.
+
+For a developer who just happens to sit at a Windows workstation my answer is to just sidestep the issue entirely: use WSL or a [devcontainer](https://containers.dev/).
+
+A project that is Windows all the way down deserves better than that, though. Nothing in the fences requires POSIX. The shell fence is a fresh shell for every line and copy-paste parity with *your* terminal, and on Windows your terminal is `cmd.exe` or PowerShell.
+
+Windows is definitely capable of running commands in a terminal, and a better Make should be able to orchestrate that.[^windows-compat]
+
 ## Twenty-Six Tools and Still No Successor
 
-Evan Martin, who wrote Ninja, admits in the retrospective ["The Success and Failure of Ninja"](https://neugierig.org/software/blog/2020/05/ninja.html): "I regret not spending more time researching before building".
+Evan Martin, who wrote Ninja, admits in the retrospective ["The Success and Failure of Ninja"](https://neugierig.org/software/blog/2020/05/ninja.html): "I regret not spending more time researching before building".[^dyor]
 
 So before proposing another tool, I went looking for the one I want across 26 build and task runners, from Plan 9's [mk](https://9fans.github.io/plan9port/man/man1/mk.html) to this year's crop of hotshot upstarts. Nobody has built it. What I found instead is strangers rebuilding the fences from ["just run make"]({% post_url blog/essay/2026-11-13-just-run-make %}), each for a different reason than mine:
 
@@ -130,8 +140,6 @@ So before proposing another tool, I went looking for the one I want across 26 bu
 - Et cetera, et cetera.[^more-fences]
 
 The nearest thing to the shape I want is [remake](https://github.com/Trepan-Debuggers/remake), which "patched GNU Make 4.3 sources to add improved error reporting, tracing, target listing, graph visualization, profiling, and more." It proves that target listing and a graph view fit inside a binary that reads ordinary Makefiles. It is also a fork whose last release was in January 2022, and its target list waits behind a `--tasks` flag of its own that an agent has no reason to try.
-
-Native Windows is the other gap. Make isn't pre-installed there and most Makefiles assume a POSIX shell, so for a developer who just happens to sit at a Windows workstation my answer is WSL or a [devcontainer](https://containers.dev/). A project that is Windows all the way down deserves better than that, and that's something else that a better Make could address.[^native-windows]
 
 ## A Make That Reads Your Makefile
 
@@ -181,32 +189,30 @@ Keep your Makefiles. **make make better**.
 
 [^more-fences]: The list goes on. Two more, if you want to match them to their fences yourself: [Hume's paper on mk][mk-paper] says "Mk does not define the order of execution of independent recipes." [werk](https://github.com/simonask/werk)'s README says "`werk` will never be a scripting language."
 
-
+[mk-paper]: https://9p.io/sys/doc/mk.html
 [^other-makes-builtins]: GNU Make has company. POSIX [requires](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/make.html#tag_20_76_13_09) a default rule set for C, lex, yacc, and shell scripts, and records that its authors debated dropping it: "They provide convenience, but do not enhance portability of applications." OpenBSD's [mk](https://github.com/openbsd/src/blob/master/share/mk/sys.mk) carries 40 suffix rules for C, C++, Fortran, Ratfor, Pascal, assembler, lex, yacc, and shell scripts. Microsoft's NMAKE has [predefined rules](https://learn.microsoft.com/en-us/cpp/build/reference/predefined-rules) too, and an `/R` switch to ignore them. Two tools already ship none. "Unlike make, mk has no built-in rules", says [Hume's paper on mk][mk-paper], and Ninja's [manual](https://ninja-build.org/manual.html) lists them among its non-goals: "Out of the box, Ninja has no rules for e.g. compiling C code."
 
 [^unix-philosophy]: The [Unix philosophy](https://cscie2x.dce.harvard.edu/hw/ch01s06.html) is to build small, simple tools that do one thing well and compose them into larger systems. Here in particular, I mean: *"Design programs to be connected to other programs."*
 
-[mk-paper]: https://9p.io/sys/doc/mk.html
-
 [^two-hard-things]: "There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors." <https://martinfowler.com/bliki/TwoHardThings.html>
+
+[^windows-compat]: GNU Make's Windows port already gets halfway. Its [README](https://web.archive.org/web/20261113011611/https://raw.githubusercontent.com/mirror/make/4.4.1/README.W32) says that on a system with no Bourne shell, "All command lines will be put into batch files and executed via $(COMSPEC)", and admits that this style of execution "has not been tested that carefully". The mechanism is there; what's missing is the testing.
+
+	A Makefile full of `cmd.exe` recipes won't run on Linux, but usually neither will the project it builds. And if you really need that, well, CMake can [generate platform-specific Makefiles](https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html) for you...
+
+[^dyor]: There's been a lot of thought, research, and writing on build systems but two seminal papers that are relevant when talking about *make* are
+	1. [Recursive Make Considered Harmful](https://aegis.sourceforge.net/auug97.pdf) Miller, P.A. (1998), AUUGN Journal of AUUG Inc., 19(1), pp. 14-25.
+	2. [Build System Rules and Algorithms][mshal-bsra], Mike Shal (2009).
 
 [^ninja-options]: Ninja's [manual](https://ninja-build.org/manual.html#:~:text=Options%20belong%20in%20the%20program%20that%20generates%20the%20ninja%20files) lists "build-time customization of the build" among the things it deliberately leaves out: "Options belong in the program that generates the ninja files."
 
-
 [^makesure-arguments]: Under "Omitted features" in makesure's [README](https://github.com/xonixx/makesure#omitted-features): "We deliberately don't support this feature. The idea is that the build file should be self-contained, so have all the information to run in it, no external arguments should be required."
 
-
-[^tup-modes]: Rule 3 on page 7 of Mike Shal's 2009 paper, ["Build System Rules and Algorithms"](https://gittup.org/tup/build_system_rules_and_algorithms.pdf): "Usability: There must not be different ways of building the system that the user must remember in order to accommodate rules 1) or 2)."
+[^tup-modes]: Rule 3 on page 7 of Mike Shal's 2009 paper, ["Build System Rules and Algorithms"][mshal-bsra]: "Usability: There must not be different ways of building the system that the user must remember in order to accommodate rules 1) or 2)."
 
 [^starlark-loops]: Under "No unbounded loops" in Starlark's [design notes](https://github.com/bazelbuild/starlark/blob/master/design.md#no-unbounded-loops): "Support for unbounded loops (e.g. `while`) would encourage users to write more complex code."
-
-[^native-windows]: Nothing in the fences requires POSIX. The shell fence is a fresh shell for every line and copy-paste parity with *your* terminal, and on Windows your terminal is `cmd.exe` or PowerShell.
-
-	GNU Make's Windows port already gets halfway. Its [README](https://web.archive.org/web/20261113011611/https://raw.githubusercontent.com/mirror/make/4.4.1/README.W32) says that on a system with no Bourne shell, "All command lines will be put into batch files and executed via $(COMSPEC)", and admits that this style of execution "has not been tested that carefully". The mechanism is there; what's missing is the testing.
-
-	A Makefile full of `cmd.exe` recipes won't run on Linux, but neither will the project it builds. And if you really need that, well, CMake can [generate platform-specific Makefiles](https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html) for you...
-
 
 [^day-one-compat]: What breaks are the 1976 holdovers this post drops on purpose: `./configure && make` scripts expecting bare `make` to run the first target, C builds leaning on the 92 implicit rules, and any Makefile where a reserved verb like `build` or `test` named an actual file on disk. None of those are the repositories people are fleeing for `just` or `run`.
 
 [make-news]: https://web.archive.org/web/20241213073812/http://git.savannah.gnu.org/cgit/make.git/tree/NEWS
+[mshal-bsra]: https://gittup.org/tup/build_system_rules_and_algorithms.pdf
