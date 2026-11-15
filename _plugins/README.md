@@ -367,7 +367,7 @@ kramdown measures list indentation in columns and counts a tab as four ([syntax:
 kramdown has no hook at the line that expands tabs, so the plugin prepends two small modules:
 
 - On `Kramdown::Parser::Kramdown#parse_first_list_line`, it replaces the regexp that matches continuation lines with one that carries the item's indentation.
-- On `Kramdown::Utils::StringScanner#scan`, it swaps the first tab of a line matched by that regexp for the item's indentation in spaces. kramdown then strips those spaces and leaves the rest of the line alone.
+- On `Kramdown::Utils::StringScanner#scan`, it swaps the first tab of a line matched by that regexp for the item's indentation in spaces. kramdown then strips those spaces and leaves the rest of the line alone. A blank line has no non-whitespace character, so it misses that regexp and kramdown scans it with the blank-line pattern. The same `scan` removes one leading tab from each line of that match and leaves it a blank line.
 
 The plugin raises at build time if a kramdown upgrade changes what `parse_first_list_line` returns. `tests/test_lexical_list_tabs.py` covers the rendering.
 

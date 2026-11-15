@@ -46,6 +46,28 @@ class LexicalListTabsTests(unittest.TestCase):
         source = "- item\n\n\t```\n\ta:\n\n\tb:\n\t\tc\n\t```\n"
         self.assertEqual(["a:\n\nb:\n\tc\n"], self._code(source))
 
+    def test_tab_only_line_inside_tab_fence_is_blank(self):
+        """A line that is only the list tab is an empty line in the code."""
+        source = "- item\n\n\t```makefile\n\tbuild:\n\t\trecipe\n\t\n\tother:\n\t\trecipe2\n\t```\n"
+        self.assertEqual(["build:\n\trecipe\n\nother:\n\trecipe2\n"], self._code(source))
+
+    def test_blank_line_keeps_a_code_tab(self):
+        """A list tab plus a code tab on an otherwise empty line keeps the code tab."""
+        source = "- item\n\n\t```makefile\n\tbuild:\n\t\t\n\t```\n"
+        self.assertEqual(["build:\n\t\n"], self._code(source))
+
+    def test_nested_tab_only_line_inside_fence_is_blank(self):
+        """Each list level removes one tab, so a blank line two levels deep is empty."""
+        source = "- outer\n\t- inner\n\n\t\t```\n\t\ta:\n\t\t\n\t\tb:\n\t\t```\n"
+        self.assertEqual(["a:\n\nb:\n"], self._code(source))
+
+    def test_tab_only_blank_ends_item_before_column_zero_paragraph(self):
+        """A tab-only blank stays a blank line, so a column-0 paragraph stays outside the item."""
+        source = "- item\n\n\tparagraph one\n\t\noutside\n"
+        html = self._run(source)["html"]
+        self.assertIn("<p>outside</p>", html)
+        self.assertLess(html.find("</ul>"), html.find("<p>outside</p>"))
+
     def test_indented_code_block_keeps_code_tab(self):
         """Tab for the list, tab for the code block, and the third tab is code."""
         source = "- item\n\n\t\ttarget:\n\t\t\trecipe\n"

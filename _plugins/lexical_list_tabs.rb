@@ -12,8 +12,11 @@ require "kramdown"
 #
 # This plugin swaps the first leading tab of each such line for exactly the
 # spaces the item is indented by. kramdown then removes those spaces and passes
-# everything after them, tabs included, to the content unchanged. Lines that
-# begin with spaces are handled by kramdown as before.
+# everything after them, tabs included, to the content unchanged. A line with
+# no non-whitespace character misses that match. kramdown takes it as a blank
+# line, and one leading tab is removed from each line of that match so the
+# line stays blank. Lines that begin with spaces are handled by kramdown as
+# before.
 module LexicalListTabs
   # The regexp kramdown scans list continuation lines with, widened to accept
   # one tab at any indentation, and carrying that indentation for the scanner.
@@ -56,10 +59,14 @@ module LexicalListTabs
   module Scanner
     # Scans as usual. A line matched by a ContentLine that starts with a tab
     # comes back with that tab replaced by the item's indentation in spaces.
+    # A blank-line match is not a ContentLine. One leading tab is removed from
+    # each of its lines, and the match is still a blank line.
     def scan(pattern)
       line = super
       if line && pattern.is_a?(ContentLine) && line.start_with?("\t")
         line[0] = " " * pattern.indentation
+      elsif line && pattern.equal?(::Kramdown::Parser::Kramdown::BLANK_LINE)
+        line.gsub!(/^\t/, "")
       end
       line
     end
