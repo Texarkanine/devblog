@@ -235,19 +235,19 @@ Not only *should* you run tasks without flags, you *can*. The usual objections h
 
 	Thibaud's own justfile exposes `build-docker-foo` and `build-docker-bar` as zero-argument recipes over a private helper. The same two recipes in GNU Make call one helper:
 
-  ```makefile
-  .PHONY: package build-docker-foo build-docker-bar build-docker
-  package: build-docker-foo build-docker-bar
+	```makefile
+	.PHONY: package build-docker-foo build-docker-bar build-docker
+	package: build-docker-foo build-docker-bar
 
-  build-docker-foo:
-  	$(MAKE) build-docker IMAGE=my-foo-image
+	build-docker-foo:
+		$(MAKE) build-docker IMAGE=my-foo-image
 
-  build-docker-bar:
-  	$(MAKE) build-docker IMAGE=my-bar-image
+	build-docker-bar:
+		$(MAKE) build-docker IMAGE=my-bar-image
 
-  build-docker:
-  	docker image build -t $(IMAGE) docker/$(IMAGE)
-  ```
+	build-docker:
+		docker image build -t $(IMAGE) docker/$(IMAGE)
+	```
 
 	`make -j package` builds both images at once, and nobody has to know their names.
 - **"I deploy to more than one environment."** Either give each one a zero-argument target built on shared internals (`make deploy-dev`, `make deploy-prod`), or `export DEPLOY_ENV=staging` and run `make deploy` (or `make DEPLOY_ENV=staging deploy` if you must). That is the **one** case where calling it an environment variable is literally accurate.[^variable-sin]

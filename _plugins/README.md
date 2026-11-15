@@ -336,6 +336,45 @@ The posts Atom feed at `/feed.xml` also lists garden pages. `jekyll-feed` still 
 
 ---
 
+## lexical_list_tabs.rb
+
+One leading tab on a continuation line of a list item is one list level. Indent a list item's paragraphs, sub-lists, and code fences with a tab, and any further tabs reach the content unchanged:
+
+````markdown
+- **"I build two images."** Then your build graph has two nodes.
+
+	```makefile
+	build-docker-foo:
+		$(MAKE) build-docker IMAGE=my-foo-image
+	```
+````
+
+The code block renders flush left, and the recipe line keeps its tab.
+
+### Why
+
+kramdown measures list indentation in columns and counts a tab as four ([syntax: lists](https://kramdown.gettalong.org/syntax.html#lists)). Under `- ` the item's text starts at column 2, so stock kramdown keeps the tab's two spare columns as spaces in front of every code line. It also rewrites every later leading tab as four spaces ([`list.rb` line 88](https://github.com/gettalong/kramdown/blob/REL_2_5_2/lib/kramdown/parser/kramdown/list.rb#L88)). The maintainer [declined](https://github.com/gettalong/kramdown/issues/778#issuecomment-1427149252) to change the column rule.
+
+### Behavior
+
+- Applies to ordered lists, unordered lists, and definition lists, at every nesting depth. Each level removes one tab.
+- A line that begins with spaces is handled by kramdown as before, so space-indented list content renders as it always did.
+- A marker whose text starts past column 4 (`100. item`) also takes one tab per level. Stock kramdown wants two there.
+- Mixing tab-indented and space-indented sub-list items under one parent can change which list they join. Use one style per list.
+
+### How
+
+kramdown has no hook at the line that expands tabs, so the plugin prepends two small modules:
+
+- On `Kramdown::Parser::Kramdown#parse_first_list_line`, it replaces the regexp that matches continuation lines with one that carries the item's indentation.
+- On `Kramdown::Utils::StringScanner#scan`, it swaps the first tab of a line matched by that regexp for the item's indentation in spaces. kramdown then strips those spaces and leaves the rest of the line alone.
+
+The plugin raises at build time if a kramdown upgrade changes what `parse_first_list_line` returns. `tests/test_lexical_list_tabs.py` covers the rendering.
+
+Jekyll caches converted Markdown by content. After changing this plugin, delete `.jekyll-cache/` before the next build, or unchanged pages keep their old HTML.
+
+---
+
 ## navigational_tags.rb
 
 Defines the shared threshold for **navigational** tags and suppresses singleton **post** tag archives from stock `jekyll-archives`.
