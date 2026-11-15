@@ -22,15 +22,15 @@ After a change to a model merges to `main`, a person does one more thing, mergin
 
 ```mermaid
 flowchart TB
-    subgraph release ["Release"]
-        direction LR
-        A["Merge a commit<br>to models/thing/"] --> B["release-please opens<br>a release PR"] --> C["Merge the<br>release PR"]
-    end
-    subgraph publish ["Publish"]
-        direction LR
-        D["Tag thing-vX.Y.Z<br>and GitHub release"] --> E["Deploy<br>workflow"] --> F["Cults3D listing,<br>id written to main"]
-    end
-    release --> publish
+	subgraph release ["Release"]
+		direction LR
+		A["Merge a commit<br>to models/thing/"] --> B["release-please opens<br>a release PR"] --> C["Merge the<br>release PR"]
+	end
+	subgraph publish ["Publish"]
+		direction LR
+		D["Tag thing-vX.Y.Z<br>and GitHub release"] --> E["Deploy<br>workflow"] --> F["Cults3D listing,<br>id written to main"]
+	end
+	release --> publish
 ```
 
 [Release-please](https://github.com/googleapis/release-please) reads [conventional commits](https://www.conventionalcommits.org/) and keeps a release pull request open for each model that has unreleased changes. Merging that pull request tags the model, and the tag's GitHub release starts the deploy.
@@ -141,19 +141,19 @@ Everything above is in [the repository](https://github.com/Texarkanine/3d-models
 
 	```graphql
 	{
-	  categories {
-	    id
-	    name(locale: EN)
-	    children {
-	      id
-	      name(locale: EN)
-	    }
-	  }
-	  licenses {
-	    code
-	    name(locale: EN)
-	    availableOnFreeDesigns
-	  }
+		categories {
+		id
+		name(locale: EN)
+			children {
+				id
+				name(locale: EN)
+			}
+		}
+		licenses {
+			code
+			name(locale: EN)
+			availableOnFreeDesigns
+		}
 	}
 	```
 
