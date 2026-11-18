@@ -27,6 +27,7 @@ Jump to...
 	title="SteelSeries Apex 7"
 	link="https://steelseries.com/gaming-keyboards/apex-7"
 	image_link="hid/keyboard_steelseries-apex-7.webp"
+	archive="https://web.archive.org/web/20261026202254/https://steelseries.com/gaming-keyboards/apex-7"
 %}
 
 This is my preferred traditional keyboard.
@@ -207,8 +208,9 @@ I have a camera (QR/Barcode scanner) and microphone running through it so I can 
 {% polaroid
 	../blog/diary/elgato-monero-onair.jpg
 	title="Elgato Stream Deck"
-	link="https://www.elgato.com/en/monero-onair"
+	link="https://www.elgato.com/us/en/p/stream-deck-mini"
 	image_link="../blog/diary/elgato-monero-onair.jpg"
+	archive="https://web.archive.org/web/20261028012318/https://www.elgato.com/us/en/p/stream-deck-mini"
 %}
 
 There's a [full write-up on what I've done with this, elsewhere on the site]({% post_url blog/diary/2026-04-19-elgato-alias %}).

@@ -78,6 +78,7 @@ Don't make me tap the sign:
     title="Everyone Will Not Just"
     image_link="everyone-will-not-just.png"
     link="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just"
+    archive="https://web.archive.org/web/20261026202116/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just"
 %}
 
 Millions of buyers will never form a demand-side cartel to boycott memory at once - and if they did, nobody would build the next fab and you'd've just achieved a temporary pause with no price movement.
