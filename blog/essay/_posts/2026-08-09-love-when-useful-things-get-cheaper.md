@@ -114,6 +114,7 @@ If you were to compare these "cryptocurrencies" on price:
     title="Monero priced in Bitcoin - All-Time (2026-08-08)"
     image_link="xmr-to-btc-alltime-2026-08-08.png"
     link="https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax"
+    archive="https://web.archive.org/web/20260908021744/https://www.coingecko.com/en/coins/monero/btc?chart=type%3Dprice%26mode%3Dline%26timeframe%3Dmax"
 %}
 
 Well, it could be worse, but Monero sure isn't anywhere close to "beating" Bitcoin. That's a solid "down and to the right" slope.
@@ -242,6 +243,7 @@ If **everyone** who spent bitcoin did this, it would be functionally impossible 
     title="Everyone Will Not Just"
     image_link="everyone-will-not-just.png"
     link="https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just"
+    archive="https://web.archive.org/web/20261026202116/https://www.tumblr.com/squareallworthy/163790039847/everyone-will-not-just"
 %}
 
 The problem with everyone not doing this is that it only buys you [forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy). Once spending starts happening with coinjoins in-between, nobody can tell who's spending what. But *until* the coinjoins start, people can still tell. So maybe you're perfectly-disciplined about coinjoins. Someone who *isn't* sends you some bitcoin. Anyone who sees that *knows* that you received from that person. And if that person wasn't doing coinjoins,anyone can find out all about the people you've been transacting with. We don't know what **you** bought, but we know Bob paid you 100,000 sats and Bob shops at the 7-11 in Townsville and works at SomeCorp. And Bob also pays his friends Alice and Eve, and they *also* live in Townsville. There's a pretty good chance you live there, too. And when you finally do spend, if the person you pay doesn't also do coinjoins, the forward secrecy ends with them and you're left inhabiting a tiny island of secrecy in an ocean of public knowledge. The various [blockchain analysis](https://en.wikipedia.org/wiki/Blockchain_analysis) firms have gotten really good at inferring information with a high degree of certainty in these situations.

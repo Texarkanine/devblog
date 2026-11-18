@@ -38,6 +38,7 @@ Two ways in:
 	title="Stockroom dashboard"
 	alt="Stockroom local dashboard showing session history across harnesses"
 	size=600x
+	archive="https://web.archive.org/web/20260812011108/https://texarkanine.github.io/stockroom/user-guide/dashboard/"
 %}
 
 **It backfills.** Harness formats come and go; Stockroom reads what is still on disk, including formats the vendors already abandoned. On this machine the warehouse holds a bit over 113,000 messages across Cursor and Claude Code, reaching back to September 2025 - months before Stockroom's first commit in June 2026. The cameras were running. Stockroom just lets you re-watch the tapes.

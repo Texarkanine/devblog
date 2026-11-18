@@ -20,6 +20,7 @@ In October 2026, Thibaud Chupin published an essay:
 {%linkcard
 	https://thibaud.space/2026/10/the-case-against-makefiles.html
 	The case against Makefiles
+	archive:https://web.archive.org/web/20261104095229/https://thibaud.space/2026/10/the-case-against-makefiles.html
 %}
 
 > You don't need a Makefile. Whatever your use-case, there is a better tool. Makefiles are archaic technology, living on by force of inertia and notalgia [*sic*].
@@ -40,6 +41,7 @@ A month later, Michael Jarvis published:
 {%linkcard
 	https://blog.jarv.dev/the-edge-and-node-trap
 	The Edge-and-Node Trap: Why Makefiles Were Never Meant for Tasks
+	archive:https://web.archive.org/web/20261114204033/https://blog.jarv.dev/the-edge-and-node-trap
 %}
 
 Jarvis takes Thibaud's case as settled, names the cost of `.PHONY` "The Phony Tax", and then makes the same kind of moves against `just`:
@@ -99,6 +101,7 @@ Maybe skipping a two-file `zip` leaves you cold; if `just` and `run` rerun every
 {%linkcard
 	https://turborepo.dev/
 	Turborepo
+	archive:https://web.archive.org/web/20261029063208/https://turborepo.dev/
 %}
 
 > Turborepo is the build system for coding agents. Developers, CI, and agents never do the same work twice.
