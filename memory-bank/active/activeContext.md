@@ -1,10 +1,12 @@
 # Active Context
 
 ## Current Task: Patch nginx-proxy to 1.31.9
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** BUILD - COMPLETE
 
 ## What Was Done
-- Classified as Level 1. The change is a security fix confined to the nginx-proxy base image pin. The target tag was already chosen.
+- Added a test that the nginx-proxy base image is a patched Alpine nginx, digest-pinned. It failed on 1.29.3.
+- Pinned `nginx:1.31.9-alpine3.24` to index digest `sha256:fb4658584bd9a916ffb6f6e365f97c25cfdb2923801f551ea08356e695f14ff7`. The registry returned that digest with content type `application/vnd.oci.image.index.v1+json`.
+- `python3 -m unittest discover -s tests` ran 41 tests, OK.
 
 ## Next Step
-- Load the Level 1 workflow and build.
+- Level 1 QA.
