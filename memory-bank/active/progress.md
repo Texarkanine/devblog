@@ -25,3 +25,15 @@ Pin nginx-proxy to the patched mainline image `nginx:1.31.9-alpine3.24` by its i
 * Insights
     - Docker Hub publishes 1.31.9 as `alpine3.24`, not `alpine3.22`
     - This machine has no Docker, so `nginx -t` against the new image was not run here
+
+## 2026-11-20 - QA - COMPLETE (PASS)
+
+* Work completed
+    - Semantic review of `nginx-proxy/Dockerfile` + `tests/test_nginx_proxy_base_image.py` against the brief: KISS/DRY/YAGNI/completeness/regression/integrity/documentation all clean
+    - Independently re-verified the pinned digest against Docker Hub: `1.31.9-alpine3.24` → `sha256:fb465858…14ff7` as `application/vnd.oci.image.index.v1+json` (the index digest)
+    - Re-ran the full suite: 41 tests, OK
+    - Wrote `memory-bank/active/.qa-validation-status` (PASS)
+* Decisions made
+    - Missing draft PR (acceptance criterion 2) recorded as a non-blocking advisory: the Level 1 workflow puts PR-opening outside the Build/QA loop, so it does not fail QA; it remains outstanding for wrap-up
+* Insights
+    - The test's even=stable/odd=mainline floor logic matches nginx's actual release scheme, so the guard stays correct for future bumps on either track

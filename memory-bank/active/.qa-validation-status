@@ -1,0 +1,14 @@
+PASS
+
+QA review of "Patch nginx-proxy to 1.31.9" (Level 1), 2026-11-20.
+
+Verified:
+- `nginx-proxy/Dockerfile` FROM line is exactly `nginx:1.31.9-alpine3.24@sha256:fb4658584bd9a916ffb6f6e365f97c25cfdb2923801f551ea08356e695f14ff7`; rest of the Dockerfile untouched.
+- Independently re-verified against Docker Hub: tag `1.31.9-alpine3.24` resolves to that digest with content type `application/vnd.oci.image.index.v1+json` (the registry index digest). Acceptance criterion 1 satisfied.
+- `tests/test_nginx_proxy_base_image.py` asserts a single FROM line, a patched version floor (stable >= 1.30.7, mainline >= 1.31.9), an `-alpine` variant, and a sha256 pin. Follows the existing unittest conventions in `tests/`; no duplication, placeholders, or debug artifacts.
+- Full suite re-run during QA: 41 tests, OK.
+- No stale references to `1.29.3` / `alpine3.22` anywhere outside `memory-bank/`; no project docs mention the nginx version, so no doc updates were owed.
+
+Advisories (non-blocking):
+- Acceptance criterion 2 (draft PR open) is not yet satisfied; no draft PR exists for branch `nginx-vuln-20261120`. Per the Level 1 workflow, PR-opening is not part of the Build/QA loop, so this does not fail QA — it remains outstanding for wrap-up.
+- The test's stable/mainline floor logic is slightly more general than this one bump requires, but it encodes nginx's real even=stable/odd=mainline scheme and is documented in comments; acceptable.
