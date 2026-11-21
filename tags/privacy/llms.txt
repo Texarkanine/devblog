@@ -1,0 +1,8 @@
+# privacy
+
+> Tag: privacy
+
+## Posts
+
+- [I Love It When Useful Things Get Cheaper](https://blog.cani.ne.jp/2026/08/09/love-when-useful-things-get-cheaper.md): I love it when useful things like computers and Monero get cheaper over time.
+- [You Can't Hide What You Want Seen](https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.md): Three rounds of increasingly clever email obfuscation - hex encoding, randomized delimiters, DOM-dependent ROT-N cipher - barking up the wrong tree.

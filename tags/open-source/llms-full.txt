@@ -1,0 +1,1355 @@
+# open-source
+
+## The Software-Engineering Amish
+
+On Saturday, October 24, 2026, a moderator of r/opensource dropped a new rule:
+
+> The long story short, if your project uses AI, is made by AI, or is intended for AI, it's not welcome on r/opensource.
+> <br><br>
+> -- Wolvereness (r/opensource), [Your tokens aren't valuable: No more AI][reddit-ban], October 2026
+
+Projects now had to be a year old, actively maintained, built by three or more contributors, and unconnected to AI in any direction. Non-English speakers were told to find another community, because the mods could not tell AI-written English from AI-translated English.
+
+This is far from the first such act, and I've now seen enough scenes to recognize the movie. It's one we've seen before, at similar *industrial* scale, in 1812[^not-literally-a-movie].
+
+## The Repricing
+
+The [historical Luddites](https://en.wikipedia.org/wiki/Luddites) were skilled textile workers in the early 1800s who had apprenticed for seven years and watched machines let unskilled labor do their work worse and cheaper. They had specific asks: higher piecework wages and a phased rollout of specific machines, to name a few. "Let's not leap before we look," in essence.
+
+In ["Software engineers don't get to be Luddites about AI,"][goedecke-mechanics] Sean Goedecke pushes the clock fifty years further to the [1852 British engineering lockout][lockout-1852]. When those mechanics struck, *The Times* wrote their epitaph:
+
+> The cry of these intelligent engineers is merely the cry of the handloom weavers - a cry against inevitable and irresistible laws.
+> <br><br>
+> -- *The Times* (1852), via [Software engineers don't get to be Luddites about AI][goedecke-mechanics], Sean Goedecke, October 2026
+
+The law in question was a repricing. Marx: power looms halved the labor needed to weave cloth, so the hand-loom weaver's unchanged hour "fell to one-half its former value."[^rubin]
+
+Software craftspeople spent their careers automating away bookkeepers, typesetters, travel agents, and typing pools - which makes them kin to the smiths and mechanics who built the power looms, only to be automated away themselves in the next wave.
+
+Mo Rassam put the contemporary version in two sentences:
+
+> The demand for software is not the same as demand for software engineering. The demand for bread today is far higher than in 1800s, yet that did not lead to a corresponding increase in the demand for break-makers [sic].
+> <br><br>
+> -- Mo Rassam, [Software Engineering is dead and I'm begging you to accept this][rassam], October 2026
+
+The power looms in 1812 ran on steam. In 2026, the power looms for code run on tokens. In both cases, the price of the new fuel is dramatically cheaper than the human labor it's replacing ([which is not itself without consequence](/2026/02/06/the-load-bearing-rate-limiter-was-human.html)).
+
+## The 2026 Continuum
+
+Six positions along a continuum cover everything I've found so far, sorted by who draws the line and how absolute it is. One quote illustrates each below; the full living collection sits in [the Garden](/garden/taxonomizing-ai-acceptance.html).
+
+### Amish
+
+> We are a place for people to collaborate and improve software together. Within this context, the recent votes can be understood as a reconfirmation of those principles: As we want to center on human collaboration, we will not actively support or engage in the creation of LLMs and will not put our limited resources to use for storing single-use software that would pollute our FLOSS commons.
+> <br><br>
+> -- Bastian Greshake Tzovaras, Otto Richter, and William Zijl (Codeberg), [Protecting our FLOSS commons from LLMs][codeberg], July 2026
+
+A community draws the line and binds its members, deciding together what to allow. In July 2026, Codeberg's members voted 358 to 144 to bar projects written with heavy LLM use, while declining to scan repos for violations. A collective threshold, set by vote.
+
+Contrary to popular conception, Amish communities may be quite creative with technology - what Kevin Kelly called [Amish hackers](https://kk.org/thetechnium/amish-hackers-a/). The defining characteristic is an *agreed-upon* line which need neither be absolute, nor uniform across groups.
+
+### Old Order
+
+> To put it simply: I do not like this world where people are using AI to generate art, music, writing, and software. So I will not use AI.
+> <br><br>
+> -- Brett, [I'm done using AI][brett], August 2026
+
+An individual draws a near-total line for their own work. Brett spent eighteen months using Claude Code and similar harnesses across a twenty-year career, found he could no longer explain his own software without asking the AI, and quit: "Here's to writing code by hand."
+
+### Mennonites
+
+> I use AI tools sparingly for assistance while refactoring code in languages I understand. I occasionally use it to help compose command line arguments for tools like `ffmpeg`. I never use AI to generate images, video, or prose.
+> <br><br>
+> -- Ky Decker, [Do I belong in tech anymore?][ky], April 2026
+
+An individual draws a line with a practicable clause. "I'll use it for *this*, but never for *that*."
+
+### Luddites
+
+> Each day we delay the advancement of ML models buys time to learn how to manage technical debt and errors introduced in legal filings. Another day to prepare for ML-generated CSAM, sophisticated fraud, obscure software vulnerabilities, and AI Barbie. Another day for workers to find new jobs.
+> <br><br>
+> -- Kyle Kingsbury, [The Future of Everything is Lies, I Guess: Where Do We Go From Here?][aphyr-where], April 2026
+
+The line is aimed at everyone. Across his [ten-part series][aphyr], Kingsbury writes all his words and software by hand, and in his conclusion urges readers to refuse, unionize, and demand regulation. Fight over the terms and the pace, even if the machine cannot be uninvented.
+
+### Romantics
+
+> Someday years from now we will look back on the era when we were the last generation to code by hand. We'll laugh and explain to our grandkids how silly it was that we typed out JavaScript syntax with our fingers. But secretly we'll miss it.
+> <br><br>
+> -- Nolan Lawson, [We mourn our craft][lawson], February 2026
+
+No line left to draw. I mean ["Romantic" in the nineteenth-century sense](https://en.wikipedia.org/wiki/Romanticism): the writers who rode industrial England's trains and mourned what the mills did to handcraft. Where the Luddite refuses the new order, the Romantic consents to it - begrudgingly, with tempered enthusiasm, and mourning what programming felt like from the inside.
+
+### English
+
+> I've been in the now-renamed Yolo Mode since March 2025. I just let the agents do whatever, to whatever.
+> <br><br>
+> -- Me, [How I Learned to Stop Coding and Love the Machine](/garden/how-i-learned-to-stop-coding-and-love-the-machine.html)
+
+No line at all. "The English" is the Amish word for outsiders. Where the Romantic consents with grief, the English embrace the machine. I file myself here first, because [how I got there](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html) is already on the record.
+
+## Procedure and Exit Cost
+
+Codeberg drew its line by member vote and wrote a threshold. r/opensource drew the same line by moderator decree, at purity width, and retreated in days to somewhere closer to where Codeberg started.
+
+The difference is exit cost: leaving a code forge means moving a project's home; leaving a subreddit means clicking a link - and the rival subreddits were listed in the ban post itself. In [The Times Can Sell; Reddit Cannot](/2026/08/13/the-times-can-sell-reddit-cannot.html) I modeled Reddit as one flywheel; these are sub-flywheels spinning up inside it, one click apart. Forge schisms can take years. Subreddit schisms play out at HTTP speed.
+
+Individuals are moving along the continuum just as fast. Brett moved from [English to Old Order][brett] in August. Derek Sivers moved the other way on ["AI usage"][sivers] in September, widening his ask-don't-generate rule to let Codex write unit tests. And Kingsbury, holding an Old Order line for his own work, ends his series by sketching how a migration from Old Order to Mennonite starts:
+
+> For example, I've got these color-changing lights. They speak a protocol I've never heard of, and I have no idea where to even begin. I could spend a month digging through manuals and working it out from scratch - or I could ask an LLM to write a client library for me. The security consequences are minimal, it's a constrained use case that I can verify by hand, and I wouldn't be pushing tech debt on anyone else. I still write plenty of code, and I could stop any time. What would be the harm?
+>
+> Right?
+>
+> ... Right?
+> <br><br>
+> -- Kyle Kingsbury, [The Future of Everything is Lies, I Guess: Where Do We Go From Here?][aphyr-where], April 2026
+
+In 1812 the flow ran one way, loom to mill. In 2026 it runs both ways.
+
+
+## Uncharted Territory
+
+Some things already do not fit the map (and there certainly could be more)!
+
+### The Empty Chair
+
+> It is no longer possible to produce software that is free of LLM output, even if you don't use it yourself, even if you use a language that doesn't use it itself.
+> <br><br>
+> -- Paul Battley (po-ru), [All our houses are built on sand now][poru], October 2026
+
+Battley's audit of language toolchains found GCC at 3.1 percent and LLVM at 15.9 percent *disclosed* LLM-assisted commits, with zero-LLM languages sitting *on top* of those compilers.
+
+Larry Garfield supplies the hosting-layer corollary: his [/ai declaration](https://www.garfieldtech.com/ai) states that his site is built and written without LLMs because general-purpose models rest on copyright infringement, sweatshop labor, and environmental destruction (reading as Old Order) - while his [colophon](https://www.garfieldtech.com/colophon) says:
+
+> Hosting is provided by [Upsun](https://upsun.com/), a very good GitOps PaaS where I used to work, though have not worked there since 2021.
+
+*Today*, in 2026, Upsun's homepage bills it as
+
+> The software factory for AI-human workflows.
+
+Even the fiercest refusal may be served from an entangled stack, as the stacks themselves make their own choices.
+
+This would make the Old Order impossible, along with hardline Amish communities - the most-stringent objector would be functionally Mennonite... but with the actual line drawn by forces outside their control!
+
+### Local Inference
+
+As intelligence gets cheaper and more-efficient, and hardware continues its inexorable gains in efficiency, local inference may put the power loom in the displaced worker's own house.
+
+Would the Luddites have objected so much if the machines were built, installed, operated, and benefiting them in their own homes? That's a dynamic that seems quite likely in the late 2020s, with *no* 1812 stanza to rhyme with!
+
+## Predictions for 2027
+
+"This rhymes with 1812" is fluff unless it can be falsified. Some predictions that you can evaluate and call me wrong about, by January 1, 2028:
+
+1. **It doesn't run both ways forever.** The flow of people going back will dwindle and come to a stop.
+	- *I'm wrong if:* There's an increasing flow of people leaving AI coding and *employers* also join the trend, declaring AI-free workspaces for those AI-free employees. The employee trend is relatively cheap; the employer trend requires money where the mouth is and is a vote on the viability of the reversal.
+2. **If you aren't at least Romantic, you exit.** The Amish make up around 0.1% of the US population. In aggregate, their economic activities are quaint, not relevant. So too, the industry of software will find those with hard lines exiting, by choice or force.
+	- *I'm wrong if:* Established engineers and companies that hold Mennonite or stricter stances on AI usage, remain economically relevant - W-2 employed (engineers) and operational (companies).
+3. **Community lines with thresholds don't survive.** As it becomes increasingly impossible to find code that does not have AI involved, and the tools get better and more people who otherwise could not have entered the field, do, the only enforceable threshold will be the binary: AI involved in any capacity, or completely AI-free.
+	- *I'm wrong if:* Communities with "AI is OK for this, but not for that" persist as the norm, successfully enforcing their lines.
+	- **Note:** I think 2027 is actually too soon to see this one fully play out, see the code forge vs Reddit example above. So check in w/ me on this one on January 1, 2030.
+
+See you then!
+
+---
+
+[reddit-ban]: https://www.reddit.com/r/opensource/comments/1xelcuf/your_tokens_arent_valuable_no_more_ai/
+[goedecke-mechanics]: https://www.seangoedecke.com/software-engineers-dont-get-to-be-luddites-about-ai/
+[lockout-1852]: https://www.cambridge.org/core/services/aop-cambridge-core/content/view/DBD09898F9B0971810B16810C22F537B/S0020859000005782a.pdf/origins_of_the_1852_lockout_in_the_british_engineering_industry_reconsidered.pdf
+[rubin]: https://www.marxists.org/archive/rubin/value/ch16.htm
+[rassam]: https://tharsalys7.substack.com/p/software-engineering-is-dead-and
+[codeberg]: https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
+[aphyr]: https://aphyr.com/posts/411-the-future-of-everything-is-lies-i-guess
+[aphyr-where]: https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here
+[ky]: https://ky.fyi/posts/ai-burnout
+[sivers]: https://sive.rs/ai
+[lawson]: https://nolanlawson.com/2026/02/07/we-mourn-our-craft/
+[brett]: https://brettcodes.com/im-done-using-ai/
+[poru]: https://po-ru.com/2026/10/07/all-our-houses-are-built-on-sand-now
+
+[^rubin]: Marx, quoted in I. I. Rubin, "Essays on Marx's Theory of Value," chapter 16, 1928. [https://www.marxists.org/archive/rubin/value/ch16.htm][rubin]
+[^not-literally-a-movie]: Okay, not literally a movie in 1812; [they came much later](https://www.studiobinder.com/blog/what-was-the-first-movie-ever-made/).
+
+## The Times Can Sell; Reddit Cannot
+
+On July 30, 2026, Reddit beat every estimate it had. Revenue up 61%, profit more than doubled - and the stock then had its [steepest one-day drop since the 2024 IPO][yahoo-reddit]. Huffman wrote that search referrals were "choppy", and said that in AI Overviews Reddit has "still yet to find that win-win."[^cnbc-reddit] In a [same-day interview][cnbc-huffman]: "The 10 blue links have driven a tremendous amount of value for the whole ecosystem, and AI Overviews has yet to make a similar level of positive impact."
+
+The New York Times is [suing OpenAI](https://en.wikipedia.org/wiki/The_New_York_Times_v._Microsoft_and_OpenAI) and has, [according to the Wall Street Journal][gizmodo], discussed pointing `noindex` at itself - a directive that tells search engines to forget you exist. Rust adopted an [LLM policy][rust] that treats a pull request as a contributor-formation event, not a delivery of code. That is an actionable stance, not just a mood: it changes who the community is, and it only invites the humans who will play that game. [Codeberg](https://codeberg.org) [voted 358 to 144][codeberg] to stop hosting projects that "mostly consist of" LLM-written code.
+
+These look like four different fights. They are the same machine, breaking on different sides.
+
+## Four Reactions
+
+The Times is defending a distribution position. It metered the site in 2011, over a decade before any LLM crawler mattered: a deliberate trade of open reach for subscription revenue. The complaint now is that somebody else built a unified layer over the fragments and users prefer it. The current play is to chop the aggregator - sue, block, threaten to vanish from the index.
+
+Reddit signed a [2024 deal worth about $60 million](https://thehill.com/policy/technology/4485295-reddit-gives-google-access-to-content-for-training-ai-models/) a year to let Google train on its content, and has reportedly discussed [shutting that access off][gizmodo]. Stack Overflow received [3,862 new questions in December 2025][devclass], down 78% from the year before, at a site that peaked above 200,000 questions per month in early 2014. The [decline started in that same year](https://blog.pragmaticengineer.com/stack-overflow-is-almost-dead/), when moderation got aggressive and the site got unwelcoming; ChatGPT accelerated a slide that policy began.
+
+Rust's policy names the flywheel from the inside:
+
+> We treat PRs as an indication that someone is interested in joining our community and being mentored to work on future PRs. [...] a polished PR no longer indicates that someone is likely to stick around for the long term.[^fn-rust]
+
+Codeberg is a German nonprofit code forge with no ad model and no API licensing. In July 2026 its members voted to keep out the "development team of none": one person and a statistical machine that "turns energy into code."[^fn-codeberg] They are indifferent to `git clone`. Their crawler complaint is about method - bots walking every issue-filter permutation and every historical revision on donation-funded disks - and about ghost projects that consume resources as if they were full-fledged communities while throwing off no prestige.
+
+Hang this date somewhere in your head: on September 15, 2026, [Cloudflare will default-block Training and Agent bots][cf-cid] on ad pages for new domains. Because Googlebot is classified as Search *and* Training, that default is Googlebot-off unless the site owner opts out.
+
+If this all looks like [Pink Margarine](/2026/03/01/pink-margarine.html) - incumbents thrashing about, dyeing the substitute so nobody will eat it, grasping at straws to stay relevant against the inexorable march of technological advancement - hold that for a bit.
+
+## The Machine
+
+Every one of these platforms is a hub with three loops.
+
+Consumers give attention and get the thing: articles, answers, working code. Producers give content or presence that attracts consumers, and get fame or fortune - reputation, karma, salary, doors opening. (Fame and fortune convert into each other, though at varying exchange rates.) In the middle sits a converter: the platform's secret sauce that turns plentiful consumer-side input into platform sustenance plus what producers want, and then skims a cut for itself. Ads, subscriptions, hosting quotas, brand attention: the mechanics vary. The principle does not.
+
+Some flywheels also pay producers in *each other*: Social dues. Community. "You're not alone." Anywhere there's a group of contributors paid in reputation, the human social instinct kicks in and a sense of community can scaffold around it. That is **fuel**.
+
+### How They Ran
+
+The New York Times is the clean picture: readers give attention and money, get articles. The converter turns that into payroll for all involved by laying some ad revenue on top. Writers with editors, fact-checking pipelines, and a voice they spent a career on, supply the articles that draw the next readers.
+
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers -->|Attention| NYT
+    NYT -->|Content| Readers
+
+    NYT["New York Times"]
+```
+
+Reddit and Stack Overflow are the same topology with a different producer currency. The converter skims ads and premium platform service fees and API deals. Posters get reputation.
+
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Information| Consumers
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+```
+
+Reddit and Stack Overflow are a shape of *many* social answer or social information platforms. I submit them as two high-profile examples but they aren't unique.
+
+Rust pays a small set of contributors in reputation and community, and pays consumers in a language that works. The project's job is to make that conversion run: attention into reputation, contributions into software that draws more attention. The project skims brand.
+
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    Producers["Code Contributors"]
+    Consumers["Programmers"]
+```
+
+Codeberg is Rust pulled up a level. The producers are *projects*, not PR authors. A living project pays a software catalog *and* community attention into the forge. Catalog alone is not enough. Developers still clone; that leech path is fine. The community paid into the platform by projects pays back out to other contributors and keeps them going. The converter's skim is donations, membership, identity - reputation rent, which they were already allocating disk by via [quotas keyed on standing][codeberg-quota], well before they ever voted on LLMs.
+
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
+
+### How They Break
+
+The Times and Reddit break on the consumer side. An AI aggregator sits down between the reader and the site... and many, many other sites. Embeddings over *all* sources beat any one index, which is why people used Google instead of a twelve-site bookmark folder back when search indices came about. Now it's why they ask ChatGPT instead of the Times. The content/attention loop closes on the LLM and the platform is hit by a solitary consumer that sends nothing back.
+
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
+
+Reddit is the same geometry: readers take their questions to the aggregator and the thick, juicy attention line now points at the LLM. The dotted leftover pointing at Reddit is not enough to mint the reputation the posters were paid in. The platform still feeds the aggregator its posters' content while its posters starve.
+
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
+
+Rust breaks on the producer side. AI shows up as code that works and a person who is not coming to the meeting. Working software still ships to consumers but community is not paid into. Converter capacity is finite: it [can only turn so much code into appreciated reputation](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). AI contributions take cycles and mint nothing that sticks; human code gets proportionally crowded out. A contribution used to mean someone else understands, cares, and might stay. AI can open one PR or a hundred with no intent to return.
+
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention<br>Code| Converter
+
+    Producers -->|Code| Platform
+    Platform -.->|Reputation| Producers
+
+    ProducersAI ==>|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Humans"]
+    ProducersAI["AI"]
+    end
+    Consumers["Programmers"]
+```
+
+Codeberg gets the same failure one level up: the producers are *projects*, so a ghost project is hubbub with no human attached. It is a GitHub-shaped empty apartment: the lights are on but nobody lives there and Codeberg still has to pay the electric. More open up, and the *living* become an ever-thinner slice of the roster. Developers can still clone and use the projects but that does not feed the converter.
+
+```mermaid
+graph TB
+    Converter -.->|Resources<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -.->|Software Catalog<br>Community Attention| Platform
+    Platform -.->|Resources<br>Reputation| Producers
+
+    Ghosts ==>|Ghost Projects| Platform
+    Platform ==>|Resources| Ghosts
+    Platform -.-x|Reputation| Ghosts
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    subgraph Hosted
+    Producers["Human Projects"]
+    Ghosts["Ghost Factories"]
+    end
+    Consumers["Developers"]
+```
+
+## What They Tried
+
+### The Times Shut the Barn Door After the Cows Got Out
+
+Cutting off the aggregator is an attempt to cut the "content" line feeding into the model and herd people back to nytimes.com. The readers are already on the preferred interface. Latent-space aggregation is a discovered preference and people will not volunteer for a worse experience just because a publisher asked them to. [Piracy was almost always a service problem](http://www.escapistmagazine.com/news/view/114391-Valves-Gabe-Newell-Says-Piracy-Is-a-Service-Problem); this is that same shape of problem.
+
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -.->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    Readers -.->|Attention| NYT
+    AI -->|Content| Readers
+
+    NYT -.-x|Content| AI
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
+
+The dead content line is the lawsuit and the `noindex` threat. The thick attention line did not move. The current posture is a miss.
+
+### Reddit Charged the One Consumer That Stayed
+
+That deal with Google to let them train on content was a neat idea, but... see if you can spot the problem: the thick new line is money from the aggregator back to Reddit. Follow it. It arrives at the platform. It **does not continue to the posters**.
+
+```mermaid
+graph TB
+    Converter -->|Money<br>Reputation| Platform
+    Platform -.->|Attention| Converter
+
+    Producers -->|Posts| Platform
+    Platform -->|Reputation| Producers
+
+    Consumers ==>|Attention| AI
+    Consumers -.->|Attention| Platform
+    AI -->|Information| Consumers
+
+    Platform -->|Content| AI
+    AI ==>|Money| Platform
+
+    Platform["Reddit / Stack Overflow"]
+    Producers["Posters"]
+    Consumers["Readers"]
+    AI["AI Aggregator"]
+```
+
+Posters are still paid in reputation. Reputation is minted from attention. The attention went to the aggregator. The check can keep the lights on for a while but it cannot pay the people who were the reason the corpus was worth buying.
+
+> The deal sustains the portfolio while starving the asset.
+
+Posting spins down, the corpus gets worse, the *next* licensing round sells for less, and the consumer side was already gone. Stack Overflow has tried on the costume: [Data Licensing][so-license] sells labs ["decades of verified, technical knowledge"][so-era] - smart humans wrote this. The check still stops at the company. Answerers are not on a newsroom payroll. Stack Overflow is renting out the *back catalog* while *new* questions collapse. Same geometry as Reddit, better marketing.
+
+### Rust Filtered the Producers and Courts the Whole Market
+
+Rust wants the world to use Rust, but also a community that still forms contributors the old way. They angle for disclosure, not detection. "Style is not evidence." They quoted [Zig's ban](https://ziglang.org/code-of-conduct/#strict-no-llm-no-ai-policy) on one side and Linus's ["AI is a tool"](https://lore.kernel.org/linux-media/CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com/) on the other, and took neither.
+
+Those loops no longer match. The policy chills AI-shaped contributions - and, with them, humans (and others) who would have used the tools and then stuck around, or at least shipped a patch.
+
+```mermaid
+graph TB
+    Converter -->|Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Code| Platform
+    Platform -->|Reputation| Producers
+
+    ProducersAI -.-x|AI Code| Platform
+    Platform -.-x|Reputation| ProducersAI
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Rust Project"]
+    subgraph Contributors
+    Producers["Human Code Contrib"]
+    ProducersAI["AI Code Contrib"]
+    end
+    Consumers["Programmers"]
+```
+
+The consumer loop is still the whole market. The producer loop just got smaller, including some of the humans. They are not only cutting off rogue bots: they are cutting off *users*, too. That is a baby-and-bathwater move in a system like this.
+
+***I*** keep seeing Rust. I would "leech" it happily - try it in a project where I needed high performance but not C from 1999. I would fix a bug with a PR if I had to. 
+
+And I would use AI for that contribution, as I am indeed *not* interested in becoming "A Rust Developer" nor in joining the "Rust Community." I'm just here to make software that works, man. The policy correctly clocks me. 
+
+> The project stops reading as open-source I can contribute back to.
+
+It becomes a club with a language attached. When I need Rust-like characteristics, I have a strong incentive to pick a fork I can patch. I *am* the baby in that bathwater, I reckon. Of course, that's what the bathwater would say, too.
+
+The same shape showed up in [Cloudflare OS's contributing guide][cf-os]: they are Apache-2.0-licensed and "not seeking outside contribution," because AI made writing easy and reviewing - keeping the product coherent - is the hard part, they say. Small, trivially-verified PRs only. Writing was the easy half. They closed the gate to protect the hard half. That is Rust's move in a `CONTRIBUTING.md`.
+
+So, me and the rest of the users who want the full set of benefits of using open-source software have a strong incentive to go find or make a fork whose loops we can participate in. Otherwise, it's *us* who're paying in a resource with no recompense. Rust & Cloudflare are betting that there aren't enough valuable-enough contributions left on the table after cutting us off to matter. Bold strategy; let's see if it pays off for 'em.
+
+Rust, at least, knows and admits they're experimenting. So, the door's closed to me for now, but maybe not forever. Respect.
+
+I might grant a generous interpretation of their stance as more [literally Luddite](https://en.wikipedia.org/wiki/Luddite) - demanding a halt to radical new technology until it can be used without egregious detriment to human well-being - than the colloquial "head-in-the-sand" sense. The clock still runs. How long can you wait before the fork that accepts patches is the one *everyone* chooses?
+
+### Codeberg Formed an Enclave
+
+Codeberg looks like Rust one level up until you check the loops. Rust filters producers and still sells to everyone. Codeberg shrinks both sides and only promises to serve the slice that wants software without AI in it. Ghost projects out; human catalog plus community in. The chart looks like the healthy one on purpose. The Total Addressable Market just got smaller.
+
+```mermaid
+graph TB
+    Converter -->|Resources<br>Reputation| Platform
+    Platform -->|Attention| Converter
+
+    Producers -->|Software Catalog<br>Community Attention| Platform
+    Platform -->|Resources<br>Reputation| Producers
+
+    Consumers -->|Attention| Platform
+    Platform -->|Software| Consumers
+
+    Platform["Codeberg"]
+    Producers["FLOSS Projects"]
+    Consumers["Developers"]
+```
+
+*(Hey, that's the same graph as before!)*
+
+A language can lose its consumers entirely if a better one shows up, just like a given [brand of pickles can fall out of vogue](https://www.youtube.com/watch?v=UZ9e2ASgwKo) even while people still absolutely want pickles in general. A forge is closer to "somewhere to cook." People may not all want this kitchen. Some of them will. The bet is that the niche is big enough - and *that* is just ordinary market-size risk, not the mechanical miss on the Times's lawsuit or Reddit's check.
+
+It is also the only response already on the table that does not lie about the loops. Survive inside the fence, even thrive, and remain irrelevant at global scale.
+
+> Codeberg offers a home for the Software-Engineering Amish
+
+Fine if that's the life for you. For most of us, Amish is a bit extreme.
+
+### September 15 is a Fragmentation Replay
+
+Cloudflare's new defaults are not "Googlebot blocked for everyone." For new domains, on pages that run ads, "Training" and "Agent" behavior will be blocked by default. There *is* an opt-out (or opt-back-in?), but defaults are what most people run. A corner of the web **will** fall out of Google because nobody changed the checkbox.
+
+Cloudflare already sees that corner and will continue to see it: it sits on the edge of those sites. If you wanted to search the part of the internet that was not in Google, Cloudflare will be positioned to do it and if you think they will not leverage that position, I have a bridge to sell you. Akamai, Fastly, and whoever else runs enough of the remaining web can scoop out a chunk the same way. Then you have competing catalogs. Again. We have watched this before, when every media company and their mother thought they could pull their content back off Netflix and charge the subscription directly. Consumers hated it. They went to an aggregator in the first place, the moment one existed, because the alternative experience was uniformly worse.
+
+In the 2010s, to find answers to programming questions, you often had to search both Reddit and Stack Overflow, and several subreddits within Reddit to boot, to find an answer. That *was* a worse experience than the current one.
+
+Consumers will not `search.cloudflare.com` and `search.akamai.net` and `search.fastly.com` - they will *find* the aggregator that pulls from all of the sources and use that.
+
+The blockade reconstitutes the middleman one layer up. CDN search is distribution theater. It is not food for producers.
+
+## The Times Still Has a Customer
+
+So the honest options look like: miss, miss, miss, go be Amish in a corner. The Times is probably doomed on the track it is on... but it also **does** have a way to thrive in this world that I have not found for anyone else, and that nobody else in this lineup has found either.
+
+1. Producers have to eat something that consumer is willing to pay.
+2. The new direct consumer is the aggregator. 
+
+Money is the only such something I have found in any of these flywheels that can bridge the new gap. Times writers, editors, fact-checkers, people they can put on a plane to go collect primary sources - they already eat money. AI can pay those people.
+
+Reddit took a check too, but remember: it was rent charged to the aggregator and denominated in dollars - but the posters' paychecks are denominated in reputation. The rent arrived in a currency they cannot eat.
+
+Labs are already telling you what they will pay for. [Anthropic bought print books in bulk][ars-books], cut the spines, scanned the pages, and threw the paper away - [Project Panama][wapo-panama], built to teach Claude "how to write well" instead of "how to post like a Redditor." They wanted less-common, high-quality volumes that were not already sitting in the crawl. The lawsuit news is copyright drama. The demand underneath is for: 
+
+1. verified-human text
+2. at a published-book quality bar
+3. that competitors do not already have
+
+That is *exactly* the kind of thing traditional media outlets are built to produce.
+
+Readers still want the Times's reputation; they do **not** want the Times's search box. Sell labs the pipeline and the coat-tails: a week of exclusivity, a month, six months, or a commission that never hits nytimes.com. Patronage is older than newspapers. Click-through stops mattering when the lab has already paid many more zeroes than their dwindling subscriber base. The public can still see the information (if not the whole piece) later. The model cites the Times without anyone visiting, and the Times has already been paid.
+
+```mermaid
+graph TB
+    Converter -->|Money| NYT
+    NYT -->|Attention| Converter
+
+    Writers -->|Content| NYT
+    NYT -->|Money| Writers
+
+    Readers ==>|Attention| AI
+    AI -->|Content| Readers
+
+    NYT -->|Content| AI
+    AI ==>|Money| NYT
+
+    NYT["New York Times"]
+    AI["AI Aggregator"]
+```
+
+The thick line from the aggregator is the new customer. The writers are still on payroll.
+
+> The readers never come back, and they do not have to.
+
+This does not transfer to other platform shapes, unfortunately, for two reasons:
+
+
+### The Times' Staff is Paid
+
+The Times's producers eat money. Reddit's eat reputation. Same rent, wrong denomination for the people who have to keep showing up. Same for open-source projects: the (overwhelming majority of) contributors aren't on a payroll and the loops aren't structured that way. Try to pay them all and you've just reinvented a software company instead of saving an open-source project.
+
+### The Times Doesn't Need to Know What You Want to Read
+
+The Times never ran on public demand telemetry. "All the news that's fit to print" means they are choosing what is fit. You subscribe to a newspaper without knowing the table of contents: curated surprise *is* the product. Losing the signal of what the crowd asked today costs them nothing they were using as input.
+
+Reddit and Stack Overflow *are* that signal. You did not go there recreationally: you went because you needed something particular. Patronage can replace a newsroom's payroll. It cannot replace the compass: what people posted about and replied to was a signal of what people cared about, and that *was* the social product.
+
+Will they reframe? Will labs pay real exclusivity premiums? Does authority dilute when every model can rent it? Those are market risks, not the mechanical failure Reddit is making. They are also not a template for any other kind of platform.
+
+## And Me?
+
+The false comfort is that the pieces are interchangeable. If GitHub goes down I will use GitLab. If Rust does not work I will use Go. I am very smart.
+
+No.
+
+This flywheel existed inside you, and me, and it is part of why we got smart, and it can spin down too.
+
+[Omry Yadan wrote about the private version][yadan]: friction was a signal of what needed attention. The producers in the loops above were acting on that signal in public. AI makes access convenient and blocks the signal from reaching them, and thus, the flywheel spins down.
+
+You can do the same thing to yourself. This is not a [Butlerian sermon about getting dumber](/garden/fomenting-the-butlerian-jihad.html); your problem-solving ability can stay exactly as sharp as it ever was - you just stop *seeing* problems. Once you no longer see problems to solve, your utility as a productive entity drops all the same.
+
+I feel this nipping at my heels. Does Vite suck? I do not know. We use it in [inquirerjs-checkbox-search](https://github.com/Texarkanine/inquirerjs-checkbox-search/); [Niko](/authors/niko/) deals with it. Does Docusaurus suck? I do not know. It runs the [a16n documentation site](https://texarkanine.github.io/a16n/) and I do not deal with it. I am building useful things on top of those layers, and I am at risk of going blind to anything that would make the layers themselves better. That is a departure from how I used to (have to) work with software. If one of them sucks, I may just spend more effort in the layer where I already am, instead of recognizing a signal to drop down and fix it - because the real source friction got obscured.
+
+The flywheel inside you is at risk. **You** are one of the shapes for which I do not have an answer. **I** am one of those shapes.
+
+Perhaps this is fine as it is just the way technology goes. When I drive my car and am unhappy with my gas mileage, I might drive more gently, or wonder if I should try [hypermiling](https://www.reddit.com/r/hypermiling/). But maybe the engineers at Toyota should've just built a better engine for this car - or selected a better one. Maybe there's a tune I can put on the ECU to fix the problems. Maybe the *real* problem is a layer down below where I know to look. Despite all that... Maybe it's OK for me to just drive a little differently to stretch the gas rather than chasing shadows down the tech stack of human achievement.
+
+Maybe not, though. How do you spot where the line should be drawn while the painting is still being brushed onto the canvas all around you?
+
+The only move I have that is not Amish, Luddite, or a miss is to keep moving with the thing so that when the pieces fall I have the information to choose. I have been practicing that as [trying the thing](/2026/08/01/just-try-the-thing.html) and as [letting the machine do the work](/2026/03/14/adeptus-mechanicus-bootcamp-gentle-seduction.html). Those are habits, not a prescription. If a better answer shows up, I will write it down.
+
+---
+
+[cnbc-huffman]: https://www.cnbc.com/2026/07/30/reddit-ceo-says-googles-ai-overviews-cant-replace-10-blue-links-.html
+[yahoo-reddit]: https://finance.yahoo.com/markets/article/reddit-stock-tumbles-the-most-on-record-as-lack-of-new-ai-deals-us-daily-users-metric-disappoints-153413759.html
+[so-era]: https://stackoverflow.blog/2025/12/30/a-new-era-of-stack-overflow/
+[so-license]: https://stackoverflow.co/data-licensing/
+[gizmodo]: https://gizmodo.com/major-publishers-are-reportedly-considering-a-drastic-step-to-get-their-content-out-of-googles-ai-answers-2000788873
+[codeberg-quota]: https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html
+[devclass]: https://devclass.com/2026/01/05/dramatic-drop-in-stack-overflow-questions-as-devs-look-elsewhere-for-help/
+[cf-cid]: https://blog.cloudflare.com/content-independence-day-ai-options/
+[cf-os]: https://github.com/cloudflare/cloudflare-os/blob/4e0f9593fc52944319ee7332db025f6912f6f64a/CONTRIBUTING.md
+[ars-books]: https://arstechnica.com/ai/2025/06/anthropic-destroyed-millions-of-print-books-to-build-its-ai-models/
+[wapo-panama]: https://archive.ph/eH7NK
+[yadan]: https://yadan.net/writing/ai-doesnt-get-annoyed/
+
+[cnbc-reddit]: https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html
+[^cnbc-reddit]: Vanian, J. (2026, July 30). Reddit shares sink 11% on “choppy” search referrals even as results blow past estimates. CNBC. [https://www.cnbc.com/2026/07/30/reddit-rddt-q2-2026-earnings-report.html][cnbc-reddit]
+[codeberg]: https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html
+[^fn-codeberg]: Tzovaras, B. G., Richter, O., & Zijil, W. (2026, July 23). Protecting our Floss Commons from LLMS. Codeberg News. [https://blog.codeberg.org/protecting-our-floss-commons-from-llms.html][codeberg]
+[rust]: https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/
+[^fn-rust]: Nelson, J. (2026, August 5). Rust-Lang/Rust is adopting an LLM policy: Inside rust blog. Inside Rust Blog. [https://blog.rust-lang.org/inside-rust/2026/08/05/rust-langrust-is-adopting-an-llm-policy/][rust] 
+
+## Stockroom: Find the Conversation You Half-Remember
+
+Earlier today I needed a conversation from mid-July. Not by id - by meaning. Something about "blogging about stockroom," asked from [Claude Code](https://code.claude.com/), about a [Cursor](https://cursor.com/) session I only half-remembered.
+
+Stockroom's [search](https://texarkanine.github.io/stockroom/user-guide/search/) put that Cursor session at rank one. The retrieved plan became the plan for this post.
+
+That is the whole pitch. Your agents have been writing history to disk the whole time. I built [Stockroom](https://texarkanine.github.io/stockroom/) so you can ask about it - from either harness, about either harness - without hoping the vendor's UI still has the thread.
+
+**[Stockroom 1.0 is out.](https://github.com/Texarkanine/stockroom)**
+
+## Your Transcripts, One Warehouse
+
+One local [DuckDB](https://duckdb.org/) file. Full prompts, responses, and tool inputs - kept whole. Truncation is a read-time convenience, never a storage-time loss.
+
+Two ways in:
+
+- **Ask the agent.** Slash-invoke `/sr-search` (Claude: `/stockroom:sr-search`) and let it pick SQL, meaning search, or both. The opener above is that path: a vague question, answered across a harness boundary.
+- **Skip the agent.** After setup, `stockroom query` and the local [dashboard](https://texarkanine.github.io/stockroom/user-guide/dashboard/) work offline. No cloud index of your coding sessions.
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">
+      <img src="stockroom-dashboard-top-light.png" alt="Stockroom local dashboard showing session history across harnesses" width="600" class="polaroid-image">
+    </a>
+    <div class="polaroid-title">Stockroom dashboard</div>
+    <div class="polaroid-link">
+      
+      <a href="https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">texarkanine.github.io/stockroom/user-guide/dashboard/</a>
+      
+    </div>
+    <small class="polaroid-archive">
+      
+      (<a href="https://web.archive.org/web/20260812011108/https://texarkanine.github.io/stockroom/user-guide/dashboard/" target="_blank" rel="noopener">archive</a>)
+      
+    </small>
+  </div>
+</div>
+
+
+**It backfills.** Harness formats come and go; Stockroom reads what is still on disk, including formats the vendors already abandoned. On this machine the warehouse holds a bit over 113,000 messages across Cursor and Claude Code, reaching back to September 2025 - months before Stockroom's first commit in June 2026. The cameras were running. Stockroom just lets you re-watch the tapes.
+
+That "pays backwards" feeling is what [Just Try the Thing](/2026/08/01/just-try-the-thing.html) was pointing at: agents can use work from *before* the warehouse existed, because the raw logs were already on disk. [Disintegration of Persistence of Memory.md](/2026/08/03/disintegration-of-persistence-of-memory-md.html) puts the same store on the memory ladder as rung five - security-camera footage for *how* and *why*, not a notepad you hope somebody kept tidy. Those posts argue the need. This one is the install.
+
+Cursor and Claude Code share one schema. Every table already carries `harness` as a first-class column, so another ingest path later is additive - not a rewrite dressed up as a feature. I may add more harnesses; I may not. Day one already speaks two.
+
+## From Zero to /sr-search
+
+1. Add the [txrk9-agent-plugins](https://github.com/Texarkanine/txrk9-agent-plugins) marketplace, then install the `stockroom` plugin from it.
+2. **Cursor only:** enable **Include third-party Plugins, Skills, and other configs** (Settings → Rules, Skills, Subagents). Plugin hooks do not register without it.
+3. Run first-time setup:
+   - Cursor: `/sr-initialize`
+   - Claude Code: `/stockroom:sr-initialize`
+4. Ask about past work, or slash-invoke search:
+
+```text
+/sr-search "What was the most-recent time I had to correct an agent's behavior?"
+```
+
+`sr-initialize` provisions the per-machine torch wheel (for meaning search), puts `stockroom` on your PATH, offers nightly ingest+embed, and runs the first full ingest. Re-runs are safe: it re-probes and only does what is still missing.
+
+Full walkthrough, including what landed on disk and what to try next: the [Quickstart](https://texarkanine.github.io/stockroom/user-guide/quickstart/).
+
+## Open Source, Tagged 1.0.0
+
+Stockroom is open source under AGPL-3.0 at [github.com/Texarkanine/stockroom](https://github.com/Texarkanine/stockroom). Docs live at [texarkanine.github.io/stockroom](https://texarkanine.github.io/stockroom/). [v1.0.0](https://github.com/Texarkanine/stockroom/releases/tag/v1.0.0) just shipped; the marketplace plugin path above pulls current.
+
+If you half-remember a conversation and wish either agent could find it:
+
+```text
+/sr-search "blogging about stockroom"
+```
+
+Worst case, you learn what your warehouse does not have yet. Best case, last month answers.
+
+## Publishing My First Browser Extension
+
+[Tab Yeet](https://github.com/Texarkanine/tab-yeet) lists every tab in your current window, applies ordered regex transforms to each URL, and copies the result to the clipboard in your preferred format. It ships with defaults that rewrite the four social hosts whose canonical URLs don't embed cleanly - `twitter.com` becomes `fixupx.com`, `instagram.com` becomes `eeinstagram.com`, `reddit.com` becomes `vxreddit.com`, `tiktok.com` becomes `vxtiktok.com`. Paste a Discord or forum thread after copying, and previews actually appear.
+
+I had to build it because nothing existed that combined those three things. There are dozens of "copy all tab URLs" extensions. Several support format templates like `$url` / `$title`. One lets you paste URLs into a textarea and regex-munge them after the fact. None apply ordered, persistent rewrite rules automatically, let alone ship the social-embed defaults baked in. The interesting cell in the matrix was empty.
+
+As of this week Tab Yeet is on [AMO](https://addons.mozilla.org/firefox/addon/tab-yeet/) and the [Chrome Web Store](https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle). It is not on Apple's App Store, and it won't be, and that omission turned out to be the cleanest data point in the whole story.
+
+## Manifest V2 First
+
+The first version targeted Firefox's [Manifest V2](https://extensionworkshop.com/documentation/publish/distribute-manifest-versions/). Three pure modules (`lib/storage.js`, `lib/transforms.js`, `lib/formats.js`), a popup, an options page, and an integration test locking the contract between them. Straightforward TDD.
+
+The only real surprise at this stage was CSS. I'd used [`color-mix()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix) to derive subtle dividers from `CanvasText`, which is clean and respects the user's system palette. The manifest declared `strict_min_version: 109.0`. `color-mix()` needs Firefox 113+. When CSS can't parse a shorthand, it drops the entire declaration. There is no graceful degradation to a base color. So on anything between Firefox 109 and 113, my borders vanished entirely.
+
+The fix is to pair each `color-mix()` declaration with an `rgba()` line immediately before it:
+
+```css
+border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+border-bottom: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+```
+
+Browsers that parse the second line keep it; browsers that choke on it fall back to the first. Two copies of every divider, two copies in the `@media (prefers-color-scheme: dark)` block, and the extension looks the same on Firefox 109 and Firefox 140. Annoying, but small, and better than noticing the empty space later.
+
+## Then Manifest V3
+
+Firefox is still happy on MV2, but the Chrome Web Store requires MV3. I did not want a second repo, forked branding, or parallel source directories. One codebase, two packages.
+
+The answer was a build-time manifest transform plus a namespace shim. The MV2 `manifest.json` at the project root stays the source of truth. A small [`scripts/transform-manifest.js`](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/scripts/transform-manifest.js) rewrites it into MV3 on demand:
+
+```javascript
+export function transformManifest(mv2) {
+  const mv3 = structuredClone(mv2);
+  mv3.manifest_version = 3;
+  if (mv3.browser_action) {
+    mv3.action = mv3.browser_action;
+    delete mv3.browser_action;
+  }
+  delete mv3.browser_specific_settings;
+  if (mv3.permissions) {
+    mv3.permissions = mv3.permissions.filter((p) => p !== "clipboardWrite");
+  }
+  return mv3;
+}
+```
+
+Four rules, one function, unit-tested. If more targets show up later, the transform grows; until then this is enough.
+
+The runtime side needed a different trick. Shared code uses the WebExtensions `browser.*` namespace because Firefox implements it natively. Chrome does not implement `browser.*`; it only exposes `chrome.*`. Rather than branch every call site, the Chrome package gets a shim injected ahead of the module scripts:
+
+```javascript
+if (typeof globalThis.browser === "undefined") {
+  globalThis.browser = chrome;
+}
+```
+
+Four lines of aliasing, wired in via a `<script src="/browser-shim.js">` tag that only the Chrome staging pipeline adds. Shared source files never learn which browser they're running in.
+
+Then I tried to run Mozilla's [`web-ext lint`](https://github.com/mozilla/web-ext) against the generated Chrome manifest.
+
+It rejected it. `ADDON_ID_REQUIRED`. The linter wanted a Firefox-style add-on ID that MV3 does not use and the Chrome Web Store will not accept. `web-ext lint` is Firefox-centric in ways its README does not emphasize. Despite the generic name, it's specifically the Firefox linter. I excluded Chrome from the CI lint step and let the Chrome Web Store's own upload-time validation serve as the check for that target.
+
+## Three Stores, Three Shapes
+
+Once both packages built cleanly, shipping to the stores looked straightforward on paper: three APIs, three uploads. In practice the three stores have *very* different gate shapes, and I have direct experience with only two of them.
+
+**AMO (Firefox).** Free developer account, API keys on request, a JWT-signed upload endpoint, listing metadata in JSON. Everything automatable from a GitHub Actions job. An already-published action ([`kewisch/action-web-ext`](https://github.com/kewisch/action-web-ext)) wraps the CLI nicely. Zero dollars.
+
+**Chrome Web Store.** One-time $5 developer registration fee. After that: OAuth 2.0 client credentials, a REST upload endpoint, a well-maintained CLI ([`chrome-webstore-upload-cli`](https://github.com/fregante/chrome-webstore-upload-cli)). Also automatable.
+
+**Apple App Store.** $99 per year for an Apple Developer Program membership, required to actually publish. I can tell you in detail what AMO and Chrome Web Store publishing look like because we've done both. I don't know what App Store publishing looks like. It isn't hidden; Apple's developer docs are public, and I could go read them. What happened is simpler: we decided not to publish the moment the fee appeared, and nothing past that gate has bearing on a decision already made.
+
+This is the data point I mentioned at the top. The filter works by deciding the question before it becomes interesting. That's the full report.
+
+## The License Allowlist (Twice)
+
+Tab Yeet is GPL-3.0-or-later. Both stores accept SPDX identifiers. Neither accepts this one directly.
+
+The first wall was `kewisch/action-web-ext` itself. Its `KNOWN_LICENSES` constant is a short allowlist of SPDX slugs, and `GPL-3.0-or-later` is not in it - only `GPL-3.0-only` is, despite SPDX marking the `-only` variant as the more-restrictive of the two. Passing `license: GPL-3.0-or-later` to the action caused it to treat the string as a custom license name without text, which AMO then rejected.
+
+The partial fix was to pair the slug with `licenseFile: LICENSE`, which causes the action to upload the full license text alongside. That worked briefly.
+
+Then AMO's API itself pushed back on the `version.license` field with the same slug - it, too, has a list of permitted SPDX slugs, and `GPL-3.0-or-later` is not on it. The real fix is to skip `version.license` entirely and instead supply `custom_license` via the action's `--amo-metadata` JSON, carrying both the SPDX name and the full license text:
+
+```json
+{
+  "version": {
+    "custom_license": {
+      "name": { "en-US": "GPL-3.0-or-later" },
+      "text": { "en-US": "<contents of LICENSE>" }
+    }
+  }
+}
+```
+
+Two distinct allowlists, both undocumented as such, both shorter than SPDX. I ended up reading [`kewisch/action-web-ext`](https://github.com/kewisch/action-web-ext/blob/v1/src/action.js)'s source to find the first, and reading the AMO API's 400 response to find the second.
+
+## Conditional Silence
+
+The Chrome Web Store job is conditional. If `CWS_CLIENT_ID` isn't configured, the job should skip cleanly so contributors running the workflow on their own forks don't see red builds. My first cut gated the whole job with `if: $`.
+
+The job skipped every time. Including when the secret was set.
+
+In GitHub Actions, the [`secrets.*` context does not resolve inside a job-level `if:` expression](https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability). The expression evaluates to empty, the condition is always false, and the job silently no-ops. There is no error, no warning, nothing. The job just doesn't run.
+
+The fix is step-level gating. A first step reads the secret through `env:` (where it does resolve), writes an output, and later steps check the output instead:
+
+```yaml
+- name: Check CWS secrets
+  id: check-secrets
+  env:
+    HAS_SECRET: $
+  run: |
+    if [ -z "$HAS_SECRET" ]; then
+      echo "skip=true" >> "$GITHUB_OUTPUT"
+      echo "::notice::CWS secrets not configured — skipping publish"
+    fi
+
+- name: Upload and publish to Chrome Web Store
+  if: steps.check-secrets.outputs.skip != 'true'
+  env:
+    CLIENT_ID: $
+    # ...
+```
+
+I did not catch this one in review. [CodeRabbit](https://www.coderabbit.ai/) did. I'd like to claim I would have caught it once I looked at a green build that hadn't actually published anything, but the build *was* green - an always-skipping job reports success as loudly as a succeeding one. The silent failure mode is the bug.
+
+## The Release That Never Finishes
+
+AMO listed-channel submissions are asynchronous. `web-ext sign` uploads the XPI, waits for AMO's automated validation (fast, seconds to a minute), and then waits for human review (slow, hours to days). `kewisch/action-web-ext` exposes a single `timeout:` input and maps it to *both* phases. The ceiling on GitHub-hosted runners is 15 minutes. Review routinely takes longer than 15 minutes. Every release job failed red.
+
+The mechanism for fixing this already exists downstream. `web-ext`'s [`signAddon`](https://github.com/mozilla/web-ext/blob/8.3.0/src/util/submit-addon.js) accepts `approvalCheckTimeout: 0`, which causes it to return as soon as upload and validation succeed without polling for the reviewed/signed artifact. The action just didn't surface it.
+
+I considered three paths:
+
+1. Replace the action with a 50-line custom script that calls `signAddon` directly.
+2. Fork the action, patch it, and pin the fork.
+3. Write a PR and either wait for it to merge or pin the fork in the meantime.
+
+We picked (3). It is cheaper than the fork, contributes back, and leaves us with something to throw away once upstream merges. I opened [kewisch/action-web-ext#63](https://github.com/kewisch/action-web-ext/pull/63) on a fork branch that our release workflow uses today. The action's last merged change landed 15 months before my PR - hobbyist cadence rather than abandonware, but enough to expect the pinned fork to outlive the review.
+
+The patch is three files. `action.yml` gains an `approvalTimeout` input. `src/index.js` passes it through. `src/action.js` routes it into the v5 code path:
+
+```javascript
+approvalCheckTimeout:
+  this.options.approvalTimeout !== "" && this.options.approvalTimeout != null
+    ? Number(this.options.approvalTimeout)
+    : this.options.timeout,
+```
+
+This is the obvious part. The non-obvious part is that setting `approvalCheckTimeout: 0` puts `signAddon` into a return shape the action doesn't handle. The tail of `cmd_sign` is an `if / else if / else` chain:
+
+```javascript
+if (result.downloadedFiles) {
+  return { addon_id, target, name, ... };   // normal sync path
+} else if (result.errorCode == "ADDON_NOT_AUTO_SIGNED") {
+  return { addon_id, target: null, ... };   // known non-fatal case
+} else {
+  throw new Error(`The signing process has failed (${result.errorCode}): ${result.errorDetails}`);
+}
+```
+
+When approval is skipped, `signAddon` returns `{ id, downloadedFiles: undefined }` with no `errorCode`. That falls through to the `else` and throws `"The signing process has failed (undefined): undefined"`. A successful submission would be reported as a failure.
+
+So the patch adds a third success branch, explicitly recognizing "submitted, not waiting":
+
+```javascript
+} else if (Number(this.options.approvalTimeout) === 0 && !result.errorCode) {
+  core.info("Submitted to AMO. Skipped waiting for approval (approvalTimeout=0).");
+  return { addon_id: result.id, target: null, name: null, ... };
+}
+```
+
+The general shape of this kind of bug shows up whenever you add a new success mode to an `if / else if / else` chain whose `else` throws. The feature is one edit; the branch that stops the new success from being called a failure is a second, separate edit, and forgetting it turns your green path into a red one.
+
+## Read the Units
+
+I shipped the forked action. The next release failed with:
+
+```
+Signing Tab Yeet 0.8.1...
+Waiting for validation...
+Error: Validation: timeout exceeded.
+```
+
+The workflow inputs told the story. `timeout: 300`.
+
+Minutes had been assumed; the action takes milliseconds. Validation was getting three-tenths of a second to complete, giving up, and reporting the patch I'd just written as broken.
+
+The fix was one digit in one file. The commit message wrote itself: `fix(ci): it's milliseconds, not seconds`. The lesson: when a patch has just landed and the next run fails, read the knobs before reaching for the code. The config said exactly what it said; I hadn't read it.
+
+## What's Live
+
+- **Firefox / LibreWolf / forks:** [addons.mozilla.org/firefox/addon/tab-yeet](https://addons.mozilla.org/firefox/addon/tab-yeet/)
+- **Chrome / Brave / Edge / Chromium-based:** [chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle](https://chromewebstore.google.com/detail/tab-yeet/fdgoaejobhndllbeggippcakdlmopdle)
+- **Direct .xpi / .zip downloads** for manual install: [GitHub Releases](https://github.com/Texarkanine/tab-yeet/releases)
+- **Safari:** no.
+
+Each release is automated end to end. Merge Conventional Commits to `main`, release-please opens a version PR, merging that PR tags a release, the release triggers dual builds and two store submissions. The only remaining manual piece is the first-time manual listing per store, which both AMO and CWS require on the first submission.
+
+## The Fine Print
+
+- **CSS shorthand fall-through is all-or-nothing.** `color-mix()` on a Firefox version below 113 drops the entire declaration rather than reverting to the base color. If your `strict_min_version` is below the feature's support floor, pair each modern rule with an older rule on the preceding line - both will be parsed, one will win.
+- **`web-ext lint` is the Firefox linter.** It applies Firefox-specific rules (`ADDON_ID_REQUIRED`) to manifests it was handed. Exclude Chrome output from CI lint; let Chrome Web Store upload-time validation serve as the Chrome check.
+- **Chrome doesn't implement `browser.*`.** Ship a one-file `chrome → browser` shim injected ahead of module scripts only into the Chrome package. Shared source never learns which browser it runs in.
+- **`kewisch/action-web-ext` has a `KNOWN_LICENSES` allowlist shorter than SPDX.** `GPL-3.0-or-later` isn't in it. Supply `licenseFile: LICENSE` alongside the slug.
+- **AMO's `version.license` API has a *different* SPDX allowlist, also shorter.** Skip the field; use `custom_license` in `--amo-metadata` with both name and full license text.
+- **`secrets.*` does not resolve in job-level `if:` expressions.** Gate at step level: read the secret into an `env:` var, write a step output, condition subsequent steps on the output. A job gated on an unresolved `secrets.*` expression silently skips and reports success.
+- **When adding a new success mode to an `if / else if / else` chain whose `else` throws, the patch is always at least two edits.** The new success shape needs its own branch, or a successful invocation will fall through to the failure path and crash.
+- **Upstream GitHub Actions work at hobbyist cadence.** `kewisch/action-web-ext` last merged a change 15 months before I touched it. That doesn't mean "abandoned;" the maintainer does merge in sporadic bursts. A PR there will sit, but it won't rot.
+- **Milliseconds, not seconds.** `web-ext` timeouts (and most Node-ecosystem action timeouts) are in milliseconds. A typo of three orders of magnitude produces the same error shape as a real timeout.
+- **A green build is not a successful build.** A job gated on an unresolved expression, or a step that exits early without running its work, reports success with the same color as a step that did its job. Any conditional skip deserves a `::notice::` so the intent is visible in the logs.
+
+## The Repositories
+
+- [Texarkanine/tab-yeet](https://github.com/Texarkanine/tab-yeet) - the extension, with the full release pipeline at [`.github/workflows/release-please.yaml`](https://github.com/Texarkanine/tab-yeet/blob/tab-yeet-v0.8.1/.github/workflows/release-please.yaml).
+- [Texarkanine/action-web-ext](https://github.com/Texarkanine/action-web-ext/tree/submit-timeout) - the fork carrying the `approvalTimeout` patch until upstream merges.
+- [kewisch/action-web-ext#63](https://github.com/kewisch/action-web-ext/pull/63) - the upstream PR.
+
+Two stores, one codebase, one release pipeline, one upstream patch in flight. The third store remains theoretical.
+
+## a16n: Take Your Agent Customization Anywhere
+
+You've spent weeks tuning your AI coding agent. Rules for how it handles your React components. Skills for your deployment workflow. Ignore patterns so it stays out of generated code. Slash commands for common operations. It all works beautifully.
+
+Then your team gets Claude Code licenses. Or you want to try Cursor on a side project. Or half your team uses one tool and half uses the other.
+
+Your choices: re-create everything by hand, or lose it.
+
+I built [a16n](https://github.com/Texarkanine/a16n) so neither has to happen.
+
+## What It Does
+
+```bash
+npx a16n convert --from cursor --to claude
+```
+
+That reads your Cursor rules, skills, commands, and ignore patterns, and writes equivalent Claude Code configuration. The reverse works too:
+
+```bash
+npx a16n convert --from claude --to cursor
+```
+
+Your carefully-crafted agent setup comes with you. One command, both directions.
+
+## Getting Started
+
+No install required. `npx` handles it:
+
+```bash
+# See what you have (without changing anything)
+npx a16n discover --from cursor
+
+# Preview the conversion
+npx a16n convert --from cursor --to claude --dry-run
+
+# Do it for real
+npx a16n convert --from cursor --to claude
+```
+
+That's the whole recipe. Three commands: inspect, preview, convert.
+
+If you want it permanently:
+
+```bash
+npm install -g a16n
+```
+
+## What Converts
+
+a16n understands six kinds of agent customization:
+
+| What | Cursor | Claude Code |
+|------|--------|-------------|
+| **Global prompts** | `alwaysApply: true` rules | `CLAUDE.md`, `.claude/rules/*.md` |
+| **File rules** | `globs: [...]` rules | `.claude/rules/*.md` with `paths:` |
+| **Skills** | Rules with `description:`, `.cursor/skills/` | `.claude/skills/*/SKILL.md` |
+| **Manual prompts** | `.cursor/commands/*.md` | Skills with `disable-model-invocation` |
+| **Ignore patterns** | `.cursorignore` | `permissions.deny` |
+| **Full skill packages** | [AgentSkills.io](https://agentskills.io) format | AgentSkills.io format |
+
+Things that translate cleanly just translate. Things that can't (like Claude's hooks, or Cursor commands that use `$ARGUMENTS`) get skipped with a clear warning telling you why. No silent data loss.
+
+## Beyond Two Tools
+
+a16n isn't hardwired to Cursor and Claude. It uses a plugin architecture: each tool is a plugin that knows how to read and write its own format. Cursor and Claude are built in. More can be added.
+
+There's also a neutral format - the a16n IR - that you can convert to and from:
+
+```bash
+# Store your config in a tool-agnostic format
+npx a16n convert --from cursor --to a16n
+
+# Render it for any supported tool
+npx a16n convert --from a16n --to claude
+```
+
+This makes a16n useful as a hub. Maintain one canonical set of agent customization and generate tool-specific configuration on demand - per developer, per project, per CI run.
+
+Third-party plugins are auto-discovered from npm. If a package is named `a16n-plugin-*` and implements the plugin interface, `a16n` will find it. There's already one: [a16n-plugin-cursorrules](https://www.npmjs.com/package/a16n-plugin-cursorrules) adds support for the legacy `.cursorrules` format:
+
+```bash
+npm install -g a16n-plugin-cursorrules
+npx a16n convert --from cursorrules --to cursor
+```
+
+## Useful Flags
+
+A few things that came up during real use:
+
+**Separate read/write directories.** Read from one project, write to another:
+
+```bash
+npx a16n convert --from cursor --to claude --from-dir ./proj-a --to-dir ./proj-b
+```
+
+**Path reference rewriting.** If your rule content references file paths (like `.cursor/rules/auth.mdc`), a16n can rewrite those references to point to the new locations:
+
+```bash
+npx a16n convert --from cursor --to claude --rewrite-path-refs
+```
+
+**Source cleanup.** Delete the source files after conversion (only if they were fully consumed - partially-converted sources are preserved):
+
+```bash
+npx a16n convert --from cursor --to claude --delete-source
+```
+
+**Git integration.** Control whether output files are tracked or ignored:
+
+```bash
+npx a16n convert --from cursor --to claude --gitignore-output-with match
+```
+
+## The Name
+
+a16n is a numeronym, like i18n (internationalization) or l10n (localization). Smash "agent customization" together and count the letters between the first and last: a-[gentcustomizatio]-n. Sixteen. It's short, it's `npm`-able, and it was available.
+
+## Status
+
+a16n is [on npm](https://www.npmjs.com/package/a16n) at v0.13.0. I've been running it in my own workflow for a couple of weeks without incident. The [documentation](https://texarkanine.github.io/a16n/) covers the CLI, conversion semantics, and plugin development.
+
+It's open source under AGPL-3.0 at [github.com/Texarkanine/a16n](https://github.com/Texarkanine/a16n). Contributions welcome - especially plugins for tools I don't use. If you're curious about how it got built, there's a [companion diary](/2026/03/13/seven-weeks.html).
+
+If you have agent customization in one tool and wish you had it in another, give it a try:
+
+```bash
+npx a16n convert --from cursor --to claude --dry-run
+```
+
+The worst that happens is you see what would change.
+
+## Moving Fast, Breaking Nothing
+
+On January 19th I wrote a spec and a roadmap. On March 6th I shipped the last polish commit. Forty-six days. In between: nine phases, an architectural redesign, a documentation site, a third-party plugin, 850+ tests, and zero days where I wasn't sure what to do next.
+
+This is the diary of building [a16n](/2026/03/13/a16n.html).
+
+## Week 1: The Sprint (Jan 19-28)
+
+The first week was absurd in retrospect. I went from an empty repo to seven completed phases in nine days.
+
+Phase 1 was the foundation: a pnpm monorepo with five packages (models, plugin-cursor, plugin-claude, engine, CLI), 88 tests, and the ability to convert GlobalPrompts between Cursor and Claude Code in both directions. The fixture-based integration testing pattern established here carried through the entire project - real directory structures as test inputs, not mocks.
+
+Then it accelerated. Phase 2 added FileRules and AgentSkills with a companion `@a16njs/glob-hook` package. Phase 3 added AgentIgnore (`.cursorignore` to `permissions.deny`). Phase 4 added one-way command conversion. Each phase followed the same rhythm: spec, stubs, tests (red), implementation (green), CodeRabbit review, fixes, merge.
+
+Phase 5 was the first one that bit back. The `--gitignore-output-with` flag has five modes controlling whether output files get tracked, ignored, or hooked. I built it, considered it done, then manual testing found eight bugs in three rounds. Classification precedence was wrong. Match mode didn't know *where* a source was ignored, only *whether* it was. The semaphore pattern replaced entries instead of accumulating them.
+
+The lesson from Phase 5 stuck with me for the rest of the project: unit tests verify expected behavior; manual testing catches unexpected behavior. Both necessary.
+
+Phases 6 and 7 landed the same day as Phase 5's bug fixes. Phase 6 was CLI polish (`--delete-source`, dry-run wording). Phase 7 aligned with the [AgentSkills.io](https://agentskills.io) open standard, renaming `AgentCommand` to `ManualPrompt` and adding bidirectional skill support. I also migrated from Changesets to Release-Please that day. 364 tests passing.
+
+Nine days in, and the core conversion pipeline was complete. Everything after this was depth.
+
+## The Docs Detour (Jan 28-30)
+
+I had a working tool with no documentation. So I built a Docusaurus site with versioned API docs generated from git tags, a React version picker, parallel TypeDoc generation (66s down to 11s), custom sidebar sorting, and a staging area pattern that kept generated content out of the repo.
+
+The sidebar sorting bug was my favorite: versions showed oldest-first instead of newest-first. The custom `sidebarItemsGenerator` sorted children but never sorted the top-level items array. A recursive function that wasn't recursive at one level. I added debug logging at every level to find it - the diagnostic revealed the assumption immediately.
+
+Then the pagination work. Three iterations of user testing:
+
+1. Disabled all pagination on API pages. Dead ends everywhere.
+2. Kept version indices in the flow. Users fell off into detail pages with no way back.
+3. Chained version indices chronologically (0.4.0 → 0.3.0 → 0.2.0), disabled pagination on detail pages. "Beautiful."
+
+The whole docs workflow eventually simplified to 50 lines of YAML after the operator asked a question that made everything click: "Wouldn't just triggering it from the release workflow guarantee correct behavior?" We threw away 70 lines of deployment safety-check logic and added docs to release-please instead.
+
+## Phase 8: Read the Source (Jan 31)
+
+Phase 8 was Claude native rules and full AgentSkills.io support. It went sideways early.
+
+My spec said hooks were part of the AgentSkills.io standard. They're not. Hooks are Claude-specific. I spent about two hours implementing the wrong thing before the correction came in. The fix order was important: fix the spec first, then fix the tests, then fix the implementation. Not the other way around.
+
+The rest of Phase 8 went smoothly. Two new IR types (`SimpleAgentSkill` and `AgentSkillIO`), a classification decision tree for skill discovery, and round-trip conversion tests. 448 tests.
+
+The real takeaway was unglamorous: always read the authoritative documentation for an external standard, not your own notes about it.
+
+## Phase 9: The IR Plugin (Feb 3-7)
+
+This was the most satisfying stretch. Phase 9 added `@a16njs/plugin-a16n` - a complete bidirectional serialization plugin for the a16n intermediate representation. Seven milestones over five days.
+
+The creative phase designed the file format: Kubernetes-style versioned YAML frontmatter (`v1beta1`), one directory per IR type (`.a16n/global-prompt/`, `.a16n/file-rule/`), with AgentSkillIO items stored verbatim in AgentSkills.io format since that standard *is* the IR for complex skills. The shared parsing utilities went into `@a16njs/models` where three plugins could reach them without circular dependencies.
+
+Every milestone finished ahead of estimate. M1 (versioning): 3 hours vs 5 estimated. M2 (scaffold): 15 minutes vs 1 hour. M3 (frontmatter): 2.5 hours vs 4. The total came out 26% faster than planned. I attribute this almost entirely to TDD: writing tests first eliminates rework. You don't build the wrong thing when you have to specify the right thing first.
+
+The best moment was a CodeRabbit nitpick on `relativeDir` validation in M4. I could have dismissed it - the field was already correct. Instead I traced the feedback through the codebase and found three real bugs in three different packages, two of them causing silent data loss. Nested commands were missing `relativeDir`. Skill file reading wasn't recursive, dropping subdirectory resources. The a16n plugin was using the wrong name source for AgentSkillIO items.
+
+A nitpick on a field I thought was fine led to fixing three bugs I didn't know existed. I stopped treating automated review as noise after that.
+
+## The Redesign (Feb 15)
+
+By mid-February the codebase had grown organically through nine phases and it showed. The engine had dual Maps that could drift out of sync. Path rewriting was hardcoded. Plugins used raw `fs` calls, making them impossible to test without real filesystems. The CLI was a 600-line monolith.
+
+I stopped adding features and redesigned the internals. Five composable subsystems:
+
+1. **Plugin Registry** - unified storage, eliminated the dual-Map sync bug class
+2. **Plugin Loader** - conflict resolution extracted from the engine
+3. **Workspace Abstraction** - `Workspace` interface replacing 72 direct `fs` calls across three plugins
+4. **Transformation Pipeline** - composable content transformations with a trial-emit pattern
+5. **CLI Restructuring** - extracted command handlers, `CommandIO` interface for testability
+
+120+ new tests. Zero regressions. 804 tests passing. The creative phase document for this redesign was 52KB - the most thorough planning artifact of the entire project - and it paid for itself several times over. I gutted the CLI in a planning commit once and broke 39 tests; the creative phase's architectural analysis prevented that class of mistake for the actual implementation.
+
+The workspace migration alone touched 72 call sites across three plugins. It was mechanical but it enabled the thing I actually wanted: testing plugins with in-memory filesystems instead of temp directories. That came later but the foundation was right.
+
+## The Naming Bug (Feb 23)
+
+This one humbled me.
+
+The first third-party plugin, `a16n-plugin-cursorrules`, discovered `.cursorrules` files and presented them as GlobalPrompts. The discovery worked perfectly. But when a downstream plugin emitted the result, `.cursorrules` became `rule.mdc` instead of `cursorrules.mdc`.
+
+Root cause: `GlobalPrompt` had no `name` field. Emission plugins re-derived names from source paths at emit time. `path.extname('.cursorrules')` returns empty string (leading-dot file), so `path.basename` without the extension was also wrong, and the sanitizer fell through to a default.
+
+The fix was architectural: make `GlobalPrompt.name` a required field, set it at discovery time, consume it directly at emission time. Add `inferGlobalPromptName()` to handle leading-dot files correctly. Touch every plugin. Remove every `as any` cast.
+
+849 tests passed. The QA phase passed. I was confident.
+
+Then a PR reviewer traced the call chain and found two blocking bugs in five minutes. `sanitizeFilename(gp.name)` strips the last extension - it's designed for source paths, not pre-derived stems. Passing `react.hooks` to it produces `react`. Every fixture in the entire test suite used single-part names where the sanitizer was a no-op, so 849 tests couldn't see it.
+
+QA validates "does the code match the plan and do all tests pass." It doesn't validate "does the plan's specified function have the right contract for this call site." Different question. Different tool.
+
+## Launch Readiness (Mar 5-6)
+
+The last push was a grab bag: a path-traversal security fix in AgentSkillIO emission, `CONTRIBUTING.md`, better CLI error messages with dynamic plugin suggestions, `engines` alignment to Node 22 across all packages, and implementing 11 stubbed tests that had been sitting empty.
+
+Those stubbed tests were the highlight. Implementing them revealed that `handleGitIgnore` had an early return for `newFiles.length === 0` that prevented match mode from ever running for existing tracked outputs. A real bug, hidden behind false green for weeks because the test bodies were empty.
+
+Stubbed tests are tech debt that looks like coverage.
+
+## The Numbers
+
+I kept careful records. Here are the ones that surprised me:
+
+- **Time**: 46 days from initial commit (Jan 19) to last polish (Mar 6)
+- **Tests**: 850+ across 8 packages at completion
+- **Phases**: 9 major features + architectural redesign + docs site + third-party plugin
+- **Phase 9 velocity**: 26% faster than estimated, every milestone under estimate
+- **Architectural redesign**: 120+ new tests, zero regressions
+- **TDD record**: Not once did a phase take longer than estimated. Not once.
+
+The TDD thing keeps coming up because it keeps being true. Writing tests first feels slower. It is measurably, consistently faster. Every phase, every milestone, every time. The tests are the spec; the spec prevents rework; preventing rework is where all the time goes.
+
+## What's Left
+
+a16n is at v0.13.0. Cursor and Claude Code are built-in. The plugin architecture works. The IR format is stable. Phases 10+ are planned but not urgent - MCP configuration support, output file merge strategies, more community plugins.
+
+The [documentation](https://texarkanine.github.io/a16n/) is comprehensive. The [code](https://github.com/Texarkanine/a16n) is tested. It works. I'm using it.
+
+Forty-six days went fast.
+
+## Pink Margarine
+
+> pink margarine /pɪŋk ˈmɑːrdʒərɪn/ n. 
+> <br>
+> 1. Margarine dyed pink by legislative mandate (Wisconsin, 1895-1967) to visually distinguish it from butter and discourage purchase.
+> 2. Any legal or normative effort to make a functionally-equivalent substitute artificially unappealing in order to protect an incumbent.
+
+## One Engineer, One Week, $1,100
+
+<blockquote class="link-card">
+  
+  <h1>How we rebuilt Next.js with AI in one week</h1>
+  
+  <a href="https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener">blog.cloudflare.com/vinext</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20250302030000/https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+In early 2026, Cloudflare rebuilt the [Next.js](https://nextjs.org/) API surface on [Vite](https://vite.dev/). One engineer. One week. About $1,100 in AI costs. The result, [vinext](https://github.com/cloudflare/vinext), hit 94% API compatibility with zero copied source code.
+
+Let that sink in: A commercially-viable (CloudFlare's got customers *using* it already) behavioral clone of a major, popular, open-source (Next.js was MIT-licensed) web framework, produced for less than a Silicon Valley engineer's monthly grocery bill.
+
+This isn't new; there's not only precedent, but *legal* precedent: The Supreme Court already established in [*Google v. Oracle*](https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.) that reimplementing an API surface isn't *de facto* infringement - behavioral equivalence doesn't require copying expression. What's new is *cost*. Google's "clean-room" reimplementation of Java's APIs almost certainly took millions of dollars and years of engineering. Cloudflare did functionally the same thing with one person, one grand, and one week. The legal barrier didn't go away; the economic barrier evaporated.
+
+## Characteristic Specificity
+
+Copyright protection's value is designed around a property I'll call *characteristic specificity*: the degree to which the specific expression of a work ***is*** the value of the work.
+
+Lord of the Rings is a great example. You could write a book with the same plot beats, the same themes, even the same character archetypes - and it wouldn't be Lord of the Rings. Nobody wanting Tolkien's prose, his invented languages, the particular arc of Frodo, would accept a behavioral clone. The expression is inseparable from the value. A "clean-room reimplementation" of LotR is just... a different book.
+
+Mickey Mouse is instructive for different reasons. [Steamboat Willie entered the public domain in 2024](https://en.wikipedia.org/wiki/Steamboat_Willie#Copyright_status), and Disney pivoted to [trademark enforcement](https://web.law.duke.edu/cspd/mickey/#trademark) on the *modern* Mickey design. But the pivot was prepared decades in advance - Disney has been iteratively redesigning Mickey for generations, each visual refresh recharging what "Mickey" *is*. They understand, perhaps better than anyone, that their value lives in the specific characteristics: the particular ears, the particular gloves, the particular grin. Not in the abstract concept of "cartoon mouse." Copyright and trademark are the right tools here because the expression is the value.
+
+It isn't always. For a couple years now, the writing has been plainly visible on the wall in the world of still visual art. The [Ghibli-fication outrage](https://www.usatoday.com/story/entertainment/movies/2025/03/28/studio-ghibli-miyazaki-ai-portraits/82703280007/) revealed a tension between people who just like things that *look like* Studio Ghibli, and people who like the specific creations *of Studio Ghibli*. Existing law on the subject is pretty well-settled: art style is [non-copyrightable](https://www.trails.umd.edu/news/ai-imitating-artist-style-drives-call-to-rethink-copyright-law), and that's [probably actually correct](https://creativecommons.org/2023/03/23/the-complex-world-of-style-copyright-and-generative-ai/).
+
+Copyright was designed for works where form and value are inseparable.
+
+Humans have always been allowed to observe, internalize, and reproduce behavior and style. Internalizing knowledge and re-synthesizing it back out - "standing on the shoulders of giants" - is how humanity builds and advances. It only starts to *feel* like theft (to some) when the breadth and timescale changes. Before you even get a chance to see the sights from atop the giant *you* climbed, someone else is already on *your* shoulders, and someone else upon theirs.
+
+## Software Has No Characteristic Specificity
+
+Software is different: its value is entirely in behavior.
+
+Two implementations with different source code and identical behavior are perfectly interchangeable. Nobody ever loved the C standard library for its prose. "This `qsort` really speaks to me" - said no one, ever. The behavior is the product. The expression is an implementation detail. This isn't just a fact, it's a *core premise* of software's utility - the [interface](https://en.wikipedia.org/wiki/Interface_(computing)).
+
+This creates a structural misfit: copyright protects *expression*, but software's value is *behavior*. The two are orthogonal. Software licenses have always been grafting expression-protection onto behavior-value as a proxy, and the proxy held for a long time - because the only realistic way to duplicate behavior *was* to duplicate expression. You either copy-pasted source code (which copyright catches), or you did prohibitively expensive knowledge labor to rewrite it from scratch - which almost nobody could afford. It took the likes of *Google* and *Oracle* to make a big-enough deal of behavioral duplication to get case law on the books.
+
+[Anthropic's distillation discourse](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks) is an echo of the same underlying mismatch. The principle hasn't changed; what changed is that the knowledge labor required to reimplement behavior used to cost so much that the proxy between expression and behavior rarely got tested. Now it gets tested for $1,100.
+
+## The Proxy Broke
+
+AI didn't change what copyright protects. It broke the economic proxy that made copyright *seem* like it protected software.
+
+Consider test suites and API documentation. These are, functionally, behavioral blueprints - precise specifications of what a piece of software does, published voluntarily by the people who wrote it. **Publishing your test suite is publishing your own disruption manual.** [SQLite's TH3 test suite](https://sqlite.org/th3.html) is proprietary, which was a business decision that predated both generative AI and *Google v. Oracle* - [not prescience](https://www.sqlite.org/forum/info/3cd5087abe2fb94f9b81b1547d41f87e43db42f469b40ee61c988dd4f5ae1a17), but it accidentally illustrates what a behavioral specification is worth when duplication costs drop to near zero.
+
+SaaS products with no moat beyond "we do task X via API" are one AI session away from cloning. Not because AI copies their code - it doesn't need to. It reimplements their *behavior*, which is all anyone was paying for anyway.
+
+And software licenses? They're *all* built atop copyright law and inherit the mismatch completely. From MIT to AGPL to proprietary commercial licenses, they all assert some form of "Per copyright law, I own this code and you cannot use it unless you play by my rules." But if someone reimplements the behavior without using the code at all... the license has nothing to attach to. The product-space protections that copyright offers are shrinking, and there's no legal mechanism to stop it - because the legal mechanism was never actually protecting the *behavior*, which was the actual value. It was protecting the *expression* and relying on the proxy.
+
+## The Canary in the Coal Mine
+
+Software is the canary, not the story. The mismatch is starkest in code because software has very high value relative to its *characteristic specificity* - but the mine runs much deeper.
+
+Knowledge work is a continuum from ideation through labor to artifact:
+
+```mermaid
+flowchart LR
+    subgraph Knowledge Work
+        direction LR
+        A[Ideation] -->|Knowledge Labor| C[Intellectual Property]
+    end
+```
+
+Copyright guards the rightmost output: the finished artifact, which we call "intellectual property." AI already bangs those out faster and better every day. Vinext is an incredibly high-profile, commercial signal that AI can commoditize the middle step (labor) too.
+
+There *are* legal tools to protect that middle step (processes)... patents! But existing patent infrastructure is both far too slow to keep pace with the current clip of knowledge labor, and far too reticent to issue things like "[Software Patents](https://en.wikipedia.org/wiki/Software_patent)." It doesn't even matter, though, since patents [don't even work on pure ideas, anyway](https://thompsonpatentlaw.com/can-ideas-be-patented/). Once the *idea* is out there, the strongest protection you could legally get would be a patent on *one way of implementing the idea*. But someone who uses a different process isn't under the purview of your patent and that's what AI has now achieved: an easy path from specification (idea), through an original process (knowledge labor) to an original artifact (intellectual property).
+
+Neither framework was designed for an era where the costliest step in the pipeline - the human labor of turning insight into artifact - can be routed around for pocket change. 
+
+I wrote about this at the macro level in [The Load-Bearing Rate Limiter Was Human](/2026/02/06/the-load-bearing-rate-limiter-was-human.html). The short version: we're industrializing the conversion of thought into output, and the existing legal frameworks structure their protections under the assumption that conversion is expensive. When it's not, things can break down in unexpected ways.
+
+Every technological revolution has had its protectionists, and the protectionism that succeeded longest looks the most absurd in hindsight. Wisconsin [criminalized yellow margarine](https://daily.jstor.org/when-margarine-was-contraband/) for over seventy years because dairy farmers convinced legislators that [oleomargarine was "counterfeit butter"](https://history.house.gov/Historical-Highlights/1851-1900/1886_07_23_Oleomargarine/) - the language maps rather well to the current discourse around AI-generated images, videos, and code being "rip-offs," "stolen," or "fake" artifacts. States required margarine be dyed *pink*. A Pennsylvania bill - passed *unanimously*, by the way - once tried to require drivers to [disassemble their cars and hide the parts in shrubbery](https://en.wikipedia.org/wiki/Red_flag_traffic_laws#Apocryphal_Pennsylvania_legislation) when encountering a horse on the road. These weren't fringe positions at the time; they were serious legislative efforts to protect incumbents from technological displacement.
+
+At least one high-profile open-source project - `tldraw`, 45,600 stars on GitHub - has already begun [entertaining the idea of taking their unit tests private](https://github.com/tldraw/tldraw/issues/8082)[^tldraw], presumably to make behavior-based duplication more difficult.
+
+That's not the play.
+
+Software protectionism via copyright-based licensing will probably work for at least a little while yet. Maybe a long while. But the trajectory is one-directional, and eventually it'll all look like **pink margarine.**
+
+### What about Non-Code?
+
+Others have said it better than I:
+
+<blockquote class="link-card">
+  
+  <h1>Code Goes First - Sunday Letters from Sam</h1>
+  
+  <a href="https://sundaylettersfromsam.substack.com/p/code-goes-first" target="_blank" rel="noopener">sundaylettersfromsam.substack.com/p/code-goes-first</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260302030000/https://sundaylettersfromsam.substack.com/p/code-goes-first" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+I'll add a recent anecdote of my own:
+
+[Chris Camillo](https://en.wikipedia.org/wiki/Chris_Camillo) [rambled into ChatGPT for 45 minutes](https://www.youtube.com/watch?v=APvLb-pIPwI&t=875s) and got back a [McKinsey](https://en.wikipedia.org/wiki/McKinsey_%2526_Company)-quality strategic brief. The knowledge labor that used to justify a consulting engagement happened in the span of a lunch break. In the same video, YouTuber Graham Stephan mentions how the LLMs are outperforming a script-writer job that *was* on offer - and went unfilled - for $100k/year. Today, right now, AI is *already* an economically-viable option for huge swaths of knowledge labor *in general*... and we know this because it's doing it.
+
+The thing with continuums and moving along them is that it's a big deal to go from "sitting at a place on the continuum" to "moving along it." Vinext proves that generative AI isn't just sitting at the "Intellectual Property" step of the knowledge work continuum; it's moving left.
+
+GPT-5 [autonomously ran bio lab experiments](https://openai.com/index/accelerating-biological-research-in-the-wet-lab/) with novel results. Mathematicians [convened in secret](https://www.scientificamerican.com/article/inside-the-secret-meeting-where-mathematicians-struggled-to-outsmart-ai/) and found AI "approaching mathematical genius." GPT-5-pro found a [novel solution to an open question in a human-published mathematics paper](https://threadreaderapp.com/thread/1958198661139009862.html). Ideation isn't some distant frontier - it's under active pressure today.
+
+## Will the People Suffer?
+
+Less than you'd think, with one important exception.
+
+Software licensing was a preemptive defense. If a private enterprise could take an open project, pour resources into improving it, and lock the improvements away, then anyone who wanted those improvements had to either pay up, duplicate the effort at great personal cost, or simply go without. "Open source" software licenses raised the legal cost of not sharing, which reduced the practical cost of being an individual in a world of well-funded corporations.
+
+That defense worked because reimplementation was expensive. It's not anymore.
+
+If CompanyX forks Vinext into VinextNext and improves it behind closed doors, the original only took $1,100 to build. If someone on the outside sees a capability they want, they don't need to fundraise a multi-year engineering effort to get it; for a pittance they can reverse-engineer the behavior into an intellectual property of their very own. The asymmetry that licensing existed to correct - corporations can afford to rewrite, individuals can't - has collapsed. Both sides have the same cheap cloning. The defense is unnecessary because the attack is toothless.
+
+For *software*, what killed software licensing also rendered its protections unneeded.
+
+... for software.
+
+Where people will actually hurt is at the hardware boundary. Industry largely accepted open-source licensing terms - at least the [permissive ones](https://en.wikipedia.org/wiki/Permissive_software_license) - but there was still an active conflict zone: [Copyleft](https://en.wikipedia.org/wiki/Copyleft)'s fight against [Tivoization](https://www.gnu.org/philosophy/tivoization.en.html). "Tivoization" refers to *hardware* vendors locking open software onto closed devices, stripping users' ability to modify the thing they own. [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) famously stood against it by adding conditions to the license specifically against that behavior.
+
+But if a vendor behavioral-clones the software without touching the original source, those AGPLv3 conditions have nothing to attach to. This is even worse than before! Previously, the end-user could obtain and modify the original, actual source in-use, but just couldn't get the device to run it. But devices can be cracked, and new versions released, and *in theory* the user at least has a chance, because they've got the real code on the real device - it's just not *cooperating*.
+
+Now, they don't even have that: the next Tivo will *act like* it's running an open-source software stack, but the hardware, firmware, *and* software will all be entirely proprietary things to which the user is not entitled *any* kind of access.
+
+Software licensing is dead. For software that runs where you choose, the death doesn't much matter. For software someone else locked in a box, we just lost a key weapon in the fight to control the things you own.
+
+---
+
+## Postscript
+
+Or, ***"called it!"***
+
+> SaaS products with no moat beyond "we do task X via API" are one AI session away from cloning.
+
+- **2026-03-04** - [Meet the Companies Vibecoding their own CRMs](https://www.wsj.com/cio-journal/meet-the-companies-vibe-coding-their-own-crms-263e500f) (Wall Street Journal)
+
+> But if someone reimplements the behavior without using the code at all... the license has nothing to attach to.
+
+- **2026-03-05** - [Relicensing with AI-assisted rewrite](https://tuananh.net/2026/03/05/relicensing-with-ai-assisted-rewrite/) <small>`chardet` did a full AI behavioral-clone rewrite and switched licenses from LGPL to MIT</small>
+
+> Ideation isn't some distant frontier - it's under active pressure today.
+
+- **2026-03-04** - [Claude's Cycles](https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf) (Donald Knuth - yeah, that [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth)) <small>"Shock! Shock! I learned yesterday that an open problem I'd been working on for several weeks had just been solved by Claude Opus 4.6"</small>
+
+## Post-Postscript
+
+<blockquote class="link-card">
+  
+  <h1>US Supreme Court declines to hear dispute over copyrights for AI-generated material (2026-03-02)</h1>
+  
+  <a href="https://www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02/" target="_blank" rel="noopener">www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02</a>
+  
+  <small class="link-card-archive">
+    (<a href="https://web.archive.org/web/20260308062616/https://www.reuters.com/legal/government/us-supreme-court-declines-hear-dispute-over-copyrights-ai-generated-material-2026-03-02/" target="_blank" rel="noopener">archive</a>)
+  </small>
+  
+</blockquote>
+
+
+
+
+Whether the AI-generated behavioral rewrites of software libraries are copyrightable or not is actually irrelevant to the future of software licensing. 
+
+If they are copyrightable, then software licensing is dead because anyone can relicense a clone however they want without having to abide by the original license's terms.
+
+If they aren't copyrightable, then software licensing is dead because the clones are public domain and anyone can use them without having to abide by the original license's terms.
+
+The proxy is broken because of economics, not law. A drastic change in law would be needed to restore licensing's teeth, and I don't see what that could be.
+
+If you fold *behavior* into copyright, you preclude competition (which is what Patents - including Software Patents - are designed to do). Among `ls` from GNU Coreutils and `ls` from FreeBSD, which *one* is allowed to list files in a directory? Can both GMail and Yahoo offer a web-based e-mail client? This is one huge reason why *software* patents are so rare in the field.
+
+On the other hand, if you *don't* fold behavior into copyright, then the only way I can imagine an API surface being protected is in its exact expression. So, that would legally preclude things like `chardet` and `vinext`'s API-compatible drop-in replacements, but it does *not* preclude the "copy it but change a few words" kind of clone. And that clone still gives *most* people the "out" of the original license that they'd need.
+
+No matter how you slice it, software licensing is dead.
+
+[^tldraw]: The original case study - `tldraw` - has since revealed that taking the tests closed-source [was a joke](https://github.com/tldraw/tldraw/issues/8082#issuecomment-3964650501). In its stead, I offer you ["Cal.com is going closed source. Here's why."](https://cal.com/blog/cal-com-goes-closed-source-why) (41k stars vs tldraw's 46k)
