@@ -16,6 +16,15 @@ tags:
 	archive="https://web.archive.org/web/20260801195942/https://www.tcdb.com/ViewCard.cfm/sid/76088/cid/5499424/1979-Topps-Alien-74-Organic-Starcraft-Design?PageIndex=1"
 %}
 
+This same piece shows up in the art book [Hardware: The Definitive SF Works of Chris Foss](https://isfdb.org/cgi-bin/pl.cgi?347697) with a totally different color scheme:
+
+{%polaroid
+	chris-foss/chris-foss_alien-leviathan.jpg
+	title="24.1-9 / ALIEN: Designs for Leviathan / 1976-77"
+	link="https://isfdb.org/cgi-bin/pl.cgi?347697"
+	image_link="chris-foss/chris-foss_alien-leviathan.jpg"
+%}
+
 ## Clear Air Turbulence
 
 {%polaroid
