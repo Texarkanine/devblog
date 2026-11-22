@@ -251,7 +251,7 @@ A very commen asymmetry techinque is the outrigger - one big chunk and little st
 
 #### Vertically Asymmetric
 
-"Arguable" because even "normal" spacecraft are usually not top/bottom symmetric so these aren't *technically* out of the ordinary, but they push the vertical asymmetry to such lengths that they *feel* at home here.
+These *technically* only have one axis of asymmetry (front/back, as seen from the side) but they stretch the vertical axis so far as to be visual interesting and *feel* unbalanced versus the traditional ship shapes we expect. So, they get an honorable mention.
 
 {%polaroid
 	nms-corvette-vertical1.jpg
