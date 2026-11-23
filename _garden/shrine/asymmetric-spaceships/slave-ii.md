@@ -7,6 +7,8 @@ tags:
   - spaceship
 ---
 
+{% include webring.html %}
+
 {%polaroid
     slave-ii-threequarter.webp
     title="Slave II"
@@ -18,7 +20,7 @@ tags:
 
 {%polaroid
     slave-ii.jpg
-    title="Slave II - From "
+    title="Slave II - Star Wars Fact File 55"
     link="http://alexeysmirnov1977.com/Unit%20Pages/MyCollection_UnitPage_Slave%20II.html"
     image_link="slave-ii.jpg"
 %}
@@ -40,7 +42,7 @@ A surprising number of folks have built this out of Lego! Here are just a few! C
     slave-ii-lego-obstanasig.jpg
     title="Slave II - /u/obstanasig"
     link="https://www.reddit.com/r/legostarwars/comments/1uwlil1/lego_star_wars_slave_ii_moc/"
-    image_link="slave-ii-lego-Obstanasig.jpg"
+    image_link="slave-ii-lego-obstanasig.jpg"
 %}
 
 {%polaroid
