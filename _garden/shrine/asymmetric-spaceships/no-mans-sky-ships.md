@@ -251,7 +251,7 @@ A very commen asymmetry techinque is the outrigger - one big chunk and little st
 
 #### Vertically Asymmetric
 
-These *technically* only have one axis of asymmetry (front/back, as seen from the side) but they stretch the vertical axis so far as to be visual interesting and *feel* unbalanced versus the traditional ship shapes we expect. So, they get an honorable mention.
+*Technically* they don't count, for the same reason an [X-Wing]({% link _garden/shrine/asymmetric-spaceships/index.md %}#what-counts-as-asymmetry) doesn't: symmetric from above, cockpit up front and engines in the back *as expected,* and a top/bottom split you have to squint to see from the front. But these throw that last one out in the way an X-Wing doesn't: they stretch so tall they shout that split at you, and from the side they're a rectangle filled in unevenly. They *feel* unbalanced versus the traditional ship shapes we expect. So, they get an honorable mention.
 
 {%polaroid
 	nms-corvette-vertical1.jpg

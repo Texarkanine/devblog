@@ -1,7 +1,7 @@
 ---
 layout: garden
 title: "Asymmetric Spaceships"
-description: "A shrine to ships that violate symmetry on one - or better yet, multiple - axes."
+description: "A shrine to ships that violate symmetry on two or more axes, in major ways."
 tags:
   - sci-fi
   - shrine
