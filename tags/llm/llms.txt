@@ -1,0 +1,8 @@
+# llm
+
+> Tag: llm
+
+## Posts
+
+- [You Can't Hide What You Want Seen](https://blog.cani.ne.jp/2025/12/07/you-cant-hide-what-you-want-seen.md): Three rounds of increasingly clever email obfuscation - hex encoding, randomized delimiters, DOM-dependent ROT-N cipher - barking up the wrong tree.
+- [Tabs for Humans, Spaces for LLMs](https://blog.cani.ne.jp/2025/12/05/tabs-for-humans-spaces-for-llms.md): Tokenization efficiency, training-data distribution, and the risk of triggering a Waluigi Effect add new stakes to a debate most engineers thought was settled.

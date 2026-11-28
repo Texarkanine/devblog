@@ -1,0 +1,8 @@
+# build-systems
+
+> Tag: build-systems
+
+## Posts
+
+- [just run make](https://blog.cani.ne.jp/2026/11/13/just-run-make.md): The task runners just and run win converts by removing Make's restrictions. Those restrictions are Chesterton's fences: they skip unchanged work, parallelize for free, give every caller the same commands, and keep an untested application out of your build.
+- [make make Better](https://blog.cani.ne.jp/2026/11/13/make-make-better.md): Make's fair complaints all live in the binary: help that ignores your targets, a hidden graph, unenforced verbs, timestamps that don't survive CI. I checked 26 other tools, and nobody has built the Make that fixes them and still reads your Makefile.

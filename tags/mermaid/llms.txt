@@ -1,0 +1,9 @@
+# mermaid
+
+> Tag: mermaid
+
+## Posts
+
+- [Pull the Thread](https://blog.cani.ne.jp/2026/03/23/pull-the-thread.md): Four broken diagrams, six hours, three gem releases, and a reading progress bar I wasn't planning to build.
+- [The Width of an Emoji](https://blog.cani.ne.jp/2026/03/12/the-width-of-an-emoji.md): Seventy-six tests passing, zero RuboCop offenses, a clean QA review - and it was all solving the wrong problem. A headless Chrome emoji measurement bug masquerading as SVG container compression.
+- [2MB Lighter](https://blog.cani.ne.jp/2026/01/17/2mb-lighter.md): Mermaid.js weighs 2MB minified. A Jekyll gem shells out to headless Chrome at build time and replaces javascript with static SVGs.

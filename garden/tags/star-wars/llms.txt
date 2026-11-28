@@ -1,0 +1,8 @@
+# star-wars
+
+> Garden tag: star-wars
+
+## Garden
+
+- [Slave II](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/slave-ii.md): {% include webring.html %}
+- [Millennium Falcon](https://blog.cani.ne.jp/garden/shrine/asymmetric-spaceships/millennium-falcon.md): {% include webring.html %}
